@@ -1,0 +1,8 @@
+language:
+    - cpp
+
+compiler:
+    - gcc
+
+script:
+    - echo "OK"
