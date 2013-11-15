@@ -1,5 +1,15 @@
+# CMake
 CMakeCache.txt
 CMakeFiles
 Makefile
 cmake_install.cmake
 install_manifest.txt
+
+# CMake temp build directories
+*/_builds
+*/*/_builds
+*/*/*/_builds
+*/*/*/*/_builds
+
+# EP_BASE (install, download, build, ...)
+_base
