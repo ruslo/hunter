@@ -1,0 +1,83 @@
+# Copyright (c) 2013, Ruslan Baratov
+# All rights reserved.
+
+cmake_minimum_required(VERSION 2.8.8)
+
+include(ExternalProject) # ExternalProject_Add
+
+# Scheme for separated Release/Debug builds (like make)
+
+if(XCODE_VERSION)
+  message(FATAL_ERROR "Not for Xcode")
+endif()
+
+if(MSVC)
+  message(FATAL_ERROR "Not for MSVC")
+endif()
+
+macro(check_not_empty var)
+  if("--${var}__" STREQUAL "--__")
+    message(FATAL_ERROR "Variable is empty")
+  endif()
+endmacro()
+
+# Check preconditions
+check_not_empty(@HUNTER_BASE@)
+check_not_empty(@HUNTER_PACKAGE_NAME@)
+check_not_empty(@HUNTER_PACKAGE_URL@)
+check_not_empty(@HUNTER_PACKAGE_SHA1@)
+check_not_empty(@HUNTER_PACKAGE_DOWNLOAD_DIR@)
+check_not_empty(@HUNTER_PACKAGE_SOURCE_DIR@)
+check_not_empty(@HUNTER_PACKAGE_INSTALL_DIR@)
+check_not_empty(@CMAKE_DEBUG_POSTFIX@)
+
+set_directory_properties(
+    PROPERTIES
+    EP_BASE
+    @HUNTER_BASE@
+)
+
+if(@HUNTER_STATUS_DEBUG@)
+  set(CMAKE_VERBOSE_MAKEFILE ON)
+endif()
+
+ExternalProject_Add(
+    @HUNTER_PACKAGE_NAME@_Release
+    URL
+    @HUNTER_PACKAGE_URL@
+    URL_HASH
+    SHA1=@HUNTER_PACKAGE_SHA1@
+    DOWNLOAD_DIR
+    @HUNTER_PACKAGE_DOWNLOAD_DIR@
+    SOURCE_DIR
+    @HUNTER_PACKAGE_SOURCE_DIR@
+    INSTALL_DIR
+    @HUNTER_PACKAGE_INSTALL_DIR@
+        # not used, just avoid creating Install/<name>_Release empty directory
+    CMAKE_ARGS
+    "-DCMAKE_BUILD_TYPE=Release"
+    "-DCMAKE_INSTALL_PREFIX=@HUNTER_PACKAGE_INSTALL_DIR@"
+)
+
+# download and source step will use previous target source dir (skipped)
+ExternalProject_Add(
+    @HUNTER_PACKAGE_NAME@_Debug
+    DOWNLOAD_COMMAND
+    ""
+    DOWNLOAD_DIR
+    @HUNTER_PACKAGE_DOWNLOAD_DIR@
+    SOURCE_DIR
+    @HUNTER_PACKAGE_SOURCE_DIR@
+    INSTALL_DIR
+    @HUNTER_PACKAGE_INSTALL_DIR@
+    CMAKE_ARGS
+    "-DCMAKE_BUILD_TYPE=Debug"
+    "-DCMAKE_INSTALL_PREFIX=@HUNTER_PACKAGE_INSTALL_DIR@"
+    "-DCMAKE_DEBUG_POSTFIX=@CMAKE_DEBUG_POSTFIX@"
+)
+
+# debug version use release download result
+add_dependencies(
+    @HUNTER_PACKAGE_NAME@_Debug
+    @HUNTER_PACKAGE_NAME@_Release
+)
