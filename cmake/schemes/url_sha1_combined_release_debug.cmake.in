@@ -5,8 +5,12 @@ cmake_minimum_required(VERSION 2.8.8)
 
 include(ExternalProject) # ExternalProject_Add
 
-# Do not install to CMAKE_INSTALL_PREFIX
-# (for cmake modules and header-only libraries)
+# Scheme for Xcode and MSVC IDE:
+#     install both Debug and Release from one project
+
+if(NOT XCODE_VERSION AND NOT MSVC)
+  message(FATAL_ERROR "Xcode or MSVC only")
+endif()
 
 macro(check_not_empty var)
   if("--${var}__" STREQUAL "--__")
@@ -21,6 +25,8 @@ check_not_empty(@HUNTER_PACKAGE_URL@)
 check_not_empty(@HUNTER_PACKAGE_SHA1@)
 check_not_empty(@HUNTER_PACKAGE_DOWNLOAD_DIR@)
 check_not_empty(@HUNTER_PACKAGE_SOURCE_DIR@)
+check_not_empty(@HUNTER_PACKAGE_INSTALL_DIR@)
+check_not_empty(@CMAKE_DEBUG_POSTFIX@)
 
 set_directory_properties(
     PROPERTIES
@@ -39,11 +45,13 @@ ExternalProject_Add(
     SOURCE_DIR
     @HUNTER_PACKAGE_SOURCE_DIR@
     INSTALL_DIR
-    @HUNTER_PACKAGE_SOURCE_DIR@
-    CONFIGURE_COMMAND
-    ""
-    BUILD_COMMAND
-    ""
+    @HUNTER_PACKAGE_INSTALL_DIR@
+        # not used, just avoid creating Install/<name> empty directory
+    CMAKE_ARGS
+    "-DCMAKE_DEBUG_POSTFIX=@CMAKE_DEBUG_POSTFIX@"
+    "-DCMAKE_INSTALL_PREFIX=@HUNTER_PACKAGE_INSTALL_DIR@"
     INSTALL_COMMAND
-    ""
+    ${CMAKE_COMMAND} --build . --target install --config Release
+    COMMAND
+    ${CMAKE_COMMAND} --build . --target install --config Debug
 )
