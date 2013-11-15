@@ -1,8 +1,13 @@
 language:
-    - cpp
+    - objective-c
 
-compiler:
-    - gcc
+before_install:
+    - brew update
+
+install:
+    - brew install python3
+    - brew install cmake
 
 script:
-    - echo "OK"
+    - cd cmake/schemes
+    - python3 ./test.py

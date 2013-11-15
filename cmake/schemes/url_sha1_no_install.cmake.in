@@ -1,0 +1,49 @@
+# Copyright (c) 2013, Ruslan Baratov
+# All rights reserved.
+
+cmake_minimum_required(VERSION 2.8.8)
+
+include(ExternalProject) # ExternalProject_Add
+
+# Do not install to CMAKE_INSTALL_PREFIX
+# (for cmake modules and header-only libraries)
+
+macro(check_not_empty var)
+  if("--${var}__" STREQUAL "--__")
+    message(FATAL_ERROR "Variable is empty: ${var}")
+  endif()
+endmacro()
+
+# Check preconditions
+check_not_empty(@HUNTER_BASE@)
+check_not_empty(@HUNTER_PACKAGE_NAME@)
+check_not_empty(@HUNTER_PACKAGE_URL@)
+check_not_empty(@HUNTER_PACKAGE_SHA1@)
+check_not_empty(@HUNTER_PACKAGE_DOWNLOAD_DIR@)
+check_not_empty(@HUNTER_PACKAGE_SOURCE_DIR@)
+
+set_directory_properties(
+    PROPERTIES
+    EP_BASE
+    @HUNTER_BASE@
+)
+
+ExternalProject_Add(
+    @HUNTER_PACKAGE_NAME@
+    URL
+    @HUNTER_PACKAGE_URL@
+    URL_HASH
+    SHA1=@HUNTER_PACKAGE_SHA1@
+    DOWNLOAD_DIR
+    @HUNTER_PACKAGE_DOWNLOAD_DIR@
+    SOURCE_DIR
+    @HUNTER_PACKAGE_SOURCE_DIR@
+    INSTALL_DIR
+    @HUNTER_PACKAGE_SOURCE_DIR@
+    CONFIGURE_COMMAND
+    ""
+    BUILD_COMMAND
+    ""
+    INSTALL_COMMAND
+    ""
+)

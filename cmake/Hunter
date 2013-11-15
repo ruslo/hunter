@@ -1,0 +1,72 @@
+# Copyright (c) 2013, Ruslan Baratov
+# All rights reserved.
+
+if(DEFINED HUNTER_CMAKE_HUNTER_)
+  return()
+else()
+  set(HUNTER_CMAKE_HUNTER_ 1)
+endif()
+
+option(HUNTER_STATUS_PRINT "Print working status" ON)
+option(HUNTER_STATUS_DEBUG "Print a lot info" OFF)
+
+# If HUNTER_ROOT is defined by user, check it is correct.
+# Note: it's can't be defined by other Hunter master file
+# because of header guards
+if(HUNTER_ROOT)
+  get_filename_component(HUNTER_ROOT_OLD "${HUNTER_ROOT}" ABSOLUTE)
+endif()
+
+get_filename_component(HUNTER_ROOT "${CMAKE_CURRENT_LIST_DIR}/.." ABSOLUTE)
+message("[hunter] HUNTER_ROOT: ${HUNTER_ROOT}")
+
+if(HUNTER_ROOT_OLD)
+  if(NOT "--${HUNTER_ROOT_OLD}__" STREQUAL "--${HUNTER_ROOT}__")
+    message(
+        FATAL_ERROR
+        "Incorrent HUNTER_ROOT directories:\n"
+        "defined: ${HUNTER_ROOT_OLD}\n"
+        "real: ${HUNTER_ROOT}"
+    )
+  endif()
+endif()
+
+unset(HUNTER_ROOT_OLD)
+
+### test self
+if(NOT EXISTS "${HUNTER_ROOT}/cmake/Hunter")
+  message(FATAL_ERROR "Can't find Hunter components in: ${HUNTER_ROOT}")
+endif()
+
+### add cmake modules to search path
+list(APPEND CMAKE_MODULE_PATH "${HUNTER_ROOT}/cmake/modules")
+
+include(hunter_status_debug)
+
+set(HUNTER_BASE "${HUNTER_ROOT}/_base")
+
+### Check 'EP_BASE` correctness
+get_directory_property(HUNTER_EP_BASE_OLD EP_BASE)
+
+if(HUNTER_EP_BASE_OLD)
+  message(FATAL_ERROR "EP_BASE directory property already set")
+endif()
+
+unset(HUNTER_EP_BASE_OLD)
+
+set_directory_properties(
+    PROPERTIES
+    EP_BASE
+    "${HUNTER_BASE}"
+)
+
+if(NOT CMAKE_DEBUG_POSTFIX)
+  set(CMAKE_DEBUG_POSTFIX d)
+  hunter_status_debug(
+      "CMAKE_DEBUG_POSTFIX is empty, set to '${CMAKE_DEBUG_POSTFIX}'"
+  )
+endif()
+
+### 1. Clear all '<NAME>_ROOT' variables (cache, environment, ...)
+### 2. Set '<NAME>_ROOT' or 'HUNTER_<name>_VERSION' variables
+include("${HUNTER_ROOT}/cmake/config.cmake")
