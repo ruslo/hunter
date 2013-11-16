@@ -8,6 +8,11 @@ install:
     - brew install python3
     - brew install cmake
 
+env:
+    - TEST_DIR=url_sha1_combined_release_debug
+    - TEST_DIR=url_sha1_no_install
+    - TEST_DIR=url_sha1_release_debug
+
 script:
     - cd cmake/schemes
-    - python3 ./test.py
+    - python3 ./test.py --include ./tests/${TEST_DIR}
