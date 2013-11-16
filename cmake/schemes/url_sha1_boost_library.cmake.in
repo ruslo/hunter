@@ -16,8 +16,6 @@ endmacro()
 # Check preconditions
 check_not_empty(@HUNTER_BASE@)
 check_not_empty(@HUNTER_PACKAGE_NAME@)
-check_not_empty(@HUNTER_PACKAGE_URL@)
-check_not_empty(@HUNTER_PACKAGE_SHA1@)
 check_not_empty(@HUNTER_PACKAGE_DOWNLOAD_DIR@)
 check_not_empty(@HUNTER_PACKAGE_SOURCE_DIR@)
 check_not_empty(@HUNTER_PACKAGE_INSTALL_DIR@)
@@ -97,11 +95,10 @@ set(
 )
 
 ExternalProject_Add(
-    @HUNTER_PACKAGE_NAME@
+    @HUNTER_PACKAGE_NAME@_@HUNTER_PACKAGE_BOOST_LIBRARY@
     URL
-    @HUNTER_PACKAGE_URL@
-    URL_HASH
-    SHA1=@HUNTER_PACKAGE_SHA1@
+    DOWNLOAD_COMMAND
+    ${CMAKE_COMMAND} -E echo "Skip download"
     DOWNLOAD_DIR
     @HUNTER_PACKAGE_DOWNLOAD_DIR@
     SOURCE_DIR

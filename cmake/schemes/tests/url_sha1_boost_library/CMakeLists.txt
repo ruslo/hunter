@@ -18,6 +18,17 @@ set(
 
 set(HUNTER_PACKAGE_BOOST_LIBRARY system)
 
+# Download boost
+configure_file(
+    ${HUNTER_ROOT}/cmake/schemes/url_sha1_boost.cmake.in
+    ${DOWNLOAD_PROJECT_BASE}/CMakeLists.txt
+    @ONLY
+)
+
+execute_test(${CMAKE_COMMAND} .)
+execute_test(${CMAKE_COMMAND} --build .)
+
+# Install library
 configure_file(
     ${HUNTER_ROOT}/cmake/schemes/url_sha1_boost_library.cmake.in
     ${DOWNLOAD_PROJECT_BASE}/CMakeLists.txt
