@@ -9,13 +9,14 @@ install:
     - brew install cmake
 
 env:
-    - TEST_DIR=url_sha1_boost
-    - TEST_DIR=url_sha1_boost_ios_library
-    - TEST_DIR=url_sha1_boost_library
-    - TEST_DIR=url_sha1_combined_release_debug
-    - TEST_DIR=url_sha1_no_install
-    - TEST_DIR=url_sha1_release_debug
+    - TEST_DIR=cmake/schemes TEST_NAME=tests/url_sha1_boost
+    - TEST_DIR=cmake/schemes TEST_NAME=tests/url_sha1_boost_ios_library
+    - TEST_DIR=cmake/schemes TEST_NAME=tests/url_sha1_boost_library
+    - TEST_DIR=cmake/schemes TEST_NAME=tests/url_sha1_combined_release_debug
+    - TEST_DIR=cmake/schemes TEST_NAME=tests/url_sha1_no_install
+    - TEST_DIR=cmake/schemes TEST_NAME=tests/url_sha1_release_debug
+    - TEST_DIR=examples TEST_NAME=Sugar
 
 script:
-    - cd cmake/schemes
-    - python3 ./test.py --include ./tests/${TEST_DIR}
+    - cd ${TEST_DIR}
+    - python3 ./test.py --include ./${TEST_NAME}
