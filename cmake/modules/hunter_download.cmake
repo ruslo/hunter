@@ -34,11 +34,6 @@ function(hunter_download)
   string(TOUPPER "${h_name}" h_root_name) # FOO
   set(h_root_name "${h_root_name}_ROOT") # FOO_ROOT
 
-  if(${h_root_name})
-    hunter_status_debug("Skip download, root already set: ${${h_root_name}}")
-    return()
-  endif()
-
   set(ver ${HUNTER_${h_name}_VERSION})
   if(HUNTER_DOWNLOAD_SCHEME STREQUAL url_sha1_no_install)
     set(${h_root_name} "${HUNTER_BASE}/Source/${h_name}")
@@ -102,7 +97,7 @@ function(hunter_download)
     )
   endif()
 
-  hunter_status_debug("Add package: ${h_name}")
+  hunter_status_debug("Add package: ${HUNTER_PACKAGE_NAME}")
   hunter_status_debug("Url: ${HUNTER_PACKAGE_URL}")
   hunter_status_debug("SHA1: ${HUNTER_PACKAGE_SHA1}")
 

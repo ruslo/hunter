@@ -11,6 +11,9 @@ include(hunter_add_version)
 include(hunter_add_version_start)
 include(hunter_download)
 
+# Disable searching in locations not specified by these hint variables.
+set(Boost_NO_SYSTEM_PATHS ON)
+
 hunter_add_version_start(Boost)
 
 hunter_add_version(

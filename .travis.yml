@@ -18,6 +18,7 @@ env:
     - TEST_DIR=examples TEST_NAME=Sugar
     - TEST_DIR=examples TEST_NAME=GTest
     - TEST_DIR=examples TEST_NAME=Boost
+    - TEST_DIR=examples TEST_NAME=Boost-filesystem
 
 script:
     - cd ${TEST_DIR}
