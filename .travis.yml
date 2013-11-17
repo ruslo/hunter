@@ -10,6 +10,7 @@ install:
 
 env:
     - TEST_DIR=url_sha1_boost
+    - TEST_DIR=url_sha1_boost_ios_library
     - TEST_DIR=url_sha1_boost_library
     - TEST_DIR=url_sha1_combined_release_debug
     - TEST_DIR=url_sha1_no_install

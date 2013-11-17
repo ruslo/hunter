@@ -5,7 +5,7 @@ cmake_minimum_required(VERSION 2.8.8)
 
 include(ExternalProject) # ExternalProject_Add
 
-# Scheme for download boost and install header-only libraries (no build step)
+# Scheme for download and install boost library
 
 macro(check_not_empty var)
   if("--${var}__" STREQUAL "--__")

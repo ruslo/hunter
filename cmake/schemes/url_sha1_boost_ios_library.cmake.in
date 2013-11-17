@@ -1,0 +1,239 @@
+# Copyright (c) 2013, Ruslan Baratov
+# All rights reserved.
+
+cmake_minimum_required(VERSION 2.8.8)
+
+include(ExternalProject) # ExternalProject_Add
+
+# Scheme for download and install ios universal boost library
+
+macro(check_not_empty var)
+  if("--${var}__" STREQUAL "--__")
+    message(FATAL_ERROR "Variable is empty")
+  endif()
+endmacro()
+
+# Check preconditions
+check_not_empty(@HUNTER_BASE@)
+check_not_empty(@HUNTER_ROOT@)
+check_not_empty(@HUNTER_PACKAGE_NAME@)
+check_not_empty(@HUNTER_PACKAGE_DOWNLOAD_DIR@)
+check_not_empty(@HUNTER_PACKAGE_SOURCE_DIR@)
+check_not_empty(@HUNTER_PACKAGE_INSTALL_DIR@)
+check_not_empty(@HUNTER_PACKAGE_BOOST_LIBRARY@)
+check_not_empty(@XCODE_DEVELOPER_ROOT@)
+check_not_empty(@IOS_SDK_VERSION@)
+check_not_empty(@IOS_ARCHS@)
+
+set_directory_properties(
+    PROPERTIES
+    EP_BASE
+    @HUNTER_BASE@
+)
+
+set(
+    boost_libs
+    atomic
+    chrono
+    context
+    coroutine
+    date_time
+    exception
+    filesystem
+    graph
+    graph_parallel
+    iostreams
+    locale
+    log
+    math
+    mpi
+    program_options
+    python
+    random
+    regex
+    serialization
+    signals
+    system
+    test
+    thread
+    timer
+    wave
+)
+
+set(libfound NO)
+foreach(x ${boost_libs})
+  if(x STREQUAL @HUNTER_PACKAGE_BOOST_LIBRARY@)
+    set(libfound YES)
+  endif()
+endforeach()
+
+if(NOT libfound)
+  message(FATAL_ERROR "No such library")
+endif()
+
+set(
+    IPHONESIMULATOR_SDK_ROOT
+    @XCODE_DEVELOPER_ROOT@/Platforms/iPhonesimulator.platform/Developer/SDKs
+)
+set(
+    IPHONESIMULATOR_SDK_ROOT
+    "${IPHONESIMULATOR_SDK_ROOT}/iPhoneSimulator@IOS_SDK_VERSION@.sdk"
+)
+
+if(NOT EXISTS ${IPHONESIMULATOR_SDK_ROOT})
+  message(
+      FATAL_ERROR
+      "IPHONESIMULATOR_SDK_ROOT not found (${IPHONESIMULATOR_SDK_ROOT})\n"
+      "XCODE_DEVELOPER_ROOT: @XCODE_DEVELOPER_ROOT@\n"
+      "IOS_SDK_VERSION: @IOS_SDK_VERSION@\n"
+  )
+endif()
+
+set(
+    IPHONEOS_SDK_ROOT
+    @XCODE_DEVELOPER_ROOT@/Platforms/iPhoneOS.platform/Developer/SDKs
+)
+set(IPHONEOS_SDK_ROOT "${IPHONEOS_SDK_ROOT}/iPhoneOS@IOS_SDK_VERSION@.sdk")
+
+if(NOT EXISTS ${IPHONEOS_SDK_ROOT})
+  message(
+      FATAL_ERROR
+      "IPHONEOS_SDK_ROOT not found (${IPHONEOS_SDK_ROOT})\n"
+      "XCODE_DEVELOPER_ROOT: @XCODE_DEVELOPER_ROOT@\n"
+      "IOS_SDK_VERSION: @IOS_SDK_VERSION@\n"
+  )
+endif()
+
+set(
+    IPHONEOS_ROOT
+    @XCODE_DEVELOPER_ROOT@/Platforms/iPhoneOS.platform/Developer
+)
+set(
+    IPHONESIMULATOR_ROOT
+    @XCODE_DEVELOPER_ROOT@/Platforms/iPhonesimulator.platform/Developer
+)
+
+unset(ios_archs)
+foreach(x @IOS_ARCHS@)
+  set(ios_archs "${ios_archs} -arch ${x}")
+endforeach()
+
+set(boost_user_jam @HUNTER_BASE@/boost.user.jam)
+file(
+     WRITE
+     ${boost_user_jam}
+     "using darwin : iphoneos\n"
+     "    : xcrun clang++ ${ios_archs} -isysroot ${IPHONEOS_SDK_ROOT}\n"
+     "    : <striper> <root>${IPHONEOS_ROOT}\n"
+     "    : <architecture>arm <target-os>iphone\n"
+     ";\n"
+     "\n"
+     "using darwin : iphonesimulator\n"
+     "    : xcrun clang++ -isysroot ${IPHONESIMULATOR_SDK_ROOT}\n"
+     "    : <striper> <root>${IPHONESIMULATOR_ROOT}\n"
+     "    : <architecture>x86 <target-os>iphone\n"
+     ";"
+)
+
+set(
+    build_opts
+    -a
+    link=static
+    threading=multi
+    variant=release,debug
+    --layout=tagged
+    --user-config=${boost_user_jam}
+)
+
+set(
+    build_opts_iphoneos
+    toolset=darwin-iphoneos
+    target-os=iphone
+    architecture=arm
+    ${build_opts}
+)
+
+set(
+    build_opts_iphonesimulator
+    toolset=darwin-iphonesimulator
+    target-os=iphone
+    architecture=x86
+    ${build_opts}
+)
+
+ExternalProject_Add(
+    @HUNTER_PACKAGE_NAME@_@HUNTER_PACKAGE_BOOST_LIBRARY@_ios
+    DOWNLOAD_COMMAND
+    ${CMAKE_COMMAND} -E echo "skip download"
+    DOWNLOAD_DIR
+    @HUNTER_PACKAGE_DOWNLOAD_DIR@
+    SOURCE_DIR
+    @HUNTER_PACKAGE_SOURCE_DIR@
+    INSTALL_DIR
+    @HUNTER_PACKAGE_INSTALL_DIR@
+        # not used, just avoid creating Install/<name> empty directory
+    CONFIGURE_COMMAND
+    ./bootstrap.sh
+    --with-libraries=@HUNTER_PACKAGE_BOOST_LIBRARY@
+    --prefix=@HUNTER_PACKAGE_INSTALL_DIR@
+    BUILD_COMMAND
+    ./b2
+    -d+2
+    ${build_opts_iphoneos}
+    BUILD_IN_SOURCE
+    1
+    INSTALL_COMMAND
+    ${CMAKE_COMMAND} -E echo "skip install"
+)
+
+ExternalProject_Add(
+    @HUNTER_PACKAGE_NAME@_@HUNTER_PACKAGE_BOOST_LIBRARY@_ios_sim
+    DOWNLOAD_COMMAND
+    ${CMAKE_COMMAND} -E echo "skip download"
+    DOWNLOAD_DIR
+    @HUNTER_PACKAGE_DOWNLOAD_DIR@
+    SOURCE_DIR
+    @HUNTER_PACKAGE_SOURCE_DIR@
+    INSTALL_DIR
+    @HUNTER_PACKAGE_INSTALL_DIR@
+        # not used, just avoid creating Install/<name> empty directory
+    CONFIGURE_COMMAND
+    ./bootstrap.sh
+    --with-libraries=@HUNTER_PACKAGE_BOOST_LIBRARY@
+    --prefix=@HUNTER_PACKAGE_INSTALL_DIR@
+    BUILD_COMMAND
+    ./b2
+    -d+2
+    ${build_opts_iphonesimulator}
+    BUILD_IN_SOURCE
+    1
+    INSTALL_COMMAND
+    ${CMAKE_COMMAND} -E echo "skip install"
+)
+
+ExternalProject_Add(
+    @HUNTER_PACKAGE_NAME@_@HUNTER_PACKAGE_BOOST_LIBRARY@_ios_universal
+    DEPENDS
+    @HUNTER_PACKAGE_NAME@_@HUNTER_PACKAGE_BOOST_LIBRARY@_ios
+    @HUNTER_PACKAGE_NAME@_@HUNTER_PACKAGE_BOOST_LIBRARY@_ios_sim
+    DOWNLOAD_COMMAND
+    ${CMAKE_COMMAND} -E echo "skip download"
+    DOWNLOAD_DIR
+    @HUNTER_PACKAGE_DOWNLOAD_DIR@
+    SOURCE_DIR
+    @HUNTER_PACKAGE_SOURCE_DIR@
+    INSTALL_DIR
+    @HUNTER_PACKAGE_INSTALL_DIR@
+        # not used, just avoid creating Install/<name> empty directory
+    CONFIGURE_COMMAND
+    ${CMAKE_COMMAND} -E echo "skip configure"
+    BUILD_COMMAND
+    ${CMAKE_COMMAND} -E echo "skip build"
+    INSTALL_COMMAND
+    ${CMAKE_COMMAND} -E make_directory "@HUNTER_PACKAGE_INSTALL_DIR@/lib"
+    COMMAND
+    "@HUNTER_ROOT@/scripts/create-boost-ios-fatlib.sh"
+    "@HUNTER_BASE@/Source/@HUNTER_PACKAGE_NAME@"
+    "@HUNTER_PACKAGE_BOOST_LIBRARY@"
+    "@HUNTER_PACKAGE_INSTALL_DIR@/lib"
+)
