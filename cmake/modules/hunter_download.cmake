@@ -85,9 +85,10 @@ function(hunter_download)
   endif()
 
   if(HUNTER_STATUS_DEBUG)
-    file(APPEND ${toolchain_wrapper} "set(CMAKE_VERBOSE_MAKEFILE YES)\n")
+    set(verbose_makefile "-DCMAKE_VERBOSE_MAKEFILE=ON")
   endif()
 
+  set(HUNTER_PACKAGE_INSTALL_DIR "${${h_root_name}}")
   set(HUNTER_PACKAGE_URL "${HUNTER_${h_name}_URL}")
   set(HUNTER_PACKAGE_SHA1 "${HUNTER_${h_name}_SHA1}")
   set(HUNTER_PACKAGE_DOWNLOAD_DIR "${HUNTER_BASE}/Download/${h_name}")
@@ -123,10 +124,21 @@ function(hunter_download)
       @ONLY
   )
 
+  # support for custom cmake generators
+  if(HUNTER_CMAKE_GENERATOR)
+    set(h_generator "-G${HUNTER_CMAKE_GENERATOR}")
+  else()
+    # use default
+    set(h_generator)
+  endif()
+
   # Configure and build download project
   execute_process(
       COMMAND
       ${CMAKE_COMMAND}
+      "-DCMAKE_TOOLCHAIN_FILE=${toolchain_wrapper}"
+      ${h_generator}
+      ${verbose_makefile}
       "./"
       WORKING_DIRECTORY
       ${h_work_dir}

@@ -38,7 +38,7 @@ set_directory_properties(
 )
 
 if(@HUNTER_STATUS_DEBUG@)
-  set(CMAKE_VERBOSE_MAKEFILE ON)
+  set(verbose_makefile "-DCMAKE_VERBOSE_MAKEFILE=ON")
 endif()
 
 ExternalProject_Add(
@@ -57,6 +57,7 @@ ExternalProject_Add(
     CMAKE_ARGS
     "-DCMAKE_BUILD_TYPE=Release"
     "-DCMAKE_INSTALL_PREFIX=@HUNTER_PACKAGE_INSTALL_DIR@"
+    ${verbose_makefile}
 )
 
 # download and source step will use previous target source dir (skipped)
@@ -74,6 +75,7 @@ ExternalProject_Add(
     "-DCMAKE_BUILD_TYPE=Debug"
     "-DCMAKE_INSTALL_PREFIX=@HUNTER_PACKAGE_INSTALL_DIR@"
     "-DCMAKE_DEBUG_POSTFIX=@CMAKE_DEBUG_POSTFIX@"
+    ${verbose_makefile}
 )
 
 # debug version use release download result
