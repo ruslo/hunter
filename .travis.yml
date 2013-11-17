@@ -17,6 +17,7 @@ env:
     - TEST_DIR=cmake/schemes TEST_NAME=tests/url_sha1_release_debug
     - TEST_DIR=examples TEST_NAME=Sugar
     - TEST_DIR=examples TEST_NAME=GTest
+    - TEST_DIR=examples TEST_NAME=Boost
 
 script:
     - cd ${TEST_DIR}

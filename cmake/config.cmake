@@ -14,6 +14,6 @@ include(hunter_config)
 
 # NOTE: no names with spaces!
 
-hunter_config(Boost VERSION 1.54.0)
+hunter_config(Boost VERSION 1.55.0)
 hunter_config(GTest VERSION 1.7.0-sugar)
 hunter_config(Sugar VERSION 1.0.0)
