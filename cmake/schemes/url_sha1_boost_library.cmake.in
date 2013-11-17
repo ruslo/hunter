@@ -1,0 +1,125 @@
+# Copyright (c) 2013, Ruslan Baratov
+# All rights reserved.
+
+cmake_minimum_required(VERSION 2.8.8)
+
+include(ExternalProject) # ExternalProject_Add
+
+# Scheme for download and install boost library
+
+macro(check_not_empty var)
+  if("--${var}__" STREQUAL "--__")
+    message(FATAL_ERROR "Variable is empty")
+  endif()
+endmacro()
+
+# Check preconditions
+check_not_empty(@HUNTER_BASE@)
+check_not_empty(@HUNTER_PACKAGE_NAME@)
+check_not_empty(@HUNTER_PACKAGE_DOWNLOAD_DIR@)
+check_not_empty(@HUNTER_PACKAGE_SOURCE_DIR@)
+check_not_empty(@HUNTER_PACKAGE_INSTALL_DIR@)
+check_not_empty(@HUNTER_PACKAGE_BOOST_LIBRARY@)
+check_not_empty(@CMAKE_CXX_COMPILER@)
+
+set_directory_properties(
+    PROPERTIES
+    EP_BASE
+    @HUNTER_BASE@
+)
+
+set(
+    boost_libs
+    atomic
+    chrono
+    context
+    coroutine
+    date_time
+    exception
+    filesystem
+    graph
+    graph_parallel
+    iostreams
+    locale
+    log
+    math
+    mpi
+    program_options
+    python
+    random
+    regex
+    serialization
+    signals
+    system
+    test
+    thread
+    timer
+    wave
+)
+
+set(libfound NO)
+foreach(x ${boost_libs})
+  if(x STREQUAL @HUNTER_PACKAGE_BOOST_LIBRARY@)
+    set(libfound YES)
+  endif()
+endforeach()
+
+if(NOT libfound)
+  message(FATAL_ERROR "No such library")
+endif()
+
+if(APPLE)
+  set(toolset_name darwin)
+else()
+  # TODO
+endif()
+
+set(boost_user_jam @HUNTER_BASE@/boost.user.jam)
+file(
+     WRITE
+     ${boost_user_jam}
+     "using ${toolset_name} :\n"
+     "    : @CMAKE_CXX_COMPILER@\n"
+     ";\n"
+)
+
+set(
+    build_opts
+    -a
+    link=static
+    threading=multi
+    variant=release,debug
+    --layout=tagged
+    toolset=${toolset_name}
+    --user-config=${boost_user_jam}
+)
+
+ExternalProject_Add(
+    @HUNTER_PACKAGE_NAME@_@HUNTER_PACKAGE_BOOST_LIBRARY@
+    URL
+    DOWNLOAD_COMMAND
+    ${CMAKE_COMMAND} -E echo "Skip download"
+    DOWNLOAD_DIR
+    @HUNTER_PACKAGE_DOWNLOAD_DIR@
+    SOURCE_DIR
+    @HUNTER_PACKAGE_SOURCE_DIR@
+    INSTALL_DIR
+    @HUNTER_PACKAGE_INSTALL_DIR@
+        # not used, just avoid creating Install/<name> empty directory
+    CONFIGURE_COMMAND
+    ./bootstrap.sh
+    --with-libraries=@HUNTER_PACKAGE_BOOST_LIBRARY@
+    --prefix=@HUNTER_PACKAGE_INSTALL_DIR@
+    --with-toolset=${toolset_name}
+    BUILD_COMMAND
+    ./b2
+    -d+2
+    ${build_opts}
+    BUILD_IN_SOURCE
+    1
+    INSTALL_COMMAND
+    ./b2
+    -d0
+    ${build_opts}
+    install
+)

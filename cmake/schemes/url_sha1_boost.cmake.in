@@ -1,0 +1,93 @@
+# Copyright (c) 2013, Ruslan Baratov
+# All rights reserved.
+
+cmake_minimum_required(VERSION 2.8.8)
+
+include(ExternalProject) # ExternalProject_Add
+
+# Scheme for download boost and install header-only libraries (no build step)
+
+macro(check_not_empty var)
+  if("--${var}__" STREQUAL "--__")
+    message(FATAL_ERROR "Variable is empty")
+  endif()
+endmacro()
+
+# Check preconditions
+check_not_empty(@HUNTER_BASE@)
+check_not_empty(@HUNTER_PACKAGE_NAME@)
+check_not_empty(@HUNTER_PACKAGE_URL@)
+check_not_empty(@HUNTER_PACKAGE_SHA1@)
+check_not_empty(@HUNTER_PACKAGE_DOWNLOAD_DIR@)
+check_not_empty(@HUNTER_PACKAGE_SOURCE_DIR@)
+check_not_empty(@HUNTER_PACKAGE_INSTALL_DIR@)
+
+set_directory_properties(
+    PROPERTIES
+    EP_BASE
+    @HUNTER_BASE@
+)
+
+set(
+    boost_libs
+    atomic
+    chrono
+    context
+    coroutine
+    date_time
+    exception
+    filesystem
+    graph
+    graph_parallel
+    iostreams
+    locale
+    log
+    math
+    mpi
+    program_options
+    python
+    random
+    regex
+    serialization
+    signals
+    system
+    test
+    thread
+    timer
+    wave
+)
+
+foreach(x ${boost_libs})
+  if(boost_list)
+    set(boost_list "${boost_list},${x}")
+  else()
+    set(boost_list "${x}")
+  endif()
+endforeach()
+
+ExternalProject_Add(
+    @HUNTER_PACKAGE_NAME@
+    URL
+    @HUNTER_PACKAGE_URL@
+    URL_HASH
+    SHA1=@HUNTER_PACKAGE_SHA1@
+    DOWNLOAD_DIR
+    @HUNTER_PACKAGE_DOWNLOAD_DIR@
+    SOURCE_DIR
+    @HUNTER_PACKAGE_SOURCE_DIR@
+    INSTALL_DIR
+    @HUNTER_PACKAGE_INSTALL_DIR@
+        # not used, just avoid creating Install/<name> empty directory
+    CONFIGURE_COMMAND
+    ./bootstrap.sh
+    --without-libraries=${boost_list}
+    --prefix=@HUNTER_PACKAGE_INSTALL_DIR@
+    BUILD_COMMAND
+    ""
+    BUILD_IN_SOURCE
+    1
+    INSTALL_COMMAND
+    ./b2
+    -d0
+    install
+)
