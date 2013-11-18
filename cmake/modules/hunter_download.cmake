@@ -92,6 +92,8 @@ function(hunter_download)
     )
   endif()
 
+  set(HUNTER_PACKAGE_NAME "${HUNTER_PACKAGE_NAME}_${HUNTER_INSTALL_TAG}")
+
   hunter_status_debug("Add package: ${HUNTER_PACKAGE_NAME}")
   hunter_status_debug("Url: ${HUNTER_PACKAGE_URL}")
   hunter_status_debug("SHA1: ${HUNTER_PACKAGE_SHA1}")
