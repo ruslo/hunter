@@ -79,7 +79,7 @@ file(
      WRITE
      ${boost_user_jam}
      "using ${toolset_name} :\n"
-     "    : @CMAKE_CXX_COMPILER@\n"
+     "    : ${CMAKE_CXX_COMPILER} ${CMAKE_CXX_FLAGS}\n"
      ";\n"
 )
 
