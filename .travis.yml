@@ -23,4 +23,4 @@ env:
 
 script:
     - cd ${TEST_DIR}
-    - python3 ./test.py --include ./${TEST_NAME}
+    - python3 ./test.py --include ./${TEST_NAME}/
