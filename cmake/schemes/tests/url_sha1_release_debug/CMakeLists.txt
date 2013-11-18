@@ -18,7 +18,14 @@ configure_file(
     @ONLY
 )
 
-execute_test(${CMAKE_COMMAND} .)
+set(toolchain "${DOWNLOAD_PROJECT_BASE}/toolchain.cmake")
+
+execute_process(
+    COMMAND
+    ${CMAKE_COMMAND} -E touch ${toolchain}
+)
+
+execute_test(${CMAKE_COMMAND} "-DCMAKE_TOOLCHAIN_FILE=${toolchain}" .)
 execute_test(${CMAKE_COMMAND} --build .)
 
 check_installed_static_lib(example_A)
