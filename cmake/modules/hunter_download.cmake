@@ -71,11 +71,6 @@ function(hunter_download)
 
   # support for toolchain file forwarding
   if(CMAKE_TOOLCHAIN_FILE)
-    file(
-        APPEND
-        ${toolchain_wrapper}
-        "set(HUNTER_INSTALL_TAG ${h_tag})\n"
-    )
     file(APPEND ${toolchain_wrapper} "include(${CMAKE_TOOLCHAIN_FILE})\n")
   endif()
 

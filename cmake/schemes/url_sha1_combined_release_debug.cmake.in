@@ -27,6 +27,7 @@ check_not_empty(@HUNTER_PACKAGE_DOWNLOAD_DIR@)
 check_not_empty(@HUNTER_PACKAGE_SOURCE_DIR@)
 check_not_empty(@HUNTER_PACKAGE_INSTALL_DIR@)
 check_not_empty(@CMAKE_DEBUG_POSTFIX@)
+check_not_empty(${CMAKE_TOOLCHAIN_FILE})
 
 set_directory_properties(
     PROPERTIES
@@ -50,6 +51,7 @@ ExternalProject_Add(
     CMAKE_ARGS
     "-DCMAKE_DEBUG_POSTFIX=@CMAKE_DEBUG_POSTFIX@"
     "-DCMAKE_INSTALL_PREFIX=@HUNTER_PACKAGE_INSTALL_DIR@"
+    "-DCMAKE_TOOLCHAIN_FILE=${CMAKE_TOOLCHAIN_FILE}"
     INSTALL_COMMAND
     ${CMAKE_COMMAND} --build . --target install --config Release
     COMMAND

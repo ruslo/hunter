@@ -30,6 +30,7 @@ check_not_empty(@HUNTER_PACKAGE_DOWNLOAD_DIR@)
 check_not_empty(@HUNTER_PACKAGE_SOURCE_DIR@)
 check_not_empty(@HUNTER_PACKAGE_INSTALL_DIR@)
 check_not_empty(@CMAKE_DEBUG_POSTFIX@)
+check_not_empty(${CMAKE_TOOLCHAIN_FILE})
 
 set_directory_properties(
     PROPERTIES
@@ -58,6 +59,7 @@ ExternalProject_Add(
     "-DCMAKE_BUILD_TYPE=Release"
     "-DCMAKE_INSTALL_PREFIX=@HUNTER_PACKAGE_INSTALL_DIR@"
     ${verbose_makefile}
+    "-DCMAKE_TOOLCHAIN_FILE=${CMAKE_TOOLCHAIN_FILE}"
 )
 
 # download and source step will use previous target source dir (skipped)
@@ -76,6 +78,7 @@ ExternalProject_Add(
     "-DCMAKE_INSTALL_PREFIX=@HUNTER_PACKAGE_INSTALL_DIR@"
     "-DCMAKE_DEBUG_POSTFIX=@CMAKE_DEBUG_POSTFIX@"
     ${verbose_makefile}
+    "-DCMAKE_TOOLCHAIN_FILE=${CMAKE_TOOLCHAIN_FILE}"
 )
 
 # debug version use release download result
