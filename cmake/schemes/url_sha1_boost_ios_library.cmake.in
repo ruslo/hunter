@@ -150,6 +150,7 @@ set(
     toolset=darwin-iphoneos
     target-os=iphone
     architecture=arm
+    instruction-set=armv7
     ${build_opts}
 )
 
@@ -160,6 +161,16 @@ set(
     architecture=x86
     ${build_opts}
 )
+
+if(XCODE_VERSION)
+  set(
+      bootstrap
+      . @HUNTER_ROOT@/scripts/clear-all.sh &&
+      ./bootstrap.sh
+  )
+else()
+  set(bootstrap ./bootstrap.sh)
+endif()
 
 ExternalProject_Add(
     @HUNTER_PACKAGE_NAME@_@HUNTER_PACKAGE_BOOST_LIBRARY@_ios
@@ -173,7 +184,7 @@ ExternalProject_Add(
     @HUNTER_PACKAGE_INSTALL_DIR@
         # not used, just avoid creating Install/<name> empty directory
     CONFIGURE_COMMAND
-    ./bootstrap.sh
+    ${bootstrap}
     --with-libraries=@HUNTER_PACKAGE_BOOST_LIBRARY@
     --prefix=@HUNTER_PACKAGE_INSTALL_DIR@
     BUILD_COMMAND
@@ -198,7 +209,7 @@ ExternalProject_Add(
     @HUNTER_PACKAGE_INSTALL_DIR@
         # not used, just avoid creating Install/<name> empty directory
     CONFIGURE_COMMAND
-    ./bootstrap.sh
+    ${bootstrap}
     --with-libraries=@HUNTER_PACKAGE_BOOST_LIBRARY@
     --prefix=@HUNTER_PACKAGE_INSTALL_DIR@
     BUILD_COMMAND
@@ -233,7 +244,7 @@ ExternalProject_Add(
     ${CMAKE_COMMAND} -E make_directory "@HUNTER_PACKAGE_INSTALL_DIR@/lib"
     COMMAND
     "@HUNTER_ROOT@/scripts/create-boost-ios-fatlib.sh"
-    "@HUNTER_BASE@/Source/@HUNTER_PACKAGE_NAME@"
+    "@HUNTER_PACKAGE_SOURCE_DIR@"
     "@HUNTER_PACKAGE_BOOST_LIBRARY@"
     "@HUNTER_PACKAGE_INSTALL_DIR@/lib"
 )

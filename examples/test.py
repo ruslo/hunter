@@ -39,10 +39,19 @@ for project in glob.iglob('./*/CMakeLists.txt'):
       log.p('{} skipped (not match {})'.format(project, args.include))
       continue
   os.chdir(os.path.dirname(project))
+  toolchain_path = os.path.abspath('toolchain.cmake')
+  if os.path.exists(toolchain_path):
+    toolchain_option = '-DCMAKE_TOOLCHAIN_FILE={}'.format(toolchain_path)
+  else:
+    toolchain_option = ''
+  do_test = os.path.exists('dotest')
   if os.path.exists('_builds'):
     shutil.rmtree('_builds')
   os.mkdir('_builds')
   os.chdir('_builds')
-  subprocess.check_call(['cmake', '..'])
+  subprocess.check_call(['cmake', toolchain_option, '..'])
+  if do_test:
+    subprocess.check_call(['cmake', '--build', '.'])
+    subprocess.check_call(['ctest', '.'])
 
   os.chdir(top_dir)

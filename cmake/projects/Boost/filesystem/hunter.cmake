@@ -11,9 +11,17 @@ include(hunter_download)
 
 set(HUNTER_PACKAGE_BOOST_LIBRARY filesystem)
 
+if("--${CMAKE_OSX_SYSROOT}__" STREQUAL "--iphoneos__")
+  set(_hunter_download_scheme url_sha1_boost_ios_library)
+else()
+  set(_hunter_download_scheme url_sha1_boost_library)
+endif()
+
 hunter_download(
     PACKAGE_NAME
     Boost
     DOWNLOAD_SCHEME
-    url_sha1_boost_library
+    ${_hunter_download_scheme}
 )
+
+unset(_hunter_download_scheme)

@@ -19,6 +19,7 @@ env:
     - TEST_DIR=examples TEST_NAME=GTest
     - TEST_DIR=examples TEST_NAME=Boost
     - TEST_DIR=examples TEST_NAME=Boost-filesystem
+    - TEST_DIR=examples TEST_NAME=Boost-stdlibcxx
 
 script:
     - cd ${TEST_DIR}
