@@ -13,3 +13,8 @@ install_manifest.txt
 
 # EP_BASE (install, download, build, ...)
 _base
+
+# macosx
+.DS_Store
+*/.DS_Store
+*/*/.DS_Store
