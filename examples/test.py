@@ -44,12 +44,16 @@ for project in glob.iglob('./*/CMakeLists.txt'):
     toolchain_option = '-DCMAKE_TOOLCHAIN_FILE={}'.format(toolchain_path)
   else:
     toolchain_option = ''
+  if os.path.exists('Xcode'):
+    generator = '-GXcode'
+  else:
+    generator = ''
   do_test = os.path.exists('dotest')
   if os.path.exists('_builds'):
     shutil.rmtree('_builds')
   os.mkdir('_builds')
   os.chdir('_builds')
-  subprocess.check_call(['cmake', toolchain_option, '..'])
+  subprocess.check_call(['cmake', generator, toolchain_option, '..'])
   if do_test:
     subprocess.check_call(['cmake', '--build', '.'])
     subprocess.check_call(['ctest', '.'])
