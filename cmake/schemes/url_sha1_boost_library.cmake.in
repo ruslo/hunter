@@ -70,8 +70,10 @@ endif()
 
 if(APPLE)
   set(toolset_name darwin)
+elseif(CMAKE_COMPILER_IS_GNUCXX)
+  set(toolset_name gcc)
 else()
-  # TODO
+  message(FATAL_ERROR "TODO")
 endif()
 
 set(boost_user_jam @HUNTER_BASE@/boost.user.jam)
