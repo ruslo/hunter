@@ -21,11 +21,11 @@ hunter_add_version(
     PACKAGE_NAME
     GTest
     VERSION
-    "1.7.0-sugar"
+    "1.7.0-hunter"
     URL
-    "https://github.com/ruslo/gtest/archive/v1.7.0-sugar.tar.gz"
+    "https://github.com/hunter-packages/gtest/archive/v1.7.0-hunter.tar.gz"
     SHA1
-    1e26514f8ab324658fc4bb9e872e159794b215ae
+    1ed1c26d11fb592056c1cb912bd3c784afa96eaa
 )
 
 hunter_download(
