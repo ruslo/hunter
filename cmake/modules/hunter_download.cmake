@@ -53,6 +53,7 @@ function(hunter_download)
   set(toolchain_wrapper ${h_work_dir}/toolchain.cmake)
   file(WRITE ${toolchain_wrapper} "###\n") # file must not be empty
 
+  list(APPEND h_DEPENDS Hunter) # pass HUNTER_ROOT to all packages
   foreach(x ${h_DEPENDS})
     string(TOUPPER "${x}" x_name)
     set(x_name "${x_name}_ROOT")
