@@ -7,9 +7,13 @@ include(ExternalProject) # ExternalProject_Add
 
 # Scheme for download and install ios universal boost library
 
+list(APPEND CMAKE_MODULE_PATH "@HUNTER_ROOT@/cmake/modules")
+
+include(hunter_fatal_error)
+
 macro(check_not_empty var)
   if("--${var}__" STREQUAL "--__")
-    message(FATAL_ERROR "Variable is empty")
+    hunter_fatal_error("Variable is empty")
   endif()
 endmacro()
 
@@ -68,7 +72,7 @@ foreach(x ${boost_libs})
 endforeach()
 
 if(NOT libfound)
-  message(FATAL_ERROR "No such library")
+  hunter_fatal_error("No such library")
 endif()
 
 set(
@@ -81,8 +85,7 @@ set(
 )
 
 if(NOT EXISTS ${IPHONESIMULATOR_SDK_ROOT})
-  message(
-      FATAL_ERROR
+  hunter_fatal_error(
       "IPHONESIMULATOR_SDK_ROOT not found (${IPHONESIMULATOR_SDK_ROOT})\n"
       "XCODE_DEVELOPER_ROOT: @XCODE_DEVELOPER_ROOT@\n"
       "IOS_SDK_VERSION: @IOS_SDK_VERSION@\n"
@@ -96,8 +99,7 @@ set(
 set(IPHONEOS_SDK_ROOT "${IPHONEOS_SDK_ROOT}/iPhoneOS@IOS_SDK_VERSION@.sdk")
 
 if(NOT EXISTS ${IPHONEOS_SDK_ROOT})
-  message(
-      FATAL_ERROR
+  hunter_fatal_error(
       "IPHONEOS_SDK_ROOT not found (${IPHONEOS_SDK_ROOT})\n"
       "XCODE_DEVELOPER_ROOT: @XCODE_DEVELOPER_ROOT@\n"
       "IOS_SDK_VERSION: @IOS_SDK_VERSION@\n"

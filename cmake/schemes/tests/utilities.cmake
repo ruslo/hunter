@@ -3,6 +3,8 @@
 
 cmake_minimum_required(VERSION 2.8.8)
 
+include(hunter_fatal_error)
+
 function(execute_test)
   execute_process(
       COMMAND
@@ -14,7 +16,7 @@ function(execute_test)
   )
 
   if(NOT ${TEST_RESULT} EQUAL 0)
-    message(FATAL_ERROR "Test exit with: ${TEST_RESULT}")
+    hunter_fatal_error("Test exit with: ${TEST_RESULT}")
   endif()
 endfunction()
 
@@ -26,9 +28,9 @@ function(check_installed_static_lib libname)
   set(libpath_debug "${libpath_debug}${CMAKE_STATIC_LIBRARY_SUFFIX}")
 
   if(NOT EXISTS "${libpath_release}")
-    message(FATAL_ERROR "Static lib not found: ${libpath_release}")
+    hunter_fatal_error("Static lib not found: ${libpath_release}")
   endif()
   if(NOT EXISTS "${libpath_debug}")
-    message(FATAL_ERROR "Static lib not found: ${libpath_debug}")
+    hunter_fatal_error("Static lib not found: ${libpath_debug}")
   endif()
 endfunction()

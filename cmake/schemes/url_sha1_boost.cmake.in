@@ -7,9 +7,13 @@ include(ExternalProject) # ExternalProject_Add
 
 # Scheme for download boost and install header-only libraries (no build step)
 
+list(APPEND CMAKE_MODULE_PATH "@HUNTER_ROOT@/cmake/modules")
+
+include(hunter_fatal_error)
+
 macro(check_not_empty var)
   if("--${var}__" STREQUAL "--__")
-    message(FATAL_ERROR "Variable is empty")
+    hunter_fatal_error("Variable is empty")
   endif()
 endmacro()
 

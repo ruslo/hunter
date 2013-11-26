@@ -8,9 +8,13 @@ include(ExternalProject) # ExternalProject_Add
 # Do not install to CMAKE_INSTALL_PREFIX
 # (for cmake modules and header-only libraries)
 
+list(APPEND CMAKE_MODULE_PATH "@HUNTER_ROOT@/cmake/modules")
+
+include(hunter_fatal_error)
+
 macro(check_not_empty var)
   if("--${var}__" STREQUAL "--__")
-    message(FATAL_ERROR "Variable is empty")
+    hunter_fatal_error("Variable is empty")
   endif()
 endmacro()
 

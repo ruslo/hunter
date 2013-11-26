@@ -7,9 +7,13 @@ include(ExternalProject) # ExternalProject_Add
 
 # Scheme for download and install boost library
 
+list(APPEND CMAKE_MODULE_PATH "@HUNTER_ROOT@/cmake/modules")
+
+include(hunter_fatal_error)
+
 macro(check_not_empty var)
   if("--${var}__" STREQUAL "--__")
-    message(FATAL_ERROR "Variable is empty")
+    hunter_fatal_error("Variable is empty")
   endif()
 endmacro()
 
@@ -65,7 +69,7 @@ foreach(x ${boost_libs})
 endforeach()
 
 if(NOT libfound)
-  message(FATAL_ERROR "No such library")
+  hunter_fatal_error("No such library")
 endif()
 
 if(APPLE)
@@ -73,7 +77,7 @@ if(APPLE)
 elseif(CMAKE_COMPILER_IS_GNUCXX)
   set(toolset_name gcc)
 else()
-  message(FATAL_ERROR "TODO")
+  hunter_fatal_error("TODO")
 endif()
 
 set(boost_user_jam @HUNTER_BASE@/boost.user.jam)

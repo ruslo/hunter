@@ -18,20 +18,6 @@ if(HUNTER_ROOT)
 endif()
 
 get_filename_component(HUNTER_ROOT "${CMAKE_CURRENT_LIST_DIR}/.." ABSOLUTE)
-message("[hunter] HUNTER_ROOT: ${HUNTER_ROOT}")
-
-if(HUNTER_ROOT_OLD)
-  if(NOT "--${HUNTER_ROOT_OLD}__" STREQUAL "--${HUNTER_ROOT}__")
-    message(
-        FATAL_ERROR
-        "Incorrent HUNTER_ROOT directories:\n"
-        "defined: ${HUNTER_ROOT_OLD}\n"
-        "real: ${HUNTER_ROOT}"
-    )
-  endif()
-endif()
-
-unset(HUNTER_ROOT_OLD)
 
 ### test self
 if(NOT EXISTS "${HUNTER_ROOT}/cmake/Hunter")
@@ -42,6 +28,22 @@ endif()
 list(APPEND CMAKE_MODULE_PATH "${HUNTER_ROOT}/cmake/modules")
 
 include(hunter_status_debug)
+include(hunter_status_print)
+include(hunter_fatal_error)
+
+hunter_status_print("HUNTER_ROOT: ${HUNTER_ROOT}")
+
+if(HUNTER_ROOT_OLD)
+  if(NOT "--${HUNTER_ROOT_OLD}__" STREQUAL "--${HUNTER_ROOT}__")
+    hunter_fatal_error(
+        "Incorrent HUNTER_ROOT directories:\n"
+        "defined: ${HUNTER_ROOT_OLD}\n"
+        "real: ${HUNTER_ROOT}"
+    )
+  endif()
+endif()
+
+unset(HUNTER_ROOT_OLD)
 
 set(HUNTER_BASE "${HUNTER_ROOT}/_base")
 
@@ -49,7 +51,7 @@ set(HUNTER_BASE "${HUNTER_ROOT}/_base")
 get_directory_property(HUNTER_EP_BASE_OLD EP_BASE)
 
 if(HUNTER_EP_BASE_OLD)
-  message(FATAL_ERROR "EP_BASE directory property already set")
+  hunter_fatal_error("EP_BASE directory property already set")
 endif()
 
 unset(HUNTER_EP_BASE_OLD)

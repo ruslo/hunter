@@ -7,17 +7,21 @@ include(ExternalProject) # ExternalProject_Add
 
 # Scheme for separated Release/Debug builds (like make)
 
+list(APPEND CMAKE_MODULE_PATH "@HUNTER_ROOT@/cmake/modules")
+
+include(hunter_fatal_error)
+
 if(XCODE_VERSION)
-  message(FATAL_ERROR "Not for Xcode")
+  hunter_fatal_error("Not for Xcode")
 endif()
 
 if(MSVC)
-  message(FATAL_ERROR "Not for MSVC")
+  hunter_fatal_error("Not for MSVC")
 endif()
 
 macro(check_not_empty var)
   if("--${var}__" STREQUAL "--__")
-    message(FATAL_ERROR "Variable is empty")
+    hunter_fatal_error("Variable is empty")
   endif()
 endmacro()
 

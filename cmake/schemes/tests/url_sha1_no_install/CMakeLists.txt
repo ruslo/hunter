@@ -22,5 +22,5 @@ execute_test(${CMAKE_COMMAND} .)
 execute_test(${CMAKE_COMMAND} --build .)
 
 if(EXISTS ${HUNTER_PACKAGE_INSTALL_DIR})
-  message(FATAL_ERROR "Install dir still exists!")
+  hunter_fatal_error("Install dir still exists!")
 endif()

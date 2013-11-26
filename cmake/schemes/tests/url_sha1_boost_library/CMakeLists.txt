@@ -39,9 +39,9 @@ execute_test(${CMAKE_COMMAND} .)
 execute_test(${CMAKE_COMMAND} --build .)
 
 if(NOT EXISTS ${HUNTER_PACKAGE_INSTALL_DIR}/include/boost/config.hpp)
-  message(FATAL_ERROR "Install failed")
+  hunter_fatal_error("Install failed")
 endif()
 
 if(NOT EXISTS ${HUNTER_PACKAGE_INSTALL_DIR}/lib)
-  message(FATAL_ERROR "Install libs failed")
+  hunter_fatal_error("Install libs failed")
 endif()

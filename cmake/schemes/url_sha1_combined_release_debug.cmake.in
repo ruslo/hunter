@@ -8,13 +8,17 @@ include(ExternalProject) # ExternalProject_Add
 # Scheme for Xcode and MSVC IDE:
 #     install both Debug and Release from one project
 
+list(APPEND CMAKE_MODULE_PATH "@HUNTER_ROOT@/cmake/modules")
+
+include(hunter_fatal_error)
+
 if(NOT XCODE_VERSION AND NOT MSVC)
-  message(FATAL_ERROR "Xcode or MSVC only")
+  hunter_fatal_error("Xcode or MSVC only")
 endif()
 
 macro(check_not_empty var)
   if("--${var}__" STREQUAL "--__")
-    message(FATAL_ERROR "Variable is empty")
+    hunter_fatal_error(FATAL_ERROR "Variable is empty")
   endif()
 endmacro()
 
