@@ -68,12 +68,16 @@ if(NOT libfound)
   hunter_fatal_error("No such library")
 endif()
 
+string(COMPARE EQUAL "${CMAKE_CXX_COMPILER_ID}" "Clang" compiler_is_clang)
+
 if(APPLE)
   set(toolset_name darwin)
 elseif(CMAKE_COMPILER_IS_GNUCXX)
   set(toolset_name gcc)
+elseif(compiler_is_clang)
+  set(toolset_name clang)
 else()
-  hunter_fatal_error("TODO")
+  hunter_fatal_error("TODO: set toolset for boost")
 endif()
 
 set(boost_user_jam @HUNTER_BASE@/boost.user.jam)
