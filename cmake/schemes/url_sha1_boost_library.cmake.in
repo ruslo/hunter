@@ -92,7 +92,7 @@ file(
 set(
     build_opts
     -a
-    link=static
+    link=static,shared
     threading=multi
     variant=release,debug
     --layout=tagged
