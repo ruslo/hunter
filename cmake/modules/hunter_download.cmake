@@ -24,10 +24,8 @@ function(hunter_download)
       "${HUNTER_PACKAGE_NAME} versions available: ${versions}"
   )
 
-  if(HUNTER_INSTALL_TAG)
-    set(h_tag "${HUNTER_INSTALL_TAG}")
-  else()
-    set(h_tag "default")
+  if(NOT HUNTER_INSTALL_TAG)
+    set(HUNTER_INSTALL_TAG "default")
   endif()
 
   set(h_name "${HUNTER_PACKAGE_NAME}") # Foo
@@ -43,7 +41,7 @@ function(hunter_download)
       do_install
   )
   if(do_install)
-    set(${h_root_name} "${HUNTER_BASE}/Install/${h_tag}")
+    set(${h_root_name} "${HUNTER_BASE}/Install/${HUNTER_INSTALL_TAG}")
   else()
     set(${h_root_name} "${HUNTER_BASE}/Source/${h_name}")
   endif()
