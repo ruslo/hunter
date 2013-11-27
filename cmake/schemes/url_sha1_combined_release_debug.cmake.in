@@ -11,27 +11,22 @@ include(ExternalProject) # ExternalProject_Add
 list(APPEND CMAKE_MODULE_PATH "@HUNTER_ROOT@/cmake/modules")
 
 include(hunter_fatal_error)
+include(hunter_test_string_not_empty)
 
 if(NOT XCODE_VERSION AND NOT MSVC)
   hunter_fatal_error("Xcode or MSVC only")
 endif()
 
-macro(check_not_empty var)
-  if("--${var}__" STREQUAL "--__")
-    hunter_fatal_error(FATAL_ERROR "Variable is empty")
-  endif()
-endmacro()
-
 # Check preconditions
-check_not_empty(@HUNTER_BASE@)
-check_not_empty(@HUNTER_PACKAGE_NAME@)
-check_not_empty(@HUNTER_PACKAGE_URL@)
-check_not_empty(@HUNTER_PACKAGE_SHA1@)
-check_not_empty(@HUNTER_PACKAGE_DOWNLOAD_DIR@)
-check_not_empty(@HUNTER_PACKAGE_SOURCE_DIR@)
-check_not_empty(@HUNTER_PACKAGE_INSTALL_DIR@)
-check_not_empty(@CMAKE_DEBUG_POSTFIX@)
-check_not_empty(${CMAKE_TOOLCHAIN_FILE})
+hunter_test_string_not_empty("@HUNTER_BASE@")
+hunter_test_string_not_empty("@HUNTER_PACKAGE_NAME@")
+hunter_test_string_not_empty("@HUNTER_PACKAGE_URL@")
+hunter_test_string_not_empty("@HUNTER_PACKAGE_SHA1@")
+hunter_test_string_not_empty("@HUNTER_PACKAGE_DOWNLOAD_DIR@")
+hunter_test_string_not_empty("@HUNTER_PACKAGE_SOURCE_DIR@")
+hunter_test_string_not_empty("@HUNTER_PACKAGE_INSTALL_DIR@")
+hunter_test_string_not_empty("@CMAKE_DEBUG_POSTFIX@")
+hunter_test_string_not_empty("${CMAKE_TOOLCHAIN_FILE}")
 
 set_directory_properties(
     PROPERTIES

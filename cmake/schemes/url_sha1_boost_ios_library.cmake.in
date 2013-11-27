@@ -10,24 +10,19 @@ include(ExternalProject) # ExternalProject_Add
 list(APPEND CMAKE_MODULE_PATH "@HUNTER_ROOT@/cmake/modules")
 
 include(hunter_fatal_error)
-
-macro(check_not_empty var)
-  if("--${var}__" STREQUAL "--__")
-    hunter_fatal_error("Variable is empty")
-  endif()
-endmacro()
+include(hunter_test_string_not_empty)
 
 # Check preconditions
-check_not_empty(@HUNTER_BASE@)
-check_not_empty(@HUNTER_ROOT@)
-check_not_empty(@HUNTER_PACKAGE_NAME@)
-check_not_empty(@HUNTER_PACKAGE_DOWNLOAD_DIR@)
-check_not_empty(@HUNTER_PACKAGE_SOURCE_DIR@)
-check_not_empty(@HUNTER_PACKAGE_INSTALL_DIR@)
-check_not_empty(@HUNTER_PACKAGE_BOOST_LIBRARY@)
-check_not_empty(@XCODE_DEVELOPER_ROOT@)
-check_not_empty(@IOS_SDK_VERSION@)
-check_not_empty(@IOS_ARCHS@)
+hunter_test_string_not_empty("@HUNTER_BASE@")
+hunter_test_string_not_empty("@HUNTER_ROOT@")
+hunter_test_string_not_empty("@HUNTER_PACKAGE_NAME@")
+hunter_test_string_not_empty("@HUNTER_PACKAGE_DOWNLOAD_DIR@")
+hunter_test_string_not_empty("@HUNTER_PACKAGE_SOURCE_DIR@")
+hunter_test_string_not_empty("@HUNTER_PACKAGE_INSTALL_DIR@")
+hunter_test_string_not_empty("@HUNTER_PACKAGE_BOOST_LIBRARY@")
+hunter_test_string_not_empty("@XCODE_DEVELOPER_ROOT@")
+hunter_test_string_not_empty("@IOS_SDK_VERSION@")
+hunter_test_string_not_empty("@IOS_ARCHS@")
 
 set_directory_properties(
     PROPERTIES
@@ -66,7 +61,8 @@ set(
 
 set(libfound NO)
 foreach(x ${boost_libs})
-  if(x STREQUAL @HUNTER_PACKAGE_BOOST_LIBRARY@)
+  string(COMPARE EQUAL "${x}" "@HUNTER_PACKAGE_BOOST_LIBRARY@" result)
+  if(result)
     set(libfound YES)
   endif()
 endforeach()

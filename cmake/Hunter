@@ -34,13 +34,15 @@ include(hunter_fatal_error)
 hunter_status_print("HUNTER_ROOT: ${HUNTER_ROOT}")
 
 if(HUNTER_ROOT_OLD)
-  if(NOT "--${HUNTER_ROOT_OLD}__" STREQUAL "--${HUNTER_ROOT}__")
+  string(COMPARE NOTEQUAL "${HUNTER_ROOT_OLD}" "${HUNTER_ROOT}" HUNTER_RESULT)
+  if(HUNTER_RESULT)
     hunter_fatal_error(
         "Incorrent HUNTER_ROOT directories:\n"
         "defined: ${HUNTER_ROOT_OLD}\n"
         "real: ${HUNTER_ROOT}"
     )
   endif()
+  unset(HUNTER_RESULT)
 endif()
 
 unset(HUNTER_ROOT_OLD)

@@ -9,23 +9,17 @@ include(ExternalProject) # ExternalProject_Add
 
 list(APPEND CMAKE_MODULE_PATH "@HUNTER_ROOT@/cmake/modules")
 
-include(hunter_fatal_error)
-
-macro(check_not_empty var)
-  if("--${var}__" STREQUAL "--__")
-    hunter_fatal_error("Variable is empty")
-  endif()
-endmacro()
+include(hunter_test_string_not_empty)
 
 # Check preconditions
-check_not_empty(@HUNTER_ROOT@)
-check_not_empty(@HUNTER_BASE@)
-check_not_empty(@HUNTER_PACKAGE_NAME@)
-check_not_empty(@HUNTER_PACKAGE_URL@)
-check_not_empty(@HUNTER_PACKAGE_SHA1@)
-check_not_empty(@HUNTER_PACKAGE_DOWNLOAD_DIR@)
-check_not_empty(@HUNTER_PACKAGE_SOURCE_DIR@)
-check_not_empty(@HUNTER_PACKAGE_INSTALL_DIR@)
+hunter_test_string_not_empty("@HUNTER_ROOT@")
+hunter_test_string_not_empty("@HUNTER_BASE@")
+hunter_test_string_not_empty("@HUNTER_PACKAGE_NAME@")
+hunter_test_string_not_empty("@HUNTER_PACKAGE_URL@")
+hunter_test_string_not_empty("@HUNTER_PACKAGE_SHA1@")
+hunter_test_string_not_empty("@HUNTER_PACKAGE_DOWNLOAD_DIR@")
+hunter_test_string_not_empty("@HUNTER_PACKAGE_SOURCE_DIR@")
+hunter_test_string_not_empty("@HUNTER_PACKAGE_INSTALL_DIR@")
 
 set_directory_properties(
     PROPERTIES

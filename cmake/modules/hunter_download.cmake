@@ -35,7 +35,14 @@ function(hunter_download)
   set(h_root_name "${h_root_name}_ROOT") # FOO_ROOT
 
   set(ver ${HUNTER_${h_name}_VERSION})
-  if(HUNTER_DOWNLOAD_SCHEME STREQUAL url_sha1_no_install)
+  string(
+      COMPARE
+      NOTEQUAL
+      "${HUNTER_DOWNLOAD_SCHEME}"
+      "url_sha1_no_install"
+      do_install
+  )
+  if(do_install)
     set(${h_root_name} "${HUNTER_BASE}/Source/${h_name}")
   else()
     set(${h_root_name} "${HUNTER_BASE}/Install/${h_tag}")
