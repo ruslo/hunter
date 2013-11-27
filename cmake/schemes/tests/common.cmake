@@ -3,10 +3,10 @@
 
 cmake_minimum_required(VERSION 2.8.8)
 
-include(${CMAKE_CURRENT_LIST_DIR}/utilities.cmake)
-
 set(HUNTER_ROOT "${CMAKE_CURRENT_LIST_DIR}/../../..")
 include(${HUNTER_ROOT}/cmake/Hunter)
+
+include(${CMAKE_CURRENT_LIST_DIR}/utilities.cmake)
 
 # rewrite base for testing
 set(HUNTER_BASE ${PROJECT_BINARY_DIR}/_hunter_base)
