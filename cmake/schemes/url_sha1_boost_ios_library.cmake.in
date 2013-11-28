@@ -170,6 +170,10 @@ else()
   set(bootstrap ./bootstrap.sh)
 endif()
 
+if(@HUNTER_STATUS_DEBUG@)
+  set(verbose_output "-d+2")
+endif()
+
 ExternalProject_Add(
     @HUNTER_PACKAGE_NAME@_@HUNTER_PACKAGE_BOOST_LIBRARY@_ios
     DOWNLOAD_COMMAND
@@ -187,7 +191,7 @@ ExternalProject_Add(
     --prefix=@HUNTER_PACKAGE_INSTALL_DIR@
     BUILD_COMMAND
     ./b2
-    -d+2
+    ${verbose_output}
     ${build_opts_iphoneos}
     BUILD_IN_SOURCE
     1
@@ -212,7 +216,7 @@ ExternalProject_Add(
     --prefix=@HUNTER_PACKAGE_INSTALL_DIR@
     BUILD_COMMAND
     ./b2
-    -d+2
+    ${verbose_output}
     ${build_opts_iphonesimulator}
     BUILD_IN_SOURCE
     1
