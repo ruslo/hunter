@@ -133,3 +133,18 @@ ExternalProject_Add(
     ${build_opts}
     install
 )
+
+if(APPLE)
+  find_package(PythonInterp 3.2 REQUIRED)
+  ExternalProject_Add_Step(
+      @HUNTER_PACKAGE_NAME@_@HUNTER_PACKAGE_BOOST_LIBRARY@
+      FixDylibId
+      COMMAND
+      ${PYTHON_EXECUTABLE}
+      "@HUNTER_ROOT@/scripts/fix-boost-dylib-id.py"
+      "--install-dir"
+      "@HUNTER_PACKAGE_INSTALL_DIR@/lib"
+      DEPENDEES
+      install
+  )
+endif()
