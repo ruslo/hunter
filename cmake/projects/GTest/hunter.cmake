@@ -39,11 +39,21 @@ hunter_add_version(
     0cb1dcf75e144ad052d3f1e4923a7773bf9b494f
 )
 
+string(COMPARE EQUAL "${CMAKE_OSX_SYSROOT}" "iphoneos" _hunter_result)
+if(_hunter_result)
+  set(_hunter_download_scheme url_sha1_combined_release_debug)
+else()
+  set(_hunter_download_scheme url_sha1_release_debug)
+endif()
+unset(_hunter_result)
+
 hunter_download(
     PACKAGE_NAME
     GTest
     DEPENDS
     Sugar
     DOWNLOAD_SCHEME
-    url_sha1_release_debug
+    ${_hunter_download_scheme}
 )
+
+unset(_hunter_download_scheme)
