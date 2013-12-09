@@ -1,0 +1,65 @@
+# Copyright (c) 2013, Ruslan Baratov
+# All rights reserved.
+
+cmake_minimum_required(VERSION 2.8.10) # SHA1
+
+include(ExternalProject) # ExternalProject_Add
+
+# Scheme for download and install OpenSSL library
+
+list(APPEND CMAKE_MODULE_PATH "@HUNTER_ROOT@/cmake/modules")
+
+include(hunter_test_string_not_empty)
+
+# Check preconditions
+hunter_test_string_not_empty("@HUNTER_BASE@")
+hunter_test_string_not_empty("@HUNTER_ROOT@")
+hunter_test_string_not_empty("@HUNTER_PACKAGE_NAME@")
+hunter_test_string_not_empty("@HUNTER_PACKAGE_URL@")
+hunter_test_string_not_empty("@HUNTER_PACKAGE_SHA1@")
+hunter_test_string_not_empty("@HUNTER_PACKAGE_DOWNLOAD_DIR@")
+hunter_test_string_not_empty("@HUNTER_PACKAGE_SOURCE_DIR@")
+hunter_test_string_not_empty("@HUNTER_PACKAGE_INSTALL_DIR@")
+hunter_test_string_not_empty("@HUNTER_INSTALL_TAG@")
+
+if(@HUNTER_STATUS_DEBUG@)
+  set(CMAKE_VERBOSE_MAKEFILE ON)
+endif()
+
+set_directory_properties(
+    PROPERTIES
+    EP_BASE
+    @HUNTER_BASE@
+)
+
+if(APPLE)
+  set(configure_opts "darwin64-x86_64-cc")
+endif()
+
+set(configure_opts ${configure_opts} threads no-shared)
+
+ExternalProject_Add(
+    @HUNTER_PACKAGE_NAME@
+    URL
+    @HUNTER_PACKAGE_URL@
+    URL_HASH
+    SHA1=@HUNTER_PACKAGE_SHA1@
+    DOWNLOAD_DIR
+    @HUNTER_PACKAGE_DOWNLOAD_DIR@
+    SOURCE_DIR
+    @HUNTER_PACKAGE_SOURCE_DIR@_@HUNTER_INSTALL_TAG@
+        # out of source build is not working
+    INSTALL_DIR
+    @HUNTER_PACKAGE_INSTALL_DIR@
+        # not used, just avoid creating Install/<name> empty directory
+    CONFIGURE_COMMAND
+    ./Configure
+    ${configure_opts}
+    --prefix=@HUNTER_PACKAGE_INSTALL_DIR@
+    BUILD_COMMAND
+    make
+    BUILD_IN_SOURCE
+    1
+    INSTALL_COMMAND
+    make install
+)
