@@ -26,6 +26,7 @@ endif()
 
 ### add cmake modules to search path
 list(APPEND CMAKE_MODULE_PATH "${HUNTER_ROOT}/cmake/modules")
+list(APPEND CMAKE_MODULE_PATH "${HUNTER_ROOT}/cmake/find")
 
 include(hunter_status_debug)
 include(hunter_status_print)
