@@ -33,6 +33,11 @@ function(hunter_download)
   set(h_root_name "${h_root_name}_ROOT") # FOO_ROOT
 
   set(ver ${HUNTER_${h_name}_VERSION})
+  if(NOT ver AND ${h_root_name})
+    # custom location
+    return()
+  endif()
+
   string(
       COMPARE
       NOTEQUAL
@@ -91,7 +96,6 @@ function(hunter_download)
   set(HUNTER_PACKAGE_SOURCE_DIR "${HUNTER_BASE}/Source/${h_name}")
 
   if(NOT HUNTER_PACKAGE_URL)
-    set(ver ${HUNTER_${h_name}_VERSION})
     set(avail ${HUNTER_${h_name}_VERSIONS})
     hunter_fatal_error(
         "${h_name} version(${ver}) not found. Available: [${avail}]"

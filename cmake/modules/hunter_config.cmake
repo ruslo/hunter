@@ -27,6 +27,9 @@ macro(hunter_config)
   if(_hunter_c_CUSTOM)
     set(${_hunter_c_root} "${_hunter_c_CUSTOM}")
     set(ENV{${_hunter_c_root}} ${${_hunter_c_root}})
+    hunter_status_print(
+        "Custom location ${_hunter_c_root}: ${${_hunter_c_root}}"
+    )
   elseif(_hunter_c_VERSION)
     set(HUNTER_${_hunter_c_current_project}_VERSION ${_hunter_c_VERSION})
   else()
