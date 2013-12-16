@@ -10,7 +10,10 @@ include(ExternalProject) # ExternalProject_Add
 list(APPEND CMAKE_MODULE_PATH "@HUNTER_ROOT@/cmake/modules")
 
 include(hunter_fatal_error)
+include(hunter_status_debug)
 include(hunter_test_string_not_empty)
+
+hunter_status_debug("Scheme: url_sha1_release_debug")
 
 if(XCODE_VERSION)
   hunter_fatal_error("Not for Xcode")
