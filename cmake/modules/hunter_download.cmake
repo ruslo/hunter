@@ -34,7 +34,8 @@ function(hunter_download)
 
   set(ver ${HUNTER_${h_name}_VERSION})
   if(NOT ver AND ${h_root_name})
-    # custom location
+    # function `hunter_add_version` will skip set if root already
+    # defined by custom location => ver is empty
     return()
   endif()
 
@@ -134,11 +135,14 @@ function(hunter_download)
     set(h_generator)
   endif()
 
+  hunter_status_debug("Run generate")
+
   # Configure and build download project
   execute_process(
       COMMAND
       ${CMAKE_COMMAND}
       "-DCMAKE_TOOLCHAIN_FILE=${toolchain_wrapper}"
+      "-DHUNTER_STATUS_DEBUG=${HUNTER_STATUS_DEBUG}"
       ${h_generator}
       ${verbose_makefile}
       "./"
@@ -151,6 +155,8 @@ function(hunter_download)
   if(NOT ${h_generate_result} EQUAL 0)
     hunter_fatal_error("generate step failed")
   endif()
+
+  hunter_status_debug("Run build")
 
   execute_process(
       COMMAND
