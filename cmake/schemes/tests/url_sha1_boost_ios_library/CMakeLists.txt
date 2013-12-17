@@ -59,6 +59,8 @@ endforeach()
 
 set(IOS_ARCHS armv7;armv7s)
 
+set(HUNTER_PACKAGE_VARIANTS ios ios_sim ios_universal)
+
 # Install library
 configure_file(
     ${HUNTER_ROOT}/cmake/schemes/url_sha1_boost_ios_library.cmake.in
