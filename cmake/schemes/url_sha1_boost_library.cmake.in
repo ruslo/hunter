@@ -21,7 +21,7 @@ hunter_test_string_not_empty("@HUNTER_PACKAGE_NAME@")
 hunter_test_string_not_empty("@HUNTER_PACKAGE_DOWNLOAD_DIR@")
 hunter_test_string_not_empty("@HUNTER_PACKAGE_SOURCE_DIR@")
 hunter_test_string_not_empty("@HUNTER_PACKAGE_INSTALL_DIR@")
-hunter_test_string_not_empty("@HUNTER_PACKAGE_BOOST_LIBRARY@")
+hunter_test_string_not_empty("@HUNTER_PACKAGE_COMPONENT@")
 hunter_test_string_not_empty("@CMAKE_CXX_COMPILER@")
 
 set_directory_properties(
@@ -61,7 +61,7 @@ set(
 
 set(libfound NO)
 foreach(x ${boost_libs})
-  string(COMPARE EQUAL "${x}" "@HUNTER_PACKAGE_BOOST_LIBRARY@" result)
+  string(COMPARE EQUAL "${x}" "@HUNTER_PACKAGE_COMPONENT@" result)
   if(result)
     set(libfound YES)
   endif()
@@ -108,7 +108,7 @@ if(@HUNTER_STATUS_DEBUG@)
 endif()
 
 ExternalProject_Add(
-    @HUNTER_PACKAGE_NAME@_@HUNTER_PACKAGE_BOOST_LIBRARY@
+    @HUNTER_PACKAGE_NAME@_@HUNTER_PACKAGE_COMPONENT@
     URL
     DOWNLOAD_COMMAND
     ${CMAKE_COMMAND} -E echo "Skip download"
@@ -121,7 +121,7 @@ ExternalProject_Add(
         # not used, just avoid creating Install/<name> empty directory
     CONFIGURE_COMMAND
     ./bootstrap.sh
-    --with-libraries=@HUNTER_PACKAGE_BOOST_LIBRARY@
+    --with-libraries=@HUNTER_PACKAGE_COMPONENT@
     --prefix=@HUNTER_PACKAGE_INSTALL_DIR@
     --with-toolset=${toolset_name}
     BUILD_COMMAND
@@ -140,7 +140,7 @@ ExternalProject_Add(
 if(APPLE)
   find_package(PythonInterp 3.2 REQUIRED)
   ExternalProject_Add_Step(
-      @HUNTER_PACKAGE_NAME@_@HUNTER_PACKAGE_BOOST_LIBRARY@
+      @HUNTER_PACKAGE_NAME@_@HUNTER_PACKAGE_COMPONENT@
       FixDylibId
       COMMAND
       ${PYTHON_EXECUTABLE}

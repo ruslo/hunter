@@ -16,7 +16,7 @@ set(
     cef9a0cc7084b1d639e06cd3bc34e4251524c840
 )
 
-set(HUNTER_PACKAGE_BOOST_LIBRARY system)
+set(HUNTER_PACKAGE_COMPONENT system)
 
 # Download boost
 configure_file(

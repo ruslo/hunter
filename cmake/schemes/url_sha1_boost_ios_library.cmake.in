@@ -22,7 +22,7 @@ hunter_test_string_not_empty("@HUNTER_PACKAGE_NAME@")
 hunter_test_string_not_empty("@HUNTER_PACKAGE_DOWNLOAD_DIR@")
 hunter_test_string_not_empty("@HUNTER_PACKAGE_SOURCE_DIR@")
 hunter_test_string_not_empty("@HUNTER_PACKAGE_INSTALL_DIR@")
-hunter_test_string_not_empty("@HUNTER_PACKAGE_BOOST_LIBRARY@")
+hunter_test_string_not_empty("@HUNTER_PACKAGE_COMPONENT@")
 hunter_test_string_not_empty("@XCODE_DEVELOPER_ROOT@")
 hunter_test_string_not_empty("@IOS_SDK_VERSION@")
 hunter_test_string_not_empty("@IOS_ARCHS@")
@@ -64,7 +64,7 @@ set(
 
 set(libfound NO)
 foreach(x ${boost_libs})
-  string(COMPARE EQUAL "${x}" "@HUNTER_PACKAGE_BOOST_LIBRARY@" result)
+  string(COMPARE EQUAL "${x}" "@HUNTER_PACKAGE_COMPONENT@" result)
   if(result)
     set(libfound YES)
   endif()
@@ -178,7 +178,7 @@ if(@HUNTER_STATUS_DEBUG@)
 endif()
 
 ExternalProject_Add(
-    @HUNTER_PACKAGE_NAME@_@HUNTER_PACKAGE_BOOST_LIBRARY@_ios
+    @HUNTER_PACKAGE_NAME@_@HUNTER_PACKAGE_COMPONENT@_ios
     DOWNLOAD_COMMAND
     ${CMAKE_COMMAND} -E echo "skip download"
     DOWNLOAD_DIR
@@ -190,7 +190,7 @@ ExternalProject_Add(
         # not used, just avoid creating Install/<name> empty directory
     CONFIGURE_COMMAND
     ${bootstrap}
-    --with-libraries=@HUNTER_PACKAGE_BOOST_LIBRARY@
+    --with-libraries=@HUNTER_PACKAGE_COMPONENT@
     --prefix=@HUNTER_PACKAGE_INSTALL_DIR@
     BUILD_COMMAND
     ./b2
@@ -203,7 +203,7 @@ ExternalProject_Add(
 )
 
 ExternalProject_Add(
-    @HUNTER_PACKAGE_NAME@_@HUNTER_PACKAGE_BOOST_LIBRARY@_ios_sim
+    @HUNTER_PACKAGE_NAME@_@HUNTER_PACKAGE_COMPONENT@_ios_sim
     DOWNLOAD_COMMAND
     ${CMAKE_COMMAND} -E echo "skip download"
     DOWNLOAD_DIR
@@ -215,7 +215,7 @@ ExternalProject_Add(
         # not used, just avoid creating Install/<name> empty directory
     CONFIGURE_COMMAND
     ${bootstrap}
-    --with-libraries=@HUNTER_PACKAGE_BOOST_LIBRARY@
+    --with-libraries=@HUNTER_PACKAGE_COMPONENT@
     --prefix=@HUNTER_PACKAGE_INSTALL_DIR@
     BUILD_COMMAND
     ./b2
@@ -228,10 +228,10 @@ ExternalProject_Add(
 )
 
 ExternalProject_Add(
-    @HUNTER_PACKAGE_NAME@_@HUNTER_PACKAGE_BOOST_LIBRARY@_ios_universal
+    @HUNTER_PACKAGE_NAME@_@HUNTER_PACKAGE_COMPONENT@_ios_universal
     DEPENDS
-    @HUNTER_PACKAGE_NAME@_@HUNTER_PACKAGE_BOOST_LIBRARY@_ios
-    @HUNTER_PACKAGE_NAME@_@HUNTER_PACKAGE_BOOST_LIBRARY@_ios_sim
+    @HUNTER_PACKAGE_NAME@_@HUNTER_PACKAGE_COMPONENT@_ios
+    @HUNTER_PACKAGE_NAME@_@HUNTER_PACKAGE_COMPONENT@_ios_sim
     DOWNLOAD_COMMAND
     ${CMAKE_COMMAND} -E echo "skip download"
     DOWNLOAD_DIR
@@ -250,6 +250,6 @@ ExternalProject_Add(
     COMMAND
     "@HUNTER_ROOT@/scripts/create-boost-ios-fatlib.sh"
     "@HUNTER_PACKAGE_SOURCE_DIR@"
-    "@HUNTER_PACKAGE_BOOST_LIBRARY@"
+    "@HUNTER_PACKAGE_COMPONENT@"
     "@HUNTER_PACKAGE_INSTALL_DIR@/lib"
 )

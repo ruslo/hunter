@@ -9,7 +9,7 @@ endif()
 
 include(hunter_download)
 
-set(HUNTER_PACKAGE_BOOST_LIBRARY filesystem)
+set(HUNTER_PACKAGE_COMPONENT filesystem)
 
 string(COMPARE EQUAL "${CMAKE_OSX_SYSROOT}" "iphoneos" _hunter_result)
 if(_hunter_result)
