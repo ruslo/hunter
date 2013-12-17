@@ -11,6 +11,7 @@ function(hunter_download)
   set(
       h_one_value
       PACKAGE_NAME # Foo
+      PACKAGE_COMPONENT
       DOWNLOAD_SCHEME
   )
   set(h_multiple_values DEPENDS) # Boo
