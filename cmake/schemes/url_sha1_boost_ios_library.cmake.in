@@ -9,6 +9,7 @@ include(ExternalProject) # ExternalProject_Add
 
 list(APPEND CMAKE_MODULE_PATH "@HUNTER_ROOT@/cmake/modules")
 
+include(hunter_assert_lists_equal)
 include(hunter_fatal_error)
 include(hunter_status_debug)
 include(hunter_test_string_not_empty)
@@ -26,6 +27,8 @@ hunter_test_string_not_empty("@HUNTER_PACKAGE_COMPONENT@")
 hunter_test_string_not_empty("@XCODE_DEVELOPER_ROOT@")
 hunter_test_string_not_empty("@IOS_SDK_VERSION@")
 hunter_test_string_not_empty("@IOS_ARCHS@")
+
+hunter_assert_lists_equal(@HUNTER_PACKAGE_VARIANTS@ ios ios_sim ios_universal)
 
 set_directory_properties(
     PROPERTIES

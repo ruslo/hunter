@@ -9,6 +9,7 @@ include(ExternalProject) # ExternalProject_Add
 
 list(APPEND CMAKE_MODULE_PATH "@HUNTER_ROOT@/cmake/modules")
 
+include(hunter_assert_lists_equal)
 include(hunter_fatal_error)
 include(hunter_status_debug)
 include(hunter_test_string_not_empty)
@@ -33,6 +34,8 @@ hunter_test_string_not_empty("@HUNTER_PACKAGE_SOURCE_DIR@")
 hunter_test_string_not_empty("@HUNTER_PACKAGE_INSTALL_DIR@")
 hunter_test_string_not_empty("@CMAKE_DEBUG_POSTFIX@")
 hunter_test_string_not_empty("${CMAKE_TOOLCHAIN_FILE}")
+
+hunter_assert_lists_equal(@HUNTER_PACKAGE_VARIANTS@ release debug)
 
 set_directory_properties(
     PROPERTIES
