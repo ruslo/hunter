@@ -8,7 +8,11 @@ include(hunter_status_debug)
 include(hunter_status_print)
 
 function(hunter_download)
-  set(h_one_value PACKAGE_NAME DOWNLOAD_SCHEME) # (PACKAGE_NAME = Foo)
+  set(
+      h_one_value
+      PACKAGE_NAME # Foo
+      DOWNLOAD_SCHEME
+  )
   set(h_multiple_values DEPENDS) # Boo
 
   CMAKE_PARSE_ARGUMENTS(
