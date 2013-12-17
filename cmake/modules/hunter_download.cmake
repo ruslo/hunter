@@ -33,6 +33,7 @@ function(hunter_download)
     set(HUNTER_INSTALL_TAG "default")
   endif()
 
+  # Set <LIB>_ROOT variables
   set(h_name "${HUNTER_PACKAGE_NAME}") # Foo
   string(TOUPPER "${h_name}" h_root_name) # FOO
   set(h_root_name "${h_root_name}_ROOT") # FOO_ROOT
@@ -108,9 +109,25 @@ function(hunter_download)
     )
   endif()
 
-  set(HUNTER_PACKAGE_NAME "${HUNTER_PACKAGE_NAME}_${HUNTER_INSTALL_TAG}")
+  # HUNTER_PACKAGE_BASENAME = <name[-component]-tag>
+  set(HUNTER_PACKAGE_BASENAME "${HUNTER_PACKAGE_NAME}")
+  if(HUNTER_PACKAGE_COMPONENT)
+    set(
+        HUNTER_PACKAGE_BASENAME
+        "${HUNTER_PACKAGE_BASENAME}-${HUNTER_PACKAGE_COMPONENT}"
+    )
+  endif()
+  set(
+      HUNTER_PACKAGE_BASENAME
+      "${HUNTER_PACKAGE_BASENAME}-${HUNTER_INSTALL_TAG}"
+  )
 
+  # print info before start generation/run
   hunter_status_debug("Add package: ${HUNTER_PACKAGE_NAME}")
+  if(HUNTER_PACKAGE_COMPONENT)
+    hunter_status_debug("Component: ${HUNTER_PACKAGE_COMPONENT}")
+  endif()
+  hunter_status_debug("Install tag: ${HUNTER_INSTALL_TAG}")
   hunter_status_debug("Url: ${HUNTER_PACKAGE_URL}")
   hunter_status_debug("SHA1: ${HUNTER_PACKAGE_SHA1}")
 

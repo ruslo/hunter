@@ -22,7 +22,7 @@ endif()
 
 # Check preconditions
 hunter_test_string_not_empty("@HUNTER_BASE@")
-hunter_test_string_not_empty("@HUNTER_PACKAGE_NAME@")
+hunter_test_string_not_empty("@HUNTER_PACKAGE_BASENAME@")
 hunter_test_string_not_empty("@HUNTER_PACKAGE_URL@")
 hunter_test_string_not_empty("@HUNTER_PACKAGE_SHA1@")
 hunter_test_string_not_empty("@HUNTER_PACKAGE_DOWNLOAD_DIR@")
@@ -38,7 +38,7 @@ set_directory_properties(
 )
 
 ExternalProject_Add(
-    @HUNTER_PACKAGE_NAME@
+    @HUNTER_PACKAGE_BASENAME@
     URL
     @HUNTER_PACKAGE_URL@
     URL_HASH

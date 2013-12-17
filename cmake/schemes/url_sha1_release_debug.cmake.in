@@ -25,7 +25,7 @@ endif()
 
 # Check preconditions
 hunter_test_string_not_empty("@HUNTER_BASE@")
-hunter_test_string_not_empty("@HUNTER_PACKAGE_NAME@")
+hunter_test_string_not_empty("@HUNTER_PACKAGE_BASENAME@")
 hunter_test_string_not_empty("@HUNTER_PACKAGE_URL@")
 hunter_test_string_not_empty("@HUNTER_PACKAGE_SHA1@")
 hunter_test_string_not_empty("@HUNTER_PACKAGE_DOWNLOAD_DIR@")
@@ -45,7 +45,7 @@ if(@HUNTER_STATUS_DEBUG@)
 endif()
 
 ExternalProject_Add(
-    @HUNTER_PACKAGE_NAME@_Release
+    @HUNTER_PACKAGE_BASENAME@-release
     URL
     @HUNTER_PACKAGE_URL@
     URL_HASH
@@ -66,7 +66,7 @@ ExternalProject_Add(
 
 # download and source step will use previous target source dir (skipped)
 ExternalProject_Add(
-    @HUNTER_PACKAGE_NAME@_Debug
+    @HUNTER_PACKAGE_BASENAME@-debug
     DOWNLOAD_COMMAND
     ""
     DOWNLOAD_DIR
@@ -85,6 +85,6 @@ ExternalProject_Add(
 
 # debug version use release download result
 add_dependencies(
-    @HUNTER_PACKAGE_NAME@_Debug
-    @HUNTER_PACKAGE_NAME@_Release
+    @HUNTER_PACKAGE_BASENAME@-debug
+    @HUNTER_PACKAGE_BASENAME@-release
 )

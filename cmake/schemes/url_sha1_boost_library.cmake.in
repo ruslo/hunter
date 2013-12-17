@@ -17,7 +17,7 @@ hunter_status_debug("Scheme: url_sha1_boost_library")
 
 # Check preconditions
 hunter_test_string_not_empty("@HUNTER_BASE@")
-hunter_test_string_not_empty("@HUNTER_PACKAGE_NAME@")
+hunter_test_string_not_empty("@HUNTER_PACKAGE_BASENAME@")
 hunter_test_string_not_empty("@HUNTER_PACKAGE_DOWNLOAD_DIR@")
 hunter_test_string_not_empty("@HUNTER_PACKAGE_SOURCE_DIR@")
 hunter_test_string_not_empty("@HUNTER_PACKAGE_INSTALL_DIR@")
@@ -108,7 +108,7 @@ if(@HUNTER_STATUS_DEBUG@)
 endif()
 
 ExternalProject_Add(
-    @HUNTER_PACKAGE_NAME@_@HUNTER_PACKAGE_COMPONENT@
+    @HUNTER_PACKAGE_BASENAME@
     URL
     DOWNLOAD_COMMAND
     ${CMAKE_COMMAND} -E echo "Skip download"
@@ -140,7 +140,7 @@ ExternalProject_Add(
 if(APPLE)
   find_package(PythonInterp 3.2 REQUIRED)
   ExternalProject_Add_Step(
-      @HUNTER_PACKAGE_NAME@_@HUNTER_PACKAGE_COMPONENT@
+      @HUNTER_PACKAGE_BASENAME@
       FixDylibId
       COMMAND
       ${PYTHON_EXECUTABLE}

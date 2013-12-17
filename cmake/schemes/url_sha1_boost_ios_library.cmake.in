@@ -18,7 +18,7 @@ hunter_status_debug("Scheme: url_sha1_boost_ios_library")
 # Check preconditions
 hunter_test_string_not_empty("@HUNTER_BASE@")
 hunter_test_string_not_empty("@HUNTER_ROOT@")
-hunter_test_string_not_empty("@HUNTER_PACKAGE_NAME@")
+hunter_test_string_not_empty("@HUNTER_PACKAGE_BASENAME@")
 hunter_test_string_not_empty("@HUNTER_PACKAGE_DOWNLOAD_DIR@")
 hunter_test_string_not_empty("@HUNTER_PACKAGE_SOURCE_DIR@")
 hunter_test_string_not_empty("@HUNTER_PACKAGE_INSTALL_DIR@")
@@ -178,7 +178,7 @@ if(@HUNTER_STATUS_DEBUG@)
 endif()
 
 ExternalProject_Add(
-    @HUNTER_PACKAGE_NAME@_@HUNTER_PACKAGE_COMPONENT@_ios
+    @HUNTER_PACKAGE_BASENAME@-ios
     DOWNLOAD_COMMAND
     ${CMAKE_COMMAND} -E echo "skip download"
     DOWNLOAD_DIR
@@ -203,7 +203,7 @@ ExternalProject_Add(
 )
 
 ExternalProject_Add(
-    @HUNTER_PACKAGE_NAME@_@HUNTER_PACKAGE_COMPONENT@_ios_sim
+    @HUNTER_PACKAGE_BASENAME@-ios_sim
     DOWNLOAD_COMMAND
     ${CMAKE_COMMAND} -E echo "skip download"
     DOWNLOAD_DIR
@@ -228,10 +228,10 @@ ExternalProject_Add(
 )
 
 ExternalProject_Add(
-    @HUNTER_PACKAGE_NAME@_@HUNTER_PACKAGE_COMPONENT@_ios_universal
+    @HUNTER_PACKAGE_BASENAME@-ios_universal
     DEPENDS
-    @HUNTER_PACKAGE_NAME@_@HUNTER_PACKAGE_COMPONENT@_ios
-    @HUNTER_PACKAGE_NAME@_@HUNTER_PACKAGE_COMPONENT@_ios_sim
+    @HUNTER_PACKAGE_BASENAME@-ios
+    @HUNTER_PACKAGE_BASENAME@-ios_sim
     DOWNLOAD_COMMAND
     ${CMAKE_COMMAND} -E echo "skip download"
     DOWNLOAD_DIR
