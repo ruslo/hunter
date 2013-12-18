@@ -15,6 +15,7 @@ env:
     - TEST_DIR=cmake/schemes TEST_NAME=tests/url_sha1_combined_release_debug
     - TEST_DIR=cmake/schemes TEST_NAME=tests/url_sha1_no_install
     - TEST_DIR=cmake/schemes TEST_NAME=tests/url_sha1_openssl
+    - TEST_DIR=cmake/schemes TEST_NAME=tests/url_sha1_openssl_ios
     - TEST_DIR=cmake/schemes TEST_NAME=tests/url_sha1_release_debug
     - TEST_DIR=examples TEST_NAME=Sugar
     - TEST_DIR=examples TEST_NAME=GTest

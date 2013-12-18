@@ -57,9 +57,18 @@ hunter_add_version(
     b485a818490bd2818b7e948b26656c11fea77782
 )
 
+string(COMPARE EQUAL "${CMAKE_OSX_SYSROOT}" "iphoneos" _hunter_result)
+if(_hunter_result)
+  set(_hunter_download_scheme url_sha1_openssl_ios)
+else()
+  set(_hunter_download_scheme url_sha1_openssl)
+endif()
+unset(_hunter_result)
+
 hunter_download(
     PACKAGE_NAME
     OpenSSL
     DOWNLOAD_SCHEME
-    url_sha1_openssl
+    ${_hunter_download_scheme}
 )
+unset(_hunter_download_scheme)

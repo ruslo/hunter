@@ -146,6 +146,17 @@ function(hunter_download)
     set(HUNTER_PACKAGE_VARIANTS release debug)
   endif()
 
+  string(
+      COMPARE
+      EQUAL
+      "${HUNTER_DOWNLOAD_SCHEME}"
+      "url_sha1_openssl_ios"
+      is_openssl_ios
+  )
+  if(is_openssl_ios)
+    set(HUNTER_PACKAGE_VARIANTS ${IOS_ARCHS} i386 ios_universal)
+  endif()
+
   # print info before start generation/run
   hunter_status_debug("Add package: ${HUNTER_PACKAGE_NAME}")
   if(HUNTER_PACKAGE_COMPONENT)

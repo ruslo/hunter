@@ -24,6 +24,9 @@ set(HUNTER_PACKAGE_INSTALL_DIR ${HUNTER_BASE}/Install)
 set(HUNTER_PACKAGE_DOWNLOAD_DIR ${HUNTER_BASE}/Download/${HUNTER_PACKAGE_NAME})
 set(HUNTER_PACKAGE_SOURCE_DIR ${HUNTER_BASE}/Source/${HUNTER_PACKAGE_NAME})
 
+# more verbose
+set(HUNTER_STATUS_DEBUG ON)
+
 if(APPLE)
   # Emulate polly/iOS (https://github.com/ruslo/polly)
   execute_process(

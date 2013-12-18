@@ -1,0 +1,144 @@
+# Copyright (c) 2013, Ruslan Baratov
+# All rights reserved.
+
+cmake_minimum_required(VERSION 2.8.10) # SHA1
+
+include(ExternalProject) # ExternalProject_Add
+
+# Scheme for download and install OpenSSL iOS library
+
+list(APPEND CMAKE_MODULE_PATH "@HUNTER_ROOT@/cmake/modules")
+
+include(hunter_assert_lists_equal)
+include(hunter_status_debug)
+include(hunter_test_string_not_empty)
+
+hunter_status_debug("Scheme: url_sha1_openssl_ios")
+
+# Check preconditions
+hunter_test_string_not_empty("@HUNTER_BASE@")
+hunter_test_string_not_empty("@HUNTER_ROOT@")
+hunter_test_string_not_empty("@HUNTER_PACKAGE_BASENAME@")
+hunter_test_string_not_empty("@HUNTER_PACKAGE_URL@")
+hunter_test_string_not_empty("@HUNTER_PACKAGE_SHA1@")
+hunter_test_string_not_empty("@HUNTER_PACKAGE_DOWNLOAD_DIR@")
+hunter_test_string_not_empty("@HUNTER_PACKAGE_INSTALL_DIR@")
+hunter_test_string_not_empty("@IOS_ARCHS@")
+hunter_test_string_not_empty("@IOS_SDK_VERSION@")
+hunter_test_string_not_empty("@IPHONESIMULATOR_ROOT@")
+
+hunter_assert_lists_equal(
+    @HUNTER_PACKAGE_VARIANTS@
+    @IOS_ARCHS@
+    i386
+    ios_universal
+)
+
+if(@HUNTER_STATUS_DEBUG@)
+  set(CMAKE_VERBOSE_MAKEFILE ON)
+endif()
+
+set_directory_properties(
+    PROPERTIES
+    EP_BASE
+    @HUNTER_BASE@
+)
+
+unset(ssl_input_libraries)
+unset(crypto_input_libraries)
+
+foreach(arch @IOS_ARCHS@ i386)
+  list(
+      APPEND
+      ssl_input_libraries
+      "@HUNTER_BASE@/Source/@HUNTER_PACKAGE_BASENAME@-${arch}/libssl.a"
+   )
+  list(
+      APPEND
+      crypto_input_libraries
+      "@HUNTER_BASE@/Source/@HUNTER_PACKAGE_BASENAME@-${arch}/libcrypto.a"
+   )
+endforeach()
+
+# fuse all libraries by 'lipo'
+ExternalProject_Add(
+    @HUNTER_PACKAGE_BASENAME@-ios_universal
+    DOWNLOAD_COMMAND
+    ""
+    DOWNLOAD_DIR
+    @HUNTER_PACKAGE_DOWNLOAD_DIR@
+    SOURCE_DIR
+    "@HUNTER_BASE@/Source/@HUNTER_PACKAGE_BASENAME@-ios_universal"
+    INSTALL_DIR
+    @HUNTER_PACKAGE_INSTALL_DIR@
+        # not used, just avoid creating Install/<name> empty directory
+    CONFIGURE_COMMAND
+    ""
+    BUILD_COMMAND
+    ""
+    INSTALL_COMMAND
+    lipo
+    -create
+    ${ssl_input_libraries}
+    -o
+    "@HUNTER_PACKAGE_INSTALL_DIR@/lib/libssl.a"
+    COMMAND
+    lipo
+    -create
+    ${crypto_input_libraries}
+    -o
+    "@HUNTER_PACKAGE_INSTALL_DIR@/lib/libcrypto.a"
+)
+
+foreach(variant @IOS_ARCHS@ i386)
+  string(COMPARE EQUAL "${variant}" "i386" is_ios_simulator)
+  if(is_ios_simulator)
+    set(CROSS_TOP "@IPHONESIMULATOR_ROOT@")
+    set(CROSS_SDK "iPhoneSimulator@IOS_SDK_VERSION@.sdk")
+  else()
+    set(CROSS_TOP "@IPHONEOS_ROOT@")
+    set(CROSS_SDK "iPhoneOS@IOS_SDK_VERSION@.sdk")
+  endif()
+
+  ExternalProject_Add(
+      @HUNTER_PACKAGE_BASENAME@-${variant}
+      URL
+      @HUNTER_PACKAGE_URL@
+      URL_HASH
+      SHA1=@HUNTER_PACKAGE_SHA1@
+      DOWNLOAD_DIR
+      @HUNTER_PACKAGE_DOWNLOAD_DIR@
+      SOURCE_DIR
+      "@HUNTER_BASE@/Source/@HUNTER_PACKAGE_BASENAME@-${variant}"
+          # Out of source build is not working.
+          # Sources will be unpacked for each tag for different directories
+          # and build in source.
+      INSTALL_DIR
+      @HUNTER_PACKAGE_INSTALL_DIR@
+          # not used, just avoid creating Install/<name> empty directory
+      CONFIGURE_COMMAND
+      ./Configure
+      iphoneos-cross
+      threads
+      no-shared
+      "--prefix=@HUNTER_PACKAGE_INSTALL_DIR@"
+      "-miphoneos-version-min=@IOS_SDK_VERSION@"
+      "-arch ${variant}"
+      BUILD_COMMAND
+      . @HUNTER_ROOT@/scripts/clear-all.sh &&
+      export CROSS_TOP=${CROSS_TOP} &&
+      export CROSS_SDK=${CROSS_SDK} &&
+      make
+      BUILD_IN_SOURCE
+      1
+      INSTALL_COMMAND
+      make install
+          # installed libraries will be rewrited,
+          # other files are equal
+  )
+
+  add_dependencies(
+      @HUNTER_PACKAGE_BASENAME@-ios_universal
+      @HUNTER_PACKAGE_BASENAME@-${variant}
+  )
+endforeach()
