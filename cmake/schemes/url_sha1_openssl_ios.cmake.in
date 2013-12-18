@@ -23,14 +23,15 @@ hunter_test_string_not_empty("@HUNTER_PACKAGE_URL@")
 hunter_test_string_not_empty("@HUNTER_PACKAGE_SHA1@")
 hunter_test_string_not_empty("@HUNTER_PACKAGE_DOWNLOAD_DIR@")
 hunter_test_string_not_empty("@HUNTER_PACKAGE_INSTALL_DIR@")
-hunter_test_string_not_empty("@IOS_ARCHS@")
+hunter_test_string_not_empty("@IPHONEOS_ARCHS@")
+hunter_test_string_not_empty("@IPHONESIMULATOR_ARCHS@")
 hunter_test_string_not_empty("@IOS_SDK_VERSION@")
 hunter_test_string_not_empty("@IPHONESIMULATOR_ROOT@")
 
 hunter_assert_lists_equal(
     @HUNTER_PACKAGE_VARIANTS@
-    @IOS_ARCHS@
-    i386
+    @IPHONEOS_ARCHS@
+    @IPHONESIMULATOR_ARCHS@
     ios_universal
 )
 
@@ -47,7 +48,7 @@ set_directory_properties(
 unset(ssl_input_libraries)
 unset(crypto_input_libraries)
 
-foreach(arch @IOS_ARCHS@ i386)
+foreach(arch @IPHONEOS_ARCHS@ @IPHONESIMULATOR_ARCHS@)
   list(
       APPEND
       ssl_input_libraries
@@ -90,9 +91,10 @@ ExternalProject_Add(
     "@HUNTER_PACKAGE_INSTALL_DIR@/lib/libcrypto.a"
 )
 
-foreach(variant @IOS_ARCHS@ i386)
-  string(COMPARE EQUAL "${variant}" "i386" is_ios_simulator)
-  if(is_ios_simulator)
+foreach(variant @IPHONEOS_ARCHS@ @IPHONESIMULATOR_ARCHS@)
+  set(iphoneos_archs @IPHONEOS_ARCHS@)
+  list(FIND iphoneos_archs ${variant} find_index)
+  if(find_index EQUAL -1)
     set(CROSS_TOP "@IPHONESIMULATOR_ROOT@")
     set(CROSS_SDK "iPhoneSimulator@IOS_SDK_VERSION@.sdk")
   else()

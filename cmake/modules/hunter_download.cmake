@@ -154,7 +154,12 @@ function(hunter_download)
       is_openssl_ios
   )
   if(is_openssl_ios)
-    set(HUNTER_PACKAGE_VARIANTS ${IOS_ARCHS} i386 ios_universal)
+    set(
+        HUNTER_PACKAGE_VARIANTS
+        ${IPHONEOS_ARCHS}
+        ${IPHONESIMULATOR_ARCHS}
+        ios_universal
+    )
   endif()
 
   # print info before start generation/run

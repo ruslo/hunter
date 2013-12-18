@@ -23,7 +23,8 @@ set(CMAKE_OSX_SYSROOT "iphoneos" CACHE STRING "System root for iOS" FORCE)
 set(CMAKE_CXX_COMPILER_WORKS TRUE CACHE BOOL "Skip compiler check" FORCE)
 set(CMAKE_C_COMPILER_WORKS TRUE CACHE BOOL "Skip compiler check" FORCE)
 
-set(IOS_ARCHS armv7;armv7s)
+set(IPHONEOS_ARCHS armv7;armv7s;arm64)
+set(IPHONESIMULATOR_ARCHS x86_64;i386)
 
 set(IOS_SDK_VERSIONS 5.0 5.1 6.0 6.1 7.0)
 foreach(x ${IOS_SDK_VERSIONS})

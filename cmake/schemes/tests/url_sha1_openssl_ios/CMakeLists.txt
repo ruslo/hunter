@@ -13,7 +13,12 @@ set(
 
 set(HUNTER_PACKAGE_SHA1 4e8e2b21899f0dab567def50680dfd02a7acbb1a)
 
-set(HUNTER_PACKAGE_VARIANTS ${IOS_ARCHS} i386 ios_universal)
+set(
+    HUNTER_PACKAGE_VARIANTS
+    ${IPHONEOS_ARCHS}
+    ${IPHONESIMULATOR_ARCHS}
+    ios_universal
+)
 
 # Install library
 configure_file(

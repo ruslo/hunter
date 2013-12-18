@@ -57,7 +57,8 @@ if(APPLE)
     endif()
   endforeach()
 
-  set(IOS_ARCHS armv7;armv7s)
+  set(IPHONEOS_ARCHS armv7;armv7s;arm64)
+  set(IPHONESIMULATOR_ARCHS x86_64;i386)
 
   set(
       IPHONESIMULATOR_ROOT
