@@ -24,9 +24,11 @@ hunter_test_string_not_empty("@HUNTER_PACKAGE_DOWNLOAD_DIR@")
 hunter_test_string_not_empty("@HUNTER_PACKAGE_SOURCE_DIR@")
 hunter_test_string_not_empty("@HUNTER_PACKAGE_INSTALL_DIR@")
 hunter_test_string_not_empty("@HUNTER_PACKAGE_COMPONENT@")
-hunter_test_string_not_empty("@XCODE_DEVELOPER_ROOT@")
-hunter_test_string_not_empty("@IOS_SDK_VERSION@")
 hunter_test_string_not_empty("@IOS_ARCHS@")
+hunter_test_string_not_empty("@IPHONESIMULATOR_ROOT@")
+hunter_test_string_not_empty("@IPHONEOS_ROOT@")
+hunter_test_string_not_empty("@IPHONEOS_SDK_ROOT@")
+hunter_test_string_not_empty("@IPHONESIMULATOR_SDK_ROOT@")
 
 hunter_assert_lists_equal(@HUNTER_PACKAGE_VARIANTS@ ios ios_sim ios_universal)
 
@@ -77,46 +79,6 @@ if(NOT libfound)
   hunter_fatal_error("No such library")
 endif()
 
-set(
-    IPHONESIMULATOR_SDK_ROOT
-    @XCODE_DEVELOPER_ROOT@/Platforms/iPhonesimulator.platform/Developer/SDKs
-)
-set(
-    IPHONESIMULATOR_SDK_ROOT
-    "${IPHONESIMULATOR_SDK_ROOT}/iPhoneSimulator@IOS_SDK_VERSION@.sdk"
-)
-
-if(NOT EXISTS ${IPHONESIMULATOR_SDK_ROOT})
-  hunter_fatal_error(
-      "IPHONESIMULATOR_SDK_ROOT not found (${IPHONESIMULATOR_SDK_ROOT})\n"
-      "XCODE_DEVELOPER_ROOT: @XCODE_DEVELOPER_ROOT@\n"
-      "IOS_SDK_VERSION: @IOS_SDK_VERSION@\n"
-  )
-endif()
-
-set(
-    IPHONEOS_SDK_ROOT
-    @XCODE_DEVELOPER_ROOT@/Platforms/iPhoneOS.platform/Developer/SDKs
-)
-set(IPHONEOS_SDK_ROOT "${IPHONEOS_SDK_ROOT}/iPhoneOS@IOS_SDK_VERSION@.sdk")
-
-if(NOT EXISTS ${IPHONEOS_SDK_ROOT})
-  hunter_fatal_error(
-      "IPHONEOS_SDK_ROOT not found (${IPHONEOS_SDK_ROOT})\n"
-      "XCODE_DEVELOPER_ROOT: @XCODE_DEVELOPER_ROOT@\n"
-      "IOS_SDK_VERSION: @IOS_SDK_VERSION@\n"
-  )
-endif()
-
-set(
-    IPHONEOS_ROOT
-    @XCODE_DEVELOPER_ROOT@/Platforms/iPhoneOS.platform/Developer
-)
-set(
-    IPHONESIMULATOR_ROOT
-    @XCODE_DEVELOPER_ROOT@/Platforms/iPhonesimulator.platform/Developer
-)
-
 unset(ios_archs)
 foreach(x @IOS_ARCHS@)
   set(ios_archs "${ios_archs} -arch ${x}")
@@ -127,14 +89,14 @@ file(
      WRITE
      ${boost_user_jam}
      "using darwin : iphoneos\n"
-     "    : xcrun clang++ ${ios_archs} -isysroot ${IPHONEOS_SDK_ROOT}\n"
-     "    : <striper> <root>${IPHONEOS_ROOT}\n"
+     "    : xcrun clang++ ${ios_archs} -isysroot @IPHONEOS_SDK_ROOT@\n"
+     "    : <striper> <root>@IPHONEOS_ROOT@\n"
      "    : <architecture>arm <target-os>iphone\n"
      ";\n"
      "\n"
      "using darwin : iphonesimulator\n"
-     "    : xcrun clang++ -isysroot ${IPHONESIMULATOR_SDK_ROOT}\n"
-     "    : <striper> <root>${IPHONESIMULATOR_ROOT}\n"
+     "    : xcrun clang++ -isysroot @IPHONESIMULATOR_SDK_ROOT@\n"
+     "    : <striper> <root>@IPHONESIMULATOR_ROOT@\n"
      "    : <architecture>x86 <target-os>iphone\n"
      ";"
 )
