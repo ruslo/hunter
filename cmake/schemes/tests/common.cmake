@@ -16,6 +16,7 @@ set(DOWNLOAD_PROJECT_BASE ${PROJECT_BINARY_DIR}/_download)
 
 # describe test download project (URL and SHA1 defined in test CMakeLists.txt)
 set(HUNTER_PACKAGE_NAME dotest)
+set(HUNTER_PACKAGE_BASENAME dotest)
 set(HUNTER_INSTALL_TAG test_default)
 
 # set EP_BASE directory

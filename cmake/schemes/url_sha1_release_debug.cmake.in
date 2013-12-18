@@ -9,8 +9,12 @@ include(ExternalProject) # ExternalProject_Add
 
 list(APPEND CMAKE_MODULE_PATH "@HUNTER_ROOT@/cmake/modules")
 
+include(hunter_assert_lists_equal)
 include(hunter_fatal_error)
+include(hunter_status_debug)
 include(hunter_test_string_not_empty)
+
+hunter_status_debug("Scheme: url_sha1_release_debug")
 
 if(XCODE_VERSION)
   hunter_fatal_error("Not for Xcode")
@@ -22,7 +26,7 @@ endif()
 
 # Check preconditions
 hunter_test_string_not_empty("@HUNTER_BASE@")
-hunter_test_string_not_empty("@HUNTER_PACKAGE_NAME@")
+hunter_test_string_not_empty("@HUNTER_PACKAGE_BASENAME@")
 hunter_test_string_not_empty("@HUNTER_PACKAGE_URL@")
 hunter_test_string_not_empty("@HUNTER_PACKAGE_SHA1@")
 hunter_test_string_not_empty("@HUNTER_PACKAGE_DOWNLOAD_DIR@")
@@ -30,6 +34,8 @@ hunter_test_string_not_empty("@HUNTER_PACKAGE_SOURCE_DIR@")
 hunter_test_string_not_empty("@HUNTER_PACKAGE_INSTALL_DIR@")
 hunter_test_string_not_empty("@CMAKE_DEBUG_POSTFIX@")
 hunter_test_string_not_empty("${CMAKE_TOOLCHAIN_FILE}")
+
+hunter_assert_lists_equal(@HUNTER_PACKAGE_VARIANTS@ release debug)
 
 set_directory_properties(
     PROPERTIES
@@ -42,7 +48,7 @@ if(@HUNTER_STATUS_DEBUG@)
 endif()
 
 ExternalProject_Add(
-    @HUNTER_PACKAGE_NAME@_Release
+    @HUNTER_PACKAGE_BASENAME@-release
     URL
     @HUNTER_PACKAGE_URL@
     URL_HASH
@@ -63,7 +69,7 @@ ExternalProject_Add(
 
 # download and source step will use previous target source dir (skipped)
 ExternalProject_Add(
-    @HUNTER_PACKAGE_NAME@_Debug
+    @HUNTER_PACKAGE_BASENAME@-debug
     DOWNLOAD_COMMAND
     ""
     DOWNLOAD_DIR
@@ -82,6 +88,6 @@ ExternalProject_Add(
 
 # debug version use release download result
 add_dependencies(
-    @HUNTER_PACKAGE_NAME@_Debug
-    @HUNTER_PACKAGE_NAME@_Release
+    @HUNTER_PACKAGE_BASENAME@-debug
+    @HUNTER_PACKAGE_BASENAME@-release
 )

@@ -8,7 +8,12 @@ include(hunter_status_debug)
 include(hunter_status_print)
 
 function(hunter_download)
-  set(h_one_value PACKAGE_NAME DOWNLOAD_SCHEME) # (PACKAGE_NAME = Foo)
+  set(
+      h_one_value
+      PACKAGE_NAME # Foo
+      PACKAGE_COMPONENT
+      DOWNLOAD_SCHEME
+  )
   set(h_multiple_values DEPENDS) # Boo
 
   CMAKE_PARSE_ARGUMENTS(
@@ -28,13 +33,15 @@ function(hunter_download)
     set(HUNTER_INSTALL_TAG "default")
   endif()
 
+  # Set <LIB>_ROOT variables
   set(h_name "${HUNTER_PACKAGE_NAME}") # Foo
   string(TOUPPER "${h_name}" h_root_name) # FOO
   set(h_root_name "${h_root_name}_ROOT") # FOO_ROOT
 
   set(ver ${HUNTER_${h_name}_VERSION})
   if(NOT ver AND ${h_root_name})
-    # custom location
+    # function `hunter_add_version` will skip set if root already
+    # defined by custom location => ver is empty
     return()
   endif()
 
@@ -102,9 +109,52 @@ function(hunter_download)
     )
   endif()
 
-  set(HUNTER_PACKAGE_NAME "${HUNTER_PACKAGE_NAME}_${HUNTER_INSTALL_TAG}")
+  # HUNTER_PACKAGE_BASENAME = <name[-component]-tag>
+  set(HUNTER_PACKAGE_BASENAME "${HUNTER_PACKAGE_NAME}")
+  if(HUNTER_PACKAGE_COMPONENT)
+    set(
+        HUNTER_PACKAGE_BASENAME
+        "${HUNTER_PACKAGE_BASENAME}-${HUNTER_PACKAGE_COMPONENT}"
+    )
+  endif()
+  set(
+      HUNTER_PACKAGE_BASENAME
+      "${HUNTER_PACKAGE_BASENAME}-${HUNTER_INSTALL_TAG}"
+  )
 
+  # Update variants
+  unset(HUNTER_PACKAGE_VARIANTS)
+  string(
+      COMPARE
+      EQUAL
+      "${HUNTER_DOWNLOAD_SCHEME}"
+      "url_sha1_boost_ios_library"
+      is_ios
+  )
+  if(is_ios)
+    set(HUNTER_PACKAGE_VARIANTS ios ios_sim ios_universal)
+  endif()
+
+  string(
+      COMPARE
+      EQUAL
+      "${HUNTER_DOWNLOAD_SCHEME}"
+      "url_sha1_release_debug"
+      is_release_debug
+  )
+  if(is_release_debug)
+    set(HUNTER_PACKAGE_VARIANTS release debug)
+  endif()
+
+  # print info before start generation/run
   hunter_status_debug("Add package: ${HUNTER_PACKAGE_NAME}")
+  if(HUNTER_PACKAGE_COMPONENT)
+    hunter_status_debug("Component: ${HUNTER_PACKAGE_COMPONENT}")
+  endif()
+  hunter_status_debug("Install tag: ${HUNTER_INSTALL_TAG}")
+  if(HUNTER_PACKAGE_VARIANTS)
+    hunter_status_debug("Variants: [${HUNTER_PACKAGE_VARIANTS}]")
+  endif()
   hunter_status_debug("Url: ${HUNTER_PACKAGE_URL}")
   hunter_status_debug("SHA1: ${HUNTER_PACKAGE_SHA1}")
 
@@ -118,6 +168,31 @@ function(hunter_download)
   )
   if(NOT EXISTS "${download_scheme}")
     hunter_fatal_error("Download scheme not found")
+  endif()
+
+  # Optimization:
+  #     Check run needed. If 'Stamp/<name-...>/<name-...>-install' file
+  #     detected, no need to generate/run project
+  set(need_to_run FALSE)
+  if(HUNTER_PACKAGE_VARIANTS)
+    foreach(variant ${HUNTER_PACKAGE_VARIANTS})
+      set(x "${HUNTER_PACKAGE_BASENAME}-${variant}")
+      set(x "${HUNTER_BASE}/Stamp/${x}/${x}-install")
+      if(NOT EXISTS "${x}")
+        set(need_to_run TRUE)
+      endif()
+    endforeach()
+  else()
+    set(x "${HUNTER_PACKAGE_BASENAME}")
+    set(x "${HUNTER_BASE}/Stamp/${x}/${x}-install")
+    if(NOT EXISTS "${x}")
+      set(need_to_run TRUE)
+    endif()
+  endif()
+
+  if(NOT need_to_run)
+    hunter_status_debug("Skip generate/run (already installed)")
+    return()
   endif()
 
   configure_file(
@@ -134,11 +209,14 @@ function(hunter_download)
     set(h_generator)
   endif()
 
+  hunter_status_debug("Run generate")
+
   # Configure and build download project
   execute_process(
       COMMAND
       ${CMAKE_COMMAND}
       "-DCMAKE_TOOLCHAIN_FILE=${toolchain_wrapper}"
+      "-DHUNTER_STATUS_DEBUG=${HUNTER_STATUS_DEBUG}"
       ${h_generator}
       ${verbose_makefile}
       "./"
@@ -151,6 +229,8 @@ function(hunter_download)
   if(NOT ${h_generate_result} EQUAL 0)
     hunter_fatal_error("generate step failed")
   endif()
+
+  hunter_status_debug("Run build")
 
   execute_process(
       COMMAND
