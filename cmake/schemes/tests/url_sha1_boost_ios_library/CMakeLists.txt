@@ -28,37 +28,6 @@ configure_file(
 execute_test(${CMAKE_COMMAND} .)
 execute_test(${CMAKE_COMMAND} --build .)
 
-# Emulate polly/iOS (https://github.com/ruslo/polly)
-execute_process(
-    COMMAND
-    xcode-select
-    "-print-path"
-    OUTPUT_VARIABLE
-    XCODE_DEVELOPER_ROOT # /.../Xcode.app/Contents/Developer
-    OUTPUT_STRIP_TRAILING_WHITESPACE
-)
-
-set(IOS_SDK_VERSIONS 5.0 5.1 6.0 6.1 7.0)
-
-foreach(x ${IOS_SDK_VERSIONS})
-  execute_process(
-      COMMAND
-      xcodebuild
-      -showsdks
-      -sdk
-      "iphoneos${x}"
-      RESULT_VARIABLE
-      IOS_SDK_VERSION_RESULT
-      OUTPUT_QUIET
-      ERROR_QUIET
-  )
-  if(${IOS_SDK_VERSION_RESULT} EQUAL 0)
-    set(IOS_SDK_VERSION ${x})
-  endif()
-endforeach()
-
-set(IOS_ARCHS armv7;armv7s)
-
 set(HUNTER_PACKAGE_VARIANTS ios ios_sim ios_universal)
 
 # Install library

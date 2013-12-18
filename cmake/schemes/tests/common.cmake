@@ -23,3 +23,50 @@ set(HUNTER_INSTALL_TAG test_default)
 set(HUNTER_PACKAGE_INSTALL_DIR ${HUNTER_BASE}/Install)
 set(HUNTER_PACKAGE_DOWNLOAD_DIR ${HUNTER_BASE}/Download/${HUNTER_PACKAGE_NAME})
 set(HUNTER_PACKAGE_SOURCE_DIR ${HUNTER_BASE}/Source/${HUNTER_PACKAGE_NAME})
+
+if(APPLE)
+  # Emulate polly/iOS (https://github.com/ruslo/polly)
+  execute_process(
+      COMMAND
+      xcode-select
+      "-print-path"
+      OUTPUT_VARIABLE
+      XCODE_DEVELOPER_ROOT # /.../Xcode.app/Contents/Developer
+      OUTPUT_STRIP_TRAILING_WHITESPACE
+  )
+
+  set(IOS_SDK_VERSIONS 5.0 5.1 6.0 6.1 7.0)
+
+  foreach(x ${IOS_SDK_VERSIONS})
+    execute_process(
+        COMMAND
+        xcodebuild
+        -showsdks
+        -sdk
+        "iphoneos${x}"
+        RESULT_VARIABLE
+        IOS_SDK_VERSION_RESULT
+        OUTPUT_QUIET
+        ERROR_QUIET
+    )
+    if(${IOS_SDK_VERSION_RESULT} EQUAL 0)
+      set(IOS_SDK_VERSION ${x})
+    endif()
+  endforeach()
+
+  set(IOS_ARCHS armv7;armv7s)
+
+  set(
+      IPHONESIMULATOR_ROOT
+      "${XCODE_DEVELOPER_ROOT}/Platforms/iPhoneSimulator.platform/Developer"
+  )
+  set(
+      IPHONESIMULATOR_SDK_ROOT
+      "${IPHONESIMULATOR_ROOT}/SDKs/iPhoneSimulator${IOS_SDK_VERSION}.sdk"
+  )
+  set(
+      IPHONEOS_ROOT
+      "${XCODE_DEVELOPER_ROOT}/Platforms/iPhoneOS.platform/Developer"
+  )
+  set(IPHONEOS_SDK_ROOT "${IPHONEOS_ROOT}/SDKs/iPhoneOS${IOS_SDK_VERSION}.sdk")
+endif()
