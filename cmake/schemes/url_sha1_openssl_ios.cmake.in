@@ -95,11 +95,22 @@ foreach(variant @IPHONEOS_ARCHS@ @IPHONESIMULATOR_ARCHS@)
   set(iphoneos_archs @IPHONEOS_ARCHS@)
   list(FIND iphoneos_archs ${variant} find_index)
   if(find_index EQUAL -1)
+    set(iphone_minversion "-miphoneos-version-min=@IOS_SDK_VERSION@")
     set(CROSS_TOP "@IPHONESIMULATOR_ROOT@")
     set(CROSS_SDK "iPhoneSimulator@IOS_SDK_VERSION@.sdk")
   else()
+    set(iphone_minversion "")
     set(CROSS_TOP "@IPHONEOS_ROOT@")
     set(CROSS_SDK "iPhoneOS@IOS_SDK_VERSION@.sdk")
+  endif()
+
+  string(COMPARE EQUAL "${variant}" "x86_64" noasm)
+  if(noasm)
+    # set_key.c:398:17: error: unsupported inline asm:
+    # input with type 'unsigned long' matching output with type 'unsigned int'
+    set(noasm "no-asm")
+  else()
+    set(noasm "")
   endif()
 
   ExternalProject_Add(
@@ -123,8 +134,9 @@ foreach(variant @IPHONEOS_ARCHS@ @IPHONESIMULATOR_ARCHS@)
       iphoneos-cross
       threads
       no-shared
+      "${noasm}"
       "--prefix=@HUNTER_PACKAGE_INSTALL_DIR@"
-      "-miphoneos-version-min=@IOS_SDK_VERSION@"
+      "${iphone_minversion}"
       "-arch ${variant}"
       BUILD_COMMAND
       . @HUNTER_ROOT@/scripts/clear-all.sh &&
