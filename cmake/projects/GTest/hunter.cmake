@@ -39,6 +39,17 @@ hunter_add_version(
     0cb1dcf75e144ad052d3f1e4923a7773bf9b494f
 )
 
+hunter_add_version(
+    PACKAGE_NAME
+    GTest
+    VERSION
+    "1.7.0-hunter-2"
+    URL
+    "https://github.com/hunter-packages/gtest/archive/v1.7.0-hunter-2.tar.gz"
+    SHA1
+    e62b2ef70308f63c32c560f7b6e252442eed4d57
+)
+
 string(COMPARE EQUAL "${CMAKE_OSX_SYSROOT}" "iphoneos" _hunter_result)
 if(_hunter_result)
   set(_hunter_download_scheme url_sha1_combined_release_debug)
