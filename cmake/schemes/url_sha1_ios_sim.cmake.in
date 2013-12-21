@@ -46,6 +46,7 @@ ExternalProject_Add(
     CONFIGURE_COMMAND
     ""
     BUILD_COMMAND
+    . @HUNTER_ROOT@/scripts/clear-all.sh &&
     xcodebuild -target ios-sim -configuration Release
     BUILD_IN_SOURCE
     1
