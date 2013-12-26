@@ -198,6 +198,13 @@ ExternalProject_Add(
     ${CMAKE_COMMAND} -E echo "skip install"
 )
 
+string(COMPARE EQUAL "@HUNTER_PACKAGE_COMPONENT@" "test" is_test)
+if(is_test)
+  set(LIBNAME unit_test_framework)
+else()
+  set(LIBNAME "@HUNTER_PACKAGE_COMPONENT@")
+endif()
+
 ExternalProject_Add(
     @HUNTER_PACKAGE_BASENAME@-ios_universal
     DEPENDS
@@ -221,6 +228,7 @@ ExternalProject_Add(
     COMMAND
     "@HUNTER_ROOT@/scripts/create-boost-ios-fatlib.sh"
     "@HUNTER_PACKAGE_SOURCE_DIR@"
+    "${LIBNAME}"
     "@HUNTER_PACKAGE_COMPONENT@"
     "@HUNTER_PACKAGE_INSTALL_DIR@/lib"
 )

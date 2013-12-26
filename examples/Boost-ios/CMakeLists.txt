@@ -19,7 +19,7 @@ include(hunter_add_package)
 
 # download boost
 hunter_add_package(Sugar) # get resources and plist from examples
-hunter_add_package(Boost COMPONENTS filesystem system)
+hunter_add_package(Boost COMPONENTS filesystem system test)
 
 # use sugar
 include(${SUGAR_ROOT}/cmake/Sugar)
@@ -28,7 +28,7 @@ include(sugar_mark_macosx_resources)
 include(sugar_set_xcode_ios_sdkroot)
 
 # use boost
-find_package(Boost 1.55 REQUIRED COMPONENTS filesystem system)
+find_package(Boost 1.55 REQUIRED COMPONENTS filesystem system unit_test_framework)
 include_directories(${Boost_INCLUDE_DIRS})
 
 # prepare resources for target
@@ -40,4 +40,4 @@ sugar_mark_macosx_resources(${DEFAULT_IOS_IMAGES})
 ### create ios target
 add_executable(example MACOSX_BUNDLE test.cpp ${DEFAULT_IOS_IMAGES})
 target_link_libraries(example ${Boost_LIBRARIES})
-sugar_set_xcode_ios_sdkroot(example ${PLIST_FILE})
+sugar_set_xcode_ios_sdkroot(TARGET example PLIST ${PLIST_FILE})

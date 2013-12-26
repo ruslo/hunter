@@ -3,19 +3,20 @@
 # Copyright (c) 2013, Ruslan Baratov
 # All rights reserved.
 
-[ "$#" == "3" ] || { echo "usage: $0 <build-dir> <lib> <install-dir>"; exit 1; }
+[ "$#" == "4" ] || { echo "usage: $0 <build-dir> <lib> <dir> <install-dir>"; exit 1; }
 
 BUILD_DIR="$1"
-LIB="$2"
-INSTALL_DIR="$3"
+LIBNAME="$2"
+DIRNAME="$3"
+INSTALL_DIR="$4"
 
-COMMON_DIR="${BUILD_DIR}/bin.v2/libs/${LIB}/build"
+COMMON_DIR="${BUILD_DIR}/bin.v2/libs/${DIRNAME}/build"
 
-IPHONE_DEBUG=`find "${COMMON_DIR}/darwin-iphoneos/debug" -name "*${LIB}*"`
-IPHONE_RELEASE=`find "${COMMON_DIR}/darwin-iphoneos/release" -name "*${LIB}*"`
+IPHONE_DEBUG=`find "${COMMON_DIR}/darwin-iphoneos/debug" -name "*${LIBNAME}*"`
+IPHONE_RELEASE=`find "${COMMON_DIR}/darwin-iphoneos/release" -name "*${LIBNAME}*"`
 
-SIM_DEBUG=`find "${COMMON_DIR}/darwin-iphonesimulator/debug" -name "*${LIB}*"`
-SIM_RELEASE=`find "${COMMON_DIR}/darwin-iphonesimulator/release" -name "*${LIB}*"`
+SIM_DEBUG=`find "${COMMON_DIR}/darwin-iphonesimulator/debug" -name "*${LIBNAME}*"`
+SIM_RELEASE=`find "${COMMON_DIR}/darwin-iphonesimulator/release" -name "*${LIBNAME}*"`
 
 echo "IPHONE_DEBUG: $IPHONE_DEBUG"
 echo "IPHONE_RELEASE: $IPHONE_RELEASE"

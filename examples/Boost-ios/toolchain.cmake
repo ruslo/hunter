@@ -48,4 +48,54 @@ if(NOT IOS_SDK_VERSION)
   message(FATAL_ERROR "iOS version not found, tested: [${IOS_SDK_VERSIONS}]")
 endif()
 
+# iPhone simulator root
+set(
+    IPHONESIMULATOR_ROOT
+    "${XCODE_DEVELOPER_ROOT}/Platforms/iPhoneSimulator.platform/Developer"
+)
+if(NOT EXISTS "${IPHONESIMULATOR_ROOT}")
+  polly_fatal_error(
+      "IPHONESIMULATOR_ROOT not found (${IPHONESIMULATOR_ROOT})\n"
+      "XCODE_DEVELOPER_ROOT: ${XCODE_DEVELOPER_ROOT}\n"
+  )
+endif()
+
+# iPhone simulator SDK root
+set(
+    IPHONESIMULATOR_SDK_ROOT
+    "${IPHONESIMULATOR_ROOT}/SDKs/iPhoneSimulator${IOS_SDK_VERSION}.sdk"
+)
+
+if(NOT EXISTS ${IPHONESIMULATOR_SDK_ROOT})
+  polly_fatal_error(
+      "IPHONESIMULATOR_SDK_ROOT not found (${IPHONESIMULATOR_SDK_ROOT})\n"
+      "IPHONESIMULATOR_ROOT: ${IPHONESIMULATOR_ROOT}\n"
+      "IOS_SDK_VERSION: ${IOS_SDK_VERSION}\n"
+  )
+endif()
+
+# iPhone root
+set(
+    IPHONEOS_ROOT
+    "${XCODE_DEVELOPER_ROOT}/Platforms/iPhoneOS.platform/Developer"
+)
+if(NOT EXISTS "${IPHONEOS_ROOT}")
+  polly_fatal_error(
+      "IPHONEOS_ROOT not found (${IPHONEOS_ROOT})\n"
+      "XCODE_DEVELOPER_ROOT: ${XCODE_DEVELOPER_ROOT}\n"
+  )
+endif()
+
+# iPhone SDK root
+set(IPHONEOS_SDK_ROOT "${IPHONEOS_ROOT}/SDKs/iPhoneOS${IOS_SDK_VERSION}.sdk")
+
+if(NOT EXISTS ${IPHONEOS_SDK_ROOT})
+  hunter_fatal_error(
+      "IPHONEOS_SDK_ROOT not found (${IPHONEOS_SDK_ROOT})\n"
+      "IPHONEOS_ROOT: ${IPHONEOS_ROOT}\n"
+      "IOS_SDK_VERSION: ${IOS_SDK_VERSION}\n"
+  )
+endif()
+
 set(HUNTER_CMAKE_GENERATOR Xcode)
+
