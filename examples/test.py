@@ -22,6 +22,27 @@ class Log:
   def p(self, message):
     print('##### {}'.format(message))
 
+class Backup:
+  def __init__(self, origin_location, save_location, save_dir):
+    self.origin_location = origin_location
+    self.save_location = save_location
+    self.save_dir = save_dir
+    log.p(
+         'save downloaded file: {} -> {}'.format(
+             self.origin_location, self.save_location
+         )
+    )
+    shutil.copyfile(self.origin_location, self.save_location)
+
+  def restore(self):
+    log.p(
+         'restore downloaded file: {} -> {}'.format(
+             self.save_location, self.origin_location
+         )
+    )
+    os.makedirs(self.save_dir)
+    shutil.copyfile(self.save_location, self.origin_location)
+
 log = Log()
 
 log.p('include list: {}'.format(args.include))
@@ -49,9 +70,24 @@ for project in glob.iglob('./*/CMakeLists.txt'):
   else:
     generator = ''
   do_test = os.path.exists('dotest')
+
+  # 1. save downloaded archive
+  # 2. remove build directories
+  # 3. copy downloaded archive back
+  archive_list = []
+
   if os.path.exists('_builds'):
+    for root, dirs, files in os.walk(
+        os.path.join('_builds', '_hunter_base', 'Download')
+    ):
+      for x in files:
+        backup = Backup(os.path.join(root, x), x, root)
+        archive_list.append(backup)
     shutil.rmtree('_builds')
-  os.mkdir('_builds')
+  for x in archive_list:
+    x.restore()
+  if not os.path.exists('_builds'):
+    os.mkdir('_builds')
   os.chdir('_builds')
   subprocess.check_call(['cmake', generator, toolchain_option, '..'])
   if do_test:
