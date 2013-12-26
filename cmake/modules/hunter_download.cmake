@@ -62,6 +62,13 @@ function(hunter_download)
   hunter_status_print("${h_root_name}: ${${h_root_name}} (ver.: ${ver})")
 
   # creating temporary working directory where download project will reside
+  if(NOT PROJECT_BINARY_DIR)
+    message(
+        FATAL_ERROR
+        "PROJECT_BINARY_DIR is empty. "
+        "Move file **after** first 'project' command"
+    )
+  endif()
   set(h_work_dir "${PROJECT_BINARY_DIR}/_HUNTER_temp_download_project")
   file(REMOVE_RECURSE "${h_work_dir}")
 
