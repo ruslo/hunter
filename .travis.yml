@@ -22,6 +22,7 @@ env:
     - TEST_DIR=examples TEST_NAME=Boost
     - TEST_DIR=examples TEST_NAME=Boost-filesystem
     - TEST_DIR=examples TEST_NAME=Boost-stdlibcxx
+    - TEST_DIR=examples TEST_NAME=Boost-ios
 
 script:
     - cd ${TEST_DIR}
