@@ -12,11 +12,11 @@ INSTALL_DIR="$4"
 
 COMMON_DIR="${BUILD_DIR}/bin.v2/libs/${DIRNAME}/build"
 
-IPHONE_DEBUG=`find "${COMMON_DIR}/darwin-iphoneos/debug" -name "*${LIBNAME}*"`
-IPHONE_RELEASE=`find "${COMMON_DIR}/darwin-iphoneos/release" -name "*${LIBNAME}*"`
+IPHONE_DEBUG=`find "${COMMON_DIR}/darwin-iphoneos/debug" -name "libboost_${LIBNAME}*"`
+IPHONE_RELEASE=`find "${COMMON_DIR}/darwin-iphoneos/release" -name "libboost_${LIBNAME}*"`
 
-SIM_DEBUG=`find "${COMMON_DIR}/darwin-iphonesimulator/debug" -name "*${LIBNAME}*"`
-SIM_RELEASE=`find "${COMMON_DIR}/darwin-iphonesimulator/release" -name "*${LIBNAME}*"`
+SIM_DEBUG=`find "${COMMON_DIR}/darwin-iphonesimulator/debug" -name "libboost_${LIBNAME}*"`
+SIM_RELEASE=`find "${COMMON_DIR}/darwin-iphonesimulator/release" -name "libboost_${LIBNAME}*"`
 
 echo "IPHONE_DEBUG: $IPHONE_DEBUG"
 echo "IPHONE_RELEASE: $IPHONE_RELEASE"

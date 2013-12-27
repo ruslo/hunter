@@ -19,7 +19,7 @@ include(hunter_add_package)
 
 # download boost
 hunter_add_package(Sugar) # get resources and plist from examples
-hunter_add_package(Boost COMPONENTS filesystem system test)
+hunter_add_package(Boost COMPONENTS filesystem system test regex)
 
 # use sugar
 include(${SUGAR_ROOT}/cmake/Sugar)
@@ -28,7 +28,16 @@ include(sugar_mark_macosx_resources)
 include(sugar_set_xcode_ios_sdkroot)
 
 # use boost
-find_package(Boost 1.55 REQUIRED COMPONENTS filesystem system unit_test_framework)
+find_package(
+    Boost
+    1.55
+    REQUIRED
+    COMPONENTS
+    filesystem
+    regex
+    system
+    unit_test_framework
+)
 include_directories(${Boost_INCLUDE_DIRS})
 
 # prepare resources for target
