@@ -17,5 +17,5 @@ include(hunter_add_package)
 hunter_add_package(Boost COMPONENTS filesystem)
 
 # now boost can be used
-find_package(Boost 1.55 REQUIRED COMPONENTS filesystem)
+find_package(Boost 1.55 REQUIRED filesystem)
 message("boost libraries: ${Boost_LIBRARIES}")

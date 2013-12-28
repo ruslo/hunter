@@ -32,7 +32,6 @@ find_package(
     Boost
     1.55
     REQUIRED
-    COMPONENTS
     filesystem
     regex
     system

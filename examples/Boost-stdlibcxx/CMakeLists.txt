@@ -19,7 +19,7 @@ hunter_add_package(Boost COMPONENTS filesystem system)
 
 # now boost can be used
 set(Boost_USE_STATIC_LIBS YES)
-find_package(Boost 1.55 REQUIRED COMPONENTS filesystem system)
+find_package(Boost 1.55 REQUIRED filesystem system)
 message("Boost includes: ${Boost_INCLUDE_DIRS}")
 include_directories(${Boost_INCLUDE_DIRS})
 
