@@ -1,7 +1,7 @@
 # Copyright (c) 2013, Ruslan Baratov
 # All rights reserved.
 
-include(CMakeParseArguments) # CMAKE_PARSE_ARGUMENTS
+include(CMakeParseArguments) # cmake_parse_arguments
 
 include(hunter_fatal_error)
 include(hunter_status_debug)
@@ -10,7 +10,7 @@ include(hunter_status_debug)
 # this function will set 'HUNTER_<name>_URL' and 'HUNTER_<name>_SHA1'.
 function(hunter_add_version)
   set(h_one_value PACKAGE_NAME VERSION URL SHA1)
-  CMAKE_PARSE_ARGUMENTS(h "" "${h_one_value}" "" ${ARGV})
+  cmake_parse_arguments(h "" "${h_one_value}" "" ${ARGV})
   if(h_UNPARSED_ARGUMENTS)
     hunter_fatal_error("unexpected argument: ${h_UNPARSED_ARGUMENTS}")
   endif()

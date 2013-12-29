@@ -1,14 +1,14 @@
 # Copyright (c) 2013, Ruslan Baratov
 # All rights reserved.
 
-include(CMakeParseArguments) # CMAKE_PARSE_ARGUMENTS
+include(CMakeParseArguments) # cmake_parse_arguments
 
 include(hunter_fatal_error)
 
 # internal variables: _hunter_c_*
 macro(hunter_config)
   set(_hunter_c_one_value VERSION CUSTOM)
-  CMAKE_PARSE_ARGUMENTS(_hunter_c "" "${_hunter_c_one_value}" "" ${ARGV})
+  cmake_parse_arguments(_hunter_c "" "${_hunter_c_one_value}" "" ${ARGV})
   list(LENGTH _hunter_c_UNPARSED_ARGUMENTS _hunter_c_len)
   if(NOT ${_hunter_c_len} EQUAL 1)
     hunter_fatal_error("unparsed: ${_hunter_c_UNPARSED_ARGUMENTS}")

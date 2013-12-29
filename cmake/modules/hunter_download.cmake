@@ -1,7 +1,7 @@
 # Copyright (c) 2013, Ruslan Baratov
 # All rights reserved.
 
-include(CMakeParseArguments) # CMAKE_PARSE_ARGUMENTS
+include(CMakeParseArguments) # cmake_parse_arguments
 
 include(hunter_fatal_error)
 include(hunter_status_debug)
@@ -16,7 +16,7 @@ function(hunter_download)
   )
   set(h_multiple_values DEPENDS) # Boo
 
-  CMAKE_PARSE_ARGUMENTS(
+  cmake_parse_arguments(
       HUNTER "" "${h_one_value}" "${h_multiple_values}" ${ARGV}
   )
 

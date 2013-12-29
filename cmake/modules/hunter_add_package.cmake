@@ -1,14 +1,14 @@
 # Copyright (c) 2013, Ruslan Baratov
 # All rights reserved.
 
-include(CMakeParseArguments) # CMAKE_PARSE_ARGUMENTS
+include(CMakeParseArguments) # cmake_parse_arguments
 
 include(hunter_fatal_error)
 include(hunter_status_debug)
 
 # internal variables: _hunter_ap_*
 macro(hunter_add_package)
-  CMAKE_PARSE_ARGUMENTS(_hunter_ap_arg "" "" COMPONENTS ${ARGV})
+  cmake_parse_arguments(_hunter_ap_arg "" "" COMPONENTS ${ARGV})
 
   # Get project name
   list(LENGTH _hunter_ap_arg_UNPARSED_ARGUMENTS _hunter_ap_len)
