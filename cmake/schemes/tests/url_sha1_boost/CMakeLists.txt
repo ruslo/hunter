@@ -17,7 +17,7 @@ set(
 )
 
 configure_file(
-    ${HUNTER_ROOT}/cmake/schemes/url_sha1_boost.cmake.in
+    ${HUNTER_ROOT}/Source/cmake/schemes/url_sha1_boost.cmake.in
     ${DOWNLOAD_PROJECT_BASE}/CMakeLists.txt
     @ONLY
 )

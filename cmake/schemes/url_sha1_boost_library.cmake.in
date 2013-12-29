@@ -7,7 +7,7 @@ include(ExternalProject) # ExternalProject_Add
 
 # Scheme for download and install boost library
 
-list(APPEND CMAKE_MODULE_PATH "@HUNTER_ROOT@/cmake/modules")
+list(APPEND CMAKE_MODULE_PATH "@HUNTER_ROOT@/Source/cmake/modules")
 
 include(hunter_assert_lists_equal)
 include(hunter_fatal_error)
@@ -147,7 +147,7 @@ if(APPLE)
       FixDylibId
       COMMAND
       ${PYTHON_EXECUTABLE}
-      "@HUNTER_ROOT@/scripts/fix-boost-dylib-id.py"
+      "@HUNTER_ROOT@/Source/scripts/fix-boost-dylib-id.py"
       "--install-dir"
       "@HUNTER_PACKAGE_INSTALL_DIR@/lib"
       DEPENDEES

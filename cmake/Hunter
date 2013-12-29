@@ -17,16 +17,20 @@ if(HUNTER_ROOT)
   get_filename_component(HUNTER_ROOT_OLD "${HUNTER_ROOT}" ABSOLUTE)
 endif()
 
-get_filename_component(HUNTER_ROOT "${CMAKE_CURRENT_LIST_DIR}/.." ABSOLUTE)
+get_filename_component(HUNTER_ROOT "${CMAKE_CURRENT_LIST_DIR}/../.." ABSOLUTE)
 
 ### test self
-if(NOT EXISTS "${HUNTER_ROOT}/cmake/Hunter")
-  message(FATAL_ERROR "Can't find Hunter components in: ${HUNTER_ROOT}")
+if(NOT EXISTS "${HUNTER_ROOT}/Source/cmake/Hunter")
+  message(
+      FATAL_ERROR
+      "Can't find Hunter components in: `${HUNTER_ROOT}` "
+      "Expected location: <HUNTER_ROOT>/Source/cmake/Hunter"
+  )
 endif()
 
 ### add cmake modules to search path
-list(APPEND CMAKE_MODULE_PATH "${HUNTER_ROOT}/cmake/modules")
-list(APPEND CMAKE_MODULE_PATH "${HUNTER_ROOT}/cmake/find")
+list(APPEND CMAKE_MODULE_PATH "${HUNTER_ROOT}/Source/cmake/modules")
+list(APPEND CMAKE_MODULE_PATH "${HUNTER_ROOT}/Source/cmake/find")
 
 include(hunter_status_debug)
 include(hunter_status_print)
@@ -48,7 +52,7 @@ endif()
 
 unset(HUNTER_ROOT_OLD)
 
-set(HUNTER_BASE "${HUNTER_ROOT}/_base")
+set(HUNTER_BASE "${HUNTER_ROOT}/Base")
 
 ### Check 'EP_BASE` correctness
 get_directory_property(HUNTER_EP_BASE_OLD EP_BASE)
@@ -74,4 +78,4 @@ endif()
 
 ### 1. Clear all '<NAME>_ROOT' variables (cache, environment, ...)
 ### 2. Set '<NAME>_ROOT' or 'HUNTER_<name>_VERSION' variables
-include("${HUNTER_ROOT}/cmake/config.cmake")
+include("${HUNTER_ROOT}/Source/cmake/config.cmake")

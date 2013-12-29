@@ -7,7 +7,7 @@ include(ExternalProject) # ExternalProject_Add
 
 # Scheme for download and install OpenSSL iOS library
 
-list(APPEND CMAKE_MODULE_PATH "@HUNTER_ROOT@/cmake/modules")
+list(APPEND CMAKE_MODULE_PATH "@HUNTER_ROOT@/Source/cmake/modules")
 
 include(hunter_assert_lists_equal)
 include(hunter_status_debug)
@@ -139,7 +139,7 @@ foreach(variant @IPHONEOS_ARCHS@ @IPHONESIMULATOR_ARCHS@)
       "${iphone_minversion}"
       "-arch ${variant}"
       BUILD_COMMAND
-      . @HUNTER_ROOT@/scripts/clear-all.sh &&
+      . @HUNTER_ROOT@/Source/scripts/clear-all.sh &&
       export CROSS_TOP=${CROSS_TOP} &&
       export CROSS_SDK=${CROSS_SDK} &&
       make

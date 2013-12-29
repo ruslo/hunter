@@ -3,8 +3,8 @@
 
 cmake_minimum_required(VERSION 2.8.8)
 
-set(HUNTER_ROOT "${CMAKE_CURRENT_LIST_DIR}/../../..")
-include(${HUNTER_ROOT}/cmake/Hunter)
+set(HUNTER_ROOT "${CMAKE_CURRENT_LIST_DIR}/../../../..")
+include(${HUNTER_ROOT}/Source/cmake/Hunter)
 
 include(${CMAKE_CURRENT_LIST_DIR}/utilities.cmake)
 

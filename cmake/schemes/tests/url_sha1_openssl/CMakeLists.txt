@@ -13,7 +13,7 @@ set(
 set(HUNTER_PACKAGE_SHA1 4e8e2b21899f0dab567def50680dfd02a7acbb1a)
 
 configure_file(
-    ${HUNTER_ROOT}/cmake/schemes/url_sha1_openssl.cmake.in
+    ${HUNTER_ROOT}/Source/cmake/schemes/url_sha1_openssl.cmake.in
     ${DOWNLOAD_PROJECT_BASE}/CMakeLists.txt
     @ONLY
 )

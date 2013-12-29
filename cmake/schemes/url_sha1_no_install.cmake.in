@@ -8,7 +8,7 @@ include(ExternalProject) # ExternalProject_Add
 # Do not install to CMAKE_INSTALL_PREFIX
 # (for cmake modules and header-only libraries)
 
-list(APPEND CMAKE_MODULE_PATH "@HUNTER_ROOT@/cmake/modules")
+list(APPEND CMAKE_MODULE_PATH "@HUNTER_ROOT@/Source/cmake/modules")
 
 include(hunter_assert_lists_equal)
 include(hunter_fatal_error)

@@ -7,7 +7,7 @@ include(ExternalProject) # ExternalProject_Add
 
 # Scheme for download and install ios universal boost library
 
-list(APPEND CMAKE_MODULE_PATH "@HUNTER_ROOT@/cmake/modules")
+list(APPEND CMAKE_MODULE_PATH "@HUNTER_ROOT@/Source/cmake/modules")
 
 include(hunter_assert_lists_equal)
 include(hunter_fatal_error)
@@ -137,7 +137,7 @@ set(
 if(XCODE_VERSION)
   set(
       bootstrap
-      . @HUNTER_ROOT@/scripts/clear-all.sh &&
+      . @HUNTER_ROOT@/Source/scripts/clear-all.sh &&
       ./bootstrap.sh
   )
 else()
@@ -226,7 +226,7 @@ ExternalProject_Add(
     INSTALL_COMMAND
     ${CMAKE_COMMAND} -E make_directory "@HUNTER_PACKAGE_INSTALL_DIR@/lib"
     COMMAND
-    "@HUNTER_ROOT@/scripts/create-boost-ios-fatlib.sh"
+    "@HUNTER_ROOT@/Source/scripts/create-boost-ios-fatlib.sh"
     "@HUNTER_PACKAGE_SOURCE_DIR@"
     "${LIBNAME}"
     "@HUNTER_PACKAGE_COMPONENT@"

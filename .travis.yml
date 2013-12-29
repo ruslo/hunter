@@ -18,12 +18,16 @@ env:
     - TEST_DIR=cmake/schemes TEST_NAME=tests/url_sha1_openssl_ios
     - TEST_DIR=cmake/schemes TEST_NAME=tests/url_sha1_release_debug
     - TEST_DIR=examples TEST_NAME=Sugar
-    - TEST_DIR=examples TEST_NAME=GTest
+    # - TEST_DIR=examples TEST_NAME=GTest # TODO, update gtest version
     - TEST_DIR=examples TEST_NAME=Boost
     - TEST_DIR=examples TEST_NAME=Boost-filesystem
     - TEST_DIR=examples TEST_NAME=Boost-stdlibcxx
     - TEST_DIR=examples TEST_NAME=Boost-ios
 
 script:
-    - cd ${TEST_DIR}
+    - export DIR=`pwd`
+    - cd ..
+    - mkdir Source
+    - mv ${DIR}/* Source
+    - cd Source/${TEST_DIR}
     - python3 ./test.py --include ./${TEST_NAME}/

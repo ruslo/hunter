@@ -22,7 +22,7 @@ set(
 
 # Install library
 configure_file(
-    ${HUNTER_ROOT}/cmake/schemes/url_sha1_openssl_ios.cmake.in
+    ${HUNTER_ROOT}/Source/cmake/schemes/url_sha1_openssl_ios.cmake.in
     ${DOWNLOAD_PROJECT_BASE}/CMakeLists.txt
     @ONLY
 )

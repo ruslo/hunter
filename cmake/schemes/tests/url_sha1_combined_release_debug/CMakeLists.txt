@@ -13,7 +13,7 @@ set(
 set(HUNTER_PACKAGE_SHA1 48179067d11828dc347f98fc148654f88766529d)
 
 configure_file(
-    ${HUNTER_ROOT}/cmake/schemes/url_sha1_combined_release_debug.cmake.in
+    ${HUNTER_ROOT}/Source/cmake/schemes/url_sha1_combined_release_debug.cmake.in
     ${DOWNLOAD_PROJECT_BASE}/CMakeLists.txt
     @ONLY
 )

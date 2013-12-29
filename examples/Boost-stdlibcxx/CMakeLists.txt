@@ -10,7 +10,7 @@ set(CMAKE_VERBOSE_MAKEFILE YES)
 # Let hunter be more verbose
 set(HUNTER_STATUS_DEBUG ON CACHE BOOL "")
 
-# emulate ${HUNTER_ROOT}/cmake/Hunter
+# emulate ${HUNTER_ROOT}/Source/cmake/Hunter
 include("../common.cmake")
 include(hunter_add_package)
 

@@ -7,7 +7,7 @@ include(ExternalProject) # ExternalProject_Add
 
 # Scheme for separated Release/Debug builds (like make)
 
-list(APPEND CMAKE_MODULE_PATH "@HUNTER_ROOT@/cmake/modules")
+list(APPEND CMAKE_MODULE_PATH "@HUNTER_ROOT@/Source/cmake/modules")
 
 include(hunter_assert_lists_equal)
 include(hunter_fatal_error)

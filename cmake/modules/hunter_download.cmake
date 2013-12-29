@@ -106,7 +106,7 @@ function(hunter_download)
   set(HUNTER_PACKAGE_INSTALL_DIR "${${h_root_name}}")
   set(HUNTER_PACKAGE_URL "${HUNTER_${h_name}_URL}")
   set(HUNTER_PACKAGE_SHA1 "${HUNTER_${h_name}_SHA1}")
-  set(HUNTER_PACKAGE_DOWNLOAD_DIR "${HUNTER_BASE}/Download/${h_name}")
+  set(HUNTER_PACKAGE_DOWNLOAD_DIR "${HUNTER_ROOT}/Download/${h_name}")
   set(HUNTER_PACKAGE_SOURCE_DIR "${HUNTER_BASE}/Source/${h_name}")
 
   if(NOT HUNTER_PACKAGE_URL)
@@ -187,7 +187,7 @@ function(hunter_download)
 
   set(
       download_scheme
-      "${HUNTER_ROOT}/cmake/schemes/${HUNTER_DOWNLOAD_SCHEME}.cmake.in"
+      "${HUNTER_ROOT}/Source/cmake/schemes/${HUNTER_DOWNLOAD_SCHEME}.cmake.in"
   )
   if(NOT EXISTS "${download_scheme}")
     hunter_fatal_error("Download scheme not found")
