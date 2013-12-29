@@ -1,1 +1,1 @@
-set(HUNTER_VERSION "0.0.12")
+set(HUNTER_VERSION "0.1.1")
