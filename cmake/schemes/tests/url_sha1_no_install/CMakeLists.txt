@@ -13,14 +13,14 @@ set(
 set(HUNTER_PACKAGE_SHA1 48179067d11828dc347f98fc148654f88766529d)
 
 configure_file(
-    ${HUNTER_ROOT}/Source/cmake/schemes/url_sha1_no_install.cmake.in
-    ${DOWNLOAD_PROJECT_BASE}/CMakeLists.txt
+    "${HUNTER_ROOT}/Source/cmake/schemes/url_sha1_no_install.cmake.in"
+    "${DOWNLOAD_PROJECT_BASE}/CMakeLists.txt"
     @ONLY
 )
 
-execute_test(${CMAKE_COMMAND} .)
-execute_test(${CMAKE_COMMAND} --build .)
+execute_test("${CMAKE_COMMAND}" .)
+execute_test("${CMAKE_COMMAND}" --build .)
 
-if(EXISTS ${HUNTER_PACKAGE_INSTALL_DIR})
+if(EXISTS "${HUNTER_PACKAGE_INSTALL_DIR}")
   hunter_fatal_error("Install dir still exists!")
 endif()

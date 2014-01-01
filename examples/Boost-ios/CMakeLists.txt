@@ -48,4 +48,4 @@ sugar_mark_macosx_resources(${DEFAULT_IOS_IMAGES})
 ### create ios target
 add_executable(example MACOSX_BUNDLE test.cpp ${DEFAULT_IOS_IMAGES})
 target_link_libraries(example ${Boost_LIBRARIES})
-sugar_set_xcode_ios_sdkroot(TARGET example PLIST ${PLIST_FILE})
+sugar_set_xcode_ios_sdkroot(TARGET example PLIST "${PLIST_FILE}")

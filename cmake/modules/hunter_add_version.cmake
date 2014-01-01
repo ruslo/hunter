@@ -59,6 +59,6 @@ function(hunter_add_version)
   set(h_url_name "HUNTER_${h_PACKAGE_NAME}_URL")
   set(h_sha1_name "HUNTER_${h_PACKAGE_NAME}_SHA1")
 
-  set(${h_url_name} ${h_URL} PARENT_SCOPE)
-  set(${h_sha1_name} ${h_SHA1} PARENT_SCOPE)
+  set(${h_url_name} "${h_URL}" PARENT_SCOPE)
+  set(${h_sha1_name} "${h_SHA1}" PARENT_SCOPE)
 endfunction()

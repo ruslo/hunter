@@ -22,7 +22,7 @@ macro(hunter_add_package)
 
   set(
       _hunter_ap_project_dir
-      ${HUNTER_ROOT}/Source/cmake/projects/${_hunter_ap_project}
+      "${HUNTER_ROOT}/Source/cmake/projects/${_hunter_ap_project}"
   )
   if(NOT EXISTS "${_hunter_ap_project_dir}")
     hunter_fatal_error("Project '${_hunter_ap_project}' not found")
@@ -67,7 +67,7 @@ macro(hunter_add_package)
   # may call 'hunter_add_package' and rewrite it
   foreach(x ${_hunter_ap_list})
     hunter_status_debug("load: ${x}")
-    include(${x})
+    include("${x}")
     hunter_status_debug("load: ${x} ... end")
   endforeach()
 endmacro()

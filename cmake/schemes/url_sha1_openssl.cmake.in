@@ -33,7 +33,7 @@ endif()
 set_directory_properties(
     PROPERTIES
     EP_BASE
-    @HUNTER_BASE@
+    "@HUNTER_BASE@"
 )
 
 if(APPLE)
@@ -52,19 +52,19 @@ ExternalProject_Add(
     URL_HASH
     SHA1=@HUNTER_PACKAGE_SHA1@
     DOWNLOAD_DIR
-    @HUNTER_PACKAGE_DOWNLOAD_DIR@
+    "@HUNTER_PACKAGE_DOWNLOAD_DIR@"
     SOURCE_DIR
     "@HUNTER_BASE@/Source/@HUNTER_PACKAGE_BASENAME@"
         # Out of source build is not working.
         # Sources will be unpacked for each tag for different directories
         # and build in source.
     INSTALL_DIR
-    @HUNTER_PACKAGE_INSTALL_DIR@
+    "@HUNTER_PACKAGE_INSTALL_DIR@"
         # not used, just avoid creating Install/<name> empty directory
     CONFIGURE_COMMAND
     ${configure_command}
     ${configure_opts}
-    --prefix=@HUNTER_PACKAGE_INSTALL_DIR@
+    "--prefix=@HUNTER_PACKAGE_INSTALL_DIR@"
     BUILD_COMMAND
     make
     BUILD_IN_SOURCE

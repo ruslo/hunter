@@ -42,7 +42,7 @@ endif()
 set_directory_properties(
     PROPERTIES
     EP_BASE
-    @HUNTER_BASE@
+    "@HUNTER_BASE@"
 )
 
 unset(ssl_input_libraries)
@@ -67,11 +67,11 @@ ExternalProject_Add(
     DOWNLOAD_COMMAND
     ""
     DOWNLOAD_DIR
-    @HUNTER_PACKAGE_DOWNLOAD_DIR@
+    "@HUNTER_PACKAGE_DOWNLOAD_DIR@"
     SOURCE_DIR
     "@HUNTER_BASE@/Source/@HUNTER_PACKAGE_BASENAME@-ios_universal"
     INSTALL_DIR
-    @HUNTER_PACKAGE_INSTALL_DIR@
+    "@HUNTER_PACKAGE_INSTALL_DIR@"
         # not used, just avoid creating Install/<name> empty directory
     CONFIGURE_COMMAND
     ""
@@ -120,14 +120,14 @@ foreach(variant @IPHONEOS_ARCHS@ @IPHONESIMULATOR_ARCHS@)
       URL_HASH
       SHA1=@HUNTER_PACKAGE_SHA1@
       DOWNLOAD_DIR
-      @HUNTER_PACKAGE_DOWNLOAD_DIR@
+      "@HUNTER_PACKAGE_DOWNLOAD_DIR@"
       SOURCE_DIR
       "@HUNTER_BASE@/Source/@HUNTER_PACKAGE_BASENAME@-${variant}"
           # Out of source build is not working.
           # Sources will be unpacked for each tag for different directories
           # and build in source.
       INSTALL_DIR
-      @HUNTER_PACKAGE_INSTALL_DIR@
+      "@HUNTER_PACKAGE_INSTALL_DIR@"
           # not used, just avoid creating Install/<name> empty directory
       CONFIGURE_COMMAND
       ./Configure
@@ -139,7 +139,7 @@ foreach(variant @IPHONEOS_ARCHS@ @IPHONESIMULATOR_ARCHS@)
       "${iphone_minversion}"
       "-arch ${variant}"
       BUILD_COMMAND
-      . @HUNTER_ROOT@/Source/scripts/clear-all.sh &&
+      . "@HUNTER_ROOT@/Source/scripts/clear-all.sh" &&
       export CROSS_TOP=${CROSS_TOP} &&
       export CROSS_SDK=${CROSS_SDK} &&
       make

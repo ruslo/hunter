@@ -22,7 +22,7 @@ hunter_add_version(
     VERSION
     "1.55.0"
     URL
-    http://sourceforge.net/projects/boost/files/boost/1.55.0/boost_1_55_0.tar.bz2/download
+    "http://sourceforge.net/projects/boost/files/boost/1.55.0/boost_1_55_0.tar.bz2/download"
     SHA1
     cef9a0cc7084b1d639e06cd3bc34e4251524c840
 )
@@ -33,7 +33,7 @@ hunter_add_version(
     VERSION
     "1.54.0"
     URL
-    http://sourceforge.net/projects/boost/files/boost/1.54.0/boost_1_54_0.tar.bz2/download
+    "http://sourceforge.net/projects/boost/files/boost/1.54.0/boost_1_54_0.tar.bz2/download"
     SHA1
     230782c7219882d0fab5f1effbe86edb85238bf4
 )

@@ -10,7 +10,7 @@ function(execute_test)
       COMMAND
       ${ARGV}
       WORKING_DIRECTORY
-      ${DOWNLOAD_PROJECT_BASE}
+      "${DOWNLOAD_PROJECT_BASE}"
       RESULT_VARIABLE
       TEST_RESULT
   )
@@ -21,7 +21,7 @@ function(execute_test)
 endfunction()
 
 function(check_installed_static_lib libname)
-  set(libpath ${HUNTER_PACKAGE_INSTALL_DIR})
+  set(libpath "${HUNTER_PACKAGE_INSTALL_DIR}")
   set(libpath "${libpath}/${CMAKE_STATIC_LIBRARY_PREFIX}${libname}")
   set(libpath_release "${libpath}${CMAKE_STATIC_LIBRARY_SUFFIX}")
   set(libpath_debug "${libpath}${CMAKE_DEBUG_POSTFIX}")

@@ -22,14 +22,14 @@ set(
 
 # Install library
 configure_file(
-    ${HUNTER_ROOT}/Source/cmake/schemes/url_sha1_openssl_ios.cmake.in
-    ${DOWNLOAD_PROJECT_BASE}/CMakeLists.txt
+    "${HUNTER_ROOT}/Source/cmake/schemes/url_sha1_openssl_ios.cmake.in"
+    "${DOWNLOAD_PROJECT_BASE}/CMakeLists.txt"
     @ONLY
 )
 
-execute_test(${CMAKE_COMMAND} .)
-execute_test(${CMAKE_COMMAND} --build .)
+execute_test("${CMAKE_COMMAND}" .)
+execute_test("${CMAKE_COMMAND}" --build .)
 
-if(NOT EXISTS ${HUNTER_PACKAGE_INSTALL_DIR}/include/openssl/crypto.h)
+if(NOT EXISTS "${HUNTER_PACKAGE_INSTALL_DIR}/include/openssl/crypto.h")
   hunter_fatal_error("Install failed")
 endif()

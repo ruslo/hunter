@@ -30,7 +30,7 @@ hunter_assert_lists_equal(@HUNTER_PACKAGE_VARIANTS@)
 set_directory_properties(
     PROPERTIES
     EP_BASE
-    @HUNTER_BASE@
+    "@HUNTER_BASE@"
 )
 
 set(
@@ -86,7 +86,7 @@ else()
   hunter_fatal_error("TODO: set toolset for boost")
 endif()
 
-set(boost_user_jam @HUNTER_BASE@/boost.user.jam)
+set(boost_user_jam "@HUNTER_BASE@/boost.user.jam")
 file(
      WRITE
      ${boost_user_jam}
@@ -103,7 +103,7 @@ set(
     variant=release,debug
     --layout=tagged
     toolset=${toolset_name}
-    --user-config=${boost_user_jam}
+    --user-config="${boost_user_jam}"
 )
 
 if(@HUNTER_STATUS_DEBUG@)
@@ -116,16 +116,16 @@ ExternalProject_Add(
     DOWNLOAD_COMMAND
     ${CMAKE_COMMAND} -E echo "Skip download"
     DOWNLOAD_DIR
-    @HUNTER_PACKAGE_DOWNLOAD_DIR@
+    "@HUNTER_PACKAGE_DOWNLOAD_DIR@"
     SOURCE_DIR
-    @HUNTER_PACKAGE_SOURCE_DIR@
+    "@HUNTER_PACKAGE_SOURCE_DIR@"
     INSTALL_DIR
-    @HUNTER_PACKAGE_INSTALL_DIR@
+    "@HUNTER_PACKAGE_INSTALL_DIR@"
         # not used, just avoid creating Install/<name> empty directory
     CONFIGURE_COMMAND
     ./bootstrap.sh
     --with-libraries=@HUNTER_PACKAGE_COMPONENT@
-    --prefix=@HUNTER_PACKAGE_INSTALL_DIR@
+    --prefix="@HUNTER_PACKAGE_INSTALL_DIR@"
     --with-toolset=${toolset_name}
     BUILD_COMMAND
     ./b2
@@ -146,7 +146,7 @@ if(APPLE)
       @HUNTER_PACKAGE_BASENAME@
       FixDylibId
       COMMAND
-      ${PYTHON_EXECUTABLE}
+      "${PYTHON_EXECUTABLE}"
       "@HUNTER_ROOT@/Source/scripts/fix-boost-dylib-id.py"
       "--install-dir"
       "@HUNTER_PACKAGE_INSTALL_DIR@/lib"

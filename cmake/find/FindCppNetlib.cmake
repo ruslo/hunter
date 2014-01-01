@@ -101,12 +101,12 @@ foreach(lib uri client-connections server-parsers)
     set(
         ${_find_cppnetlib_upper}
         debug
-        ${${_find_cppnetlib_upper_debug}}
+        "${${_find_cppnetlib_upper_debug}}"
         release
-        ${${_find_cppnetlib_upper_release}}
+        "${${_find_cppnetlib_upper_release}}"
     )
   elseif(${_find_cppnetlib_upper_release})
-    set(${_find_cppnetlib_upper} ${${_find_cppnetlib_upper_release}})
+    set(${_find_cppnetlib_upper} "${${_find_cppnetlib_upper_release}}")
   else()
     set(CPPNETLIB_FOUND NO)
     if(CppNetlib_FIND_REQUIRED)

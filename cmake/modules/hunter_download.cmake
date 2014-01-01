@@ -74,8 +74,8 @@ function(hunter_download)
 
   # create temp toolchain file to set environment variables
   # and include real toolchain
-  set(toolchain_wrapper ${h_work_dir}/toolchain.cmake)
-  file(WRITE ${toolchain_wrapper} "###\n") # file must not be empty
+  set(toolchain_wrapper "${h_work_dir}/toolchain.cmake")
+  file(WRITE "${toolchain_wrapper}" "###\n") # file must not be empty
 
   list(APPEND h_DEPENDS Hunter) # pass HUNTER_ROOT to all packages
   foreach(x ${h_DEPENDS})
@@ -88,15 +88,15 @@ function(hunter_download)
     endif()
 
     # forward depends '<NAME>_ROOT' cmake variables
-    file(APPEND ${toolchain_wrapper} "set(${x_name} ${${x_name}})\n")
+    file(APPEND "${toolchain_wrapper}" "set(${x_name} \"${${x_name}}\")\n")
 
     # forward depends '<NAME>_ROOT' environment variables
-    file(APPEND ${toolchain_wrapper} "set(ENV{${x_name}} ${${x_name}})\n")
+    file(APPEND "${toolchain_wrapper}" "set(ENV{${x_name}} \"${${x_name}}\")\n")
   endforeach()
 
   # support for toolchain file forwarding
   if(CMAKE_TOOLCHAIN_FILE)
-    file(APPEND ${toolchain_wrapper} "include(${CMAKE_TOOLCHAIN_FILE})\n")
+    file(APPEND "${toolchain_wrapper}" "include(\"${CMAKE_TOOLCHAIN_FILE}\")\n")
   endif()
 
   if(HUNTER_STATUS_DEBUG)
@@ -246,14 +246,14 @@ function(hunter_download)
   # Configure and build download project
   execute_process(
       COMMAND
-      ${CMAKE_COMMAND}
+      "${CMAKE_COMMAND}"
       "-DCMAKE_TOOLCHAIN_FILE=${toolchain_wrapper}"
       "-DHUNTER_STATUS_DEBUG=${HUNTER_STATUS_DEBUG}"
       ${h_generator}
       ${verbose_makefile}
       "./"
       WORKING_DIRECTORY
-      ${h_work_dir}
+      "${h_work_dir}"
       RESULT_VARIABLE
       h_generate_result
   )
@@ -266,9 +266,9 @@ function(hunter_download)
 
   execute_process(
       COMMAND
-      ${CMAKE_COMMAND} --build "./"
+      "${CMAKE_COMMAND}" --build "./"
       WORKING_DIRECTORY
-      ${h_work_dir}
+      "${h_work_dir}"
       RESULT_VARIABLE
       h_build_result
   )

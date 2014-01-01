@@ -13,8 +13,8 @@ set(
 set(HUNTER_PACKAGE_SHA1 4e8e2b21899f0dab567def50680dfd02a7acbb1a)
 
 configure_file(
-    ${HUNTER_ROOT}/Source/cmake/schemes/url_sha1_openssl.cmake.in
-    ${DOWNLOAD_PROJECT_BASE}/CMakeLists.txt
+    "${HUNTER_ROOT}/Source/cmake/schemes/url_sha1_openssl.cmake.in"
+    "${DOWNLOAD_PROJECT_BASE}/CMakeLists.txt"
     @ONLY
 )
 
@@ -22,12 +22,12 @@ set(toolchain "${DOWNLOAD_PROJECT_BASE}/toolchain.cmake")
 
 execute_process(
     COMMAND
-    ${CMAKE_COMMAND} -E touch ${toolchain}
+    "${CMAKE_COMMAND}" -E touch "${toolchain}"
 )
 
-execute_test(${CMAKE_COMMAND} "-DCMAKE_TOOLCHAIN_FILE=${toolchain}" .)
-execute_test(${CMAKE_COMMAND} --build .)
+execute_test("${CMAKE_COMMAND}" "-DCMAKE_TOOLCHAIN_FILE=${toolchain}" .)
+execute_test("${CMAKE_COMMAND}" --build .)
 
-if(NOT EXISTS ${HUNTER_PACKAGE_INSTALL_DIR}/include/openssl/crypto.h)
+if(NOT EXISTS "${HUNTER_PACKAGE_INSTALL_DIR}/include/openssl/crypto.h")
   hunter_fatal_error("Install failed")
 endif()

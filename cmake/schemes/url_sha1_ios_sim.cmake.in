@@ -27,7 +27,7 @@ hunter_assert_lists_equal(@HUNTER_PACKAGE_VARIANTS@)
 set_directory_properties(
     PROPERTIES
     EP_BASE
-    @HUNTER_BASE@
+    "@HUNTER_BASE@"
 )
 
 ExternalProject_Add(
@@ -37,19 +37,19 @@ ExternalProject_Add(
     URL_HASH
     SHA1=@HUNTER_PACKAGE_SHA1@
     DOWNLOAD_DIR
-    @HUNTER_PACKAGE_DOWNLOAD_DIR@
+    "@HUNTER_PACKAGE_DOWNLOAD_DIR@"
     SOURCE_DIR
-    @HUNTER_PACKAGE_SOURCE_DIR@
+    "@HUNTER_PACKAGE_SOURCE_DIR@"
     INSTALL_DIR
-    @HUNTER_PACKAGE_INSTALL_DIR@
+    "@HUNTER_PACKAGE_INSTALL_DIR@"
         # not used, just avoid creating Install/<name> empty directory
     CONFIGURE_COMMAND
     ""
     BUILD_COMMAND
-    . @HUNTER_ROOT@/Source/scripts/clear-all.sh &&
+    . "@HUNTER_ROOT@/Source/scripts/clear-all.sh" &&
     xcodebuild -target ios-sim -configuration Release
     BUILD_IN_SOURCE
     1
     INSTALL_COMMAND
-    ${CMAKE_COMMAND} -E copy build/Release/ios-sim @HUNTER_PACKAGE_INSTALL_DIR@
+    "${CMAKE_COMMAND}" -E copy build/Release/ios-sim "@HUNTER_PACKAGE_INSTALL_DIR@"
 )

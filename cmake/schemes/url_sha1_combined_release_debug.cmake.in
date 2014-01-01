@@ -37,7 +37,7 @@ hunter_assert_lists_equal(@HUNTER_PACKAGE_VARIANTS@)
 set_directory_properties(
     PROPERTIES
     EP_BASE
-    @HUNTER_BASE@
+    "@HUNTER_BASE@"
 )
 
 ExternalProject_Add(
@@ -47,18 +47,18 @@ ExternalProject_Add(
     URL_HASH
     SHA1=@HUNTER_PACKAGE_SHA1@
     DOWNLOAD_DIR
-    @HUNTER_PACKAGE_DOWNLOAD_DIR@
+    "@HUNTER_PACKAGE_DOWNLOAD_DIR@"
     SOURCE_DIR
-    @HUNTER_PACKAGE_SOURCE_DIR@
+    "@HUNTER_PACKAGE_SOURCE_DIR@"
     INSTALL_DIR
-    @HUNTER_PACKAGE_INSTALL_DIR@
+    "@HUNTER_PACKAGE_INSTALL_DIR@"
         # not used, just avoid creating Install/<name> empty directory
     CMAKE_ARGS
     "-DCMAKE_DEBUG_POSTFIX=@CMAKE_DEBUG_POSTFIX@"
     "-DCMAKE_INSTALL_PREFIX=@HUNTER_PACKAGE_INSTALL_DIR@"
     "-DCMAKE_TOOLCHAIN_FILE=${CMAKE_TOOLCHAIN_FILE}"
     INSTALL_COMMAND
-    ${CMAKE_COMMAND} --build . --target install --config Release
+    "${CMAKE_COMMAND}" --build . --target install --config Release
     COMMAND
-    ${CMAKE_COMMAND} --build . --target install --config Debug
+    "${CMAKE_COMMAND}" --build . --target install --config Debug
 )

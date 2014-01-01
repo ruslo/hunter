@@ -32,7 +32,7 @@ endif ()
 if (WIN32)
   # http://www.slproweb.com/products/Win32OpenSSL.html
   set(_OPENSSL_ROOT_HINTS
-    ${OPENSSL_ROOT_DIR}
+    "${OPENSSL_ROOT_DIR}"
     "[HKEY_LOCAL_MACHINE\\SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Uninstall\\OpenSSL (32-bit)_is1;Inno Setup: App Path]"
     "[HKEY_LOCAL_MACHINE\\SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Uninstall\\OpenSSL (64-bit)_is1;Inno Setup: App Path]"
     ENV OPENSSL_ROOT_DIR
@@ -49,9 +49,9 @@ if (WIN32)
   unset(_programfiles)
 else ()
   set(_OPENSSL_ROOT_HINTS
-    ${OPENSSL_ROOT}
+    "${OPENSSL_ROOT}"
     ENV OPENSSL_ROOT
-    ${OPENSSL_ROOT_DIR}
+    "${OPENSSL_ROOT_DIR}"
     ENV OPENSSL_ROOT_DIR
     )
 endif ()
@@ -66,7 +66,7 @@ find_path(OPENSSL_INCLUDE_DIR
     openssl/ssl.h
   ${_OPENSSL_ROOT_HINTS_AND_PATHS}
   HINTS
-    ${_OPENSSL_INCLUDEDIR}
+    "${_OPENSSL_INCLUDEDIR}"
   PATH_SUFFIXES
     include
 )

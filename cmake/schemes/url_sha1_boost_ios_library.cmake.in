@@ -36,7 +36,7 @@ hunter_assert_lists_equal(@HUNTER_PACKAGE_VARIANTS@ ios ios_sim ios_universal)
 set_directory_properties(
     PROPERTIES
     EP_BASE
-    @HUNTER_BASE@
+    "@HUNTER_BASE@"
 )
 
 set(
@@ -114,7 +114,7 @@ set(
     threading=multi
     variant=release,debug
     --layout=tagged
-    --user-config=${boost_user_jam}
+    --user-config="${boost_user_jam}"
 )
 
 set(
@@ -137,7 +137,7 @@ set(
 if(XCODE_VERSION)
   set(
       bootstrap
-      . @HUNTER_ROOT@/Source/scripts/clear-all.sh &&
+      . "@HUNTER_ROOT@/Source/scripts/clear-all.sh" &&
       ./bootstrap.sh
   )
 else()
@@ -153,16 +153,16 @@ ExternalProject_Add(
     DOWNLOAD_COMMAND
     ${CMAKE_COMMAND} -E echo "skip download"
     DOWNLOAD_DIR
-    @HUNTER_PACKAGE_DOWNLOAD_DIR@
+    "@HUNTER_PACKAGE_DOWNLOAD_DIR@"
     SOURCE_DIR
-    @HUNTER_PACKAGE_SOURCE_DIR@
+    "@HUNTER_PACKAGE_SOURCE_DIR@"
     INSTALL_DIR
-    @HUNTER_PACKAGE_INSTALL_DIR@
+    "@HUNTER_PACKAGE_INSTALL_DIR@"
         # not used, just avoid creating Install/<name> empty directory
     CONFIGURE_COMMAND
     ${bootstrap}
     --with-libraries=@HUNTER_PACKAGE_COMPONENT@
-    --prefix=@HUNTER_PACKAGE_INSTALL_DIR@
+    --prefix="@HUNTER_PACKAGE_INSTALL_DIR@"
     BUILD_COMMAND
     ./b2
     ${verbose_output}
@@ -170,7 +170,7 @@ ExternalProject_Add(
     BUILD_IN_SOURCE
     1
     INSTALL_COMMAND
-    ${CMAKE_COMMAND} -E echo "skip install"
+    "${CMAKE_COMMAND}" -E echo "skip install"
 )
 
 ExternalProject_Add(
@@ -178,11 +178,11 @@ ExternalProject_Add(
     DOWNLOAD_COMMAND
     ${CMAKE_COMMAND} -E echo "skip download"
     DOWNLOAD_DIR
-    @HUNTER_PACKAGE_DOWNLOAD_DIR@
+    "@HUNTER_PACKAGE_DOWNLOAD_DIR@"
     SOURCE_DIR
-    @HUNTER_PACKAGE_SOURCE_DIR@
+    "@HUNTER_PACKAGE_SOURCE_DIR@"
     INSTALL_DIR
-    @HUNTER_PACKAGE_INSTALL_DIR@
+    "@HUNTER_PACKAGE_INSTALL_DIR@"
         # not used, just avoid creating Install/<name> empty directory
     CONFIGURE_COMMAND
     ${bootstrap}
@@ -195,7 +195,7 @@ ExternalProject_Add(
     BUILD_IN_SOURCE
     1
     INSTALL_COMMAND
-    ${CMAKE_COMMAND} -E echo "skip install"
+    "${CMAKE_COMMAND}" -E echo "skip install"
 )
 
 string(COMPARE EQUAL "@HUNTER_PACKAGE_COMPONENT@" "test" is_test)
@@ -213,18 +213,18 @@ ExternalProject_Add(
     DOWNLOAD_COMMAND
     ${CMAKE_COMMAND} -E echo "skip download"
     DOWNLOAD_DIR
-    @HUNTER_PACKAGE_DOWNLOAD_DIR@
+    "@HUNTER_PACKAGE_DOWNLOAD_DIR@"
     SOURCE_DIR
-    @HUNTER_PACKAGE_SOURCE_DIR@
+    "@HUNTER_PACKAGE_SOURCE_DIR@"
     INSTALL_DIR
-    @HUNTER_PACKAGE_INSTALL_DIR@
+    "@HUNTER_PACKAGE_INSTALL_DIR@"
         # not used, just avoid creating Install/<name> empty directory
     CONFIGURE_COMMAND
-    ${CMAKE_COMMAND} -E echo "skip configure"
+    "${CMAKE_COMMAND}" -E echo "skip configure"
     BUILD_COMMAND
-    ${CMAKE_COMMAND} -E echo "skip build"
+    "${CMAKE_COMMAND}" -E echo "skip build"
     INSTALL_COMMAND
-    ${CMAKE_COMMAND} -E make_directory "@HUNTER_PACKAGE_INSTALL_DIR@/lib"
+    "${CMAKE_COMMAND}" -E make_directory "@HUNTER_PACKAGE_INSTALL_DIR@/lib"
     COMMAND
     "@HUNTER_ROOT@/Source/scripts/create-boost-ios-fatlib.sh"
     "@HUNTER_PACKAGE_SOURCE_DIR@"
