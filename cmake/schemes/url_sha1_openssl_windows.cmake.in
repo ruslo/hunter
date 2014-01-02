@@ -1,0 +1,134 @@
+# Copyright (c) 2013, Ruslan Baratov
+# All rights reserved.
+
+cmake_minimum_required(VERSION 2.8.12)
+
+include(ExternalProject) # ExternalProject_Add
+
+# Scheme for download and install OpenSSL library for Windows
+
+list(APPEND CMAKE_MODULE_PATH "@HUNTER_ROOT@/Source/cmake/modules")
+
+include(hunter_assert_lists_equal)
+include(hunter_status_debug)
+include(hunter_test_string_not_empty)
+
+hunter_status_debug("Scheme: url_sha1_openssl_windows")
+
+# Check preconditions
+hunter_test_string_not_empty("@HUNTER_BASE@")
+hunter_test_string_not_empty("@HUNTER_ROOT@")
+hunter_test_string_not_empty("@HUNTER_PACKAGE_BASENAME@")
+hunter_test_string_not_empty("@HUNTER_PACKAGE_URL@")
+hunter_test_string_not_empty("@HUNTER_PACKAGE_SHA1@")
+hunter_test_string_not_empty("@HUNTER_PACKAGE_DOWNLOAD_DIR@")
+hunter_test_string_not_empty("@HUNTER_PACKAGE_INSTALL_DIR@")
+
+hunter_assert_lists_equal(@HUNTER_PACKAGE_VARIANTS@)
+
+# If prefix contain spaces `nmake` will failed
+# Workaround:
+#     1) install files to temporary folder
+#     2) move files from temp dir to `HUNTER_PACKAGE_INSTALL_DIR`
+get_filename_component(TEMP_INSTALL_DIR "$ENV{WINDIR}" ABSOLUTE)
+
+string(COMPARE EQUAL "${TEMP_INSTALL_DIR}" "" is_empty)
+if(is_empty)
+  message(FATAL_ERROR "Environment variable WINDIR is empty")
+endif()
+
+get_filename_component(TEMP_INSTALL_DIR "${TEMP_INSTALL_DIR}/.." ABSOLUTE)
+
+if(NOT EXISTS "${TEMP_INSTALL_DIR}")
+  message(FATAL_ERROR "Unexpected WINDIR: $ENV{WINDIR}")
+endif()
+
+set(TEMP_INSTALL_DIR "${TEMP_INSTALL_DIR}/temp-hunter-openssl-REMOVE_ME")
+
+if(MSVC_VERSION VERSION_LESS 1800)
+  message(
+      FATAL_ERROR
+      "MSVC 2013 (version 1800, generator `Visual Studio 12`) minimum required"
+  )
+endif()
+
+# `find_package(Perl)` is not suitable because `perl` from
+# cygwin directory can be found
+execute_process(
+    COMMAND
+    "perl"
+    "--version"
+    RESULT_VARIABLE
+    PERL_VERSION
+)
+
+if(NOT "${PERL_VERSION}" EQUAL 0)
+  message("`perl` failed to start. Please install it.\n")
+  message("http://www.perl.org/get.html#win32\n")
+  message("(restart may needed)\n")
+
+  message("Current PATH directories:")
+  message(">>>")
+  foreach(x $ENV{PATH})
+    foreach(y ${x})
+      message("    ${y}")
+    endforeach()
+  endforeach()
+  message(FATAL_ERROR "\n<<<")
+endif()
+
+### vcvarsall.bat
+get_filename_component(VS_DEV_PATH "${CMAKE_LINKER}" ABSOLUTE)
+get_filename_component(VS_DEV_PATH "${VS_DEV_PATH}" DIRECTORY)
+get_filename_component(VS_DEV_PATH "${VS_DEV_PATH}/.." ABSOLUTE)
+
+find_program(VC_VARS_BAT vcvarsall.bat HINTS "${VS_DEV_PATH}")
+
+if(NOT VC_VARS_BAT)
+  message(FATAL_ERROR "`vcvarsall.bat` not found in `${VS_DEV_PATH}`")
+endif()
+
+###
+ExternalProject_Add(
+    @HUNTER_PACKAGE_BASENAME@
+    URL
+    "@HUNTER_PACKAGE_URL@"
+    URL_HASH
+    SHA1=@HUNTER_PACKAGE_SHA1@
+    DOWNLOAD_DIR
+    "@HUNTER_PACKAGE_DOWNLOAD_DIR@"
+    SOURCE_DIR
+    "@HUNTER_BASE@/Source/@HUNTER_PACKAGE_BASENAME@"
+        # Out of source build is not working.
+        # Sources will be unpacked for each tag for different directories
+        # and build in source.
+    INSTALL_DIR
+    "@HUNTER_PACKAGE_INSTALL_DIR@"
+        # not used, just avoid creating Install/<name> empty directory
+    ###
+    CONFIGURE_COMMAND
+    "${VS_DEV_CMD_BAT}"
+    COMMAND
+    perl Configure VC-WIN32 no-asm "--prefix=${TEMP_INSTALL_DIR}"
+    COMMAND
+    ms/do_ms.bat
+    ###
+    BUILD_COMMAND
+    nmake -f "ms\\nt.mak"
+    BUILD_IN_SOURCE
+    1
+    ###
+    INSTALL_COMMAND
+    COMMAND
+    nmake -f "ms\\nt.mak" install
+    COMMAND
+    "${CMAKE_COMMAND}" -E make_directory "@HUNTER_PACKAGE_INSTALL_DIR@"
+    COMMAND
+    "${CMAKE_COMMAND}"
+    -E
+    copy_directory
+    "${TEMP_INSTALL_DIR}"
+    "@HUNTER_PACKAGE_INSTALL_DIR@"
+    COMMAND
+    "${CMAKE_COMMAND}" -E remove_directory "${TEMP_INSTALL_DIR}"
+)
