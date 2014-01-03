@@ -70,6 +70,7 @@ function(hunter_download)
     )
   endif()
   set(h_work_dir "${PROJECT_BINARY_DIR}/_HUNTER_temp_download_project")
+  set(h_build_dir "${h_work_dir}/_builds")
   file(REMOVE_RECURSE "${h_work_dir}")
 
   # create temp toolchain file to set environment variables
@@ -253,6 +254,8 @@ function(hunter_download)
   execute_process(
       COMMAND
       "${CMAKE_COMMAND}"
+      "-H${h_work_dir}"
+      "-B${h_build_dir}"
       "-DCMAKE_TOOLCHAIN_FILE=${toolchain_wrapper}"
       "-DHUNTER_STATUS_DEBUG=${HUNTER_STATUS_DEBUG}"
       ${h_generator}
@@ -272,7 +275,7 @@ function(hunter_download)
 
   execute_process(
       COMMAND
-      "${CMAKE_COMMAND}" --build "./"
+      "${CMAKE_COMMAND}" --build "${h_build_dir}"
       WORKING_DIRECTORY
       "${h_work_dir}"
       RESULT_VARIABLE
