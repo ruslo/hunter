@@ -6,6 +6,7 @@ include(CMakeParseArguments) # cmake_parse_arguments
 include(hunter_fatal_error)
 include(hunter_status_debug)
 include(hunter_status_print)
+include(hunter_test_string_not_empty)
 
 function(hunter_download)
   set(
@@ -29,9 +30,7 @@ function(hunter_download)
       "${HUNTER_PACKAGE_NAME} versions available: ${versions}"
   )
 
-  if(NOT HUNTER_INSTALL_TAG)
-    set(HUNTER_INSTALL_TAG "default")
-  endif()
+  hunter_test_string_not_empty("${HUNTER_INSTALL_TAG}")
 
   # Set <LIB>_ROOT variables
   set(h_name "${HUNTER_PACKAGE_NAME}") # Foo

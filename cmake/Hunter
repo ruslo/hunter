@@ -76,6 +76,13 @@ if(NOT CMAKE_DEBUG_POSTFIX)
   )
 endif()
 
+if(NOT HUNTER_INSTALL_TAG)
+  set(HUNTER_INSTALL_TAG "default")
+  hunter_status_debug(
+      "HUNTER_INSTALL_TAG is empty, set to '${HUNTER_INSTALL_TAG}'"
+  )
+endif()
+
 ### 1. Clear all '<NAME>_ROOT' variables (cache, environment, ...)
 ### 2. Set '<NAME>_ROOT' or 'HUNTER_<name>_VERSION' variables
 include("${HUNTER_ROOT}/Source/cmake/config.cmake")
