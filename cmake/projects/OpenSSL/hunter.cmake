@@ -58,7 +58,7 @@ hunter_add_version(
 )
 
 if(WIN32)
-  set(_hunter_download_scheme url_sha_openssl_windows)
+  set(_hunter_download_scheme url_sha1_openssl_windows)
 else()
   string(COMPARE EQUAL "${CMAKE_OSX_SYSROOT}" "iphoneos" _hunter_result)
   if(_hunter_result)
