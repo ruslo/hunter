@@ -197,30 +197,36 @@ function(hunter_download)
   #     Check run needed. If 'Stamp/<name-...>/<name-...>-install' file
   #     detected, no need to generate/run project
   set(need_to_run FALSE)
-  string(COMPARE EQUAL "${HUNTER_CMAKE_GENERATOR}" "Xcode" is_xcode)
-  if(HUNTER_PACKAGE_VARIANTS)
-    foreach(variant ${HUNTER_PACKAGE_VARIANTS})
-      set(x "${HUNTER_PACKAGE_BASENAME}-${variant}")
-      if(is_xcode)
-        set(x "${HUNTER_BASE}/Stamp/${x}/Debug-iphoneos/${x}-install")
-      else()
-        set(x "${HUNTER_BASE}/Stamp/${x}/${x}-install")
-      endif()
-      if(NOT EXISTS "${x}")
-        set(need_to_run TRUE)
-      endif()
-    endforeach()
-  else()
-    set(x "${HUNTER_PACKAGE_BASENAME}")
-    if(is_xcode)
-      set(x "${HUNTER_BASE}/Stamp/${x}/Debug-iphoneos/${x}-install")
+
+  foreach(variant ${HUNTER_PACKAGE_VARIANTS} "-")
+    string(COMPARE EQUAL "${variant}" "-" is_empty)
+    if(is_empty)
+      set(x "${HUNTER_PACKAGE_BASENAME}")
     else()
-      set(x "${HUNTER_BASE}/Stamp/${x}/${x}-install")
+      set(x "${HUNTER_PACKAGE_BASENAME}-${variant}")
     endif()
-    if(NOT EXISTS "${x}")
+    set(HUNTER_STAMP_RESULT "STAMP-NOTFOUND") # search again
+    find_file(
+        HUNTER_STAMP_RESULT
+        "${x}-install"
+        PATHS
+        "${HUNTER_BASE}/Stamp/${x}/"
+        NO_DEFAULT_PATH
+        PATH_SUFFIXES
+        Debug # tested on windows with Visual Studio 2013
+        Debug-iphoneos # tested on Mac OS X with Xcode
+    )
+    if(NOT HUNTER_STAMP_RESULT)
+      hunter_status_debug(
+          "file `${x}-install` not found in `${HUNTER_BASE}/Stamp/${x}`"
+      )
       set(need_to_run TRUE)
+    else()
+      hunter_status_debug(
+          "file `${x}-install` found: `${HUNTER_STAMP_RESULT}`"
+      )
     endif()
-  endif()
+  endforeach()
 
   if(NOT need_to_run)
     hunter_status_debug("Skip generate/run (already installed)")
