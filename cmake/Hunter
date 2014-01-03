@@ -36,8 +36,6 @@ include(hunter_status_debug)
 include(hunter_status_print)
 include(hunter_fatal_error)
 
-hunter_status_print("HUNTER_ROOT: ${HUNTER_ROOT}")
-
 if(HUNTER_ROOT_OLD)
   string(COMPARE NOTEQUAL "${HUNTER_ROOT_OLD}" "${HUNTER_ROOT}" HUNTER_RESULT)
   if(HUNTER_RESULT)
@@ -51,6 +49,26 @@ if(HUNTER_ROOT_OLD)
 endif()
 
 unset(HUNTER_ROOT_OLD)
+
+if(CYGWIN)
+  # Make generator has problems with windows paths
+  execute_process(
+      COMMAND
+      cygpath
+      --absolute
+      "${HUNTER_ROOT}"
+      OUTPUT_VARIABLE
+      HUNTER_ROOT
+      RESULT_VARIABLE
+      _hunter_result
+      OUTPUT_STRIP_TRAILING_WHITESPACE
+  )
+  if(NOT _hunter_result EQUAL 0)
+    hunter_fatal_error("cygpath failed")
+  endif()
+endif()
+
+hunter_status_print("HUNTER_ROOT: ${HUNTER_ROOT}")
 
 set(HUNTER_BASE "${HUNTER_ROOT}/Base")
 
