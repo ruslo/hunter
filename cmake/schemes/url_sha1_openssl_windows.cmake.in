@@ -26,6 +26,12 @@ hunter_test_string_not_empty("@HUNTER_PACKAGE_INSTALL_DIR@")
 
 hunter_assert_lists_equal(@HUNTER_PACKAGE_VARIANTS@)
 
+set_directory_properties(
+    PROPERTIES
+    EP_BASE
+    "@HUNTER_BASE@"
+)
+
 # If prefix contain spaces `nmake` will failed
 # Workaround:
 #     1) install files to temporary folder
