@@ -83,6 +83,10 @@ if(NOT HUNTER_INSTALL_TAG)
   )
 endif()
 
+### Cache default cmake generator
+include(hunter_set_cmake_default_generator)
+hunter_set_cmake_default_generator()
+
 ### 1. Clear all '<NAME>_ROOT' variables (cache, environment, ...)
 ### 2. Set '<NAME>_ROOT' or 'HUNTER_<name>_VERSION' variables
 include("${HUNTER_ROOT}/Source/cmake/config.cmake")
