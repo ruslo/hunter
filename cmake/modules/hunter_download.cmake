@@ -259,7 +259,6 @@ function(hunter_download)
       "-DHUNTER_STATUS_DEBUG=${HUNTER_STATUS_DEBUG}"
       ${h_generator}
       ${verbose_makefile}
-      "./"
       WORKING_DIRECTORY
       "${h_work_dir}"
       RESULT_VARIABLE
