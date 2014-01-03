@@ -190,7 +190,7 @@ function(hunter_download)
       "${HUNTER_ROOT}/Source/cmake/schemes/${HUNTER_DOWNLOAD_SCHEME}.cmake.in"
   )
   if(NOT EXISTS "${download_scheme}")
-    hunter_fatal_error("Download scheme not found")
+    hunter_fatal_error("Download scheme `${download_scheme}` not found")
   endif()
 
   # Optimization:
@@ -259,7 +259,7 @@ function(hunter_download)
   )
 
   if(NOT ${h_generate_result} EQUAL 0)
-    hunter_fatal_error("generate step failed")
+    hunter_fatal_error("generate step failed (dir: ${h_work_dir})")
   endif()
 
   hunter_status_debug("Run build")
@@ -274,7 +274,7 @@ function(hunter_download)
   )
 
   if(NOT ${h_build_result} EQUAL 0)
-    hunter_fatal_error("build step failed")
+    hunter_fatal_error("build step failed (dir: ${h_work_dir}")
   endif()
 
   if(NOT HUNTER_STATUS_DEBUG)
