@@ -26,7 +26,7 @@ function(hunter_set_cmake_default_generator)
   file(
       WRITE
       "${temp_project_dir}/CMakeLists.txt"
-      "cmake_minimum_required(VERSION 2.8)\n"
+      "cmake_minimum_required(VERSION 2.8.12)\n"
       "project(temp)\n"
       "file(\n"
       "    WRITE\n"

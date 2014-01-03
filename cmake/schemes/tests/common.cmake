@@ -1,7 +1,7 @@
 # Copyright (c) 2013, Ruslan Baratov
 # All rights reserved.
 
-cmake_minimum_required(VERSION 2.8.8)
+cmake_minimum_required(VERSION 2.8.12)
 
 set(HUNTER_ROOT "${CMAKE_CURRENT_LIST_DIR}/../../../..")
 include("${HUNTER_ROOT}/Source/cmake/Hunter")
