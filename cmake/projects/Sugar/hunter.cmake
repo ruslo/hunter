@@ -10,6 +10,7 @@ endif()
 include(hunter_add_version)
 include(hunter_add_version_start)
 include(hunter_download)
+include(hunter_pick_scheme)
 
 hunter_add_version_start(Sugar)
 
@@ -112,9 +113,5 @@ hunter_add_version(
     eca1cd13c0399c50c257dcb679c04ca8177307b8
 )
 
-hunter_download(
-    PACKAGE_NAME
-    Sugar
-    DOWNLOAD_SCHEME
-    url_sha1_no_install
-)
+hunter_pick_scheme(DEFAULT url_sha1_no_install)
+hunter_download(PACKAGE_NAME Sugar)

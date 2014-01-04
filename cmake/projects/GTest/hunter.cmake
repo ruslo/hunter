@@ -11,6 +11,7 @@ include(hunter_add_package)
 include(hunter_add_version)
 include(hunter_add_version_start)
 include(hunter_download)
+include(hunter_pick_scheme)
 
 # Add dependencies
 hunter_add_package(Sugar)
@@ -50,21 +51,16 @@ hunter_add_version(
     e62b2ef70308f63c32c560f7b6e252442eed4d57
 )
 
-string(COMPARE EQUAL "${CMAKE_OSX_SYSROOT}" "iphoneos" _hunter_result)
-if(_hunter_result)
-  set(_hunter_download_scheme url_sha1_combined_release_debug)
-else()
-  set(_hunter_download_scheme url_sha1_release_debug)
-endif()
-unset(_hunter_result)
+hunter_pick_scheme(
+    DEFAULT
+    url_sha1_release_debug
+    COMBINED
+    url_sha1_combined_release_debug
+)
 
 hunter_download(
     PACKAGE_NAME
     GTest
     DEPENDS
     Sugar
-    DOWNLOAD_SCHEME
-    ${_hunter_download_scheme}
 )
-
-unset(_hunter_download_scheme)

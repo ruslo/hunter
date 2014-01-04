@@ -10,6 +10,7 @@ endif()
 include(hunter_add_version)
 include(hunter_add_version_start)
 include(hunter_download)
+include(hunter_pick_scheme)
 
 hunter_add_version_start(OpenSSL)
 
@@ -57,23 +58,13 @@ hunter_add_version(
     b485a818490bd2818b7e948b26656c11fea77782
 )
 
-if(WIN32)
-  set(_hunter_download_scheme url_sha1_openssl_windows)
-else()
-  string(COMPARE EQUAL "${CMAKE_OSX_SYSROOT}" "iphoneos" _hunter_result)
-  if(_hunter_result)
-    set(_hunter_download_scheme url_sha1_openssl_ios)
-  else()
-    set(_hunter_download_scheme url_sha1_openssl)
-  endif()
-endif()
-
-unset(_hunter_result)
-
-hunter_download(
-    PACKAGE_NAME
-    OpenSSL
-    DOWNLOAD_SCHEME
-    ${_hunter_download_scheme}
+hunter_pick_scheme(
+    DEFAULT
+    url_sha1_openssl
+    IPHONEOS
+    url_sha1_openssl_ios
+    WINDOWS
+    url_sha1_openssl_windows
 )
-unset(_hunter_download_scheme)
+
+hunter_download(PACKAGE_NAME OpenSSL)
