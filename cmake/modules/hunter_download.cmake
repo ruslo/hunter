@@ -13,7 +13,6 @@ function(hunter_download)
       h_one_value
       PACKAGE_NAME # Foo
       PACKAGE_COMPONENT
-      DOWNLOAD_SCHEME
   )
   set(h_multiple_values DEPENDS) # Boo
 
@@ -31,6 +30,7 @@ function(hunter_download)
   )
 
   hunter_test_string_not_empty("${HUNTER_INSTALL_TAG}")
+  hunter_test_string_not_empty("${HUNTER_DOWNLOAD_SCHEME}")
 
   # Set <LIB>_ROOT variables
   set(h_name "${HUNTER_PACKAGE_NAME}") # Foo
@@ -44,14 +44,10 @@ function(hunter_download)
     return()
   endif()
 
-  string(
-      COMPARE
-      NOTEQUAL
-      "${HUNTER_DOWNLOAD_SCHEME}"
-      "url_sha1_no_install"
-      do_install
-  )
-  if(do_install)
+  if(NOT DEFINED HUNTER_DOWNLOAD_SCHEME_INSTALL)
+    hunter_fatal_error("HUNTER_DOWNLOAD_SCHEME_INSTALL not defined")
+  endif()
+  if(HUNTER_DOWNLOAD_SCHEME_INSTALL)
     set(${h_root_name} "${HUNTER_BASE}/Install/${HUNTER_INSTALL_TAG}")
   else()
     set(${h_root_name} "${HUNTER_BASE}/Source/${h_name}")
@@ -129,61 +125,18 @@ function(hunter_download)
       "${HUNTER_PACKAGE_BASENAME}-${HUNTER_INSTALL_TAG}"
   )
 
-  # Update variants
-  unset(HUNTER_PACKAGE_VARIANTS)
-  string(
-      COMPARE
-      EQUAL
-      "${HUNTER_DOWNLOAD_SCHEME}"
-      "url_sha1_boost_ios_library"
-      is_ios
-  )
-  if(is_ios)
-    set(HUNTER_PACKAGE_VARIANTS ios ios_sim ios_universal)
-  endif()
-
-  string(
-      COMPARE
-      EQUAL
-      "${HUNTER_DOWNLOAD_SCHEME}"
-      "url_sha1_release_debug"
-      is_release_debug
-  )
-  if(is_release_debug)
-    set(HUNTER_PACKAGE_VARIANTS release debug)
-  endif()
-
-  string(
-      COMPARE
-      EQUAL
-      "${HUNTER_DOWNLOAD_SCHEME}"
-      "url_sha1_openssl_ios"
-      is_openssl_ios
-  )
-  if(is_openssl_ios)
-    set(
-        HUNTER_PACKAGE_VARIANTS
-        ${IPHONEOS_ARCHS}
-        ${IPHONESIMULATOR_ARCHS}
-        ios_universal
-    )
-  endif()
-
   # print info before start generation/run
   hunter_status_debug("Add package: ${HUNTER_PACKAGE_NAME}")
   if(HUNTER_PACKAGE_COMPONENT)
     hunter_status_debug("Component: ${HUNTER_PACKAGE_COMPONENT}")
   endif()
   hunter_status_debug("Install tag: ${HUNTER_INSTALL_TAG}")
-  if(HUNTER_PACKAGE_VARIANTS)
-    hunter_status_debug("Variants: [${HUNTER_PACKAGE_VARIANTS}]")
+  if(HUNTER_DOWNLOAD_SCHEME_VARIANTS)
+    hunter_status_debug("Variants: [${HUNTER_DOWNLOAD_SCHEME_VARIANTS}]")
   endif()
+  hunter_status_debug("Download scheme: ${HUNTER_DOWNLOAD_SCHEME}")
   hunter_status_debug("Url: ${HUNTER_PACKAGE_URL}")
   hunter_status_debug("SHA1: ${HUNTER_PACKAGE_SHA1}")
-
-  if(NOT HUNTER_DOWNLOAD_SCHEME)
-    hunter_fatal_error("No download scheme")
-  endif()
 
   set(
       download_scheme
@@ -198,7 +151,7 @@ function(hunter_download)
   #     detected, no need to generate/run project
   set(need_to_run FALSE)
 
-  foreach(variant ${HUNTER_PACKAGE_VARIANTS} "-")
+  foreach(variant ${HUNTER_DOWNLOAD_SCHEME_VARIANTS} "-")
     string(COMPARE EQUAL "${variant}" "-" is_empty)
     if(is_empty)
       set(x "${HUNTER_PACKAGE_BASENAME}")
