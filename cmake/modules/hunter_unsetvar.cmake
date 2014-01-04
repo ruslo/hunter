@@ -4,4 +4,4 @@
 macro(hunter_unsetvar varname)
   unset("${varname}")
   unset("${varname}" CACHE)
-endfunction()
+endmacro()

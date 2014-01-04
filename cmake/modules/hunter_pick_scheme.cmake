@@ -51,7 +51,7 @@ function(hunter_pick_scheme)
   # set HUNTER_DOWNLOAD_SCHEME
   if(is_iphoneos AND x_IPHONEOS)
     set(HUNTER_DOWNLOAD_SCHEME "${x_IPHONEOS}")
-  if(WIN32 AND x_WINDOWS)
+  elseif(WIN32 AND x_WINDOWS)
     set(HUNTER_DOWNLOAD_SCHEME "${x_WINDOWS}")
   elseif(is_combined AND x_COMBINED)
     set(HUNTER_DOWNLOAD_SCHEME "${x_COMBINED}")
