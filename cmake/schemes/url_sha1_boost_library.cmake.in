@@ -82,6 +82,8 @@ elseif(CMAKE_COMPILER_IS_GNUCXX)
   set(toolset_name gcc)
 elseif(compiler_is_clang)
   set(toolset_name clang)
+elseif(MSVC)
+  set(toolset_name msvc)
 else()
   hunter_fatal_error("TODO: set toolset for boost")
 endif()
@@ -110,6 +112,14 @@ if(@HUNTER_STATUS_DEBUG@)
   set(verbose_output "-d+2")
 endif()
 
+if(MSVC)
+  set(bootstrap_cmd "bootstrap.bat")
+  set(b2_cmd "b2.bat")
+else()
+  set(bootstrap_cmd "./bootstrap.sh")
+  set(b2_cmd "./b2")
+endif()
+
 ExternalProject_Add(
     @HUNTER_PACKAGE_BASENAME@
     URL
@@ -123,18 +133,18 @@ ExternalProject_Add(
     "@HUNTER_PACKAGE_INSTALL_DIR@"
         # not used, just avoid creating Install/<name> empty directory
     CONFIGURE_COMMAND
-    ./bootstrap.sh
+    ${bootstrap_cmd}
     --with-libraries=@HUNTER_PACKAGE_COMPONENT@
     --prefix="@HUNTER_PACKAGE_INSTALL_DIR@"
     --with-toolset=${toolset_name}
     BUILD_COMMAND
-    ./b2
+    ${b2_cmd}
     ${verbose_output}
     ${build_opts}
     BUILD_IN_SOURCE
     1
     INSTALL_COMMAND
-    ./b2
+    ${b2_cmd}
     -d0
     ${build_opts}
     install

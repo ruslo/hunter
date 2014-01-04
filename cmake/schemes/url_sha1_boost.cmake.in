@@ -63,11 +63,7 @@ set(
 )
 
 foreach(x ${boost_libs})
-  if(boost_list)
-    set(boost_list "${boost_list},${x}")
-  else()
-    set(boost_list "${x}")
-  endif()
+  list(APPEND boost_list "--without-${x}")
 endforeach()
 
 if(XCODE_VERSION)
@@ -77,8 +73,27 @@ if(XCODE_VERSION)
       . "@HUNTER_ROOT@/Source/scripts/clear-all.sh" &&
       ./bootstrap.sh
   )
+elseif(MSVC)
+  ### copy/paste from openssl_windows scheme --
+  get_filename_component(VS_DEV_PATH "${CMAKE_LINKER}" ABSOLUTE)
+  get_filename_component(VS_DEV_PATH "${VS_DEV_PATH}" DIRECTORY)
+  get_filename_component(VS_DEV_PATH "${VS_DEV_PATH}/.." ABSOLUTE)
+
+  find_program(VC_VARS_BAT vcvarsall.bat HINTS "${VS_DEV_PATH}")
+
+  if(NOT VC_VARS_BAT)
+    message(FATAL_ERROR "`vcvarsall.bat` not found in `${VS_DEV_PATH}`")
+  endif()
+  ### -- end
+  set(bootstrap "${VC_VARS_BAT}" && bootstrap.bat)
 else()
-  set(bootstrap ./bootstrap.sh)
+  set(bootstrap "./bootstrap.sh")
+endif()
+
+if(MSVC)
+  set(install_cmd "b2")
+else()
+  set(install_cmd "./b2")
 endif()
 
 ExternalProject_Add(
@@ -96,14 +111,14 @@ ExternalProject_Add(
         # not used, just avoid creating Install/<name> empty directory
     CONFIGURE_COMMAND
     ${bootstrap}
-    --without-libraries=${boost_list}
-    --prefix="@HUNTER_PACKAGE_INSTALL_DIR@"
     BUILD_COMMAND
     ""
     BUILD_IN_SOURCE
     1
     INSTALL_COMMAND
-    ./b2
+    ${install_cmd}
+    --prefix="@HUNTER_PACKAGE_INSTALL_DIR@"
     -d0
     install
+    ${boost_list}
 )
