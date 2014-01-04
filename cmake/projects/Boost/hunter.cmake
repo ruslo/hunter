@@ -10,6 +10,7 @@ endif()
 include(hunter_add_version)
 include(hunter_add_version_start)
 include(hunter_download)
+include(hunter_pick_scheme)
 
 # Disable searching in locations not specified by these hint variables.
 set(Boost_NO_SYSTEM_PATHS ON)
@@ -38,9 +39,5 @@ hunter_add_version(
     230782c7219882d0fab5f1effbe86edb85238bf4
 )
 
-hunter_download(
-    PACKAGE_NAME
-    Boost
-    DOWNLOAD_SCHEME
-    url_sha1_boost
-)
+hunter_pick_scheme(DEFAULT url_sha1_boost)
+hunter_download(PACKAGE_NAME Boost)

@@ -8,22 +8,18 @@ else()
 endif()
 
 include(hunter_download)
+include(hunter_pick_scheme)
 
-string(COMPARE EQUAL "${CMAKE_OSX_SYSROOT}" "iphoneos" _hunter_result)
-if(_hunter_result)
-  set(_hunter_download_scheme url_sha1_boost_ios_library)
-else()
-  set(_hunter_download_scheme url_sha1_boost_library)
-endif()
-unset(_hunter_result)
+hunter_pick_scheme(
+    DEFAULT
+    url_sha1_boost_library
+    IPHONEOS
+    url_sha1_boost_ios_library
+)
 
 hunter_download(
     PACKAGE_NAME
     Boost
     PACKAGE_COMPONENT
     locale
-    DOWNLOAD_SCHEME
-    ${_hunter_download_scheme}
 )
-
-unset(_hunter_download_scheme)
