@@ -12,6 +12,7 @@ list(APPEND CMAKE_MODULE_PATH "@HUNTER_ROOT@/Source/cmake/modules")
 include(hunter_assert_lists_equal)
 include(hunter_status_debug)
 include(hunter_test_string_not_empty)
+include(hunter_unsetvar)
 
 hunter_status_debug("Scheme: url_sha1_openssl_ios")
 
@@ -45,8 +46,8 @@ set_directory_properties(
     "@HUNTER_BASE@"
 )
 
-unset(ssl_input_libraries)
-unset(crypto_input_libraries)
+hunter_unsetvar(ssl_input_libraries)
+hunter_unsetvar(crypto_input_libraries)
 
 foreach(arch @IPHONEOS_ARCHS@ @IPHONESIMULATOR_ARCHS@)
   list(

@@ -13,6 +13,7 @@ include(hunter_assert_lists_equal)
 include(hunter_fatal_error)
 include(hunter_status_debug)
 include(hunter_test_string_not_empty)
+include(hunter_unsetvar)
 
 hunter_status_debug("Scheme: url_sha1_boost_ios_library")
 
@@ -80,12 +81,12 @@ if(NOT libfound)
   hunter_fatal_error("No such library")
 endif()
 
-unset(iphoneos_archs)
+hunter_unsetvar(iphoneos_archs)
 foreach(x @IPHONEOS_ARCHS@)
   set(iphoneos_archs "${iphoneos_archs} -arch ${x}")
 endforeach()
 
-unset(isim_archs)
+hunter_unsetvar(isim_archs)
 foreach(x @IPHONESIMULATOR_ARCHS@)
   set(isim_archs "${isim_archs} -arch ${x}")
 endforeach()

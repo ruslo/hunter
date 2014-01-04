@@ -4,6 +4,7 @@
 include(CMakeParseArguments) # cmake_parse_arguments
 
 include(hunter_fatal_error)
+include(hunter_unsetvar)
 
 # internal variables: _hunter_c_*
 macro(hunter_config)
@@ -20,8 +21,7 @@ macro(hunter_config)
   set(_hunter_c_root "${_hunter_c_root}_ROOT")
 
   # clear all
-  unset(${_hunter_c_root})
-  unset(${_hunter_c_root} CACHE)
+  hunter_unsetvar(${_hunter_c_root})
   unset(ENV{_hunter_c_root})
 
   if(_hunter_c_CUSTOM)
