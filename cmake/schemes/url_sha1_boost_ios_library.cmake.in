@@ -31,7 +31,7 @@ hunter_test_string_not_empty("@IPHONEOS_ROOT@")
 hunter_test_string_not_empty("@IPHONEOS_SDK_ROOT@")
 hunter_test_string_not_empty("@IPHONESIMULATOR_SDK_ROOT@")
 
-hunter_assert_lists_equal(@HUNTER_PACKAGE_VARIANTS@ ios ios_sim ios_universal)
+hunter_assert_lists_equal(@HUNTER_DOWNLOAD_SCHEME_VARIANTS@ ios ios_sim ios_universal)
 
 set_directory_properties(
     PROPERTIES

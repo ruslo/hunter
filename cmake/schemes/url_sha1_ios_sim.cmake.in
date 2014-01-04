@@ -22,7 +22,7 @@ hunter_test_string_not_empty("@HUNTER_PACKAGE_DOWNLOAD_DIR@")
 hunter_test_string_not_empty("@HUNTER_PACKAGE_SOURCE_DIR@")
 hunter_test_string_not_empty("@HUNTER_PACKAGE_INSTALL_DIR@")
 
-hunter_assert_lists_equal(@HUNTER_PACKAGE_VARIANTS@)
+hunter_assert_lists_equal(@HUNTER_DOWNLOAD_SCHEME_VARIANTS@)
 
 set_directory_properties(
     PROPERTIES

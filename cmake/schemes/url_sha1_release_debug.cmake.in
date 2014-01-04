@@ -35,7 +35,7 @@ hunter_test_string_not_empty("@HUNTER_PACKAGE_INSTALL_DIR@")
 hunter_test_string_not_empty("@CMAKE_DEBUG_POSTFIX@")
 hunter_test_string_not_empty("${CMAKE_TOOLCHAIN_FILE}")
 
-hunter_assert_lists_equal(@HUNTER_PACKAGE_VARIANTS@ release debug)
+hunter_assert_lists_equal(@HUNTER_DOWNLOAD_SCHEME_VARIANTS@ release debug)
 
 set_directory_properties(
     PROPERTIES

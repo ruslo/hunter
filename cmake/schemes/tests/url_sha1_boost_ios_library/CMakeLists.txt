@@ -28,7 +28,7 @@ configure_file(
 execute_test("${CMAKE_COMMAND}" .)
 execute_test("${CMAKE_COMMAND}" --build .)
 
-set(HUNTER_PACKAGE_VARIANTS ios ios_sim ios_universal)
+set(HUNTER_DOWNLOAD_SCHEME_VARIANTS ios ios_sim ios_universal)
 
 # Install library
 configure_file(

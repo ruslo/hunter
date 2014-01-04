@@ -12,7 +12,7 @@ set(
 )
 set(HUNTER_PACKAGE_SHA1 48179067d11828dc347f98fc148654f88766529d)
 
-set(HUNTER_PACKAGE_VARIANTS release debug)
+set(HUNTER_DOWNLOAD_SCHEME_VARIANTS release debug)
 
 configure_file(
     "${HUNTER_ROOT}/Source/cmake/schemes/url_sha1_release_debug.cmake.in"

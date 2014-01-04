@@ -29,7 +29,7 @@ hunter_test_string_not_empty("@IOS_SDK_VERSION@")
 hunter_test_string_not_empty("@IPHONESIMULATOR_ROOT@")
 
 hunter_assert_lists_equal(
-    @HUNTER_PACKAGE_VARIANTS@
+    @HUNTER_DOWNLOAD_SCHEME_VARIANTS@
     @IPHONEOS_ARCHS@
     @IPHONESIMULATOR_ARCHS@
     ios_universal
