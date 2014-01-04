@@ -88,12 +88,35 @@ else()
   hunter_fatal_error("TODO: set toolset for boost")
 endif()
 
+if(MSVC)
+  ### copy/paste from openssl_windows scheme --
+  get_filename_component(VS_DEV_PATH "${CMAKE_LINKER}" ABSOLUTE)
+  get_filename_component(VS_DEV_PATH "${VS_DEV_PATH}" DIRECTORY)
+  get_filename_component(VS_DEV_PATH "${VS_DEV_PATH}/.." ABSOLUTE)
+
+  find_program(VC_VARS_BAT vcvarsall.bat HINTS "${VS_DEV_PATH}")
+
+  if(NOT VC_VARS_BAT)
+    message(FATAL_ERROR "`vcvarsall.bat` not found in `${VS_DEV_PATH}`")
+  endif()
+  ### -- end
+  set(env_cmd "${VC_VARS_BAT}")
+else()
+  set(env_cmd "")
+endif()
+
+if(MSVC)
+  set(boost_compiler cl)
+else()
+  set(boost_compiler "${CMAKE_CXX_COMPILER}")
+endif()
+
 set(boost_user_jam "@HUNTER_BASE@/boost.user.jam")
 file(
      WRITE
      ${boost_user_jam}
      "using ${toolset_name} :\n"
-     "    : ${CMAKE_CXX_COMPILER} ${CMAKE_CXX_FLAGS}\n"
+     "    : \"${boost_compiler}\"\n"
      ";\n"
 )
 
@@ -105,7 +128,9 @@ set(
     variant=release,debug
     --layout=tagged
     toolset=${toolset_name}
-    --user-config="${boost_user_jam}"
+    "--user-config=${boost_user_jam}"
+    --with-@HUNTER_PACKAGE_COMPONENT@
+    "cxxflags=${CMAKE_CXX_FLAGS}"
 )
 
 if(@HUNTER_STATUS_DEBUG@)
@@ -114,7 +139,7 @@ endif()
 
 if(MSVC)
   set(bootstrap_cmd "bootstrap.bat")
-  set(b2_cmd "b2.bat")
+  set(b2_cmd "b2")
 else()
   set(bootstrap_cmd "./bootstrap.sh")
   set(b2_cmd "./b2")
@@ -133,10 +158,9 @@ ExternalProject_Add(
     "@HUNTER_PACKAGE_INSTALL_DIR@"
         # not used, just avoid creating Install/<name> empty directory
     CONFIGURE_COMMAND
+    ${env_cmd}
+    COMMAND
     ${bootstrap_cmd}
-    --with-libraries=@HUNTER_PACKAGE_COMPONENT@
-    --prefix="@HUNTER_PACKAGE_INSTALL_DIR@"
-    --with-toolset=${toolset_name}
     BUILD_COMMAND
     ${b2_cmd}
     ${verbose_output}
@@ -148,6 +172,7 @@ ExternalProject_Add(
     -d0
     ${build_opts}
     install
+    "--prefix=@HUNTER_PACKAGE_INSTALL_DIR@"
 )
 
 if(APPLE)
