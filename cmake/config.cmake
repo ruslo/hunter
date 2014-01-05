@@ -15,7 +15,7 @@ include(hunter_config)
 # NOTE: no names with spaces!
 
 hunter_config(Boost VERSION 1.55.0)
-hunter_config(GTest VERSION 1.7.0-hunter-2)
+hunter_config(GTest VERSION 1.7.0-hunter-3)
 hunter_config(OpenSSL VERSION 1.0.1e)
 hunter_config(RapidJSON VERSION 0.11-hunter)
 hunter_config(Sugar VERSION 1.0.9)
