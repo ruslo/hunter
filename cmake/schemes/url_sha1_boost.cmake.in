@@ -24,6 +24,9 @@ hunter_test_string_not_empty("@HUNTER_PACKAGE_SHA1@")
 hunter_test_string_not_empty("@HUNTER_PACKAGE_DOWNLOAD_DIR@")
 hunter_test_string_not_empty("@HUNTER_PACKAGE_SOURCE_DIR@")
 hunter_test_string_not_empty("@HUNTER_PACKAGE_INSTALL_DIR@")
+if(MSVC)
+  hunter_test_string_not_empty("@HUNTER_MSVC_ARCH@")
+endif()
 
 hunter_assert_lists_equal(@HUNTER_DOWNLOAD_SCHEME_VARIANTS@)
 
@@ -81,7 +84,7 @@ elseif(MSVC)
     message(FATAL_ERROR "`vcvarsall.bat` not found in `${VS_DEV_PATH}`")
   endif()
   ### -- end
-  set(env_cmd "${VC_VARS_BAT}")
+  set(env_cmd "${VC_VARS_BAT}" "@HUNTER_MSVC_ARCH@")
 else()
   set(env_cmd "")
 endif()
@@ -117,6 +120,7 @@ ExternalProject_Add(
     1
     INSTALL_COMMAND
     ${install_cmd}
+    --layout=tagged
     -d0
     install
     ${boost_list}

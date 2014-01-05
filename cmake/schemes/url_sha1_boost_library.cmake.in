@@ -24,6 +24,9 @@ hunter_test_string_not_empty("@HUNTER_PACKAGE_SOURCE_DIR@")
 hunter_test_string_not_empty("@HUNTER_PACKAGE_INSTALL_DIR@")
 hunter_test_string_not_empty("@HUNTER_PACKAGE_COMPONENT@")
 hunter_test_string_not_empty("@CMAKE_CXX_COMPILER@")
+if(MSVC)
+  hunter_test_string_not_empty("@HUNTER_MSVC_ARCH@")
+endif()
 
 hunter_assert_lists_equal(@HUNTER_DOWNLOAD_SCHEME_VARIANTS@)
 
@@ -100,7 +103,7 @@ if(MSVC)
     message(FATAL_ERROR "`vcvarsall.bat` not found in `${VS_DEV_PATH}`")
   endif()
   ### -- end
-  set(env_cmd "${VC_VARS_BAT}")
+  set(env_cmd "${VC_VARS_BAT}" "@HUNTER_MSVC_ARCH@")
 else()
   set(env_cmd "")
 endif()
@@ -119,6 +122,11 @@ file(
      "    : \"${boost_compiler}\"\n"
      ";\n"
 )
+
+if(MSVC)
+  # Disable auto-linking
+  set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} /DBOOST_ALL_NO_LIB=1")
+endif()
 
 set(
     build_opts
@@ -171,8 +179,8 @@ ExternalProject_Add(
     ${b2_cmd}
     -d0
     ${build_opts}
-    install
-    "--prefix=@HUNTER_PACKAGE_INSTALL_DIR@"
+    stage # install only libraries, headers installed in `url_sha1_boost`
+    "--stagedir=@HUNTER_PACKAGE_INSTALL_DIR@"
 )
 
 if(APPLE)
