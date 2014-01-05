@@ -135,15 +135,14 @@ set(
     ${build_opts}
 )
 
-if(XCODE_VERSION)
-  set(
-      bootstrap
-      . "@HUNTER_ROOT@/Source/scripts/clear-all.sh" &&
-      ./bootstrap.sh
-  )
-else()
-  set(bootstrap ./bootstrap.sh)
-endif()
+# Clear Xcode environment
+set(
+    bootstrap
+    . "@HUNTER_ROOT@/Source/scripts/clear-all.sh" &&
+    ./bootstrap.sh
+    "--with-libraries=@HUNTER_PACKAGE_COMPONENT@"
+    "--prefix=@HUNTER_PACKAGE_INSTALL_DIR@"
+)
 
 if(@HUNTER_STATUS_DEBUG@)
   set(verbose_output "-d+2")
@@ -162,8 +161,6 @@ ExternalProject_Add(
         # not used, just avoid creating Install/<name> empty directory
     CONFIGURE_COMMAND
     ${bootstrap}
-    --with-libraries=@HUNTER_PACKAGE_COMPONENT@
-    --prefix="@HUNTER_PACKAGE_INSTALL_DIR@"
     BUILD_COMMAND
     ./b2
     ${verbose_output}
@@ -187,8 +184,6 @@ ExternalProject_Add(
         # not used, just avoid creating Install/<name> empty directory
     CONFIGURE_COMMAND
     ${bootstrap}
-    --with-libraries=@HUNTER_PACKAGE_COMPONENT@
-    --prefix=@HUNTER_PACKAGE_INSTALL_DIR@
     BUILD_COMMAND
     ./b2
     ${verbose_output}

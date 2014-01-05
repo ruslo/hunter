@@ -70,10 +70,7 @@ foreach(x ${boost_libs})
   list(APPEND boost_list "--without-${x}")
 endforeach()
 
-if(XCODE_VERSION)
-  # remove xcode environment variables
-  set(env_cmd . "@HUNTER_ROOT@/Source/scripts/clear-all.sh")
-elseif(MSVC)
+if(MSVC)
   set(env_cmd "@HUNTER_MSVC_VCVARSALL@" "@HUNTER_MSVC_ARCH@")
 else()
   set(env_cmd "")
@@ -84,7 +81,15 @@ if(MSVC)
   set(bootstrap_cmd "bootstrap.bat")
 else()
   set(install_cmd "./b2")
-  set(bootstrap_cmd "./bootstrap.sh")
+  if(APPLE)
+    # Clear Xcode environment
+    set(
+        bootstrap_cmd
+        . "@HUNTER_ROOT@/Source/scripts/clear-all.sh" && ./bootstrap.sh
+    )
+  else()
+    set(bootstrap_cmd "./bootstrap.sh")
+  endif()
 endif()
 
 ExternalProject_Add(
