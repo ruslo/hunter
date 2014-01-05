@@ -88,8 +88,10 @@ endif()
 string(COMPARE EQUAL "@HUNTER_MSVC_ARCH@" "amd64" is_amd64)
 if(is_amd64)
   set(opt "VC-WIN64A")
+  set(do_ms do_win64a.bat)
 else()
   set(opt "VC-WIN32")
+  set(do_ms do_ms.bat)
 endif()
 
 ###
@@ -115,7 +117,7 @@ ExternalProject_Add(
     COMMAND
     perl Configure "${opt}" no-asm "--prefix=${TEMP_INSTALL_DIR}"
     COMMAND
-    ms/do_ms.bat
+    ms/${do_ms}
     ###
     BUILD_COMMAND
     nmake -f "ms\\nt.mak"
