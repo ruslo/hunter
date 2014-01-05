@@ -24,6 +24,7 @@ hunter_test_string_not_empty("@HUNTER_PACKAGE_SHA1@")
 hunter_test_string_not_empty("@HUNTER_PACKAGE_DOWNLOAD_DIR@")
 hunter_test_string_not_empty("@HUNTER_PACKAGE_INSTALL_DIR@")
 hunter_test_string_not_empty("@HUNTER_MSVC_ARCH@")
+hunter_test_string_not_empty("@HUNTER_MSVC_VCVARSALL@")
 
 hunter_assert_lists_equal(@HUNTER_DOWNLOAD_SCHEME_VARIANTS@)
 
@@ -84,17 +85,6 @@ if(NOT "${PERL_VERSION}" EQUAL 0)
   message(FATAL_ERROR "\n<<<")
 endif()
 
-### vcvarsall.bat
-get_filename_component(VS_DEV_PATH "${CMAKE_LINKER}" ABSOLUTE)
-get_filename_component(VS_DEV_PATH "${VS_DEV_PATH}" DIRECTORY)
-get_filename_component(VS_DEV_PATH "${VS_DEV_PATH}/.." ABSOLUTE)
-
-find_program(VC_VARS_BAT vcvarsall.bat HINTS "${VS_DEV_PATH}")
-
-if(NOT VC_VARS_BAT)
-  message(FATAL_ERROR "`vcvarsall.bat` not found in `${VS_DEV_PATH}`")
-endif()
-
 string(COMPARE EQUAL "@HUNTER_MSVC_ARCH@" "amd64" is_amd64)
 if(is_amd64)
   set(opt "VC-WIN64A")
@@ -121,7 +111,7 @@ ExternalProject_Add(
         # not used, just avoid creating Install/<name> empty directory
     ###
     CONFIGURE_COMMAND
-    "${VC_VARS_BAT}" "@HUNTER_MSVC_ARCH@"
+    "@HUNTER_MSVC_VCVARSALL@" "@HUNTER_MSVC_ARCH@"
     COMMAND
     perl Configure "${opt}" no-asm "--prefix=${TEMP_INSTALL_DIR}"
     COMMAND

@@ -26,6 +26,7 @@ hunter_test_string_not_empty("@HUNTER_PACKAGE_SOURCE_DIR@")
 hunter_test_string_not_empty("@HUNTER_PACKAGE_INSTALL_DIR@")
 if(MSVC)
   hunter_test_string_not_empty("@HUNTER_MSVC_ARCH@")
+  hunter_test_string_not_empty("@HUNTER_MSVC_VCVARSALL@")
 endif()
 
 hunter_assert_lists_equal(@HUNTER_DOWNLOAD_SCHEME_VARIANTS@)
@@ -73,18 +74,7 @@ if(XCODE_VERSION)
   # remove xcode environment variables
   set(env_cmd . "@HUNTER_ROOT@/Source/scripts/clear-all.sh")
 elseif(MSVC)
-  ### copy/paste from openssl_windows scheme --
-  get_filename_component(VS_DEV_PATH "${CMAKE_LINKER}" ABSOLUTE)
-  get_filename_component(VS_DEV_PATH "${VS_DEV_PATH}" DIRECTORY)
-  get_filename_component(VS_DEV_PATH "${VS_DEV_PATH}/.." ABSOLUTE)
-
-  find_program(VC_VARS_BAT vcvarsall.bat HINTS "${VS_DEV_PATH}")
-
-  if(NOT VC_VARS_BAT)
-    message(FATAL_ERROR "`vcvarsall.bat` not found in `${VS_DEV_PATH}`")
-  endif()
-  ### -- end
-  set(env_cmd "${VC_VARS_BAT}" "@HUNTER_MSVC_ARCH@")
+  set(env_cmd "@HUNTER_MSVC_VCVARSALL@" "@HUNTER_MSVC_ARCH@")
 else()
   set(env_cmd "")
 endif()
