@@ -2,6 +2,7 @@
 # All rights reserved.
 
 include(hunter_fatal_error)
+include(hunter_status_debug)
 include(hunter_test_string_not_empty)
 
 function(hunter_set_cmake_default_generator)
