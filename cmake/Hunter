@@ -95,7 +95,17 @@ if(NOT CMAKE_DEBUG_POSTFIX)
 endif()
 
 if(NOT HUNTER_INSTALL_TAG)
-  set(HUNTER_INSTALL_TAG "default")
+  if(MSVC)
+    string(REPLACE "Visual Studio" "vs" HUNTER_INSTALL_TAG "${CMAKE_GENERATOR}")
+    string(REPLACE " " "-" HUNTER_INSTALL_TAG "${HUNTER_INSTALL_TAG}")
+    string(TOLOWER "${HUNTER_INSTALL_TAG}" HUNTER_INSTALL_TAG)
+  elseif(MINGW)
+    set(HUNTER_INSTALL_TAG "mingw")
+  elseif(CYGWIN)
+    set(HUNTER_INSTALL_TAG "cygwin")
+  else()
+    set(HUNTER_INSTALL_TAG "default")
+  endif()
   hunter_status_debug(
       "HUNTER_INSTALL_TAG is empty, set to '${HUNTER_INSTALL_TAG}'"
   )
