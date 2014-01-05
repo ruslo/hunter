@@ -92,12 +92,30 @@ else()
   endif()
 endif()
 
+if(EXISTS "@HUNTER_PACKAGE_SOURCE_DIR@")
+  hunter_status_debug(
+      "Boost directory already unpacked: `@HUNTER_PACKAGE_SOURCE_DIR@` "
+      "(skip download and unpack)"
+  )
+  set(
+      download_command
+      DOWNLOAD_COMMAND
+      "${CMAKE_COMMAND}"
+      -E
+      echo
+      "skip download and unpack"
+  )
+else()
+  set(download_command "")
+endif()
+
 ExternalProject_Add(
     @HUNTER_PACKAGE_BASENAME@
     URL
     @HUNTER_PACKAGE_URL@
     URL_HASH
     SHA1=@HUNTER_PACKAGE_SHA1@
+    ${download_command}
     DOWNLOAD_DIR
     "@HUNTER_PACKAGE_DOWNLOAD_DIR@"
     SOURCE_DIR
