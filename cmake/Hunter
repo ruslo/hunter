@@ -111,6 +111,11 @@ if(NOT HUNTER_INSTALL_TAG)
   )
 endif()
 
+if(MSVC)
+  include(hunter_setup_msvc_arch)
+  hunter_setup_msvc_arch()
+endif()
+
 ### Cache default cmake generator
 include(hunter_set_cmake_default_generator)
 hunter_set_cmake_default_generator()
