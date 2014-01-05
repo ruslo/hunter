@@ -151,7 +151,13 @@ function(hunter_download)
   #     detected, no need to generate/run project
   set(need_to_run FALSE)
 
-  foreach(variant ${HUNTER_DOWNLOAD_SCHEME_VARIANTS} "-")
+  if(HUNTER_DOWNLOAD_SCHEME_VARIANTS)
+    set(scheme_variants ${HUNTER_DOWNLOAD_SCHEME_VARIANTS})
+  else()
+    set(scheme_variants "-")
+  endif()
+
+  foreach(variant ${scheme_variants})
     string(COMPARE EQUAL "${variant}" "-" is_empty)
     if(is_empty)
       set(x "${HUNTER_PACKAGE_BASENAME}")
