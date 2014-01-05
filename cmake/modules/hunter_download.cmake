@@ -196,8 +196,14 @@ function(hunter_download)
   if(HUNTER_CMAKE_GENERATOR)
     set(h_generator "-G${HUNTER_CMAKE_GENERATOR}")
   else()
-    # use default
-    set(h_generator)
+    if(MSVC)
+      # forward same generator for all project
+      # because one generator = one compiler
+      set(h_generator "-G${CMAKE_GENERATOR}")
+    else()
+      # use default
+      set(h_generator)
+    endif()
   endif()
 
   hunter_status_debug("Run generate")
