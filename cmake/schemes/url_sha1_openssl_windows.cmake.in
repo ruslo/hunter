@@ -23,6 +23,7 @@ hunter_test_string_not_empty("@HUNTER_PACKAGE_URL@")
 hunter_test_string_not_empty("@HUNTER_PACKAGE_SHA1@")
 hunter_test_string_not_empty("@HUNTER_PACKAGE_DOWNLOAD_DIR@")
 hunter_test_string_not_empty("@HUNTER_PACKAGE_INSTALL_DIR@")
+hunter_test_string_not_empty("@HUNTER_MSVC_ARCH@")
 
 hunter_assert_lists_equal(@HUNTER_DOWNLOAD_SCHEME_VARIANTS@)
 
@@ -94,6 +95,13 @@ if(NOT VC_VARS_BAT)
   message(FATAL_ERROR "`vcvarsall.bat` not found in `${VS_DEV_PATH}`")
 endif()
 
+string(COMPARE EQUAL "@HUNTER_MSVC_ARCH@" "amd64" is_amd64)
+if(is_amd64)
+  set(opt "VC-WIN64A")
+else()
+  set(opt "VC-WIN32")
+endif()
+
 ###
 ExternalProject_Add(
     @HUNTER_PACKAGE_BASENAME@
@@ -113,9 +121,9 @@ ExternalProject_Add(
         # not used, just avoid creating Install/<name> empty directory
     ###
     CONFIGURE_COMMAND
-    "${VS_DEV_CMD_BAT}"
+    "${VC_VARS_BAT}" "@HUNTER_MSVC_ARCH@"
     COMMAND
-    perl Configure VC-WIN32 no-asm "--prefix=${TEMP_INSTALL_DIR}"
+    perl Configure "${opt}" no-asm "--prefix=${TEMP_INSTALL_DIR}"
     COMMAND
     ms/do_ms.bat
     ###
