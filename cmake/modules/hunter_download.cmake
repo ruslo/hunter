@@ -14,10 +14,9 @@ function(hunter_download)
       PACKAGE_NAME # Foo
       PACKAGE_COMPONENT
   )
-  set(h_multiple_values DEPENDS) # Boo
 
   cmake_parse_arguments(
-      HUNTER "" "${h_one_value}" "${h_multiple_values}" ${ARGV}
+      HUNTER "" "${h_one_value}" "" ${ARGV}
   )
 
   if(h_UNPARSED_ARGUMENTS)
@@ -71,24 +70,12 @@ function(hunter_download)
   # create temp toolchain file to set environment variables
   # and include real toolchain
   set(toolchain_wrapper "${h_work_dir}/toolchain.cmake")
-  file(WRITE "${toolchain_wrapper}" "###\n") # file must not be empty
 
-  list(APPEND h_DEPENDS Hunter) # pass HUNTER_ROOT to all packages
-  foreach(x ${h_DEPENDS})
-    string(TOUPPER "${x}" x_name)
-    set(x_name "${x_name}_ROOT")
-    if(NOT ${x_name})
-      hunter_fatal_error(
-          "Can't forward empty variable ${x_name} (need include?)"
-      )
-    endif()
-
-    # forward depends '<NAME>_ROOT' cmake variables
-    file(APPEND "${toolchain_wrapper}" "set(${x_name} \"${${x_name}}\")\n")
-
-    # forward depends '<NAME>_ROOT' environment variables
-    file(APPEND "${toolchain_wrapper}" "set(ENV{${x_name}} \"${${x_name}}\")\n")
-  endforeach()
+  # pass HUNTER_ROOT to all packages
+  file(APPEND "${toolchain_wrapper}" "set(HUNTER_ROOT \"${HUNTER_ROOT}\")\n")
+  file(
+      APPEND "${toolchain_wrapper}" "set(ENV{HUNTER_ROOT} \"${HUNTER_ROOT}\")\n"
+  )
 
   # support for toolchain file forwarding
   if(CMAKE_TOOLCHAIN_FILE)
