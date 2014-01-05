@@ -113,7 +113,9 @@ endif()
 
 if(MSVC)
   include(hunter_setup_msvc_arch)
+  include(hunter_setup_msvc_vcvarsall)
   hunter_setup_msvc_arch()
+  hunter_setup_msvc_vcvarsall()
 endif()
 
 ### Cache default cmake generator
