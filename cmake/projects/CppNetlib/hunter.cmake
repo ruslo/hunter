@@ -7,10 +7,17 @@ else()
   set(HUNTER_CMAKE_PROJECTS_CPPNETLIB_HUNTER_CMAKE_ 1)
 endif()
 
+include(hunter_add_package)
 include(hunter_add_version)
 include(hunter_add_version_start)
 include(hunter_download)
 include(hunter_pick_scheme)
+
+# Dependencies --
+hunter_add_package(Boost)
+hunter_add_package(OpenSSL)
+hunter_add_package(Sugar)
+# -- end
 
 hunter_add_version_start(CppNetlib)
 
