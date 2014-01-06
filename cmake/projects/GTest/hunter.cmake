@@ -7,14 +7,10 @@ else()
   set(HUNTER_CMAKE_PROJECTS_GTEST_HUNTER_CMAKE 1)
 endif()
 
-include(hunter_add_package)
 include(hunter_add_version)
 include(hunter_add_version_start)
 include(hunter_download)
 include(hunter_pick_scheme)
-
-# Add dependencies
-hunter_add_package(Sugar)
 
 hunter_add_version_start(GTest)
 
@@ -69,9 +65,4 @@ hunter_pick_scheme(
     url_sha1_combined_release_debug
 )
 
-hunter_download(
-    PACKAGE_NAME
-    GTest
-    DEPENDS
-    Sugar
-)
+hunter_download(PACKAGE_NAME GTest)
