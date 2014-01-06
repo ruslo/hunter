@@ -16,16 +16,20 @@ function(hunter_pick_scheme)
   hunter_test_string_not_empty("${HUNTER_BASE}")
   hunter_test_string_not_empty("${HUNTER_INSTALL_TAG}")
 
-  # default generator (see function `hunter_set_cmake_default_generator`)
-  set(
-      generator_info
-      "${HUNTER_BASE}/Toolchains/${HUNTER_INSTALL_TAG}/default_generator.info"
-  )
-  if(NOT EXISTS "${generator_info}")
-    hunter_fatal_error("File `${generator_info}` not found")
-  endif()
+  if(HUNTER_CMAKE_GENERATOR)
+    set(default_generator "${HUNTER_CMAKE_GENERATOR}")
+  else()
+    # default generator (see function `hunter_set_cmake_default_generator`)
+    set(
+        generator_info
+        "${HUNTER_BASE}/Toolchains/${HUNTER_INSTALL_TAG}/default_generator.info"
+    )
+    if(NOT EXISTS "${generator_info}")
+      hunter_fatal_error("File `${generator_info}` not found")
+    endif()
 
-  file(READ "${generator_info}" default_generator)
+    file(READ "${generator_info}" default_generator)
+  endif()
 
   hunter_unsetvar(is_combined)
   string(COMPARE EQUAL "${default_generator}" "Xcode" is_xcode)
