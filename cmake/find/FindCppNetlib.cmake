@@ -102,7 +102,7 @@ foreach(lib uri client-connections server-parsers)
         ${_find_cppnetlib_upper}
         debug
         "${${_find_cppnetlib_upper_debug}}"
-        release
+        optimized
         "${${_find_cppnetlib_upper_release}}"
     )
   elseif(${_find_cppnetlib_upper_release})
