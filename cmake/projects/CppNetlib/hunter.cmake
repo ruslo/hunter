@@ -17,6 +17,9 @@ include(hunter_pick_scheme)
 hunter_add_package(Boost)
 hunter_add_package(OpenSSL)
 hunter_add_package(Sugar)
+if(APPLE)
+  hunter_add_package(ios_sim)
+endif()
 # -- end
 
 hunter_add_version_start(CppNetlib)
