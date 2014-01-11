@@ -1,4 +1,4 @@
-# Copyright (c) 2013, Ruslan Baratov
+# Copyright (c) 2013-2014, Ruslan Baratov
 # All rights reserved.
 
 if(DEFINED HUNTER_CMAKE_PROJECTS_OPENSSL_HUNTER_CMAKE)
@@ -56,6 +56,17 @@ hunter_add_version(
     "https://github.com/openssl/openssl/archive/OpenSSL_0_9_8y.tar.gz"
     SHA1
     b485a818490bd2818b7e948b26656c11fea77782
+)
+
+hunter_add_version(
+    PACKAGE_NAME
+    OpenSSL
+    VERSION
+    "1.0.1f"
+    URL
+    "https://github.com/openssl/openssl/archive/OpenSSL_1_0_1f.tar.gz"
+    SHA1
+    f0141b0e8cab4f18bc5d1771fb3ab02f0ae92302
 )
 
 hunter_pick_scheme(
