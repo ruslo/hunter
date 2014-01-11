@@ -35,6 +35,17 @@ hunter_add_version(
     fca9bb6d77162b6c3e5d822a46d4bb311e864592
 )
 
+hunter_add_version(
+    PACKAGE_NAME
+    CppNetlib
+    VERSION
+    "0.10.1-hunter-2"
+    URL
+    "https://github.com/hunter-packages/cpp-netlib/archive/v0.10.1-hunter-2.tar.gz"
+    SHA1
+    2ad785004359bff887475f0df672f00eb3399df9
+)
+
 hunter_pick_scheme(
     DEFAULT
     url_sha1_release_debug
