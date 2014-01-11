@@ -92,21 +92,27 @@ else()
   endif()
 endif()
 
+set(download_command "")
 if(EXISTS "@HUNTER_PACKAGE_SOURCE_DIR@")
-  hunter_status_debug(
-      "Boost directory already unpacked: `@HUNTER_PACKAGE_SOURCE_DIR@` "
-      "(skip download and unpack)"
-  )
-  set(
-      download_command
-      DOWNLOAD_COMMAND
-      "${CMAKE_COMMAND}"
-      -E
-      echo
-      "skip download and unpack"
-  )
-else()
-  set(download_command "")
+  set(stamp_dir "@HUNTER_BASE@/Stamp")
+  file(GLOB_RECURSE install_touched "${stamp_dir}/Boost-*/*/Boost-*-install")
+  if(NOT install_touched)
+    file(GLOB_RECURSE install_touched "${stamp_dir}/Boost-*/Boost-*-install")
+  endif()
+  if(install_touched)
+    hunter_status_debug(
+        "Boost directory already unpacked: `@HUNTER_PACKAGE_SOURCE_DIR@` "
+        "(skip download and unpack)"
+    )
+    set(
+        download_command
+        DOWNLOAD_COMMAND
+        "${CMAKE_COMMAND}"
+        -E
+        echo
+        "skip download and unpack"
+    )
+  endif()
 endif()
 
 ExternalProject_Add(
