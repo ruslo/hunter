@@ -41,8 +41,8 @@ for project in glob.iglob('./tests/*/CMakeLists.txt'):
   os.chdir(os.path.dirname(project))
   if os.path.exists('_builds'):
     shutil.rmtree('_builds')
-  os.mkdir('_builds')
-  os.chdir('_builds')
-  subprocess.check_call(['cmake', '..'])
+  subprocess.check_call(
+      ['cmake', '-H.', '-B_builds', '-DHUNTER_STATUS_DEBUG=ON']
+  )
 
   os.chdir(top_dir)
