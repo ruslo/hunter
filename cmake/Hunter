@@ -7,6 +7,7 @@ else()
   set(HUNTER_CMAKE_HUNTER_ 1)
 endif()
 
+option(HUNTER_ENABLED "Enable Hunter package manager support" ON)
 option(HUNTER_STATUS_PRINT "Print working status" ON)
 option(HUNTER_STATUS_DEBUG "Print a lot info" OFF)
 
@@ -122,6 +123,10 @@ endif()
 include(hunter_set_cmake_default_generator)
 hunter_set_cmake_default_generator()
 
-### 1. Clear all '<NAME>_ROOT' variables (cache, environment, ...)
-### 2. Set '<NAME>_ROOT' or 'HUNTER_<name>_VERSION' variables
-include("${HUNTER_ROOT}/Source/cmake/config.cmake")
+if(HUNTER_ENABLED)
+  ### 1. Clear all '<NAME>_ROOT' variables (cache, environment, ...)
+  ### 2. Set '<NAME>_ROOT' or 'HUNTER_<name>_VERSION' variables
+  include("${HUNTER_ROOT}/Source/cmake/config.cmake")
+else()
+  hunter_status_print("DISABLED")
+endif()
