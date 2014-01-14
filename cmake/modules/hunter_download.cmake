@@ -70,20 +70,20 @@ function(hunter_download)
 
   # create temp toolchain file to set environment variables
   # and include real toolchain
-  set(toolchain_wrapper "${h_work_dir}/toolchain.cmake")
+  set(HUNTER_DOWNLOAD_TOOLCHAIN "${h_work_dir}/toolchain.cmake")
 
   # pass HUNTER_ROOT to all packages
-  file(APPEND "${toolchain_wrapper}" "set(HUNTER_ROOT \"${HUNTER_ROOT}\")\n")
+  file(APPEND "${HUNTER_DOWNLOAD_TOOLCHAIN}" "set(HUNTER_ROOT \"${HUNTER_ROOT}\")\n")
   file(
-      APPEND "${toolchain_wrapper}" "set(ENV{HUNTER_ROOT} \"${HUNTER_ROOT}\")\n"
+      APPEND "${HUNTER_DOWNLOAD_TOOLCHAIN}" "set(ENV{HUNTER_ROOT} \"${HUNTER_ROOT}\")\n"
   )
 
   # do not lock hunter directory if package is internal (already locked)
-  file(APPEND "${toolchain_wrapper}" "set(HUNTER_SKIP_LOCK YES)\n")
+  file(APPEND "${HUNTER_DOWNLOAD_TOOLCHAIN}" "set(HUNTER_SKIP_LOCK YES)\n")
 
   # support for toolchain file forwarding
   if(CMAKE_TOOLCHAIN_FILE)
-    file(APPEND "${toolchain_wrapper}" "include(\"${CMAKE_TOOLCHAIN_FILE}\")\n")
+    file(APPEND "${HUNTER_DOWNLOAD_TOOLCHAIN}" "include(\"${CMAKE_TOOLCHAIN_FILE}\")\n")
   endif()
 
   if(HUNTER_STATUS_DEBUG)
@@ -211,7 +211,7 @@ function(hunter_download)
       "${CMAKE_COMMAND}"
       "-H${h_work_dir}"
       "-B${h_build_dir}"
-      "-DCMAKE_TOOLCHAIN_FILE=${toolchain_wrapper}"
+      "-DCMAKE_TOOLCHAIN_FILE=${HUNTER_DOWNLOAD_TOOLCHAIN}"
       "-DHUNTER_STATUS_DEBUG=${HUNTER_STATUS_DEBUG}"
       ${HUNTER_DOWNLOAD_GENERATOR}
       ${verbose_makefile}
