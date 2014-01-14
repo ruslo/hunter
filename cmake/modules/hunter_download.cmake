@@ -78,6 +78,9 @@ function(hunter_download)
       APPEND "${toolchain_wrapper}" "set(ENV{HUNTER_ROOT} \"${HUNTER_ROOT}\")\n"
   )
 
+  # do not lock hunter directory if package is internal (already locked)
+  file(APPEND "${toolchain_wrapper}" "set(HUNTER_SKIP_LOCK YES)\n")
+
   # support for toolchain file forwarding
   if(CMAKE_TOOLCHAIN_FILE)
     file(APPEND "${toolchain_wrapper}" "include(\"${CMAKE_TOOLCHAIN_FILE}\")\n")

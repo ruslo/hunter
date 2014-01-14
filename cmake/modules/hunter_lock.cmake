@@ -10,6 +10,11 @@ function(hunter_lock)
   hunter_test_string_not_empty("${HUNTER_PACKAGE_NAME}")
   hunter_test_string_not_empty("${HUNTER_INSTALL_TAG}")
 
+  if(HUNTER_SKIP_LOCK)
+    hunter_status_debug("Lock skipped")
+    return()
+  endif()
+
   set(lock_file "${HUNTER_ROOT}/Base/hunter-build.lock")
   if(EXISTS "${lock_file}")
     file(READ "${lock_file}" build_info)
