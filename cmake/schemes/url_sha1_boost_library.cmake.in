@@ -9,6 +9,8 @@ include(ExternalProject) # ExternalProject_Add
 
 list(APPEND CMAKE_MODULE_PATH "@HUNTER_ROOT@/Source/cmake/modules")
 
+include(CheckSymbolExists) # check_symbol_exists
+
 include(hunter_assert_lists_equal)
 include(hunter_fatal_error)
 include(hunter_status_debug)
@@ -113,15 +115,27 @@ file(
      ";\n"
 )
 
+# http://boost.2283326.n4.nabble.com/config-clang-int128-support-td4653826.html
+check_symbol_exists(__SIZEOF_INT128__ "" has_int128)
+if(NOT MSVC AND has_int128)
+  set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -DBOOST_HAS_INT128=1")
+endif()
+
 if(MSVC)
   # Disable auto-linking
   set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} /DBOOST_ALL_NO_LIB=1")
 endif()
 
+if("@HUNTER_DISABLE_SHARED_LIBS@")
+  set(link_opts link=static)
+else()
+  set(link_opts link=static,shared)
+endif()
+
 set(
     build_opts
     -a
-    link=static,shared
+    ${link_opts}
     threading=multi
     variant=release,debug
     --layout=tagged
