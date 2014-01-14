@@ -191,15 +191,15 @@ function(hunter_download)
 
   # support for custom cmake generators
   if(HUNTER_CMAKE_GENERATOR)
-    set(h_generator "-G${HUNTER_CMAKE_GENERATOR}")
+    set(HUNTER_DOWNLOAD_GENERATOR "-G${HUNTER_CMAKE_GENERATOR}")
   else()
     if(MSVC)
       # forward same generator for all project
       # because one generator = one compiler
-      set(h_generator "-G${CMAKE_GENERATOR}")
+      set(HUNTER_DOWNLOAD_GENERATOR "-G${CMAKE_GENERATOR}")
     else()
       # use default
-      set(h_generator)
+      set(HUNTER_DOWNLOAD_GENERATOR)
     endif()
   endif()
 
@@ -213,7 +213,7 @@ function(hunter_download)
       "-B${h_build_dir}"
       "-DCMAKE_TOOLCHAIN_FILE=${toolchain_wrapper}"
       "-DHUNTER_STATUS_DEBUG=${HUNTER_STATUS_DEBUG}"
-      ${h_generator}
+      ${HUNTER_DOWNLOAD_GENERATOR}
       ${verbose_makefile}
       WORKING_DIRECTORY
       "${h_work_dir}"
