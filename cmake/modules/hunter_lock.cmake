@@ -2,18 +2,24 @@
 # All rights reserved.
 
 include(hunter_fatal_error)
+include(hunter_status_debug)
 include(hunter_test_string_not_empty)
+include(hunter_verify_toolchain_info)
 
 function(hunter_lock)
   # sanity check
-  hunter_test_string_not_empty("${HUNTER_ROOT}")
-  hunter_test_string_not_empty("${HUNTER_PACKAGE_NAME}")
   hunter_test_string_not_empty("${HUNTER_INSTALL_TAG}")
+  hunter_test_string_not_empty("${HUNTER_PACKAGE_NAME}")
+  hunter_test_string_not_empty("${HUNTER_ROOT}")
+  hunter_test_string_not_empty("${PROJECT_BINARY_DIR}")
 
   if(HUNTER_SKIP_LOCK)
+    # Building internal project. Already locked, toolchain verified.
     hunter_status_debug("Lock skipped")
     return()
   endif()
+
+  hunter_status_debug("lock directory")
 
   set(lock_file "${HUNTER_ROOT}/Base/hunter-build.lock")
   if(EXISTS "${lock_file}")
@@ -42,4 +48,6 @@ function(hunter_lock)
       "    Install tag: ${HUNTER_INSTALL_TAG}\n"
       "    Build start at: ${time_now}"
   )
+
+  hunter_verify_toolchain_info()
 endfunction()
