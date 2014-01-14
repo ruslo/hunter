@@ -64,7 +64,7 @@ function(hunter_download)
         "Move file **after** first 'project' command"
     )
   endif()
-  set(h_work_dir "${PROJECT_BINARY_DIR}/_HUNTER_temp_download_project")
+  set(h_work_dir "${PROJECT_BINARY_DIR}/Hunter-activity/external")
   set(h_build_dir "${h_work_dir}/_builds")
   file(REMOVE_RECURSE "${h_work_dir}")
 
