@@ -135,5 +135,16 @@ hunter_add_version(
     ca73f6599986089968b112394e9bc7cbb253c574
 )
 
+hunter_add_version(
+    PACKAGE_NAME
+    Sugar
+    VERSION
+    "1.0.11"
+    URL
+    "https://github.com/ruslo/sugar/archive/v1.0.11.tar.gz"
+    SHA1
+    ce98a7090a7fbc0197310c7299746568fddf6a43
+)
+
 hunter_pick_scheme(DEFAULT url_sha1_no_install)
 hunter_download(PACKAGE_NAME Sugar)
