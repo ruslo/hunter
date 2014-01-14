@@ -4,9 +4,11 @@
 include(CMakeParseArguments) # cmake_parse_arguments
 
 include(hunter_fatal_error)
+include(hunter_lock)
 include(hunter_status_debug)
 include(hunter_status_print)
 include(hunter_test_string_not_empty)
+include(hunter_unlock)
 
 function(hunter_download)
   set(
@@ -57,8 +59,7 @@ function(hunter_download)
 
   # creating temporary working directory where download project will reside
   if(NOT PROJECT_BINARY_DIR)
-    message(
-        FATAL_ERROR
+    hunter_fatal_error(
         "PROJECT_BINARY_DIR is empty. "
         "Move file **after** first 'project' command"
     )
@@ -201,7 +202,7 @@ function(hunter_download)
 
   hunter_status_debug("Run generate")
 
-  # Configure and build download project
+  # Configure and build downloaded project
   execute_process(
       COMMAND
       "${CMAKE_COMMAND}"
@@ -223,6 +224,8 @@ function(hunter_download)
 
   hunter_status_debug("Run build")
 
+  hunter_lock()
+
   execute_process(
       COMMAND
       "${CMAKE_COMMAND}" --build "${h_build_dir}"
@@ -231,6 +234,8 @@ function(hunter_download)
       RESULT_VARIABLE
       h_build_result
   )
+
+  hunter_unlock()
 
   if(NOT ${h_build_result} EQUAL 0)
     hunter_fatal_error("build step failed (dir: ${h_work_dir}")

@@ -46,7 +46,7 @@ function(hunter_set_cmake_default_generator)
   )
 
   if(NOT generate_result EQUAL "0")
-    message(FATAL_ERROR "Generate failed: exit with code ${generate_result}")
+    hunter_fatal_error("Generate failed: exit with code ${generate_result}")
   endif()
 
   if(NOT EXISTS "${generator_info}")
