@@ -30,6 +30,17 @@ set_directory_properties(
     "@HUNTER_BASE@"
 )
 
+execute_process(
+    COMMAND xcrun -f clang++
+    RESULT_VARIABLE result
+    OUTPUT_VARIABLE compiler
+    OUTPUT_STRIP_TRAILING_WHITESPACE
+)
+
+if(NOT result EQUAL 0)
+  message(FATAL_ERROR "`xcrun -f clang++` failed")
+endif()
+
 ExternalProject_Add(
     @HUNTER_PACKAGE_BASENAME@
     URL
@@ -46,7 +57,7 @@ ExternalProject_Add(
     CONFIGURE_COMMAND
     ""
     BUILD_COMMAND
-    . "@HUNTER_ROOT@/Source/scripts/clear-all.sh" &&
+    "CC=${compiler}" && . "@HUNTER_ROOT@/Source/scripts/clear-all.sh" &&
     xcodebuild -target ios-sim -configuration Release
     BUILD_IN_SOURCE
     1
