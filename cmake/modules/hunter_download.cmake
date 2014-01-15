@@ -4,6 +4,7 @@
 include(CMakeParseArguments) # cmake_parse_arguments
 
 include(hunter_fatal_error)
+include(hunter_find_stamps)
 include(hunter_lock)
 include(hunter_status_debug)
 include(hunter_status_print)
@@ -30,8 +31,9 @@ function(hunter_download)
       "${HUNTER_PACKAGE_NAME} versions available: ${versions}"
   )
 
-  hunter_test_string_not_empty("${HUNTER_INSTALL_TAG}")
+  hunter_test_string_not_empty("${HUNTER_BASE}")
   hunter_test_string_not_empty("${HUNTER_DOWNLOAD_SCHEME}")
+  hunter_test_string_not_empty("${HUNTER_INSTALL_TAG}")
 
   # Set <LIB>_ROOT variables
   set(h_name "${HUNTER_PACKAGE_NAME}") # Foo
@@ -140,47 +142,46 @@ function(hunter_download)
   # Optimization:
   #     Check run needed. If 'Stamp/<name-...>/<name-...>-install' file
   #     detected, no need to generate/run project
-  set(need_to_run FALSE)
+  hunter_find_stamps(
+      NAME "install"
+      VARIANTS ${HUNTER_DOWNLOAD_SCHEME_VARIANTS}
+      RESULT install_list_stamps
+  )
 
-  if(HUNTER_DOWNLOAD_SCHEME_VARIANTS)
-    set(scheme_variants ${HUNTER_DOWNLOAD_SCHEME_VARIANTS})
-  else()
-    set(scheme_variants "-")
+  list(LENGTH install_list_stamps result_number)
+  list(LENGTH HUNTER_DOWNLOAD_SCHEME_VARIANTS variants_number)
+  if(variants_number EQUAL 0)
+    set(variants_number 1)
   endif()
-
-  foreach(variant ${scheme_variants})
-    string(COMPARE EQUAL "${variant}" "-" is_empty)
-    if(is_empty)
-      set(x "${HUNTER_PACKAGE_BASENAME}")
-    else()
-      set(x "${HUNTER_PACKAGE_BASENAME}-${variant}")
-    endif()
-    set(HUNTER_STAMP_RESULT "STAMP-NOTFOUND") # search again
-    find_file(
-        HUNTER_STAMP_RESULT
-        "${x}-install"
-        PATHS
-        "${HUNTER_BASE}/Stamp/${x}/"
-        NO_DEFAULT_PATH
-        PATH_SUFFIXES
-        Debug # tested on windows with Visual Studio 2013
-        Debug-iphoneos # tested on Mac OS X with Xcode
-    )
-    if(NOT HUNTER_STAMP_RESULT)
-      hunter_status_debug(
-          "file `${x}-install` not found in `${HUNTER_BASE}/Stamp/${x}`"
-      )
-      set(need_to_run TRUE)
-    else()
-      hunter_status_debug(
-          "file `${x}-install` found: `${HUNTER_STAMP_RESULT}`"
-      )
-    endif()
-  endforeach()
-
-  if(NOT need_to_run)
+  if(result_number EQUAL variants_number)
     hunter_status_debug("Skip generate/run (already installed)")
     return()
+  endif()
+
+  # Remove configure step stamps and build directories.
+  # Project that start configure may not exists already.
+  hunter_find_stamps(
+      NAME "configure"
+      VARIANTS ${HUNTER_DOWNLOAD_SCHEME_VARIANTS}
+      RESULT configure_list_stamps
+  )
+
+  foreach(stamp ${configure_list_stamps})
+    if(NOT EXISTS "${stamp}")
+      hunter_fatal_error("Internal error")
+    endif()
+    file(REMOVE "${stamp}")
+  endforeach()
+
+  if(HUNTER_DOWNLOAD_SCHEME_VARIANTS)
+    foreach(variant ${HUNTER_DOWNLOAD_SCHEME_VARIANTS})
+      file(
+          REMOVE_RECURSE
+          "${HUNTER_BASE}/Build/${HUNTER_PACKAGE_BASENAME}-${variant}"
+      )
+    endforeach()
+  else()
+    file(REMOVE_RECURSE "${HUNTER_BASE}/Build/${HUNTER_PACKAGE_BASENAME}")
   endif()
 
   configure_file(
