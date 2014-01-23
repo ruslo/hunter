@@ -7,15 +7,10 @@ else()
   set(HUNTER_CMAKE_PROJECTS_GTEST_HUNTER_CMAKE 1)
 endif()
 
-include(hunter_add_package)
 include(hunter_add_version)
 include(hunter_add_version_start)
 include(hunter_download)
 include(hunter_pick_scheme)
-
-# Dependencies --
-hunter_add_package(Sugar)
-# -- end
 
 hunter_add_version_start(GTest)
 
@@ -61,6 +56,17 @@ hunter_add_version(
     "https://github.com/hunter-packages/gtest/archive/v1.7.0-hunter-3.tar.gz"
     SHA1
     fea7d3020e20f059255484c69755753ccadf6362
+)
+
+hunter_add_version(
+    PACKAGE_NAME
+    GTest
+    VERSION
+    "1.7.0-hunter-4"
+    URL
+    "https://github.com/hunter-packages/gtest/archive/v1.7.0-hunter-4.tar.gz"
+    SHA1
+    9b439c0c25437a083957b197ac6905662a5d901b
 )
 
 hunter_pick_scheme(

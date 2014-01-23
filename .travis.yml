@@ -6,7 +6,11 @@ before_install:
 
 install:
     - brew install python3
-    - brew install cmake
+    - wget https://github.com/ruslo/CMake/archive/ios.universal.tar.gz
+    - openssl sha1 ios.universal.tar.gz
+    - tar xf ios.universal.tar.gz
+    - cmake -HCMake-ios.universal -B_builds/cmake -DCMAKE_USE_SYSTEM_CURL=YES -DCMAKE_BUILD_TYPE=Release
+    - cmake --build _builds/cmake --target install
 
 env:
     - TEST_DIR=cmake/schemes TEST_NAME=tests/url_sha1_boost
