@@ -88,6 +88,16 @@ function(hunter_download)
     file(APPEND "${HUNTER_DOWNLOAD_TOOLCHAIN}" "include(\"${CMAKE_TOOLCHAIN_FILE}\")\n")
   endif()
 
+  foreach(fwd ${HUNTER_${h_name}_CMAKE_ARGS})
+    string(REGEX REPLACE "=.*" "" var_name "${fwd}")
+    string(REGEX REPLACE ".*=" "" var_value "${fwd}")
+    hunter_status_debug("Add extra CMake args: ${var_name} = ${var_value}")
+    file(
+        APPEND
+        "${HUNTER_DOWNLOAD_TOOLCHAIN}" "set(${var_name} ${var_value})\n"
+    )
+  endforeach()
+
   if(HUNTER_STATUS_DEBUG)
     set(verbose_makefile "-DCMAKE_VERBOSE_MAKEFILE=ON")
   endif()

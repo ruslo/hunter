@@ -9,7 +9,14 @@ include(hunter_unsetvar)
 # internal variables: _hunter_c_*
 macro(hunter_config)
   set(_hunter_c_one_value VERSION CUSTOM)
-  cmake_parse_arguments(_hunter_c "" "${_hunter_c_one_value}" "" ${ARGV})
+  set(_hunter_c_multiple_values CMAKE_ARGS)
+  cmake_parse_arguments(
+      _hunter_c
+      ""
+      "${_hunter_c_one_value}"
+      "${_hunter_c_multiple_values}"
+      ${ARGV}
+  )
   list(LENGTH _hunter_c_UNPARSED_ARGUMENTS _hunter_c_len)
   if(NOT ${_hunter_c_len} EQUAL 1)
     hunter_fatal_error("unparsed: ${_hunter_c_UNPARSED_ARGUMENTS}")
@@ -32,6 +39,7 @@ macro(hunter_config)
     )
   elseif(_hunter_c_VERSION)
     set(HUNTER_${_hunter_c_current_project}_VERSION ${_hunter_c_VERSION})
+    set(HUNTER_${_hunter_c_current_project}_CMAKE_ARGS ${_hunter_c_CMAKE_ARGS})
   else()
     hunter_fatal_error("Expected VERSION or CUSTOM")
   endif()
