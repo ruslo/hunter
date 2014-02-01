@@ -94,7 +94,7 @@ function(hunter_download)
     hunter_status_debug("Add extra CMake args: ${var_name} = ${var_value}")
     file(
         APPEND
-        "${HUNTER_DOWNLOAD_TOOLCHAIN}" "set(${var_name} ${var_value})\n"
+        "${HUNTER_DOWNLOAD_TOOLCHAIN}" "set(${var_name} ${var_value} CACHE STRING \"\" FORCE)\n"
     )
   endforeach()
 
