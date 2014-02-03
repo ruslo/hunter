@@ -55,6 +55,10 @@ function(hunter_download)
   else()
     set(${h_root_name} "${HUNTER_BASE}/Source/${h_name}")
   endif()
+
+  list(APPEND CMAKE_PREFIX_PATH "${${h_root_name}}")
+  set(CMAKE_PREFIX_PATH ${CMAKE_PREFIX_PATH} PARENT_SCOPE)
+
   set(${h_root_name} "${${h_root_name}}" PARENT_SCOPE)
   set(ENV{${h_root_name}} "${${h_root_name}}")
   hunter_status_print("${h_root_name}: ${${h_root_name}} (ver.: ${ver})")
