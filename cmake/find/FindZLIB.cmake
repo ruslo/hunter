@@ -50,6 +50,10 @@
 # (To distribute this file outside of CMake, substitute the full
 #  License text for the above reference.)
 
+if(HUNTER_STATUS_DEBUG)
+  message("[hunter] Custom FindZLIB module")
+endif()
+
 set(_ZLIB_SEARCHES)
 
 # Search ZLIB_ROOT first if it is set.

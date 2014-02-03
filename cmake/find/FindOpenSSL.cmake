@@ -24,6 +24,10 @@
 # (To distribute this file outside of CMake, substitute the full
 #  License text for the above reference.)
 
+if(HUNTER_STATUS_DEBUG)
+  message("[hunter] Custom FindOpenSSL module")
+endif()
+
 if (UNIX)
   find_package(PkgConfig QUIET)
   pkg_check_modules(_OPENSSL QUIET openssl)

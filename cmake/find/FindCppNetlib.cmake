@@ -22,6 +22,10 @@
 #    CPPNETLIB_SERVER_PARSERS_LIBRARY_DEBUG
 #    CPPNETLIB_SERVER_PARSERS_LIBRARY_RELEASE
 
+if(HUNTER_STATUS_DEBUG)
+  message("[hunter] Custom FindCppNetlib module")
+endif()
+
 set(CPPNETLIB_FOUND YES)
 
 find_path(

@@ -10,6 +10,10 @@
 #     RAPIDJSON_INCLUDE_DIR - include directories
 #     RAPIDJSON_FOUND - is 'YES' if library found
 
+if(HUNTER_STATUS_DEBUG)
+  message("[hunter] Custom FindRapidJSON module")
+endif()
+
 find_path(
     RAPIDJSON_INCLUDE_DIR
     NAMES
