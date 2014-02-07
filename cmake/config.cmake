@@ -16,7 +16,7 @@ include(hunter_config)
 
 hunter_config(Boost VERSION 1.55.0)
 hunter_config(CppNetlib VERSION 0.10.1-hunter-3)
-hunter_config(GTest VERSION 1.7.0-hunter-5)
+hunter_config(GTest VERSION 1.7.0-hunter-6)
 hunter_config(IntSizeof VERSION 1.0.0)
 hunter_config(OpenSSL VERSION 1.0.1f)
 hunter_config(RapidJSON VERSION 0.11-hunter)
