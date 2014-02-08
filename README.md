@@ -8,3 +8,5 @@ hunter
 [link_master]: https://travis-ci.org/ruslo/hunter.png?branch=master
 [link_travis_linux]: https://travis-ci.org/ruslo/hunter.png?branch=travis.linux
 [link_hunter]: https://travis-ci.org/ruslo/hunter
+
+Gate to hunter packages: https://github.com/hunter-packages/gate
