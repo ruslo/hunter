@@ -24,8 +24,6 @@ hunter_add_package(Boost COMPONENTS filesystem system test regex)
 # use sugar
 include(${SUGAR_ROOT}/cmake/Sugar)
 include(sugar_include)
-include(sugar_mark_macosx_resources)
-include(sugar_set_xcode_ios_sdkroot)
 
 # use boost
 find_package(
@@ -40,12 +38,30 @@ find_package(
 include_directories(${Boost_INCLUDE_DIRS})
 
 # prepare resources for target
-set(PLIST_FILE "${SUGAR_ROOT}/examples/plist/ios/empty.plist.in")
 set(MACOSX_BUNDLE_GUI_IDENTIFIER "com.example.hunter.ios.EmptyApplication")
+
+# DEFAULT_IOS_IMAGES
 sugar_include("${SUGAR_ROOT}/examples/resources/ios/images")
-sugar_mark_macosx_resources(${DEFAULT_IOS_IMAGES})
 
 ### create ios target
-add_executable(example MACOSX_BUNDLE test.cpp ${DEFAULT_IOS_IMAGES})
+add_executable(example test.cpp ${DEFAULT_IOS_IMAGES})
 target_link_libraries(example ${Boost_LIBRARIES})
-sugar_set_xcode_ios_sdkroot(TARGET example PLIST "${PLIST_FILE}")
+
+set_target_properties(
+    example
+    PROPERTIES
+    MACOSX_BUNDLE YES
+    MACOSX_BUNDLE_INFO_PLIST "${SUGAR_ROOT}/examples/plist/ios/empty.plist.in"
+    MACOSX_BUNDLE_GUI_IDENTIFIER "com.example.sugar.ios.SingleViewApplication"
+    XCODE_ATTRIBUTE_CODE_SIGN_IDENTITY "iPhone Developer"
+    XCODE_ATTRIBUTE_TARGETED_DEVICE_FAMILY "1,2" # Universal (iPad + iPhone)
+    XCODE_ATTRIBUTE_CLANG_ENABLE_OBJC_ARC YES
+    RESOURCE "${DEFAULT_IOS_IMAGES}"
+)
+
+target_link_libraries(
+    example
+    "-framework CoreGraphics"
+    "-framework Foundation"
+    "-framework UIKit"
+)
