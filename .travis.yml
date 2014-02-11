@@ -25,6 +25,7 @@ env:
     - TEST_DIR=examples TEST_NAME=GTest
     - TEST_DIR=examples TEST_NAME=Boost
     - TEST_DIR=examples TEST_NAME=Boost-filesystem
+    - TEST_DIR=examples TEST_NAME=Boost-system
     - TEST_DIR=examples TEST_NAME=Boost-stdlibcxx
     - TEST_DIR=examples TEST_NAME=Boost-ios
     # - TEST_DIR=examples TEST_NAME=CppNetlib TODO add cache (> 40 min)
