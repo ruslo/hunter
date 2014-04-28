@@ -148,6 +148,10 @@ if(CMAKE_CXX_FLAGS)
   list(APPEND build_opts "cxxflags=${CMAKE_CXX_FLAGS}")
 endif()
 
+if(CMAKE_EXE_LINKER_FLAGS)
+  list(APPEND build_opts "linkflags=${CMAKE_EXE_LINKER_FLAGS}")
+endif()
+
 string(COMPARE EQUAL "@HUNTER_MSVC_ARCH@" "amd64" is_x64)
 if(MSVC AND is_x64)
   list(APPEND build_opts "address-model=64")
