@@ -5,6 +5,7 @@ before_install:
     - brew update
 
 install:
+    - brew install cmake
     - brew install python3
     - wget https://github.com/ruslo/CMake/archive/ios.universal.tar.gz
     - openssl sha1 ios.universal.tar.gz
@@ -31,6 +32,8 @@ env:
     # - TEST_DIR=examples TEST_NAME=CppNetlib TODO add cache (> 40 min)
 
 script:
+    - which cmake
+    - cmake --version
     - export DIR=`pwd`
     - cd ..
     - mkdir Source
