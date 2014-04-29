@@ -26,7 +26,7 @@ set(CMAKE_C_COMPILER_WORKS TRUE CACHE BOOL "Skip compiler check" FORCE)
 set(IPHONEOS_ARCHS armv7;armv7s;arm64)
 set(IPHONESIMULATOR_ARCHS x86_64;i386)
 
-set(IOS_SDK_VERSIONS 5.0 5.1 6.0 6.1 7.0)
+set(IOS_SDK_VERSIONS 5.0 5.1 6.0 6.1 7.0 7.1)
 foreach(x ${IOS_SDK_VERSIONS})
   execute_process(
       COMMAND
