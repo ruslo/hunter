@@ -114,9 +114,14 @@ set(
     link=static
     threading=multi
     variant=release,debug
+    define=BOOST_SP_NO_SYNC
     --layout=tagged
     --user-config="${boost_user_jam}"
 )
+
+if(CMAKE_CXX_FLAGS)
+  list(APPEND build_opts "cxxflags=${CMAKE_CXX_FLAGS}")
+endif()
 
 set(
     build_opts_iphoneos
@@ -201,6 +206,21 @@ else()
   set(LIBNAME "@HUNTER_PACKAGE_COMPONENT@")
 endif()
 
+string(COMPARE EQUAL "@HUNTER_PACKAGE_COMPONENT@" "log" log_setup_target)
+if(log_setup_target)
+  set(
+      extra_lib_command
+      COMMAND
+      "@HUNTER_ROOT@/Source/scripts/create-boost-ios-fatlib.sh"
+      "@HUNTER_PACKAGE_SOURCE_DIR@"
+      "log_setup"
+      "@HUNTER_PACKAGE_COMPONENT@"
+      "@HUNTER_PACKAGE_INSTALL_DIR@/lib"
+  )
+else()
+  set(extra_lib_command "")
+endif()
+
 ExternalProject_Add(
     @HUNTER_PACKAGE_BASENAME@-ios_universal
     DEPENDS
@@ -227,4 +247,5 @@ ExternalProject_Add(
     "${LIBNAME}"
     "@HUNTER_PACKAGE_COMPONENT@"
     "@HUNTER_PACKAGE_INSTALL_DIR@/lib"
+    ${extra_lib_command}
 )
