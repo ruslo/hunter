@@ -115,12 +115,6 @@ file(
      ";\n"
 )
 
-# http://boost.2283326.n4.nabble.com/config-clang-int128-support-td4653826.html
-check_symbol_exists(__SIZEOF_INT128__ "" has_int128)
-if(NOT MSVC AND has_int128)
-  set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -DBOOST_HAS_INT128=1")
-endif()
-
 if(MSVC)
   # Disable auto-linking
   set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} /DBOOST_ALL_NO_LIB=1")

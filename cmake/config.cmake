@@ -14,7 +14,7 @@ include(hunter_config)
 
 # NOTE: no names with spaces!
 
-hunter_config(Boost VERSION 1.55.0)
+hunter_config(Boost VERSION 1.55.0-patched)
 hunter_config(CppNetlib VERSION 0.10.1-hunter-3)
 hunter_config(CppNetlibUri VERSION 1.0.0-hunter)
 hunter_config(GTest VERSION 1.7.0-hunter-7)
