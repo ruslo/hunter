@@ -17,6 +17,18 @@ set(Boost_NO_SYSTEM_PATHS ON)
 
 hunter_add_version_start(Boost)
 
+# Apply fix for: https://svn.boost.org/trac/boost/ticket/9332
+hunter_add_version(
+    PACKAGE_NAME
+    Boost
+    VERSION
+    "1.55.0-patched-2"
+    URL
+    "http://sourceforge.net/projects/hunter-packages/files/boost_1_55_0-patched-2.tar.bz2/download"
+    SHA1
+    38c0523dbd27ed6b363ad9255548e942d404b39e
+)
+
 # Workaround for: https://svn.boost.org/trac/boost/ticket/9610
 # http://boost.2283326.n4.nabble.com/config-clang-int128-support-td4653826.html
 hunter_add_version(
