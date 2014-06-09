@@ -1,6 +1,8 @@
 # Copyright (c) 2014, Ruslan Baratov
 # All rights reserved.
 
+cmake_minimum_required(VERSION 3.0)
+
 macro(hunter_setup_msvc_vcvarsall)
   if(MSVC AND NOT HUNTER_MSVC_VCVARSALL)
     set(_hunter_result "${CMAKE_GENERATOR}")
@@ -8,6 +10,13 @@ macro(hunter_setup_msvc_vcvarsall)
     string(REPLACE " Win64" "" _hunter_result "${_hunter_result}")
     string(REPLACE " ARM" "" _hunter_result "${_hunter_result}")
     string(REPLACE "Visual Studio " "" _hunter_result "${_hunter_result}")
+
+    string(REPLACE " 2005" "" _hunter_result "${_hunter_result}")
+    string(REPLACE " 2008" "" _hunter_result "${_hunter_result}")
+    string(REPLACE " 2010" "" _hunter_result "${_hunter_result}")
+    string(REPLACE " 2012" "" _hunter_result "${_hunter_result}")
+    string(REPLACE " 2013" "" _hunter_result "${_hunter_result}")
+
     set(_hunter_result "${_hunter_result}0")
     set(_hunter_result "VS${_hunter_result}COMNTOOLS")
 

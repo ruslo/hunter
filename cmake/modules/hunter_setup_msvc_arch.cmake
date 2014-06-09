@@ -1,6 +1,8 @@
 # Copyright (c) 2014, Ruslan Baratov
 # All rights reserved.
 
+cmake_minimum_required(VERSION 3.0)
+
 macro(hunter_setup_msvc_arch)
   if(MSVC AND NOT HUNTER_MSVC_ARCH)
     # Detect architecture by MSVC name generator.
@@ -8,38 +10,78 @@ macro(hunter_setup_msvc_arch)
     # See section "Vcvarsall.bat argument":
     #     * http://msdn.microsoft.com/en-us/library/x4d2c09s.aspx
     set(HUNTER_MSVC_ARCH "${CMAKE_GENERATOR}")
+
+    # "Visual Studio 8 2005???" => "8 2005???"
+    # "Visual Studio 9 2008???" => "9 2008???"
+    # "Visual Studio 10 2010???" => "10 2010???"
+    # "Visual Studio 11 2012???" => "11 2012???"
+    # "Visual Studio 12 2013???" => "12 2013???"
     string(
         REGEX
         REPLACE
-        "^Visual Studio [1-9][0-9]$"
+        "^Visual Studio "
         ""
         HUNTER_MSVC_ARCH
         "${HUNTER_MSVC_ARCH}"
     )
+
+    # => " 2005???"
+    # => " 2008???"
+    # => "0 2010???"
+    # => "1 2012???"
+    # => "2 2013???"
     string(
         REGEX
         REPLACE
-        "^Visual Studio [1-9]$"
+        "^[1-9]"
         ""
         HUNTER_MSVC_ARCH
         "${HUNTER_MSVC_ARCH}"
     )
+
+    # => " 2005???"
+    # => " 2008???"
+    # => " 2010???"
+    # => " 2012???"
+    # => " 2013???"
     string(
         REGEX
         REPLACE
-        "^Visual Studio [1-9][0-9] "
+        "^[1-9]"
         ""
         HUNTER_MSVC_ARCH
         "${HUNTER_MSVC_ARCH}"
     )
+
+    # => "???"
+    # => "???"
+    # => "???"
+    # => "???"
+    # => "???"
     string(
         REGEX
         REPLACE
-        "^Visual Studio [1-9] "
+        "^ 20[1-9][1-9]"
         ""
         HUNTER_MSVC_ARCH
         "${HUNTER_MSVC_ARCH}"
     )
+
+    # "???" = " Win64" | " ARM" | ""
+    # => "???"
+    # => "???"
+    # => "???"
+    # => "???"
+    # => "???"
+    string(
+        REGEX
+        REPLACE
+        "^ "
+        ""
+        HUNTER_MSVC_ARCH
+        "${HUNTER_MSVC_ARCH}"
+    )
+
     string(COMPARE EQUAL "${HUNTER_MSVC_ARCH}" "Win64" _hunter_result_win64)
     string(COMPARE EQUAL "${HUNTER_MSVC_ARCH}" "ARM" _hunter_result_arm)
     string(COMPARE EQUAL "${HUNTER_MSVC_ARCH}" "" _hunter_result_x86)
