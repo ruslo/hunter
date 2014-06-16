@@ -16,7 +16,7 @@ include(hunter_config)
 
 hunter_config(Boost VERSION 1.55.0-patched-2)
 hunter_config(CppNetlib VERSION 0.10.1-hunter-3)
-hunter_config(CppNetlibUri VERSION 1.0.0-hunter)
+hunter_config(CppNetlibUri VERSION 1.0.1-hunter)
 hunter_config(GTest VERSION 1.7.0-hunter-7)
 hunter_config(Igloo VERSION 1.1.1-hunter)
 hunter_config(IntSizeof VERSION 1.0.0)
