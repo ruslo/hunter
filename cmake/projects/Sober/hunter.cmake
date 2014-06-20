@@ -16,6 +16,7 @@ include(hunter_pick_scheme)
 # Dependencies
 hunter_add_package(CppNetlibUri)
 hunter_add_package(JsonSpirit)
+hunter_add_package(Leathers)
 hunter_add_package(Sugar)
 # -- end
 
@@ -40,7 +41,7 @@ hunter_add_version(
     URL
     "https://github.com/ruslo/sober/archive/v0.0.2.tar.gz"
     SHA1
-    d9aa9b3357a2fced4106e6a18a7e39c77b2d19b0
+    5c0b9ed42f897376610d5b97860c479024b9207d
 )
 
 hunter_pick_scheme(
