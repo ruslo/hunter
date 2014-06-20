@@ -32,6 +32,17 @@ hunter_add_version(
     326987c0807ff7e8caa851476bbd57d0d01604e0
 )
 
+hunter_add_version(
+    PACKAGE_NAME
+    Sober
+    VERSION
+    "0.0.2"
+    URL
+    "https://github.com/ruslo/sober/archive/v0.0.2.tar.gz"
+    SHA1
+    d9aa9b3357a2fced4106e6a18a7e39c77b2d19b0
+)
+
 hunter_pick_scheme(
      DEFAULT
      url_sha1_release_debug
