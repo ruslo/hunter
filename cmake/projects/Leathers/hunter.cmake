@@ -41,6 +41,17 @@ hunter_add_version(
     813fe329768ab0e2297b6752ac8c016e263dbfe6
 )
 
+hunter_add_version(
+    PACKAGE_NAME
+    Leathers
+    VERSION
+    "0.1.2"
+    URL
+    "https://github.com/ruslo/leathers/archive/v0.1.2.tar.gz"
+    SHA1
+    34f3986fe41eee52bd4c50f8b7d9552c1763bb9d
+)
+
 hunter_pick_scheme(
     DEFAULT
     url_sha1_release_debug
