@@ -110,7 +110,7 @@ hunter_add_version(
     URL
     "https://github.com/hunter-packages/gtest/archive/v1.7.0-hunter-8.tar.gz"
     SHA1
-    be69801323a9d7f222a0fd24284b61342de5e318
+    ac4d2215aa1b1d745a096e5e3b2dbe0c0f229ea5
 )
 
 hunter_pick_scheme(
