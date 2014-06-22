@@ -52,7 +52,7 @@ hunter_add_version(
     URL
     "https://github.com/ruslo/sober/archive/v0.1.0.tar.gz"
     SHA1
-    a6b25f66b97f0a890f5f82067e874c18b5898afc
+    17aaf1236bb914bf3d93dc1d132ee18a6130288f
 )
 
 hunter_pick_scheme(
