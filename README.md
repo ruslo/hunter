@@ -29,3 +29,11 @@ target_link_libraries(foo ${Boost_LIBRARIES})
 ```
 
 Gate to hunter packages: https://github.com/hunter-packages/gate
+
+### Project example (simple)
+
+* https://github.com/forexample/hunter-simple
+
+### Project example (realistic)
+
+* https://github.com/ruslo/weather
