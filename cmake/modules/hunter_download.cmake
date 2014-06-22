@@ -236,7 +236,9 @@ function(hunter_download)
       h_generate_result
   )
 
-  if(NOT ${h_generate_result} EQUAL 0)
+  if(${h_generate_result} EQUAL 0)
+    hunter_status_debug("Generate step successful (dir: ${h_work_dir})")
+  else()
     hunter_fatal_error("generate step failed (dir: ${h_work_dir})")
   endif()
 
@@ -255,7 +257,9 @@ function(hunter_download)
 
   hunter_unlock()
 
-  if(NOT ${h_build_result} EQUAL 0)
+  if(${h_build_result} EQUAL 0)
+    hunter_status_debug("Build step successful (dir: ${h_work_dir})")
+  else()
     hunter_fatal_error("build step failed (dir: ${h_work_dir}")
   endif()
 
