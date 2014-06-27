@@ -120,10 +120,10 @@ if(MSVC)
   set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} /DBOOST_ALL_NO_LIB=1")
 endif()
 
-if("@HUNTER_DISABLE_SHARED_LIBS@")
-  set(link_opts link=static)
-else()
+if("@HUNTER_ENABLE_BOOST_SHARED@")
   set(link_opts link=static,shared)
+else()
+  set(link_opts link=static)
 endif()
 
 set(
