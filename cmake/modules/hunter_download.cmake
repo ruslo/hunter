@@ -89,7 +89,9 @@ function(hunter_download)
 
   # support for toolchain file forwarding
   if(CMAKE_TOOLCHAIN_FILE)
-    file(APPEND "${HUNTER_DOWNLOAD_TOOLCHAIN}" "include(\"${CMAKE_TOOLCHAIN_FILE}\")\n")
+    # Fix windows path
+    get_filename_component(x "${CMAKE_TOOLCHAIN_FILE}" ABSOLUTE)
+    file(APPEND "${HUNTER_DOWNLOAD_TOOLCHAIN}" "include(\"${x}\")\n")
   endif()
 
   foreach(fwd ${HUNTER_${h_name}_CMAKE_ARGS})
