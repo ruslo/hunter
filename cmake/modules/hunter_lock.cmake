@@ -24,7 +24,8 @@ function(hunter_lock)
   set(lock_file "${HUNTER_ROOT}/Base/hunter-build.lock")
   set(binary_dir_file "${HUNTER_ROOT}/Base/binary-dir.lock")
 
-  if(EXISTS "${lock_file}")
+  while(EXISTS "${lock_file}")
+    string(TIMESTAMP time_now)
     if(NOT EXISTS "${binary_dir_file}")
       hunter_fatal_error("Lock file exists but `${binary_dir_file}` not found")
     endif()
@@ -43,9 +44,13 @@ function(hunter_lock)
         "    ${lock_file}\n\n"
         "Then run CMake again."
       )
-      hunter_fatal_error("Directory busy")
     endif()
-  endif()
+    ### Spin a little bit
+    execute_process(
+        COMMAND "${CMAKE_COMMAND}" -E echo "[${time_now}] Sleep for 5 sec..." 5
+    )
+    execute_process(COMMAND "${CMAKE_COMMAND}" -E sleep 5)
+  endwhile()
 
   string(TIMESTAMP time_now)
 
