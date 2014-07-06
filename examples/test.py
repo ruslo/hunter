@@ -83,7 +83,11 @@ for project in glob.iglob('./*/CMakeLists.txt'):
       for x in files:
         backup = Backup(os.path.join(root, x), x, root)
         archive_list.append(backup)
-    shutil.rmtree('_builds')
+    if os.name == 'nt':
+      # Fix windows error: `path too long`
+      os.system('rmdir _builds /s /q')
+    else:
+      shutil.rmtree('_builds')
   for x in archive_list:
     x.restore()
   if not os.path.exists('_builds'):
