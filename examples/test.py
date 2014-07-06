@@ -78,7 +78,7 @@ for project in glob.iglob('./*/CMakeLists.txt'):
 
   if os.path.exists('_builds'):
     for root, dirs, files in os.walk(
-        os.path.join('_builds', '_hunter_base', 'Download')
+        os.path.join('_builds', '_3rdParty', '_hunter_base', 'Download')
     ):
       for x in files:
         backup = Backup(os.path.join(root, x), x, root)
