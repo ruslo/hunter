@@ -8,7 +8,7 @@ include(ExternalProject) # ExternalProject_Add
 # Scheme for Xcode and MSVC IDE:
 #     install both Debug and Release from one project
 
-list(APPEND CMAKE_MODULE_PATH "@HUNTER_ROOT@/Source/cmake/modules")
+list(APPEND CMAKE_MODULE_PATH "@HUNTER_SELF@/cmake/modules")
 
 include(hunter_assert_lists_equal)
 include(hunter_fatal_error)
@@ -22,6 +22,7 @@ if(NOT XCODE_VERSION AND NOT MSVC)
 endif()
 
 # Check preconditions
+hunter_test_string_not_empty("@HUNTER_SELF@")
 hunter_test_string_not_empty("@HUNTER_BASE@")
 hunter_test_string_not_empty("@HUNTER_PACKAGE_BASENAME@")
 hunter_test_string_not_empty("@HUNTER_PACKAGE_URL@")
