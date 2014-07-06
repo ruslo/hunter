@@ -20,7 +20,7 @@ set(HUNTER_PACKAGE_COMPONENT system)
 
 # Download boost
 configure_file(
-    "${HUNTER_ROOT}/Source/cmake/schemes/url_sha1_boost.cmake.in"
+    "${HUNTER_SELF}/cmake/schemes/url_sha1_boost.cmake.in"
     "${DOWNLOAD_PROJECT_BASE}/CMakeLists.txt"
     @ONLY
 )
@@ -32,7 +32,7 @@ set(HUNTER_DOWNLOAD_SCHEME_VARIANTS ios ios_sim ios_universal)
 
 # Install library
 configure_file(
-    "${HUNTER_ROOT}/Source/cmake/schemes/url_sha1_boost_ios_library.cmake.in"
+    "${HUNTER_SELF}/cmake/schemes/url_sha1_boost_ios_library.cmake.in"
     "${DOWNLOAD_PROJECT_BASE}/CMakeLists.txt"
     @ONLY
 )
