@@ -10,7 +10,7 @@ function(hunter_lock)
   # sanity check
   hunter_test_string_not_empty("${HUNTER_INSTALL_TAG}")
   hunter_test_string_not_empty("${HUNTER_PACKAGE_NAME}")
-  hunter_test_string_not_empty("${HUNTER_ROOT}")
+  hunter_test_string_not_empty("${HUNTER_BASE}")
   hunter_test_string_not_empty("${PROJECT_BINARY_DIR}")
 
   if(HUNTER_SKIP_LOCK)
@@ -21,8 +21,8 @@ function(hunter_lock)
 
   hunter_status_debug("lock directory")
 
-  set(lock_file "${HUNTER_ROOT}/Base/hunter-build.lock")
-  set(binary_dir_file "${HUNTER_ROOT}/Base/binary-dir.lock")
+  set(lock_file "${HUNTER_BASE}/hunter-build.lock")
+  set(binary_dir_file "${HUNTER_BASE}/binary-dir.lock")
 
   while(EXISTS "${lock_file}")
     string(TIMESTAMP time_now)
@@ -36,7 +36,7 @@ function(hunter_lock)
       message(
         "\n"
         "Another project is using directory right now:\n\n"
-        "    ${HUNTER_ROOT}\n\n"
+        "    ${HUNTER_BASE}\n\n"
         "Build info: \n\n"
         "${build_info}\n\n"
         "If that build cancelled (interrupted by user or some other reason), "
@@ -45,7 +45,7 @@ function(hunter_lock)
         "Then run CMake again."
       )
     endif()
-    ### Spin a little bit
+    ### Lets spin
     execute_process(
         COMMAND "${CMAKE_COMMAND}" -E echo "[${time_now}] Sleep for 5 sec..." 5
     )

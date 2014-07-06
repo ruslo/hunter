@@ -6,9 +6,10 @@ include(hunter_status_debug)
 include(hunter_test_string_not_empty)
 
 function(hunter_verify_toolchain_info)
+  hunter_test_string_not_empty("${HUNTER_BASE}")
   hunter_test_string_not_empty("${HUNTER_DOWNLOAD_TOOLCHAIN}")
   hunter_test_string_not_empty("${HUNTER_INSTALL_TAG}")
-  hunter_test_string_not_empty("${HUNTER_ROOT}")
+  hunter_test_string_not_empty("${HUNTER_SELF}")
   hunter_test_string_not_empty("${PROJECT_BINARY_DIR}")
   # HUNTER_DOWNLOAD_GENERATOR may be empty
 
@@ -21,12 +22,12 @@ function(hunter_verify_toolchain_info)
 
   set(
       saved_toolchain_info
-      "${HUNTER_ROOT}/Base/Toolchains/${HUNTER_INSTALL_TAG}/toolchain.info"
+      "${HUNTER_BASE}/Toolchains/${HUNTER_INSTALL_TAG}/toolchain.info"
   )
 
-  set(temp_project_dir "${PROJECT_BINARY_DIR}/Hunter-activity/toolchain-info")
+  set(temp_project_dir "${PROJECT_BINARY_DIR}/_3rdParty/hunter/toolchain-info")
   set(temp_build_dir "${temp_project_dir}/_builds")
-  set(create_script "${HUNTER_ROOT}/Source/scripts/create-toolchain-info.cmake")
+  set(create_script "${HUNTER_SELF}/scripts/create-toolchain-info.cmake")
 
   file(REMOVE_RECURSE "${temp_build_dir}")
   # create all directories

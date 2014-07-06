@@ -6,14 +6,14 @@ include(hunter_test_string_not_empty)
 
 function(hunter_unlock)
   # sanity check
-  hunter_test_string_not_empty("${HUNTER_ROOT}")
+  hunter_test_string_not_empty("${HUNTER_BASE}")
 
   if(HUNTER_SKIP_LOCK)
     hunter_status_debug("Unlock skipped")
     return()
   endif()
 
-  set(lock_file "${HUNTER_ROOT}/Base/hunter-build.lock")
+  set(lock_file "${HUNTER_BASE}/hunter-build.lock")
   if(NOT EXISTS "${lock_file}")
     hunter_fatal_error("Internal error: lock file `${lock_file}` not exists")
   endif()

@@ -34,6 +34,7 @@ function(hunter_download)
   hunter_test_string_not_empty("${HUNTER_BASE}")
   hunter_test_string_not_empty("${HUNTER_DOWNLOAD_SCHEME}")
   hunter_test_string_not_empty("${HUNTER_INSTALL_TAG}")
+  hunter_test_string_not_empty("${HUNTER_SELF}")
 
   # Set <LIB>_ROOT variables
   set(h_name "${HUNTER_PACKAGE_NAME}") # Foo
@@ -70,7 +71,7 @@ function(hunter_download)
         "Move file **after** first 'project' command"
     )
   endif()
-  set(h_work_dir "${PROJECT_BINARY_DIR}/Hunter-activity/external")
+  set(h_work_dir "${PROJECT_BINARY_DIR}/_3rdParty/hunter/external")
   set(h_build_dir "${h_work_dir}/_builds")
   file(REMOVE_RECURSE "${h_work_dir}")
 
@@ -78,11 +79,24 @@ function(hunter_download)
   # and include real toolchain
   set(HUNTER_DOWNLOAD_TOOLCHAIN "${h_work_dir}/toolchain.cmake")
 
-  # pass HUNTER_ROOT to all packages
-  file(APPEND "${HUNTER_DOWNLOAD_TOOLCHAIN}" "set(HUNTER_ROOT \"${HUNTER_ROOT}\")\n")
+  # pass HUNTER_ROOT and HUNTER_SHA1 to all packages
   file(
-      APPEND "${HUNTER_DOWNLOAD_TOOLCHAIN}" "set(ENV{HUNTER_ROOT} \"${HUNTER_ROOT}\")\n"
+      APPEND
+      "${HUNTER_DOWNLOAD_TOOLCHAIN}"
+      "set(HUNTER_ROOT \"${HUNTER_ROOT}\")\n"
   )
+  file(
+      APPEND
+      "${HUNTER_DOWNLOAD_TOOLCHAIN}"
+      "set(ENV{HUNTER_ROOT} \"${HUNTER_ROOT}\")\n"
+  )
+  if(HUNTER_SHA1)
+    file(
+        APPEND
+        "${HUNTER_DOWNLOAD_TOOLCHAIN}"
+        "set(HUNTER_SHA1 \"${HUNTER_SHA1}\")\n"
+    )
+  endif()
 
   # do not lock hunter directory if package is internal (already locked)
   file(APPEND "${HUNTER_DOWNLOAD_TOOLCHAIN}" "set(HUNTER_SKIP_LOCK YES)\n")
@@ -111,7 +125,7 @@ function(hunter_download)
   set(HUNTER_PACKAGE_INSTALL_DIR "${${h_root_name}}")
   set(HUNTER_PACKAGE_URL "${HUNTER_${h_name}_URL}")
   set(HUNTER_PACKAGE_SHA1 "${HUNTER_${h_name}_SHA1}")
-  set(HUNTER_PACKAGE_DOWNLOAD_DIR "${HUNTER_ROOT}/Download/${h_name}")
+  set(HUNTER_PACKAGE_DOWNLOAD_DIR "${HUNTER_BASE}/Download/${h_name}")
   set(HUNTER_PACKAGE_SOURCE_DIR "${HUNTER_BASE}/Source/${h_name}")
 
   if(NOT HUNTER_PACKAGE_URL)
@@ -149,7 +163,7 @@ function(hunter_download)
 
   set(
       download_scheme
-      "${HUNTER_ROOT}/Source/cmake/schemes/${HUNTER_DOWNLOAD_SCHEME}.cmake.in"
+      "${HUNTER_SELF}/cmake/schemes/${HUNTER_DOWNLOAD_SCHEME}.cmake.in"
   )
   if(NOT EXISTS "${download_scheme}")
     hunter_fatal_error("Download scheme `${download_scheme}` not found")
