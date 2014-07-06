@@ -12,7 +12,7 @@ install_manifest.txt
 */*/*/*/_builds
 
 # EP_BASE (install, download, build, ...)
-_base
+_Base
 
 # macosx
 .DS_Store
