@@ -5,7 +5,7 @@ cmake_minimum_required(VERSION 2.8.12)
 
 include(ExternalProject) # ExternalProject_Add
 
-list(APPEND CMAKE_MODULE_PATH "@HUNTER_ROOT@/Source/cmake/modules")
+list(APPEND CMAKE_MODULE_PATH "@HUNTER_SELF@/cmake/modules")
 
 include(hunter_assert_lists_equal)
 include(hunter_status_debug)
@@ -14,6 +14,7 @@ include(hunter_test_string_not_empty)
 hunter_status_debug("Scheme: url_sha1_ios_sim")
 
 # Check preconditions
+hunter_test_string_not_empty("@HUNTER_SELF@")
 hunter_test_string_not_empty("@HUNTER_BASE@")
 hunter_test_string_not_empty("@HUNTER_PACKAGE_BASENAME@")
 hunter_test_string_not_empty("@HUNTER_PACKAGE_URL@")
@@ -57,7 +58,7 @@ ExternalProject_Add(
     CONFIGURE_COMMAND
     ""
     BUILD_COMMAND
-    "CC=${compiler}" && . "@HUNTER_ROOT@/Source/scripts/clear-all.sh" &&
+    "CC=${compiler}" && . "@HUNTER_SELF@/scripts/clear-all.sh" &&
     xcodebuild -target ios-sim -configuration Release
     BUILD_IN_SOURCE
     1

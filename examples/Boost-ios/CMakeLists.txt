@@ -13,7 +13,7 @@ set(CMAKE_BUILD_TYPE Debug)
 # Let hunter be more verbose
 set(HUNTER_STATUS_DEBUG ON CACHE BOOL "")
 
-# emulate ${HUNTER_ROOT}/Source/cmake/Hunter
+# emulate ${HUNTER_SELF}/cmake/Hunter
 include("../common.cmake")
 include(hunter_add_package)
 

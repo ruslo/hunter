@@ -22,7 +22,7 @@ function(hunter_set_cmake_default_generator)
 
   hunter_status_debug("File `${generator_info}` not found, run test...")
 
-  set(temp_project_dir "${PROJECT_BINARY_DIR}/Hunter-activity/generator-info")
+  set(temp_project_dir "${PROJECT_BINARY_DIR}/_3rdParty/hunter/generator-info")
   set(temp_build_dir "${temp_project_dir}/_builds")
 
   file(

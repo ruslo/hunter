@@ -7,7 +7,7 @@ include(ExternalProject) # ExternalProject_Add
 
 # Scheme for download boost and install header-only libraries (no build step)
 
-list(APPEND CMAKE_MODULE_PATH "@HUNTER_ROOT@/Source/cmake/modules")
+list(APPEND CMAKE_MODULE_PATH "@HUNTER_SELF@/cmake/modules")
 
 include(hunter_assert_lists_equal)
 include(hunter_status_debug)
@@ -16,7 +16,7 @@ include(hunter_test_string_not_empty)
 hunter_status_debug("Scheme: url_sha1_boost")
 
 # Check preconditions
-hunter_test_string_not_empty("@HUNTER_ROOT@")
+hunter_test_string_not_empty("@HUNTER_SELF@")
 hunter_test_string_not_empty("@HUNTER_BASE@")
 hunter_test_string_not_empty("@HUNTER_PACKAGE_BASENAME@")
 hunter_test_string_not_empty("@HUNTER_PACKAGE_URL@")
@@ -85,7 +85,7 @@ else()
     # Clear Xcode environment
     set(
         bootstrap_cmd
-        . "@HUNTER_ROOT@/Source/scripts/clear-all.sh" && ./bootstrap.sh
+        . "@HUNTER_SELF@/scripts/clear-all.sh" && ./bootstrap.sh
     )
   else()
     set(bootstrap_cmd "./bootstrap.sh")

@@ -12,26 +12,40 @@ option(HUNTER_STATUS_PRINT "Print working status" ON)
 option(HUNTER_STATUS_DEBUG "Print a lot info" OFF)
 
 # If HUNTER_ROOT is defined by user, check it is correct.
-# Note: it's can't be defined by other Hunter master file
+# Note: it can't be defined by other Hunter master file
 # because of header guards
 if(HUNTER_ROOT)
   get_filename_component(HUNTER_ROOT_OLD "${HUNTER_ROOT}" ABSOLUTE)
 endif()
 
-get_filename_component(HUNTER_ROOT "${CMAKE_CURRENT_LIST_DIR}/../.." ABSOLUTE)
+# https://github.com/ruslo/hunter/wiki/EP_BASE-layout
+if(HUNTER_SHA1)
+  # Installed by gate (i.e. HUNTER_ROOT/_Base/SHA1/Self/cmake/Hunter)
+  get_filename_component(
+      HUNTER_ROOT
+      "${CMAKE_CURRENT_LIST_DIR}/../../../.."
+      ABSOLUTE
+  )
+else()
+  # Installed manually (i.e. HUNTER_ROOT/cmake/Hunter)
+  get_filename_component(HUNTER_ROOT "${CMAKE_CURRENT_LIST_DIR}/.." ABSOLUTE)
+endif()
+
+### Directory with hunter sources
+get_filename_component(HUNTER_SELF "${CMAKE_CURRENT_LIST_DIR}/.." ABSOLUTE)
 
 ### test self
-if(NOT EXISTS "${HUNTER_ROOT}/Source/cmake/Hunter")
+if(NOT EXISTS "${HUNTER_SELF}/cmake/Hunter")
   message(
       FATAL_ERROR
-      "Can't find Hunter components in: `${HUNTER_ROOT}` "
-      "Expected location: <HUNTER_ROOT>/Source/cmake/Hunter"
+      "Can't find Hunter components in: `${HUNTER_SELF}` "
+      "Expected location: <HUNTER_SELF>/cmake/Hunter"
   )
 endif()
 
 ### add cmake modules to search path
-list(APPEND CMAKE_MODULE_PATH "${HUNTER_ROOT}/Source/cmake/modules")
-list(APPEND CMAKE_MODULE_PATH "${HUNTER_ROOT}/Source/cmake/find")
+list(APPEND CMAKE_MODULE_PATH "${HUNTER_SELF}/cmake/modules")
+list(APPEND CMAKE_MODULE_PATH "${HUNTER_SELF}/cmake/find")
 
 include(hunter_status_debug)
 include(hunter_status_print)
@@ -53,6 +67,8 @@ unset(HUNTER_ROOT_OLD)
 
 if(CYGWIN)
   # Make generator has problems with windows paths
+
+  # HUNTER_ROOT
   execute_process(
       COMMAND
       cygpath
@@ -67,11 +83,32 @@ if(CYGWIN)
   if(NOT _hunter_result EQUAL 0)
     hunter_fatal_error("cygpath failed")
   endif()
+
+  # HUNTER_SELF
+  execute_process(
+      COMMAND
+      cygpath
+      --absolute
+      "${HUNTER_SELF}"
+      OUTPUT_VARIABLE
+      HUNTER_SELF
+      RESULT_VARIABLE
+      _hunter_result
+      OUTPUT_STRIP_TRAILING_WHITESPACE
+  )
+  if(NOT _hunter_result EQUAL 0)
+    hunter_fatal_error("cygpath failed")
+  endif()
 endif()
 
 hunter_status_print("HUNTER_ROOT: ${HUNTER_ROOT}")
+hunter_status_print("HUNTER_SELF: ${HUNTER_SELF}")
 
-set(HUNTER_BASE "${HUNTER_ROOT}/Base")
+if(HUNTER_SHA1)
+  set(HUNTER_BASE "${HUNTER_ROOT}/_Base/${HUNTER_SHA1}")
+else()
+  set(HUNTER_BASE "${HUNTER_ROOT}/_Base")
+endif()
 
 ### Check 'EP_BASE` correctness
 get_directory_property(HUNTER_EP_BASE_OLD EP_BASE)
@@ -126,7 +163,7 @@ hunter_set_cmake_default_generator()
 if(HUNTER_ENABLED)
   ### 1. Clear all '<NAME>_ROOT' variables (cache, environment, ...)
   ### 2. Set '<NAME>_ROOT' or 'HUNTER_<name>_VERSION' variables
-  include("${HUNTER_ROOT}/Source/cmake/config.cmake")
+  include("${HUNTER_SELF}/cmake/config.cmake")
 else()
   hunter_status_print("DISABLED")
 endif()

@@ -6,6 +6,7 @@
 import argparse
 import glob
 import os
+import platform
 import re
 import shutil
 import subprocess
@@ -66,6 +67,9 @@ for project in glob.iglob('./*/CMakeLists.txt'):
   else:
     toolchain_option = ''
   if os.path.exists('Xcode'):
+    if not platform.system() == 'Darwin':
+      os.chdir(top_dir)
+      continue
     generator = '-GXcode'
   else:
     generator = ''
@@ -78,12 +82,16 @@ for project in glob.iglob('./*/CMakeLists.txt'):
 
   if os.path.exists('_builds'):
     for root, dirs, files in os.walk(
-        os.path.join('_builds', '_hunter_base', 'Download')
+        os.path.join('_builds', '_3rdParty', '_hunter_base', 'Download')
     ):
       for x in files:
         backup = Backup(os.path.join(root, x), x, root)
         archive_list.append(backup)
-    shutil.rmtree('_builds')
+    if os.name == 'nt':
+      # Fix windows error: `path too long`
+      os.system('rmdir _builds /s /q')
+    else:
+      shutil.rmtree('_builds')
   for x in archive_list:
     x.restore()
   if not os.path.exists('_builds'):

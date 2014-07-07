@@ -7,7 +7,7 @@ include(ExternalProject) # ExternalProject_Add
 
 # Scheme for download and install ios universal boost library
 
-list(APPEND CMAKE_MODULE_PATH "@HUNTER_ROOT@/Source/cmake/modules")
+list(APPEND CMAKE_MODULE_PATH "@HUNTER_SELF@/cmake/modules")
 
 include(hunter_assert_lists_equal)
 include(hunter_fatal_error)
@@ -19,7 +19,7 @@ hunter_status_debug("Scheme: url_sha1_boost_ios_library")
 
 # Check preconditions
 hunter_test_string_not_empty("@HUNTER_BASE@")
-hunter_test_string_not_empty("@HUNTER_ROOT@")
+hunter_test_string_not_empty("@HUNTER_SELF@")
 hunter_test_string_not_empty("@HUNTER_PACKAGE_BASENAME@")
 hunter_test_string_not_empty("@HUNTER_PACKAGE_DOWNLOAD_DIR@")
 hunter_test_string_not_empty("@HUNTER_PACKAGE_SOURCE_DIR@")
@@ -143,7 +143,7 @@ set(
 # Clear Xcode environment
 set(
     bootstrap
-    . "@HUNTER_ROOT@/Source/scripts/clear-all.sh" &&
+    . "@HUNTER_SELF@/scripts/clear-all.sh" &&
     ./bootstrap.sh
     "--with-libraries=@HUNTER_PACKAGE_COMPONENT@"
     "--prefix=@HUNTER_PACKAGE_INSTALL_DIR@"
@@ -211,7 +211,7 @@ if(log_setup_target)
   set(
       extra_lib_command
       COMMAND
-      "@HUNTER_ROOT@/Source/scripts/create-boost-ios-fatlib.sh"
+      "@HUNTER_SELF@/scripts/create-boost-ios-fatlib.sh"
       "@HUNTER_PACKAGE_SOURCE_DIR@"
       "log_setup"
       "@HUNTER_PACKAGE_COMPONENT@"
@@ -242,7 +242,7 @@ ExternalProject_Add(
     INSTALL_COMMAND
     "${CMAKE_COMMAND}" -E make_directory "@HUNTER_PACKAGE_INSTALL_DIR@/lib"
     COMMAND
-    "@HUNTER_ROOT@/Source/scripts/create-boost-ios-fatlib.sh"
+    "@HUNTER_SELF@/scripts/create-boost-ios-fatlib.sh"
     "@HUNTER_PACKAGE_SOURCE_DIR@"
     "${LIBNAME}"
     "@HUNTER_PACKAGE_COMPONENT@"

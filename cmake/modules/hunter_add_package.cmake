@@ -22,7 +22,7 @@ macro(hunter_add_package)
 
   set(
       _hunter_ap_project_dir
-      "${HUNTER_ROOT}/Source/cmake/projects/${_hunter_ap_project}"
+      "${HUNTER_SELF}/cmake/projects/${_hunter_ap_project}"
   )
   if(NOT EXISTS "${_hunter_ap_project_dir}")
     hunter_fatal_error("Project '${_hunter_ap_project}' not found")

@@ -6,6 +6,7 @@
 import argparse
 import glob
 import os
+import platform
 import re
 import shutil
 import subprocess
@@ -38,9 +39,41 @@ for project in glob.iglob('./tests/*/CMakeLists.txt'):
     if not ok:
       log.p('{} skipped (not match {})'.format(project, args.include))
       continue
+
+  if platform.system() != 'Darwin':
+    mac_only = [
+        'url_sha1_boost_ios_library',
+        'url_sha1_combined_release_debug', # Xcode
+        'url_sha1_openssl_ios'
+    ]
+    skip = False
+    for x in mac_only:
+      if re.search(x, project):
+        log.p('{} skipped (not mac)'.format(project))
+        skip = True
+    if skip:
+      continue
+
+  if platform.system() == 'Windows':
+    not_windows = [
+        'url_sha1_openssl', # Both url_sha1_openssl_ios and url_sha1_openssl
+        'url_sha1_release_debug'
+    ]
+    skip = False
+    for x in not_windows:
+      if re.search(x, project):
+        log.p('{} skipped (disabled for windows)'.format(project))
+        skip = True
+    if skip:
+      continue
+
   os.chdir(os.path.dirname(project))
   if os.path.exists('_builds'):
-    shutil.rmtree('_builds')
+    if os.name == 'nt':
+      # Fix windows error: `path too long`
+      os.system('rmdir _builds /s /q')
+    else:
+      shutil.rmtree('_builds')
   subprocess.check_call(
       ['cmake', '-H.', '-B_builds', '-DHUNTER_STATUS_DEBUG=ON']
   )

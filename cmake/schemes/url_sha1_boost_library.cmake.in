@@ -7,7 +7,7 @@ include(ExternalProject) # ExternalProject_Add
 
 # Scheme for download and install boost library
 
-list(APPEND CMAKE_MODULE_PATH "@HUNTER_ROOT@/Source/cmake/modules")
+list(APPEND CMAKE_MODULE_PATH "@HUNTER_SELF@/cmake/modules")
 
 include(CheckSymbolExists) # check_symbol_exists
 
@@ -19,6 +19,7 @@ include(hunter_test_string_not_empty)
 hunter_status_debug("Scheme: url_sha1_boost_library")
 
 # Check preconditions
+hunter_test_string_not_empty("@HUNTER_SELF@")
 hunter_test_string_not_empty("@HUNTER_BASE@")
 hunter_test_string_not_empty("@HUNTER_PACKAGE_BASENAME@")
 hunter_test_string_not_empty("@HUNTER_PACKAGE_DOWNLOAD_DIR@")
@@ -200,7 +201,7 @@ if(APPLE)
       FixDylibId
       COMMAND
       "${PYTHON_EXECUTABLE}"
-      "@HUNTER_ROOT@/Source/scripts/fix-boost-dylib-id.py"
+      "@HUNTER_SELF@/scripts/fix-boost-dylib-id.py"
       "--install-dir"
       "@HUNTER_PACKAGE_INSTALL_DIR@/lib"
       DEPENDEES
