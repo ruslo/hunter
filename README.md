@@ -24,14 +24,14 @@ Hunter (0.4.2) = { Boost (1.55.0), GTest (1.7.0), JsonSpirit(0.0.1), OpenSSL(1.0
 * Currently used versions can be found in
 [cmake/config.cmake](https://github.com/ruslo/hunter/blob/master/cmake/config.cmake) file
 * Per package versions are available in corresponding `hunter.cmake` file
-(e.g. [GTest](https://github.com/ruslo/hunter/blob/master/cmake/projects/GTest/hunter.cmake))
+(e.g. [GTest](https://github.com/ruslo/hunter/blob/master/cmake/projects/GTest/hunter.cmake)).
 You can pick one version that already exists
-or [add a new one](https://github.com/ruslo/hunter/wiki/Adding-new-package).
+or [add a new one](https://github.com/ruslo/hunter/wiki/Adding-new-package)
 
 ### Usage
 
 * Set `HUNTER_ROOT` environment variable (recommended but not mandatory, see 
-[other options](https://github.com/hunter-packages/gate#effects)).
+[other options](https://github.com/hunter-packages/gate#effects))
 
 * Copy [gate](https://github.com/hunter-packages/gate) module to your project and include it:
 ```cmake
