@@ -21,7 +21,7 @@ Every hunter release archive is a meta-package, i.e.:
 Hunter (0.4.2) = { Boost (1.55.0), GTest (1.7.0), JsonSpirit(0.0.1), OpenSSL(1.0.1h), ... }
 ```
 
-* Current used versions can be found in
+* Currently used versions can be found in
 [cmake/config.cmake](https://github.com/ruslo/hunter/blob/master/cmake/config.cmake) file
 * Per package versions are available in corresponding `hunter.cmake` file
 (e.g. [GTest](https://github.com/ruslo/hunter/blob/master/cmake/projects/GTest/hunter.cmake))
