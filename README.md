@@ -10,30 +10,42 @@ hunter
 [link_hunter]: https://travis-ci.org/ruslo/hunter
 
 ### Usage
-```bash
-> cat CMakeLists.txt
-cmake_minimum_required(VERSION 2.8.10)
-project(Foo)
 
-include(HunterGate.cmake)
+* Set `HUNTER_ROOT` environment variable (recommended but not mandatory, see 
+[other options](https://github.com/hunter-packages/gate#effects)).
+
+* Copy [gate](https://github.com/hunter-packages/gate) module to your project.
+This module will download archive automatically from URL that you provide:
+
+```cmake
+include("cmake/HunterGate.cmake")
+HunterGate(
+    URL "https://github.com/path/to/hunter/archive.tar.gz"
+    SHA1 "sha1-hash-of-archive"
+)
+```
+
+* Now you can use it. For example let's download and install `boost.regex` and `boost.filesystem`:
+```cmake
 hunter_add_package(Boost COMPONENTS regex filesystem)
+```
 
+* That's all, now well known cmake-style kung-fu:
+```cmake
 find_package(Boost REQUIRED regex filesystem)
 
 include_directories(${Boost_INCLUDE_DIR})
 add_executable(foo foo.cpp)
 target_link_libraries(foo ${Boost_LIBRARIES})
-> echo ${HUNTER_ROOT} # not necessary but recommended (otherwise boost will be downloaded to default directory)
-/path/to/the/hunter/base/directory
-> cmake -H. -B_builds -DHUNTER_STATUS_DEBUG=ON
 ```
 
-Gate to hunter packages: https://github.com/hunter-packages/gate
+... and build:
+```
+> cmake -H. -B_builds -DHUNTER_STATUS_DEBUG=ON -DCMAKE_BUILD_TYPE=Release
+> cmake --build _builds --config Release
+```
 
-### Project example (simple)
-
-* https://github.com/forexample/hunter-simple
-
-### Project example (realistic)
-
-* https://github.com/ruslo/weather
+### Links
+* [Gate to hunter packages](https://github.com/hunter-packages/gate)
+* [Simple project example](https://github.com/forexample/hunter-simple)
+* [Bigger one](https://github.com/ruslo/weather)
