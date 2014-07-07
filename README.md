@@ -14,11 +14,14 @@ hunter
 * Set `HUNTER_ROOT` environment variable (recommended but not mandatory, see 
 [other options](https://github.com/hunter-packages/gate#effects)).
 
-* Copy [gate](https://github.com/hunter-packages/gate) module to your project.
-This module will download archive automatically from URL that you provide:
-
+* Copy [gate](https://github.com/hunter-packages/gate) module to your project and include it:
 ```cmake
 include("cmake/HunterGate.cmake")
+```
+
+* This module will download archive automatically from URL that you provide:
+
+```cmake
 HunterGate(
     URL "https://github.com/path/to/hunter/archive.tar.gz"
     SHA1 "sha1-hash-of-archive"
