@@ -6,6 +6,7 @@
 import argparse
 import glob
 import os
+import platform
 import re
 import shutil
 import subprocess
@@ -66,6 +67,9 @@ for project in glob.iglob('./*/CMakeLists.txt'):
   else:
     toolchain_option = ''
   if os.path.exists('Xcode'):
+    if not platform.system() == 'Darwin':
+      os.chdir(top_dir)
+      continue
     generator = '-GXcode'
   else:
     generator = ''
