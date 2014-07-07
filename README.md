@@ -42,8 +42,8 @@ include("cmake/HunterGate.cmake")
 
 ```cmake
 HunterGate(
-    URL "https://github.com/path/to/hunter/archive.tar.gz"
-    SHA1 "sha1-hash-of-archive"
+    URL "https://github.com/ruslo/hunter/archive/v0.5.0.tar.gz"
+    SHA1 "8c9a553d3dbde74d411167ae67423416dd0e1a31"
 )
 ```
 
