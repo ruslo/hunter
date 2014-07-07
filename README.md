@@ -87,6 +87,11 @@ then you will build all of them from scratch
 
 So put a **stable** releases inside `config.cmake` and something like submodules for everything else.
 
+### Tutorial
+
+* [Add cmake project](https://github.com/ruslo/hunter/wiki/Adding-new-package)
+* [Add custom-build project](https://github.com/ruslo/hunter/wiki/Adding-new-package-%28custom-download-scheme%29)
+
 ### Links
 * [Gate to hunter packages](https://github.com/hunter-packages/gate)
 * [Simple project example](https://github.com/forexample/hunter-simple)
