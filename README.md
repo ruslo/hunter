@@ -67,6 +67,13 @@ target_link_libraries(foo ${Boost_LIBRARIES})
 > cmake --build _builds --config Release
 ```
 
+### Tagged builds
+
+Each build can be tagged by `HUNTER_INSTALL_TAG` variable. Tags used to differentiate one build
+from another on one OS. For example on windows you can simultaniously build Visual Studio, NMake, Cygwin and MinGW projects,
+on Linux gcc/clang, on Mac Xcode, Makefile, iOS. Or choose different clang tools like static analyzer and sanitizers.
+Tags designed to be used in cmake [toolchain](https://github.com/ruslo/polly) files. Each toolchain file will be forwarded to external project so if you create toolchain with compiler `g++` and flag `-std=c++11` all dependent projects will be built by `g++ -std=c++11`.
+
 ### How to update?
 
 There is no such thing as update here. If you create a new version
@@ -93,3 +100,5 @@ So put a **stable** releases inside `config.cmake` and something like submodules
 * [Gate to hunter packages](https://github.com/hunter-packages/gate)
 * [Simple project example](https://github.com/forexample/hunter-simple)
 * [Bigger one](https://github.com/ruslo/weather)
+* [Toolchain examples](https://github.com/ruslo/polly)
+* [Travic CI build example](https://github.com/forexample/hunter-simple/blob/master/.travis.yml)
