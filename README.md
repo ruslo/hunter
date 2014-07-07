@@ -1,5 +1,10 @@
-hunter
+Hunter
 ======
+
+* Cross-platform package manager for CMake (based on ExternalProject)
+* Supported platforms: Linux, Mac, Windows, iOS
+
+### Travis CI
 
 | mac                                         | linux                                             |
 |---------------------------------------------|---------------------------------------------------|
@@ -8,6 +13,20 @@ hunter
 [link_master]: https://travis-ci.org/ruslo/hunter.png?branch=master
 [link_travis_linux]: https://travis-ci.org/ruslo/hunter.png?branch=travis.linux
 [link_hunter]: https://travis-ci.org/ruslo/hunter
+
+### What is it?
+
+Every hunter release archive is a meta-package, i.e.:
+```
+Hunter (0.4.2) = { Boost (1.55.0), GTest (1.7.0), JsonSpirit(0.0.1), OpenSSL(1.0.1h), ... }
+```
+
+* Current used versions can be found in
+[cmake/config.cmake](https://github.com/ruslo/hunter/blob/master/cmake/config.cmake) file
+* Per package versions are available in corresponding `hunter.cmake` file
+(e.g. [GTest](https://github.com/ruslo/hunter/blob/master/cmake/projects/GTest/hunter.cmake))
+You can pick one version that already exists
+or [add a new one](https://github.com/ruslo/hunter/wiki/Adding-new-package).
 
 ### Usage
 
@@ -48,28 +67,6 @@ target_link_libraries(foo ${Boost_LIBRARIES})
 > cmake --build _builds --config Release
 ```
 
-### How it works?
-
-This is a meta-package. So for example if you use release
-[0.4.2](https://github.com/ruslo/hunter/releases/tag/v0.4.2)
-then next versions of packages will be [available](https://github.com/ruslo/hunter/blob/f9ce4fe2a4f8dc4a1d1ed1eb3478fcd1b555d627/cmake/config.cmake) for you:
-```
-Boost 1.55.0-patched-2
-GTest 1.7.0-hunter-8
-JsonSpirit 0.0.1-hunter
-Leathers 0.1.3
-OpenSSL 1.0.1h
-ZLIB 1.2.8
-ios_sim 1.8.2
-```
-
-Versions listed in [cmake/config.cmake](https://github.com/ruslo/hunter/blob/master/cmake/config.cmake) file.
-To change the version of partucular package first find corresponding 
-[hunter.cmake](https://github.com/ruslo/hunter/tree/master/cmake/projects)
-(e.g. [GTest](https://github.com/ruslo/hunter/blob/master/cmake/projects/GTest/hunter.cmake))
-and pick one version that already exists
-or [add a new one](https://github.com/ruslo/hunter/wiki/Adding-new-package).
-
 ### How to update?
 
 There is no such thing as update here. If you create a new version
@@ -77,7 +74,7 @@ There is no such thing as update here. If you create a new version
 then you will build all of them from scratch
 ([see rationale](https://github.com/ruslo/hunter/wiki/Rationale)).
 
-* **Cons** Big one and kind of obvious - it can take a long time to compile, not for every-day update.
+* **Cons** Big one and kind of obvious - it can take a long time to compile, not for every-day update
 * **Pros** One versions of all packages independently on all platforms
 * **Pros** You can use different meta-versions simultaniously (which is really usefull in CI testing). E.g.:
 ```
