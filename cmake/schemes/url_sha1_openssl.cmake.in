@@ -70,5 +70,7 @@ ExternalProject_Add(
     BUILD_IN_SOURCE
     1
     INSTALL_COMMAND
-    make install
+    make install_sw
+    # Install without documentation
+    # * https://github.com/openssl/openssl/issues/57
 )
