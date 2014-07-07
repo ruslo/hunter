@@ -17,17 +17,28 @@ include(hunter_pick_scheme)
 # hunter_add_package(DepPackage)
 # -- end
 
-hunter_add_version_start(Example_A)
+hunter_add_version_start(example_A)
 
 hunter_add_version(
     PACKAGE_NAME
-    Example_A
+    example_A
     VERSION
     "1.0.1"
     URL
     "https://github.com/forexample/example-A/archive/v1.0.1.tar.gz"
     SHA1
     48179067d11828dc347f98fc148654f88766529d
+)
+
+hunter_add_version(
+    PACKAGE_NAME
+    example_A
+    VERSION
+    "1.0.2"
+    URL
+    "https://github.com/forexample/example-A/archive/v1.0.2.tar.gz"
+    SHA1
+    6a6f3de49b3809daba70d12224884262a42409af
 )
 
 hunter_pick_scheme(
@@ -37,4 +48,4 @@ hunter_pick_scheme(
      url_sha1_combined_release_debug
 )
 
-hunter_download(PACKAGE_NAME Example_A)
+hunter_download(PACKAGE_NAME example_A)
