@@ -30,5 +30,5 @@ hunter_config(ZLIB VERSION 1.2.8-hunter CMAKE_ARGS ZLIB_BUILD_SHARED=OFF)
 hunter_config(ios_sim VERSION 1.8.2)
 
 ### Testing --
-hunter_config(example_A VERSION 1.0.2)
+hunter_config(example_A VERSION 1.0.3)
 ### --end

@@ -41,6 +41,17 @@ hunter_add_version(
     6a6f3de49b3809daba70d12224884262a42409af
 )
 
+hunter_add_version(
+    PACKAGE_NAME
+    example_A
+    VERSION
+    "1.0.3"
+    URL
+    "https://github.com/forexample/example-A/archive/v1.0.3.tar.gz"
+    SHA1
+    9e24d239d209ecaf54558f519462ae2867e2bfb0
+)
+
 hunter_pick_scheme(
      DEFAULT
      url_sha1_release_debug
