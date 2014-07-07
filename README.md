@@ -69,10 +69,8 @@ target_link_libraries(foo ${Boost_LIBRARIES})
 
 ### Tagged builds
 
-Each build can be tagged by `HUNTER_INSTALL_TAG` variable. Tags used to differentiate one build
-from another on one OS. For example on windows you can simultaniously build Visual Studio, NMake, Cygwin and MinGW projects,
-on Linux gcc/clang, on Mac Xcode, Makefile, iOS. Or choose different clang tools like static analyzer and sanitizers.
-Tags designed to be used in cmake [toolchain](https://github.com/ruslo/polly) files. Each toolchain file will be forwarded to external project so if you create toolchain with compiler `g++` and flag `-std=c++11` all dependent projects will be built by `g++ -std=c++11`.
+Each build can be [tagged](https://github.com/ruslo/hunter/wiki/EP_BASE-layout#tagged-layout)
+by `HUNTER_INSTALL_TAG` variable. Tags used to differentiate one build from another on one OS. For example on windows you can simultaniously build Visual Studio, NMake, Cygwin and MinGW projects, on Linux gcc/clang, on Mac Xcode, Makefile, iOS. Or choose different clang tools like static analyzer and sanitizers. Tags designed to be used in cmake [toolchain](https://github.com/ruslo/polly) files. Each toolchain file will be forwarded to external project so if you create toolchain with compiler `g++` and flag `-std=c++11` all dependent projects will be built by `g++ -std=c++11`.
 
 ### How to update?
 
