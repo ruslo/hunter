@@ -6,6 +6,7 @@
 import argparse
 import glob
 import os
+import platform
 import re
 import shutil
 import subprocess
@@ -38,6 +39,20 @@ for project in glob.iglob('./tests/*/CMakeLists.txt'):
     if not ok:
       log.p('{} skipped (not match {})'.format(project, args.include))
       continue
+  if platform.system() != 'Darwin':
+    mac_only = [
+        'url_sha1_boost_ios_library',
+        'url_sha1_combined_release_debug', # Xcode
+        'url_sha1_openssl_ios'
+    ]
+    skip = False
+    for x in mac_only:
+      if re.search(x, project):
+        log.p('{} skipped (not mac)'.format(project))
+        skip = True
+    if skip:
+      continue
+
   os.chdir(os.path.dirname(project))
   if os.path.exists('_builds'):
     shutil.rmtree('_builds')
