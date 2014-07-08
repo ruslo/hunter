@@ -2,6 +2,7 @@
 # All rights reserved.
 
 include(hunter_fatal_error)
+include(hunter_get_temp_directory)
 include(hunter_status_debug)
 include(hunter_test_string_not_empty)
 
@@ -25,7 +26,12 @@ function(hunter_verify_toolchain_info)
       "${HUNTER_BASE}/Toolchains/${HUNTER_INSTALL_TAG}/toolchain.info"
   )
 
-  set(temp_project_dir "${PROJECT_BINARY_DIR}/_3rdParty/hunter/toolchain-info")
+  hunter_get_temp_directory(
+      "${PROJECT_BINARY_DIR}/_3rdParty/hunter/toolchain-info"
+      temp_project_dir
+  )
+  hunter_test_string_not_empty("${temp_project_dir}")
+
   set(temp_build_dir "${temp_project_dir}/_builds")
   set(create_script "${HUNTER_SELF}/scripts/create-toolchain-info.cmake")
 

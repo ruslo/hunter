@@ -5,6 +5,7 @@ include(CMakeParseArguments) # cmake_parse_arguments
 
 include(hunter_fatal_error)
 include(hunter_find_stamps)
+include(hunter_get_temp_directory)
 include(hunter_lock)
 include(hunter_status_debug)
 include(hunter_status_print)
@@ -71,9 +72,13 @@ function(hunter_download)
         "Move file **after** first 'project' command"
     )
   endif()
+
   set(h_work_dir "${PROJECT_BINARY_DIR}/_3rdParty/hunter/external")
-  set(h_build_dir "${h_work_dir}/_builds")
   file(REMOVE_RECURSE "${h_work_dir}")
+
+  hunter_get_temp_directory("${h_work_dir}" h_work_dir)
+  hunter_test_string_not_empty("${h_work_dir}")
+  set(h_build_dir "${h_work_dir}/_builds")
 
   # create temp toolchain file to set environment variables
   # and include real toolchain
