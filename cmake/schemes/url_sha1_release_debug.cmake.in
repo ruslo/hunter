@@ -20,8 +20,8 @@ if(XCODE_VERSION)
   hunter_fatal_error("Not for Xcode")
 endif()
 
-if(MSVC)
-  hunter_fatal_error("Not for MSVC")
+if(MSVC_IDE)
+  hunter_fatal_error("Not for MSVC IDE")
 endif()
 
 # Check preconditions

@@ -17,8 +17,8 @@ include(hunter_test_string_not_empty)
 
 hunter_status_debug("Scheme: url_sha1_combined_release_debug")
 
-if(NOT XCODE_VERSION AND NOT MSVC)
-  hunter_fatal_error("Xcode or MSVC only")
+if(NOT XCODE_VERSION AND NOT MSVC_IDE)
+  hunter_fatal_error("Xcode or MSVC IDE only")
 endif()
 
 # Check preconditions
