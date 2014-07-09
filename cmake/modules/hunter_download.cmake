@@ -75,10 +75,25 @@ function(hunter_download)
     )
   endif()
 
+  # HUNTER_PACKAGE_BASENAME = <name[-component]-tag>
+  set(HUNTER_PACKAGE_BASENAME "${HUNTER_PACKAGE_NAME}")
+  if(HUNTER_PACKAGE_COMPONENT)
+    set(
+        HUNTER_PACKAGE_BASENAME
+        "${HUNTER_PACKAGE_BASENAME}-${HUNTER_PACKAGE_COMPONENT}"
+    )
+  endif()
+  set(
+      HUNTER_PACKAGE_BASENAME
+      "${HUNTER_PACKAGE_BASENAME}-${HUNTER_INSTALL_TAG}"
+  )
+
+  ### Directory modifications start from here
+  ### Expected that only one process working
   set(h_work_dir "${PROJECT_BINARY_DIR}/_3rdParty/hunter/external")
   file(REMOVE_RECURSE "${h_work_dir}")
 
-  hunter_get_temp_directory("${h_work_dir}" h_work_dir)
+  hunter_get_temp_directory("${h_work_dir}" h_work_dir) # pure
   hunter_test_string_not_empty("${h_work_dir}")
   set(h_build_dir "${h_work_dir}/_builds")
 
@@ -142,19 +157,6 @@ function(hunter_download)
     )
   endif()
 
-  # HUNTER_PACKAGE_BASENAME = <name[-component]-tag>
-  set(HUNTER_PACKAGE_BASENAME "${HUNTER_PACKAGE_NAME}")
-  if(HUNTER_PACKAGE_COMPONENT)
-    set(
-        HUNTER_PACKAGE_BASENAME
-        "${HUNTER_PACKAGE_BASENAME}-${HUNTER_PACKAGE_COMPONENT}"
-    )
-  endif()
-  set(
-      HUNTER_PACKAGE_BASENAME
-      "${HUNTER_PACKAGE_BASENAME}-${HUNTER_INSTALL_TAG}"
-  )
-
   # print info before start generation/run
   hunter_status_debug("Add package: ${HUNTER_PACKAGE_NAME}")
   if(HUNTER_PACKAGE_COMPONENT)
@@ -179,6 +181,7 @@ function(hunter_download)
   # Optimization:
   #     Check run needed. If 'Stamp/<name-...>/<name-...>-install' file
   #     detected, no need to generate/run project
+  # Use: HUNTER_BASE, HUNTER_PACKAGE_BASENAME
   hunter_find_stamps(
       NAME "install"
       VARIANTS ${HUNTER_DOWNLOAD_SCHEME_VARIANTS}
