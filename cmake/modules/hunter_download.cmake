@@ -3,6 +3,7 @@
 
 include(CMakeParseArguments) # cmake_parse_arguments
 
+include(hunter_check_already_installed)
 include(hunter_fatal_error)
 include(hunter_find_stamps)
 include(hunter_get_temp_directory)
@@ -88,23 +89,29 @@ function(hunter_download)
       "${HUNTER_PACKAGE_BASENAME}-${HUNTER_INSTALL_TAG}"
   )
 
-  # Optimization:
-  #     Check run needed. If 'Stamp/<name-...>/<name-...>-install' file
-  #     detected, no need to generate/run project
-  # Use: HUNTER_BASE, HUNTER_PACKAGE_BASENAME
-  hunter_find_stamps(
-      NAME "install"
+  # Optimization
+  # Use: HUNTER_PACKAGE_BASENAME and HUNTER_BASE
+  hunter_check_already_installed(
       VARIANTS ${HUNTER_DOWNLOAD_SCHEME_VARIANTS}
-      RESULT install_list_stamps
+      RESULT do_skip
   )
-
-  list(LENGTH install_list_stamps result_number)
-  list(LENGTH HUNTER_DOWNLOAD_SCHEME_VARIANTS variants_number)
-  if(variants_number EQUAL 0)
-    set(variants_number 1)
-  endif()
-  if(result_number EQUAL variants_number)
+  if(do_skip)
     hunter_status_debug("Skip generate/run (already installed)")
+    return()
+  endif()
+
+  hunter_lock() # Spin until lock not done
+
+  # We need to check it one more time in case that another
+  # locked process install this package
+  # Use: HUNTER_PACKAGE_BASENAME and HUNTER_BASE
+  hunter_check_already_installed(
+      VARIANTS ${HUNTER_DOWNLOAD_SCHEME_VARIANTS}
+      RESULT do_skip
+  )
+  if(do_skip)
+    hunter_status_debug("Skip generate/run (already installed)")
+    hunter_unlock()
     return()
   endif()
 
@@ -244,6 +251,8 @@ function(hunter_download)
     endif()
   endif()
 
+  hunter_verify_toolchain_info()
+
   hunter_status_debug("Run generate")
 
   # Configure and build downloaded project
@@ -270,8 +279,6 @@ function(hunter_download)
 
   hunter_status_debug("Run build")
 
-  hunter_lock()
-
   execute_process(
       COMMAND
       "${CMAKE_COMMAND}" --build "${h_build_dir}"
@@ -280,8 +287,6 @@ function(hunter_download)
       RESULT_VARIABLE
       h_build_result
   )
-
-  hunter_unlock()
 
   if(${h_build_result} EQUAL 0)
     hunter_status_debug("Build step successful (dir: ${h_work_dir})")
@@ -293,4 +298,6 @@ function(hunter_download)
     # clean-up
     file(REMOVE_RECURSE "${h_work_dir}")
   endif()
+
+  hunter_unlock()
 endfunction()

@@ -64,6 +64,4 @@ function(hunter_lock)
   )
 
   file(WRITE "${binary_dir_file}" "${PROJECT_BINARY_DIR}")
-
-  hunter_verify_toolchain_info()
 endfunction()
