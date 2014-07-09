@@ -1,4 +1,4 @@
-cmake_minimum_required(VERSION 2.8.12)
+cmake_minimum_required(VERSION 3.0)
 
 if(NOT TOOLCHAIN_INFO_FILE)
   message(FATAL_ERROR "TOOLCHAIN_INFO_FILE is empty")
