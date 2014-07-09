@@ -88,6 +88,26 @@ function(hunter_download)
       "${HUNTER_PACKAGE_BASENAME}-${HUNTER_INSTALL_TAG}"
   )
 
+  # Optimization:
+  #     Check run needed. If 'Stamp/<name-...>/<name-...>-install' file
+  #     detected, no need to generate/run project
+  # Use: HUNTER_BASE, HUNTER_PACKAGE_BASENAME
+  hunter_find_stamps(
+      NAME "install"
+      VARIANTS ${HUNTER_DOWNLOAD_SCHEME_VARIANTS}
+      RESULT install_list_stamps
+  )
+
+  list(LENGTH install_list_stamps result_number)
+  list(LENGTH HUNTER_DOWNLOAD_SCHEME_VARIANTS variants_number)
+  if(variants_number EQUAL 0)
+    set(variants_number 1)
+  endif()
+  if(result_number EQUAL variants_number)
+    hunter_status_debug("Skip generate/run (already installed)")
+    return()
+  endif()
+
   ### Directory modifications start from here
   ### Expected that only one process working
   set(h_work_dir "${PROJECT_BINARY_DIR}/_3rdParty/hunter/external")
@@ -176,26 +196,6 @@ function(hunter_download)
   )
   if(NOT EXISTS "${download_scheme}")
     hunter_fatal_error("Download scheme `${download_scheme}` not found")
-  endif()
-
-  # Optimization:
-  #     Check run needed. If 'Stamp/<name-...>/<name-...>-install' file
-  #     detected, no need to generate/run project
-  # Use: HUNTER_BASE, HUNTER_PACKAGE_BASENAME
-  hunter_find_stamps(
-      NAME "install"
-      VARIANTS ${HUNTER_DOWNLOAD_SCHEME_VARIANTS}
-      RESULT install_list_stamps
-  )
-
-  list(LENGTH install_list_stamps result_number)
-  list(LENGTH HUNTER_DOWNLOAD_SCHEME_VARIANTS variants_number)
-  if(variants_number EQUAL 0)
-    set(variants_number 1)
-  endif()
-  if(result_number EQUAL variants_number)
-    hunter_status_debug("Skip generate/run (already installed)")
-    return()
   endif()
 
   # Remove configure step stamps and build directories.
