@@ -1,42 +1,24 @@
 language:
     - objective-c
 
-before_install:
-    - brew update
-
 install:
     - brew install cmake
     - brew install python3
-    - wget https://github.com/ruslo/CMake/archive/ios.universal.tar.gz
-    - openssl sha1 ios.universal.tar.gz
-    - tar xf ios.universal.tar.gz
-    - cmake -HCMake-ios.universal -B_builds/cmake -DCMAKE_USE_SYSTEM_CURL=YES -DCMAKE_BUILD_TYPE=Release
-    - cmake --build _builds/cmake --target install
-
-env:
-    - TEST_DIR=cmake/schemes TEST_NAME=tests/url_sha1_boost
-    - TEST_DIR=cmake/schemes TEST_NAME=tests/url_sha1_boost_ios_library
-    - TEST_DIR=cmake/schemes TEST_NAME=tests/url_sha1_boost_library
-    - TEST_DIR=cmake/schemes TEST_NAME=tests/url_sha1_combined_release_debug
-    - TEST_DIR=cmake/schemes TEST_NAME=tests/url_sha1_no_install
-    - TEST_DIR=cmake/schemes TEST_NAME=tests/url_sha1_openssl
-    - TEST_DIR=cmake/schemes TEST_NAME=tests/url_sha1_openssl_ios
-    - TEST_DIR=cmake/schemes TEST_NAME=tests/url_sha1_release_debug
-    - TEST_DIR=examples TEST_NAME=Sugar
-    - TEST_DIR=examples TEST_NAME=GTest
-    - TEST_DIR=examples TEST_NAME=Boost
-    - TEST_DIR=examples TEST_NAME=Boost-filesystem
-    - TEST_DIR=examples TEST_NAME=Boost-system
-    - TEST_DIR=examples TEST_NAME=Boost-stdlibcxx
-    - TEST_DIR=examples TEST_NAME=Boost-ios
-    # - TEST_DIR=examples TEST_NAME=CppNetlib TODO add cache (> 40 min)
-
-script:
+    # install cmake
+    - CMAKE_VERSION="3.0.0-ios-universal"
+    - wget "https://github.com/ruslo/CMake/archive/v${CMAKE_VERSION}.tar.gz"
+    - openssl sha1 "v${CMAKE_VERSION}.tar.gz"
+    - tar xf "v${CMAKE_VERSION}.tar.gz"
+    - cd "CMake-${CMAKE_VERSION}"
+    -   cmake -H. -B_builds -DCMAKE_INSTALL_PREFIX="`pwd/_install`" -DCMAKE_BUILD_TYPE=Release -DCMAKE_USE_SYSTEM_CURL=YES
+    -   cmake --build _builds --target install
+    -   export PATH="`pwd`/_install/bin:${PATH}"
+    - cd ..
+    # -- end
+    # verify installed cmake
     - which cmake
     - cmake --version
-    - export DIR=`pwd`
-    - cd ..
-    - mkdir Source
-    - mv ${DIR}/* Source
-    - cd Source/${TEST_DIR}
-    - python3 ./test.py --include ./${TEST_NAME}/
+    # -- end
+
+script:
+    - python3 ./jenkins.py
