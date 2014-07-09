@@ -22,6 +22,8 @@ function(hunter_download)
   cmake_parse_arguments(
       HUNTER "" "${h_one_value}" "" ${ARGV}
   )
+  # -> HUNTER_PACKAGE_NAME
+  # -> HUNTER_PACKAGE_COMPONENT
 
   if(h_UNPARSED_ARGUMENTS)
     hunter_fatal_error("Internal error")
