@@ -94,4 +94,4 @@ So put a **stable** releases inside `config.cmake` and something like submodules
 * [Simple project example](https://github.com/forexample/hunter-simple)
 * [Bigger one](https://github.com/ruslo/weather)
 * [Toolchain examples](https://github.com/ruslo/polly)
-* [Travic CI build example](https://github.com/forexample/hunter-simple/blob/master/.travis.yml)
+* [Travis CI build example](https://github.com/forexample/hunter-simple/blob/master/.travis.yml)
