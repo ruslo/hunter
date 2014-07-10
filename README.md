@@ -62,6 +62,12 @@ target_link_libraries(foo ${Boost_LIBRARIES})
 > cmake --build _builds --config Release
 ```
 
+### iOS note
+
+Install is [broken](http://public.kitware.com/Bug/view.php?id=12506) on iOS.
+Patched version of [cmake](https://github.com/ruslo/CMake/releases/tag/v3.0.0-ios-universal) need to be used
+(+ install universal libraries instread of one-arch).
+
 ### Tagged builds
 
 Each build can be [tagged](https://github.com/ruslo/hunter/wiki/EP_BASE-layout#tagged-layout)
