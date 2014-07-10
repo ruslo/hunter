@@ -10,8 +10,11 @@ install:
     - wget https://github.com/ruslo/CMake/archive/ios.universal.tar.gz
     - openssl sha1 ios.universal.tar.gz
     - tar xf ios.universal.tar.gz
-    - cmake -HCMake-ios.universal -B_builds/cmake -DCMAKE_USE_SYSTEM_CURL=YES -DCMAKE_BUILD_TYPE=Release
+    - cmake -HCMake-ios.universal -B_builds/cmake -DCMAKE_USE_SYSTEM_CURL=YES -DCMAKE_BUILD_TYPE=Release -DCMAKE_INSTALL_PREFIX="`pwd`/_install"
     - cmake --build _builds/cmake --target install
+    - export PATH="`pwd`/_install:${PATH}"
+    - which cmake
+    - cmake --version
 
 env:
     - TEST_DIR=cmake/schemes TEST_NAME=tests/url_sha1_boost
