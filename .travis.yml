@@ -7,12 +7,15 @@ before_install:
 install:
     - brew install cmake
     - brew install python3
-    - wget https://github.com/ruslo/CMake/archive/ios.universal.tar.gz
-    - openssl sha1 ios.universal.tar.gz
-    - tar xf ios.universal.tar.gz
-    - cmake -HCMake-ios.universal -B_builds/cmake -DCMAKE_USE_SYSTEM_CURL=YES -DCMAKE_BUILD_TYPE=Release -DCMAKE_INSTALL_PREFIX="`pwd`/_install"
-    - cmake --build _builds/cmake --target install
-    - export PATH="`pwd`/_install:${PATH}"
+    - CMAKE_VERSION="3.0.0-ios-universal"
+    - wget "https://github.com/ruslo/CMake/archive/v${CMAKE_VERSION}.tar.gz"
+    - openssl sha1 "v${CMAKE_VERSION}.tar.gz"
+    - tar xf "v${CMAKE_VERSION}.tar.gz"
+    - cd "CMake-${CMAKE_VERSION}"
+    -   cmake -H. -B_builds -DCMAKE_INSTALL_PREFIX="`pwd`/_install" -DCMAKE_BUILD_TYPE=Release -D=CMAKE_USE_SYSTEM_CURL=YES
+    -   cmake --build _builds --target install
+    -   export PATH="`pwd`/_install/bin:${PATH}"
+    - cd ..
     - which cmake
     - cmake --version
 
