@@ -7,16 +7,17 @@ include(hunter_test_string_not_empty)
 function(hunter_unlock)
   # sanity check
   hunter_test_string_not_empty("${HUNTER_BASE}")
+  hunter_test_string_not_empty("${HUNTER_LOCK_PATH}")
 
   if(HUNTER_SKIP_LOCK)
     hunter_status_debug("Unlock skipped")
     return()
   endif()
 
-  set(lock_file "${HUNTER_BASE}/hunter-build.lock")
-  if(NOT EXISTS "${lock_file}")
-    hunter_fatal_error("Internal error: lock file `${lock_file}` not exists")
+  if(NOT EXISTS "${HUNTER_LOCK_PATH}")
+    hunter_fatal_error("Internal error: lock `${HUNTER_LOCK_PATH}` not exists")
   endif()
 
-  file(REMOVE "${lock_file}")
+  file(REMOVE_RECURSE "${HUNTER_LOCK_PATH}")
+  hunter_status_debug("Unlock: ${HUNTER_LOCK_PATH}")
 endfunction()

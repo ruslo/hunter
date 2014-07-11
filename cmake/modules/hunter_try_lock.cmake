@@ -9,43 +9,52 @@ include(hunter_test_string_not_empty)
 function(hunter_try_lock result)
   # sanity check
   hunter_test_string_not_empty("${HUNTER_INSTALL_TAG}")
+  hunter_test_string_not_empty("${HUNTER_LOCK_FULL_INFO}")
+  hunter_test_string_not_empty("${HUNTER_LOCK_INFO}")
+  hunter_test_string_not_empty("${HUNTER_LOCK_PATH}")
   hunter_test_string_not_empty("${HUNTER_PACKAGE_NAME}")
-  hunter_test_string_not_empty("${HUNTER_BASE}")
   hunter_test_string_not_empty("${PROJECT_BINARY_DIR}")
-
-  set(lock_file "${HUNTER_BASE}/hunter-build.lock")
 
   if(HUNTER_SKIP_LOCK)
     hunter_fatal_error("Internal error: HUNTER_SKIP_LOCK is set")
   endif()
 
+  file(TO_NATIVE_PATH "${HUNTER_LOCK_PATH}" lock_path)
+
+  # `cmake -E make_directory` is not fit here because this command succeed
+  # even if directory already exists
+  if(WIN32)
+    execute_process(
+        COMMAND cmd /C mkdir "${lock_path}"
+        RESULT_VARIABLE lock_result
+        OUTPUT_QUIET
+        ERROR_QUIET
+    )
+  else()
+    execute_process(
+        COMMAND mkdir "${lock_path}"
+        RESULT_VARIABLE lock_result
+        OUTPUT_QUIET
+        ERROR_QUIET
+    )
+  endif()
+
+  if(NOT lock_result EQUAL 0)
+    set(${result} FALSE PARENT_SCOPE)
+    return()
+  endif()
+
+  file(WRITE "${HUNTER_LOCK_INFO}" "${PROJECT_BINARY_DIR}")
+
   string(TIMESTAMP time_now)
-  set(
-      lock_info_written
+  file(
+      WRITE
+      "${HUNTER_LOCK_FULL_INFO}"
       "    Project binary directory: ${PROJECT_BINARY_DIR}\n"
       "    Package name: ${HUNTER_PACKAGE_NAME}\n"
       "    Install tag: ${HUNTER_INSTALL_TAG}\n"
       "    Build start at: ${time_now}"
   )
 
-  if(EXISTS "${lock_file}")
-    set(${result} FALSE PARENT_SCOPE)
-    return()
-  endif()
-
-  file(WRITE "${lock_file}" "${lock_info_written}")
-
-  # Hope this helps (:
-  execute_process(COMMAND "${CMAKE_COMMAND}" -E sleep 2)
-
-  file(READ "${lock_file}" lock_info_read)
-  string(COMPARE EQUAL "${lock_info_written}" "${lock_info_read}" locked_by_us)
-
-  if(locked_by_us)
-    set(${result} TRUE PARENT_SCOPE)
-    return()
-  else()
-    set(${result} FALSE PARENT_SCOPE)
-    return()
-  endif()
+  set(${result} TRUE PARENT_SCOPE)
 endfunction()

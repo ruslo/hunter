@@ -41,6 +41,8 @@ function(hunter_download)
   hunter_test_string_not_empty("${HUNTER_INSTALL_TAG}")
   hunter_test_string_not_empty("${HUNTER_SELF}")
 
+  set(HUNTER_LOCK_PATH "${HUNTER_BASE}/directory-lock")
+
   # Set <LIB>_ROOT variables
   set(h_name "${HUNTER_PACKAGE_NAME}") # Foo
   string(TOUPPER "${h_name}" h_root_name) # FOO
