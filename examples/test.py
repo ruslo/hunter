@@ -11,6 +11,8 @@ import re
 import shutil
 import subprocess
 import sys
+import string
+import random
 
 parser = argparse.ArgumentParser(description="Run all tests")
 
@@ -53,6 +55,10 @@ def rmtree_workaround(directory):
     os.system('rmdir {} /s /q'.format(directory))
   else:
     shutil.rmtree(directory)
+
+def name_generator():
+  chars = string.ascii_uppercase + string.ascii_lowercase + string.digits
+  return ''.join(random.choice(chars) for _ in range(10))
 
 log = Log()
 
@@ -112,8 +118,24 @@ for project in testing_dirs:
     x.restore()
   if not os.path.exists('_builds'):
     os.mkdir('_builds')
-  os.chdir('_builds')
-  subprocess.check_call(['cmake', generator, toolchain_option, '..'])
+
+  junctions = os.getenv('HUNTER_JUNCTIONS')
+  home_dir = os.getcwd()
+  build_dir = os.path.join(os.getcwd(), '_builds')
+  if junctions and os.name == 'nt':
+    new_dir = os.path.join(junctions, name_generator())
+    os.system('mklink /J {} {}'.format(new_dir, build_dir))
+    build_dir = new_dir
+
+  os.chdir(build_dir)
+  args = [
+      'cmake', '-H{}'.format(home_dir), '-B.'
+  ]
+  if generator:
+    args.append(generator)
+  if toolchain_option:
+    args.append(toolchain_option)
+  subprocess.check_call(args)
   if do_test:
     subprocess.check_call(['cmake', '--build', '.'])
     subprocess.check_call(['ctest', '.'])
