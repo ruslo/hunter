@@ -38,11 +38,4 @@ env:
     # - TEST_DIR=examples TEST_NAME=CppNetlib TODO add cache (> 40 min)
 
 script:
-    - which cmake
-    - cmake --version
-    - export DIR=`pwd`
-    - cd ..
-    - mkdir Source
-    - mv ${DIR}/* Source
-    - cd Source/${TEST_DIR}
-    - python3 ./test.py --include ./${TEST_NAME}/
+    - python3 ./jenkins.py

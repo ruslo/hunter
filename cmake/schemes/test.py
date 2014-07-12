@@ -6,6 +6,7 @@
 import argparse
 import glob
 import os
+import sys
 import platform
 import re
 import shutil
@@ -25,57 +26,64 @@ class Log:
 
 log = Log()
 
-log.p('include list: {}'.format(args.include))
+def rmtree_workaround(directory):
+  if not os.path.exists(directory):
+    return
+  if os.name == 'nt':
+    # Fix windows error: `path too long`
+    os.system('rmdir {} /s /q'.format(directory))
+  else:
+    shutil.rmtree(directory)
+
+class Excluded:
+  def __init__(self):
+    self.exclude_projects = []
+
+  def add(self, directory):
+    self.exclude_projects.append(
+        os.path.join('tests', directory, 'CMakeLists.txt')
+    )
+
+  def hit(self, project):
+    return (project in self.exclude_projects)
+
+excluded = Excluded()
+
+if platform.system() != 'Darwin':
+  excluded.add('url_sha1_boost_ios_library')
+  excluded.add('url_sha1_combined_release_debug') # Xcode only
+  excluded.add('url_sha1_openssl_ios')
+
+if platform.system() == 'Windows':
+  excluded.add('url_sha1_openssl')
+  excluded.add('url_sha1_openssl_ios')
+  excluded.add('url_sha1_release_debug') # Xcode only
+
+testing_dirs = []
+if not args.include:
+  for project in glob.iglob('tests/*/CMakeLists.txt'):
+    if not excluded.hit(project):
+      testing_dirs.append(project)
+else:
+  for incl in args.include:
+    project = os.path.join(os.path.normpath(incl), 'CMakeLists.txt')
+    if not os.path.exists(project):
+      sys.exit('Project not found: `{}`'.format(project))
+    if not excluded.hit(project):
+      testing_dirs.append(project)
+
+if not testing_dirs:
+  log.p("No projects to run")
+  sys.exit()
+
+for x in testing_dirs:
+  log.p('Add to testing: {}'.format(x))
 
 top_dir = os.getcwd()
-for project in glob.iglob('./tests/*/CMakeLists.txt'):
-  if args.include:
-    ok = False
-    for x in args.include:
-      if re.match(x, project):
-        log.p('{} included (match {})'.format(project, x))
-        ok = True
-        break
-    if not ok:
-      log.p('{} skipped (not match {})'.format(project, args.include))
-      continue
-
-  if platform.system() != 'Darwin':
-    mac_only = [
-        'url_sha1_boost_ios_library',
-        'url_sha1_combined_release_debug', # Xcode
-        'url_sha1_openssl_ios'
-    ]
-    skip = False
-    for x in mac_only:
-      if re.search(x, project):
-        log.p('{} skipped (not mac)'.format(project))
-        skip = True
-    if skip:
-      continue
-
-  if platform.system() == 'Windows':
-    not_windows = [
-        'url_sha1_openssl', # Both url_sha1_openssl_ios and url_sha1_openssl
-        'url_sha1_release_debug'
-    ]
-    skip = False
-    for x in not_windows:
-      if re.search(x, project):
-        log.p('{} skipped (disabled for windows)'.format(project))
-        skip = True
-    if skip:
-      continue
-
+for project in testing_dirs:
   os.chdir(os.path.dirname(project))
-  if os.path.exists('_builds'):
-    if os.name == 'nt':
-      # Fix windows error: `path too long`
-      os.system('rmdir _builds /s /q')
-    else:
-      shutil.rmtree('_builds')
+  rmtree_workaround('_builds')
   subprocess.check_call(
       ['cmake', '-H.', '-B_builds', '-DHUNTER_STATUS_DEBUG=ON']
   )
-
   os.chdir(top_dir)

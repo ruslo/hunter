@@ -10,6 +10,7 @@ import platform
 import re
 import shutil
 import subprocess
+import sys
 
 parser = argparse.ArgumentParser(description="Run all tests")
 
@@ -44,35 +45,54 @@ class Backup:
     os.makedirs(self.save_dir)
     shutil.copyfile(self.save_location, self.origin_location)
 
+def rmtree_workaround(directory):
+  if not os.path.exists(directory):
+    return
+  if os.name == 'nt':
+    # Fix windows error: `path too long`
+    os.system('rmdir {} /s /q'.format(directory))
+  else:
+    shutil.rmtree(directory)
+
 log = Log()
 
-log.p('include list: {}'.format(args.include))
+testing_dirs = []
+if not args.include:
+  for project in glob.iglob('*/CMakeLists.txt'):
+    project = os.path.normpath(project)
+    if os.path.exists(os.path.join(os.path.dirname(project), 'Xcode')):
+      if not platform.system() == 'Darwin':
+        continue
+    testing_dirs.append(project)
+else:
+  for incl in args.include:
+    project = os.path.join(os.path.normpath(incl), 'CMakeLists.txt')
+    if not os.path.exists(project):
+      sys.exit('Project not found: `{}`'.format(project))
+    testing_dirs.append(project)
+
+if not testing_dirs:
+  log.p('No projects to run')
+  sys.exit()
+
+for x in testing_dirs:
+  log.p('Add to testing: {}'.format(x))
 
 top_dir = os.getcwd()
-for project in glob.iglob('./*/CMakeLists.txt'):
-  if args.include:
-    ok = False
-    for x in args.include:
-      if re.match(x, project):
-        log.p('{} included (match {})'.format(project, x))
-        ok = True
-        break
-    if not ok:
-      log.p('{} skipped (not match {})'.format(project, args.include))
-      continue
+for project in testing_dirs:
   os.chdir(os.path.dirname(project))
   toolchain_path = os.path.abspath('toolchain.cmake')
+
   if os.path.exists(toolchain_path):
     toolchain_option = '-DCMAKE_TOOLCHAIN_FILE={}'.format(toolchain_path)
   else:
     toolchain_option = ''
+
   if os.path.exists('Xcode'):
-    if not platform.system() == 'Darwin':
-      os.chdir(top_dir)
-      continue
     generator = '-GXcode'
   else:
     generator = ''
+
   do_test = os.path.exists('dotest')
 
   # 1. save downloaded archive
@@ -87,11 +107,7 @@ for project in glob.iglob('./*/CMakeLists.txt'):
       for x in files:
         backup = Backup(os.path.join(root, x), x, root)
         archive_list.append(backup)
-    if os.name == 'nt':
-      # Fix windows error: `path too long`
-      os.system('rmdir _builds /s /q')
-    else:
-      shutil.rmtree('_builds')
+    rmtree_workaround('_builds')
   for x in archive_list:
     x.restore()
   if not os.path.exists('_builds'):
