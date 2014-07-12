@@ -69,6 +69,9 @@ else:
     project = os.path.join(os.path.normpath(incl), 'CMakeLists.txt')
     if not os.path.exists(project):
       sys.exit('Project not found: `{}`'.format(project))
+    if os.path.exists(os.path.join(os.path.dirname(project), 'Xcode')):
+      if not platform.system() == 'Darwin':
+        continue
     testing_dirs.append(project)
 
 if not testing_dirs:
