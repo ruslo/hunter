@@ -73,6 +73,18 @@ Patched version of [cmake](https://github.com/ruslo/CMake/releases/tag/v3.0.0-io
 Each build can be [tagged](https://github.com/ruslo/hunter/wiki/EP_BASE-layout#tagged-layout)
 by `HUNTER_INSTALL_TAG` variable. Tags used to differentiate one build from another on one OS. For example on windows you can simultaniously build Visual Studio, NMake, Cygwin and MinGW projects, on Linux gcc/clang, on Mac Xcode, Makefile, iOS. Or choose different clang tools like static analyzer and sanitizers. Tags designed to be used in cmake [toolchain](https://github.com/ruslo/polly) files. Each toolchain file will be forwarded to external project so if you create toolchain with compiler `g++` and flag `-std=c++11` all dependent projects will be built by `g++ -std=c++11`.
 
+### Uninstall
+
+All directories inside `<HUNTER_ROOT>/_Base` are reconstructible.
+You can remove all temps (downloads, unpacked directories, installed directories etc.) by command:
+```bash
+rm -rf "${HUNTER_ROOT}/_Base"
+```
+or remove particular snapshot by command:
+```bash
+rm -rf "${HUNTER_ROOT}/_Base/3a6c66670d-BLABLA-2567c3d44b2a99e288e3c8"
+```
+
 ### How to update?
 
 There is no such thing as update here. If you create a new version
