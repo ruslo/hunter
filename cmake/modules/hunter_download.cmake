@@ -280,27 +280,38 @@ function(hunter_download)
     hunter_fatal_error("generate step failed (dir: ${h_work_dir})")
   endif()
 
-  hunter_status_debug("Run build")
+  set(counter "")
 
-  execute_process(
-      COMMAND
-      "${CMAKE_COMMAND}" --build "${h_build_dir}"
-      WORKING_DIRECTORY
-      "${h_work_dir}"
-      RESULT_VARIABLE
-      h_build_result
-  )
+  while(TRUE)
+    hunter_status_debug("Run build")
 
-  if(${h_build_result} EQUAL 0)
-    hunter_status_debug("Build step successful (dir: ${h_work_dir})")
-  else()
-    hunter_fatal_error("build step failed (dir: ${h_work_dir}")
-  endif()
+    execute_process(
+        COMMAND
+        "${CMAKE_COMMAND}" --build "${h_build_dir}"
+        WORKING_DIRECTORY
+        "${h_work_dir}"
+        RESULT_VARIABLE
+        h_build_result
+    )
 
-  if(NOT HUNTER_STATUS_DEBUG)
-    # clean-up
-    file(REMOVE_RECURSE "${h_work_dir}")
-  endif()
+    if(${h_build_result} EQUAL 0)
+      hunter_status_debug("Build step successful (dir: ${h_work_dir})")
+      if(NOT HUNTER_STATUS_DEBUG)
+        # clean-up
+        file(REMOVE_RECURSE "${h_work_dir}")
+      endif()
 
-  hunter_unlock()
+      hunter_unlock()
+      return()
+    else()
+      set(counter "${counter}x")
+      string(COMPARE EQUAL "${counter}" "xxxx" stop_condition)
+      if(stop_condition)
+        hunter_unlock()
+        hunter_fatal_error("build step failed (dir: ${h_work_dir}")
+      else()
+        hunter_status_debug("Build failed, retry...")
+      endif()
+    endif()
+  endwhile()
 endfunction()
