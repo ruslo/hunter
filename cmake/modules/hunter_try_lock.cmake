@@ -32,6 +32,10 @@ function(hunter_try_lock result)
   # `cmake -E make_directory` is not fit here because this command succeed
   # even if directory already exists
   if(WIN32)
+    if(MINGW)
+      # He-he :)
+      string(REPLACE "/" "\\" lock_path "${lock_path}")
+    endif()
     execute_process(
         COMMAND cmd /C mkdir "${lock_path}"
         RESULT_VARIABLE lock_result
