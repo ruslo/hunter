@@ -113,6 +113,17 @@ hunter_add_version(
     ac4d2215aa1b1d745a096e5e3b2dbe0c0f229ea5
 )
 
+hunter_add_version(
+    PACKAGE_NAME
+    GTest
+    VERSION
+    "1.7.0-hunter-9"
+    URL
+    "https://github.com/hunter-packages/gtest/archive/v1.7.0-hunter-9.tar.gz"
+    SHA1
+    8a47fe9c4e550f4ed0e2c05388dd291a059223d9
+)
+
 hunter_pick_scheme(
     DEFAULT
     url_sha1_release_debug
