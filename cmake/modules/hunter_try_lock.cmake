@@ -4,6 +4,7 @@
 cmake_minimum_required(VERSION 3.0)
 
 include(hunter_fatal_error)
+include(hunter_status_debug)
 include(hunter_test_has_write_permission)
 include(hunter_test_string_not_empty)
 
@@ -34,19 +35,21 @@ function(hunter_try_lock result)
     execute_process(
         COMMAND cmd /C mkdir "${lock_path}"
         RESULT_VARIABLE lock_result
-        OUTPUT_QUIET
-        ERROR_QUIET
+        OUTPUT_VARIABLE lock_result_info
+        ERROR_VARIABLE lock_result_info
     )
   else()
     execute_process(
         COMMAND mkdir "${lock_path}"
         RESULT_VARIABLE lock_result
-        OUTPUT_QUIET
-        ERROR_QUIET
+        OUTPUT_VARIABLE lock_result_info
+        ERROR_VARIABLE lock_result_info
     )
   endif()
 
   if(NOT lock_result EQUAL 0)
+    hunter_status_debug("Lock failed with result: ${lock_result}")
+    hunter_status_debug("Reason:  ${lock_result_info}")
     set(${result} FALSE PARENT_SCOPE)
     return()
   endif()
