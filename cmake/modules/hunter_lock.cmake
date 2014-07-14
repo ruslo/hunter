@@ -25,6 +25,7 @@ function(hunter_lock)
   set(HUNTER_LOCK_INFO "${HUNTER_LOCK_PATH}/info")
   set(HUNTER_LOCK_FULL_INFO "${HUNTER_LOCK_PATH}/fullinfo")
 
+  set(counter "")
   while(TRUE)
     hunter_try_lock(lock_successful)
     if(lock_successful)
@@ -32,9 +33,17 @@ function(hunter_lock)
       return()
     endif()
     if(EXISTS "${HUNTER_LOCK_FULL_INFO}")
+      set(counter "")
       file(READ "${HUNTER_LOCK_FULL_INFO}" fullinfo)
     else()
+      set(counter "${counter}x")
       set(fullinfo "????")
+      string(COMPARE EQUAL "${counter}" "xxxxx" timeout_reached)
+      if(timeout_reached)
+        hunter_fatal_error(
+            "Timeout: no full info about locked directory for 25 seconds"
+        )
+      endif()
     endif()
     hunter_status_print(
         "\n"
