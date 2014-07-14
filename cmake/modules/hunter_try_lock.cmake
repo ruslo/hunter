@@ -4,6 +4,7 @@
 cmake_minimum_required(VERSION 3.0)
 
 include(hunter_fatal_error)
+include(hunter_test_has_write_permission)
 include(hunter_test_string_not_empty)
 
 function(hunter_try_lock result)
@@ -18,6 +19,12 @@ function(hunter_try_lock result)
   if(HUNTER_SKIP_LOCK)
     hunter_fatal_error("Internal error: HUNTER_SKIP_LOCK is set")
   endif()
+
+  if(NOT EXISTS "${HUNTER_BASE}")
+    hunter_fatal_error("Base directory missing: ${HUNTER_BASE}")
+  endif()
+
+  hunter_test_has_write_permission()
 
   file(TO_NATIVE_PATH "${HUNTER_LOCK_PATH}" lock_path)
 
