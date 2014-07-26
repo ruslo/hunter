@@ -9,7 +9,7 @@ install:
     - openssl sha1 "v${CMAKE_VERSION}.tar.gz"
     - tar xf "v${CMAKE_VERSION}.tar.gz"
     - cd "CMake-${CMAKE_VERSION}"
-    -   cmake -H. -B_builds -DCMAKE_INSTALL_PREFIX="`pwd`/_install" -DCMAKE_BUILD_TYPE=Release -D=CMAKE_USE_SYSTEM_CURL=YES
+    -   cmake -H. -B_builds -DCMAKE_INSTALL_PREFIX="`pwd`/_install" -DCMAKE_BUILD_TYPE=Release -DCMAKE_USE_SYSTEM_CURL=YES
     -   cmake --build _builds --target install
     -   export PATH="`pwd`/_install/bin:${PATH}"
     - cd ..
