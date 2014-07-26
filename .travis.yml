@@ -1,9 +1,6 @@
 language:
     - objective-c
 
-before_install:
-    - brew update
-
 install:
     - brew install cmake
     - brew install python3
