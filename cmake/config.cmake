@@ -21,7 +21,7 @@ hunter_config(GTest VERSION 1.7.0-hunter-10)
 hunter_config(Igloo VERSION 1.1.1-hunter)
 hunter_config(IntSizeof VERSION 1.0.0)
 hunter_config(JsonSpirit VERSION 0.0.3-hunter)
-hunter_config(Leathers VERSION 0.1.3)
+hunter_config(Leathers VERSION 0.1.4)
 hunter_config(OpenSSL VERSION 1.0.1h)
 hunter_config(RapidJSON VERSION 0.11-hunter)
 hunter_config(Sober VERSION 0.1.0) # Relax warnings
