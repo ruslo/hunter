@@ -1,6 +1,8 @@
 # Copyright (c) 2013, Ruslan Baratov
 # All rights reserved.
 
+cmake_minimum_required(VERSION 3.0) # sleep
+
 include(CMakeParseArguments) # cmake_parse_arguments
 
 include(hunter_check_already_installed)
@@ -310,7 +312,11 @@ function(hunter_download)
         hunter_unlock()
         hunter_fatal_error("build step failed (dir: ${h_work_dir}")
       else()
-        hunter_status_debug("Build failed, retry...")
+        string(TIMESTAMP time_now)
+        hunter_status_print(
+            "[${time_now}] Build failed, retry after 10 sec ..."
+        )
+        execute_process(COMMAND "${CMAKE_COMMAND}" -E sleep 10)
       endif()
     endif()
   endwhile()
