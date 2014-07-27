@@ -36,6 +36,17 @@ hunter_add_version(
     63587775baad756d6ed0927033bd03886570f743
 )
 
+hunter_add_version(
+    PACKAGE_NAME
+    JsonSpirit
+    VERSION
+    "0.0.3-hunter"
+    URL
+    "https://github.com/hunter-packages/json_spirit/archive/v0.0.3-hunter.tar.gz"
+    SHA1
+    fd1fc800206b5feba7174c5031d207afc4dd7765
+)
+
 hunter_pick_scheme(
      DEFAULT
      url_sha1_release_debug
