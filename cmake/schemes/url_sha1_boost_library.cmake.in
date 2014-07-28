@@ -107,6 +107,22 @@ else()
   set(boost_compiler "${CMAKE_CXX_COMPILER}")
 endif()
 
+string(COMPARE EQUAL "@HUNTER_PACKAGE_COMPONENT@" "mpi" is_mpi)
+if(is_mpi)
+  set(using_mpi "using mpi ;")
+  if(MSVC)
+    find_package(MPI REQUIRED)
+    get_filename_component(MPI_DIR "${MPI_CXX_INCLUDE_PATH}/.." ABSOLUTE)
+    string(REPLACE "/" "\\\\" MPI_DIR "${MPI_DIR}")
+    configure_file(
+        "@HUNTER_SELF@/scripts/mpi.jam"
+        "@HUNTER_PACKAGE_SOURCE_DIR@/tools/build/v2/tools/mpi.jam"
+    )
+  endif()
+else()
+  set(using_mpi "")
+endif()
+
 set(boost_user_jam "@HUNTER_BASE@/boost.user.jam")
 file(
      WRITE
@@ -114,11 +130,15 @@ file(
      "using ${toolset_name} :\n"
      "    : \"${boost_compiler}\"\n"
      ";\n"
+     "${using_mpi}\n"
 )
 
 if(MSVC)
   # Disable auto-linking
   set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} /DBOOST_ALL_NO_LIB=1")
+
+  # Fix some compile errors
+  set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} /DNOMINMAX")
 endif()
 
 if("@HUNTER_ENABLE_BOOST_SHARED@")
