@@ -17,6 +17,18 @@ set(Boost_NO_SYSTEM_PATHS ON)
 
 hunter_add_version_start(Boost)
 
+# Remove docs and tests
+hunter_add_version(
+    PACKAGE_NAME
+    Boost
+    VERSION
+    "1.55.0-patched-3"
+    URL
+    "https://github.com/hunter-packages/boost/archive/1.55.0-patched-3.tar.gz"
+    SHA1
+    4ae01023ac0dc68570fd1bbcf67cbcd839df04eb
+)
+
 # Apply fix for: https://svn.boost.org/trac/boost/ticket/9332
 hunter_add_version(
     PACKAGE_NAME
