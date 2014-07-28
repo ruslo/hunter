@@ -279,6 +279,7 @@ function(hunter_download)
   if(${h_generate_result} EQUAL 0)
     hunter_status_debug("Generate step successful (dir: ${h_work_dir})")
   else()
+    hunter_unlock()
     hunter_fatal_error("generate step failed (dir: ${h_work_dir})")
   endif()
 
