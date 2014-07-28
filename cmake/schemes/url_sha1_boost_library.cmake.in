@@ -153,7 +153,7 @@ if(MSVC AND is_x64)
 endif()
 
 if(@HUNTER_STATUS_DEBUG@)
-  set(verbose_output "-d+2")
+  set(verbose_output "-d+2 --debug-configuration")
 endif()
 
 if(MSVC)

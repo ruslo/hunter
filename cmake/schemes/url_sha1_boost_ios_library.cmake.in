@@ -150,7 +150,7 @@ set(
 )
 
 if(@HUNTER_STATUS_DEBUG@)
-  set(verbose_output "-d+2")
+  set(verbose_output "-d+2 --debug-configuration")
 endif()
 
 ExternalProject_Add(
