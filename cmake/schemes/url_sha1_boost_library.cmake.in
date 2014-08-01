@@ -113,10 +113,16 @@ if(is_mpi)
   if(MSVC)
     find_package(MPI)
     if(NOT MPI_CXX_FOUND)
-      hunter_fatal_error(
+      # Fix concurrent output to console
+      execute_process(
+          COMMAND
+          "${CMAKE_COMMAND}"
+          -E
+          echo
           "MPI is required. Please install it. For example MS-MPI: "
           "http://msdn.microsoft.com/en-us/library/bb524831%28v=vs.85%29.aspx"
       )
+      hunter_fatal_error("")
     endif()
     get_filename_component(MPI_DIR "${MPI_CXX_INCLUDE_PATH}/.." ABSOLUTE)
     string(REPLACE "/" "\\\\" MPI_DIR "${MPI_DIR}")
