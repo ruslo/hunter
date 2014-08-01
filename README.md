@@ -11,13 +11,13 @@ Hunter
 
 ### What is it?
 
-Every hunter release archive is a meta-package, i.e.:
+Every hunter release archive is a meta-package with build instructions and URLs of real packages, i.e.:
 ```
 Hunter (0.4.2) = { Boost (1.55.0), GTest (1.7.0), JsonSpirit(0.0.1), OpenSSL(1.0.1h), ... }
 ```
 
 * Currently used versions can be found in
-[cmake/config.cmake](https://github.com/ruslo/hunter/blob/master/cmake/config.cmake) file
+[cmake/config.cmake](https://github.com/ruslo/hunter/blob/master/cmake/config.cmake) file and are customizable (though there are no guaranties that some combinations are workable)
 * Per package versions are available in corresponding `hunter.cmake` file
 (e.g. [GTest](https://github.com/ruslo/hunter/blob/master/cmake/projects/GTest/hunter.cmake)).
 You can pick one version that already exists
