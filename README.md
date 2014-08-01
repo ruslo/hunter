@@ -35,6 +35,7 @@ superbuild files. Just change 2 lines of code: SHA1 and URL of hunter archive
  * Debug/Release version of libraries?
  * Can you build your third-party dependencies with
 [Clang Memory Sanitizer](http://clang.llvm.org/docs/MemorySanitizer.html)?
+ * Can you install your favorite library in static variant instead of dynamic?
  * ...
 
 ### Usage
