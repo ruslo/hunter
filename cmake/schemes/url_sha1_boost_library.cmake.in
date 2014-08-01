@@ -111,7 +111,13 @@ string(COMPARE EQUAL "@HUNTER_PACKAGE_COMPONENT@" "mpi" is_mpi)
 if(is_mpi)
   set(using_mpi "using mpi ;")
   if(MSVC)
-    find_package(MPI REQUIRED)
+    find_package(MPI)
+    if(NOT MPI_CXX_FOUND)
+      hunter_fatal_error(
+          "MPI is required. Please install it. For example MS-MPI: "
+          "http://msdn.microsoft.com/en-us/library/bb524831%28v=vs.85%29.aspx"
+      )
+    endif()
     get_filename_component(MPI_DIR "${MPI_CXX_INCLUDE_PATH}/.." ABSOLUTE)
     string(REPLACE "/" "\\\\" MPI_DIR "${MPI_DIR}")
     configure_file(
