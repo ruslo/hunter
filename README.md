@@ -117,6 +117,10 @@ then you will build all of them from scratch
 
 So put a **stable** releases inside `config.cmake` and something like submodules for everything else.
 
+### Wiki
+
+* [Wiki](https://github.com/ruslo/hunter/wiki)
+
 ### Tutorial
 
 * [Add cmake project](https://github.com/ruslo/hunter/wiki/Adding-new-package)
@@ -126,6 +130,5 @@ So put a **stable** releases inside `config.cmake` and something like submodules
 * [Gate to hunter packages](https://github.com/hunter-packages/gate)
 * [Simple project example](https://github.com/forexample/hunter-simple)
 * [Bigger one](https://github.com/ruslo/weather)
-* [Packages](https://github.com/ruslo/hunter/wiki)
 * [Toolchain examples](https://github.com/ruslo/polly)
 * [Travis CI build example](https://github.com/forexample/hunter-simple/blob/master/.travis.yml)
