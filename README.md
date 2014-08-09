@@ -11,17 +11,32 @@ Hunter
 
 ### What is it?
 
-Every hunter release archive is a meta-package, i.e.:
+Every hunter release archive is a meta-package with build instructions and URLs of real packages, i.e.:
 ```
 Hunter (0.4.2) = { Boost (1.55.0), GTest (1.7.0), JsonSpirit(0.0.1), OpenSSL(1.0.1h), ... }
 ```
 
 * Currently used versions can be found in
-[cmake/config.cmake](https://github.com/ruslo/hunter/blob/master/cmake/config.cmake) file
+[cmake/config.cmake](https://github.com/ruslo/hunter/blob/master/cmake/config.cmake) file and are customizable (though there are no guaranties that some combinations are workable)
 * Per package versions are available in corresponding `hunter.cmake` file
 (e.g. [GTest](https://github.com/ruslo/hunter/blob/master/cmake/projects/GTest/hunter.cmake)).
 You can pick one version that already exists
 or [add a new one](https://github.com/ruslo/hunter/wiki/Adding-new-package)
+
+### Features
+
+* Automatic dependencies download
+ * No more `emerge`, `apt-get`, `brew` etc. Now it's simply `cmake --build`
+* Reusable `ExternalProject_Add` recipies
+ * Once written formula can be used by other projects, subprojects etc. without copying of collection of
+superbuild files. Just change 2 lines of code: SHA1 and URL of hunter archive
+* Customizable builds
+ * Does your package manager support 32/64 bit libraries?
+ * Debug/Release version of libraries?
+ * Can you build your third-party dependencies with
+[Clang Memory Sanitizer](http://clang.llvm.org/docs/MemorySanitizer.html)?
+ * Can you install your favorite library in static variant instead of dynamic?
+ * ...
 
 ### Usage
 
@@ -71,7 +86,7 @@ Patched version of [cmake](https://github.com/ruslo/CMake/releases/tag/v3.0.0-io
 ### Tagged builds
 
 Each build can be [tagged](https://github.com/ruslo/hunter/wiki/EP_BASE-layout#tagged-layout)
-by `HUNTER_INSTALL_TAG` variable. Tags used to differentiate one build from another on one OS. For example on windows you can simultaniously build Visual Studio, NMake, Cygwin and MinGW projects, on Linux gcc/clang, on Mac Xcode, Makefile, iOS. Or choose different clang tools like static analyzer and sanitizers. Tags designed to be used in cmake [toolchain](https://github.com/ruslo/polly) files. Each toolchain file will be forwarded to external project so if you create toolchain with compiler `g++` and flag `-std=c++11` all dependent projects will be built by `g++ -std=c++11`.
+by `HUNTER_INSTALL_TAG` variable. Tags used to differentiate one build from another on one OS. For example on windows you can simultaniously build Visual Studio (32/64), NMake, Cygwin and MinGW projects, on Linux gcc/clang, on Mac Xcode, Makefile, iOS. Or choose different clang tools like static analyzer and sanitizers. Tags designed to be used in cmake [toolchain](https://github.com/ruslo/polly) files. Each toolchain file will be forwarded to external project so if you create toolchain with compiler `g++` and flag `-std=c++11` all dependent projects will be built by `g++ -std=c++11`.
 
 ### Uninstall
 
@@ -101,6 +116,10 @@ then you will build all of them from scratch
 ```
 
 So put a **stable** releases inside `config.cmake` and something like submodules for everything else.
+
+### Wiki
+
+* [Wiki](https://github.com/ruslo/hunter/wiki)
 
 ### Tutorial
 
