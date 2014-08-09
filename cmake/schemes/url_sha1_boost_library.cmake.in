@@ -119,8 +119,10 @@ if(is_mpi)
         "@HUNTER_PACKAGE_SOURCE_DIR@/tools/build/v2/tools/mpi.jam"
     )
   endif()
+  set(variants variant=release) # build bug
 else()
   set(using_mpi "")
+  set(variants variant=debug,release)
 endif()
 
 set(boost_user_jam "@HUNTER_BASE@/boost.user.jam")
@@ -152,7 +154,7 @@ set(
     -a
     ${link_opts}
     threading=multi
-    variant=release,debug
+    ${variants}
     --layout=tagged
     toolset=${toolset_name}
     "--user-config=${boost_user_jam}"
@@ -182,6 +184,20 @@ if(MSVC)
 else()
   set(bootstrap_cmd "./bootstrap.sh")
   set(b2_cmd "./b2")
+endif()
+
+file(READ "${boost_user_jam}" USER_JAM_CONTENT)
+
+if(HUNTER_STATUS_DEBUG)
+  message("Build options:")
+  foreach(opt ${build_opts})
+    message("  ${opt}")
+  endforeach()
+  message("------")
+  message("Boost user jam config:")
+  message("------")
+  message("${USER_JAM_CONTENT}")
+  message("------")
 endif()
 
 ExternalProject_Add(
