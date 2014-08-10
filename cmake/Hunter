@@ -111,9 +111,21 @@ endif()
 
 get_filename_component(HUNTER_BASE "${HUNTER_BASE}" ABSOLUTE)
 
+if(HUNTER_PACKAGE_DOWNLOAD_DIR)
+  get_filename_component(
+      HUNTER_PACKAGE_DOWNLOAD_DIR "${HUNTER_PACKAGE_DOWNLOAD_DIR}" ABSOLUTE
+  )
+endif()
+
 hunter_status_print("HUNTER_ROOT: ${HUNTER_ROOT}")
 hunter_status_print("HUNTER_SELF: ${HUNTER_SELF}")
 hunter_status_debug("HUNTER_BASE: ${HUNTER_BASE}")
+
+if(HUNTER_PACKAGE_DOWNLOAD_DIR)
+  hunter_status_debug(
+      "HUNTER_PACKAGE_DOWNLOAD_DIR: ${HUNTER_PACKAGE_DOWNLOAD_DIR}"
+  )
+endif()
 
 ### Check 'EP_BASE` correctness
 get_directory_property(HUNTER_EP_BASE_OLD EP_BASE)
