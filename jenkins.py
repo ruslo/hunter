@@ -35,7 +35,7 @@ def run():
     which = 'which'
 
   build_script = subprocess.check_output(
-      ['where', 'build.py'], universal_newlines=True
+      [which, 'build.py'], universal_newlines=True
   ).split('\n')[0]
 
   args = [
