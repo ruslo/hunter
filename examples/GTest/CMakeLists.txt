@@ -7,18 +7,15 @@ project(download-gtest)
 # Let hunter be more verbose
 set(HUNTER_STATUS_DEBUG ON CACHE BOOL "")
 
-# emulate ${HUNTER_SELF}/cmake/Hunter
+# Emulate HunterGate:
+# * https://github.com/hunter-packages/gate
 include("../common.cmake")
-include(hunter_add_package)
 
 # download gtest
 hunter_add_package(GTest)
 
 # now gtest can be used
-find_package(GTest REQUIRED)
+find_package(GTest CONFIG REQUIRED)
 
-if(NOT GTEST_BOTH_LIBRARIES)
-  message(FATAL_ERROR "gtest libraries not found")
-else()
-  message("gtest libs: ${GTEST_BOTH_LIBRARIES}")
-endif()
+add_executable(foo foo.cpp)
+target_link_libraries(foo GTest::main)
