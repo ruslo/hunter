@@ -27,6 +27,7 @@ def run():
       '-DHUNTER_ROOT={}'.format(cdir),
       '-DHUNTER_BASE={}'.format(base_dir),
       '-DHUNTER_STATUS_DEBUG=ON',
+      '-DCMAKE_VERBOSE_MAKEFILE=ON',
       '-DHUNTER_PACKAGE_DOWNLOAD_DIR={}'.format(download_dir)
   ]
   if os.path.exists(cache_file):
