@@ -101,14 +101,17 @@ if(CYGWIN)
   endif()
 endif()
 
+if(NOT HUNTER_BASE)
+  if(HUNTER_SHA1)
+    set(HUNTER_BASE "${HUNTER_ROOT}/_Base/${HUNTER_SHA1}")
+  else()
+    set(HUNTER_BASE "${HUNTER_ROOT}/_Base")
+  endif()
+endif()
+
 hunter_status_print("HUNTER_ROOT: ${HUNTER_ROOT}")
 hunter_status_print("HUNTER_SELF: ${HUNTER_SELF}")
-
-if(HUNTER_SHA1)
-  set(HUNTER_BASE "${HUNTER_ROOT}/_Base/${HUNTER_SHA1}")
-else()
-  set(HUNTER_BASE "${HUNTER_ROOT}/_Base")
-endif()
+hunter_status_debug("HUNTER_BASE: ${HUNTER_BASE}")
 
 ### Check 'EP_BASE` correctness
 get_directory_property(HUNTER_EP_BASE_OLD EP_BASE)
