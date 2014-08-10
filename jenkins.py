@@ -30,9 +30,13 @@ def run():
 
   build_script = 'build.py'
   if os.name == 'nt':
-    build_script = subprocess.check_output(
-        ['where', 'build.py'], universal_newlines=True
-    ).split()[0]
+    which = 'where'
+  else:
+    which = 'which'
+
+  build_script = subprocess.check_output(
+      ['where', 'build.py'], universal_newlines=True
+  ).split('\n')[0]
 
   args = [
       sys.executable,
