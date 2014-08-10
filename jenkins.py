@@ -10,20 +10,35 @@ import subprocess
 import sys
 
 def run():
-  test_dir = os.getenv('TEST_DIR')
-  if not test_dir:
-    sys.exit('Expected environment variable TEST_DIR')
-  test_name = os.getenv('TEST_NAME')
-  if not test_name:
-    sys.exit('Expected environment variable TEST_NAME')
-  os.chdir(os.path.normpath(test_dir))
+  project_dir = os.getenv('PROJECT_DIR')
+  if not project_dir:
+    sys.exit('Expected environment variable PROJECT_DIR')
+  project_dir = os.path.normpath(project_dir)
+  cache_file = os.path.join(project_dir, 'cache.cmake')
+  cdir = os.getcwd()
+  testing_dir = os.path.join(cdir, '_testing')
+  download_dir = os.path.join(testing_dir, 'Downloads')
+  base_dir = os.path.join(testing_dir, 'Base')
+  build_dir = os.path.join(testing_dir, '_builds')
   args = [
-      sys.executable,
-      'test.py',
-      '--include',
-      os.path.normpath(test_name)
+      'cmake',
+      '-H{}'.format(project_dir),
+      '-B{}'.format(build_dir),
+      '-DHUNTER_ROOT={}'.format(cdir),
+      '-DHUNTER_BASE={}'.format(base_dir),
+      '-DHUNTER_STATUS_DEBUG=ON',
+      '-DHUNTER_PACKAGE_DOWNLOAD_DIR={}'.format(download_dir)
   ]
+  if os.path.exists(cache_file):
+    args.append('-C{}'.format(cache_file))
+
+  print('Execute command: [')
+  for i in args:
+    print('  `{}`'.format(i))
+  print(']')
+
   subprocess.check_call(args)
+  subprocess.check_call(['cmake', '--build', build_dir])
 
 if __name__ == "__main__":
   run()
