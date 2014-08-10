@@ -109,6 +109,8 @@ if(NOT HUNTER_BASE)
   endif()
 endif()
 
+get_filename_component(HUNTER_BASE "${HUNTER_BASE}" ABSOLUTE)
+
 hunter_status_print("HUNTER_ROOT: ${HUNTER_ROOT}")
 hunter_status_print("HUNTER_SELF: ${HUNTER_SELF}")
 hunter_status_debug("HUNTER_BASE: ${HUNTER_BASE}")
