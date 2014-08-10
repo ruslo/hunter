@@ -27,8 +27,16 @@ def run():
   testing_dir = os.path.join(cdir, '_testing')
   download_dir = os.path.join(testing_dir, 'Downloads')
   base_dir = os.path.join(testing_dir, 'Base')
+
+  build_script = 'build.py'
+  if os.name == 'nt':
+    build_script = subprocess.check_output(
+        ['where', 'build.py'], universal_newlines=True
+    ).split()[0]
+
   args = [
-      'build.py',
+      sys.executable,
+      build_script,
       '--verbose',
       '--clear',
       '--toolchain',
