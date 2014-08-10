@@ -4,9 +4,6 @@
 cmake_minimum_required(VERSION 3.0)
 project(download-gtest)
 
-# Let hunter be more verbose
-set(HUNTER_STATUS_DEBUG ON CACHE BOOL "")
-
 # Emulate HunterGate:
 # * https://github.com/hunter-packages/gate
 include("../common.cmake")
