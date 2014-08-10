@@ -4,12 +4,9 @@
 cmake_minimum_required(VERSION 3.0)
 project(download-sugar)
 
-# Let hunter be more verbose
-set(HUNTER_STATUS_DEBUG ON CACHE BOOL "")
-
-# emulate ${HUNTER_SELF}/cmake/Hunter
+# Emulate HunterGate:
+# * https://github.com/hunter-packages/gate
 include("../common.cmake")
-include(hunter_add_package)
 
 # download sugar
 hunter_add_package(Sugar)
