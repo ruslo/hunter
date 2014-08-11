@@ -55,6 +55,11 @@ def run():
       'HUNTER_PACKAGE_DOWNLOAD_DIR={}'.format(download_dir)
   ]
 
+  if os.name == 'nt':
+    # Fix path too long error
+    args.append('CMAKE_CXX_COMPILER_WORKS=YES')
+    args.append('CMAKE_C_COMPILER_WORKS=YES')
+
   print('Execute command: [')
   for i in args:
     print('  `{}`'.format(i))
