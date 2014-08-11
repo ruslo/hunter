@@ -51,7 +51,7 @@ def run():
 
   print('Testing in: {}'.format(testing_dir))
 
-  os.mkdir(build_dir)
+  os.makedirs(build_dir, exist_ok=True)
   os.chdir(build_dir)
 
   args = [
