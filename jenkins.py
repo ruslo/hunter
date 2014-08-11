@@ -8,8 +8,13 @@
 import os
 import subprocess
 import sys
+import tempfile
+import shutil
 
 def run():
+  cdir = os.getcwd()
+  hunter_root = cdir
+
   toolchain = os.getenv('TOOLCHAIN')
   if not toolchain:
     sys.exit('Environment variable TOOLCHAIN is empty')
@@ -21,10 +26,16 @@ def run():
   project_dir = os.getenv('PROJECT_DIR')
   if not project_dir:
     sys.exit('Expected environment variable PROJECT_DIR')
+  project_dir = os.path.join(cdir, project_dir)
   project_dir = os.path.normpath(project_dir)
 
-  cdir = os.getcwd()
-  testing_dir = os.path.join(cdir, '_testing')
+  testing_dir = os.path.join(os.getcwd(), '_testing')
+  if os.name == 'nt':
+    hunter_junctions = os.getenv('HUNTER_JUNCTIONS')
+    if hunter_junctions:
+      testing_dir = tempfile.mkdtemp(dir=hunter_junctions)
+
+  build_dir = os.path.join(testing_dir, 'Build')
   download_dir = os.path.join(testing_dir, 'Downloads')
   base_dir = os.path.join(testing_dir, 'Base')
 
@@ -38,6 +49,11 @@ def run():
       [which, 'build.py'], universal_newlines=True
   ).split('\n')[0]
 
+  print('Testing in: {}'.format(testing_dir))
+
+  os.mkdir(build_dir)
+  os.chdir(build_dir)
+
   args = [
       sys.executable,
       build_script,
@@ -50,15 +66,10 @@ def run():
       '--home',
       project_dir,
       '--fwd',
-      'HUNTER_ROOT={}'.format(cdir),
+      'HUNTER_ROOT={}'.format(hunter_root),
       'HUNTER_BASE={}'.format(base_dir),
       'HUNTER_PACKAGE_DOWNLOAD_DIR={}'.format(download_dir)
   ]
-
-  if os.name == 'nt':
-    # Fix path too long error
-    args.append('CMAKE_CXX_COMPILER_WORKS=YES')
-    args.append('CMAKE_C_COMPILER_WORKS=YES')
 
   print('Execute command: [')
   for i in args:
@@ -66,6 +77,7 @@ def run():
   print(']')
 
   subprocess.check_call(args)
+  shutil.rmtree(testing_dir, ignore_errors=True)
 
 if __name__ == "__main__":
   run()
