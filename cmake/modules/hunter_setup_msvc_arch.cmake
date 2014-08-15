@@ -61,7 +61,7 @@ macro(hunter_setup_msvc_arch)
     string(
         REGEX
         REPLACE
-        "^ 20[1-9][1-9]"
+        "^ 20[0-9][0-9]"
         ""
         HUNTER_MSVC_ARCH
         "${HUNTER_MSVC_ARCH}"
