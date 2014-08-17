@@ -288,7 +288,7 @@ function(hunter_download)
   set(counter "")
 
   while(TRUE)
-    hunter_status_debug("Run build")
+    hunter_status_print("Run build for package: ${HUNTER_PACKAGE_NAME}")
 
     execute_process(
         COMMAND
@@ -300,7 +300,7 @@ function(hunter_download)
     )
 
     if(${h_build_result} EQUAL 0)
-      hunter_status_debug("Build step successful (dir: ${h_work_dir})")
+      hunter_status_print("Build step successful (dir: ${h_work_dir})")
       if(NOT HUNTER_STATUS_DEBUG)
         # clean-up
         file(REMOVE_RECURSE "${h_work_dir}")
