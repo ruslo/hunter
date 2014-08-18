@@ -28,7 +28,7 @@ or [add a new one](https://github.com/ruslo/hunter/wiki/Adding-new-package)
 * Automatic dependencies download
  * No more `emerge`, `apt-get`, `brew` etc. Now it's simply `cmake --build`
  * Express install instructions in terms of CMake commands instead of raw README text or other script
-* Reusable `ExternalProject_Add` recipies
+* Reusable `ExternalProject_Add` recipies ([DRY principle](http://c2.com/cgi/wiki?DontRepeatYourself))
  * Once written formula can be used by other projects, subprojects etc. without copying of collection of
 superbuild files. Just change 2 lines of code: SHA1 and URL of hunter archive
 * Customizable builds
