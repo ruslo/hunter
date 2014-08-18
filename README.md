@@ -27,6 +27,7 @@ or [add a new one](https://github.com/ruslo/hunter/wiki/Adding-new-package)
 
 * Automatic dependencies download
  * No more `emerge`, `apt-get`, `brew` etc. Now it's simply `cmake --build`
+ * Express install instructions in terms of CMake commands instead of raw README text or other script
 * Reusable `ExternalProject_Add` recipies
  * Once written formula can be used by other projects, subprojects etc. without copying of collection of
 superbuild files. Just change 2 lines of code: SHA1 and URL of hunter archive
@@ -38,7 +39,7 @@ superbuild files. Just change 2 lines of code: SHA1 and URL of hunter archive
  * Can you install your favorite library in static variant instead of dynamic?
  * ...
 
-### Usage
+### First step
 
 * Set `HUNTER_ROOT` environment variable (recommended but not mandatory, see 
 [other options](https://github.com/hunter-packages/gate#effects))
@@ -76,6 +77,17 @@ target_link_libraries(foo ${Boost_LIBRARIES})
 > cmake -H. -B_builds -DHUNTER_STATUS_DEBUG=ON -DCMAKE_BUILD_TYPE=Release
 > cmake --build _builds --config Release
 ```
+
+### Usage
+
+* List of packages and usage instructions for each package can be found in [wiki sidebar]
+(https://github.com/ruslo/hunter/wiki)
+* [List of variables to control build](https://github.com/ruslo/hunter/wiki/CMake-Variables-%28User%29)
+* [How to add a new cmake project](https://github.com/ruslo/hunter/wiki/Adding-new-package)
+* [How to add a new custom-build project]
+(https://github.com/ruslo/hunter/wiki/Adding-new-package-%28custom-download-scheme%29)
+* [Multiple HunterGate commands (e.g. projects subprojects)]
+(https://github.com/ruslo/hunter/wiki/Multiple-HunterGate-commands-%28e.g.-projects-subprojects%29)
 
 ### iOS note
 
@@ -116,15 +128,6 @@ then you will build all of them from scratch
 ```
 
 So put a **stable** releases inside `config.cmake` and something like submodules for everything else.
-
-### Wiki
-
-* [Wiki](https://github.com/ruslo/hunter/wiki)
-
-### Tutorial
-
-* [Add cmake project](https://github.com/ruslo/hunter/wiki/Adding-new-package)
-* [Add custom-build project](https://github.com/ruslo/hunter/wiki/Adding-new-package-%28custom-download-scheme%29)
 
 ### Links
 * [Gate to hunter packages](https://github.com/hunter-packages/gate)
