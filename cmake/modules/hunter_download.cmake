@@ -112,9 +112,9 @@ function(hunter_download)
   # Use: HUNTER_PACKAGE_BASENAME and HUNTER_BASE
   hunter_check_already_installed(
       VARIANTS ${HUNTER_DOWNLOAD_SCHEME_VARIANTS}
-      RESULT do_skip
+      RESULT do_skip_2
   )
-  if(do_skip)
+  if(do_skip_2)
     hunter_status_debug("Skip generate/run (already installed)")
     hunter_unlock()
     return()
@@ -300,6 +300,18 @@ function(hunter_download)
     )
 
     if(${h_build_result} EQUAL 0)
+      # Sanity check. Sometimes MSVC just skip build without any reason...
+      hunter_check_already_installed(
+          VARIANTS ${HUNTER_DOWNLOAD_SCHEME_VARIANTS}
+          RESULT already_installed
+      )
+      if(NOT already_installed)
+         hunter_unlock()
+         hunter_fatal_error(
+             "External project reported that build successfull but"
+             " there are no stamps."
+         )
+      endif()
       hunter_status_print("Build step successful (dir: ${h_work_dir})")
       if(NOT HUNTER_STATUS_DEBUG)
         # clean-up
