@@ -102,6 +102,17 @@ function(hunter_pick_scheme)
       COMPARE
       EQUAL
       "${HUNTER_DOWNLOAD_SCHEME}"
+      "url_sha1_release"
+      is_release
+  )
+  if(is_release)
+    set(HUNTER_DOWNLOAD_SCHEME_VARIANTS release)
+  endif()
+
+  string(
+      COMPARE
+      EQUAL
+      "${HUNTER_DOWNLOAD_SCHEME}"
       "url_sha1_openssl_ios"
       is_openssl_ios
   )

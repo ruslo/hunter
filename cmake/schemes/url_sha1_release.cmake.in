@@ -1,0 +1,69 @@
+# Copyright (c) 2014, Ruslan Baratov
+# All rights reserved.
+
+cmake_minimum_required(VERSION 3.0)
+
+include(ExternalProject) # ExternalProject_Add
+
+# Scheme for Release builds
+
+list(APPEND CMAKE_MODULE_PATH "@HUNTER_SELF@/cmake/modules")
+
+include(hunter_assert_lists_equal)
+include(hunter_status_debug)
+include(hunter_test_string_not_empty)
+
+hunter_status_debug("Scheme: url_sha1_release")
+
+# Check preconditions
+hunter_test_string_not_empty("@HUNTER_SELF@")
+hunter_test_string_not_empty("@HUNTER_BASE@")
+hunter_test_string_not_empty("@HUNTER_PACKAGE_BASENAME@")
+hunter_test_string_not_empty("@HUNTER_PACKAGE_URL@")
+hunter_test_string_not_empty("@HUNTER_PACKAGE_SHA1@")
+hunter_test_string_not_empty("@HUNTER_PACKAGE_DOWNLOAD_DIR@")
+hunter_test_string_not_empty("@HUNTER_PACKAGE_SOURCE_DIR@")
+hunter_test_string_not_empty("@HUNTER_PACKAGE_INSTALL_DIR@")
+hunter_test_string_not_empty("${CMAKE_TOOLCHAIN_FILE}")
+
+hunter_assert_lists_equal(@HUNTER_DOWNLOAD_SCHEME_VARIANTS@ release)
+
+set_directory_properties(
+    PROPERTIES
+    EP_BASE
+    "@HUNTER_BASE@"
+)
+
+if(@HUNTER_STATUS_DEBUG@)
+  set(verbose_makefile "-DCMAKE_VERBOSE_MAKEFILE=ON")
+endif()
+
+ExternalProject_Add(
+    @HUNTER_PACKAGE_BASENAME@-release
+    URL
+    @HUNTER_PACKAGE_URL@
+    URL_HASH
+    SHA1=@HUNTER_PACKAGE_SHA1@
+    DOWNLOAD_DIR
+    "@HUNTER_PACKAGE_DOWNLOAD_DIR@"
+    SOURCE_DIR
+    "@HUNTER_PACKAGE_SOURCE_DIR@"
+    INSTALL_DIR
+    "@HUNTER_PACKAGE_INSTALL_DIR@"
+        # not used, just avoid creating Install/<name>-release empty directory
+    CMAKE_ARGS
+    "-DCMAKE_BUILD_TYPE=Release"
+    "-DCMAKE_INSTALL_PREFIX=@HUNTER_PACKAGE_INSTALL_DIR@"
+    ${verbose_makefile}
+    "-DCMAKE_TOOLCHAIN_FILE=${CMAKE_TOOLCHAIN_FILE}"
+    BUILD_COMMAND
+        "${CMAKE_COMMAND}"
+        --build
+        "@HUNTER_BASE@/Build/@HUNTER_PACKAGE_BASENAME@-release"
+        --config
+        Release # for Xcode and MSVC
+        --target
+        install
+    INSTALL_COMMAND
+    ""
+)
