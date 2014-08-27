@@ -39,7 +39,11 @@ execute_process(
 )
 
 if(NOT result EQUAL 0)
-  message(FATAL_ERROR "`xcrun -f clang++` failed")
+  message(
+      FATAL_ERROR
+      "[hunter] 'xcrun -f clang++' failed "
+      "(https://github.com/ruslo/hunter/wiki/Error-%28xcrun-clang%29)"
+  )
 endif()
 
 ExternalProject_Add(

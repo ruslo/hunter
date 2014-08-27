@@ -1,19 +1,39 @@
 cmake_minimum_required(VERSION 3.0)
 
 if(NOT TOOLCHAIN_INFO_FILE)
-  message(FATAL_ERROR "TOOLCHAIN_INFO_FILE is empty")
+  message(
+      FATAL_ERROR
+      "[hunter ** INTERNAL **] "
+      "TOOLCHAIN_INFO_FILE is empty "
+      "(https://github.com/ruslo/hunter/wiki/Error-%28Internal%29)"
+  )
 endif()
 
 if(NOT CMAKE_BINARY_DIR)
-  message(FATAL_ERROR "CMAKE_BINARY_DIR empty")
+  message(
+      FATAL_ERROR
+      "[hunter ** INTERNAL **] "
+      "CMAKE_BINARY_DIR empty "
+      "(https://github.com/ruslo/hunter/wiki/Error-%28Internal%29)"
+  )
 endif()
 
 if(NOT HUNTER_SELF)
-  message(FATAL_ERROR "HUNTER_SELF empty")
+  message(
+      FATAL_ERROR
+      "[hunter ** INTERNAL **] "
+      "HUNTER_SELF empty "
+      "(https://github.com/ruslo/hunter/wiki/Error-%28Internal%29)"
+  )
 endif()
 
 if(EXISTS "${TOOLCHAIN_INFO_FILE}")
-  message(FATAL_ERROR "${TOOLCHAIN_INFO_FILE} already exists")
+  message(
+      FATAL_ERROR
+      "[hunter ** INTERNAL **] "
+      "${TOOLCHAIN_INFO_FILE} already exists "
+      "(https://github.com/ruslo/hunter/wiki/Error-%28Internal%29)"
+  )
 endif()
 
 file(
@@ -31,7 +51,12 @@ file(
 
 set(predefined "${HUNTER_SELF}/scripts/ShowPredefined.cpp")
 if(NOT EXISTS "${predefined}")
-  message(FATAL_ERROR "${predefined} not exists")
+  message(
+      FATAL_ERROR
+      "[hunter ** INTERNAL **] "
+      "${predefined} not exists "
+      "(https://github.com/ruslo/hunter/wiki/Error-%28Internal%29)"
+  )
 endif()
 
 try_compile(
@@ -43,7 +68,12 @@ try_compile(
 )
 
 if(NOT try_compile_result)
-  message(FATAL_ERROR "Compilation of ${predefined} failed")
+  message(
+      FATAL_ERROR
+      "[hunter ** INTERNAL **] "
+      "Compilation of ${predefined} failed "
+      "(https://github.com/ruslo/hunter/wiki/Error-%28Internal%29)"
+  )
 endif()
 
 function(split_string string_in result)

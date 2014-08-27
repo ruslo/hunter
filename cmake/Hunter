@@ -38,8 +38,10 @@ get_filename_component(HUNTER_SELF "${CMAKE_CURRENT_LIST_DIR}/.." ABSOLUTE)
 if(NOT EXISTS "${HUNTER_SELF}/cmake/Hunter")
   message(
       FATAL_ERROR
-      "Can't find Hunter components in: `${HUNTER_SELF}` "
+      "[hunter] Master file not found. "
+      "HUNTER_SELF: `${HUNTER_SELF}` "
       "Expected location: <HUNTER_SELF>/cmake/Hunter"
+      "(https://github.com/ruslo/hunter/wiki/Error-%28master-file-not-found%29)"
   )
 endif()
 
