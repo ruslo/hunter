@@ -460,6 +460,7 @@ __alpha_ev6__
 __amd64
 __amd64__
 __amigaos__
+__apple_build_version__
 __arm64
 __arm__
 __bfin__
