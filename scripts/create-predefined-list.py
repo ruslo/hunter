@@ -55,7 +55,10 @@ exclude_list = [
     '__FILE__',
     '__LINE__',
     '__TIME__',
-    '__TIMESTAMP__'
+    '__TIMESTAMP__',
+    '__NO_INLINE__',
+    '_DEBUG',
+    '__FUNCTION__',
 ]
 
 macros_list = []
@@ -129,6 +132,8 @@ cpp_head = """
     "__HUNTER_MACRO_CHECK_BEGIN__" \\
     "#define " #x " " HUNTER_STRING(x) \\
     "__HUNTER_MACRO_CHECK_END__"
+
+#include <exception> // Check std library version
 """
 
 cpp_one_check = """

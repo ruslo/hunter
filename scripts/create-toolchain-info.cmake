@@ -4,6 +4,14 @@ if(NOT TOOLCHAIN_INFO_FILE)
   message(FATAL_ERROR "TOOLCHAIN_INFO_FILE is empty")
 endif()
 
+if(NOT CMAKE_BINARY_DIR)
+  message(FATAL_ERROR "CMAKE_BINARY_DIR empty")
+endif()
+
+if(NOT HUNTER_SELF)
+  message(FATAL_ERROR "HUNTER_SELF empty")
+endif()
+
 if(EXISTS "${TOOLCHAIN_INFO_FILE}")
   message(FATAL_ERROR "${TOOLCHAIN_INFO_FILE} already exists")
 endif()
@@ -11,48 +19,79 @@ endif()
 file(
     WRITE
     "${TOOLCHAIN_INFO_FILE}"
-    "Environment:\n"
-    "    HUNTER_ROOT: $ENV{HUNTER_ROOT}\n"
-    "    CXX: $ENV{CXX}\n"
-    "    CC: $ENV{CC}\n"
-    "C++ compiler:\n"
-    "    CMAKE_CXX_COMPILER: ${CMAKE_CXX_COMPILER}\n"
-    "    CMAKE_CXX_COMPILER_ABI: ${CMAKE_CXX_COMPILER_ABI}\n"
-    "    CMAKE_CXX_COMPILER_ID: ${CMAKE_CXX_COMPILER_ID}\n"
-    "    CMAKE_CXX_COMPILER_VERSION: ${CMAKE_CXX_COMPILER_VERSION}\n"
-    "C compiler:\n"
-    "    CMAKE_C_COMPILER: ${CMAKE_C_COMPILER}\n"
-    "    CMAKE_C_COMPILER_ABI: ${CMAKE_C_COMPILER_ABI}\n"
-    "    CMAKE_C_COMPILER_ID: ${CMAKE_C_COMPILER_ID}\n"
-    "    CMAKE_C_COMPILER_VERSION: ${CMAKE_C_COMPILER_VERSION}\n"
-    "C++ Flags:\n"
-    "    CMAKE_CXX_FLAGS: ${CMAKE_CXX_FLAGS}\n"
-    "    CMAKE_CXX_FLAGS_DEBUG: ${CMAKE_CXX_FLAGS_DEBUG}\n"
-    "    CMAKE_CXX_FLAGS_MINSIZEREL: ${CMAKE_CXX_FLAGS_MINSIZEREL}\n"
-    "    CMAKE_CXX_FLAGS_RELEASE: ${CMAKE_CXX_FLAGS_RELEASE}\n"
-    "C Flags:\n"
-    "    CMAKE_C_FLAGS: ${CMAKE_C_FLAGS}\n"
-    "    CMAKE_C_FLAGS_DEBUG: ${CMAKE_C_FLAGS_DEBUG}\n"
-    "    CMAKE_C_FLAGS_MINSIZEREL: ${CMAKE_C_FLAGS_MINSIZEREL}\n"
-    "    CMAKE_C_FLAGS_RELEASE: ${CMAKE_C_FLAGS_RELEASE}\n"
     "Some hunter variables:\n"
     "    HUNTER_ENABLE_BOOST_SHARED: ${HUNTER_ENABLE_BOOST_SHARED}\n"
-    "    HUNTER_ROOT: ${HUNTER_ROOT}\n"
     "    HUNTER_CMAKE_GENERATOR: ${HUNTER_CMAKE_GENERATOR}\n"
     "Polly toolchains:\n"
-    "    CMAKE_OSX_SYSROOT: ${CMAKE_OSX_SYSROOT}\n"
-    "    CUSTOM_LIBCXX_LIBRARY_LOCATION: ${CUSTOM_LIBCXX_LIBRARY_LOCATION}\n"
-    "    IOS_SDK_VERSION: ${IOS_SDK_VERSION}\n"
     "    IPHONEOS_ARCHS: ${IPHONEOS_ARCHS}\n"
     "    IPHONESIMULATOR_ARCHS: ${IPHONESIMULATOR_ARCHS}\n"
-    "    XCODE_DEVELOPER_ROOT: ${XCODE_DEVELOPER_ROOT}\n"
-    "    XCODE_VERSION: ${XCODE_VERSION}\n"
     "Other:\n"
-    "    CMAKE_COMPILER_IS_GNUCXX: ${CMAKE_COMPILER_IS_GNUCXX}\n"
-    "    CMAKE_CXX_PLATFORM_ID: ${CMAKE_CXX_PLATFORM_ID}\n"
-    "    CMAKE_C_PLATFORM_ID: ${CMAKE_C_PLATFORM_ID}\n"
-    "    CMAKE_DEBUG_POSTFIX: ${CMAKE_DEBUG_POSTFIX}\n"
-    "    CMAKE_EXE_LINKER_FLAGS: ${CMAKE_EXE_LINKER_FLAGS}\n"
     "    CMAKE_GENERATOR: ${CMAKE_GENERATOR}\n"
-    "    CMAKE_SHARED_LINKER_FLAGS: ${CMAKE_SHARED_LINKER_FLAGS}\n"
 )
+
+set(predefined "${HUNTER_SELF}/scripts/ShowPredefined.cpp")
+if(NOT EXISTS "${predefined}")
+  message(FATAL_ERROR "${predefined} not exists")
+endif()
+
+try_compile(
+    try_compile_result
+    "${CMAKE_BINARY_DIR}/_test"
+    "${predefined}"
+    CMAKE_FLAGS "-DCMAKE_TOOLCHAIN_FILE=${CMAKE_TOOLCHAIN_FILE}"
+    OUTPUT_VARIABLE outresult
+)
+
+if(NOT try_compile_result)
+  message(FATAL_ERROR "Compilation of ${predefined} failed")
+endif()
+
+function(split_string string_in result)
+  set("${result}" "")
+
+  while(TRUE)
+    string(COMPARE EQUAL "${string_in}" "" is_empty)
+    if(is_empty)
+      break()
+    endif()
+
+    string(FIND "${string_in}" "\n" eol_pos)
+    if(eol_pos EQUAL -1)
+      list(APPEND "${result}" "${string_in}")
+      break()
+    endif()
+
+    string(SUBSTRING "${string_in}" 0 ${eol_pos} substring)
+    list(APPEND "${result}" "${substring}")
+    math(EXPR eol_pos "${eol_pos} + 1") # Skip EOL character
+    string(SUBSTRING "${string_in}" ${eol_pos} -1 string_in)
+  endwhile()
+
+  set(${result} "${${result}}" PARENT_SCOPE)
+endfunction()
+
+split_string("${outresult}" list_of_strings)
+
+set(macroses "")
+foreach(x ${list_of_strings})
+  string(
+      REGEX
+      MATCH
+      "__HUNTER_MACRO_CHECK_BEGIN__.*__HUNTER_MACRO_CHECK_END__"
+      result_x
+      "${x}"
+  )
+  if(result_x)
+    string(
+        REGEX
+        REPLACE
+        ".*__HUNTER_MACRO_CHECK_BEGIN__\(.*\)__HUNTER_MACRO_CHECK_END__.*"
+        "\\1"
+        result_x
+        "${x}"
+    )
+    set(macroses "${macroses}${result_x}\n")
+  endif()
+endforeach()
+
+file(APPEND "${TOOLCHAIN_INFO_FILE}" "Predefined macroses:\n${macroses}")

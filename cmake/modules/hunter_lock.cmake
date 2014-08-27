@@ -13,7 +13,6 @@ function(hunter_lock)
   hunter_test_string_not_empty("${HUNTER_BASE}")
   hunter_test_string_not_empty("${HUNTER_INSTALL_TAG}")
   hunter_test_string_not_empty("${HUNTER_LOCK_PATH}")
-  hunter_test_string_not_empty("${HUNTER_PACKAGE_NAME}")
   hunter_test_string_not_empty("${PROJECT_BINARY_DIR}")
 
   if(HUNTER_SKIP_LOCK)

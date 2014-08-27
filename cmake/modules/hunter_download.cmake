@@ -14,7 +14,6 @@ include(hunter_status_debug)
 include(hunter_status_print)
 include(hunter_test_string_not_empty)
 include(hunter_unlock)
-include(hunter_verify_toolchain_info)
 
 function(hunter_download)
   set(
@@ -257,8 +256,6 @@ function(hunter_download)
       set(HUNTER_DOWNLOAD_GENERATOR)
     endif()
   endif()
-
-  hunter_verify_toolchain_info()
 
   hunter_status_debug("Run generate")
 

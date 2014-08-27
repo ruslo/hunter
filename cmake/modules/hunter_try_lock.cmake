@@ -14,7 +14,7 @@ function(hunter_try_lock result)
   hunter_test_string_not_empty("${HUNTER_LOCK_FULL_INFO}")
   hunter_test_string_not_empty("${HUNTER_LOCK_INFO}")
   hunter_test_string_not_empty("${HUNTER_LOCK_PATH}")
-  hunter_test_string_not_empty("${HUNTER_PACKAGE_NAME}")
+  # HUNTER_PACKAGE_NAME may be empty (if toolchain verification)
   hunter_test_string_not_empty("${PROJECT_BINARY_DIR}")
 
   if(HUNTER_SKIP_LOCK)
