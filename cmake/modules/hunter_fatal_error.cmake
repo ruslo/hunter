@@ -1,19 +1,21 @@
 # Copyright (c) 2013, Ruslan Baratov
 # All rights reserved.
 
+include(CMakeParseArguments) # cmake_parse_arguments
+
+include(hunter_internal_error)
+include(hunter_wiki)
+
 function(hunter_fatal_error)
-  if(${ARGC} EQUAL 0)
-    message(
-        FATAL_ERROR
-        "[hunter ** INTERNAL **] unexpected number of arguments"
-        "(https://github.com/ruslo/hunter/wiki/Error-%28Internal%29)"
-    )
+  cmake_parse_arguments(hunter "" "WIKI" "" "${ARGV}")
+  if(NOT hunter_WIKI)
+    hunter_internal_error("Expected wiki")
   endif()
-  foreach(print_message ${ARGV})
-    message("")
-    message("[hunter] ${print_message}")
-    message("")
+  message("")
+  foreach(x ${hunter_UNPARSED_ARGUMENTS})
+    message("[hunter ** FATAL ERROR **] ${x}")
   endforeach()
-  message("directory: ${CMAKE_CURRENT_LIST_DIR}")
-  message(FATAL_ERROR "")
+  message("[hunter ** FATAL ERROR **] [Directory:${CMAKE_CURRENT_LIST_DIR}]")
+  message("")
+  hunter_wiki("${hunter_WIKI}")
 endfunction()
