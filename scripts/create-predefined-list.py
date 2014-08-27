@@ -104,7 +104,7 @@ if args.compiler:
   compiler_macro_list = macroses.split('\n')
   for x in compiler_macro_list:
     if re.match(r'^#define _', x):
-      macros_list.append(re.sub(r'^#define ([^ ]*).*', r'\1', x))
+      macros_list.append(re.sub(r'^#define ([^ (]*).*', r'\1', x))
 
 macros_list = sorted(set(macros_list))
 for to_exclude in exclude_list:
