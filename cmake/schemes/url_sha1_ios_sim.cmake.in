@@ -8,6 +8,7 @@ include(ExternalProject) # ExternalProject_Add
 list(APPEND CMAKE_MODULE_PATH "@HUNTER_SELF@/cmake/modules")
 
 include(hunter_assert_lists_equal)
+include(hunter_fatal_error)
 include(hunter_status_debug)
 include(hunter_test_string_not_empty)
 
@@ -39,10 +40,9 @@ execute_process(
 )
 
 if(NOT result EQUAL 0)
-  message(
-      FATAL_ERROR
-      "[hunter] 'xcrun -f clang++' failed "
-      "(https://github.com/ruslo/hunter/wiki/Error-%28xcrun-clang%29)"
+  hunter_fatal_error(
+      "'xcrun -f clang++' failed"
+      WIKI "https://github.com/ruslo/hunter/wiki/Error-%28xcrun-clang%29"
   )
 endif()
 

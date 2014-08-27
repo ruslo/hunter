@@ -10,6 +10,7 @@ include(ExternalProject) # ExternalProject_Add
 list(APPEND CMAKE_MODULE_PATH "@HUNTER_SELF@/cmake/modules")
 
 include(hunter_assert_lists_equal)
+include(hunter_fatal_error)
 include(hunter_internal_error)
 include(hunter_status_debug)
 include(hunter_test_string_not_empty)
@@ -55,11 +56,10 @@ endif()
 set(TEMP_INSTALL_DIR "${TEMP_INSTALL_DIR}/temp-hunter-openssl-REMOVE_ME")
 
 if(MSVC_VERSION VERSION_LESS 1800)
-  message(
-      FATAL_ERROR
-      "[hunter] OpenSSL: MSVC 2013 minimum required "
+  hunter_fatal_error(
+      "OpenSSL: MSVC 2013 minimum required"
       "(version 1800, generator `Visual Studio 12`)"
-      "(https://github.com/ruslo/hunter/wiki/Error-%28openssl-visual-studio-2013-required%29)"
+      WIKI "https://github.com/ruslo/hunter/wiki/Error-%28openssl-visual-studio-2013-required%29"
   )
 endif()
 
@@ -74,9 +74,6 @@ execute_process(
 )
 
 if(NOT "${PERL_VERSION}" EQUAL 0)
-  message("[hunter] OpenSSL: perl not found")
-  message("(https://github.com/ruslo/hunter/wiki/Error-%28openssl-perl-not-found%29)")
-
   message("Current PATH directories:")
   message(">>>")
   foreach(x $ENV{PATH})
@@ -84,7 +81,12 @@ if(NOT "${PERL_VERSION}" EQUAL 0)
       message("    ${y}")
     endforeach()
   endforeach()
-  message(FATAL_ERROR "\n<<<")
+  message("\n<<<")
+
+  hunter_fatal_error(
+      "OpenSSL: perl not found"
+      WIKI "https://github.com/ruslo/hunter/wiki/Error-%28openssl-perl-not-found%29"
+  )
 endif()
 
 string(COMPARE EQUAL "@HUNTER_MSVC_ARCH@" "amd64" is_amd64)

@@ -4,6 +4,7 @@ if(NOT HUNTER_SELF)
   # Emulate 'hunter_internal_error'
   message("[hunter ** INTERNAL **] HUNTER_SELF is empty")
   message("[hunter ** INTERNAL **] [Directory:${CMAKE_CURRENT_LIST_DIR}]")
+  message("")
   message("------------------------------ WIKI -------------------------------")
   message("    https://github.com/ruslo/hunter/wiki/Error-%28Internal%29")
   message("-------------------------------------------------------------------")
