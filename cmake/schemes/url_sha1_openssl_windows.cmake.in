@@ -10,6 +10,7 @@ include(ExternalProject) # ExternalProject_Add
 list(APPEND CMAKE_MODULE_PATH "@HUNTER_SELF@/cmake/modules")
 
 include(hunter_assert_lists_equal)
+include(hunter_internal_error)
 include(hunter_status_debug)
 include(hunter_test_string_not_empty)
 
@@ -42,23 +43,13 @@ get_filename_component(TEMP_INSTALL_DIR "$ENV{WINDIR}" ABSOLUTE)
 
 string(COMPARE EQUAL "${TEMP_INSTALL_DIR}" "" is_empty)
 if(is_empty)
-  message(
-      FATAL_ERROR
-      "[hunter ** INTERNAL **] "
-      "Environment variable WINDIR is empty "
-      "(https://github.com/ruslo/hunter/wiki/Error-%28Internal%29)"
-  )
+  hunter_internal_error("Environment variable WINDIR is empty")
 endif()
 
 get_filename_component(TEMP_INSTALL_DIR "${TEMP_INSTALL_DIR}/.." ABSOLUTE)
 
 if(NOT EXISTS "${TEMP_INSTALL_DIR}")
-  message(
-      FATAL_ERROR
-      "[hunter ** INTERNAL **] "
-      "Unexpected WINDIR: $ENV{WINDIR} "
-      "(https://github.com/ruslo/hunter/wiki/Error-%28Internal%29)"
-  )
+  hunter_internal_error("Unexpected WINDIR: $ENV{WINDIR}")
 endif()
 
 set(TEMP_INSTALL_DIR "${TEMP_INSTALL_DIR}/temp-hunter-openssl-REMOVE_ME")

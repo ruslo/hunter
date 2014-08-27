@@ -1,39 +1,27 @@
 cmake_minimum_required(VERSION 3.0)
 
+if(NOT HUNTER_SELF)
+  # Emulate 'hunter_internal_error'
+  message("[hunter ** INTERNAL **] HUNTER_SELF is empty")
+  message("[hunter ** INTERNAL **] [Directory:${CMAKE_CURRENT_LIST_DIR}]")
+  message("------------------------------ WIKI -------------------------------")
+  message("    https://github.com/ruslo/hunter/wiki/Error-%28Internal%29")
+  message("-------------------------------------------------------------------")
+  message(FATAL_ERROR "")
+endif()
+
+include("${HUNTER_SELF}/cmake/modules/hunter_internal_error.cmake")
+
 if(NOT TOOLCHAIN_INFO_FILE)
-  message(
-      FATAL_ERROR
-      "[hunter ** INTERNAL **] "
-      "TOOLCHAIN_INFO_FILE is empty "
-      "(https://github.com/ruslo/hunter/wiki/Error-%28Internal%29)"
-  )
+  hunter_internal_error("TOOLCHAIN_INFO_FILE is empty")
 endif()
 
 if(NOT CMAKE_BINARY_DIR)
-  message(
-      FATAL_ERROR
-      "[hunter ** INTERNAL **] "
-      "CMAKE_BINARY_DIR empty "
-      "(https://github.com/ruslo/hunter/wiki/Error-%28Internal%29)"
-  )
-endif()
-
-if(NOT HUNTER_SELF)
-  message(
-      FATAL_ERROR
-      "[hunter ** INTERNAL **] "
-      "HUNTER_SELF empty "
-      "(https://github.com/ruslo/hunter/wiki/Error-%28Internal%29)"
-  )
+  hunter_internal_error("CMAKE_BINARY_DIR empty")
 endif()
 
 if(EXISTS "${TOOLCHAIN_INFO_FILE}")
-  message(
-      FATAL_ERROR
-      "[hunter ** INTERNAL **] "
-      "${TOOLCHAIN_INFO_FILE} already exists "
-      "(https://github.com/ruslo/hunter/wiki/Error-%28Internal%29)"
-  )
+  hunter_internal_error("${TOOLCHAIN_INFO_FILE} already exists")
 endif()
 
 file(
@@ -51,12 +39,7 @@ file(
 
 set(predefined "${HUNTER_SELF}/scripts/ShowPredefined.cpp")
 if(NOT EXISTS "${predefined}")
-  message(
-      FATAL_ERROR
-      "[hunter ** INTERNAL **] "
-      "${predefined} not exists "
-      "(https://github.com/ruslo/hunter/wiki/Error-%28Internal%29)"
-  )
+  hunter_internal_error("${predefined} not exists")
 endif()
 
 try_compile(
@@ -68,12 +51,7 @@ try_compile(
 )
 
 if(NOT try_compile_result)
-  message(
-      FATAL_ERROR
-      "[hunter ** INTERNAL **] "
-      "Compilation of ${predefined} failed "
-      "(https://github.com/ruslo/hunter/wiki/Error-%28Internal%29)"
-  )
+  hunter_internal_error("Compilation of ${predefined} failed")
 endif()
 
 function(split_string string_in result)

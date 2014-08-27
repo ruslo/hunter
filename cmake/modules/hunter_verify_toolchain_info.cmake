@@ -3,6 +3,7 @@
 
 include(hunter_fatal_error)
 include(hunter_get_temp_directory)
+include(hunter_internal_error)
 include(hunter_lock)
 include(hunter_status_debug)
 include(hunter_test_string_not_empty)
@@ -74,7 +75,9 @@ function(hunter_verify_toolchain_info)
     )
     hunter_unlock()
     if(NOT generate_result EQUAL "0")
-      hunter_fatal_error("Generate failed: exit with code ${generate_result}")
+      hunter_internal_error(
+          "Generate failed: exit with code ${generate_result}"
+      )
     endif()
   endif()
 
@@ -85,7 +88,7 @@ function(hunter_verify_toolchain_info)
   file(REMOVE "${TOOLCHAIN_INFO_FILE}")
   include("${create_script}")
   if(NOT EXISTS "${TOOLCHAIN_INFO_FILE}")
-    hunter_fatal_error("Info not generated")
+    hunter_internal_error("Info not generated")
   endif()
 
   file(READ "${local_toolchain_info}" local_info)
