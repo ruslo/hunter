@@ -11,14 +11,14 @@ include(ExternalProject) # ExternalProject_Add
 list(APPEND CMAKE_MODULE_PATH "@HUNTER_SELF@/cmake/modules")
 
 include(hunter_assert_lists_equal)
-include(hunter_fatal_error)
+include(hunter_internal_error)
 include(hunter_status_debug)
 include(hunter_test_string_not_empty)
 
 hunter_status_debug("Scheme: url_sha1_combined_release_debug")
 
 if(NOT XCODE_VERSION AND NOT MSVC_IDE)
-  hunter_fatal_error("Xcode or MSVC IDE only")
+  hunter_internal_error("Xcode or MSVC IDE only")
 endif()
 
 # Check preconditions

@@ -10,7 +10,7 @@ include(ExternalProject) # ExternalProject_Add
 list(APPEND CMAKE_MODULE_PATH "@HUNTER_SELF@/cmake/modules")
 
 include(hunter_assert_lists_equal)
-include(hunter_fatal_error)
+include(hunter_internal_error)
 include(hunter_status_debug)
 include(hunter_test_string_not_empty)
 include(hunter_unsetvar)
@@ -78,7 +78,7 @@ foreach(x ${boost_libs})
 endforeach()
 
 if(NOT libfound)
-  hunter_fatal_error("No such library")
+  hunter_internal_error("No such library")
 endif()
 
 hunter_unsetvar(iphoneos_archs)
