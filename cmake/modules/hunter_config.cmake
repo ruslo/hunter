@@ -3,7 +3,7 @@
 
 include(CMakeParseArguments) # cmake_parse_arguments
 
-include(hunter_fatal_error)
+include(hunter_internal_error)
 include(hunter_unsetvar)
 
 # internal variables: _hunter_c_*
@@ -19,7 +19,7 @@ macro(hunter_config)
   )
   list(LENGTH _hunter_c_UNPARSED_ARGUMENTS _hunter_c_len)
   if(NOT ${_hunter_c_len} EQUAL 1)
-    hunter_fatal_error("unparsed: ${_hunter_c_UNPARSED_ARGUMENTS}")
+    hunter_internal_error("unparsed: ${_hunter_c_UNPARSED_ARGUMENTS}")
   endif()
 
   # calc <NAME>_ROOT
@@ -41,6 +41,6 @@ macro(hunter_config)
     set(HUNTER_${_hunter_c_current_project}_VERSION ${_hunter_c_VERSION})
     set(HUNTER_${_hunter_c_current_project}_CMAKE_ARGS ${_hunter_c_CMAKE_ARGS})
   else()
-    hunter_fatal_error("Expected VERSION or CUSTOM")
+    hunter_internal_error("Expected VERSION or CUSTOM")
   endif()
 endmacro()

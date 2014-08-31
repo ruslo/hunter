@@ -3,7 +3,7 @@
 
 include(CMakeParseArguments) # cmake_parse_arguments
 
-include(hunter_fatal_error)
+include(hunter_internal_error)
 include(hunter_test_string_not_empty)
 include(hunter_unsetvar)
 
@@ -25,7 +25,7 @@ function(hunter_pick_scheme)
         "${HUNTER_BASE}/Toolchains/${HUNTER_INSTALL_TAG}/default_generator.info"
     )
     if(NOT EXISTS "${generator_info}")
-      hunter_fatal_error("File `${generator_info}` not found")
+      hunter_internal_error("File `${generator_info}` not found")
     endif()
 
     file(READ "${generator_info}" default_generator)
@@ -47,7 +47,7 @@ function(hunter_pick_scheme)
 
   cmake_parse_arguments(x "" "${one}" "" ${ARGV})
   if(x_UNPARSED_ARGUMENTS)
-    hunter_fatal_error("hunter_pick_scheme unparsed: ${x_UNPARSED_ARGUMENTS}")
+    hunter_internal_error("hunter_pick_scheme unparsed: ${x_UNPARSED_ARGUMENTS}")
   endif()
 
   string(COMPARE EQUAL "${CMAKE_OSX_SYSROOT}" "iphoneos" is_iphoneos)
@@ -62,7 +62,7 @@ function(hunter_pick_scheme)
   elseif(x_DEFAULT)
     set(HUNTER_DOWNLOAD_SCHEME "${x_DEFAULT}")
   else()
-    hunter_fatal_error("hunter_pick_scheme: expected DEFAULT")
+    hunter_internal_error("hunter_pick_scheme: expected DEFAULT")
   endif()
 
   # set HUNTER_DOWNLOAD_SCHEME_INSTALL

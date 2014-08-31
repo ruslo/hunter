@@ -14,6 +14,11 @@ function(hunter_test_has_write_permission)
 
   file(MAKE_DIRECTORY "${test_path}")
   if(NOT EXISTS "${test_path}")
-    hunter_fatal_error("Directory creation failed (permission denied?)")
+    hunter_fatal_error(
+         "Directory creation failed (${test_path})"
+         "May be permission denied (?)"
+         "Check free HDD space also"
+         WIKI "https://github.com/ruslo/hunter/wiki/Error-%28directory-creation-failed%29"
+    )
   endif()
 endfunction()

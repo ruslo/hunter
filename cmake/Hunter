@@ -56,12 +56,12 @@ list(APPEND CMAKE_MODULE_PATH "${HUNTER_SELF}/cmake/find")
 
 include(hunter_status_debug)
 include(hunter_status_print)
-include(hunter_fatal_error)
+include(hunter_internal_error)
 
 if(HUNTER_ROOT_OLD)
   string(COMPARE NOTEQUAL "${HUNTER_ROOT_OLD}" "${HUNTER_ROOT}" HUNTER_RESULT)
   if(HUNTER_RESULT)
-    hunter_fatal_error(
+    hunter_internal_error(
         "Incorrent HUNTER_ROOT directories:\n"
         "defined: ${HUNTER_ROOT_OLD}\n"
         "real: ${HUNTER_ROOT}"
@@ -88,7 +88,7 @@ if(CYGWIN)
       OUTPUT_STRIP_TRAILING_WHITESPACE
   )
   if(NOT _hunter_result EQUAL 0)
-    hunter_fatal_error("cygpath failed")
+    hunter_internal_error("cygpath failed")
   endif()
 
   # HUNTER_SELF
@@ -104,7 +104,7 @@ if(CYGWIN)
       OUTPUT_STRIP_TRAILING_WHITESPACE
   )
   if(NOT _hunter_result EQUAL 0)
-    hunter_fatal_error("cygpath failed")
+    hunter_internal_error("cygpath failed")
   endif()
 endif()
 
@@ -138,7 +138,7 @@ endif()
 get_directory_property(HUNTER_EP_BASE_OLD EP_BASE)
 
 if(HUNTER_EP_BASE_OLD)
-  hunter_fatal_error("EP_BASE directory property already set")
+  hunter_internal_error("EP_BASE directory property already set")
 endif()
 
 unset(HUNTER_EP_BASE_OLD)

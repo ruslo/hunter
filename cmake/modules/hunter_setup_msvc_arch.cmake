@@ -3,6 +3,8 @@
 
 cmake_minimum_required(VERSION 3.0)
 
+include(hunter_internal_error)
+
 macro(hunter_setup_msvc_arch)
   if(MSVC AND NOT HUNTER_MSVC_ARCH)
     # Detect architecture by MSVC name generator.
@@ -93,7 +95,7 @@ macro(hunter_setup_msvc_arch)
     elseif(_hunter_result_x86)
       set(HUNTER_MSVC_ARCH "x86")
     else()
-      hunter_fatal_error("Can't detect generator arch: ${CMAKE_GENERATOR}")
+      hunter_internal_error("Can't detect generator arch: ${CMAKE_GENERATOR}")
     endif()
 
     unset(_hunter_result_win64)

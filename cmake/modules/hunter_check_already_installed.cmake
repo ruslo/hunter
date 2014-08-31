@@ -3,7 +3,7 @@
 
 include(CMakeParseArguments) # cmake_parse_arguments
 
-include(hunter_fatal_error)
+include(hunter_internal_error)
 include(hunter_find_stamps)
 include(hunter_test_string_not_empty)
 
@@ -22,7 +22,7 @@ function(hunter_check_already_installed)
   # -> x_VARIANTS
 
   if(x_UNPARSED_ARGUMENTS)
-    hunter_fatal_error("Unparsed: ${x_UNPARSED_ARGUMENTS}")
+    hunter_internal_error("Unparsed: ${x_UNPARSED_ARGUMENTS}")
   endif()
 
   # Use: HUNTER_PACKAGE_BASENAME and HUNTER_BASE

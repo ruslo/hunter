@@ -1,8 +1,8 @@
 # Copyright (c) 2014, Ruslan Baratov
 # All rights reserved.
 
-include(hunter_fatal_error)
 include(hunter_get_temp_directory)
+include(hunter_internal_error)
 include(hunter_status_debug)
 include(hunter_test_string_not_empty)
 
@@ -52,11 +52,11 @@ function(hunter_set_cmake_default_generator)
   )
 
   if(NOT generate_result EQUAL "0")
-    hunter_fatal_error("Generate failed: exit with code ${generate_result}")
+    hunter_internal_error("Generate failed: exit with code ${generate_result}")
   endif()
 
   if(NOT EXISTS "${generator_info}")
-    hunter_fatal_error("Internal error `${generator_info}` not exists")
+    hunter_internal_error("`${generator_info}` not exists")
   endif()
 
   file(REMOVE_RECURSE "${temp_project_dir}")

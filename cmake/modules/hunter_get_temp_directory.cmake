@@ -30,7 +30,10 @@ function(hunter_get_temp_directory hint_directory result)
   string(RANDOM LENGTH 10 rand)
   set(temp_directory "${junctions_root}/${rand}")
   if(EXISTS "${temp_directory}")
-    hunter_fatal_error("Lucky you! Get your number: ${rand} (:")
+    hunter_fatal_error(
+        "Lucky you! Get your number: ${rand} (:"
+        WIKI "https://github.com/ruslo/hunter/wiki/Error-%28Lucky%29"
+    )
   endif()
 
   execute_process(
@@ -39,7 +42,10 @@ function(hunter_get_temp_directory hint_directory result)
   )
 
   if(NOT create_result EQUAL 0)
-    hunter_fatal_error("Directory `${junctions_root}` not created")
+    hunter_fatal_error(
+        "Directory creation failed (${junctions_root})"
+        WIKI "https://github.com/ruslo/hunter/wiki/Error-%28directory-creation-failed%29"
+    )
   endif()
 
   hunter_status_debug("Create windows junction:")
@@ -57,7 +63,10 @@ function(hunter_get_temp_directory hint_directory result)
   )
 
   if(NOT junctions_result EQUAL 0)
-    hunter_fatal_error("Junction point creation failed")
+    hunter_fatal_error(
+        "Junction point creation failed"
+        WIKI "https://github.com/ruslo/hunter/wiki/Error-%28Junction-point-creation-failed%29"
+    )
   endif()
 
   set(${result} "${temp_directory}" PARENT_SCOPE)

@@ -4,6 +4,7 @@
 cmake_minimum_required(VERSION 3.0)
 
 include(hunter_fatal_error)
+include(hunter_internal_error)
 include(hunter_status_debug)
 include(hunter_test_string_not_empty)
 include(hunter_try_lock)
@@ -39,7 +40,7 @@ function(hunter_lock)
       set(fullinfo "????")
       string(COMPARE EQUAL "${counter}" "xxxxx" timeout_reached)
       if(timeout_reached)
-        hunter_fatal_error(
+        hunter_internal_error(
             "Timeout: no full info about locked directory for 25 seconds"
         )
       endif()
@@ -60,7 +61,10 @@ function(hunter_lock)
       file(READ "${HUNTER_LOCK_INFO}" info)
       string(COMPARE EQUAL "${info}" "${PROJECT_BINARY_DIR}" incorrect)
       if(incorrect)
-        hunter_fatal_error("Waiting for self directory")
+        hunter_fatal_error(
+            "Waiting for self directory"
+            WIKI "https://github.com/ruslo/hunter/wiki/Error-%28Waiting-for-self-directory%29"
+        )
       endif()
       if(NOT EXISTS "${info}")
         # Do not crash here, this may happens (checking/reading is not atomic)

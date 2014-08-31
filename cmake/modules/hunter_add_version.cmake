@@ -3,7 +3,7 @@
 
 include(CMakeParseArguments) # cmake_parse_arguments
 
-include(hunter_fatal_error)
+include(hunter_internal_error)
 include(hunter_status_debug)
 
 # If 'HUNTER_<name>_VERSION' is equal to 'h_VERSION', then
@@ -12,19 +12,19 @@ function(hunter_add_version)
   set(h_one_value PACKAGE_NAME VERSION URL SHA1)
   cmake_parse_arguments(h "" "${h_one_value}" "" ${ARGV})
   if(h_UNPARSED_ARGUMENTS)
-    hunter_fatal_error("unexpected argument: ${h_UNPARSED_ARGUMENTS}")
+    hunter_internal_error("unexpected argument: ${h_UNPARSED_ARGUMENTS}")
   endif()
   if(NOT h_PACKAGE_NAME)
-    hunter_fatal_error("PACKAGE_NAME can't be empty")
+    hunter_internal_error("PACKAGE_NAME can't be empty")
   endif()
   if(NOT h_VERSION)
-    hunter_fatal_error("VERSION can't be empty")
+    hunter_internal_error("VERSION can't be empty")
   endif()
   if(NOT h_URL)
-    hunter_fatal_error("URL can't be empty")
+    hunter_internal_error("URL can't be empty")
   endif()
   if(NOT h_SHA1)
-    hunter_fatal_error("SHA1 can't be empty")
+    hunter_internal_error("SHA1 can't be empty")
   endif()
 
   # update HUNTER_<name>_VERSIONS (list of available versions)
@@ -44,7 +44,7 @@ function(hunter_add_version)
   set(expected_version "HUNTER_${h_PACKAGE_NAME}_VERSION")
   string(COMPARE EQUAL "${${expected_version}}" "" version_is_empty)
   if(version_is_empty)
-    hunter_fatal_error(
+    hunter_internal_error(
         "Both <NAME>_ROOT and HUNTER_<name>_VERSION can't be empty "
         "(${h_PACKAGE_NAME})"
         "(probably `hunter_config(...)` missing in config.cmake)"

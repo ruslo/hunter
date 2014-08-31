@@ -105,6 +105,9 @@ function(hunter_verify_toolchain_info)
         "Please compare this two files and fix it.\n"
         "Set HUNTER_SKIP_TOOLCHAIN_VERIFICATION to YES to ignore.\n"
     )
-    hunter_fatal_error("Toolchain verification failed")
+    hunter_fatal_error(
+        "Toolchain verification failed"
+        WIKI "https://github.com/ruslo/hunter/wiki/Error-%28toolchain-verification-failed%29"
+    )
   endif()
 endfunction()

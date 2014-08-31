@@ -9,6 +9,7 @@ include(hunter_check_already_installed)
 include(hunter_fatal_error)
 include(hunter_find_stamps)
 include(hunter_get_temp_directory)
+include(hunter_internal_error)
 include(hunter_lock)
 include(hunter_status_debug)
 include(hunter_status_print)
@@ -29,7 +30,7 @@ function(hunter_download)
   # -> HUNTER_PACKAGE_COMPONENT
 
   if(h_UNPARSED_ARGUMENTS)
-    hunter_fatal_error("Internal error")
+    hunter_internal_error("Unparsed")
   endif()
 
   set(versions "[${HUNTER_${HUNTER_PACKAGE_NAME}_VERSIONS}]")
@@ -57,7 +58,7 @@ function(hunter_download)
   endif()
 
   if(NOT DEFINED HUNTER_DOWNLOAD_SCHEME_INSTALL)
-    hunter_fatal_error("HUNTER_DOWNLOAD_SCHEME_INSTALL not defined")
+    hunter_internal_error("HUNTER_DOWNLOAD_SCHEME_INSTALL not defined")
   endif()
   if(HUNTER_DOWNLOAD_SCHEME_INSTALL)
     set(${h_root_name} "${HUNTER_BASE}/Install/${HUNTER_INSTALL_TAG}")
@@ -73,9 +74,9 @@ function(hunter_download)
   hunter_status_print("${h_root_name}: ${${h_root_name}} (ver.: ${ver})")
 
   # creating temporary working directory where download project will reside
-  if(NOT PROJECT_BINARY_DIR)
-    hunter_fatal_error(
-        "PROJECT_BINARY_DIR is empty. "
+  if(NOT CMAKE_BINARY_DIR)
+    hunter_internal_error(
+        "CMAKE_BINARY_DIR is empty. "
         "Move file **after** first 'project' command"
     )
   endif()
@@ -121,7 +122,7 @@ function(hunter_download)
 
   ### Directory modifications start from here
   ### Expected that only one process working
-  set(h_work_dir "${PROJECT_BINARY_DIR}/_3rdParty/hunter/external")
+  set(h_work_dir "${CMAKE_BINARY_DIR}/_3rdParty/hunter/external")
   file(REMOVE_RECURSE "${h_work_dir}")
 
   hunter_get_temp_directory("${h_work_dir}" h_work_dir) # pure
@@ -185,7 +186,7 @@ function(hunter_download)
 
   if(NOT HUNTER_PACKAGE_URL)
     set(avail ${HUNTER_${h_name}_VERSIONS})
-    hunter_fatal_error(
+    hunter_internal_error(
         "${h_name} version(${ver}) not found. Available: [${avail}]"
     )
   endif()
@@ -208,7 +209,7 @@ function(hunter_download)
       "${HUNTER_SELF}/cmake/schemes/${HUNTER_DOWNLOAD_SCHEME}.cmake.in"
   )
   if(NOT EXISTS "${download_scheme}")
-    hunter_fatal_error("Download scheme `${download_scheme}` not found")
+    hunter_internal_error("Download scheme `${download_scheme}` not found")
   endif()
 
   # Remove configure step stamps and build directories.
@@ -221,7 +222,7 @@ function(hunter_download)
 
   foreach(stamp ${configure_list_stamps})
     if(NOT EXISTS "${stamp}")
-      hunter_fatal_error("Internal error")
+      hunter_internal_error("Stamp not found")
     endif()
     file(REMOVE "${stamp}")
   endforeach()
@@ -279,7 +280,7 @@ function(hunter_download)
     hunter_status_debug("Generate step successful (dir: ${h_work_dir})")
   else()
     hunter_unlock()
-    hunter_fatal_error("generate step failed (dir: ${h_work_dir})")
+    hunter_internal_error("generate step failed (dir: ${h_work_dir})")
   endif()
 
   set(counter "")
@@ -305,8 +306,9 @@ function(hunter_download)
       if(NOT already_installed)
          hunter_unlock()
          hunter_fatal_error(
-             "External project reported that build successfull but"
-             " there are no stamps."
+             "External project reported that build successfull"
+             "but there are no stamps."
+             WIKI "https://github.com/ruslo/hunter/wiki/Error-%28External-project-reported-that-build-successfull%29"
          )
       endif()
       hunter_status_print("Build step successful (dir: ${h_work_dir})")
@@ -322,7 +324,7 @@ function(hunter_download)
       string(COMPARE EQUAL "${counter}" "xxxx" stop_condition)
       if(stop_condition)
         hunter_unlock()
-        hunter_fatal_error("build step failed (dir: ${h_work_dir}")
+        hunter_internal_error("build step failed (dir: ${h_work_dir}")
       else()
         string(TIMESTAMP time_now)
         hunter_status_print(

@@ -3,7 +3,7 @@
 
 include(CMakeParseArguments) # cmake_parse_arguments
 
-include(hunter_fatal_error)
+include(hunter_internal_error)
 include(hunter_test_string_not_empty)
 
 function(hunter_find_stamps)
@@ -16,23 +16,23 @@ function(hunter_find_stamps)
   cmake_parse_arguments(x "" "${one}" "${multi}" ${ARGV})
 
   if(x_UNPARSED_ARGUMENTS)
-    hunter_fatal_error("Unparsed: ${x_UNPARSED_ARGUMENTS}")
+    hunter_internal_error("Unparsed: ${x_UNPARSED_ARGUMENTS}")
   endif()
 
   if(NOT x_NAME)
-    hunter_fatal_error("NAME argument is required")
+    hunter_internal_error("NAME argument is required")
   endif()
 
   string(COMPARE EQUAL "${x_NAME}" "install" is_install)
   string(COMPARE EQUAL "${x_NAME}" "configure" is_configure)
   if(NOT is_install AND NOT is_configure)
-    hunter_fatal_error(
+    hunter_internal_error(
         "NAME argument `${x_NAME}` is not `install` or `configure`"
     )
   endif()
 
   if(NOT x_RESULT)
-    hunter_fatal_error("RESULT argument is required")
+    hunter_internal_error("RESULT argument is required")
   endif()
 
   if(NOT x_VARIANTS)

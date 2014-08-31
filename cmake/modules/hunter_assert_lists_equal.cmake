@@ -1,13 +1,13 @@
 # Copyright (c) 2013, Ruslan Baratov
 # All rights reserved.
 
-include(hunter_fatal_error)
+include(hunter_internal_error)
 
 function(hunter_assert_lists_equal)
   list(LENGTH ARGV list_len)
   math(EXPR list_uneven "(${list_len}) % 2")
   if(list_uneven EQUAL 1)
-    hunter_fatal_error("Uneven number of items")
+    hunter_internal_error("Uneven number of items")
   endif()
   if(list_len EQUAL 0)
     return()
@@ -21,7 +21,7 @@ function(hunter_assert_lists_equal)
     list(GET ARGV ${index_b} value_b)
     string(COMPARE EQUAL "${value_a}" "${value_b}" result)
     if(NOT result)
-      hunter_fatal_error(
+      hunter_internal_error(
           "Lists are not equal:"
           "at index: ${index_a} ${index_b}"
           "values: ${value_a} ${value_b}"

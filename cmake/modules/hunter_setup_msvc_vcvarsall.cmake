@@ -3,6 +3,8 @@
 
 cmake_minimum_required(VERSION 3.0)
 
+include(hunter_internal_error)
+
 macro(hunter_setup_msvc_vcvarsall)
   if(MSVC AND NOT HUNTER_MSVC_VCVARSALL)
     set(_hunter_result "${CMAKE_GENERATOR}")
@@ -30,7 +32,7 @@ macro(hunter_setup_msvc_vcvarsall)
         NO_DEFAULT_PATH
     )
     if(NOT HUNTER_MSVC_VCVARSALL)
-      hunter_fatal_error("vcvarsall.bat not found in `${_hunter_result}`")
+      hunter_internal_error("vcvarsall.bat not found in `${_hunter_result}`")
     endif()
   endif()
 endmacro()
