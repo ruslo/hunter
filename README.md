@@ -26,7 +26,7 @@ or [add a new one](https://github.com/ruslo/hunter/wiki/Adding-new-package)
 ### Features
 
 * Automatic dependencies download
- * List of dependencies is a part of cmake code
+ * List of dependencies is a part of cmake code of the project
  * No `emerge`, `apt-get`, `brew` etc. needed before build, now it's simply `cmake --build`
  * Express install instructions in terms of CMake commands instead of raw README text or other script
 * Reusable `ExternalProject_Add` recipies ([DRY principle](http://c2.com/cgi/wiki?DontRepeatYourself))
