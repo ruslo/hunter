@@ -11,7 +11,8 @@ if(NOT HUNTER_SELF)
   message(FATAL_ERROR "")
 endif()
 
-include("${HUNTER_SELF}/cmake/modules/hunter_internal_error.cmake")
+list(APPEND CMAKE_MODULE_PATH "${HUNTER_SELF}/cmake/modules")
+include(hunter_internal_error)
 
 if(NOT TOOLCHAIN_INFO_FILE)
   hunter_internal_error("TOOLCHAIN_INFO_FILE is empty")
