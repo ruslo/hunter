@@ -1,7 +1,7 @@
 Hunter
 ======
 
-* Cross-platform package manager for CMake (based on ExternalProject)
+* Cross-platform package manager for C++ (based on CMake ExternalProject)
 * Supported platforms: Linux, Mac, Windows, iOS
 
 [![Build Status][link_master]][link_hunter]
