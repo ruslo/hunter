@@ -76,5 +76,60 @@ hunter_add_version(
     230782c7219882d0fab5f1effbe86edb85238bf4
 )
 
+hunter_add_version(
+    PACKAGE_NAME
+    Boost
+    VERSION
+    "1.53.0"
+    URL
+    "http://sourceforge.net/projects/boost/files/boost/1.53.0/boost_1_53_0.tar.bz2/download"
+    SHA1
+    e6dd1b62ceed0a51add3dda6f3fc3ce0f636a7f3
+)
+
+hunter_add_version(
+    PACKAGE_NAME
+    Boost
+    VERSION
+    "1.52.0"
+    URL
+    "http://sourceforge.net/projects/boost/files/boost/1.52.0/boost_1_52_0.tar.bz2/download"
+    SHA1
+    cddd6b4526a09152ddc5db856463eaa1dc29c5d9
+)
+
+hunter_add_version(
+    PACKAGE_NAME
+    Boost
+    VERSION
+    "1.51.0"
+    URL
+    "http://sourceforge.net/projects/boost/files/boost/1.51.0/boost_1_51_0.tar.bz2/download"
+    SHA1
+    52ef06895b97cc9981b8abf1997c375ca79f30c5
+)
+
+hunter_add_version(
+    PACKAGE_NAME
+    Boost
+    VERSION
+    "1.50.0"
+    URL
+    "http://sourceforge.net/projects/boost/files/boost/1.50.0/boost_1_50_0.tar.bz2/download"
+    SHA1
+    ee06f89ed472cf369573f8acf9819fbc7173344e
+)
+
+hunter_add_version(
+    PACKAGE_NAME
+    Boost
+    VERSION
+    "1.49.0"
+    URL
+    "http://sourceforge.net/projects/boost/files/boost/1.49.0/boost_1_49_0.tar.bz2/download"
+    SHA1
+    26a52840e9d12f829e3008589abf0a925ce88524
+)
+
 hunter_pick_scheme(DEFAULT url_sha1_boost)
 hunter_download(PACKAGE_NAME Boost)
