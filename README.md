@@ -1,7 +1,7 @@
 Hunter
 ======
 
-* Cross-platform package manager for CMake (based on ExternalProject)
+* Cross-platform package manager for C++ (based on CMake ExternalProject)
 * Supported platforms: Linux, Mac, Windows, iOS
 
 [![Build Status][link_master]][link_hunter]
@@ -17,7 +17,7 @@ Hunter (0.4.2) = { Boost (1.55.0), GTest (1.7.0), JsonSpirit(0.0.1), OpenSSL(1.0
 ```
 
 * Currently used versions can be found in
-[cmake/config.cmake](https://github.com/ruslo/hunter/blob/master/cmake/config.cmake) file and are customizable (though there are no guaranties that some combinations are workable)
+[cmake/config.cmake](https://github.com/ruslo/hunter/blob/master/cmake/config.cmake) file and are customizable
 * Per package versions are available in corresponding `hunter.cmake` file
 (e.g. [GTest](https://github.com/ruslo/hunter/blob/master/cmake/projects/GTest/hunter.cmake)).
 You can pick one version that already exists
@@ -26,17 +26,17 @@ or [add a new one](https://github.com/ruslo/hunter/wiki/Adding-new-package)
 ### Features
 
 * Automatic dependencies download
- * No more `emerge`, `apt-get`, `brew` etc. Now it's simply `cmake --build`
+ * List of dependencies is a part of cmake code of the project
+ * No `emerge`, `apt-get`, `brew` etc. needed before build, now it's simply `cmake --build`
  * Express install instructions in terms of CMake commands instead of raw README text or other script
 * Reusable `ExternalProject_Add` recipies ([DRY principle](http://c2.com/cgi/wiki?DontRepeatYourself))
  * Once written formula can be used by other projects, subprojects etc. without copying of collection of
 superbuild files. Just change 2 lines of code: SHA1 and URL of hunter archive
 * Customizable builds
- * Does your package manager support 32/64 bit libraries?
- * Debug/Release version of libraries?
- * Can you build your third-party dependencies with
-[Clang Memory Sanitizer](http://clang.llvm.org/docs/MemorySanitizer.html)?
- * Can you install your favorite library in static variant instead of dynamic?
+ * Build 32/64 bit libraries
+ * Debug/Release version of libraries
+ * Build with different tools like [Clang Memory Sanitizer](http://clang.llvm.org/docs/MemorySanitizer.html)
+ * Static/dynamic variant of library
  * ...
 
 ### First step
@@ -111,23 +111,6 @@ or remove particular snapshot by command:
 ```bash
 rm -rf "${HUNTER_ROOT}/_Base/3a6c66670d-BLABLA-2567c3d44b2a99e288e3c8"
 ```
-
-### How to update?
-
-There is no such thing as update here. If you create a new version
-(meta-version, i.e. snapshot of different packages' versions)
-then you will build all of them from scratch
-([see rationale](https://github.com/ruslo/hunter/wiki/Rationale)).
-
-* **Cons** Big one and kind of obvious - it can take a long time to compile, not for every-day update
-* **Pros** One versions of all packages independently on all platforms
-* **Pros** You can use different meta-versions simultaniously (which is really usefull in CI testing). E.g.:
-```
-<HUNTER_ROOT>/_Base/3a6c66670d-BLABLA-2567c3d44b2a99e288e3c8 # Boost 1.55 + OpenSSL 0.9.8 + GTest 1.6
-<HUNTER_ROOT>/_Base/f46f105449-BLABLA-9f866237038b70d03ebcc8 # Boost 1.53 + OpenSSL 1.0.1h + GTest 1.7
-```
-
-So put a **stable** releases inside `config.cmake` and something like submodules for everything else.
 
 ### Links
 * [Gate to hunter packages](https://github.com/hunter-packages/gate)
