@@ -112,6 +112,10 @@ or remove particular snapshot by command:
 rm -rf "${HUNTER_ROOT}/_Base/3a6c66670d-BLABLA-2567c3d44b2a99e288e3c8"
 ```
 
+### Questions?
+
+If you have any questions feel free to [ask](https://groups.google.com/forum/#!forum/hunter-package-manager).
+
 ### Links
 * [Gate to hunter packages](https://github.com/hunter-packages/gate)
 * [Simple project example](https://github.com/forexample/hunter-simple)
