@@ -114,7 +114,7 @@ rm -rf "${HUNTER_ROOT}/_Base/3a6c66670d-BLABLA-2567c3d44b2a99e288e3c8"
 
 ### Contribution
 
-Please send a patch as a pull request against the branch [develop][1]. After successfull build it will be merged to branch [master][2] automatically.
+Read [wiki][3] before making changes. Please send a patch as a pull request against the branch [develop][1]. After successfull build this branch will be merged to [master][2] automatically.
 
 ### Links
 * [Gate to hunter packages](https://github.com/hunter-packages/gate)
@@ -125,3 +125,4 @@ Please send a patch as a pull request against the branch [develop][1]. After suc
 
 [1]: https://github.com/ruslo/hunter/tree/develop
 [2]: https://github.com/ruslo/hunter/tree/master
+[3]: https://github.com/ruslo/hunter/wiki#develop
