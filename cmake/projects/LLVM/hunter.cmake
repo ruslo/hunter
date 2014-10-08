@@ -9,6 +9,7 @@ endif()
 
 include(hunter_add_version)
 include(hunter_add_version_start)
+include(hunter_cmake_args)
 include(hunter_download)
 include(hunter_pick_scheme)
 
@@ -27,6 +28,17 @@ hunter_add_version(
     "http://llvm.org/releases/3.4.2/llvm-3.4.2.src.tar.gz"
     SHA1
     c5287384d0b95ecb0fd7f024be2cdfb60cd94bc9
+)
+
+hunter_cmake_args(
+  LLVM
+  CMAKE_ARGS
+    "LLVM_EXTERNAL_CLANG_SOURCE_DIR=${HUNTER_BASE}/Source/Clang"
+    "LLVM_EXTERNAL_CLANG_TOOLS_EXTRA_SOURCE_DIR=${HUNTER_BASE}/Source/ClangToolsExtra"
+    "LLVM_EXTERNAL_COMPILER_RT_SOURCE_DIR=${HUNTER_BASE}/Source/LLVMCompilerRT"
+    LLVM_INCLUDE_EXAMPLES=OFF
+    LLVM_INCLUDE_TESTS=OFF
+    LLVM_INCLUDE_DOCS=OFF
 )
 
 hunter_pick_scheme(DEFAULT url_sha1_release)
