@@ -114,7 +114,7 @@ rm -rf "${HUNTER_ROOT}/_Base/3a6c66670d-BLABLA-2567c3d44b2a99e288e3c8"
 
 ### Questions?
 
-If you have any questions feel free to [ask](https://groups.google.com/forum/#!forum/hunter-package-manager).
+Feel free to open new [issue][1] if you want to ask any questions.
 
 ### Links
 * [Gate to hunter packages](https://github.com/hunter-packages/gate)
@@ -122,3 +122,5 @@ If you have any questions feel free to [ask](https://groups.google.com/forum/#!f
 * [Bigger one](https://github.com/ruslo/weather)
 * [Toolchain examples](https://github.com/ruslo/polly)
 * [Travis CI build example](https://github.com/forexample/hunter-simple/blob/master/.travis.yml)
+
+[1]: https://github.com/ruslo/hunter/issues/new
