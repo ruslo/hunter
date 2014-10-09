@@ -1,4 +1,5 @@
 # Copyright (c) 2013, Ruslan Baratov
+# Copyright (c) 2014, Alexander Lamaison
 # All rights reserved.
 
 include(CMakeParseArguments) # cmake_parse_arguments
