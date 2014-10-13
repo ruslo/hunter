@@ -22,6 +22,41 @@ def run():
   project_dir = os.getenv('PROJECT_DIR')
   if not project_dir:
     sys.exit('Expected environment variable PROJECT_DIR')
+
+  # Check broken builds --
+  if (project_dir == 'examples/Boost-filesystem') and (toolchain == 'analyze'):
+    print('Skip (https://github.com/ruslo/hunter/issues/25)')
+    sys.exit(0)
+
+  if (project_dir == 'examples/Boost-system') and (toolchain == 'analyze'):
+    print('Skip (https://github.com/ruslo/hunter/issues/26)')
+    sys.exit(0)
+
+  if (project_dir == 'examples/Boost') and (toolchain == 'mingw'):
+    print('Skip (https://github.com/ruslo/hunter/issues/27)')
+    sys.exit(0)
+
+  if (project_dir == 'examples/Boost-system') and (toolchain == 'mingw'):
+    print('Skip (https://github.com/ruslo/hunter/issues/27)')
+    sys.exit(0)
+
+  if (project_dir == 'examples/Boost-filesystem') and (toolchain == 'mingw'):
+    print('Skip (https://github.com/ruslo/hunter/issues/27)')
+    sys.exit(0)
+
+  if (project_dir == 'examples/OpenSSL') and (toolchain == 'mingw'):
+    print('Skip (https://github.com/ruslo/hunter/issues/28)')
+    sys.exit(0)
+
+  if (project_dir == 'examples/OpenSSL') and (toolchain == 'ios-7-0'):
+    print('Skip (https://github.com/ruslo/hunter/issues/29)')
+    sys.exit(0)
+
+  if (project_dir == 'examples/OpenSSL') and (toolchain == 'xcode'):
+    print('Skip (https://github.com/ruslo/hunter/issues/30)')
+    sys.exit(0)
+  # -- end
+
   project_dir = os.path.join(cdir, project_dir)
   project_dir = os.path.normpath(project_dir)
 
