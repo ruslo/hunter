@@ -4,35 +4,76 @@ language:
 install:
     - brew install cmake
     - brew install python3
-    - CMAKE_VERSION="3.0.0-ios-universal"
+    # install cmake
+    - CMAKE_VERSION="3.0.2-ios-universal"
     - wget "https://github.com/ruslo/CMake/archive/v${CMAKE_VERSION}.tar.gz"
     - openssl sha1 "v${CMAKE_VERSION}.tar.gz"
     - tar xf "v${CMAKE_VERSION}.tar.gz"
     - cd "CMake-${CMAKE_VERSION}"
-    -   cmake -H. -B_builds -DCMAKE_INSTALL_PREFIX="`pwd`/_install" -DCMAKE_BUILD_TYPE=Release -DCMAKE_USE_SYSTEM_CURL=YES
+    -   cmake -H. -B_builds -DCMAKE_INSTALL_PREFIX="`pwd`/_install/" -DCMAKE_BUILD_TYPE=Release -DCMAKE_USE_SYSTEM_CURL=YES
     -   cmake --build _builds --target install
     -   export PATH="`pwd`/_install/bin:${PATH}"
     - cd ..
-    - which cmake
-    - cmake --version
+    # -- end
+    # install cmake toolchains and script
+    - POLLY_VERSION="0.6.0"
+    - wget "https://github.com/ruslo/polly/archive/v${POLLY_VERSION}.tar.gz"
+    - tar xf "v${POLLY_VERSION}.tar.gz"
+    - export POLLY_ROOT="`pwd`/polly-${POLLY_VERSION}"
+    - export PATH="${POLLY_ROOT}/bin:${PATH}"
+    # -- end
 
 env:
-    - TEST_DIR=cmake/schemes TEST_NAME=tests/url_sha1_boost
-    - TEST_DIR=cmake/schemes TEST_NAME=tests/url_sha1_boost_ios_library
-    - TEST_DIR=cmake/schemes TEST_NAME=tests/url_sha1_boost_library
-    - TEST_DIR=cmake/schemes TEST_NAME=tests/url_sha1_combined_release_debug
-    - TEST_DIR=cmake/schemes TEST_NAME=tests/url_sha1_no_install
-    - TEST_DIR=cmake/schemes TEST_NAME=tests/url_sha1_openssl
-    - TEST_DIR=cmake/schemes TEST_NAME=tests/url_sha1_openssl_ios
-    - TEST_DIR=cmake/schemes TEST_NAME=tests/url_sha1_release_debug
-    - TEST_DIR=examples TEST_NAME=Sugar
-    - TEST_DIR=examples TEST_NAME=GTest
-    - TEST_DIR=examples TEST_NAME=Boost
-    - TEST_DIR=examples TEST_NAME=Boost-filesystem
-    - TEST_DIR=examples TEST_NAME=Boost-system
-    - TEST_DIR=examples TEST_NAME=Boost-stdlibcxx
-    - TEST_DIR=examples TEST_NAME=Boost-ios
-    # - TEST_DIR=examples TEST_NAME=CppNetlib TODO add cache (> 40 min)
+    #
+    - PROJECT_DIR=examples/Boost TOOLCHAIN=default
+    - PROJECT_DIR=examples/Boost TOOLCHAIN=libcxx
+    - PROJECT_DIR=examples/Boost TOOLCHAIN=clang-libstdcxx
+    - PROJECT_DIR=examples/Boost TOOLCHAIN=xcode
+    - PROJECT_DIR=examples/Boost TOOLCHAIN=gcc
+    - PROJECT_DIR=examples/Boost TOOLCHAIN=ios-nocodesign
+    - PROJECT_DIR=examples/Boost TOOLCHAIN=analyze
+    #
+    - PROJECT_DIR=examples/Boost-filesystem TOOLCHAIN=default
+    - PROJECT_DIR=examples/Boost-filesystem TOOLCHAIN=libcxx
+    - PROJECT_DIR=examples/Boost-filesystem TOOLCHAIN=clang-libstdcxx
+    - PROJECT_DIR=examples/Boost-filesystem TOOLCHAIN=xcode
+    - PROJECT_DIR=examples/Boost-filesystem TOOLCHAIN=gcc
+    - PROJECT_DIR=examples/Boost-filesystem TOOLCHAIN=ios-nocodesign
+    - PROJECT_DIR=examples/Boost-filesystem TOOLCHAIN=analyze
+    #
+    - PROJECT_DIR=examples/Boost-system TOOLCHAIN=default
+    - PROJECT_DIR=examples/Boost-system TOOLCHAIN=libcxx
+    - PROJECT_DIR=examples/Boost-system TOOLCHAIN=clang-libstdcxx
+    - PROJECT_DIR=examples/Boost-system TOOLCHAIN=xcode
+    - PROJECT_DIR=examples/Boost-system TOOLCHAIN=gcc
+    - PROJECT_DIR=examples/Boost-system TOOLCHAIN=ios-nocodesign
+    - PROJECT_DIR=examples/Boost-system TOOLCHAIN=analyze
+    #
+    - PROJECT_DIR=examples/GTest TOOLCHAIN=default
+    - PROJECT_DIR=examples/GTest TOOLCHAIN=libcxx
+    - PROJECT_DIR=examples/GTest TOOLCHAIN=clang-libstdcxx
+    - PROJECT_DIR=examples/GTest TOOLCHAIN=xcode
+    - PROJECT_DIR=examples/GTest TOOLCHAIN=gcc
+    - PROJECT_DIR=examples/GTest TOOLCHAIN=ios-nocodesign
+    - PROJECT_DIR=examples/GTest TOOLCHAIN=analyze
+    #
+    - PROJECT_DIR=examples/OpenSSL TOOLCHAIN=default
+    - PROJECT_DIR=examples/OpenSSL TOOLCHAIN=libcxx
+    - PROJECT_DIR=examples/OpenSSL TOOLCHAIN=clang-libstdcxx
+    - PROJECT_DIR=examples/OpenSSL TOOLCHAIN=xcode
+    - PROJECT_DIR=examples/OpenSSL TOOLCHAIN=gcc
+    - PROJECT_DIR=examples/OpenSSL TOOLCHAIN=ios-nocodesign
+    - PROJECT_DIR=examples/OpenSSL TOOLCHAIN=analyze
+    #
+    - PROJECT_DIR=examples/Sugar TOOLCHAIN=default
+    - PROJECT_DIR=examples/Sugar TOOLCHAIN=libcxx
+    - PROJECT_DIR=examples/Sugar TOOLCHAIN=clang-libstdcxx
+    - PROJECT_DIR=examples/Sugar TOOLCHAIN=xcode
+    - PROJECT_DIR=examples/Sugar TOOLCHAIN=gcc
+    - PROJECT_DIR=examples/Sugar TOOLCHAIN=ios-nocodesign
+    - PROJECT_DIR=examples/Sugar TOOLCHAIN=analyze
 
 script:
+    - which cmake
+    - cmake --version
     - python3 ./jenkins.py
