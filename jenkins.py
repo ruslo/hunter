@@ -19,10 +19,6 @@ def run():
   if not toolchain:
     sys.exit('Environment variable TOOLCHAIN is empty')
 
-  config = os.getenv('CONFIG')
-  if not config:
-    sys.exit('Environment variable CONFIG is empty')
-
   project_dir = os.getenv('PROJECT_DIR')
   if not project_dir:
     sys.exit('Expected environment variable PROJECT_DIR')
@@ -61,8 +57,6 @@ def run():
       '--clear',
       '--toolchain',
       toolchain,
-      '--config',
-      config,
       '--home',
       project_dir,
       '--fwd',
