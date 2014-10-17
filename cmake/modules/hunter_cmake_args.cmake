@@ -25,7 +25,10 @@ macro(hunter_cmake_args)
   list(GET _hunter_c_UNPARSED_ARGUMENTS 0 _hunter_c_current_project)
 
   if(_hunter_c_CMAKE_ARGS)
-    set(HUNTER_${_hunter_c_current_project}_CMAKE_ARGS ${_hunter_c_CMAKE_ARGS})
+    list(
+      # Prepend to list so already-set variables have priority
+      INSERT HUNTER_${_hunter_c_current_project}_CMAKE_ARGS 0
+      ${_hunter_c_CMAKE_ARGS})
   else()
     hunter_fatal_error("Expected CMAKE_ARGS")
   endif()
