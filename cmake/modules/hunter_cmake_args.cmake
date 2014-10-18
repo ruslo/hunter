@@ -5,7 +5,7 @@
 include(CMakeParseArguments) # cmake_parse_arguments
 
 include(hunter_fatal_error)
-include(hunter_unsetvar)
+
 
 # internal variables: _hunter_c_*
 macro(hunter_cmake_args)
