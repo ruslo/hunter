@@ -73,6 +73,10 @@ env:
     - PROJECT_DIR=examples/Sugar TOOLCHAIN=ios-nocodesign
     - PROJECT_DIR=examples/Sugar TOOLCHAIN=analyze
 
+    ### TESTS --
+    - PROJECT_DIR=tests/simple TOOLCHAIN=default
+    ### -- end
+
 script:
     - which cmake
     - cmake --version
