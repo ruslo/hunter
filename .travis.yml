@@ -1,26 +1,30 @@
+# Mac OS X (https://github.com/travis-ci-tester/toolchain-table)
+
 language:
     - objective-c
 
 install:
     - brew install cmake
     - brew install python3
+    # install cmake toolchains and script
+    - POLLY_VERSION="0.6.1"
+    - wget "https://github.com/ruslo/polly/archive/v${POLLY_VERSION}.tar.gz"
+    - tar xf "v${POLLY_VERSION}.tar.gz"
+    - export PATH="`pwd`/polly-${POLLY_VERSION}/bin:${PATH}"
+    # -- end
     # install cmake
     - CMAKE_VERSION="3.0.2-ios-universal"
     - wget "https://github.com/ruslo/CMake/archive/v${CMAKE_VERSION}.tar.gz"
     - openssl sha1 "v${CMAKE_VERSION}.tar.gz"
     - tar xf "v${CMAKE_VERSION}.tar.gz"
     - cd "CMake-${CMAKE_VERSION}"
-    -   cmake -H. -B_builds -DCMAKE_INSTALL_PREFIX="`pwd`/_install/" -DCMAKE_BUILD_TYPE=Release -DCMAKE_USE_SYSTEM_CURL=YES
-    -   cmake --build _builds --target install
-    -   export PATH="`pwd`/_install/bin:${PATH}"
+    -   build.py --install --toolchain default --config Release --fwd "CMAKE_USE_SYSTEM_CURL=YES"
+    -   export PATH="`pwd`/_install/default/bin:${PATH}"
     - cd ..
     # -- end
-    # install cmake toolchains and script
-    - POLLY_VERSION="0.6.0"
-    - wget "https://github.com/ruslo/polly/archive/v${POLLY_VERSION}.tar.gz"
-    - tar xf "v${POLLY_VERSION}.tar.gz"
-    - export POLLY_ROOT="`pwd`/polly-${POLLY_VERSION}"
-    - export PATH="${POLLY_ROOT}/bin:${PATH}"
+    # verify installed cmake
+    - which cmake
+    - cmake --version
     # -- end
 
 env:
@@ -78,6 +82,4 @@ env:
     ### -- end
 
 script:
-    - which cmake
-    - cmake --version
     - python3 ./jenkins.py
