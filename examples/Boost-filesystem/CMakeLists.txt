@@ -4,14 +4,9 @@
 cmake_minimum_required(VERSION 3.0)
 project(download-boost)
 
-set(CMAKE_BUILD_TYPE Release)
-
-# Let hunter be more verbose
-set(HUNTER_STATUS_DEBUG ON CACHE BOOL "")
-
-# emulate ${HUNTER_SELF}/cmake/Hunter
+# Emulate HunterGate:
+# * https://github.com/hunter-packages/gate
 include("../common.cmake")
-include(hunter_add_package)
 
 # download boost
 hunter_add_package(Boost COMPONENTS filesystem)
@@ -22,4 +17,4 @@ if(MSVC)
   add_definitions(-DBOOST_ALL_NO_LIB=1)
 endif()
 find_package(Boost 1.55 REQUIRED filesystem)
-message("boost libraries: ${Boost_LIBRARIES}")
+message("Boost libraries: ${Boost_LIBRARIES}")
