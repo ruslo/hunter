@@ -1,7 +1,7 @@
-list(APPEND CMAKE_MODULE_PATH
-  ${CMAKE_CURRENT_LIST_DIR}/../../../cmake/modules)
+cmake_minimum_required(VERSION 3.0)
 
-include(hunter_config)
+include("../../../common.cmake")
+
 include(hunter_cmake_args)
 
 hunter_config(Foo VERSION 1.0 CMAKE_ARGS TEST=1)
