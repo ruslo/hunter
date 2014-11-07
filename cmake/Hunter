@@ -185,7 +185,6 @@ include(hunter_set_cmake_default_generator)
 hunter_set_cmake_default_generator()
 
 if(HUNTER_ENABLED)
-  set(HUNTER_LOCK_PATH "${HUNTER_BASE}/directory-lock")
   include(hunter_verify_toolchain_info)
   hunter_verify_toolchain_info()
 

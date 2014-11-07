@@ -7,7 +7,6 @@ include(hunter_internal_error)
 include(hunter_lock)
 include(hunter_status_debug)
 include(hunter_test_string_not_empty)
-include(hunter_unlock)
 
 function(hunter_verify_toolchain_info)
   hunter_test_string_not_empty("${HUNTER_BASE}")
@@ -73,7 +72,6 @@ function(hunter_verify_toolchain_info)
         RESULT_VARIABLE
         generate_result
     )
-    hunter_unlock()
     if(NOT generate_result EQUAL "0")
       hunter_internal_error(
           "Generate failed: exit with code ${generate_result}"

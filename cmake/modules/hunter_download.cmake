@@ -14,7 +14,6 @@ include(hunter_lock)
 include(hunter_status_debug)
 include(hunter_status_print)
 include(hunter_test_string_not_empty)
-include(hunter_unlock)
 
 function(hunter_download)
   set(
@@ -114,7 +113,6 @@ function(hunter_download)
   )
   if(do_skip_2)
     hunter_status_debug("Skip generate/run (already installed)")
-    hunter_unlock()
     return()
   endif()
 
@@ -277,7 +275,6 @@ function(hunter_download)
   if(${h_generate_result} EQUAL 0)
     hunter_status_debug("Generate step successful (dir: ${h_work_dir})")
   else()
-    hunter_unlock()
     hunter_internal_error("generate step failed (dir: ${h_work_dir})")
   endif()
 
@@ -302,7 +299,6 @@ function(hunter_download)
           RESULT already_installed
       )
       if(NOT already_installed)
-         hunter_unlock()
          hunter_fatal_error(
              "External project reported that build successfull"
              "but there are no stamps."
@@ -315,13 +311,11 @@ function(hunter_download)
         file(REMOVE_RECURSE "${h_work_dir}")
       endif()
 
-      hunter_unlock()
       return()
     else()
       set(counter "${counter}x")
       string(COMPARE EQUAL "${counter}" "xxxx" stop_condition)
       if(stop_condition)
-        hunter_unlock()
         hunter_internal_error("build step failed (dir: ${h_work_dir}")
       else()
         string(TIMESTAMP time_now)
