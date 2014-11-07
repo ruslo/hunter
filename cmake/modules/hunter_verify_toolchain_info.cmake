@@ -49,6 +49,10 @@ function(hunter_verify_toolchain_info)
 
   if(NOT EXISTS "${global_toolchain_info}")
     hunter_lock()
+  endif()
+
+  # Note that file can be created while waiting for lock
+  if(NOT EXISTS "${global_toolchain_info}")
     hunter_status_debug("${global_toolchain_info} not exists, run generate...")
     file(REMOVE_RECURSE "${temp_build_dir}")
 
