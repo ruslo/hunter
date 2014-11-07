@@ -44,9 +44,12 @@ if(NOT EXISTS "${predefined}")
   hunter_internal_error("${predefined} not exists")
 endif()
 
+set(build_directory "${CMAKE_BINARY_DIR}/_3rdParty/hunter/gen-tlc")
+file(REMOVE_RECURSE "${build_directory}")
+
 try_compile(
     try_compile_result
-    "${CMAKE_BINARY_DIR}/_test"
+    "${build_directory}"
     "${predefined}"
     CMAKE_FLAGS "-DCMAKE_TOOLCHAIN_FILE=${CMAKE_TOOLCHAIN_FILE}"
     OUTPUT_VARIABLE outresult
