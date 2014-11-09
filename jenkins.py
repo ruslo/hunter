@@ -61,10 +61,17 @@ def run():
   project_dir = os.path.normpath(project_dir)
 
   testing_dir = os.path.join(os.getcwd(), '_testing')
+  os.makedirs(testing_dir, exist_ok=True)
+
   if os.name == 'nt':
     hunter_junctions = os.getenv('HUNTER_JUNCTIONS')
     if hunter_junctions:
-      testing_dir = tempfile.mkdtemp(dir=hunter_junctions)
+      temp_dir = tempfile.mkdtemp(dir=hunter_junctions)
+      shutil.rmtree(temp_dir)
+      subprocess.check_output(
+          "cmd /c mklink /J {} {}".format(temp_dir, testing_dir)
+      )
+      testing_dir = temp_dir
 
   build_dir = os.path.join(testing_dir, 'Build')
   download_dir = os.path.join(testing_dir, 'Downloads')
@@ -106,7 +113,6 @@ def run():
   print(']')
 
   subprocess.check_call(args)
-  shutil.rmtree(testing_dir, ignore_errors=True)
 
 if __name__ == "__main__":
   run()
