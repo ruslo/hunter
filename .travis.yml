@@ -79,6 +79,7 @@ env:
 
     ### TESTS --
     - PROJECT_DIR=tests/simple TOOLCHAIN=default
+    - PROJECT_DIR=tests/issue/24/unit TOOLCHAIN=default
     ### -- end
 
 script:

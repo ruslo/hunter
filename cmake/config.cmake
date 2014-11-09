@@ -15,6 +15,7 @@ include(hunter_config)
 # NOTE: no names with spaces!
 
 hunter_config(Boost VERSION 1.55.0-patched-3)
+hunter_config(Comet VERSION 4.0.0)
 hunter_config(Clang VERSION 3.4.2)
 hunter_config(ClangToolsExtra VERSION 3.4.2)
 hunter_config(CppNetlib VERSION 0.10.1-hunter-3)
@@ -36,11 +37,4 @@ hunter_config(ios_sim VERSION 1.8.2)
 hunter_config(
     LLVM
     VERSION 3.4.2
-    CMAKE_ARGS
-        "LLVM_EXTERNAL_CLANG_SOURCE_DIR=${HUNTER_BASE}/Source/Clang"
-        "LLVM_EXTERNAL_CLANG_TOOLS_EXTRA_SOURCE_DIR=${HUNTER_BASE}/Source/ClangToolsExtra"
-        "LLVM_EXTERNAL_COMPILER_RT_SOURCE_DIR=${HUNTER_BASE}/Source/LLVMCompilerRT"
-        LLVM_INCLUDE_EXAMPLES=OFF
-        LLVM_INCLUDE_TESTS=OFF
-        LLVM_INCLUDE_DOCS=OFF
 )
