@@ -83,7 +83,7 @@ else()
   set(env_cmd "")
 endif()
 
-if(MSVC)
+if(MSVC OR MINGW)
   set(install_cmd "b2")
   set(bootstrap_cmd "bootstrap.bat")
 else()

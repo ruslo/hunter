@@ -206,7 +206,7 @@ if(@HUNTER_STATUS_DEBUG@)
   set(verbose_output "-d+2 --debug-configuration")
 endif()
 
-if(MSVC)
+if(MSVC OR MINGW)
   set(bootstrap_cmd "bootstrap.bat")
   set(b2_cmd "b2")
 else()

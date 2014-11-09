@@ -32,18 +32,6 @@ def run():
     print('Skip (https://github.com/ruslo/hunter/issues/26)')
     sys.exit(0)
 
-  if (project_dir == 'examples/Boost') and (toolchain == 'mingw'):
-    print('Skip (https://github.com/ruslo/hunter/issues/27)')
-    sys.exit(0)
-
-  if (project_dir == 'examples/Boost-system') and (toolchain == 'mingw'):
-    print('Skip (https://github.com/ruslo/hunter/issues/27)')
-    sys.exit(0)
-
-  if (project_dir == 'examples/Boost-filesystem') and (toolchain == 'mingw'):
-    print('Skip (https://github.com/ruslo/hunter/issues/27)')
-    sys.exit(0)
-
   if (project_dir == 'examples/OpenSSL') and (toolchain == 'mingw'):
     print('Skip (https://github.com/ruslo/hunter/issues/28)')
     sys.exit(0)
