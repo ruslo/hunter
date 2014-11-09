@@ -26,7 +26,7 @@ hunter_config(IntSizeof VERSION 1.0.0)
 hunter_config(JsonSpirit VERSION 0.0.3-hunter)
 hunter_config(LLVMCompilerRT VERSION 3.4.2)
 hunter_config(Leathers VERSION 0.1.4)
-hunter_config(OpenSSL VERSION 1.0.1i)
+hunter_config(OpenSSL VERSION 1.0.1j)
 hunter_config(RapidJSON VERSION 0.11-hunter)
 hunter_config(Sober VERSION 0.1.0) # Relax warnings
 hunter_config(Sugar VERSION 1.2.2)
