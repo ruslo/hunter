@@ -14,7 +14,7 @@ include(hunter_config)
 
 # NOTE: no names with spaces!
 
-hunter_config(Boost VERSION 1.56.0)
+hunter_config(Boost VERSION 1.57.0)
 hunter_config(Comet VERSION 4.0.0)
 hunter_config(Clang VERSION 3.4.2)
 hunter_config(ClangToolsExtra VERSION 3.4.2)
