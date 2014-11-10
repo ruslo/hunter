@@ -191,7 +191,7 @@ if(HUNTER_ENABLED)
 
   ### 1. Clear all '<NAME>_ROOT' variables (cache, environment, ...)
   ### 2. Set '<NAME>_ROOT' or 'HUNTER_<name>_VERSION' variables
-  include("${HUNTER_SELF}/cmake/config.cmake")
+  include("${HUNTER_SELF}/cmake/configs/default.cmake")
 else()
   hunter_status_print("DISABLED")
 endif()
