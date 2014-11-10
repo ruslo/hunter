@@ -28,6 +28,7 @@ hunter_test_string_not_empty("@HUNTER_PACKAGE_SOURCE_DIR@")
 hunter_test_string_not_empty("@HUNTER_PACKAGE_INSTALL_DIR@")
 hunter_test_string_not_empty("@HUNTER_PACKAGE_COMPONENT@")
 hunter_test_string_not_empty("@CMAKE_CXX_COMPILER@")
+hunter_test_string_not_empty("@HUNTER_Boost_VERSION@")
 if(MSVC)
   hunter_test_string_not_empty("@HUNTER_MSVC_ARCH@")
   hunter_test_string_not_empty("@HUNTER_MSVC_VCVARSALL@")
@@ -69,6 +70,12 @@ set(
     timer
     wave
 )
+
+# Same logic in all url_sha1_boost* schemes (TODO: DRY)
+if(NOT @HUNTER_Boost_VERSION@ VERSION_LESS "1.56.0")
+  # >= 1.56
+  list(APPEND boost_libs container)
+endif()
 
 set(libfound NO)
 foreach(x ${boost_libs})
