@@ -146,6 +146,8 @@ endif()
 
 if(NOT HUNTER_CONFIG_SHA1)
   hunter_internal_error("HUNTER_CONFIG_SHA1 is empty")
+else()
+  string(SUBSTRING "${HUNTER_CONFIG_SHA1}" 0 7 HUNTER_CONFIG_SHA1_SHORT)
 endif()
 
 if(NOT HUNTER_BASE)
@@ -172,7 +174,7 @@ if(NOT HUNTER_BASE)
     endif()
   endif()
   set(HUNTER_BASE "${HUNTER_ROOT}/_Base/${HUNTER_SHA1_SHORT}")
-  set(HUNTER_BASE "${HUNTER_BASE}/${HUNTER_CONFIG_SHA1}")
+  set(HUNTER_BASE "${HUNTER_BASE}/${HUNTER_CONFIG_SHA1_SHORT}")
 endif()
 
 get_filename_component(HUNTER_BASE "${HUNTER_BASE}" ABSOLUTE)
@@ -199,7 +201,14 @@ hunter_status_print("HUNTER_ROOT: ${HUNTER_ROOT}")
 hunter_status_print("HUNTER_BASE: ${HUNTER_BASE}")
 
 hunter_status_debug("HUNTER_SELF: ${HUNTER_SELF}")
+if(HUNTER_SHA1)
+  hunter_status_debug("HUNTER_SHA1: ${HUNTER_SHA1_SHORT} (${HUNTER_SHA1})")
+endif()
+hunter_status_debug(
+    "HUNTER_CONFIG_SHA1: ${HUNTER_CONFIG_SHA1_SHORT} (${HUNTER_CONFIG_SHA1})"
+)
 hunter_status_debug("Effective config: ${HUNTER_EFFECTIVE_CONFIG}")
+
 
 if(HUNTER_PACKAGE_DOWNLOAD_DIR)
   hunter_status_debug(
