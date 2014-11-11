@@ -149,7 +149,29 @@ if(NOT HUNTER_CONFIG_SHA1)
 endif()
 
 if(NOT HUNTER_BASE)
-  set(HUNTER_BASE "${HUNTER_ROOT}/_Base/${HUNTER_SHA1}")
+  if(HUNTER_SHA1)
+    if(NOT HUNTER_SHA1_SHORT)
+      hunter_internal_error("HUNTER_SHA1_SHORT empty")
+    endif()
+    set(HUNTER_BASE "${HUNTER_ROOT}/_Base/${HUNTER_SHA1_SHORT}")
+    if(NOT EXISTS "${HUNTER_ROOT}/_Base/${HUNTER_SHA1_SHORT}/sha1")
+      file(
+          WRITE
+          "${HUNTER_ROOT}/_Base/${HUNTER_SHA1_SHORT}/sha1"
+          "${HUNTER_SHA1}"
+      )
+    else()
+      file(
+          READ
+          "${HUNTER_ROOT}/_Base/${HUNTER_SHA1_SHORT}/sha1"
+          _hunter_check_sha1
+      )
+      if(NOT _hunter_check_sha1 STREQUAL HUNTER_SHA1)
+        hunter_internal_error("Short SHA1 collision!")
+      endif()
+    endif()
+  endif()
+  set(HUNTER_BASE "${HUNTER_ROOT}/_Base/${HUNTER_SHA1_SHORT}")
   set(HUNTER_BASE "${HUNTER_BASE}/${HUNTER_CONFIG_SHA1}")
 endif()
 
@@ -163,7 +185,7 @@ endif()
 
 set(
     HUNTER_EFFECTIVE_CONFIG
-    "${HUNTER_ROOT}/_Base/${HUNTER_SHA1}/${HUNTER_CONFIG_SHA1}.cmake"
+    "${HUNTER_ROOT}/_Base/${HUNTER_SHA1_SHORT}/${HUNTER_CONFIG_SHA1}.cmake"
 )
 if(NOT EXISTS "${HUNTER_EFFECTIVE_CONFIG}")
   hunter_internal_error("Effective config is not exists")

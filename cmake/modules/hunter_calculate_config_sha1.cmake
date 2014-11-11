@@ -55,11 +55,12 @@ function(hunter_calculate_config_sha1)
   endif()
 
   file(SHA1 "${work_dir}/config.cmake" HUNTER_CONFIG_SHA1)
+  set(
+      dst
+      "${HUNTER_ROOT}/_Base/${HUNTER_SHA1_SHORT}/${HUNTER_CONFIG_SHA1}.cmake"
+  )
   execute_process(
-      COMMAND
-          "${CMAKE_COMMAND}" -E copy
-          "${work_dir}/config.cmake"
-          "${HUNTER_ROOT}/_Base/${HUNTER_SHA1}/${HUNTER_CONFIG_SHA1}.cmake"
+      COMMAND "${CMAKE_COMMAND}" -E copy "${work_dir}/config.cmake" "${dst}"
   )
   set(
       HUNTER_CONFIG_SHA1
