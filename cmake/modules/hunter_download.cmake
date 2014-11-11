@@ -149,6 +149,15 @@ function(hunter_download)
         "set(HUNTER_SHA1 \"${HUNTER_SHA1}\")\n"
     )
   endif()
+  if(HUNTER_CONFIG_SHA1)
+    file(
+        APPEND
+        "${HUNTER_DOWNLOAD_TOOLCHAIN}"
+        "set(HUNTER_CONFIG_SHA1 \"${HUNTER_CONFIG_SHA1}\")\n"
+    )
+  else()
+    hunter_internal_error("HUNTER_CONFIG_SHA1 empty")
+  endif()
 
   # do not lock hunter directory if package is internal (already locked)
   file(APPEND "${HUNTER_DOWNLOAD_TOOLCHAIN}" "set(HUNTER_SKIP_LOCK YES)\n")
