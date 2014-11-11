@@ -151,6 +151,7 @@ else()
 endif()
 
 if(NOT HUNTER_BASE)
+  # Check HUNTER_SHA1_SHORT collision
   if(HUNTER_SHA1)
     if(NOT HUNTER_SHA1_SHORT)
       hunter_internal_error("HUNTER_SHA1_SHORT empty")
@@ -173,8 +174,20 @@ if(NOT HUNTER_BASE)
       endif()
     endif()
   endif()
+
+  # Set HUNTER_BASE
   set(HUNTER_BASE "${HUNTER_ROOT}/_Base/${HUNTER_SHA1_SHORT}")
   set(HUNTER_BASE "${HUNTER_BASE}/${HUNTER_CONFIG_SHA1_SHORT}")
+
+  # Check HUNTER_CONFIG_SHA1_SHORT collision
+  if(NOT EXISTS "${HUNTER_BASE}/sha1")
+    file(WRITE "${HUNTER_BASE}/sha1" "${HUNTER_CONFIG_SHA1}")
+  else()
+    file(READ "${HUNTER_BASE}/sha1" _hunter_check_sha1)
+    if(NOT _hunter_check_sha1 STREQUAL HUNTER_CONFIG_SHA1)
+      hunter_internal_error("Short SHA1 collision (config)!")
+    endif()
+  endif()
 endif()
 
 get_filename_component(HUNTER_BASE "${HUNTER_BASE}" ABSOLUTE)
