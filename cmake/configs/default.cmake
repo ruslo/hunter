@@ -11,6 +11,7 @@ include(hunter_config)
 # NOTE: no names with spaces!
 
 hunter_config(Boost VERSION 1.55.0-patched-3)
+hunter_config(CLAPACK VERSION 3.2.1)
 hunter_config(Clang VERSION 3.5.0)
 hunter_config(ClangToolsExtra VERSION 3.5.0)
 hunter_config(Comet VERSION 4.0.0)
