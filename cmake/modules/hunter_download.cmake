@@ -169,14 +169,32 @@ function(hunter_download)
     file(APPEND "${HUNTER_DOWNLOAD_TOOLCHAIN}" "include(\"${x}\")\n")
   endif()
 
+  set(var_name "")
   foreach(fwd ${HUNTER_${h_name}_CMAKE_ARGS})
-    string(REGEX REPLACE "=.*" "" var_name "${fwd}")
-    string(REGEX REPLACE ".*=" "" var_value "${fwd}")
-    hunter_status_debug("Add extra CMake args: ${var_name} = ${var_value}")
-    file(
-        APPEND
-        "${HUNTER_DOWNLOAD_TOOLCHAIN}" "set(${var_name} ${var_value} CACHE STRING \"\" FORCE)\n"
-    )
+    string(FIND "${fwd}" "=" _hunter_update_var)
+    if(_hunter_update_var EQUAL -1)
+      # There is no '=' symbol - appending mode
+      if(NOT var_name)
+        hunter_internal_error("var_name empty")
+      endif()
+      set(var_value "${fwd}")
+      file(
+          APPEND
+          "${HUNTER_DOWNLOAD_TOOLCHAIN}"
+          "set(${var_name} "\${${var_name}}\;${var_value}" CACHE STRING \"\" FORCE)\n"
+      )
+      hunter_status_debug("Add extra CMake args: ${var_name} += ${var_value}")
+    else()
+      # Format <name>=<value>
+      string(REGEX REPLACE "=.*" "" var_name "${fwd}")
+      string(REGEX REPLACE ".*=" "" var_value "${fwd}")
+      file(
+          APPEND
+          "${HUNTER_DOWNLOAD_TOOLCHAIN}"
+          "set(${var_name} ${var_value} CACHE STRING \"\" FORCE)\n"
+      )
+      hunter_status_debug("Add extra CMake args: ${var_name} = ${var_value}")
+    endif()
   endforeach()
 
   if(HUNTER_STATUS_DEBUG)
