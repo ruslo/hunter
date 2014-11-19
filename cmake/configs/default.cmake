@@ -29,5 +29,5 @@ hunter_config(OpenSSL VERSION 1.0.1h)
 hunter_config(RapidJSON VERSION 0.11-hunter)
 hunter_config(Sober VERSION 0.1.0) # Relax warnings
 hunter_config(Sugar VERSION 1.2.2)
-hunter_config(ZLIB VERSION 1.2.8-hunter CMAKE_ARGS ZLIB_BUILD_SHARED=OFF)
+hunter_config(ZLIB VERSION 1.2.8-hunter-1 CMAKE_ARGS ZLIB_BUILD_SHARED=OFF)
 hunter_config(ios_sim VERSION 1.8.2)
