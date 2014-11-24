@@ -7,7 +7,7 @@ install:
     - brew install cmake
     - brew install python3
     # install cmake toolchains and script
-    - POLLY_VERSION="0.6.1"
+    - POLLY_VERSION="0.6.2"
     - wget "https://github.com/ruslo/polly/archive/v${POLLY_VERSION}.tar.gz"
     - tar xf "v${POLLY_VERSION}.tar.gz"
     - export PATH="`pwd`/polly-${POLLY_VERSION}/bin:${PATH}"
