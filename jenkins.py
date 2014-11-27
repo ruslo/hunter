@@ -57,6 +57,14 @@ def run():
     sys.exit(0)
   # -- end
 
+  verbose = True
+  if (
+      os.getenv('TRAVIS') and
+      (project_dir == 'examples/CLAPACK') and
+      (toolchain == 'xcode')
+  ):
+    verbose = False
+
   project_dir = os.path.join(cdir, project_dir)
   project_dir = os.path.normpath(project_dir)
 
@@ -95,7 +103,6 @@ def run():
   args = [
       sys.executable,
       build_script,
-      '--verbose',
       '--clear',
       '--toolchain',
       toolchain,
@@ -106,6 +113,9 @@ def run():
       'HUNTER_BASE={}'.format(base_dir),
       'HUNTER_PACKAGE_DOWNLOAD_DIR={}'.format(download_dir)
   ]
+
+  if verbose:
+    args += ['--verbose']
 
   print('Execute command: [')
   for i in args:
