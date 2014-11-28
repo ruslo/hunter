@@ -38,40 +38,44 @@ set_directory_properties(
     "@HUNTER_BASE@"
 )
 
-set(
-    boost_libs
-    atomic
-    chrono
-    context
-    coroutine
-    date_time
-    exception
-    filesystem
-    graph
-    graph_parallel
-    iostreams
-    locale
-    log
-    math
-    mpi
-    program_options
-    python
-    random
-    regex
-    serialization
-    signals
-    system
-    test
-    thread
-    timer
-    wave
-)
-
 # Same logic in all url_sha1_boost* schemes (TODO: DRY)
-if(NOT @HUNTER_Boost_VERSION@ VERSION_LESS "1.56.0")
-  # >= 1.56
-  list(APPEND boost_libs container)
-endif()
+macro(BOOST_COMPONENT name version)
+  list(APPEND BOOST_COMPONENT_NAMES ${name})
+  set(BOOST_COMPONENT_${name}_VERSION ${version})
+endmacro()
+
+boost_component(atomic 1.53.0)
+boost_component(chrono 1.47.0)
+boost_component(container 1.56.0)
+boost_component(context 1.51.0)
+boost_component(coroutine 1.53.0)
+boost_component(date_time 1.29.0)
+boost_component(exception 1.36.0)
+boost_component(filesystem 1.30.0)
+boost_component(graph 1.18.0)
+boost_component(graph_parallel 1.18.0)
+boost_component(iostreams 1.33.0)
+boost_component(locale 1.48.0)
+boost_component(log 1.54.0)
+boost_component(math 1.23.0)
+boost_component(mpi 1.35.0)
+boost_component(program_options 1.32.0)
+boost_component(python 1.19.0)
+boost_component(random 1.15.0)
+boost_component(regex 1.18.0)
+boost_component(serialization 1.32.0)
+boost_component(signals 1.29.0)
+boost_component(system 1.35.0)
+boost_component(test 1.21.0)
+boost_component(thread 1.25.0)
+boost_component(timer 1.9.0)
+boost_component(wave 1.33.0)
+
+foreach(name IN LISTS BOOST_COMPONENT_NAMES)
+  if(NOT @HUNTER_Boost_VERSION@ VERSION_LESS BOOST_COMPONENT_${name}_VERSION)
+    list(APPEND boost_libs ${name})
+  endif()
+endforeach()
 
 foreach(x ${boost_libs})
   list(APPEND boost_list "--without-${x}")
