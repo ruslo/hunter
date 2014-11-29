@@ -274,9 +274,8 @@ function(hunter_download)
     set(HUNTER_DOWNLOAD_GENERATOR "-G${HUNTER_CMAKE_GENERATOR}")
   else()
     if(MSVC)
-      # forward same generator for all project
-      # because one generator = one compiler
-      set(HUNTER_DOWNLOAD_GENERATOR "-G${CMAKE_GENERATOR}")
+      # HUNTER_CMAKE_GENERATOR must be set in master file
+      hunter_internal_error("MSVC: HUNTER_CMAKE_GENERATOR")
     else()
       # use default
       set(HUNTER_DOWNLOAD_GENERATOR)
