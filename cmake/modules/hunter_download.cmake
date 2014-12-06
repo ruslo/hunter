@@ -181,7 +181,7 @@ function(hunter_download)
       file(
           APPEND
           "${HUNTER_DOWNLOAD_TOOLCHAIN}"
-          "set(${var_name} "\${${var_name}}\;${var_value}" CACHE STRING \"\" FORCE)\n"
+          "set(\"${var_name}\" \"\${${var_name}}\" \"${var_value}\" CACHE STRING \"\" FORCE)\n"
       )
       hunter_status_debug("Add extra CMake args: ${var_name} += ${var_value}")
     else()
@@ -191,7 +191,7 @@ function(hunter_download)
       file(
           APPEND
           "${HUNTER_DOWNLOAD_TOOLCHAIN}"
-          "set(${var_name} ${var_value} CACHE STRING \"\" FORCE)\n"
+          "set(\"${var_name}\" \"${var_value}\" CACHE STRING \"\" FORCE)\n"
       )
       hunter_status_debug("Add extra CMake args: ${var_name} = ${var_value}")
     endif()
