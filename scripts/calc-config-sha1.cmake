@@ -86,17 +86,20 @@ endif()
 set(input_file "${TEMP_DIRECTORY}/config.cmake")
 file(WRITE "${input_file}" "include(hunter_config)\n")
 foreach(x ${projects})
-  file(
-      APPEND
-      "${input_file}"
-      "hunter_config(${x} "
-      "VERSION ${HUNTER_${x}_VERSION}"
-  )
-  if(HUNTER_${x}_CMAKE_ARGS)
-    file(APPEND "${input_file}" " CMAKE_ARGS")
-    foreach(y ${HUNTER_${x}_CMAKE_ARGS})
-      file(APPEND "${input_file}" " ${y}")
-    endforeach()
+  set(version "${HUNTER_${x}_VERSION}")
+  if(version)
+    file(
+        APPEND
+        "${input_file}"
+        "hunter_config(${x} "
+        "VERSION ${version}"
+    )
+    if(HUNTER_${x}_CMAKE_ARGS)
+      file(APPEND "${input_file}" " CMAKE_ARGS")
+      foreach(y ${HUNTER_${x}_CMAKE_ARGS})
+        file(APPEND "${input_file}" " ${y}")
+      endforeach()
+    endif()
+    file(APPEND "${input_file}" ")\n")
   endif()
-  file(APPEND "${input_file}" ")\n")
 endforeach()
