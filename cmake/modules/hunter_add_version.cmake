@@ -47,7 +47,7 @@ function(hunter_add_version)
     hunter_internal_error(
         "Both <NAME>_ROOT and HUNTER_<name>_VERSION can't be empty "
         "(${h_PACKAGE_NAME})"
-        "(probably `hunter_config(...)` missing in config.cmake)"
+        "(probably `hunter_config(...)` missing in config file)"
     )
   endif()
   string(COMPARE NOTEQUAL "${${expected_version}}" "${h_VERSION}" version_diff)

@@ -12,7 +12,18 @@ include(hunter_add_version_start)
 include(hunter_download)
 include(hunter_pick_scheme)
 
-hunter_add_version_start(GTest)
+hunter_add_version_start(ZLIB)
+
+hunter_add_version(
+    PACKAGE_NAME
+    ZLIB
+    VERSION
+    "1.2.8-hunter-1"
+    URL
+    "https://github.com/hunter-packages/zlib/archive/v1.2.8-hunter-1.tar.gz"
+    SHA1
+    24c89e4b193a56bb411fa9878968002ebe2c6209
+)
 
 hunter_add_version(
     PACKAGE_NAME
