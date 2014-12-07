@@ -24,6 +24,17 @@ hunter_add_version(
     24e54dbd719e5b4e51a6806ee52d2bd302e1e097
 )
 
+hunter_add_version(
+    PACKAGE_NAME
+    Comet
+    VERSION
+    "4.0.1"
+    URL
+    "https://github.com/alamaison/comet/archive/4.0.1.tar.gz"
+    SHA1
+    18aca7e870fea6b9e732bf1fb50b2294430730e7
+)
+
 hunter_cmake_args(
     Comet
     CMAKE_ARGS

@@ -77,6 +77,20 @@ env:
     - PROJECT_DIR=examples/Sugar TOOLCHAIN=ios-nocodesign
     - PROJECT_DIR=examples/Sugar TOOLCHAIN=analyze
     #
+    - PROJECT_DIR=examples/GSL TOOLCHAIN=default
+    - PROJECT_DIR=examples/GSL TOOLCHAIN=libcxx
+    - PROJECT_DIR=examples/GSL TOOLCHAIN=clang-libstdcxx
+    - PROJECT_DIR=examples/GSL TOOLCHAIN=xcode
+    - PROJECT_DIR=examples/GSL TOOLCHAIN=gcc
+    - PROJECT_DIR=examples/GSL TOOLCHAIN=analyze
+    #
+    - PROJECT_DIR=examples/CLAPACK TOOLCHAIN=default
+    - PROJECT_DIR=examples/CLAPACK TOOLCHAIN=libcxx
+    - PROJECT_DIR=examples/CLAPACK TOOLCHAIN=clang-libstdcxx
+    - PROJECT_DIR=examples/CLAPACK TOOLCHAIN=xcode
+    - PROJECT_DIR=examples/CLAPACK TOOLCHAIN=gcc
+    - PROJECT_DIR=examples/CLAPACK TOOLCHAIN=analyze
+    #
     - PROJECT_DIR=examples/ZLIB TOOLCHAIN=default
     - PROJECT_DIR=examples/ZLIB TOOLCHAIN=libcxx
     - PROJECT_DIR=examples/ZLIB TOOLCHAIN=clang-libstdcxx
