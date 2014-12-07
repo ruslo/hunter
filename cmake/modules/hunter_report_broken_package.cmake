@@ -8,7 +8,7 @@ function(hunter_report_broken_package info)
     return()
   endif()
   hunter_fatal_error(
-      ${info}
+      "Broken package: ${info}"
       WIKI "https://github.com/ruslo/hunter/wiki/Error-%28broken-package%29"
   )
 endfunction()
