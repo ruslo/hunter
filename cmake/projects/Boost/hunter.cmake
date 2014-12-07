@@ -17,6 +17,28 @@ set(Boost_NO_SYSTEM_PATHS ON)
 
 hunter_add_version_start(Boost)
 
+hunter_add_version(
+    PACKAGE_NAME
+    Boost
+    VERSION
+    "1.57.0"
+    URL
+    "https://github.com/hunter-packages/boost/archive/v1.57.0.tar.gz"
+    SHA1
+    9305649224848860664893342ac29709ebcf42f9
+)
+
+hunter_add_version(
+    PACKAGE_NAME
+    Boost
+    VERSION
+    "1.56.0"
+    URL
+    "https://github.com/hunter-packages/boost/archive/v1.56.0.tar.gz"
+    SHA1
+    08a45c69e90e5ddc485b770a573dbace8e48932e
+)
+
 # Remove docs and tests
 hunter_add_version(
     PACKAGE_NAME

@@ -30,6 +30,9 @@ macro(hunter_cmake_args)
       INSERT HUNTER_${_hunter_c_current_project}_CMAKE_ARGS 0
       ${_hunter_c_CMAKE_ARGS})
   else()
-    hunter_fatal_error("Expected CMAKE_ARGS")
+    hunter_fatal_error(
+        "Expected CMAKE_ARGS"
+        WIKI "https://github.com/ruslo/hunter/wiki/Error-%28incorrect-input-data%29"
+    )
   endif()
 endmacro()

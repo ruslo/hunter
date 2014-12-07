@@ -31,6 +31,7 @@ hunter_test_string_not_empty("@IPHONESIMULATOR_ROOT@")
 hunter_test_string_not_empty("@IPHONEOS_ROOT@")
 hunter_test_string_not_empty("@IPHONEOS_SDK_ROOT@")
 hunter_test_string_not_empty("@IPHONESIMULATOR_SDK_ROOT@")
+hunter_test_string_not_empty("@HUNTER_Boost_VERSION@")
 
 hunter_assert_lists_equal(@HUNTER_DOWNLOAD_SCHEME_VARIANTS@ ios ios_sim ios_universal)
 
@@ -68,6 +69,12 @@ set(
     timer
     wave
 )
+
+# Same logic in all url_sha1_boost* schemes (TODO: DRY)
+if(NOT @HUNTER_Boost_VERSION@ VERSION_LESS "1.56.0")
+  # >= 1.56
+  list(APPEND boost_libs container)
+endif()
 
 set(libfound NO)
 foreach(x ${boost_libs})
