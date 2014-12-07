@@ -54,9 +54,11 @@ endif()
 list(APPEND CMAKE_MODULE_PATH "${HUNTER_SELF}/cmake/modules")
 list(APPEND CMAKE_MODULE_PATH "${HUNTER_SELF}/cmake/find")
 
+include(hunter_calculate_config_sha1)
+include(hunter_fatal_error)
+include(hunter_internal_error)
 include(hunter_status_debug)
 include(hunter_status_print)
-include(hunter_internal_error)
 
 if(HUNTER_ROOT_OLD)
   string(COMPARE NOTEQUAL "${HUNTER_ROOT_OLD}" "${HUNTER_ROOT}" HUNTER_RESULT)
@@ -108,11 +110,83 @@ if(CYGWIN)
   endif()
 endif()
 
+if(NOT HUNTER_CONFIG)
+  set(HUNTER_CONFIG "${HUNTER_SELF}/cmake/configs/default.cmake")
+endif()
+
+if(NOT EXISTS "${HUNTER_CONFIG}")
+  if(HUNTER_GLOBAL)
+    file(
+        GLOB _hunter_config_variants
+        RELATIVE "${HUNTER_SELF}/cmake/configs"
+        "${HUNTER_SELF}/cmake/configs/*.cmake"
+    )
+    message(
+         "Config specified by GLOBAL (`${HUNTER_GLOBAL}`) not found. "
+         "Available GLOBAL options:\n"
+         "-----------------"
+    )
+    foreach(_hunter_config_variant ${_hunter_config_variants})
+      get_filename_component(_hunter_config "${_hunter_config_variant}" NAME_WE)
+      message("  * ${_hunter_config}")
+    endforeach()
+    message("-----------------")
+  endif()
+  hunter_fatal_error(
+       "Config not found: ${HUNTER_CONFIG}"
+       WIKI "https://github.com/ruslo/hunter/wiki/Error-%28incorrect-input-data%29"
+  )
+endif()
+
+if(HUNTER_CONFIG_SHA1)
+  hunter_status_debug("Use cached Config-SHA1: ${HUNTER_CONFIG_SHA1}")
+else()
+  hunter_calculate_config_sha1()
+endif()
+
+if(NOT HUNTER_CONFIG_SHA1)
+  hunter_internal_error("HUNTER_CONFIG_SHA1 is empty")
+else()
+  string(SUBSTRING "${HUNTER_CONFIG_SHA1}" 0 7 HUNTER_CONFIG_SHA1_SHORT)
+endif()
+
 if(NOT HUNTER_BASE)
+  # Check HUNTER_SHA1_SHORT collision
   if(HUNTER_SHA1)
-    set(HUNTER_BASE "${HUNTER_ROOT}/_Base/${HUNTER_SHA1}")
+    if(NOT HUNTER_SHA1_SHORT)
+      hunter_internal_error("HUNTER_SHA1_SHORT empty")
+    endif()
+    set(HUNTER_BASE "${HUNTER_ROOT}/_Base/${HUNTER_SHA1_SHORT}")
+    if(NOT EXISTS "${HUNTER_ROOT}/_Base/${HUNTER_SHA1_SHORT}/sha1")
+      file(
+          WRITE
+          "${HUNTER_ROOT}/_Base/${HUNTER_SHA1_SHORT}/sha1"
+          "${HUNTER_SHA1}"
+      )
+    else()
+      file(
+          READ
+          "${HUNTER_ROOT}/_Base/${HUNTER_SHA1_SHORT}/sha1"
+          _hunter_check_sha1
+      )
+      if(NOT _hunter_check_sha1 STREQUAL HUNTER_SHA1)
+        hunter_internal_error("Short SHA1 collision!")
+      endif()
+    endif()
+  endif()
+
+  # Set HUNTER_BASE
+  set(HUNTER_BASE "${HUNTER_ROOT}/_Base/${HUNTER_SHA1_SHORT}")
+  set(HUNTER_BASE "${HUNTER_BASE}/${HUNTER_CONFIG_SHA1_SHORT}")
+
+  # Check HUNTER_CONFIG_SHA1_SHORT collision
+  if(NOT EXISTS "${HUNTER_BASE}/sha1")
+    file(WRITE "${HUNTER_BASE}/sha1" "${HUNTER_CONFIG_SHA1}")
   else()
-    set(HUNTER_BASE "${HUNTER_ROOT}/_Base")
+    file(READ "${HUNTER_BASE}/sha1" _hunter_check_sha1)
+    if(NOT _hunter_check_sha1 STREQUAL HUNTER_CONFIG_SHA1)
+      hunter_internal_error("Short SHA1 collision (config)!")
+    endif()
   endif()
 endif()
 
@@ -124,9 +198,30 @@ if(HUNTER_PACKAGE_DOWNLOAD_DIR)
   )
 endif()
 
+set(
+    HUNTER_EFFECTIVE_CONFIG
+    "${HUNTER_ROOT}/_Base/${HUNTER_SHA1_SHORT}/${HUNTER_CONFIG_SHA1}.cmake"
+)
+if(NOT EXISTS "${HUNTER_EFFECTIVE_CONFIG}")
+  hunter_internal_error("Effective config is not exists")
+else()
+  get_filename_component(
+      HUNTER_EFFECTIVE_CONFIG "${HUNTER_EFFECTIVE_CONFIG}" ABSOLUTE
+  )
+endif()
+
 hunter_status_print("HUNTER_ROOT: ${HUNTER_ROOT}")
-hunter_status_print("HUNTER_SELF: ${HUNTER_SELF}")
-hunter_status_debug("HUNTER_BASE: ${HUNTER_BASE}")
+hunter_status_print("HUNTER_BASE: ${HUNTER_BASE}")
+
+hunter_status_debug("HUNTER_SELF: ${HUNTER_SELF}")
+if(HUNTER_SHA1)
+  hunter_status_debug("HUNTER_SHA1: ${HUNTER_SHA1_SHORT} (${HUNTER_SHA1})")
+endif()
+hunter_status_debug(
+    "HUNTER_CONFIG_SHA1: ${HUNTER_CONFIG_SHA1_SHORT} (${HUNTER_CONFIG_SHA1})"
+)
+hunter_status_debug("Effective config: ${HUNTER_EFFECTIVE_CONFIG}")
+
 
 if(HUNTER_PACKAGE_DOWNLOAD_DIR)
   hunter_status_debug(
@@ -191,7 +286,7 @@ if(HUNTER_ENABLED)
 
   ### 1. Clear all '<NAME>_ROOT' variables (cache, environment, ...)
   ### 2. Set '<NAME>_ROOT' or 'HUNTER_<name>_VERSION' variables
-  include("${HUNTER_SELF}/cmake/config.cmake")
+  include("${HUNTER_EFFECTIVE_CONFIG}")
 else()
   hunter_status_print("DISABLED")
 endif()
