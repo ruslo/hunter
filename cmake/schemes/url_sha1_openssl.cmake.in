@@ -39,8 +39,10 @@ set_directory_properties(
 if(APPLE)
   set(configure_command "./Configure")
   set(configure_opts "darwin64-x86_64-cc")
+  set(build_command . "@HUNTER_SELF@/scripts/clear-all.sh" && make)
 else()
   set(configure_command "./config")
+  set(build_command make)
 endif()
 
 set(configure_opts ${configure_opts} threads no-shared)
@@ -66,7 +68,7 @@ ExternalProject_Add(
     ${configure_opts}
     "--prefix=@HUNTER_PACKAGE_INSTALL_DIR@"
     BUILD_COMMAND
-    make
+    ${build_command}
     BUILD_IN_SOURCE
     1
     INSTALL_COMMAND
