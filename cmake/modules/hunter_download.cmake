@@ -1,4 +1,4 @@
-# Copyright (c) 2013, Ruslan Baratov
+# Copyright (c) 2013-2014, Ruslan Baratov
 # All rights reserved.
 
 cmake_minimum_required(VERSION 3.0) # sleep
@@ -142,12 +142,27 @@ function(hunter_download)
       "${HUNTER_DOWNLOAD_TOOLCHAIN}"
       "set(ENV{HUNTER_ROOT} \"${HUNTER_ROOT}\")\n"
   )
+  # HUNTER_BASE can be set by testing
+  file(
+      APPEND
+      "${HUNTER_DOWNLOAD_TOOLCHAIN}"
+      "set(HUNTER_BASE \"${HUNTER_BASE}\")\n"
+  )
   if(HUNTER_SHA1)
     file(
         APPEND
         "${HUNTER_DOWNLOAD_TOOLCHAIN}"
         "set(HUNTER_SHA1 \"${HUNTER_SHA1}\")\n"
     )
+  endif()
+  if(HUNTER_CONFIG_SHA1)
+    file(
+        APPEND
+        "${HUNTER_DOWNLOAD_TOOLCHAIN}"
+        "set(HUNTER_CONFIG_SHA1 \"${HUNTER_CONFIG_SHA1}\")\n"
+    )
+  else()
+    hunter_internal_error("HUNTER_CONFIG_SHA1 empty")
   endif()
 
   # do not lock hunter directory if package is internal (already locked)
@@ -160,14 +175,32 @@ function(hunter_download)
     file(APPEND "${HUNTER_DOWNLOAD_TOOLCHAIN}" "include(\"${x}\")\n")
   endif()
 
+  set(var_name "")
   foreach(fwd ${HUNTER_${h_name}_CMAKE_ARGS})
-    string(REGEX REPLACE "=.*" "" var_name "${fwd}")
-    string(REGEX REPLACE ".*=" "" var_value "${fwd}")
-    hunter_status_debug("Add extra CMake args: ${var_name} = ${var_value}")
-    file(
-        APPEND
-        "${HUNTER_DOWNLOAD_TOOLCHAIN}" "set(${var_name} ${var_value} CACHE STRING \"\" FORCE)\n"
-    )
+    string(FIND "${fwd}" "=" _hunter_update_var)
+    if(_hunter_update_var EQUAL -1)
+      # There is no '=' symbol - appending mode
+      if(NOT var_name)
+        hunter_internal_error("var_name empty")
+      endif()
+      set(var_value "${fwd}")
+      file(
+          APPEND
+          "${HUNTER_DOWNLOAD_TOOLCHAIN}"
+          "set(${var_name} "\${${var_name}}\;${var_value}" CACHE STRING \"\" FORCE)\n"
+      )
+      hunter_status_debug("Add extra CMake args: ${var_name} += ${var_value}")
+    else()
+      # Format <name>=<value>
+      string(REGEX REPLACE "=.*" "" var_name "${fwd}")
+      string(REGEX REPLACE ".*=" "" var_value "${fwd}")
+      file(
+          APPEND
+          "${HUNTER_DOWNLOAD_TOOLCHAIN}"
+          "set(${var_name} ${var_value} CACHE STRING \"\" FORCE)\n"
+      )
+      hunter_status_debug("Add extra CMake args: ${var_name} = ${var_value}")
+    endif()
   endforeach()
 
   if(HUNTER_STATUS_DEBUG)
