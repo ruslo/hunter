@@ -147,7 +147,7 @@ foreach(variant @IPHONEOS_ARCHS@ @IPHONESIMULATOR_ARCHS@)
       BUILD_IN_SOURCE
       1
       INSTALL_COMMAND
-      make install
+      make install_sw
           # installed libraries will be rewrited,
           # other files are equal
   )
