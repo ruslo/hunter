@@ -7,13 +7,13 @@ install:
     - brew install cmake
     - brew install python3
     # install cmake toolchains and script
-    - POLLY_VERSION="0.6.1"
+    - POLLY_VERSION="0.6.2"
     - wget "https://github.com/ruslo/polly/archive/v${POLLY_VERSION}.tar.gz"
     - tar xf "v${POLLY_VERSION}.tar.gz"
     - export PATH="`pwd`/polly-${POLLY_VERSION}/bin:${PATH}"
     # -- end
     # install cmake
-    - CMAKE_VERSION="3.0.2-ios-universal"
+    - CMAKE_VERSION="3.1.0-rc2-ruslo"
     - wget "https://github.com/ruslo/CMake/archive/v${CMAKE_VERSION}.tar.gz"
     - openssl sha1 "v${CMAKE_VERSION}.tar.gz"
     - tar xf "v${CMAKE_VERSION}.tar.gz"
@@ -76,6 +76,36 @@ env:
     - PROJECT_DIR=examples/Sugar TOOLCHAIN=gcc
     - PROJECT_DIR=examples/Sugar TOOLCHAIN=ios-nocodesign
     - PROJECT_DIR=examples/Sugar TOOLCHAIN=analyze
+    #
+    - PROJECT_DIR=examples/ZLIB TOOLCHAIN=default
+    - PROJECT_DIR=examples/ZLIB TOOLCHAIN=libcxx
+    - PROJECT_DIR=examples/ZLIB TOOLCHAIN=clang-libstdcxx
+    - PROJECT_DIR=examples/ZLIB TOOLCHAIN=xcode
+    - PROJECT_DIR=examples/ZLIB TOOLCHAIN=gcc
+    - PROJECT_DIR=examples/ZLIB TOOLCHAIN=ios-nocodesign
+    - PROJECT_DIR=examples/ZLIB TOOLCHAIN=analyze
+    #
+    - PROJECT_DIR=examples/GSL TOOLCHAIN=default
+    - PROJECT_DIR=examples/GSL TOOLCHAIN=libcxx
+    - PROJECT_DIR=examples/GSL TOOLCHAIN=clang-libstdcxx
+    - PROJECT_DIR=examples/GSL TOOLCHAIN=xcode
+    - PROJECT_DIR=examples/GSL TOOLCHAIN=gcc
+    - PROJECT_DIR=examples/GSL TOOLCHAIN=analyze
+    #
+    - PROJECT_DIR=examples/CLAPACK TOOLCHAIN=default
+    - PROJECT_DIR=examples/CLAPACK TOOLCHAIN=libcxx
+    - PROJECT_DIR=examples/CLAPACK TOOLCHAIN=clang-libstdcxx
+    - PROJECT_DIR=examples/CLAPACK TOOLCHAIN=xcode
+    - PROJECT_DIR=examples/CLAPACK TOOLCHAIN=gcc
+    - PROJECT_DIR=examples/CLAPACK TOOLCHAIN=analyze
+    #
+    - PROJECT_DIR=examples/TIFF TOOLCHAIN=default
+    - PROJECT_DIR=examples/TIFF TOOLCHAIN=libcxx
+    - PROJECT_DIR=examples/TIFF TOOLCHAIN=clang-libstdcxx
+    - PROJECT_DIR=examples/TIFF TOOLCHAIN=xcode
+    - PROJECT_DIR=examples/TIFF TOOLCHAIN=gcc
+    - PROJECT_DIR=examples/TIFF TOOLCHAIN=ios-nocodesign
+    - PROJECT_DIR=examples/TIFF TOOLCHAIN=analyze
 
     ### TESTS --
     - PROJECT_DIR=tests/simple TOOLCHAIN=default
