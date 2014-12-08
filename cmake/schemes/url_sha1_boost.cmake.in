@@ -10,6 +10,7 @@ include(ExternalProject) # ExternalProject_Add
 list(APPEND CMAKE_MODULE_PATH "@HUNTER_SELF@/cmake/modules")
 
 include(hunter_assert_lists_equal)
+include(hunter_report_broken_package)
 include(hunter_status_debug)
 include(hunter_test_string_not_empty)
 
@@ -71,6 +72,12 @@ set(
 if(NOT @HUNTER_Boost_VERSION@ VERSION_LESS "1.56.0")
   # >= 1.56
   list(APPEND boost_libs container)
+endif()
+
+# MinGW 1.55 is broken
+string(REGEX MATCH "1.55.0*" version_1_55 "@HUNTER_Boost_VERSION@")
+if(version_1_55)
+  hunter_report_broken_package("MinGW + Boost 1.55.0 (Use >= 1.56.0)")
 endif()
 
 foreach(x ${boost_libs})
