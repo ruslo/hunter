@@ -169,6 +169,10 @@ if(MSVC)
 
   # Fix some compile errors
   set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} /DNOMINMAX")
+
+  # Fix boost.python:
+  # include\pymath.h: warning C4273: 'round': inconsistent dll linkage
+  set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} /DHAVE_ROUND")
 endif()
 
 if("@HUNTER_ENABLE_BOOST_SHARED@")

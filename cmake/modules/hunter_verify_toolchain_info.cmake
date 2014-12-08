@@ -16,7 +16,11 @@ function(hunter_verify_toolchain_info)
   hunter_test_string_not_empty("${PROJECT_BINARY_DIR}")
 
   if(HUNTER_CMAKE_GENERATOR)
-    set(use_generator "-G${HUNTER_CMAKE_GENERATOR}")
+    set(
+        use_generator
+        "-G${HUNTER_CMAKE_GENERATOR}"
+        "-DHUNTER_CMAKE_GENERATOR=${HUNTER_CMAKE_GENERATOR}"
+    )
   else()
     set(use_generator "")
   endif()
