@@ -76,7 +76,7 @@ endif()
 
 # MinGW 1.55 is broken
 string(REGEX MATCH "1.55.0*" version_1_55 "@HUNTER_Boost_VERSION@")
-if(version_1_55)
+if(version_1_55 AND MINGW)
   hunter_report_broken_package("MinGW + Boost 1.55.0 (Use >= 1.56.0)")
 endif()
 
