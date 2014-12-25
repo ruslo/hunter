@@ -61,6 +61,14 @@ env:
     - PROJECT_DIR=examples/GTest TOOLCHAIN=ios-nocodesign
     - PROJECT_DIR=examples/GTest TOOLCHAIN=analyze
     #
+    - PROJECT_DIR=examples/Libssh2 TOOLCHAIN=default
+    - PROJECT_DIR=examples/Libssh2 TOOLCHAIN=libcxx
+    - PROJECT_DIR=examples/Libssh2 TOOLCHAIN=clang-libstdcxx
+    - PROJECT_DIR=examples/Libssh2 TOOLCHAIN=xcode
+    - PROJECT_DIR=examples/Libssh2 TOOLCHAIN=gcc
+    - PROJECT_DIR=examples/Libssh2 TOOLCHAIN=ios-nocodesign
+    - PROJECT_DIR=examples/Libssh2 TOOLCHAIN=analyze
+    #
     - PROJECT_DIR=examples/OpenSSL TOOLCHAIN=default
     - PROJECT_DIR=examples/OpenSSL TOOLCHAIN=libcxx
     - PROJECT_DIR=examples/OpenSSL TOOLCHAIN=clang-libstdcxx
