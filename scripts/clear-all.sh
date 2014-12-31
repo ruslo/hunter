@@ -254,6 +254,7 @@ unset TEMP_DIR
 unset TEMP_FILES_DIR
 unset TEMP_FILE_DIR
 unset TEMP_ROOT
+unset TEST # Break Makefile OpenSSL build
 unset TOOLCHAINS
 unset UNSTRIPPED_PRODUCT
 unset USER_APPS_DIR

@@ -37,7 +37,7 @@ set_directory_properties(
 )
 
 if(APPLE)
-  set(configure_command "./Configure")
+  set(configure_command . "@HUNTER_SELF@/scripts/clear-all.sh" && ./Configure)
   set(configure_opts "darwin64-x86_64-cc")
   set(build_command . "@HUNTER_SELF@/scripts/clear-all.sh" && make)
 else()
