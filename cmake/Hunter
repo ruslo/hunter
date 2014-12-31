@@ -1,4 +1,4 @@
-# Copyright (c) 2013, Ruslan Baratov
+# Copyright (c) 2013-2014, Ruslan Baratov
 # All rights reserved.
 
 if(DEFINED HUNTER_CMAKE_HUNTER_)
@@ -284,6 +284,13 @@ include(hunter_set_cmake_default_generator)
 hunter_set_cmake_default_generator()
 
 if(HUNTER_ENABLED)
+  ### Disable package registry
+  ### http://www.cmake.org/cmake/help/v3.1/manual/cmake-packages.7.html#disabling-the-package-registry
+  set(CMAKE_EXPORT_NO_PACKAGE_REGISTRY ON)
+  set(CMAKE_FIND_PACKAGE_NO_PACKAGE_REGISTRY ON)
+  set(CMAKE_FIND_PACKAGE_NO_SYSTEM_PACKAGE_REGISTRY ON)
+  ### -- end
+
   set(HUNTER_LOCK_PATH "${HUNTER_BASE}/directory-lock")
   include(hunter_verify_toolchain_info)
   hunter_verify_toolchain_info()
