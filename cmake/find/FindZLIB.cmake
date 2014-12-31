@@ -54,46 +54,11 @@ if(HUNTER_STATUS_DEBUG)
   message("[hunter] Custom FindZLIB module")
 endif()
 
-set(_ZLIB_SEARCHES)
+find_package(ZLIB CONFIG REQUIRED)
+set(ZLIB_LIBRARY ZLIB::zlib)
+set(ZLIB_INCLUDE_DIR "${ZLIB_ROOT}/include")
 
-# Search ZLIB_ROOT first if it is set.
-if(ZLIB_ROOT)
-  set(_ZLIB_SEARCH_ROOT PATHS ${ZLIB_ROOT} NO_DEFAULT_PATH)
-  list(APPEND _ZLIB_SEARCHES _ZLIB_SEARCH_ROOT)
-endif()
-
-# Normal search.
-set(_ZLIB_SEARCH_NORMAL
-  PATHS "[HKEY_LOCAL_MACHINE\\SOFTWARE\\GnuWin32\\Zlib;InstallPath]"
-        "$ENV{PROGRAMFILES}/zlib"
-  )
-list(APPEND _ZLIB_SEARCHES _ZLIB_SEARCH_NORMAL)
-
-set(ZLIB_NAMES_DEBUG zd zlibd zdlld zlibd1)
-set(ZLIB_NAMES_RELEASE z zlib zdll zlib1)
-
-# Try each search configuration.
-foreach(search ${_ZLIB_SEARCHES})
-  find_path(ZLIB_INCLUDE_DIR NAMES zlib.h        ${${search}} PATH_SUFFIXES include)
-endforeach()
-
-foreach(search ${_ZLIB_SEARCHES})
-  find_library(ZLIB_LIBRARY_RELEASE NAMES ${ZLIB_NAMES_RELEASE} ${${search}} PATH_SUFFIXES lib)
-  find_library(ZLIB_LIBRARY_DEBUG NAMES ${ZLIB_NAMES_DEBUG} ${${search}} PATH_SUFFIXES lib)
-endforeach()
-
-if(ZLIB_LIBRARY_RELEASE AND ZLIB_LIBRARY_DEBUG)
-  set(ZLIB_LIBRARY debug ${ZLIB_LIBRARY_DEBUG} optimized ${ZLIB_LIBRARY_RELEASE})
-else()
-  if(ZLIB_LIBRARY_DEBUG)
-    set(ZLIB_LIBRARY ${ZLIB_LIBRARY_DEBUG})
-  endif()
-  if(ZLIB_LIBRARY_RELEASE)
-    set(ZLIB_LIBRARY ${ZLIB_LIBRARY_RELEASE})
-  endif()
-endif()
-
-mark_as_advanced(ZLIB_LIBRARY ZLIB_LIBRARY_RELEASE ZLIB_LIBRARY_DEBUG ZLIB_INCLUDE_DIR)
+mark_as_advanced(ZLIB_LIBRARY ZLIB_INCLUDE_DIR)
 
 if(ZLIB_INCLUDE_DIR AND EXISTS "${ZLIB_INCLUDE_DIR}/zlib.h")
     file(STRINGS "${ZLIB_INCLUDE_DIR}/zlib.h" ZLIB_H REGEX "^#define ZLIB_VERSION \"[^\"]*\"$")
