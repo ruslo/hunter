@@ -55,14 +55,6 @@ endif()
 
 set(TEMP_INSTALL_DIR "${TEMP_INSTALL_DIR}/temp-hunter-openssl-REMOVE_ME")
 
-if(MSVC_VERSION VERSION_LESS 1800)
-  hunter_fatal_error(
-      "OpenSSL: MSVC 2013 minimum required"
-      "(version 1800, generator `Visual Studio 12`)"
-      WIKI "https://github.com/ruslo/hunter/wiki/Error-%28openssl-visual-studio-2013-required%29"
-  )
-endif()
-
 # `find_package(Perl)` is not suitable because `perl` from
 # cygwin directory can be found
 execute_process(
