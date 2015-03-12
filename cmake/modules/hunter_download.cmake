@@ -327,20 +327,13 @@ function(hunter_download)
         h_build_result
     )
 
-    if(${h_build_result} EQUAL 0)
-      # Sanity check. Sometimes MSVC just skip build without any reason...
-      hunter_check_already_installed(
-          VARIANTS ${HUNTER_DOWNLOAD_SCHEME_VARIANTS}
-          RESULT already_installed
-      )
-      if(NOT already_installed)
-         hunter_unlock()
-         hunter_fatal_error(
-             "External project reported that build successfull"
-             "but there are no stamps."
-             WIKI "https://github.com/ruslo/hunter/wiki/Error-%28External-project-reported-that-build-successfull%29"
-         )
-      endif()
+    # Sanity check. Sometimes MSVC just skip build without any reason...
+    hunter_check_already_installed(
+        VARIANTS ${HUNTER_DOWNLOAD_SCHEME_VARIANTS}
+        RESULT already_installed
+    )
+
+    if(${h_build_result} EQUAL 0 AND already_installed)
       hunter_status_print("Build step successful (dir: ${h_work_dir})")
       if(NOT HUNTER_STATUS_DEBUG)
         # clean-up
@@ -354,13 +347,26 @@ function(hunter_download)
       string(COMPARE EQUAL "${counter}" "xxxx" stop_condition)
       if(stop_condition)
         hunter_unlock()
-        hunter_internal_error("build step failed (dir: ${h_work_dir}")
+        if(NOT already_installed)
+           hunter_fatal_error(
+               "External project reported that build successfull"
+               "but there are no stamps."
+               WIKI "https://github.com/ruslo/hunter/wiki/Error-%28External-project-reported-that-build-successfull%29"
+           )
+        else()
+          hunter_internal_error("build step failed (dir: ${h_work_dir}")
+        endif()
       else()
-        string(TIMESTAMP time_now)
-        hunter_status_print(
-            "[${time_now}] Build failed, retry after 10 sec ..."
-        )
-        execute_process(COMMAND "${CMAKE_COMMAND}" -E sleep 10)
+        if(NOT ${h_build_result} EQUAL 0)
+          string(TIMESTAMP time_now)
+          hunter_status_print(
+              "[${time_now}] Build failed, retry after 10 sec ..."
+          )
+          execute_process(COMMAND "${CMAKE_COMMAND}" -E sleep 10)
+        else()
+          # Update project file to trigger regenerate (timestamps?)
+          file(APPEND "${h_work_dir}/CMakeLists.txt" " ")
+        endif()
       endif()
     endif()
   endwhile()
