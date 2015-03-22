@@ -288,6 +288,14 @@ function(hunter_download)
     endif()
   endif()
 
+  if(HUNTER_SKIP_TOOLCHAIN_VERIFICATION)
+    file(
+        APPEND
+        "${HUNTER_DOWNLOAD_TOOLCHAIN}"
+        "set(HUNTER_SKIP_TOOLCHAIN_VERIFICATION YES)\n"
+    )
+  endif()
+
   hunter_status_debug("Run generate")
 
   # Configure and build downloaded project
