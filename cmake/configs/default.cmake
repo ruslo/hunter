@@ -29,6 +29,7 @@ hunter_config(Libcxx VERSION 3.5.0)
 hunter_config(Libcxxabi VERSION 3.5.0)
 hunter_config(Libssh2 VERSION 1.4.4_DEV-cmake)
 hunter_config(OpenSSL VERSION 1.0.2a)
+hunter_config(PNG VERSION 1.6.16)
 hunter_config(RapidJSON VERSION 0.11-hunter)
 hunter_config(Sober VERSION 0.1.0) # Relax warnings
 hunter_config(Sugar VERSION 1.2.2)
