@@ -5,9 +5,6 @@
 cmake_minimum_required(VERSION 3.0)
 project(example-hunter-png)
 
-# See https://github.com/ruslo/hunter/issues/50
-set(HUNTER_SKIP_TOOLCHAIN_VERIFICATION YES)
-
 # Emulate HunterGate:
 # * https://github.com/hunter-packages/gate
 include("../common.cmake")
