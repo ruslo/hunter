@@ -12,31 +12,15 @@ include(hunter_unsetvar)
 #     * HUNTER_DOWNLOAD_SCHEME_INSTALL
 #     * HUNTER_DOWNLOAD_SCHEME_VARIANTS
 function(hunter_pick_scheme)
-  # check preconditions
-  hunter_test_string_not_empty("${HUNTER_BASE}")
-  hunter_test_string_not_empty("${HUNTER_INSTALL_TAG}")
+  hunter_test_string_not_empty("${CMAKE_GENERATOR}")
 
-  if(HUNTER_CMAKE_GENERATOR)
-    set(default_generator "${HUNTER_CMAKE_GENERATOR}")
-  else()
-    # default generator (see function `hunter_set_cmake_default_generator`)
-    set(
-        generator_info
-        "${HUNTER_BASE}/Toolchains/${HUNTER_INSTALL_TAG}/default_generator.info"
-    )
-    if(NOT EXISTS "${generator_info}")
-      hunter_internal_error("File `${generator_info}` not found")
-    endif()
-
-    file(READ "${generator_info}" default_generator)
-  endif()
-
+  # Note: MSVC_IDE is empty before "project" command
   hunter_unsetvar(is_combined)
-  string(COMPARE EQUAL "${default_generator}" "Xcode" is_xcode)
+  string(COMPARE EQUAL "${CMAKE_GENERATOR}" "Xcode" is_xcode)
   if(is_xcode)
     set(is_combined YES)
   else()
-    string(FIND "${default_generator}" "Visual Studio" result)
+    string(FIND "${CMAKE_GENERATOR}" "Visual Studio" result)
     if(NOT result EQUAL "-1")
       set(is_combined YES)
     endif()
