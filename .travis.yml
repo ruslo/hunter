@@ -85,6 +85,14 @@ env:
     - PROJECT_DIR=examples/OpenSSL TOOLCHAIN=ios-nocodesign
     - PROJECT_DIR=examples/OpenSSL TOOLCHAIN=analyze
     #
+    - PROJECT_DIR=examples/PNG TOOLCHAIN=default
+    - PROJECT_DIR=examples/PNG TOOLCHAIN=libcxx
+    - PROJECT_DIR=examples/PNG TOOLCHAIN=clang-libstdcxx
+    - PROJECT_DIR=examples/PNG TOOLCHAIN=xcode
+    - PROJECT_DIR=examples/PNG TOOLCHAIN=gcc
+    - PROJECT_DIR=examples/PNG TOOLCHAIN=ios-nocodesign
+    - PROJECT_DIR=examples/PNG TOOLCHAIN=analyze
+    #
     - PROJECT_DIR=examples/Sugar TOOLCHAIN=default
     - PROJECT_DIR=examples/Sugar TOOLCHAIN=libcxx
     - PROJECT_DIR=examples/Sugar TOOLCHAIN=clang-libstdcxx
