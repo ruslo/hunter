@@ -3,6 +3,7 @@
 
 include(CMakeParseArguments) # cmake_parse_arguments
 
+include(hunter_fatal_error)
 include(hunter_internal_error)
 include(hunter_unsetvar)
 
@@ -33,7 +34,6 @@ macro(hunter_config)
 
   # clear all
   hunter_unsetvar(${_hunter_root})
-  unset(ENV{_hunter_root})
 
   if(_hunter_VERSION)
     set(HUNTER_${_hunter_current_project}_VERSION ${_hunter_VERSION})
