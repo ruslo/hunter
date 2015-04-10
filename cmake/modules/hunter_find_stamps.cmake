@@ -1,68 +1,38 @@
-# Copyright (c) 2014, Ruslan Baratov
+# Copyright (c) 2014-2015, Ruslan Baratov
 # All rights reserved.
 
 include(CMakeParseArguments) # cmake_parse_arguments
 
 include(hunter_internal_error)
-include(hunter_test_string_not_empty)
+include(hunter_status_debug)
 
-function(hunter_find_stamps)
-  hunter_test_string_not_empty("${HUNTER_PACKAGE_BASENAME}")
-  hunter_test_string_not_empty("${HUNTER_BASE}")
+function(hunter_find_stamps build_dir)
+  hunter_status_debug("Try to find stamps in directory: ${build_dir}")
 
-  set(one NAME RESULT)
-  set(multi VARIANTS)
-
-  cmake_parse_arguments(x "" "${one}" "${multi}" ${ARGV})
-
-  if(x_UNPARSED_ARGUMENTS)
-    hunter_internal_error("Unparsed: ${x_UNPARSED_ARGUMENTS}")
+  file(GLOB prefix_dirs "${build_dir}/*-prefix")
+  string(COMPARE EQUAL "${prefix_dirs}" "" is_empty)
+  if(is_empty)
+    hunter_internal_error("`*-prefix` directory not found in `${build_dir}`")
   endif()
 
-  if(NOT x_NAME)
-    hunter_internal_error("NAME argument is required")
-  endif()
-
-  string(COMPARE EQUAL "${x_NAME}" "install" is_install)
-  string(COMPARE EQUAL "${x_NAME}" "configure" is_configure)
-  if(NOT is_install AND NOT is_configure)
-    hunter_internal_error(
-        "NAME argument `${x_NAME}` is not `install` or `configure`"
-    )
-  endif()
-
-  if(NOT x_RESULT)
-    hunter_internal_error("RESULT argument is required")
-  endif()
-
-  if(NOT x_VARIANTS)
-    set(x_VARIANTS "-")
-  endif()
-
-  set(found_files_list "")
-
-  foreach(variant ${x_VARIANTS})
-    string(COMPARE EQUAL "${variant}" "-" is_empty)
+  foreach(prefix_dir ${prefix_dirs})
+    file(GLOB stamp_dir "${prefix_dir}/src/*-stamp")
+    string(COMPARE EQUAL "${stamp_dir}" "" is_empty)
     if(is_empty)
-      set(x "${HUNTER_PACKAGE_BASENAME}")
-    else()
-      set(x "${HUNTER_PACKAGE_BASENAME}-${variant}")
+      hunter_internal_error(
+          "`src/*-stamp` directory not found in `${prefix_dir}`"
+      )
     endif()
-    set(stamp_result "STAMP-NOTFOUND") # search again
-    find_file(
-        stamp_result
-        "${x}-${x_NAME}"
-        PATHS
-        "${HUNTER_BASE}/Stamp/${x}/"
-        NO_DEFAULT_PATH
-        PATH_SUFFIXES
-        Debug # tested on windows with Visual Studio 2013
-        Debug-iphoneos # tested on Mac OS X with Xcode
-    )
-    if(stamp_result)
-      list(APPEND found_files_list "${stamp_result}")
+
+    file(GLOB stamp_done "${stamp_dir}/*-done")
+    file(GLOB stamp_done_recurse "${stamp_dir}/*/*-done")
+
+    if(EXISTS "${stamp_done}")
+      hunter_status_debug("Stamp 'done' location: ${stamp_done}")
+    elseif(EXISTS "${stamp_done_recurse}")
+      hunter_status_debug("Stamp 'done' location: ${stamp_done_recurse}")
+    else()
+      hunter_internal_error("Stamp 'done' not found in directory: ${stamp_dir}")
     endif()
   endforeach()
-
-  set(${x_RESULT} ${found_files_list} PARENT_SCOPE)
 endfunction()
