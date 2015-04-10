@@ -17,6 +17,7 @@ set(HUNTER_WIKI "https://github.com/ruslo/hunter/wiki")
 list(APPEND CMAKE_MODULE_PATH "${CMAKE_CURRENT_LIST_DIR}/modules")
 list(APPEND CMAKE_MODULE_PATH "${CMAKE_CURRENT_LIST_DIR}/find")
 
+include(hunter_add_package) # For user project
 include(hunter_apply_gate_settings)
 include(hunter_calculate_self)
 include(hunter_status_debug)
