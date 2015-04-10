@@ -39,9 +39,9 @@ function(hunter_make_directory parent sha1 result)
     return()
   endif()
 
-  file(WRITE "${sha1_path}" "${sha1}")
   file(MAKE_DIRECTORY "${dir_path}")
   file(WRITE "${done_path}" "")
+  file(WRITE "${sha1_path}" "${sha1}")
 
   set("${result}" "${dir_path}" PARENT_SCOPE)
 endfunction()
