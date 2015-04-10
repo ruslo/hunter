@@ -1,4 +1,4 @@
-# Copyright (c) 2013, Ruslan Baratov
+# Copyright (c) 2013, 2015 Ruslan Baratov
 # All rights reserved.
 
 include(CMakeParseArguments) # cmake_parse_arguments
@@ -63,13 +63,11 @@ macro(hunter_add_package)
     )
   endforeach()
 
-  if(HUNTER_ENABLED)
-    # do not use any variables after this 'foreach', because included files
-    # may call 'hunter_add_package' and rewrite it
-    foreach(x ${_hunter_ap_list})
-      hunter_status_debug("load: ${x}")
-      include("${x}")
-      hunter_status_debug("load: ${x} ... end")
-    endforeach()
-  endif()
+  # do not use any variables after this 'foreach', because included files
+  # may call 'hunter_add_package' and rewrite it
+  foreach(x ${_hunter_ap_list})
+    hunter_status_debug("load: ${x}")
+    include("${x}")
+    hunter_status_debug("load: ${x} ... end")
+  endforeach()
 endmacro()
