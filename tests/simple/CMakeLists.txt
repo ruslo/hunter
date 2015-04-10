@@ -5,6 +5,8 @@ cmake_minimum_required(VERSION 3.0)
 
 include("../common.cmake")
 
+include(hunter_config)
+
 set(HUNTER_Foo_VERSION "")
 hunter_config(Foo VERSION 1.2.3)
 

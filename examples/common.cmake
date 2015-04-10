@@ -3,16 +3,37 @@
 
 cmake_minimum_required(VERSION 3.0)
 
-if(NOT HUNTER_ROOT)
-  message(FATAL_ERROR "Expected HUNTER_ROOT")
+### Include HunterGate module from git submodule
+set(gate_dir "${CMAKE_CURRENT_LIST_DIR}/../gate")
+set(gate_module "${gate_dir}/cmake/HunterGate.cmake")
+
+if(NOT EXISTS "${gate_module}")
+  message(
+      FATAL_ERROR
+      "${gate_module} module not found (update git submodule needed?)"
+  )
 endif()
 
-# Emulate HunterGate
-set(HUNTER_GATE_ROOT "${HUNTER_ROOT}")
-set(_unused "xxxxxxx")
-set(HUNTER_GATE_VERSION "${_unused}")
-set(HUNTER_GATE_SHA1 "${_unused}")
-# -- end
+include("${gate_module}")
 
-include("${HUNTER_ROOT}/cmake/Hunter")
-include(hunter_add_package)
+### Check testing variables are set
+string(COMPARE EQUAL "${TESTING_URL}" "" is_empty)
+if(is_empty)
+  message(FATAL_ERROR "TESTING_URL variable is empty (see jenkins.py script)")
+endif()
+
+string(COMPARE EQUAL "${TESTING_SHA1}" "" is_empty)
+if(is_empty)
+  message(FATAL_ERROR "TESTING_SHA1 variable is empty (see jenkins.py script)")
+endif()
+
+string(COMPARE EQUAL "${HUNTER_ROOT}" "" is_empty)
+if(is_empty)
+  message(FATAL_ERROR "HUNTER_ROOT variable is empty (see jenkins.py script)")
+endif()
+
+### HunterGate module
+HunterGate(
+    URL "${TESTING_URL}"
+    SHA1 "${TESTING_SHA1}"
+)

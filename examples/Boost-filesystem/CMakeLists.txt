@@ -2,11 +2,12 @@
 # All rights reserved.
 
 cmake_minimum_required(VERSION 3.0)
-project(download-boost)
 
 # Emulate HunterGate:
 # * https://github.com/hunter-packages/gate
 include("../common.cmake")
+
+project(download-boost)
 
 # download boost
 hunter_add_package(Boost COMPONENTS filesystem)

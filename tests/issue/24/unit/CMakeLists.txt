@@ -3,6 +3,7 @@ cmake_minimum_required(VERSION 3.0)
 include("../../../common.cmake")
 
 include(hunter_cmake_args)
+include(hunter_config)
 
 hunter_config(Foo VERSION 1.0 CMAKE_ARGS TEST=1)
 hunter_cmake_args(Foo CMAKE_ARGS TEST=2)

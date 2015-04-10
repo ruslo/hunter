@@ -2,11 +2,12 @@
 # All rights reserved.
 
 cmake_minimum_required(VERSION 3.0)
-project(download-gtest)
 
 # Emulate HunterGate:
 # * https://github.com/hunter-packages/gate
 include("../common.cmake")
+
+project(download-gtest)
 
 # download gtest
 hunter_add_package(GTest)

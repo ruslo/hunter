@@ -5,11 +5,13 @@
 
 # https://github.com/ruslo/polly/wiki/Jenkins
 
+import hashlib
 import os
+import shutil
 import subprocess
 import sys
+import tarfile
 import tempfile
-import shutil
 
 def run():
   cdir = os.getcwd()
@@ -69,9 +71,15 @@ def run():
       )
       testing_dir = temp_dir
 
-  build_dir = os.path.join(testing_dir, 'Build')
-  download_dir = os.path.join(testing_dir, 'Downloads')
-  base_dir = os.path.join(testing_dir, 'Base')
+  hunter_url = os.path.join(testing_dir, 'hunter.tar.gz')
+  arch = tarfile.open(hunter_url, 'w:gz')
+  arch.add('cmake')
+  arch.add('scripts')
+  arch.close()
+
+  hunter_sha1 = hashlib.sha1(open(hunter_url, 'rb').read()).hexdigest()
+
+  hunter_root = os.path.join(testing_dir, 'Hunter')
 
   build_script = 'build.py'
   if os.name == 'nt':
@@ -84,9 +92,7 @@ def run():
   ).split('\n')[0]
 
   print('Testing in: {}'.format(testing_dir))
-
-  os.makedirs(build_dir, exist_ok=True)
-  os.chdir(build_dir)
+  os.chdir(testing_dir)
 
   args = [
       sys.executable,
@@ -98,8 +104,9 @@ def run():
       project_dir,
       '--fwd',
       'HUNTER_ROOT={}'.format(hunter_root),
-      'HUNTER_BASE={}'.format(base_dir),
-      'HUNTER_PACKAGE_DOWNLOAD_DIR={}'.format(download_dir)
+      'TESTING_URL={}'.format(hunter_url),
+      'TESTING_SHA1={}'.format(hunter_sha1),
+      'HUNTER_RUN_INSTALL=ON'
   ]
 
   if verbose:
