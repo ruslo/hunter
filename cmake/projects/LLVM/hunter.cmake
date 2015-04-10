@@ -13,9 +13,9 @@ include(hunter_cmake_args)
 include(hunter_download)
 include(hunter_pick_scheme)
 
-hunter_add_package(Clang)
-hunter_add_package(ClangToolsExtra)
-hunter_add_package(LLVMCompilerRT)
+hunter_add_package(Clang) # CLANG_ROOT
+hunter_add_package(ClangToolsExtra) # CLANGTOOLSEXTRA_ROOT
+hunter_add_package(LLVMCompilerRT) # LLVMCOMPILERRT_ROOT
 
 hunter_add_version_start(LLVM)
 
@@ -44,9 +44,9 @@ hunter_add_version(
 hunter_cmake_args(
   LLVM
   CMAKE_ARGS
-    "LLVM_EXTERNAL_CLANG_SOURCE_DIR=${HUNTER_BASE}/Source/Clang"
-    "LLVM_EXTERNAL_CLANG_TOOLS_EXTRA_SOURCE_DIR=${HUNTER_BASE}/Source/ClangToolsExtra"
-    "LLVM_EXTERNAL_COMPILER_RT_SOURCE_DIR=${HUNTER_BASE}/Source/LLVMCompilerRT"
+    "LLVM_EXTERNAL_CLANG_SOURCE_DIR=${CLANG_ROOT}"
+    "LLVM_EXTERNAL_CLANG_TOOLS_EXTRA_SOURCE_DIR=${CLANGTOOLSEXTRA_ROOT}"
+    "LLVM_EXTERNAL_COMPILER_RT_SOURCE_DIR=${LLVMCOMPILERRT_ROOT}"
     LLVM_INCLUDE_EXAMPLES=OFF
     LLVM_INCLUDE_TESTS=OFF
     LLVM_INCLUDE_DOCS=OFF
