@@ -29,7 +29,6 @@ function(hunter_download)
       "${HUNTER_PACKAGE_NAME} versions available: ${versions}"
   )
 
-  hunter_test_string_not_empty("${HUNTER_BASE}")
   hunter_test_string_not_empty("${HUNTER_DOWNLOAD_SCHEME}")
   hunter_test_string_not_empty("${HUNTER_SELF}")
 
@@ -55,7 +54,7 @@ function(hunter_download)
   hunter_test_string_not_empty("${HUNTER_PACKAGE_SHA1}")
 
   hunter_make_directory(
-      "${HUNTER_BASE}/Download/${HUNTER_PACKAGE_NAME}/${ver}"
+      "${HUNTER_CACHED_ROOT}/_Base/Download/${HUNTER_PACKAGE_NAME}/${ver}"
       "${HUNTER_PACKAGE_SHA1}"
       HUNTER_PACKAGE_DOWNLOAD_DIR
   )

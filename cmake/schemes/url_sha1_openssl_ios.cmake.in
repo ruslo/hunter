@@ -18,7 +18,6 @@ hunter_status_debug("Scheme: url_sha1_openssl_ios")
 
 # Check preconditions
 hunter_test_string_not_empty("@HUNTER_SELF@")
-hunter_test_string_not_empty("@HUNTER_BASE@")
 hunter_test_string_not_empty("@HUNTER_PACKAGE_URL@")
 hunter_test_string_not_empty("@HUNTER_PACKAGE_SHA1@")
 hunter_test_string_not_empty("@HUNTER_PACKAGE_DOWNLOAD_DIR@")
@@ -58,7 +57,7 @@ ExternalProject_Add(
     DOWNLOAD_DIR
     "@HUNTER_PACKAGE_DOWNLOAD_DIR@"
     SOURCE_DIR
-    "@HUNTER_BASE@/Source/X-ios_universal"
+    "@HUNTER_PACKAGE_SOURCE_DIR@/ios_universal"
     INSTALL_DIR
     "@HUNTER_INSTALL_PREFIX@"
         # not used, just avoid creating Install/<name> empty directory

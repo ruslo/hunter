@@ -48,11 +48,7 @@ function(hunter_apply_gate_settings)
   )
   hunter_set_config_location("${hunter_self}" config_location)
 
-  if(HUNTER_BASE)
-    set(hunter_base "${HUNTER_BASE}")
-  else()
-    set(hunter_base "${HUNTER_GATE_ROOT}/_Base")
-  endif()
+  set(hunter_base "${HUNTER_GATE_ROOT}/_Base")
 
   # HUNTER_GATE_CONFIG_SHA1
   hunter_calculate_config_sha1(

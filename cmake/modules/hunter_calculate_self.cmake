@@ -17,9 +17,6 @@ function(hunter_calculate_self root version sha1 result)
   if(EXISTS "${root}/cmake/Hunter")
     set(hunter_self "${root}")
   else()
-    if(HUNTER_BASE)
-      hunter_internal_error("Only for testing")
-    endif()
     set(
         hunter_self
         "${root}/_Base/Download/Hunter/${version}/${archive_id}/Unpacked"
