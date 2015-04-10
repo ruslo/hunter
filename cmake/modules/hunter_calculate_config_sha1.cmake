@@ -1,33 +1,38 @@
-# Copyright (c) 2014, Ruslan Baratov
+# Copyright (c) 2015, Ruslan Baratov
 # All rights reserved.
 
 cmake_minimum_required(VERSION 3.0)
 
 include(hunter_fatal_error)
 include(hunter_internal_error)
+include(hunter_lock_directory)
+include(hunter_make_directory)
 include(hunter_status_debug)
 include(hunter_test_string_not_empty)
 
-function(hunter_calculate_config_sha1)
-  hunter_test_string_not_empty("${HUNTER_CONFIG}")
-  hunter_test_string_not_empty("${HUNTER_SELF}")
-  if(NOT EXISTS "${HUNTER_CONFIG}")
+function(hunter_calculate_config_sha1 hunter_self hunter_base user_config)
+  hunter_test_string_not_empty("${HUNTER_GATE_SHA1}")
+  hunter_test_string_not_empty("${hunter_self}")
+  hunter_test_string_not_empty("${hunter_base}")
+  hunter_test_string_not_empty("${user_config}")
+
+  if(NOT EXISTS "${user_config}")
     hunter_internal_error("Hunter config not exists")
   endif()
 
-  hunter_status_debug("Calculating Config-SHA1 of `${HUNTER_CONFIG}`")
+  hunter_status_print("Calculating Config-SHA1")
 
-  set(script "${HUNTER_SELF}/scripts/calc-config-sha1.cmake")
+  set(script "${hunter_self}/scripts/calc-config-sha1.cmake")
   if(NOT EXISTS "${script}")
     hunter_internal_error("${script} not exists")
   endif()
 
   set(work_dir "${CMAKE_BINARY_DIR}/_3rdParty/Hunter/config-id")
+  file(REMOVE_RECURSE "${work_dir}")
   file(MAKE_DIRECTORY "${work_dir}")
 
-  set(default_config "${HUNTER_SELF}/cmake/configs/default.cmake")
-  set(user_config "${HUNTER_CONFIG}")
-  set(directory_with_projects "${HUNTER_SELF}/cmake/projects")
+  set(default_config "${hunter_self}/cmake/configs/default.cmake")
+  set(directory_with_projects "${hunter_self}/cmake/projects")
 
   execute_process(
       COMMAND
@@ -36,7 +41,7 @@ function(hunter_calculate_config_sha1)
           "-DUSER_CONFIG=${user_config}"
           "-DDIRECTORY_WITH_PROJECTS=${directory_with_projects}"
           "-DTEMP_DIRECTORY=${work_dir}"
-          "-DHUNTER_SELF=${HUNTER_SELF}"
+          "-DHUNTER_SELF=${hunter_self}"
           -P "${script}"
       WORKING_DIRECTORY "${work_dir}"
       RESULT_VARIABLE result
@@ -54,20 +59,25 @@ function(hunter_calculate_config_sha1)
     hunter_internal_error("config.cmake not generated")
   endif()
 
-  file(SHA1 "${work_dir}/config.cmake" HUNTER_CONFIG_SHA1)
-  set(
-      dst
-      "${HUNTER_ROOT}/_Base/${HUNTER_SHA1_SHORT}/${HUNTER_CONFIG_SHA1}.cmake"
+  file(SHA1 "${work_dir}/config.cmake" HUNTER_GATE_CONFIG_SHA1)
+  set(HUNTER_GATE_CONFIG_SHA1 "${HUNTER_GATE_CONFIG_SHA1}" PARENT_SCOPE)
+  hunter_make_directory("${hunter_base}" "${HUNTER_GATE_SHA1}" hunter_id_path)
+  hunter_make_directory(
+      "${hunter_id_path}" "${HUNTER_GATE_CONFIG_SHA1}" hunter_config_id_path
   )
-  execute_process(
-      COMMAND "${CMAKE_COMMAND}" -E copy "${work_dir}/config.cmake" "${dst}"
-  )
-  set(
-      HUNTER_CONFIG_SHA1
-      "${HUNTER_CONFIG_SHA1}"
-      CACHE
-      STRING
-      "Hunter config-SHA1"
-  )
+
+  set(dst "${hunter_config_id_path}/config.cmake")
+
+  if(EXISTS "${dst}")
+    return()
+  endif()
+
+  hunter_lock_directory("${hunter_config_id_path}")
+  if(EXISTS "${dst}")
+    return()
+  endif()
+
+  configure_file("${work_dir}/config.cmake" "${dst}" COPYONLY)
+  hunter_status_debug("Config: ${dst}")
   hunter_status_debug("Config sha1: ${HUNTER_CONFIG_SHA1}")
 endfunction()
