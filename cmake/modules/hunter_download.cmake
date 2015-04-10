@@ -225,6 +225,12 @@ function(hunter_download)
   endif()
   hunter_status_print("${build_message}")
 
+  if(HUNTER_STATUS_DEBUG)
+    set(logging_params "")
+  else()
+    set(logging_params "OUTPUT_QUIET")
+  endif()
+
   set(
       cmd
       "${CMAKE_COMMAND}"
@@ -242,6 +248,7 @@ function(hunter_download)
       COMMAND ${cmd}
       WORKING_DIRECTORY "${HUNTER_PACKAGE_HOME_DIR}"
       RESULT_VARIABLE generate_result
+      ${logging_params}
   )
 
   if(generate_result EQUAL 0)
@@ -266,6 +273,7 @@ function(hunter_download)
       COMMAND ${cmd}
       WORKING_DIRECTORY "${HUNTER_PACKAGE_HOME_DIR}"
       RESULT_VARIABLE build_result
+      ${logging_params}
   )
 
   if(build_result EQUAL 0)
