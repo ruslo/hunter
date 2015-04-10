@@ -11,6 +11,7 @@ include(hunter_print_cmd)
 include(hunter_status_debug)
 include(hunter_status_print)
 include(hunter_test_string_not_empty)
+include(hunter_user_error)
 
 function(hunter_download)
   set(one PACKAGE_NAME PACKAGE_COMPONENT)
@@ -44,6 +45,14 @@ function(hunter_download)
   set(ver ${HUNTER_${h_name}_VERSION})
   set(HUNTER_PACKAGE_URL "${HUNTER_${h_name}_URL}")
   set(HUNTER_PACKAGE_SHA1 "${HUNTER_${h_name}_SHA1}")
+
+  string(COMPARE EQUAL "${HUNTER_PACKAGE_SHA1}" "" version_not_found)
+  if(version_not_found)
+    hunter_user_error("Version not found: ${ver}. See 'hunter_config' command.")
+  endif()
+
+  hunter_test_string_not_empty("${HUNTER_PACKAGE_URL}")
+  hunter_test_string_not_empty("${HUNTER_PACKAGE_SHA1}")
 
   hunter_make_directory(
       "${HUNTER_BASE}/Download/${HUNTER_PACKAGE_NAME}/${ver}"
