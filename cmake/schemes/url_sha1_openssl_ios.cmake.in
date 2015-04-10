@@ -1,7 +1,8 @@
-# Copyright (c) 2013, Ruslan Baratov
+# Copyright (c) 2013, 2015 Ruslan Baratov
 # All rights reserved.
 
 cmake_minimum_required(VERSION 3.0)
+project(Hunter LANGUAGES NONE)
 
 include(ExternalProject) # ExternalProject_Add
 
@@ -9,7 +10,6 @@ include(ExternalProject) # ExternalProject_Add
 
 list(APPEND CMAKE_MODULE_PATH "@HUNTER_SELF@/cmake/modules")
 
-include(hunter_assert_lists_equal)
 include(hunter_status_debug)
 include(hunter_test_string_not_empty)
 include(hunter_unsetvar)
@@ -19,32 +19,20 @@ hunter_status_debug("Scheme: url_sha1_openssl_ios")
 # Check preconditions
 hunter_test_string_not_empty("@HUNTER_SELF@")
 hunter_test_string_not_empty("@HUNTER_BASE@")
-hunter_test_string_not_empty("@HUNTER_PACKAGE_BASENAME@")
 hunter_test_string_not_empty("@HUNTER_PACKAGE_URL@")
 hunter_test_string_not_empty("@HUNTER_PACKAGE_SHA1@")
 hunter_test_string_not_empty("@HUNTER_PACKAGE_DOWNLOAD_DIR@")
-hunter_test_string_not_empty("@HUNTER_PACKAGE_INSTALL_DIR@")
+hunter_test_string_not_empty("@HUNTER_PACKAGE_SOURCE_DIR@")
+hunter_test_string_not_empty("@HUNTER_INSTALL_PREFIX@")
 hunter_test_string_not_empty("@IPHONEOS_ARCHS@")
 hunter_test_string_not_empty("@IPHONESIMULATOR_ARCHS@")
 hunter_test_string_not_empty("@IOS_SDK_VERSION@")
 hunter_test_string_not_empty("@IPHONESIMULATOR_ROOT@")
-
-hunter_assert_lists_equal(
-    @HUNTER_DOWNLOAD_SCHEME_VARIANTS@
-    @IPHONEOS_ARCHS@
-    @IPHONESIMULATOR_ARCHS@
-    ios_universal
-)
+hunter_test_string_not_empty("@IPHONEOS_ROOT@")
 
 if(@HUNTER_STATUS_DEBUG@)
   set(CMAKE_VERBOSE_MAKEFILE ON)
 endif()
-
-set_directory_properties(
-    PROPERTIES
-    EP_BASE
-    "@HUNTER_BASE@"
-)
 
 hunter_unsetvar(ssl_input_libraries)
 hunter_unsetvar(crypto_input_libraries)
@@ -53,26 +41,26 @@ foreach(arch @IPHONEOS_ARCHS@ @IPHONESIMULATOR_ARCHS@)
   list(
       APPEND
       ssl_input_libraries
-      "@HUNTER_BASE@/Source/@HUNTER_PACKAGE_BASENAME@-${arch}/libssl.a"
+      "@HUNTER_PACKAGE_SOURCE_DIR@/${arch}/libssl.a"
    )
   list(
       APPEND
       crypto_input_libraries
-      "@HUNTER_BASE@/Source/@HUNTER_PACKAGE_BASENAME@-${arch}/libcrypto.a"
+      "@HUNTER_PACKAGE_SOURCE_DIR@/${arch}/libcrypto.a"
    )
 endforeach()
 
 # fuse all libraries by 'lipo'
 ExternalProject_Add(
-    @HUNTER_PACKAGE_BASENAME@-ios_universal
+    X-ios_universal
     DOWNLOAD_COMMAND
     ""
     DOWNLOAD_DIR
     "@HUNTER_PACKAGE_DOWNLOAD_DIR@"
     SOURCE_DIR
-    "@HUNTER_BASE@/Source/@HUNTER_PACKAGE_BASENAME@-ios_universal"
+    "@HUNTER_BASE@/Source/X-ios_universal"
     INSTALL_DIR
-    "@HUNTER_PACKAGE_INSTALL_DIR@"
+    "@HUNTER_INSTALL_PREFIX@"
         # not used, just avoid creating Install/<name> empty directory
     CONFIGURE_COMMAND
     ""
@@ -83,13 +71,13 @@ ExternalProject_Add(
     -create
     ${ssl_input_libraries}
     -o
-    "@HUNTER_PACKAGE_INSTALL_DIR@/lib/libssl.a"
+    "@HUNTER_INSTALL_PREFIX@/lib/libssl.a"
     COMMAND
     lipo
     -create
     ${crypto_input_libraries}
     -o
-    "@HUNTER_PACKAGE_INSTALL_DIR@/lib/libcrypto.a"
+    "@HUNTER_INSTALL_PREFIX@/lib/libcrypto.a"
 )
 
 foreach(variant @IPHONEOS_ARCHS@ @IPHONESIMULATOR_ARCHS@)
@@ -115,7 +103,7 @@ foreach(variant @IPHONEOS_ARCHS@ @IPHONESIMULATOR_ARCHS@)
   endif()
 
   ExternalProject_Add(
-      @HUNTER_PACKAGE_BASENAME@-${variant}
+      X-${variant}
       URL
       @HUNTER_PACKAGE_URL@
       URL_HASH
@@ -123,12 +111,9 @@ foreach(variant @IPHONEOS_ARCHS@ @IPHONESIMULATOR_ARCHS@)
       DOWNLOAD_DIR
       "@HUNTER_PACKAGE_DOWNLOAD_DIR@"
       SOURCE_DIR
-      "@HUNTER_BASE@/Source/@HUNTER_PACKAGE_BASENAME@-${variant}"
-          # Out of source build is not working.
-          # Sources will be unpacked for each tag for different directories
-          # and build in source.
+      "@HUNTER_PACKAGE_SOURCE_DIR@/${variant}"
       INSTALL_DIR
-      "@HUNTER_PACKAGE_INSTALL_DIR@"
+      "@HUNTER_INSTALL_PREFIX@"
           # not used, just avoid creating Install/<name> empty directory
       CONFIGURE_COMMAND
       ./Configure
@@ -136,7 +121,7 @@ foreach(variant @IPHONEOS_ARCHS@ @IPHONESIMULATOR_ARCHS@)
       threads
       no-shared
       "${noasm}"
-      "--prefix=@HUNTER_PACKAGE_INSTALL_DIR@"
+      "--prefix=@HUNTER_INSTALL_PREFIX@"
       "${iphone_minversion}"
       "-arch ${variant}"
       BUILD_COMMAND
@@ -153,7 +138,7 @@ foreach(variant @IPHONEOS_ARCHS@ @IPHONESIMULATOR_ARCHS@)
   )
 
   add_dependencies(
-      @HUNTER_PACKAGE_BASENAME@-ios_universal
-      @HUNTER_PACKAGE_BASENAME@-${variant}
+      X-ios_universal
+      X-${variant}
   )
 endforeach()

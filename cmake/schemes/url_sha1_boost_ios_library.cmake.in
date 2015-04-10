@@ -2,6 +2,7 @@
 # All rights reserved.
 
 cmake_minimum_required(VERSION 3.0)
+project(Hunter LANGUAGES NONE)
 
 include(ExternalProject) # ExternalProject_Add
 
@@ -9,7 +10,6 @@ include(ExternalProject) # ExternalProject_Add
 
 list(APPEND CMAKE_MODULE_PATH "@HUNTER_SELF@/cmake/modules")
 
-include(hunter_assert_lists_equal)
 include(hunter_internal_error)
 include(hunter_status_debug)
 include(hunter_test_string_not_empty)
@@ -18,12 +18,13 @@ include(hunter_unsetvar)
 hunter_status_debug("Scheme: url_sha1_boost_ios_library")
 
 # Check preconditions
-hunter_test_string_not_empty("@HUNTER_BASE@")
 hunter_test_string_not_empty("@HUNTER_SELF@")
-hunter_test_string_not_empty("@HUNTER_PACKAGE_BASENAME@")
+hunter_test_string_not_empty("@HUNTER_PACKAGE_URL@")
+hunter_test_string_not_empty("@HUNTER_PACKAGE_SHA1@")
 hunter_test_string_not_empty("@HUNTER_PACKAGE_DOWNLOAD_DIR@")
 hunter_test_string_not_empty("@HUNTER_PACKAGE_SOURCE_DIR@")
-hunter_test_string_not_empty("@HUNTER_PACKAGE_INSTALL_DIR@")
+hunter_test_string_not_empty("@HUNTER_PACKAGE_BUILD_DIR@")
+hunter_test_string_not_empty("@HUNTER_INSTALL_PREFIX@")
 hunter_test_string_not_empty("@HUNTER_PACKAGE_COMPONENT@")
 hunter_test_string_not_empty("@IPHONEOS_ARCHS@")
 hunter_test_string_not_empty("@IPHONESIMULATOR_ARCHS@")
@@ -32,14 +33,6 @@ hunter_test_string_not_empty("@IPHONEOS_ROOT@")
 hunter_test_string_not_empty("@IPHONEOS_SDK_ROOT@")
 hunter_test_string_not_empty("@IPHONESIMULATOR_SDK_ROOT@")
 hunter_test_string_not_empty("@HUNTER_Boost_VERSION@")
-
-hunter_assert_lists_equal(@HUNTER_DOWNLOAD_SCHEME_VARIANTS@ ios ios_sim ios_universal)
-
-set_directory_properties(
-    PROPERTIES
-    EP_BASE
-    "@HUNTER_BASE@"
-)
 
 # Same logic in all url_sha1_boost* schemes (TODO: DRY)
 macro(BOOST_COMPONENT name version)
@@ -102,7 +95,7 @@ foreach(x @IPHONESIMULATOR_ARCHS@)
   set(isim_archs "${isim_archs} -arch ${x}")
 endforeach()
 
-set(boost_user_jam @HUNTER_BASE@/boost.user.jam)
+set(boost_user_jam "@HUNTER_PACKAGE_BUILD_DIR@/boost.user.jam")
 file(
      WRITE
      ${boost_user_jam}
@@ -157,7 +150,7 @@ set(
     . "@HUNTER_SELF@/scripts/clear-all.sh" &&
     ./bootstrap.sh
     "--with-libraries=@HUNTER_PACKAGE_COMPONENT@"
-    "--prefix=@HUNTER_PACKAGE_INSTALL_DIR@"
+    "--prefix=@HUNTER_INSTALL_PREFIX@"
 )
 
 if(@HUNTER_STATUS_DEBUG@)
@@ -165,15 +158,17 @@ if(@HUNTER_STATUS_DEBUG@)
 endif()
 
 ExternalProject_Add(
-    @HUNTER_PACKAGE_BASENAME@-ios
-    DOWNLOAD_COMMAND
-    ${CMAKE_COMMAND} -E echo "skip download"
+    X-ios
+    URL
+    @HUNTER_PACKAGE_URL@
+    URL_HASH
+    SHA1=@HUNTER_PACKAGE_SHA1@
     DOWNLOAD_DIR
     "@HUNTER_PACKAGE_DOWNLOAD_DIR@"
     SOURCE_DIR
     "@HUNTER_PACKAGE_SOURCE_DIR@"
     INSTALL_DIR
-    "@HUNTER_PACKAGE_INSTALL_DIR@"
+    "@HUNTER_INSTALL_PREFIX@"
         # not used, just avoid creating Install/<name> empty directory
     CONFIGURE_COMMAND
     ${bootstrap}
@@ -184,19 +179,19 @@ ExternalProject_Add(
     BUILD_IN_SOURCE
     1
     INSTALL_COMMAND
-    "${CMAKE_COMMAND}" -E echo "skip install"
+    ""
 )
 
 ExternalProject_Add(
-    @HUNTER_PACKAGE_BASENAME@-ios_sim
+    X-ios_sim
     DOWNLOAD_COMMAND
-    ${CMAKE_COMMAND} -E echo "skip download"
+    ""
     DOWNLOAD_DIR
     "@HUNTER_PACKAGE_DOWNLOAD_DIR@"
     SOURCE_DIR
     "@HUNTER_PACKAGE_SOURCE_DIR@"
     INSTALL_DIR
-    "@HUNTER_PACKAGE_INSTALL_DIR@"
+    "@HUNTER_INSTALL_PREFIX@"
         # not used, just avoid creating Install/<name> empty directory
     CONFIGURE_COMMAND
     ${bootstrap}
@@ -207,7 +202,12 @@ ExternalProject_Add(
     BUILD_IN_SOURCE
     1
     INSTALL_COMMAND
-    "${CMAKE_COMMAND}" -E echo "skip install"
+    ""
+)
+
+add_dependencies(
+    X-ios_sim
+    X-ios
 )
 
 string(COMPARE EQUAL "@HUNTER_PACKAGE_COMPONENT@" "test" is_test)
@@ -226,37 +226,37 @@ if(log_setup_target)
       "@HUNTER_PACKAGE_SOURCE_DIR@"
       "log_setup"
       "@HUNTER_PACKAGE_COMPONENT@"
-      "@HUNTER_PACKAGE_INSTALL_DIR@/lib"
+      "@HUNTER_INSTALL_PREFIX@/lib"
   )
 else()
   set(extra_lib_command "")
 endif()
 
 ExternalProject_Add(
-    @HUNTER_PACKAGE_BASENAME@-ios_universal
+    X-ios_universal
     DEPENDS
-    @HUNTER_PACKAGE_BASENAME@-ios
-    @HUNTER_PACKAGE_BASENAME@-ios_sim
+    X-ios
+    X-ios_sim
     DOWNLOAD_COMMAND
-    ${CMAKE_COMMAND} -E echo "skip download"
+    ""
     DOWNLOAD_DIR
     "@HUNTER_PACKAGE_DOWNLOAD_DIR@"
     SOURCE_DIR
     "@HUNTER_PACKAGE_SOURCE_DIR@"
     INSTALL_DIR
-    "@HUNTER_PACKAGE_INSTALL_DIR@"
+    "@HUNTER_INSTALL_PREFIX@"
         # not used, just avoid creating Install/<name> empty directory
     CONFIGURE_COMMAND
-    "${CMAKE_COMMAND}" -E echo "skip configure"
+    ""
     BUILD_COMMAND
-    "${CMAKE_COMMAND}" -E echo "skip build"
+    ""
     INSTALL_COMMAND
-    "${CMAKE_COMMAND}" -E make_directory "@HUNTER_PACKAGE_INSTALL_DIR@/lib"
+    "${CMAKE_COMMAND}" -E make_directory "@HUNTER_INSTALL_PREFIX@/lib"
     COMMAND
     "@HUNTER_SELF@/scripts/create-boost-ios-fatlib.sh"
     "@HUNTER_PACKAGE_SOURCE_DIR@"
     "${LIBNAME}"
     "@HUNTER_PACKAGE_COMPONENT@"
-    "@HUNTER_PACKAGE_INSTALL_DIR@/lib"
+    "@HUNTER_INSTALL_PREFIX@/lib"
     ${extra_lib_command}
 )

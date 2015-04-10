@@ -2,6 +2,7 @@
 # All rights reserved.
 
 cmake_minimum_required(VERSION 3.0)
+project(Hunter LANGUAGES NONE)
 
 include(ExternalProject) # ExternalProject_Add
 
@@ -9,7 +10,6 @@ include(ExternalProject) # ExternalProject_Add
 
 list(APPEND CMAKE_MODULE_PATH "@HUNTER_SELF@/cmake/modules")
 
-include(hunter_assert_lists_equal)
 include(hunter_internal_error)
 include(hunter_status_debug)
 include(hunter_test_string_not_empty)
@@ -26,30 +26,20 @@ endif()
 
 # Check preconditions
 hunter_test_string_not_empty("@HUNTER_SELF@")
-hunter_test_string_not_empty("@HUNTER_BASE@")
-hunter_test_string_not_empty("@HUNTER_PACKAGE_BASENAME@")
 hunter_test_string_not_empty("@HUNTER_PACKAGE_URL@")
 hunter_test_string_not_empty("@HUNTER_PACKAGE_SHA1@")
 hunter_test_string_not_empty("@HUNTER_PACKAGE_DOWNLOAD_DIR@")
 hunter_test_string_not_empty("@HUNTER_PACKAGE_SOURCE_DIR@")
-hunter_test_string_not_empty("@HUNTER_PACKAGE_INSTALL_DIR@")
+hunter_test_string_not_empty("@HUNTER_INSTALL_PREFIX@")
 hunter_test_string_not_empty("@CMAKE_DEBUG_POSTFIX@")
 hunter_test_string_not_empty("${CMAKE_TOOLCHAIN_FILE}")
-
-hunter_assert_lists_equal(@HUNTER_DOWNLOAD_SCHEME_VARIANTS@ release debug)
-
-set_directory_properties(
-    PROPERTIES
-    EP_BASE
-    "@HUNTER_BASE@"
-)
 
 if(@HUNTER_STATUS_DEBUG@)
   set(verbose_makefile "-DCMAKE_VERBOSE_MAKEFILE=ON")
 endif()
 
 ExternalProject_Add(
-    @HUNTER_PACKAGE_BASENAME@-release
+    X-release
     URL
     @HUNTER_PACKAGE_URL@
     URL_HASH
@@ -59,18 +49,18 @@ ExternalProject_Add(
     SOURCE_DIR
     "@HUNTER_PACKAGE_SOURCE_DIR@"
     INSTALL_DIR
-    "@HUNTER_PACKAGE_INSTALL_DIR@"
+    "@HUNTER_INSTALL_PREFIX@"
         # not used, just avoid creating Install/<name>_Release empty directory
     CMAKE_ARGS
     "-DCMAKE_BUILD_TYPE=Release"
-    "-DCMAKE_INSTALL_PREFIX=@HUNTER_PACKAGE_INSTALL_DIR@"
+    "-DCMAKE_INSTALL_PREFIX=@HUNTER_INSTALL_PREFIX@"
     ${verbose_makefile}
     "-DCMAKE_TOOLCHAIN_FILE=${CMAKE_TOOLCHAIN_FILE}"
 )
 
 # download and source step will use previous target source dir (skipped)
 ExternalProject_Add(
-    @HUNTER_PACKAGE_BASENAME@-debug
+    X-debug
     DOWNLOAD_COMMAND
     ""
     DOWNLOAD_DIR
@@ -78,10 +68,10 @@ ExternalProject_Add(
     SOURCE_DIR
     "@HUNTER_PACKAGE_SOURCE_DIR@"
     INSTALL_DIR
-    "@HUNTER_PACKAGE_INSTALL_DIR@"
+    "@HUNTER_INSTALL_PREFIX@"
     CMAKE_ARGS
     "-DCMAKE_BUILD_TYPE=Debug"
-    "-DCMAKE_INSTALL_PREFIX=@HUNTER_PACKAGE_INSTALL_DIR@"
+    "-DCMAKE_INSTALL_PREFIX=@HUNTER_INSTALL_PREFIX@"
     "-DCMAKE_DEBUG_POSTFIX=@CMAKE_DEBUG_POSTFIX@"
     ${verbose_makefile}
     "-DCMAKE_TOOLCHAIN_FILE=${CMAKE_TOOLCHAIN_FILE}"
@@ -89,6 +79,6 @@ ExternalProject_Add(
 
 # debug version use release download result
 add_dependencies(
-    @HUNTER_PACKAGE_BASENAME@-debug
-    @HUNTER_PACKAGE_BASENAME@-release
+    X-debug
+    X-release
 )

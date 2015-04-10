@@ -2,6 +2,7 @@
 # All rights reserved.
 
 cmake_minimum_required(VERSION 3.0)
+project(Hunter LANGUAGES NONE)
 
 include(ExternalProject) # ExternalProject_Add
 
@@ -11,7 +12,6 @@ list(APPEND CMAKE_MODULE_PATH "@HUNTER_SELF@/cmake/modules")
 
 include(CheckSymbolExists) # check_symbol_exists
 
-include(hunter_assert_lists_equal)
 include(hunter_fatal_error)
 include(hunter_internal_error)
 include(hunter_status_debug)
@@ -21,11 +21,10 @@ hunter_status_debug("Scheme: url_sha1_boost_library")
 
 # Check preconditions
 hunter_test_string_not_empty("@HUNTER_SELF@")
-hunter_test_string_not_empty("@HUNTER_BASE@")
-hunter_test_string_not_empty("@HUNTER_PACKAGE_BASENAME@")
 hunter_test_string_not_empty("@HUNTER_PACKAGE_DOWNLOAD_DIR@")
 hunter_test_string_not_empty("@HUNTER_PACKAGE_SOURCE_DIR@")
-hunter_test_string_not_empty("@HUNTER_PACKAGE_INSTALL_DIR@")
+hunter_test_string_not_empty("@HUNTER_PACKAGE_BUILD_DIR@")
+hunter_test_string_not_empty("@HUNTER_INSTALL_PREFIX@")
 hunter_test_string_not_empty("@HUNTER_PACKAGE_COMPONENT@")
 hunter_test_string_not_empty("@CMAKE_CXX_COMPILER@")
 hunter_test_string_not_empty("@HUNTER_Boost_VERSION@")
@@ -33,14 +32,6 @@ if(MSVC)
   hunter_test_string_not_empty("@HUNTER_MSVC_ARCH@")
   hunter_test_string_not_empty("@HUNTER_MSVC_VCVARSALL@")
 endif()
-
-hunter_assert_lists_equal(@HUNTER_DOWNLOAD_SCHEME_VARIANTS@)
-
-set_directory_properties(
-    PROPERTIES
-    EP_BASE
-    "@HUNTER_BASE@"
-)
 
 # Same logic in all url_sha1_boost* schemes (TODO: DRY)
 macro(BOOST_COMPONENT name version)
@@ -157,7 +148,7 @@ else()
   set(variants variant=debug,release)
 endif()
 
-set(boost_user_jam "@HUNTER_BASE@/boost.user.jam")
+set(boost_user_jam "@HUNTER_PACKAGE_BUILD_DIR@/boost.user.jam")
 file(
      WRITE
      ${boost_user_jam}
@@ -237,16 +228,17 @@ if(HUNTER_STATUS_DEBUG)
 endif()
 
 ExternalProject_Add(
-    @HUNTER_PACKAGE_BASENAME@
+    X
     URL
-    DOWNLOAD_COMMAND
-    ${CMAKE_COMMAND} -E echo "Skip download"
+    @HUNTER_PACKAGE_URL@
+    URL_HASH
+    SHA1=@HUNTER_PACKAGE_SHA1@
     DOWNLOAD_DIR
     "@HUNTER_PACKAGE_DOWNLOAD_DIR@"
     SOURCE_DIR
     "@HUNTER_PACKAGE_SOURCE_DIR@"
     INSTALL_DIR
-    "@HUNTER_PACKAGE_INSTALL_DIR@"
+    "@HUNTER_INSTALL_PREFIX@"
         # not used, just avoid creating Install/<name> empty directory
     CONFIGURE_COMMAND
     ${env_cmd}
@@ -263,19 +255,19 @@ ExternalProject_Add(
     -d0
     ${build_opts}
     stage # install only libraries, headers installed in `url_sha1_boost`
-    "--stagedir=@HUNTER_PACKAGE_INSTALL_DIR@"
+    "--stagedir=@HUNTER_INSTALL_PREFIX@"
 )
 
 if(APPLE)
   find_package(PythonInterp 3.2 REQUIRED)
   ExternalProject_Add_Step(
-      @HUNTER_PACKAGE_BASENAME@
+      X
       FixDylibId
       COMMAND
       "${PYTHON_EXECUTABLE}"
       "@HUNTER_SELF@/scripts/fix-boost-dylib-id.py"
       "--install-dir"
-      "@HUNTER_PACKAGE_INSTALL_DIR@/lib"
+      "@HUNTER_INSTALL_PREFIX@/lib"
       DEPENDEES
       install
   )

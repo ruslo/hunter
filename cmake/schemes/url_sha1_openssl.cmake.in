@@ -1,7 +1,8 @@
-# Copyright (c) 2013, Ruslan Baratov
+# Copyright (c) 2013, 2015 Ruslan Baratov
 # All rights reserved.
 
 cmake_minimum_required(VERSION 3.0)
+project(Hunter LANGUAGES NONE)
 
 include(ExternalProject) # ExternalProject_Add
 
@@ -9,32 +10,22 @@ include(ExternalProject) # ExternalProject_Add
 
 list(APPEND CMAKE_MODULE_PATH "@HUNTER_SELF@/cmake/modules")
 
-include(hunter_assert_lists_equal)
 include(hunter_status_debug)
 include(hunter_test_string_not_empty)
 
 hunter_status_debug("Scheme: url_sha1_openssl")
 
 # Check preconditions
-hunter_test_string_not_empty("@HUNTER_BASE@")
 hunter_test_string_not_empty("@HUNTER_SELF@")
-hunter_test_string_not_empty("@HUNTER_PACKAGE_BASENAME@")
 hunter_test_string_not_empty("@HUNTER_PACKAGE_URL@")
 hunter_test_string_not_empty("@HUNTER_PACKAGE_SHA1@")
 hunter_test_string_not_empty("@HUNTER_PACKAGE_DOWNLOAD_DIR@")
-hunter_test_string_not_empty("@HUNTER_PACKAGE_INSTALL_DIR@")
-
-hunter_assert_lists_equal(@HUNTER_DOWNLOAD_SCHEME_VARIANTS@)
+hunter_test_string_not_empty("@HUNTER_PACKAGE_SOURCE_DIR@")
+hunter_test_string_not_empty("@HUNTER_INSTALL_PREFIX@")
 
 if(@HUNTER_STATUS_DEBUG@)
   set(CMAKE_VERBOSE_MAKEFILE ON)
 endif()
-
-set_directory_properties(
-    PROPERTIES
-    EP_BASE
-    "@HUNTER_BASE@"
-)
 
 if(APPLE)
   set(configure_command "./Configure")
@@ -52,7 +43,7 @@ set(build_command . "@HUNTER_SELF@/scripts/clear-all.sh" && make)
 set(configure_opts ${configure_opts} threads no-shared)
 
 ExternalProject_Add(
-    @HUNTER_PACKAGE_BASENAME@
+    X
     URL
     @HUNTER_PACKAGE_URL@
     URL_HASH
@@ -60,17 +51,14 @@ ExternalProject_Add(
     DOWNLOAD_DIR
     "@HUNTER_PACKAGE_DOWNLOAD_DIR@"
     SOURCE_DIR
-    "@HUNTER_BASE@/Source/@HUNTER_PACKAGE_BASENAME@"
-        # Out of source build is not working.
-        # Sources will be unpacked for each tag for different directories
-        # and build in source.
+    "@HUNTER_PACKAGE_SOURCE_DIR@"
     INSTALL_DIR
-    "@HUNTER_PACKAGE_INSTALL_DIR@"
+    "@HUNTER_INSTALL_PREFIX@"
         # not used, just avoid creating Install/<name> empty directory
     CONFIGURE_COMMAND
     ${configure_command}
     ${configure_opts}
-    "--prefix=@HUNTER_PACKAGE_INSTALL_DIR@"
+    "--prefix=@HUNTER_INSTALL_PREFIX@"
     BUILD_COMMAND
     ${build_command}
     BUILD_IN_SOURCE

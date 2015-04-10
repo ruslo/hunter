@@ -2,6 +2,7 @@
 # All rights reserved.
 
 cmake_minimum_required(VERSION 3.0)
+project(Hunter LANGUAGES NONE)
 
 include(ExternalProject) # ExternalProject_Add
 
@@ -9,7 +10,6 @@ include(ExternalProject) # ExternalProject_Add
 
 list(APPEND CMAKE_MODULE_PATH "@HUNTER_SELF@/cmake/modules")
 
-include(hunter_assert_lists_equal)
 include(hunter_fatal_error)
 include(hunter_internal_error)
 include(hunter_status_debug)
@@ -19,41 +19,13 @@ hunter_status_debug("Scheme: url_sha1_openssl_windows")
 
 # Check preconditions
 hunter_test_string_not_empty("@HUNTER_SELF@")
-hunter_test_string_not_empty("@HUNTER_BASE@")
-hunter_test_string_not_empty("@HUNTER_PACKAGE_BASENAME@")
 hunter_test_string_not_empty("@HUNTER_PACKAGE_URL@")
 hunter_test_string_not_empty("@HUNTER_PACKAGE_SHA1@")
 hunter_test_string_not_empty("@HUNTER_PACKAGE_DOWNLOAD_DIR@")
-hunter_test_string_not_empty("@HUNTER_PACKAGE_INSTALL_DIR@")
+hunter_test_string_not_empty("@HUNTER_PACKAGE_SOURCE_DIR@")
+hunter_test_string_not_empty("@HUNTER_INSTALL_PREFIX@")
 hunter_test_string_not_empty("@HUNTER_MSVC_ARCH@")
 hunter_test_string_not_empty("@HUNTER_MSVC_VCVARSALL@")
-
-hunter_assert_lists_equal(@HUNTER_DOWNLOAD_SCHEME_VARIANTS@)
-
-set_directory_properties(
-    PROPERTIES
-    EP_BASE
-    "@HUNTER_BASE@"
-)
-
-# If prefix contain spaces `nmake` will failed
-# Workaround:
-#     1) install files to temporary folder
-#     2) move files from temp dir to `HUNTER_PACKAGE_INSTALL_DIR`
-get_filename_component(TEMP_INSTALL_DIR "$ENV{WINDIR}" ABSOLUTE)
-
-string(COMPARE EQUAL "${TEMP_INSTALL_DIR}" "" is_empty)
-if(is_empty)
-  hunter_internal_error("Environment variable WINDIR is empty")
-endif()
-
-get_filename_component(TEMP_INSTALL_DIR "${TEMP_INSTALL_DIR}/.." ABSOLUTE)
-
-if(NOT EXISTS "${TEMP_INSTALL_DIR}")
-  hunter_internal_error("Unexpected WINDIR: $ENV{WINDIR}")
-endif()
-
-set(TEMP_INSTALL_DIR "${TEMP_INSTALL_DIR}/temp-hunter-openssl-REMOVE_ME")
 
 # `find_package(Perl)` is not suitable because `perl` from
 # cygwin directory can be found
@@ -90,9 +62,8 @@ else()
   set(do_ms do_ms.bat)
 endif()
 
-###
 ExternalProject_Add(
-    @HUNTER_PACKAGE_BASENAME@
+    X
     URL
     "@HUNTER_PACKAGE_URL@"
     URL_HASH
@@ -100,37 +71,21 @@ ExternalProject_Add(
     DOWNLOAD_DIR
     "@HUNTER_PACKAGE_DOWNLOAD_DIR@"
     SOURCE_DIR
-    "@HUNTER_BASE@/Source/@HUNTER_PACKAGE_BASENAME@"
-        # Out of source build is not working.
-        # Sources will be unpacked for each tag for different directories
-        # and build in source.
+    "@HUNTER_PACKAGE_SOURCE_DIR@"
     INSTALL_DIR
-    "@HUNTER_PACKAGE_INSTALL_DIR@"
+    "@HUNTER_INSTALL_PREFIX@"
         # not used, just avoid creating Install/<name> empty directory
-    ###
     CONFIGURE_COMMAND
     "@HUNTER_MSVC_VCVARSALL@" "@HUNTER_MSVC_ARCH@"
     COMMAND
-    perl Configure "${opt}" no-asm "--prefix=${TEMP_INSTALL_DIR}"
+    perl Configure "${opt}" no-asm "--prefix=@HUNTER_INSTALL_PREFIX@"
     COMMAND
     ms/${do_ms}
-    ###
     BUILD_COMMAND
     nmake -f "ms\\nt.mak"
     BUILD_IN_SOURCE
     1
-    ###
     INSTALL_COMMAND
     COMMAND
     nmake -f "ms\\nt.mak" install
-    COMMAND
-    "${CMAKE_COMMAND}" -E make_directory "@HUNTER_PACKAGE_INSTALL_DIR@"
-    COMMAND
-    "${CMAKE_COMMAND}"
-    -E
-    copy_directory
-    "${TEMP_INSTALL_DIR}"
-    "@HUNTER_PACKAGE_INSTALL_DIR@"
-    COMMAND
-    "${CMAKE_COMMAND}" -E remove_directory "${TEMP_INSTALL_DIR}"
 )
