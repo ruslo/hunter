@@ -1,4 +1,5 @@
 cmake_minimum_required(VERSION 3.0)
+project(HunterToolchain)
 
 if(NOT HUNTER_SELF)
   # Emulate 'hunter_internal_error'
@@ -29,9 +30,6 @@ endif()
 file(
     WRITE
     "${TOOLCHAIN_INFO_FILE}"
-    "Some hunter variables:\n"
-    "    HUNTER_ENABLE_BOOST_SHARED: ${HUNTER_ENABLE_BOOST_SHARED}\n"
-    "    HUNTER_CMAKE_GENERATOR: ${HUNTER_CMAKE_GENERATOR}\n"
     "Polly toolchains:\n"
     "    IPHONEOS_ARCHS: ${IPHONEOS_ARCHS}\n"
     "    IPHONESIMULATOR_ARCHS: ${IPHONESIMULATOR_ARCHS}\n"
