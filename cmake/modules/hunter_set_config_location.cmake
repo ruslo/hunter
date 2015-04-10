@@ -3,10 +3,10 @@
 
 cmake_minimum_required(VERSION 3.0)
 
-include(hunter_fatal_error)
 include(hunter_internal_error)
 include(hunter_status_print)
 include(hunter_test_string_not_empty)
+include(hunter_user_error)
 
 function(hunter_set_config_location hunter_self result)
   hunter_test_string_not_empty("${hunter_self}")
@@ -33,11 +33,7 @@ function(hunter_set_config_location hunter_self result)
         hunter_status_print("  * ${config}")
       endforeach()
       hunter_status_print("-----------------")
-      hunter_fatal_error(
-           "Config not found: ${HUNTER_CONFIG}"
-           WIKI
-           "https://github.com/ruslo/hunter/wiki/Error-%28incorrect-input-data%29"
-      )
+      hunter_user_error("Config not found: ${HUNTER_CONFIG}")
     endif()
   elseif(HUNTER_GATE_LOCAL)
     set(config_location "${HUNTER_GATE_LOCATION}/cmake/Hunter/config.cmake")
@@ -51,11 +47,7 @@ function(hunter_set_config_location hunter_self result)
   endif()
 
   if(NOT EXISTS "${config_location}")
-    hunter_fatal_error(
-        "Config not found: ${config_location}"
-        WIKI
-        "https://github.com/ruslo/hunter/wiki/Error-%28incorrect-input-data%29"
-    )
+    hunter_user_error("Config not found: ${config_location}")
   endif()
 
   set("${result}" "${config_location}" PARENT_SCOPE)

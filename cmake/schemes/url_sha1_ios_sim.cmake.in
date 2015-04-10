@@ -32,7 +32,7 @@ execute_process(
 if(NOT result EQUAL 0)
   hunter_fatal_error(
       "'xcrun -f clang++' failed"
-      WIKI "https://github.com/ruslo/hunter/wiki/Error-%28xcrun-clang%29"
+      WIKI "error.xcrun.clang"
   )
 endif()
 

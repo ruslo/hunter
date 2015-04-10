@@ -4,8 +4,7 @@
 
 include(CMakeParseArguments) # cmake_parse_arguments
 
-include(hunter_fatal_error)
-
+include(hunter_user_error)
 
 # internal variables: _hunter_c_*
 macro(hunter_cmake_args)
@@ -19,7 +18,7 @@ macro(hunter_cmake_args)
   )
   list(LENGTH _hunter_c_UNPARSED_ARGUMENTS _hunter_c_len)
   if(NOT ${_hunter_c_len} EQUAL 1)
-    hunter_fatal_error("unparsed: ${_hunter_c_UNPARSED_ARGUMENTS}")
+    hunter_user_error("unparsed: ${_hunter_c_UNPARSED_ARGUMENTS}")
   endif()
 
   list(GET _hunter_c_UNPARSED_ARGUMENTS 0 _hunter_c_current_project)
@@ -30,9 +29,6 @@ macro(hunter_cmake_args)
       INSERT HUNTER_${_hunter_c_current_project}_CMAKE_ARGS 0
       ${_hunter_c_CMAKE_ARGS})
   else()
-    hunter_fatal_error(
-        "Expected CMAKE_ARGS"
-        WIKI "https://github.com/ruslo/hunter/wiki/Error-%28incorrect-input-data%29"
-    )
+    hunter_user_error("Expected CMAKE_ARGS")
   endif()
 endmacro()

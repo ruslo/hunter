@@ -95,10 +95,7 @@ elseif(compiler_is_clang)
 elseif(MSVC)
   set(toolset_name msvc)
 else()
-  hunter_fatal_error(
-      "TODO: set toolset for boost"
-      WIKI "https://github.com/ruslo/hunter/wiki/Error-%28boost-toolset%29"
-  )
+  hunter_fatal_error("TODO: set toolset for boost" WIKI "error.boost.toolset")
 endif()
 
 if(MSVC)
@@ -129,11 +126,7 @@ if(is_mpi)
           "http://msdn.microsoft.com/en-us/library/bb524831%28v=vs.85%29.aspx"
           "WIKI: https://github.com/ruslo/hunter/wiki/Error-%28boost-mpi-on-windows%29"
       )
-      hunter_fatal_error(
-          "MPI is required"
-          WIKI
-          "https://github.com/ruslo/hunter/wiki/Error-%28boost-mpi-on-windows%29"
-      )
+      hunter_fatal_error("MPI is required" WIKI "error.boost.mpi.on.windows")
     endif()
     get_filename_component(MPI_DIR "${MPI_CXX_INCLUDE_PATH}/.." ABSOLUTE)
     string(REPLACE "/" "\\\\" MPI_DIR "${MPI_DIR}")

@@ -3,8 +3,8 @@
 
 include(CMakeParseArguments) # cmake_parse_arguments
 
-include(hunter_fatal_error)
 include(hunter_unsetvar)
+include(hunter_user_error)
 
 # internal variables: _hunter_*
 macro(hunter_config)
@@ -19,10 +19,9 @@ macro(hunter_config)
   )
   list(LENGTH _hunter_UNPARSED_ARGUMENTS _hunter_len)
   if(NOT ${_hunter_len} EQUAL 1)
-    hunter_fatal_error(
+    hunter_user_error(
         "Unparsed arguments for 'hunter_config' command: "
         "${_hunter_UNPARSED_ARGUMENTS}"
-        WIKI "https://github.com/ruslo/hunter/wiki/Error-%28incorrect-input-data%29"
     )
   endif()
 
@@ -38,9 +37,6 @@ macro(hunter_config)
     set(HUNTER_${_hunter_current_project}_VERSION ${_hunter_VERSION})
     set(HUNTER_${_hunter_current_project}_CMAKE_ARGS ${_hunter_CMAKE_ARGS})
   else()
-    hunter_fatal_error(
-        "Expected VERSION option for 'hunter_config' command"
-        WIKI "https://github.com/ruslo/hunter/wiki/Error-%28incorrect-input-data%29"
-    )
+    hunter_user_error("Expected VERSION option for 'hunter_config' command")
   endif()
 endmacro()

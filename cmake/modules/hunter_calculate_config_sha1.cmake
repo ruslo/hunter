@@ -3,13 +3,13 @@
 
 cmake_minimum_required(VERSION 3.0)
 
-include(hunter_fatal_error)
 include(hunter_internal_error)
 include(hunter_lock_directory)
 include(hunter_make_directory)
 include(hunter_print_cmd)
 include(hunter_status_debug)
 include(hunter_test_string_not_empty)
+include(hunter_user_error)
 
 function(hunter_calculate_config_sha1 hunter_self hunter_base user_config)
   hunter_test_string_not_empty("${HUNTER_GATE_SHA1}")
@@ -57,10 +57,7 @@ function(hunter_calculate_config_sha1 hunter_self hunter_base user_config)
   )
 
   if(NOT result EQUAL 0)
-    hunter_fatal_error(
-         "User config `${user_config}` is not correct."
-         WIKI "https://github.com/ruslo/hunter/wiki/Error-%28incorrect-input-data%29"
-    )
+    hunter_user_error("User config `${user_config}` is not correct.")
   endif()
 
   if(NOT EXISTS "${work_dir}/config.cmake")
