@@ -7,6 +7,7 @@ include(CMakeParseArguments) # cmake_parse_arguments
 
 include(hunter_find_stamps)
 include(hunter_internal_error)
+include(hunter_print_cmd)
 include(hunter_status_debug)
 include(hunter_status_print)
 include(hunter_test_string_not_empty)
@@ -45,7 +46,7 @@ function(hunter_download)
   set(HUNTER_PACKAGE_SHA1 "${HUNTER_${h_name}_SHA1}")
 
   hunter_make_directory(
-      "${HUNTER_BASE}/Download/${HUNTER_PACKAGE_NAME}/${ver}/"
+      "${HUNTER_BASE}/Download/${HUNTER_PACKAGE_NAME}/${ver}"
       "${HUNTER_PACKAGE_SHA1}"
       HUNTER_PACKAGE_DOWNLOAD_DIR
   )
@@ -234,7 +235,7 @@ function(hunter_download)
       "-G${CMAKE_GENERATOR}"
       ${verbose_makefile}
   )
-  hunter_status_debug("[${HUNTER_PACKAGE_HOME_DIR}]> ${cmd}")
+  hunter_print_cmd("${HUNTER_PACKAGE_HOME_DIR}" "${cmd}")
 
   # Configure and build downloaded project
   execute_process(
@@ -259,7 +260,7 @@ function(hunter_download)
       --build
       "${HUNTER_PACKAGE_BUILD_DIR}"
   )
-  hunter_status_debug("[${HUNTER_PACKAGE_HOME_DIR}]> ${cmd}")
+  hunter_print_cmd("${HUNTER_PACKAGE_HOME_DIR}" "${cmd}")
 
   execute_process(
       COMMAND ${cmd}

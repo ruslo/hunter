@@ -4,6 +4,7 @@
 include(hunter_internal_error)
 include(hunter_lock_directory)
 include(hunter_make_directory)
+include(hunter_print_cmd)
 include(hunter_status_debug)
 include(hunter_status_print)
 include(hunter_test_string_not_empty)
@@ -44,8 +45,9 @@ function(hunter_calculate_toolchain_sha1 hunter_self hunter_base)
        "${temp_project_dir}/CMakeLists.txt"
        COPYONLY
   )
-  execute_process(
-      COMMAND
+
+  set(
+      cmd
       "${CMAKE_COMMAND}"
       "-DTOOLCHAIN_INFO_FILE=${local_toolchain_info}"
       "${use_toolchain}"
@@ -53,8 +55,14 @@ function(hunter_calculate_toolchain_sha1 hunter_self hunter_base)
       "-G${CMAKE_GENERATOR}"
       "-H${temp_project_dir}"
       "-B${temp_build_dir}"
-      RESULT_VARIABLE
-      generate_result
+  )
+
+  hunter_print_cmd("${temp_project_dir}" "${cmd}")
+
+  execute_process(
+      COMMAND ${cmd}
+      WORKING_DIRECTORY "${temp_project_dir}"
+      RESULT_VARIABLE generate_result
       ${logging_params}
   )
   if(NOT generate_result EQUAL "0")
@@ -93,5 +101,6 @@ function(hunter_calculate_toolchain_sha1 hunter_self hunter_base)
   endif()
 
   configure_file("${local_toolchain_info}" "${global_toolchain_info}" COPYONLY)
-  hunter_status_debug("Toolchain info: ${globa_toolchain_info}")
+  hunter_status_debug("Toolchain info: ${global_toolchain_info}")
+  hunter_status_debug("Toolchain SHA1: ${HUNTER_GATE_TOOLCHAIN_SHA1}")
 endfunction()
