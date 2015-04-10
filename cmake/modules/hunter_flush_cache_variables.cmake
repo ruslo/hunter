@@ -2,6 +2,7 @@
 # All rights reserved.
 
 include(hunter_test_string_not_empty)
+include(hunter_unsetvar)
 
 function(hunter_flush_cache_variables hunter_self)
   hunter_test_string_not_empty("${hunter_self}")
@@ -29,7 +30,7 @@ function(hunter_flush_cache_variables hunter_self)
   endif()
 
   foreach(x ${real_projects})
-    unset("${x}_ROOT" CACHE)
-    unset("${x}_Dir" CACHE)
+    hunter_unsetvar("${x}_ROOT")
+    hunter_unsetvar("${x}_Dir")
   endforeach()
 endfunction()
