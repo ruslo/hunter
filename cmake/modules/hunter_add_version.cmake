@@ -1,4 +1,4 @@
-# Copyright (c) 2013, Ruslan Baratov
+# Copyright (c) 2013, 2015 Ruslan Baratov
 # All rights reserved.
 
 include(CMakeParseArguments) # cmake_parse_arguments
@@ -32,20 +32,11 @@ function(hunter_add_version)
   list(APPEND ${h_versions} ${h_VERSION})
   set(${h_versions} ${${h_versions}} PARENT_SCOPE)
 
-  # check <NAME>_ROOT (if already set, then skip)
-  string(TOUPPER ${h_PACKAGE_NAME} h_root)
-  set(h_root "${h_root}_ROOT")
-  string(COMPARE NOTEQUAL "${${h_root}}" "" root_not_empty)
-  if(root_not_empty)
-    hunter_status_debug("Skip '${h_VERSION}' (root is set)")
-    return()
-  endif()
-
   set(expected_version "HUNTER_${h_PACKAGE_NAME}_VERSION")
   string(COMPARE EQUAL "${${expected_version}}" "" version_is_empty)
   if(version_is_empty)
     hunter_internal_error(
-        "Both <NAME>_ROOT and HUNTER_<name>_VERSION can't be empty "
+        "HUNTER_<name>_VERSION can't be empty "
         "(${h_PACKAGE_NAME})"
         "(probably `hunter_config(...)` missing in config file)"
     )
@@ -56,7 +47,7 @@ function(hunter_add_version)
     return()
   endif()
 
-  # <NAME>_ROOT not set and HUNTER_<name>_VERSION found
+  # HUNTER_<name>_VERSION found
   set(h_url_name "HUNTER_${h_PACKAGE_NAME}_URL")
   set(h_sha1_name "HUNTER_${h_PACKAGE_NAME}_SHA1")
 
