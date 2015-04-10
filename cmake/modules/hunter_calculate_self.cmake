@@ -4,22 +4,13 @@
 cmake_minimum_required(VERSION 3.0)
 
 include(hunter_internal_error)
+include(hunter_test_string_not_empty)
 
 function(hunter_calculate_self root version sha1 result)
-  string(COMPARE EQUAL "${root}" "" is_bad)
-  if(is_bad)
-    hunter_internal_error("root is empty")
-  endif()
-
-  string(COMPARE EQUAL "${version}" "" is_bad)
-  if(is_bad)
-    hunter_internal_error("version is empty")
-  endif()
-
-  string(COMPARE EQUAL "${sha1}" "" is_bad)
-  if(is_bad)
-    hunter_internal_error("sha1 is empty")
-  endif()
+  hunter_test_string_not_empty("${root}")
+  hunter_test_string_not_empty("${version}")
+  hunter_test_string_not_empty("${sha1}")
+  hunter_test_string_not_empty("${result}")
 
   string(SUBSTRING "${sha1}" 0 7 archive_id)
 
