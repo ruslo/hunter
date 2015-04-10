@@ -8,7 +8,6 @@ else()
 endif()
 
 include(hunter_add_version)
-include(hunter_add_version_start)
 include(hunter_cmake_args)
 include(hunter_download)
 include(hunter_pick_scheme)
@@ -16,8 +15,6 @@ include(hunter_pick_scheme)
 hunter_add_package(Clang) # CLANG_ROOT
 hunter_add_package(ClangToolsExtra) # CLANGTOOLSEXTRA_ROOT
 hunter_add_package(LLVMCompilerRT) # LLVMCOMPILERRT_ROOT
-
-hunter_add_version_start(LLVM)
 
 hunter_add_version(
     PACKAGE_NAME

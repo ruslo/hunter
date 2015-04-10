@@ -8,14 +8,11 @@ else()
 endif()
 
 include(hunter_add_version)
-include(hunter_add_version_start)
 include(hunter_download)
 include(hunter_pick_scheme)
 
 # Disable searching in locations not specified by these hint variables.
 set(Boost_NO_SYSTEM_PATHS ON)
-
-hunter_add_version_start(Boost)
 
 hunter_add_version(
     PACKAGE_NAME

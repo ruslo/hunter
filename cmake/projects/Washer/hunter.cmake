@@ -6,12 +6,9 @@ else()
 endif()
 
 include(hunter_add_version)
-include(hunter_add_version_start)
 include(hunter_cmake_args)
 include(hunter_download)
 include(hunter_pick_scheme)
-
-hunter_add_version_start(Washer)
 
 hunter_add_version(
     PACKAGE_NAME

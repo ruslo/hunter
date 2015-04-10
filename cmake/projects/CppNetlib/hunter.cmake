@@ -9,7 +9,6 @@ endif()
 
 include(hunter_add_package)
 include(hunter_add_version)
-include(hunter_add_version_start)
 include(hunter_download)
 include(hunter_pick_scheme)
 
@@ -21,8 +20,6 @@ if(APPLE)
   hunter_add_package(ios_sim)
 endif()
 # -- end
-
-hunter_add_version_start(CppNetlib)
 
 hunter_add_version(
     PACKAGE_NAME

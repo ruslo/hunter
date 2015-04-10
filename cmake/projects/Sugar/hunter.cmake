@@ -8,11 +8,8 @@ else()
 endif()
 
 include(hunter_add_version)
-include(hunter_add_version_start)
 include(hunter_download)
 include(hunter_pick_scheme)
-
-hunter_add_version_start(Sugar)
 
 hunter_add_version(
     PACKAGE_NAME

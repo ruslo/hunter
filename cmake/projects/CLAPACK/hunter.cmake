@@ -8,7 +8,6 @@ else()
 endif()
 
 include(hunter_add_version)
-include(hunter_add_version_start)
 include(hunter_download)
 include(hunter_pick_scheme)
 
@@ -16,8 +15,6 @@ string(COMPARE EQUAL "${CMAKE_OSX_SYSROOT}" "iphoneos" _hunter_ios)
 if(_hunter_ios)
   hunter_report_broken_package("CLAPACK is broken on iOS")
 endif()
-
-hunter_add_version_start(CLAPACK)
 
 hunter_add_version(
     PACKAGE_NAME
