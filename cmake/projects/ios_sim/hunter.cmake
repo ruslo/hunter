@@ -18,6 +18,17 @@ hunter_add_version(
     PACKAGE_NAME
     ios_sim
     VERSION
+    "3.1.1"
+    URL
+    "https://github.com/phonegap/ios-sim/archive/3.1.1.tar.gz"
+    SHA1
+    fbed1bf01253d99ab643e6cdf9fa4e999111324c
+)
+
+hunter_add_version(
+    PACKAGE_NAME
+    ios_sim
+    VERSION
     "1.8.2"
     URL
     "https://github.com/phonegap/ios-sim/archive/1.8.2.tar.gz"
