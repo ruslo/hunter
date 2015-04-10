@@ -220,7 +220,7 @@ function(hunter_download)
   if(HUNTER_PACKAGE_COMPONENT)
     set(
         build_message
-        "${build_message} (component: ${HUNTER_PACKAGE_COMPONENT}"
+        "${build_message} (component: ${HUNTER_PACKAGE_COMPONENT})"
     )
   endif()
   hunter_status_print("${build_message}")
