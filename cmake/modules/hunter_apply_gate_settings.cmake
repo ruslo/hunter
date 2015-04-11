@@ -28,6 +28,13 @@ function(hunter_apply_gate_settings)
     set(cache_init YES)
   endif()
 
+  # Unify values
+  if(gate_done)
+    set(gate_done YES)
+  else()
+    set(gate_done NO)
+  endif()
+
   hunter_status_debug("Settings:")
   hunter_status_debug("  HunterGate done (${gate_done})")
   hunter_status_debug("  Cache init (${cache_init})")
@@ -39,6 +46,11 @@ function(hunter_apply_gate_settings)
     endif()
     hunter_internal_error("Gate finished but no cache")
   endif()
+
+  hunter_status_debug("Variables from HunterGate:")
+  hunter_status_debug("  HUNTER_GATE_ROOT: ${HUNTER_GATE_ROOT}")
+  hunter_status_debug("  HUNTER_GATE_VERSION: ${HUNTER_GATE_VERSION}")
+  hunter_status_debug("  HUNTER_GATE_SHA1: ${HUNTER_GATE_SHA1}")
 
   hunter_calculate_self(
       "${HUNTER_GATE_ROOT}"
