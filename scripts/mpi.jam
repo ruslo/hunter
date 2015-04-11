@@ -255,9 +255,9 @@ rule init ( mpicxx ? : options * : mpirun-with-options * )
 
     # Pick up either the 32-bit or 64-bit library, depending on which address
     # model the user has selected. Default to 32-bit.
-    options = <include>$(cluster_pack_path)/Inc
-              <address-model>64:<library-path>$(cluster_pack_path)/Lib/amd64
-              <library-path>$(cluster_pack_path)/Lib/i386
+    options = <include>$(cluster_pack_path)/Include
+              <address-model>64:<library-path>$(cluster_pack_path)/Lib/x64
+              <library-path>$(cluster_pack_path)/Lib/x86
               <find-static-library>msmpi
               <toolset>msvc:<define>_SECURE_SCL=0
             ;
