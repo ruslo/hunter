@@ -13,6 +13,7 @@
 # Copyright 2006-2009 Kitware, Inc.
 # Copyright 2006 Alexander Neundorf <neundorf@kde.org>
 # Copyright 2009-2011 Mathieu Malaterre <mathieu.malaterre@gmail.com>
+# Copyright 2015 Alexander Lamaison <alexander.lamaison@gmail.com>
 #
 # Distributed under the OSI-approved BSD License (the "License");
 # see accompanying file Copyright.txt for details.
@@ -28,50 +29,11 @@ if(HUNTER_STATUS_DEBUG)
   message("[hunter] Custom FindOpenSSL module")
 endif()
 
-if (UNIX)
-  find_package(PkgConfig QUIET)
-  pkg_check_modules(_OPENSSL QUIET openssl)
-endif ()
-
-if (WIN32)
-  # http://www.slproweb.com/products/Win32OpenSSL.html
-  set(_OPENSSL_ROOT_HINTS
-    "${OPENSSL_ROOT}"
-    "${OPENSSL_ROOT_DIR}"
-    "[HKEY_LOCAL_MACHINE\\SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Uninstall\\OpenSSL (32-bit)_is1;Inno Setup: App Path]"
-    "[HKEY_LOCAL_MACHINE\\SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Uninstall\\OpenSSL (64-bit)_is1;Inno Setup: App Path]"
-    ENV OPENSSL_ROOT_DIR
-    )
-  file(TO_CMAKE_PATH "$ENV{PROGRAMFILES}" _programfiles)
-  set(_OPENSSL_ROOT_PATHS
-    "${_programfiles}/OpenSSL"
-    "${_programfiles}/OpenSSL-Win32"
-    "${_programfiles}/OpenSSL-Win64"
-    "C:/OpenSSL/"
-    "C:/OpenSSL-Win32/"
-    "C:/OpenSSL-Win64/"
-    )
-  unset(_programfiles)
-else ()
-  set(_OPENSSL_ROOT_HINTS
-    "${OPENSSL_ROOT}"
-    ENV OPENSSL_ROOT
-    "${OPENSSL_ROOT_DIR}"
-    ENV OPENSSL_ROOT_DIR
-    )
-endif ()
-
-set(_OPENSSL_ROOT_HINTS_AND_PATHS
-  HINTS ${_OPENSSL_ROOT_HINTS}
-  PATHS ${_OPENSSL_ROOT_PATHS}
-  )
-
 find_path(OPENSSL_INCLUDE_DIR
   NAMES
     openssl/ssl.h
-  ${_OPENSSL_ROOT_HINTS_AND_PATHS}
   HINTS
-    "${_OPENSSL_INCLUDEDIR}"
+    "${OPENSSL_ROOT}"
   PATH_SUFFIXES
     include
 )
@@ -96,7 +58,8 @@ if(WIN32 AND NOT CYGWIN)
       NAMES
         libeay32MDd
         libeay32d
-      ${_OPENSSL_ROOT_HINTS_AND_PATHS}
+      HINTS
+        "${OPENSSL_ROOT}"
       PATH_SUFFIXES
         "lib"
         "VC"
@@ -107,7 +70,8 @@ if(WIN32 AND NOT CYGWIN)
       NAMES
         libeay32MD
         libeay32
-      ${_OPENSSL_ROOT_HINTS_AND_PATHS}
+      HINTS
+        "${OPENSSL_ROOT}"
       PATH_SUFFIXES
         "lib"
         "VC"
@@ -118,7 +82,8 @@ if(WIN32 AND NOT CYGWIN)
       NAMES
         ssleay32MDd
         ssleay32d
-      ${_OPENSSL_ROOT_HINTS_AND_PATHS}
+      HINTS
+        "${OPENSSL_ROOT}"
       PATH_SUFFIXES
         "lib"
         "VC"
@@ -130,7 +95,8 @@ if(WIN32 AND NOT CYGWIN)
         ssleay32MD
         ssleay32
         ssl
-      ${_OPENSSL_ROOT_HINTS_AND_PATHS}
+      HINTS
+        "${OPENSSL_ROOT}"
       PATH_SUFFIXES
         "lib"
         "VC"
@@ -158,7 +124,8 @@ if(WIN32 AND NOT CYGWIN)
     find_library(LIB_EAY
       NAMES
         ${LIB_EAY_NAMES}
-      ${_OPENSSL_ROOT_HINTS_AND_PATHS}
+      HINTS
+        "${OPENSSL_ROOT}"
       PATH_SUFFIXES
         "lib"
         "lib/MinGW"
@@ -167,7 +134,8 @@ if(WIN32 AND NOT CYGWIN)
     find_library(SSL_EAY
       NAMES
         ${SSL_EAY_NAMES}
-      ${_OPENSSL_ROOT_HINTS_AND_PATHS}
+      HINTS
+        "${OPENSSL_ROOT}"
       PATH_SUFFIXES
         "lib"
         "lib/MinGW"
@@ -183,8 +151,7 @@ if(WIN32 AND NOT CYGWIN)
       NAMES
         libeay32
       HINTS
-        ${_OPENSSL_LIBDIR}
-      ${_OPENSSL_ROOT_HINTS_AND_PATHS}
+        "${OPENSSL_ROOT}"
       PATH_SUFFIXES
         lib
     )
@@ -193,8 +160,7 @@ if(WIN32 AND NOT CYGWIN)
       NAMES
         ssleay32
       HINTS
-        ${_OPENSSL_LIBDIR}
-      ${_OPENSSL_ROOT_HINTS_AND_PATHS}
+        "${OPENSSL_ROOT}"
       PATH_SUFFIXES
         lib
     )
@@ -209,9 +175,8 @@ else()
       ssl
       ssleay32
       ssleay32MD
-    ${_OPENSSL_ROOT_HINTS_AND_PATHS}
     HINTS
-      ${_OPENSSL_LIBDIR}
+      "${OPENSSL_ROOT}"
     PATH_SUFFIXES
       lib
   )
@@ -219,9 +184,8 @@ else()
   find_library(OPENSSL_CRYPTO_LIBRARY
     NAMES
       crypto
-    ${_OPENSSL_ROOT_HINTS_AND_PATHS}
     HINTS
-      ${_OPENSSL_LIBDIR}
+      "${OPENSSL_ROOT}"
     PATH_SUFFIXES
       lib
   )
@@ -267,42 +231,47 @@ function(from_hex HEX DEC)
   set(${DEC} ${_res} PARENT_SCOPE)
 endfunction()
 
-if (OPENSSL_INCLUDE_DIR)
-  if (_OPENSSL_VERSION)
-    set(OPENSSL_VERSION "${_OPENSSL_VERSION}")
-  elseif(OPENSSL_INCLUDE_DIR AND EXISTS "${OPENSSL_INCLUDE_DIR}/openssl/opensslv.h")
-    file(STRINGS "${OPENSSL_INCLUDE_DIR}/openssl/opensslv.h" openssl_version_str
-         REGEX "^#define[\t ]+OPENSSL_VERSION_NUMBER[\t ]+0x([0-9a-fA-F])+.*")
+if(OPENSSL_INCLUDE_DIR AND EXISTS "${OPENSSL_INCLUDE_DIR}/openssl/opensslv.h")
+  file(STRINGS "${OPENSSL_INCLUDE_DIR}/openssl/opensslv.h" openssl_version_str
+    REGEX "^#[\t ]*define[\t ]+OPENSSL_VERSION_NUMBER[\t ]+0x([0-9a-fA-F])+.*")
 
-    # The version number is encoded as 0xMNNFFPPS: major minor fix patch status
-    # The status gives if this is a developer or prerelease and is ignored here.
-    # Major, minor, and fix directly translate into the version numbers shown in
-    # the string. The patch field translates to the single character suffix that
-    # indicates the bug fix state, which 00 -> nothing, 01 -> a, 02 -> b and so
-    # on.
+  string(COMPARE EQUAL "${openssl_version_str}" "" _is_empty)
+  if(_is_empty)
+    message(
+        FATAL_ERROR
+        "Incorrect OPENSSL_VERSION_NUMBER define in header"
+        ": ${OPENSSL_INCLUDE_DIR}/openssl/opensslv.h"
+    )
+  endif()
 
-    string(REGEX REPLACE "^.*OPENSSL_VERSION_NUMBER[\t ]+0x([0-9a-fA-F])([0-9a-fA-F][0-9a-fA-F])([0-9a-fA-F][0-9a-fA-F])([0-9a-fA-F][0-9a-fA-F])([0-9a-fA-F]).*$"
-           "\\1;\\2;\\3;\\4;\\5" OPENSSL_VERSION_LIST "${openssl_version_str}")
-    list(GET OPENSSL_VERSION_LIST 0 OPENSSL_VERSION_MAJOR)
-    list(GET OPENSSL_VERSION_LIST 1 OPENSSL_VERSION_MINOR)
-    from_hex("${OPENSSL_VERSION_MINOR}" OPENSSL_VERSION_MINOR)
-    list(GET OPENSSL_VERSION_LIST 2 OPENSSL_VERSION_FIX)
-    from_hex("${OPENSSL_VERSION_FIX}" OPENSSL_VERSION_FIX)
-    list(GET OPENSSL_VERSION_LIST 3 OPENSSL_VERSION_PATCH)
+  # The version number is encoded as 0xMNNFFPPS: major minor fix patch status
+  # The status gives if this is a developer or prerelease and is ignored here.
+  # Major, minor, and fix directly translate into the version numbers shown in
+  # the string. The patch field translates to the single character suffix that
+  # indicates the bug fix state, which 00 -> nothing, 01 -> a, 02 -> b and so
+  # on.
 
-    if (NOT OPENSSL_VERSION_PATCH STREQUAL "00")
-      from_hex("${OPENSSL_VERSION_PATCH}" _tmp)
-      # 96 is the ASCII code of 'a' minus 1
-      math(EXPR OPENSSL_VERSION_PATCH_ASCII "${_tmp} + 96")
-      unset(_tmp)
-      # Once anyone knows how OpenSSL would call the patch versions beyond 'z'
-      # this should be updated to handle that, too. This has not happened yet
-      # so it is simply ignored here for now.
-      string(ASCII "${OPENSSL_VERSION_PATCH_ASCII}" OPENSSL_VERSION_PATCH_STRING)
-    endif ()
+  string(REGEX REPLACE "^.*OPENSSL_VERSION_NUMBER[\t ]+0x([0-9a-fA-F])([0-9a-fA-F][0-9a-fA-F])([0-9a-fA-F][0-9a-fA-F])([0-9a-fA-F][0-9a-fA-F])([0-9a-fA-F]).*$"
+    "\\1;\\2;\\3;\\4;\\5" OPENSSL_VERSION_LIST "${openssl_version_str}")
+  list(GET OPENSSL_VERSION_LIST 0 OPENSSL_VERSION_MAJOR)
+  list(GET OPENSSL_VERSION_LIST 1 OPENSSL_VERSION_MINOR)
+  from_hex("${OPENSSL_VERSION_MINOR}" OPENSSL_VERSION_MINOR)
+  list(GET OPENSSL_VERSION_LIST 2 OPENSSL_VERSION_FIX)
+  from_hex("${OPENSSL_VERSION_FIX}" OPENSSL_VERSION_FIX)
+  list(GET OPENSSL_VERSION_LIST 3 OPENSSL_VERSION_PATCH)
 
-    set(OPENSSL_VERSION "${OPENSSL_VERSION_MAJOR}.${OPENSSL_VERSION_MINOR}.${OPENSSL_VERSION_FIX}${OPENSSL_VERSION_PATCH_STRING}")
+  if (NOT OPENSSL_VERSION_PATCH STREQUAL "00")
+    from_hex("${OPENSSL_VERSION_PATCH}" _tmp)
+    # 96 is the ASCII code of 'a' minus 1
+    math(EXPR OPENSSL_VERSION_PATCH_ASCII "${_tmp} + 96")
+    unset(_tmp)
+    # Once anyone knows how OpenSSL would call the patch versions beyond 'z'
+    # this should be updated to handle that, too. This has not happened yet
+    # so it is simply ignored here for now.
+    string(ASCII "${OPENSSL_VERSION_PATCH_ASCII}" OPENSSL_VERSION_PATCH_STRING)
   endif ()
+
+  set(OPENSSL_VERSION "${OPENSSL_VERSION_MAJOR}.${OPENSSL_VERSION_MINOR}.${OPENSSL_VERSION_FIX}${OPENSSL_VERSION_PATCH_STRING}")
 endif ()
 
 include(FindPackageHandleStandardArgs)
