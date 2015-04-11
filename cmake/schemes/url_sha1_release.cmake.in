@@ -24,7 +24,7 @@ hunter_test_string_not_empty("@HUNTER_PACKAGE_SOURCE_DIR@")
 hunter_test_string_not_empty("@HUNTER_INSTALL_PREFIX@")
 hunter_test_string_not_empty("${CMAKE_TOOLCHAIN_FILE}")
 
-if(@HUNTER_STATUS_DEBUG@)
+if("@HUNTER_STATUS_DEBUG@")
   set(verbose_makefile "-DCMAKE_VERBOSE_MAKEFILE=ON")
 endif()
 
@@ -47,7 +47,7 @@ ExternalProject_Add(
     ${verbose_makefile}
     "-DCMAKE_TOOLCHAIN_FILE=${CMAKE_TOOLCHAIN_FILE}"
     BUILD_COMMAND
-        "${CMAKE_COMMAND}" --build .
+        "@CMAKE_COMMAND@" --build .
         --config Release # for Xcode and MSVC
         --target install
     INSTALL_COMMAND

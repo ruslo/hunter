@@ -17,7 +17,7 @@ include(hunter_test_string_not_empty)
 
 hunter_status_debug("Scheme: url_sha1_combined_release_debug")
 
-if(NOT XCODE_VERSION AND NOT MSVC_IDE)
+if(NOT "@XCODE_VERSION@" AND NOT "@MSVC_IDE@")
   hunter_internal_error("Xcode or MSVC IDE only")
 endif()
 
@@ -49,7 +49,7 @@ ExternalProject_Add(
     "-DCMAKE_INSTALL_PREFIX=@HUNTER_INSTALL_PREFIX@"
     "-DCMAKE_TOOLCHAIN_FILE=${CMAKE_TOOLCHAIN_FILE}"
     INSTALL_COMMAND
-    "${CMAKE_COMMAND}" --build . --target install --config Release
+    "@CMAKE_COMMAND@" --build . --target install --config Release
     COMMAND
-    "${CMAKE_COMMAND}" --build . --target install --config Debug
+    "@CMAKE_COMMAND@" --build . --target install --config Debug
 )

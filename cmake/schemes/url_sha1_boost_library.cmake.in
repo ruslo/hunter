@@ -2,7 +2,7 @@
 # All rights reserved.
 
 cmake_minimum_required(VERSION 3.0)
-project(Hunter LANGUAGES NONE)
+project(Hunter) # Language is not NONE, need CMAKE_CXX_FLAGS from toolchain
 
 include(ExternalProject) # ExternalProject_Add
 
@@ -29,7 +29,7 @@ hunter_test_string_not_empty("@HUNTER_PACKAGE_COMPONENT@")
 hunter_test_string_not_empty("@CMAKE_CXX_COMPILER@")
 hunter_test_string_not_empty("@CMAKE_CXX_COMPILER_ID@")
 hunter_test_string_not_empty("@HUNTER_Boost_VERSION@")
-if(MSVC)
+if("@MSVC@")
   hunter_test_string_not_empty("@HUNTER_MSVC_ARCH@")
   hunter_test_string_not_empty("@HUNTER_MSVC_VCVARSALL@")
 endif()
@@ -87,45 +87,44 @@ endif()
 
 string(COMPARE EQUAL "@CMAKE_CXX_COMPILER_ID@" "Clang" compiler_is_clang)
 
-if(APPLE)
+if("@APPLE@")
   set(toolset_name darwin)
-elseif(@CMAKE_COMPILER_IS_GNUCXX@)
+elseif("@CMAKE_COMPILER_IS_GNUCXX@")
   set(toolset_name gcc)
 elseif(compiler_is_clang)
   set(toolset_name clang)
-elseif(MSVC)
+elseif("@MSVC@")
   set(toolset_name msvc)
 else()
   hunter_fatal_error("TODO: set toolset for boost" WIKI "error.boost.toolset")
 endif()
 
-if(MSVC)
+if("@MSVC@")
   set(env_cmd "@HUNTER_MSVC_VCVARSALL@" "@HUNTER_MSVC_ARCH@")
 else()
   set(env_cmd "")
 endif()
 
-if(MSVC)
+if("@MSVC@")
   set(boost_compiler cl)
 else()
-  set(boost_compiler "${CMAKE_CXX_COMPILER}")
+  set(boost_compiler "@CMAKE_CXX_COMPILER@")
 endif()
 
 string(COMPARE EQUAL "@HUNTER_PACKAGE_COMPONENT@" "mpi" is_mpi)
 if(is_mpi)
   set(using_mpi "using mpi ;")
-  if(MSVC)
+  if("@MSVC@")
     find_package(MPI)
     if(NOT MPI_CXX_FOUND)
       # Fix concurrent output to console
       execute_process(
           COMMAND
-          "${CMAKE_COMMAND}"
+          "@CMAKE_COMMAND@"
           -E
           echo
           "MPI is required. Please install it. For example MS-MPI: "
           "http://msdn.microsoft.com/en-us/library/bb524831%28v=vs.85%29.aspx"
-          "WIKI: https://github.com/ruslo/hunter/wiki/Error-%28boost-mpi-on-windows%29"
       )
       hunter_fatal_error("MPI is required" WIKI "error.boost.mpi.on.windows")
     endif()
@@ -152,7 +151,7 @@ file(
      "${using_mpi}\n"
 )
 
-if(MSVC)
+if("@MSVC@")
   # Disable auto-linking
   set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} /DBOOST_ALL_NO_LIB=1")
 
@@ -191,7 +190,7 @@ if(CMAKE_EXE_LINKER_FLAGS)
 endif()
 
 string(COMPARE EQUAL "@HUNTER_MSVC_ARCH@" "amd64" is_x64)
-if(MSVC AND is_x64)
+if("@MSVC@" AND is_x64)
   list(APPEND build_opts "address-model=64")
 endif()
 
@@ -199,7 +198,7 @@ if(@HUNTER_STATUS_DEBUG@)
   set(verbose_output "-d+2 --debug-configuration")
 endif()
 
-if(MSVC OR MINGW)
+if("@MSVC@" OR "@MINGW@")
   set(bootstrap_cmd "bootstrap.bat")
   set(b2_cmd "b2")
 else()

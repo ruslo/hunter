@@ -16,11 +16,11 @@ include(hunter_test_string_not_empty)
 
 hunter_status_debug("Scheme: url_sha1_release_debug")
 
-if(XCODE_VERSION)
+if("@XCODE_VERSION@")
   hunter_internal_error("Not for Xcode")
 endif()
 
-if(MSVC_IDE)
+if("@MSVC_IDE@")
   hunter_internal_error("Not for MSVC IDE")
 endif()
 
@@ -34,7 +34,7 @@ hunter_test_string_not_empty("@HUNTER_INSTALL_PREFIX@")
 hunter_test_string_not_empty("@CMAKE_DEBUG_POSTFIX@")
 hunter_test_string_not_empty("${CMAKE_TOOLCHAIN_FILE}")
 
-if(@HUNTER_STATUS_DEBUG@)
+if("@HUNTER_STATUS_DEBUG@")
   set(verbose_makefile "-DCMAKE_VERBOSE_MAKEFILE=ON")
 endif()
 

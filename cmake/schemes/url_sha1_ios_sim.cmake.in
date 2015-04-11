@@ -57,5 +57,5 @@ ExternalProject_Add(
     BUILD_IN_SOURCE
     1
     INSTALL_COMMAND
-    "${CMAKE_COMMAND}" -E copy build/Release/ios-sim "@HUNTER_INSTALL_PREFIX@"
+    "@CMAKE_COMMAND@" -E copy build/Release/ios-sim "@HUNTER_INSTALL_PREFIX@"
 )
