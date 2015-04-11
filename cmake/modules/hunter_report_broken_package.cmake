@@ -3,9 +3,13 @@
 
 include(hunter_fatal_error)
 
-function(hunter_report_broken_package info)
+function(hunter_report_broken_package)
   if(HUNTER_IGNORE_BROKEN_PACKAGE_ERROR)
     return()
   endif()
-  hunter_fatal_error("Broken package: ${info}" WIKI "error.broken.package")
+  set(msg "")
+  foreach(x ${ARGV})
+    set(msg "${msg} ${x}")
+  endforeach()
+  hunter_fatal_error("Broken package: ${msg}" WIKI "error.broken.package")
 endfunction()
