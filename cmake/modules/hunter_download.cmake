@@ -235,6 +235,8 @@ function(hunter_download)
 
   if(HUNTER_STATUS_DEBUG)
     set(logging_params "")
+  elseif(HUNTER_STATUS_PRINT)
+    set(logging_params "")
   else()
     set(logging_params "OUTPUT_QUIET")
   endif()
