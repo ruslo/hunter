@@ -32,6 +32,8 @@ if(is_empty)
   message(FATAL_ERROR "HUNTER_ROOT variable is empty (see jenkins.py script)")
 endif()
 
+get_filename_component(TESTING_URL "${TESTING_URL}" ABSOLUTE)
+
 ### HunterGate module
 HunterGate(
     URL "${TESTING_URL}"
