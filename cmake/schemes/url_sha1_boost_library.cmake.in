@@ -132,6 +132,19 @@ if(is_mpi)
     string(REPLACE "/" "\\\\" MPI_DIR "${MPI_DIR}")
     configure_file(
         "@HUNTER_SELF@/scripts/mpi.jam"
+        "@HUNTER_PACKAGE_BUILD_DIR@/tools/build/v2/tools/mpi.jam"
+    )
+
+    # HUNTER_PACKAGE_SOURCE_DIR will be removed while unpacking. Save mpi.jam
+    # in HUNTER_PACKAGE_BUILD_DIR first and move it to HUNTER_PACKAGE_SOURCE_DIR
+    # on configure step
+    set(
+        copy_mpi_command
+        COMMAND
+        "@CMAKE_COMMAND@"
+        -E
+        copy
+        "@HUNTER_PACKAGE_BUILD_DIR@/tools/build/v2/tools/mpi.jam"
         "@HUNTER_PACKAGE_SOURCE_DIR@/tools/build/v2/tools/mpi.jam"
     )
   endif()
@@ -139,6 +152,7 @@ if(is_mpi)
 else()
   set(using_mpi "")
   set(variants variant=debug,release)
+  set(copy_mpi_command "")
 endif()
 
 set(boost_user_jam "@HUNTER_PACKAGE_BUILD_DIR@/boost.user.jam")
@@ -235,6 +249,7 @@ ExternalProject_Add(
         # not used, just avoid creating Install/<name> empty directory
     CONFIGURE_COMMAND
     ${env_cmd}
+    ${copy_mpi_command}
     COMMAND
     ${bootstrap_cmd}
     BUILD_COMMAND
