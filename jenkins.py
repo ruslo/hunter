@@ -12,8 +12,33 @@ import subprocess
 import sys
 import tarfile
 import tempfile
+import argparse
 
 def run():
+  parser = argparse.ArgumentParser("Testing script")
+  parser.add_argument(
+      '--nocreate',
+      action='store_true',
+      help='Do not create Hunter archive (reusing old)'
+  )
+  parser.add_argument(
+      '--clear',
+      action='store_true',
+      help='Remove old testing directories'
+  )
+  parser.add_argument(
+      '--clear-except-download',
+      action='store_true',
+      help='Remove old testing directories except `Download` directory'
+  )
+  parser.add_argument(
+      '--verbose',
+      action='store_true',
+      help='Verbose output'
+  )
+
+  parsed_args = parser.parse_args()
+
   cdir = os.getcwd()
   hunter_root = cdir
 
@@ -59,6 +84,9 @@ def run():
   project_dir = os.path.normpath(project_dir)
 
   testing_dir = os.path.join(os.getcwd(), '_testing')
+  if os.path.exists(testing_dir) and parsed_args.clear:
+    print('REMOVING: {}'.format(testing_dir))
+    shutil.rmtree(testing_dir)
   os.makedirs(testing_dir, exist_ok=True)
 
   if os.name == 'nt':
@@ -72,14 +100,25 @@ def run():
       testing_dir = temp_dir
 
   hunter_url = os.path.join(testing_dir, 'hunter.tar.gz')
-  arch = tarfile.open(hunter_url, 'w:gz')
-  arch.add('cmake')
-  arch.add('scripts')
-  arch.close()
+
+  if parsed_args.nocreate:
+    if not os.path.exists(hunter_url):
+      sys.exit('Option `--nocreate` but no archive')
+  else:
+    arch = tarfile.open(hunter_url, 'w:gz')
+    arch.add('cmake')
+    arch.add('scripts')
+    arch.close()
 
   hunter_sha1 = hashlib.sha1(open(hunter_url, 'rb').read()).hexdigest()
 
   hunter_root = os.path.join(testing_dir, 'Hunter')
+
+  if parsed_args.clear_except_download:
+    base_dir = os.path.join(hunter_root, '_Base')
+    for filename in os.listdir(base_dir):
+      if filename != 'Download':
+        shutil.rmtree(os.path.join(base_dir, filename))
 
   build_script = 'build.py'
   if os.name == 'nt':
@@ -105,9 +144,14 @@ def run():
       '--fwd',
       'HUNTER_ROOT={}'.format(hunter_root),
       'TESTING_URL={}'.format(hunter_url),
-      'TESTING_SHA1={}'.format(hunter_sha1),
-      'HUNTER_RUN_INSTALL=ON'
+      'TESTING_SHA1={}'.format(hunter_sha1)
   ]
+
+  if not parsed_args.verbose:
+    args += ['HUNTER_STATUS_DEBUG=NO']
+
+  if not parsed_args.nocreate:
+    args += ['HUNTER_RUN_INSTALL=ON']
 
   if verbose:
     args += ['--verbose']
