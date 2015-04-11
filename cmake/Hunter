@@ -7,11 +7,11 @@ else()
   set(HUNTER_CMAKE_HUNTER_ 1)
 endif()
 
+project(Hunter)
+
 option(HUNTER_ENABLED "Enable Hunter package manager support" ON)
 option(HUNTER_STATUS_PRINT "Print working status" ON)
 option(HUNTER_STATUS_DEBUG "Print a lot info" OFF)
-
-set(HUNTER_WIKI "https://github.com/ruslo/hunter/wiki")
 
 ### add cmake modules to search path
 list(APPEND CMAKE_MODULE_PATH "${CMAKE_CURRENT_LIST_DIR}/modules")
