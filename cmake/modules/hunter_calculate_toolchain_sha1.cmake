@@ -21,7 +21,7 @@ function(hunter_calculate_toolchain_sha1 hunter_self hunter_base)
     set(use_toolchain "")
   endif()
 
-  hunter_status_print("Calculate Toolchain-SHA1")
+  hunter_status_print("Calculating Toolchain-SHA1")
 
   set(temp_project_dir "${CMAKE_BINARY_DIR}/_3rdParty/hunter/toolchain")
   set(temp_build_dir "${temp_project_dir}/_builds")
