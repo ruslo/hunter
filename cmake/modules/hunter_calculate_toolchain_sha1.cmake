@@ -24,12 +24,19 @@ function(hunter_calculate_toolchain_sha1 hunter_self hunter_base)
   hunter_status_print("Calculating Toolchain-SHA1")
 
   set(temp_project_dir "${CMAKE_BINARY_DIR}/_3rdParty/hunter/toolchain")
-  set(temp_build_dir "${temp_project_dir}/_builds")
   set(create_script "${hunter_self}/scripts/create-toolchain-info.cmake")
   set(local_toolchain_info "${temp_project_dir}/toolchain.info")
 
-  file(REMOVE_RECURSE "${temp_build_dir}")
   file(REMOVE_RECURSE "${local_toolchain_info}")
+
+  if(HUNTER_BINARY_DIR)
+    hunter_lock_directory("${HUNTER_BINARY_DIR}")
+    set(temp_build_dir "${HUNTER_BINARY_DIR}/toolchain")
+  else()
+    set(temp_build_dir "${temp_project_dir}/_builds")
+  endif()
+
+  file(REMOVE_RECURSE "${temp_build_dir}")
 
   if(HUNTER_STATUS_DEBUG)
     set(logging_params "")
@@ -103,4 +110,6 @@ function(hunter_calculate_toolchain_sha1 hunter_self hunter_base)
   configure_file("${local_toolchain_info}" "${global_toolchain_info}" COPYONLY)
   hunter_status_debug("Toolchain info: ${global_toolchain_info}")
   hunter_status_debug("Toolchain SHA1: ${HUNTER_GATE_TOOLCHAIN_SHA1}")
+
+  file(REMOVE_RECURSE "${temp_build_dir}")
 endfunction()

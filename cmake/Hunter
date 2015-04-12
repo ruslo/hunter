@@ -23,6 +23,12 @@ include(hunter_calculate_self)
 include(hunter_status_debug)
 include(hunter_status_print)
 
+string(COMPARE NOTEQUAL "$ENV{HUNTER_BINARY_DIR}" "" _env_not_empty)
+if(_env_not_empty)
+  get_filename_component(HUNTER_BINARY_DIR "$ENV{HUNTER_BINARY_DIR}" ABSOLUTE)
+  hunter_status_debug("HUNTER_BINARY_DIR: ${HUNTER_BINARY_DIR}")
+endif()
+
 # * Read HUNTER_GATE_* variables
 # * Check cache HUNTER_* variables is up-to-date
 # * Update cache if needed
@@ -44,13 +50,6 @@ set(HUNTER_CONFIG_ID_PATH "${HUNTER_ID_PATH}/${HUNTER_CONFIG_ID}")
 set(HUNTER_TOOLCHAIN_ID_PATH "${HUNTER_CONFIG_ID_PATH}/${HUNTER_TOOLCHAIN_ID}")
 
 set(HUNTER_INSTALL_PREFIX "${HUNTER_TOOLCHAIN_ID_PATH}/Install")
-string(COMPARE NOTEQUAL "$ENV{HUNTER_BINARY_DIR}" "" _env_not_empty)
-if(_env_not_empty)
-  set(HUNTER_BINARY_DIR "$ENV{HUNTER_BINARY_DIR}")
-else()
-  set(HUNTER_BINARY_DIR "${HUNTER_TOOLCHAIN_ID_PATH}/Build")
-endif()
-
 list(APPEND CMAKE_PREFIX_PATH "${HUNTER_INSTALL_PREFIX}")
 
 hunter_status_print("HUNTER_ROOT: ${HUNTER_CACHED_ROOT}")

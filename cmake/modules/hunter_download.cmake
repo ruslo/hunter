@@ -83,7 +83,20 @@ function(hunter_download)
       )
     endif()
     set(HUNTER_PACKAGE_DONE_STAMP "${HUNTER_PACKAGE_HOME_DIR}/DONE")
-    set(HUNTER_PACKAGE_BUILD_DIR "${HUNTER_PACKAGE_HOME_DIR}/Build")
+    if(HUNTER_BINARY_DIR)
+      set(
+          HUNTER_PACKAGE_BUILD_DIR
+          "${HUNTER_BINARY_DIR}/${HUNTER_PACKAGE_NAME}"
+      )
+      if(HUNTER_PACKAGE_COMPONENT)
+        set(
+            HUNTER_PACKAGE_BUILD_DIR
+            "${HUNTER_PACKAGE_BUILD_DIR}/${HUNTER_PACKAGE_COMPONENT}"
+        )
+      endif()
+    else()
+      set(HUNTER_PACKAGE_BUILD_DIR "${HUNTER_PACKAGE_HOME_DIR}/Build")
+    endif()
     set(HUNTER_PACKAGE_SOURCE_DIR "${HUNTER_PACKAGE_HOME_DIR}/Source")
     hunter_status_debug("Install to: ${HUNTER_INSTALL_PREFIX}")
   else()
@@ -113,6 +126,9 @@ function(hunter_download)
   hunter_lock_directory("${HUNTER_PACKAGE_DOWNLOAD_DIR}")
   if(HUNTER_DOWNLOAD_SCHEME_INSTALL)
     hunter_lock_directory("${HUNTER_TOOLCHAIN_ID_PATH}")
+    if(HUNTER_BINARY_DIR)
+      hunter_lock_directory("${HUNTER_BINARY_DIR}")
+    endif()
   endif()
 
   # While locking other instance can finish package building
