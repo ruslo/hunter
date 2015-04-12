@@ -32,7 +32,7 @@ hunter_config(Libssh2 VERSION 1.4.4-patch-2)
 hunter_config(OpenSSL VERSION 1.0.2a)
 hunter_config(PNG VERSION 1.6.16)
 hunter_config(RapidJSON VERSION 0.11-hunter)
-hunter_config(Sober VERSION 0.1.0) # Relax warnings
+hunter_config(Sober VERSION 0.1.1) # Relax warnings
 hunter_config(Sugar VERSION 1.2.2)
 hunter_config(TIFF VERSION 4.0.2-hunter-1)
 hunter_config(Washer VERSION 0.1.0)
