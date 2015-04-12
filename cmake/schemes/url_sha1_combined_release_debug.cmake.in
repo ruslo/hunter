@@ -51,7 +51,7 @@ ExternalProject_Add(
     "-DCMAKE_DEBUG_POSTFIX=@CMAKE_DEBUG_POSTFIX@"
     "-DCMAKE_INSTALL_PREFIX=@HUNTER_INSTALL_PREFIX@"
     "-DCMAKE_TOOLCHAIN_FILE=${CMAKE_TOOLCHAIN_FILE}"
-    ${gate_setttings}
+    ${gate_settings}
     INSTALL_COMMAND
     "@CMAKE_COMMAND@" --build . --target install --config Release
     COMMAND
