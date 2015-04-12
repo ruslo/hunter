@@ -15,6 +15,17 @@ hunter_add_version(
     PACKAGE_NAME
     CppNetlibUri
     VERSION
+    "1.0.3-hunter"
+    URL
+    "https://github.com/hunter-packages/uri/archive/v1.0.3-hunter.tar.gz"
+    SHA1
+    24d7a2e1ec9ee6550a5127c9dcd10c82dbe8ebb7
+)
+
+hunter_add_version(
+    PACKAGE_NAME
+    CppNetlibUri
+    VERSION
     "1.0.2-hunter"
     URL
     "https://github.com/hunter-packages/uri/archive/v1.0.2-hunter.tar.gz"
