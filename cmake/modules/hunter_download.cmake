@@ -245,11 +245,12 @@ function(hunter_download)
 
   if(generate_result EQUAL 0)
     hunter_status_debug(
-        "Generate step successful (dir: ${HUNTER_PACKAGE_HOME_DIR})"
+        "Configure step successful (dir: ${HUNTER_PACKAGE_HOME_DIR})"
     )
   else()
-    hunter_internal_error(
-        "Generate step failed (dir: ${HUNTER_PACKAGE_HOME_DIR})"
+    hunter_fatal_error(
+        "Configure step failed (dir: ${HUNTER_PACKAGE_HOME_DIR})"
+        WIKI "error.external.build.failed"
     )
   endif()
 
@@ -273,8 +274,9 @@ function(hunter_download)
         "Build step successful (dir: ${HUNTER_PACKAGE_HOME_DIR})"
     )
   else()
-    hunter_internal_error(
+    hunter_fatal_error(
         "Build step failed (dir: ${HUNTER_PACKAGE_HOME_DIR}"
+        WIKI "error.external.build.failed"
     )
   endif()
 
