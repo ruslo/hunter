@@ -6,6 +6,7 @@ cmake_minimum_required(VERSION 3.0) # sleep
 include(CMakeParseArguments) # cmake_parse_arguments
 
 include(hunter_find_stamps)
+include(hunter_gate_settings)
 include(hunter_internal_error)
 include(hunter_print_cmd)
 include(hunter_status_debug)
@@ -127,28 +128,8 @@ function(hunter_download)
   file(REMOVE "${HUNTER_PACKAGE_HOME_DIR}/CMakeLists.txt")
   file(REMOVE "${HUNTER_DOWNLOAD_TOOLCHAIN}")
 
-  # Ignore HunterGate settings of package
-  file(
-      APPEND
-      "${HUNTER_DOWNLOAD_TOOLCHAIN}"
-      "set_property(GLOBAL PROPERTY HUNTER_GATE_DONE YES)\n"
-  )
-
   # Forward Hunter cache variables
-  foreach(
-      hunter_var
-      HUNTER_CACHED_ROOT
-      HUNTER_SHA1
-      HUNTER_CONFIG_SHA1
-      HUNTER_VERSION
-      HUNTER_TOOLCHAIN_SHA1
-  )
-    file(
-        APPEND
-        "${HUNTER_DOWNLOAD_TOOLCHAIN}"
-        "set(${hunter_var} \"${${hunter_var}}\" CACHE INTERNAL \"\")\n"
-    )
-  endforeach()
+  hunter_gate_settings(gate_settings)
 
   # Do not lock hunter directory if package is internal (already locked)
   file(APPEND "${HUNTER_DOWNLOAD_TOOLCHAIN}" "set(HUNTER_SKIP_LOCK YES)\n")
@@ -249,6 +230,7 @@ function(hunter_download)
       "-DCMAKE_TOOLCHAIN_FILE=${HUNTER_DOWNLOAD_TOOLCHAIN}"
       "-DHUNTER_STATUS_DEBUG=${HUNTER_STATUS_DEBUG}"
       "-G${CMAKE_GENERATOR}"
+      ${gate_settings}
       ${verbose_makefile}
   )
   hunter_print_cmd("${HUNTER_PACKAGE_HOME_DIR}" "${cmd}")

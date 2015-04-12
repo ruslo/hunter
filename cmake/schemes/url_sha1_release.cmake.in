@@ -10,6 +10,7 @@ include(ExternalProject) # ExternalProject_Add
 
 list(APPEND CMAKE_MODULE_PATH "@HUNTER_SELF@/cmake/modules")
 
+include(hunter_gate_settings)
 include(hunter_status_debug)
 include(hunter_test_string_not_empty)
 
@@ -28,6 +29,8 @@ if("@HUNTER_STATUS_DEBUG@")
   set(verbose_makefile "-DCMAKE_VERBOSE_MAKEFILE=ON")
 endif()
 
+hunter_gate_settings(gate_settings)
+
 ExternalProject_Add(
     X
     URL
@@ -45,6 +48,7 @@ ExternalProject_Add(
     "-DCMAKE_BUILD_TYPE=Release"
     "-DCMAKE_INSTALL_PREFIX=@HUNTER_INSTALL_PREFIX@"
     ${verbose_makefile}
+    ${gate_settings}
     "-DCMAKE_TOOLCHAIN_FILE=${CMAKE_TOOLCHAIN_FILE}"
     BUILD_COMMAND
         "@CMAKE_COMMAND@" --build .

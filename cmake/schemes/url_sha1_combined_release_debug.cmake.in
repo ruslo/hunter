@@ -11,6 +11,7 @@ include(ExternalProject) # ExternalProject_Add
 
 list(APPEND CMAKE_MODULE_PATH "@HUNTER_SELF@/cmake/modules")
 
+include(hunter_gate_settings)
 include(hunter_internal_error)
 include(hunter_status_debug)
 include(hunter_test_string_not_empty)
@@ -31,6 +32,8 @@ hunter_test_string_not_empty("@HUNTER_INSTALL_PREFIX@")
 hunter_test_string_not_empty("@CMAKE_DEBUG_POSTFIX@")
 hunter_test_string_not_empty("${CMAKE_TOOLCHAIN_FILE}")
 
+hunter_gate_settings(gate_settings)
+
 ExternalProject_Add(
     X
     URL
@@ -48,6 +51,7 @@ ExternalProject_Add(
     "-DCMAKE_DEBUG_POSTFIX=@CMAKE_DEBUG_POSTFIX@"
     "-DCMAKE_INSTALL_PREFIX=@HUNTER_INSTALL_PREFIX@"
     "-DCMAKE_TOOLCHAIN_FILE=${CMAKE_TOOLCHAIN_FILE}"
+    ${gate_setttings}
     INSTALL_COMMAND
     "@CMAKE_COMMAND@" --build . --target install --config Release
     COMMAND
