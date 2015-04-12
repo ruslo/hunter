@@ -12,10 +12,6 @@ include(hunter_add_version)
 include(hunter_download)
 include(hunter_pick_scheme)
 
-# Dependencies --
-hunter_add_package(Boost)
-# -- end
-
 hunter_add_version(
     PACKAGE_NAME
     Leathers
@@ -69,6 +65,17 @@ hunter_add_version(
     "https://github.com/ruslo/leathers/archive/v0.1.4.tar.gz"
     SHA1
     b83728f082dcf9cde7fc291e6745cd7f4edcdbc5
+)
+
+hunter_add_version(
+    PACKAGE_NAME
+    Leathers
+    VERSION
+    "0.1.6"
+    URL
+    "https://github.com/ruslo/leathers/archive/v0.1.6.tar.gz"
+    SHA1
+    390df257a5b22087c96f67a08b52902e7dea1bc2
 )
 
 hunter_pick_scheme(
