@@ -15,6 +15,17 @@ hunter_add_version(
     PACKAGE_NAME
     TIFF
     VERSION
+    "4.0.2-hunter-1"
+    URL
+    "https://github.com/hunter-packages/tiff/archive/v4.0.2-hunter-1.tar.gz"
+    SHA1
+    9088be15b54257f227988e1b479b7394e944fe71
+)
+
+hunter_add_version(
+    PACKAGE_NAME
+    TIFF
+    VERSION
     "4.0.2"
     URL
     "https://github.com/hunter-packages/tiff/archive/v4.0.2.tar.gz"
