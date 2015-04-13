@@ -3,11 +3,12 @@
 # All rights reserved.
 
 cmake_minimum_required(VERSION 3.0)
-project(example-hunter-expat)
 
 # Emulate HunterGate:
 # * https://github.com/hunter-packages/gate
 include("../common.cmake")
+
+project(example-hunter-expat)
 
 hunter_add_package(Expat)
 
