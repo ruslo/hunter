@@ -134,6 +134,7 @@ env:
     ### TESTS --
     - PROJECT_DIR=tests/simple TOOLCHAIN=default
     - PROJECT_DIR=tests/issue/24/unit TOOLCHAIN=default
+    - PROJECT_DIR=tests/hunter_create_args_file TOOLCHAIN=default
     ### -- end
 
 script:
