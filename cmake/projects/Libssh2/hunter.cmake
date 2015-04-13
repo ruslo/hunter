@@ -45,8 +45,6 @@ hunter_cmake_args(
       BUILD_TESTING=OFF
       BUILD_EXAMPLES=OFF
       HUNTER_ENABLED=ON
-      # Remove once https://github.com/ruslo/hunter/issues/50 is fixed
-      HUNTER_SKIP_TOOLCHAIN_VERIFICATION=ON
 )
 
 hunter_download(PACKAGE_NAME Libssh2)

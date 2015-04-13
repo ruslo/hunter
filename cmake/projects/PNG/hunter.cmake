@@ -40,8 +40,6 @@ hunter_cmake_args(
     CMAKE_ARGS
       PNG_SHARED=OFF
       PNG_TESTS=OFF
-      # Remove once https://github.com/ruslo/hunter/issues/50 is fixed
-      HUNTER_SKIP_TOOLCHAIN_VERIFICATION=ON
 )
 
 hunter_pick_scheme(
