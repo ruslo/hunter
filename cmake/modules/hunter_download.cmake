@@ -5,6 +5,7 @@ cmake_minimum_required(VERSION 3.0) # sleep
 
 include(CMakeParseArguments) # cmake_parse_arguments
 
+include(hunter_create_args_file)
 include(hunter_find_stamps)
 include(hunter_gate_settings)
 include(hunter_internal_error)
@@ -112,8 +113,11 @@ function(hunter_download)
   set(ENV{${root_name}} "${${root_name}}")
   hunter_status_print("${root_name}: ${${root_name}} (ver.: ${ver})")
 
-  # temp toolchain file to set environment variables and include real toolchain
+  # temp toolchain file to set variables and include real toolchain
   set(HUNTER_DOWNLOAD_TOOLCHAIN "${HUNTER_PACKAGE_HOME_DIR}/toolchain.cmake")
+
+  # separate file with build options
+  set(HUNTER_ARGS_FILE "${HUNTER_PACKAGE_HOME_DIR}/args.cmake")
 
   if(EXISTS "${HUNTER_PACKAGE_DONE_STAMP}")
     hunter_status_debug("Package already installed: ${HUNTER_PACKAGE_NAME}")
@@ -143,12 +147,18 @@ function(hunter_download)
   file(REMOVE_RECURSE "${HUNTER_PACKAGE_BUILD_DIR}")
   file(REMOVE "${HUNTER_PACKAGE_HOME_DIR}/CMakeLists.txt")
   file(REMOVE "${HUNTER_DOWNLOAD_TOOLCHAIN}")
+  file(REMOVE "${HUNTER_ARGS_FILE}")
 
   # Forward Hunter cache variables
   hunter_gate_settings(gate_settings)
 
   # Do not lock hunter directory if package is internal (already locked)
   file(APPEND "${HUNTER_DOWNLOAD_TOOLCHAIN}" "set(HUNTER_SKIP_LOCK YES)\n")
+  file(
+      APPEND
+      "${HUNTER_DOWNLOAD_TOOLCHAIN}"
+      "include(\"${HUNTER_ARGS_FILE}\")\n"
+  )
 
   # support for toolchain file forwarding
   if(CMAKE_TOOLCHAIN_FILE)
@@ -157,33 +167,9 @@ function(hunter_download)
     file(APPEND "${HUNTER_DOWNLOAD_TOOLCHAIN}" "include(\"${x}\")\n")
   endif()
 
-  set(var_name "")
-  foreach(fwd ${HUNTER_${h_name}_CMAKE_ARGS})
-    string(FIND "${fwd}" "=" _hunter_update_var)
-    if(_hunter_update_var EQUAL -1)
-      # There is no '=' symbol - appending mode
-      if(NOT var_name)
-        hunter_internal_error("var_name empty")
-      endif()
-      set(var_value "${fwd}")
-      file(
-          APPEND
-          "${HUNTER_DOWNLOAD_TOOLCHAIN}"
-          "set(\"${var_name}\" \"\${${var_name}}\" \"${var_value}\" CACHE INTERNAL \"\")\n"
-      )
-      hunter_status_debug("Add extra CMake args: ${var_name} += ${var_value}")
-    else()
-      # Format <name>=<value>
-      string(REGEX REPLACE "=.*" "" var_name "${fwd}")
-      string(REGEX REPLACE ".*=" "" var_value "${fwd}")
-      file(
-          APPEND
-          "${HUNTER_DOWNLOAD_TOOLCHAIN}"
-          "set(\"${var_name}\" \"${var_value}\" CACHE INTERNAL \"\")\n"
-      )
-      hunter_status_debug("Add extra CMake args: ${var_name} = ${var_value}")
-    endif()
-  endforeach()
+  hunter_create_args_file(
+      "${HUNTER_${h_name}_CMAKE_ARGS}" "${HUNTER_ARGS_FILE}"
+  )
 
   if(HUNTER_STATUS_DEBUG)
     set(verbose_makefile "-DCMAKE_VERBOSE_MAKEFILE=ON")
@@ -306,6 +292,7 @@ function(hunter_download)
 
   file(REMOVE "${HUNTER_PACKAGE_HOME_DIR}/CMakeLists.txt")
   file(REMOVE "${HUNTER_DOWNLOAD_TOOLCHAIN}")
+  file(REMOVE "${HUNTER_ARGS_FILE}")
 
   file(WRITE "${HUNTER_PACKAGE_DONE_STAMP}" "")
 endfunction()
