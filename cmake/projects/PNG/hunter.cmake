@@ -1,4 +1,4 @@
- # Copyright (c) 2014, Ruslan Baratov
+# Copyright (c) 2014-2015, Ruslan Baratov
 # Copyright (c) 2015, Alexander Lamaison
 # All rights reserved.
 
@@ -9,12 +9,9 @@ else()
 endif()
 
 include(hunter_add_version)
-include(hunter_add_version_start)
 include(hunter_cmake_args)
 include(hunter_download)
 include(hunter_pick_scheme)
-
-hunter_add_version_start(PNG)
 
 hunter_add_version(
     PACKAGE_NAME
