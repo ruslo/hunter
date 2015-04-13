@@ -27,6 +27,7 @@ function(hunter_create_args_file args filename)
   #   'var_value' will have values:
   #       "value1", "value2", "value3", "value4"
   file(REMOVE "${filename}")
+  file(WRITE "${filename}" "") # create empty file if no option
   set(var_name "")
   foreach(entry ${args})
     string(FIND "${entry}" "=" update_var)
