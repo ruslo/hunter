@@ -8,6 +8,7 @@ else()
 endif()
 
 include(hunter_add_version)
+include(hunter_cmake_args)
 include(hunter_download)
 include(hunter_pick_scheme)
 
@@ -27,6 +28,11 @@ hunter_pick_scheme(
     url_sha1_release_debug
     COMBINED
     url_sha1_combined_release_debug
+)
+
+hunter_cmake_args(
+    GPUImage
+    CMAKE_ARGS GPUIMAGE_BUILD_EXAMPLES=OFF
 )
 
 hunter_download(PACKAGE_NAME GPUImage)
