@@ -1,4 +1,6 @@
-# This is a header-like file, so include guards needed
+# Copyright (c) 2015, David Hirvonen
+# All rights reserved.
+
 if(DEFINED HUNTER_CMAKE_PROJECTS_CSV_PARSER_CPLUSPLUS_HUNTER_CMAKE_)
   return()
 else()
@@ -7,13 +9,9 @@ endif()
 
 # Load used modules
 include(hunter_add_version)
-include(hunter_add_version_start)
 include(hunter_download)
 include(hunter_pick_scheme)
 include(hunter_add_package)
-
-# Print version that we are trying to download (i.e. from 'config.cmake')
-hunter_add_version_start(csv-parser-cplusplus)
 
 # List of versions here...
 hunter_add_version(
