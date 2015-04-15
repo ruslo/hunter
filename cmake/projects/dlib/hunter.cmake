@@ -1,4 +1,6 @@
-# This is a header-like file, so include guards needed
+# Copyright (c) 2015, David Hirvonen
+# All rights reserved.
+
 if(DEFINED HUNTER_CMAKE_PROJECTS_DLIB_HUNTER_CMAKE_)
   return()
 else()
@@ -7,13 +9,9 @@ endif()
 
 # Load used modules
 include(hunter_add_version)
-include(hunter_add_version_start)
 include(hunter_download)
 include(hunter_pick_scheme)
 include(hunter_add_package)
-
-# Print version that we are trying to download (i.e. from 'config.cmake')
-hunter_add_version_start(dlib)
 
 # List of versions here...
 hunter_add_version(
@@ -29,5 +27,12 @@ hunter_add_version(
 
 # Pick a download scheme
 hunter_pick_scheme(DEFAULT url_sha1_no_install) # (for cmake modules and header-only libraries)
+
+# hunter_pick_scheme(
+#     DEFAULT
+#     url_sha1_release_debug # For separate release/debug generators, like Makefile
+#     COMBINED
+#     url_sha1_combined_release_debug # For Xcode and Visual Studio
+# )
 
 hunter_download(PACKAGE_NAME dlib)

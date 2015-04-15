@@ -1,4 +1,6 @@
-# This is a header-like file, so include guards needed
+# Copyright (c) 2015, David Hirvonen
+# All rights reserved.
+
 if(DEFINED HUNTER_CMAKE_PROJECTS_OPENCV_HUNTER_CMAKE_)
   return()
 else()
@@ -7,13 +9,9 @@ endif()
 
 # Load used modules
 include(hunter_add_version)
-include(hunter_add_version_start)
 include(hunter_download)
 include(hunter_pick_scheme)
 include(hunter_add_package)
-
-# Print version that we are trying to download (i.e. from 'config.cmake')
-hunter_add_version_start(OpenCV)
 
 # List of versions here...
 hunter_add_version(
@@ -51,7 +49,6 @@ hunter_add_version(
     7018f9495920f974258502b9b8b26af16d7ee427
 )
 
-
 # Pick a download scheme
 hunter_pick_scheme(
     DEFAULT
@@ -61,7 +58,9 @@ hunter_pick_scheme(
 )
 
 # Download package.
-# Two versions of library will be build:
+# Two versions of library will be built:
+# Two versions of library will be built:
 #     * libexample_A.a
 #     * libexample_Ad.a
+
 hunter_download(PACKAGE_NAME OpenCV)
