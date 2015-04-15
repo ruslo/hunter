@@ -11,13 +11,13 @@ Hunter
 
 ### What is it?
 
-Every Hunter [release](https://github.com/ruslo/hunter/releases) archive is a meta-package with build instructions and URLs of real packages, i.e.:
+Every Hunter [release](https://github.com/ruslo/hunter/releases) archive is a meta-package with build instructions and URLs of real packages:
 ```
 Hunter (0.4.2) = {
     Boost (1.55.0),
     GTest (1.7.0),
-    JsonSpirit(0.0.1),
-    OpenSSL(1.0.1h),
+    JsonSpirit (0.0.1),
+    OpenSSL (1.0.1h),
     ...
 }
 ```
@@ -38,12 +38,22 @@ or [add a new one](https://github.com/ruslo/hunter/wiki/usr.adding.new.package)
 * Reusable `ExternalProject_Add` recipies ([DRY principle](http://c2.com/cgi/wiki?DontRepeatYourself))
  * Once written formula can be used by other projects, subprojects etc. without copying of collection of
 superbuild files. Just change 2 lines of code: SHA1 and URL of hunter archive
+* Multiple `root` directories without conflicts (Hunter-ID):
+ * Hunter `0.8.3` use patched Boost `https://.../site-A/boost-patch.tar.gz` in `${HUNTER_ROOT}/_Base/1eae623/...`
+ * Hunter `0.8.4` use patched Boost `https://.../site-B/boost-patch.tar.gz` in `${HUNTER_ROOT}/_Base/e07a124/...`
+* Different build options per package (Config-ID):
+ * Build `Foo` with option `FOO_WITH_OPENSSL=ON` in `${HUNTER_ROOT}/_Base/.../0fa873a`
+ * Build `Foo` with option `FOO_WITH_OPENSSL=OFF` in `${HUNTER_ROOT}/_Base/.../e9da39c`
+* Non-conflicting toolchain switching:
+ * Build with `gcc` in `${HUNTER_ROOT}/_Base/.../.../d46ea0b`
+ * Build with `clang` in `${HUNTER_ROOT}/_Base/.../.../c018e63`
 * Customizable builds
  * Build 32/64 bit libraries
  * Debug/Release version of libraries
  * Build with different tools like [Clang Memory Sanitizer](http://clang.llvm.org/docs/MemorySanitizer.html)
  * Static/dynamic variant of library
  * ...
+* Backward compatibility. Turn Hunter off by adding one option [HUNTER_ENABLED=OFF](https://github.com/ruslo/hunter/wiki/usr.variables#hunter_enabled) to use your old settings
 
 ### First step
 
