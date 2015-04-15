@@ -23,7 +23,7 @@ Hunter (0.4.2) = {
 ```
 
 * Default versions can be found in
-[cmake/config/default.cmake](https://github.com/ruslo/hunter/blob/master/cmake/config/default.cmake) file and are [customizable](https://github.com/hunter-packages/gate#usage-custom-config)
+[cmake/config/default.cmake](https://github.com/ruslo/hunter/blob/master/cmake/configs/default.cmake) file and are [customizable](https://github.com/hunter-packages/gate#usage-custom-config)
 * Per package versions are available in corresponding `hunter.cmake` file
 (e.g. [GTest](https://github.com/ruslo/hunter/blob/master/cmake/projects/GTest/hunter.cmake)).
 You can pick one version that already exists
