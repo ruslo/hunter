@@ -38,6 +38,10 @@ function(hunter_download)
   hunter_test_string_not_empty("${HUNTER_PACKAGE_NAME}")
   hunter_test_string_not_empty("${HUNTER_TOOLCHAIN_ID_PATH}")
 
+  string(COMPARE NOTEQUAL "${HUNTER_BINARY_DIR}" "" hunter_has_binary_dir)
+  string(COMPARE NOTEQUAL "${HUNTER_PACKAGE_COMPONENT}" "" hunter_has_component)
+  string(COMPARE NOTEQUAL "${CMAKE_TOOLCHAIN_FILE}" "" hunter_has_toolchain)
+
   # Set <LIB>_ROOT variables
   set(h_name "${HUNTER_PACKAGE_NAME}") # Foo
   string(TOUPPER "${HUNTER_PACKAGE_NAME}" root_name) # FOO
@@ -46,6 +50,8 @@ function(hunter_download)
   set(ver ${HUNTER_${h_name}_VERSION})
   set(HUNTER_PACKAGE_URL "${HUNTER_${h_name}_URL}")
   set(HUNTER_PACKAGE_SHA1 "${HUNTER_${h_name}_SHA1}")
+
+  string(COMPARE EQUAL "${HUNTER_PACKAGE_URL}" "" hunter_no_url)
 
   string(COMPARE EQUAL "${HUNTER_PACKAGE_SHA1}" "" version_not_found)
   if(version_not_found)
@@ -77,19 +83,19 @@ function(hunter_download)
         HUNTER_PACKAGE_HOME_DIR
         "${HUNTER_PACKAGE_HOME_DIR}/${HUNTER_PACKAGE_NAME}"
     )
-    if(HUNTER_PACKAGE_COMPONENT)
+    if(hunter_has_component)
       set(
           HUNTER_PACKAGE_HOME_DIR
           "${HUNTER_PACKAGE_HOME_DIR}/${HUNTER_PACKAGE_COMPONENT}"
       )
     endif()
     set(HUNTER_PACKAGE_DONE_STAMP "${HUNTER_PACKAGE_HOME_DIR}/DONE")
-    if(HUNTER_BINARY_DIR)
+    if(hunter_has_binary_dir)
       set(
           HUNTER_PACKAGE_BUILD_DIR
           "${HUNTER_BINARY_DIR}/${HUNTER_PACKAGE_NAME}"
       )
-      if(HUNTER_PACKAGE_COMPONENT)
+      if(hunter_has_component)
         set(
             HUNTER_PACKAGE_BUILD_DIR
             "${HUNTER_PACKAGE_BUILD_DIR}/${HUNTER_PACKAGE_COMPONENT}"
@@ -121,7 +127,7 @@ function(hunter_download)
 
   if(EXISTS "${HUNTER_PACKAGE_DONE_STAMP}")
     hunter_status_debug("Package already installed: ${HUNTER_PACKAGE_NAME}")
-    if(HUNTER_PACKAGE_COMPONENT)
+    if(hunter_has_component)
       hunter_status_debug("Component: ${HUNTER_PACKAGE_COMPONENT}")
     endif()
     return()
@@ -130,7 +136,7 @@ function(hunter_download)
   hunter_lock_directory("${HUNTER_PACKAGE_DOWNLOAD_DIR}")
   if(HUNTER_DOWNLOAD_SCHEME_INSTALL)
     hunter_lock_directory("${HUNTER_TOOLCHAIN_ID_PATH}")
-    if(HUNTER_BINARY_DIR)
+    if(hunter_has_binary_dir)
       hunter_lock_directory("${HUNTER_BINARY_DIR}")
     endif()
   endif()
@@ -138,7 +144,7 @@ function(hunter_download)
   # While locking other instance can finish package building
   if(EXISTS "${HUNTER_PACKAGE_DONE_STAMP}")
     hunter_status_debug("Package already installed: ${HUNTER_PACKAGE_NAME}")
-    if(HUNTER_PACKAGE_COMPONENT)
+    if(hunter_has_component)
       hunter_status_debug("Component: ${HUNTER_PACKAGE_COMPONENT}")
     endif()
     return()
@@ -161,7 +167,7 @@ function(hunter_download)
   )
 
   # support for toolchain file forwarding
-  if(CMAKE_TOOLCHAIN_FILE)
+  if(hunter_has_toolchain)
     # Fix windows path
     get_filename_component(x "${CMAKE_TOOLCHAIN_FILE}" ABSOLUTE)
     file(APPEND "${HUNTER_DOWNLOAD_TOOLCHAIN}" "include(\"${x}\")\n")
@@ -177,7 +183,7 @@ function(hunter_download)
     set(verbose_makefile "")
   endif()
 
-  if(NOT HUNTER_PACKAGE_URL)
+  if(hunter_no_url)
     set(avail ${HUNTER_${h_name}_VERSIONS})
     hunter_internal_error(
         "${h_name} version(${ver}) not found. Available: [${avail}]"
@@ -186,7 +192,7 @@ function(hunter_download)
 
   # print info before start generation/run
   hunter_status_debug("Add package: ${HUNTER_PACKAGE_NAME}")
-  if(HUNTER_PACKAGE_COMPONENT)
+  if(hunter_has_component)
     hunter_status_debug("Component: ${HUNTER_PACKAGE_COMPONENT}")
   endif()
   hunter_status_debug("Download scheme: ${HUNTER_DOWNLOAD_SCHEME}")
@@ -208,7 +214,7 @@ function(hunter_download)
   )
 
   set(build_message "Building ${HUNTER_PACKAGE_NAME}")
-  if(HUNTER_PACKAGE_COMPONENT)
+  if(hunter_has_component)
     set(
         build_message
         "${build_message} (component: ${HUNTER_PACKAGE_COMPONENT})"
