@@ -14,6 +14,17 @@ hunter_add_version(
     PACKAGE_NAME
     Washer
     VERSION
+    "0.1.2"
+    URL
+    "https://github.com/alamaison/washer/archive/0.1.2.tar.gz"
+    SHA1
+    b32cf57e0c8f998c6243bf2385f6ab04038f8b0f
+)
+
+hunter_add_version(
+    PACKAGE_NAME
+    Washer
+    VERSION
     "0.1.1"
     URL
     "https://github.com/alamaison/washer/archive/0.1.1.tar.gz"
