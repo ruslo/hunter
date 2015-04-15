@@ -11,22 +11,28 @@ Hunter
 
 ### What is it?
 
-Every hunter release archive is a meta-package with build instructions and URLs of real packages, i.e.:
+Every Hunter [release](https://github.com/ruslo/hunter/releases) archive is a meta-package with build instructions and URLs of real packages, i.e.:
 ```
-Hunter (0.4.2) = { Boost (1.55.0), GTest (1.7.0), JsonSpirit(0.0.1), OpenSSL(1.0.1h), ... }
+Hunter (0.4.2) = {
+    Boost (1.55.0),
+    GTest (1.7.0),
+    JsonSpirit(0.0.1),
+    OpenSSL(1.0.1h),
+    ...
+}
 ```
 
-* Currently used versions can be found in
-[cmake/config.cmake](https://github.com/ruslo/hunter/blob/master/cmake/config.cmake) file and are customizable
+* Default versions can be found in
+[cmake/config/default.cmake](https://github.com/ruslo/hunter/blob/master/cmake/configs/default.cmake) file and are [customizable](https://github.com/hunter-packages/gate#usage-custom-config)
 * Per package versions are available in corresponding `hunter.cmake` file
 (e.g. [GTest](https://github.com/ruslo/hunter/blob/master/cmake/projects/GTest/hunter.cmake)).
 You can pick one version that already exists
-or [add a new one](https://github.com/ruslo/hunter/wiki/Adding-new-package)
+or [add a new one](https://github.com/ruslo/hunter/wiki/usr.adding.new.package)
 
 ### Features
 
 * Automatic dependencies download
- * List of dependencies is a part of cmake code of the project
+ * List of dependencies is a part of CMake code of the project
  * No `emerge`, `apt-get`, `brew` etc. needed before build, now it's simply `cmake --build`
  * Express install instructions in terms of CMake commands instead of raw README text or other script
 * Reusable `ExternalProject_Add` recipies ([DRY principle](http://c2.com/cgi/wiki?DontRepeatYourself))
@@ -82,23 +88,26 @@ target_link_libraries(foo ${Boost_LIBRARIES})
 
 * List of packages and usage instructions for each package can be found in [wiki sidebar]
 (https://github.com/ruslo/hunter/wiki)
-* [List of variables to control build](https://github.com/ruslo/hunter/wiki/CMake-Variables-%28User%29)
-* [How to add a new cmake project](https://github.com/ruslo/hunter/wiki/Adding-new-package)
+* [List of variables to control build](https://github.com/ruslo/hunter/wiki/usr.variables)
+* [How to add a new CMake project](https://github.com/ruslo/hunter/wiki/usr.adding.new.package)
 * [How to add a new custom-build project]
-(https://github.com/ruslo/hunter/wiki/Adding-new-package-%28custom-download-scheme%29)
+(https://github.com/ruslo/hunter/wiki/usr.adding.new.package.custom.scheme)
 * [Multiple HunterGate commands (e.g. projects subprojects)]
-(https://github.com/ruslo/hunter/wiki/Multiple-HunterGate-commands-%28e.g.-projects-subprojects%29)
+(https://github.com/ruslo/hunter/wiki/usr.multiple.huntergate)
 
 ### iOS note
 
 Install is [broken](http://public.kitware.com/Bug/view.php?id=12506) on iOS.
-Patched version of [cmake](https://github.com/ruslo/CMake/releases/tag/v3.0.0-ios-universal) need to be used
+Patched version of [CMake](https://github.com/ruslo/CMake/releases) need to be used
 (+ install universal libraries instread of one-arch).
 
-### Tagged builds
+### Toolchain switching
 
-Each build can be [tagged](https://github.com/ruslo/hunter/wiki/EP_BASE-layout#tagged-layout)
-by `HUNTER_INSTALL_TAG` variable. Tags used to differentiate one build from another on one OS. For example on windows you can simultaniously build Visual Studio (32/64), NMake, Cygwin and MinGW projects, on Linux gcc/clang, on Mac Xcode, Makefile, iOS. Or choose different clang tools like static analyzer and sanitizers. Tags designed to be used in cmake [toolchain](https://github.com/ruslo/polly) files. Each toolchain file will be forwarded to external project so if you create toolchain with compiler `g++` and flag `-std=c++11` all dependent projects will be built by `g++ -std=c++11`.
+Each build can be run with different toolchains. In general the result is completely different root `lib`/`include` directories. For example on Windows you can simultaniously build Visual Studio (32/64), NMake, Cygwin and MinGW projects, on Linux GCC/Clang, on Mac Xcode, Makefile, iOS. Or choose different clang tools like static analyzer and sanitizers. Each toolchain file will be forwarded to external project so if you create toolchain with compiler `g++` and flag `-std=c++11` all dependent projects will be built by `g++ -std=c++11`. Information about toolchain has some internal representation (`toolchain.info`) and user can see first 7 digits (ID) of `SHA1` hash of this file. For example `gcc` has `d46ea0b`, `clang` has `c018e63`. See `Toolchain-ID` in build logs:
+```
+-- [hunter] [ Hunter-ID: ... | Config-ID: ... | Toolchain-ID: d46ea0b ]
+-- [hunter] [ Hunter-ID: ... | Config-ID: ... | Toolchain-ID: c018e63 ]
+```
 
 ### Uninstall
 
@@ -107,9 +116,10 @@ You can remove all temps (downloads, unpacked directories, installed directories
 ```bash
 rm -rf "${HUNTER_ROOT}/_Base"
 ```
-or remove particular snapshot by command:
+or remove particular snapshot (Hunter-ID) by command:
 ```bash
-rm -rf "${HUNTER_ROOT}/_Base/3a6c66670d-BLABLA-2567c3d44b2a99e288e3c8"
+rm -rf "${HUNTER_ROOT}/_Base/62422b8" # remove installed libraries
+rm -rf "${HUNTER_ROOT}/_Base/Download/Hunter/0.8.3/62422b8" # remove Hunter itself
 ```
 
 ### Questions?
@@ -129,5 +139,5 @@ Read [wiki][3] before making changes. Please send a patch as a pull request agai
 
 [1]: https://github.com/ruslo/hunter/tree/develop
 [2]: https://github.com/ruslo/hunter/tree/master
-[3]: https://github.com/ruslo/hunter/wiki#develop
+[3]: https://github.com/ruslo/hunter/wiki
 [4]: https://github.com/ruslo/hunter/issues/new
