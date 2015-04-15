@@ -42,6 +42,12 @@ function(hunter_download)
   string(COMPARE NOTEQUAL "${HUNTER_PACKAGE_COMPONENT}" "" hunter_has_component)
   string(COMPARE NOTEQUAL "${CMAKE_TOOLCHAIN_FILE}" "" hunter_has_toolchain)
 
+  if(hunter_has_component)
+    set(HUNTER_EP_NAME "${HUNTER_PACKAGE_NAME}-${HUNTER_PACKAGE_COMPONENT}")
+  else()
+    set(HUNTER_EP_NAME "${HUNTER_PACKAGE_NAME}")
+  endif()
+
   # Set <LIB>_ROOT variables
   set(h_name "${HUNTER_PACKAGE_NAME}") # Foo
   string(TOUPPER "${HUNTER_PACKAGE_NAME}" root_name) # FOO

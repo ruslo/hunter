@@ -21,6 +21,7 @@ hunter_status_debug("Scheme: url_sha1_boost_library")
 
 # Check preconditions
 hunter_test_string_not_empty("@HUNTER_SELF@")
+hunter_test_string_not_empty("@HUNTER_EP_NAME@")
 hunter_test_string_not_empty("@HUNTER_PACKAGE_DOWNLOAD_DIR@")
 hunter_test_string_not_empty("@HUNTER_PACKAGE_SOURCE_DIR@")
 hunter_test_string_not_empty("@HUNTER_PACKAGE_BUILD_DIR@")
@@ -235,7 +236,7 @@ if(HUNTER_STATUS_DEBUG)
 endif()
 
 ExternalProject_Add(
-    X
+    "@HUNTER_EP_NAME@"
     URL
     @HUNTER_PACKAGE_URL@
     URL_HASH
@@ -269,7 +270,7 @@ ExternalProject_Add(
 if(APPLE)
   find_package(PythonInterp 3.2 REQUIRED)
   ExternalProject_Add_Step(
-      X
+      "@HUNTER_EP_NAME@"
       FixDylibId
       COMMAND
       "${PYTHON_EXECUTABLE}"

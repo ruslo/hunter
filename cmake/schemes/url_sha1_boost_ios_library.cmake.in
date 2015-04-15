@@ -19,6 +19,7 @@ hunter_status_debug("Scheme: url_sha1_boost_ios_library")
 
 # Check preconditions
 hunter_test_string_not_empty("@HUNTER_SELF@")
+hunter_test_string_not_empty("@HUNTER_EP_NAME@")
 hunter_test_string_not_empty("@HUNTER_PACKAGE_URL@")
 hunter_test_string_not_empty("@HUNTER_PACKAGE_SHA1@")
 hunter_test_string_not_empty("@HUNTER_PACKAGE_DOWNLOAD_DIR@")
@@ -158,7 +159,7 @@ if(@HUNTER_STATUS_DEBUG@)
 endif()
 
 ExternalProject_Add(
-    X-ios
+    "@HUNTER_EP_NAME@-ios"
     URL
     @HUNTER_PACKAGE_URL@
     URL_HASH
@@ -183,7 +184,7 @@ ExternalProject_Add(
 )
 
 ExternalProject_Add(
-    X-ios_sim
+    "@HUNTER_EP_NAME@-ios_sim"
     DOWNLOAD_COMMAND
     ""
     DOWNLOAD_DIR
@@ -206,8 +207,8 @@ ExternalProject_Add(
 )
 
 add_dependencies(
-    X-ios_sim
-    X-ios
+    "@HUNTER_EP_NAME@-ios_sim"
+    "@HUNTER_EP_NAME@-ios"
 )
 
 string(COMPARE EQUAL "@HUNTER_PACKAGE_COMPONENT@" "test" is_test)
@@ -233,10 +234,10 @@ else()
 endif()
 
 ExternalProject_Add(
-    X-ios_universal
+    "@HUNTER_EP_NAME@-ios_universal"
     DEPENDS
-    X-ios
-    X-ios_sim
+    "@HUNTER_EP_NAME@-ios"
+    "@HUNTER_EP_NAME@-ios_sim"
     DOWNLOAD_COMMAND
     ""
     DOWNLOAD_DIR

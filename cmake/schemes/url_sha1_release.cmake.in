@@ -18,6 +18,7 @@ hunter_status_debug("Scheme: url_sha1_release")
 
 # Check preconditions
 hunter_test_string_not_empty("@HUNTER_SELF@")
+hunter_test_string_not_empty("@HUNTER_EP_NAME@")
 hunter_test_string_not_empty("@HUNTER_PACKAGE_URL@")
 hunter_test_string_not_empty("@HUNTER_PACKAGE_SHA1@")
 hunter_test_string_not_empty("@HUNTER_PACKAGE_DOWNLOAD_DIR@")
@@ -32,7 +33,7 @@ endif()
 hunter_gate_settings(gate_settings)
 
 ExternalProject_Add(
-    X
+    "@HUNTER_EP_NAME@"
     URL
     @HUNTER_PACKAGE_URL@
     URL_HASH
