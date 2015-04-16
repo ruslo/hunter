@@ -31,11 +31,10 @@ Hunter (0.4.2) = {
 * **Reusable** `ExternalProject_Add` recipies ([DRY principle][dry-principle])
  * Once written formula ([build scheme][build-schemes-dir]) can be used by other projects, subprojects etc. without copying of collection of
 superbuild files. Just change 2 lines of code: input parameters `SHA1`/`URL` of HunterGate command
-* Three level of **customization** of root directory:
+* Three level of **customization** of root directory (+ Debug/Release builds):
  * [Hunter-ID][hunter-id] - list of packages and mapping version-url-sha1
  * [Config-ID][config-id] - version of package to build and build options
  * [Toolchain-ID][toolchain-id] - compiler and flags
- * + Debug/Release builds
 * **Shareable** root directory with build synchronization
  * Any number of projects can use root directory and add new packages simultaneously
 * Manage **anything** that can be downloaded by `URL` and checked with `SHA1` hash:
@@ -201,9 +200,9 @@ Read [wiki][hunter-wiki] before making changes. Please send a patch as a pull re
 [gtest-hunter]: https://github.com/ruslo/hunter/blob/master/cmake/projects/GTest/hunter.cmake
 [build-schemes-dir]: https://github.com/ruslo/hunter/tree/master/cmake/schemes
 
-[hunter-id]: 
-[config-id]: 
-[toolchain-id]:
+[hunter-id]: https://github.com/ruslo/hunter/tree/develop#hunter-id
+[config-id]: https://github.com/ruslo/hunter/tree/develop#config-id
+[toolchain-id]: https://github.com/ruslo/hunter/tree/develop#toolchain-id
 
 [hunter-gate]: https://github.com/hunter-packages/gate
 [hunter-gate-effects]: https://github.com/hunter-packages/gate#effects
