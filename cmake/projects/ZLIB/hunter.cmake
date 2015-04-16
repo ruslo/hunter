@@ -1,4 +1,4 @@
-# Copyright (c) 2014, Ruslan Baratov
+# Copyright (c) 2014-2015, Ruslan Baratov
 # All rights reserved.
 
 if(DEFINED HUNTER_CMAKE_PROJECTS_ZLIB_HUNTER_CMAKE_)
@@ -10,6 +10,17 @@ endif()
 include(hunter_add_version)
 include(hunter_download)
 include(hunter_pick_scheme)
+
+hunter_add_version(
+    PACKAGE_NAME
+    ZLIB
+    VERSION
+    "1.2.8-p2"
+    URL
+    "https://github.com/hunter-packages/zlib/archive/v1.2.8-p2.tar.gz"
+    SHA1
+    bef3ee6d68a271dfcd2f659c80d721d4a6b39315
+)
 
 hunter_add_version(
     PACKAGE_NAME
