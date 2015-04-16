@@ -60,8 +60,8 @@ include("cmake/HunterGate.cmake")
 
 ```cmake
 HunterGate(
-    URL "https://github.com/ruslo/hunter/archive/v0.5.0.tar.gz"
-    SHA1 "8c9a553d3dbde74d411167ae67423416dd0e1a31"
+    URL "https://github.com/ruslo/hunter/archive/v0.8.9.tar.gz"
+    SHA1 "a63185bfe1235b42a4644e84ab121c7ac4a0db65"
 )
 ```
 
