@@ -101,18 +101,18 @@ Install is [broken][ios-bug] on iOS. Patched version of [CMake][cmake-patched-re
 
 First level of customization. Hunter-ID is the first 7 digits of `SHA1` of Hunter archive. I.e. each Hunter-ID contains list of projects that you can build and list of versions. Each version has it's unique `URL` and `SHA1`. Several Hunter-ID can coexists in same `HUNTER_ROOT` directory. `HunterGate` command will control your choice:
 
-* `${HUNTER_ROOT}/_Base/1eae623/...`
- * `1eae623` = Hunter `0.8.3`
- * Packages:
-  * `Foo 1.0.0` -> `http://mysite.com/Foo-1.0.0.tar.gz`
-  * `Boo 2.0.0` -> `http://mysite.com/Boo-2.0.0.tar.gz`
-  * `Roo 1.2.3` -> `http://mysite.com/Roo-1.2.3.tar.gz`
-* `${HUNTER_ROOT}/_Base/e07a124/...`
- * `e07a124` = Hunter `0.8.4`
- * Packages:
-  * `Awesome 1.0.0` -> `http://example.com/Awesome-1.0.0.tar.gz`
-  * `Best 2.0.0` -> `http://example.com/Best-2.0.0.tar.gz`
-  * `Foo 1.0.0` -> `http://example.com/Foo-1.0.0-patch-1.tar.gz` # yep, different URL/SHA1
+* `1eae623`
+ * Hunter `0.8.3`
+ * `Foo 1.0.0` -> `http://mysite.com/Foo-1.0.0.tar.gz`
+ * `Boo 2.0.0` -> `http://mysite.com/Boo-2.0.0.tar.gz`
+ * `Roo 1.2.3` -> `http://mysite.com/Roo-1.2.3.tar.gz`
+ * -> `${HUNTER_ROOT}/_Base/1eae623/...`
+* `e07a124`
+ * Hunter `0.8.4`
+ * `Awesome 1.0.0` -> `http://example.com/Awesome-1.0.0.tar.gz`
+ * `Best 2.0.0` -> `http://example.com/Best-2.0.0.tar.gz`
+ * `Foo 1.0.0` -> `http://example.com/Foo-1.0.0-patch-1.tar.gz` # yep, different URL/SHA1
+ * -> `${HUNTER_ROOT}/_Base/e07a124/...`
 
 Message in logs:
 ```cmake
@@ -141,7 +141,19 @@ Message in logs:
 
 ### Toolchain-ID
 
-Third level of customization. Each build can be run with different toolchain. In general the result is completely different root `lib`/`include` directories. For example on Windows you can simultaniously build Visual Studio (32/64), NMake, Cygwin and MinGW projects, on Linux GCC/Clang, on Mac Xcode, Makefile, iOS. Or choose different clang tools like static analyzer and sanitizers. Each toolchain file will be forwarded to external project so if you create toolchain with compiler `g++` and flag `-std=c++11` all dependent projects will be built by `g++ -std=c++11`. Information about toolchain has some internal representation (`toolchain.info`) and user can see first 7 digits (ID) of `SHA1` hash of this file. For example `gcc` has `d46ea0b`, `clang` has `c018e63`, `clang -std=c++11` has `c39da39`. See `Toolchain-ID` in build logs:
+Third level of customization. Each build can be run with different toolchain. In general the result is completely different root `lib`/`include` directories. For example on Windows you can simultaniously build Visual Studio (32/64), NMake, Cygwin and MinGW projects, on Linux GCC/Clang, on Mac Xcode, Makefile, iOS. Or choose different clang tools like static analyzer and sanitizers. Each toolchain file will be forwarded to external project so if you create toolchain with compiler `g++` and flag `-std=c++11` all dependent projects will be built by `g++ -std=c++11`. Information about toolchain has some internal representation (`toolchain.info`) and user can see first 7 digits (ID) of `SHA1` hash of this file.
+
+* `d46ea0b`
+ * `gcc`
+ * -> `${HUNTER_ROOT}/_Base/1eae623/0fa873a/d46ea0b`
+* `c018e63`
+ * `clang`
+ * -> `${HUNTER_ROOT}/_Base/1eae623/0fa873a/c018e63`
+* `c39da39`
+ * `clang -std=c++11`
+ * -> `${HUNTER_ROOT}/_Base/1eae623/0fa873a/c39da39`
+
+Message logs:
 ```
 -- [hunter] [ Hunter-ID: 1eae623 | Config-ID: 0fa873a | Toolchain-ID: d46ea0b ]
 -- [hunter] [ Hunter-ID: 1eae623 | Config-ID: 0fa873a | Toolchain-ID: c018e63 ]
