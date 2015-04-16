@@ -8,10 +8,11 @@ else()
 endif()
 
 # Load used modules
+include(hunter_add_package)
 include(hunter_add_version)
+include(hunter_cmake_args)
 include(hunter_download)
 include(hunter_pick_scheme)
-include(hunter_add_package)
 
 # List of versions here...
 hunter_add_version(
@@ -45,6 +46,16 @@ hunter_add_version(
     "https://github.com/Itseez/opencv/archive/2.4.10.tar.gz"
     SHA1
     a0c2d5944364fc4f26b6160b33c03082b1fa08c1
+)
+
+hunter_cmake_args(
+    OpenCV
+    CMAKE_ARGS
+        BUILD_DOCS=OFF
+        BUILD_TESTS=OFF
+        BUILD_PERF_TESTS=OFF
+        BUILD_opencv_apps=OFF
+        BUILD_EXAMPLES=OFF
 )
 
 # Pick a download scheme
