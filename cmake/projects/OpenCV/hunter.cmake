@@ -25,8 +25,6 @@ hunter_add_version(
     560895197d1a61ed88fab9ec791328c4c57c0179
 )
 
-#  ae4cb571ab4fdca3c7be57f0de19743f823daf3f
-
 hunter_add_version(
     PACKAGE_NAME
     OpenCV
@@ -35,7 +33,7 @@ hunter_add_version(
     URL
     "https://github.com/Itseez/opencv/archive/2.4.11.tar.gz"
     SHA1
-    2c9547e3147779001811d01936aed38f560929fc
+    310a8b0fdb9bf60c6346e9d073ed2409cd1e26b4
 )
 
 hunter_add_version(
@@ -46,7 +44,7 @@ hunter_add_version(
     URL
     "https://github.com/Itseez/opencv/archive/2.4.10.tar.gz"
     SHA1
-    7018f9495920f974258502b9b8b26af16d7ee427
+    a0c2d5944364fc4f26b6160b33c03082b1fa08c1
 )
 
 # Pick a download scheme
