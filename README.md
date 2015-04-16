@@ -153,7 +153,7 @@ Third level of customization. Each build can be run with different toolchain. In
  * `clang -std=c++11`
  * -> `${HUNTER_ROOT}/_Base/1eae623/0fa873a/c39da39`
 
-Message logs:
+Message in logs:
 ```
 -- [hunter] [ Hunter-ID: 1eae623 | Config-ID: 0fa873a | Toolchain-ID: d46ea0b ]
 -- [hunter] [ Hunter-ID: 1eae623 | Config-ID: 0fa873a | Toolchain-ID: c018e63 ]
