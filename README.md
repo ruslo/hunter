@@ -104,7 +104,7 @@ add_executable(foo foo.cpp)
 target_link_libraries(foo ${Boost_LIBRARIES})
 ```
 
-... and build:
+* Build it:
 ```
 > cmake -H. -B_builds -DHUNTER_STATUS_DEBUG=ON -DCMAKE_BUILD_TYPE=Release
 > cmake --build _builds --config Release
