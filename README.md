@@ -110,6 +110,8 @@ target_link_libraries(foo ${Boost_LIBRARIES})
 > cmake --build _builds --config Release
 ```
 
+* [Tiny project with GTest][hunter-simple]
+
 ### Usage
 
 * List of packages and usage instructions for each package can be found in [wiki sidebar][hunter-wiki]
