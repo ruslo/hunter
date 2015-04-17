@@ -17,7 +17,8 @@ include(hunter_test_string_not_empty)
 
 hunter_status_debug("Scheme: url_sha1_release_debug")
 
-if("@XCODE_VERSION@")
+string(COMPARE NOTEQUAL "@XCODE_VERSION@" "" is_xcode)
+if(is_xcode)
   hunter_internal_error("Not for Xcode")
 endif()
 

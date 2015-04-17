@@ -18,7 +18,8 @@ include(hunter_test_string_not_empty)
 
 hunter_status_debug("Scheme: url_sha1_combined_release_debug")
 
-if(NOT "@XCODE_VERSION@" AND NOT "@MSVC_IDE@")
+string(COMPARE NOTEQUAL "@XCODE_VERSION@" "" is_xcode)
+if(NOT is_xcode AND NOT "@MSVC_IDE@")
   hunter_internal_error("Xcode or MSVC IDE only")
 endif()
 
