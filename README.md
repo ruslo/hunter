@@ -93,9 +93,23 @@ target_link_libraries(foo ${Boost_LIBRARIES})
 * How to add a new [custom-build project][usr.adding.new.package.custom.scheme]
 * [Multiple HunterGate][usr.multiple.huntergate] commands (e.g. projects subprojects)
 
-### iOS note
+### CMake version
 
-Install is [broken][ios-bug] on iOS. Patched version of [CMake][cmake-patched-releases] need to be used (fix install + create universal [armv7, armv7s, arm64, i386, x86_64] libraries).
+* `3.0.0` **Minimum required** 
+  * Interface header-only libraries
+  * New MSVC generator names
+  * [Release notes][cmake-3.0.0-release-notes]
+* `3.1.0`
+  * Retry download on hash mismatch ([change][cmake-retry-commit])
+* `3.2.0`
+  * New synchronization command `file(LOCK ...)` ([change][cmake-file-lock-commit])
+  * [HUNTER_SKIP_LOCK][error.can.not.lock]
+  * [Release notes][cmake-3.2-release-notes]
+* iOS. Patched (workaround) version of CMake
+  * [Patched releases][cmake-patched-releases]
+  * Fix [iOS bug][ios-bug]
+  * Create universal (armv7, armv7s, arm64, i386, x86_64) libraries
+  * [iOS toolchain][polly-ios-toolchain]
 
 ### Hunter-ID
 
@@ -194,7 +208,12 @@ Read [wiki][hunter-wiki] before making changes. Please send a patch as a pull re
 [ios-bug]: http://public.kitware.com/Bug/view.php?id=12506
 [dry-principle]: http://c2.com/cgi/wiki?DontRepeatYourself
 
+[cmake-retry-commit]: https://github.com/Kitware/CMake/commit/30a94eecdb5c580d83a224848b78d186643e8105
+[cmake-file-lock-commit]: https://github.com/Kitware/CMake/commit/e6db4c5a4ede8039ed525e3facebd7e0eb7ec1b7
+
 [cmake-patched-releases]: https://github.com/ruslo/CMake/releases
+[cmake-3.0.0-release-notes]: http://www.cmake.org/cmake/help/v3.0/release/3.0.0.html#commands
+[cmake-3.2-release-notes]: http://www.cmake.org/cmake/help/v3.2/release/3.2.html#commands
 
 [hunter-wiki]: https://github.com/ruslo/hunter/wiki
 [usr.adding.new.package]: https://github.com/ruslo/hunter/wiki/usr.adding.new.package
@@ -202,6 +221,8 @@ Read [wiki][hunter-wiki] before making changes. Please send a patch as a pull re
 [usr.variables]: https://github.com/ruslo/hunter/wiki/usr.variables
 [usr.adding.new.package.custom.scheme]: https://github.com/ruslo/hunter/wiki/usr.adding.new.package.custom.scheme
 [usr.multiple.huntergate]: https://github.com/ruslo/hunter/wiki/usr.multiple.huntergate
+[dev.variables-hunter-skip-lock]: https://github.com/ruslo/hunter/wiki/dev.variables#hunter_skip_lock
+[error.can.not.lock]: https://github.com/ruslo/hunter/wiki/error.can.not.lock
 
 [hunter-new-issue]: https://github.com/ruslo/hunter/issues/new
 
@@ -219,3 +240,5 @@ Read [wiki][hunter-wiki] before making changes. Please send a patch as a pull re
 [hunter-gate]: https://github.com/hunter-packages/gate
 [hunter-gate-effects]: https://github.com/hunter-packages/gate#effects
 [hunter-gate-custom-config]: https://github.com/hunter-packages/gate#usage-custom-config
+
+[polly-ios-toolchain]: https://github.com/ruslo/polly/wiki/Toolchain-list#ios
