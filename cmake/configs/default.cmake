@@ -1,12 +1,25 @@
-# Copyright (c) 2013-2014, Ruslan Baratov
+# Copyright (c) 2013-2015, Ruslan Baratov
 # All rights reserved.
 
 # Do not place header guards here
 
-include(hunter_config)
+# Unset:
+#   * ${PACKAGE_NAME}_ROOT (CMake variable)
+#   * ${PACKAGE_NAME}_ROOT (CMake cache variable)
+#   * ${PACKAGE_NAME}_ROOT (environment variable)
 
-# unset <NAME>_ROOT (cache, environment, ...)
-# set HUNTER_<name>_VERSION or <NAME>_ROOT
+# Set CMake variables:
+#   * HUNTER_${PACKAGE_NAME}_VERSION
+#   * HUNTER_${PACKAGE_NAME}_CMAKE_ARGS (optionally)
+
+# Usage:
+#   hunter_config(Foo VERSION 1.0.0)
+#   hunter_config(Boo VERSION 1.2.3z CMAKE_ARGS BOO_WITH_A=ON)
+
+# Wiki:
+#   * https://github.com/ruslo/hunter/wiki/dev.modules#hunter_config
+
+include(hunter_config)
 
 # NOTE: no names with spaces!
 
