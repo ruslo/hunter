@@ -95,16 +95,15 @@ target_link_libraries(foo ${Boost_LIBRARIES})
 
 ### CMake version
 
-* `3.0.0` **Minimum required** 
+* `3.0.0` **Minimum required** ([Release notes][cmake-3.0.0-release-notes])
   * Interface header-only libraries
   * New MSVC generator names
-  * [Release notes][cmake-3.0.0-release-notes]
-* `3.1.0`
+* `3.1.0` ([Release notes][cmake-3.1.0-release-notes])
   * Retry download on hash mismatch ([change][cmake-retry-commit])
-* `3.2.0`
+  * New [CMP0054][cmake-cmp0054] (best CMake policy! See [this SO question][so-cmp0054])
+* `3.2.0` ([Release notes][cmake-3.2-release-notes])
   * New synchronization command `file(LOCK ...)` ([change][cmake-file-lock-commit])
   * [HUNTER_SKIP_LOCK][error.can.not.lock]
-  * [Release notes][cmake-3.2-release-notes]
 * iOS. Patched (workaround) version of CMake
   * [Patched releases][cmake-patched-releases]
   * Fix [iOS bug][ios-bug]
@@ -213,7 +212,11 @@ Read [wiki][hunter-wiki] before making changes. Please send a patch as a pull re
 
 [cmake-patched-releases]: https://github.com/ruslo/CMake/releases
 [cmake-3.0.0-release-notes]: http://www.cmake.org/cmake/help/v3.0/release/3.0.0.html#commands
+[cmake-3.1.0-release-notes]: http://www.cmake.org/cmake/help/v3.1/release/3.1.0.html#syntax
 [cmake-3.2-release-notes]: http://www.cmake.org/cmake/help/v3.2/release/3.2.html#commands
+[cmake-cmp0054]: http://www.cmake.org/cmake/help/v3.1/policy/CMP0054.html
+
+[so-cmp0054]: http://stackoverflow.com/questions/19982340
 
 [hunter-wiki]: https://github.com/ruslo/hunter/wiki
 [usr.adding.new.package]: https://github.com/ruslo/hunter/wiki/usr.adding.new.package
