@@ -13,7 +13,7 @@ Every Hunter [release][hunter-releases] archive is a meta-package with build ins
 Hunter (0.4.2) = {
     Boost (1.55.0, 1.56.0, 1.57.0),
     GTest (1.7.0),
-    OpenCV(3.0.0-beta, 2.4.11, 2.4.10),
+    OpenCV (3.0.0-beta, 2.4.11, 2.4.10),
     OpenSSL (1.0.2a, 0.9.8y),
     ...
 }
