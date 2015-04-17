@@ -56,6 +56,10 @@ hunter_cmake_args(
         BUILD_PERF_TESTS=OFF
         BUILD_opencv_apps=OFF
         BUILD_EXAMPLES=OFF
+        # Find packages in Hunter (instead of building from OpenCV sources)
+        BUILD_ZLIB=OFF
+        BUILD_TIFF=OFF
+        BUILD_PNG=OFF
 )
 
 # Pick a download scheme
