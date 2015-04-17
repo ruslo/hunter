@@ -1,10 +1,8 @@
-Hunter
+Hunter [![Build Status][travis-master]][travis-hunter]
 ======
 
 * Cross-platform package manager for C++ (based on CMake [ExternalProject][cmake-external-project])
-* Supported platforms: Linux, Mac, Windows, iOS
-
-[![Build Status][travis-master]][travis-hunter]
+* Supported platforms: **Linux**, **Mac**, **Windows**, **iOS**
 
 ### What is it?
 
@@ -19,7 +17,7 @@ Hunter (0.4.2) = {
 }
 ```
 
-* Default versions can be found in [default.cmake][default-config] file and are customizable (see [Config-ID][config-id])
+* Default build versions can be found in [default.cmake][default-config] file and are customizable (see [Config-ID][config-id])
 * Per package versions are available in corresponding `hunter.cmake` file (e.g. [GTest][gtest-hunter]). You can pick one version that already exists or [add a new one][usr.adding.new.package]
 
 ### Features
@@ -46,10 +44,32 @@ superbuild files. Just change 2 lines of code: input parameters `SHA1`/`URL` of 
 * No other dependencies - **just CMake** and your environment/IDE (no need for Git or Python or anything)
 * Works **everywhere**: CMake-GUI, Qt Creator, Visual Studio, Xcode, Cygwin, MinGW, Jenkins, Travis etc.
 
+### Notes about version of CMake
+
+* `3.0.0` **Minimum required** ([Release notes][cmake-3.0.0-release-notes])
+  * Interface header-only libraries
+  * New MSVC generator names
+* `3.1.0` ([Release notes][cmake-3.1.0-release-notes])
+  * Retry download on hash mismatch ([change][cmake-retry-commit])
+  * New [CMP0054][cmake-cmp0054] (best CMake policy! See [this SO question][so-cmp0054])
+* `3.2.0` ([Release notes][cmake-3.2-release-notes])
+  * New synchronization command `file(LOCK ...)` ([change][cmake-file-lock-commit])
+  * [HUNTER_SKIP_LOCK][error.can.not.lock]
+* iOS. Patched (workaround) version of CMake
+  * [Patched releases][cmake-patched-releases]
+  * Fix [iOS bug][ios-bug]
+  * Create universal (armv7, armv7s, arm64, i386, x86_64) libraries
+  * [iOS toolchain][polly-ios-toolchain]
+
 ### First step
 
 * Set `HUNTER_ROOT` environment variable (recommended but not mandatory, see 
 [other options][hunter-gate-effects])
+
+* Set minimum CMake version:
+```cmake
+cmake_minimum_required(VERSION 3.0)
+```
 
 * Copy [gate][hunter-gate] module to your project and include it:
 ```cmake
@@ -65,12 +85,17 @@ HunterGate(
 )
 ```
 
-* Now you can use it. For example let's download and install `boost.regex` and `boost.filesystem`:
+* Now project can be started:
+```cmake
+project(Foo)
+```
+
+* Let's download and install `boost.regex` and `boost.filesystem`:
 ```cmake
 hunter_add_package(Boost COMPONENTS regex filesystem)
 ```
 
-* That's all. And now well known CMake-style kung-fu:
+* Hunter part is done, now well known CMake-style kung-fu:
 ```cmake
 find_package(Boost REQUIRED regex filesystem)
 
@@ -92,23 +117,6 @@ target_link_libraries(foo ${Boost_LIBRARIES})
 * How to add a new [CMake project][usr.adding.new.package]
 * How to add a new [custom-build project][usr.adding.new.package.custom.scheme]
 * [Multiple HunterGate][usr.multiple.huntergate] commands (e.g. projects subprojects)
-
-### CMake version
-
-* `3.0.0` **Minimum required** ([Release notes][cmake-3.0.0-release-notes])
-  * Interface header-only libraries
-  * New MSVC generator names
-* `3.1.0` ([Release notes][cmake-3.1.0-release-notes])
-  * Retry download on hash mismatch ([change][cmake-retry-commit])
-  * New [CMP0054][cmake-cmp0054] (best CMake policy! See [this SO question][so-cmp0054])
-* `3.2.0` ([Release notes][cmake-3.2-release-notes])
-  * New synchronization command `file(LOCK ...)` ([change][cmake-file-lock-commit])
-  * [HUNTER_SKIP_LOCK][error.can.not.lock]
-* iOS. Patched (workaround) version of CMake
-  * [Patched releases][cmake-patched-releases]
-  * Fix [iOS bug][ios-bug]
-  * Create universal (armv7, armv7s, arm64, i386, x86_64) libraries
-  * [iOS toolchain][polly-ios-toolchain]
 
 ### Hunter-ID
 
@@ -173,6 +181,8 @@ Message in logs:
 -- [hunter] [ Hunter-ID: 1eae623 | Config-ID: 0fa873a | Toolchain-ID: c39da39 ]
 ```
 
+* [Collection of toolchains][polly]
+
 ### Uninstall
 
 All directories inside `${HUNTER_ROOT}/_Base` are reconstructible. You can remove all temps (downloads, unpacked directories, installed directories etc.) by command:
@@ -195,9 +205,9 @@ Read [wiki][hunter-wiki] before making changes. Please send a patch as a pull re
 
 ### Links
 * [Gate to hunter packages][hunter-gate]
-* [Simple project example](https://github.com/forexample/hunter-simple)
+* [Simple project example][hunter-simple]
 * [Bigger one](https://github.com/ruslo/weather)
-* [Toolchain examples](https://github.com/ruslo/polly)
+* [Toolchain examples][polly]
 * [Travis CI build example](https://github.com/forexample/hunter-simple/blob/master/.travis.yml)
 
 [travis-master]: https://travis-ci.org/ruslo/hunter.png?branch=master
@@ -245,3 +255,5 @@ Read [wiki][hunter-wiki] before making changes. Please send a patch as a pull re
 [hunter-gate-custom-config]: https://github.com/hunter-packages/gate#usage-custom-config
 
 [polly-ios-toolchain]: https://github.com/ruslo/polly/wiki/Toolchain-list#ios
+[polly]: https://github.com/ruslo/polly
+[hunter-simple]: https://github.com/forexample/hunter-simple
