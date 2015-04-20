@@ -46,13 +46,13 @@ superbuild files. Just change 2 lines of code: input parameters `SHA1`/`URL` of 
 
 ### Notes about version of CMake
 
-* `3.0.0` **Minimum required** ([Release notes][cmake-3.0.0-release-notes])
+* [3.0.0][cmake-3.0.0-release-notes] **Minimum required**
   * Interface header-only libraries
   * New MSVC generator names
-* `3.1.0` ([Release notes][cmake-3.1.0-release-notes])
+* [3.1.0][cmake-3.1.0-release-notes]
   * Retry download on hash mismatch ([change][cmake-retry-commit])
   * New [CMP0054][cmake-cmp0054] (best CMake policy! See [this SO question][so-cmp0054])
-* `3.2.0` ([Release notes][cmake-3.2-release-notes])
+* [3.2.0][cmake-3.2-release-notes]
   * New synchronization command `file(LOCK ...)` ([change][cmake-file-lock-commit])
   * [HUNTER_SKIP_LOCK][error.can.not.lock]
 * iOS. Patched (workaround) version of CMake
@@ -143,6 +143,8 @@ Message in logs:
 -- [hunter] [ Hunter-ID: e07a124 | Config-ID: ... | Toolchain-ID: ... ]
 ```
 
+* [Releases](https://github.com/ruslo/hunter/releases)
+
 ### Config-ID
 
 Second level of customization. Config-ID is the first 7 digits of `SHA1` of the file with `hunter_config` commands (internal unified representation). This level can be customized with `HunterGate` [options][hunter-gate-custom-config]: `GLOBAL`, `LOCAL` and `FILEPATH`. Same `Hunter-ID` can be built with different versions of packages and different CMake arguments:
@@ -161,6 +163,8 @@ Message in logs:
 -- [hunter] [ Hunter-ID: 1eae623 | Config-ID: 0fa873a | Toolchain-ID: ... ]
 -- [hunter] [ Hunter-ID: 1eae623 | Config-ID: e9da39c | Toolchain-ID: ... ]
 ```
+
+* [Example](https://github.com/ruslo/hunter/wiki/example.custom.config.id)
 
 ### Toolchain-ID
 
