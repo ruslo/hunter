@@ -24,7 +24,9 @@ if(NOT EXISTS "${DEFAULT_CONFIG}")
   message(FATAL_ERROR "File `${DEFAULT_CONFIG}` not exists")
 endif()
 
+set(HUNTER_ALLOW_CONFIG_LOADING YES)
 include("${DEFAULT_CONFIG}")
+set(HUNTER_ALLOW_CONFIG_LOADING NO)
 
 # Include USER_CONFIG
 if(NOT USER_CONFIG)
@@ -35,7 +37,9 @@ if(NOT EXISTS "${USER_CONFIG}")
   message(FATAL_ERROR "File `${USER_CONFIG}` not exists")
 endif()
 
+set(HUNTER_ALLOW_CONFIG_LOADING YES)
 include("${USER_CONFIG}")
+set(HUNTER_ALLOW_CONFIG_LOADING NO)
 
 # Create list of the projects
 if(NOT DIRECTORY_WITH_PROJECTS)

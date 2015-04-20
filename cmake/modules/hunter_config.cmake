@@ -1,13 +1,22 @@
-# Copyright (c) 2013-2014, Ruslan Baratov
+# Copyright (c) 2013-2015, Ruslan Baratov
 # All rights reserved.
 
 include(CMakeParseArguments) # cmake_parse_arguments
 
+include(hunter_fatal_error)
 include(hunter_unsetvar)
 include(hunter_user_error)
 
 # internal variables: _hunter_*
 macro(hunter_config)
+  if(NOT HUNTER_ALLOW_CONFIG_LOADING)
+    hunter_fatal_error(
+        "Unexpected 'hunter_config' usage from:"
+        "  ${CMAKE_CURRENT_LIST_FILE}:${CMAKE_CURRENT_LIST_LINE}"
+        WIKI
+        "error.unexpected.hunter_config"
+    )
+  endif()
   set(_hunter_one_value VERSION)
   set(_hunter_multiple_values CMAKE_ARGS)
   cmake_parse_arguments(
