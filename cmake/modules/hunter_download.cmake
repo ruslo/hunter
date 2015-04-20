@@ -166,6 +166,15 @@ function(hunter_download)
 
   # Do not lock hunter directory if package is internal (already locked)
   file(APPEND "${HUNTER_DOWNLOAD_TOOLCHAIN}" "set(HUNTER_SKIP_LOCK YES)\n")
+
+  # Force building of static libraries:
+  # * https://github.com/ruslo/hunter/issues/77
+  file(
+      APPEND
+      "${HUNTER_DOWNLOAD_TOOLCHAIN}"
+      "set(BUILD_SHARED_LIBS OFF CACHE BOOL \"\" FORCE)\n"
+  )
+
   file(
       APPEND
       "${HUNTER_DOWNLOAD_TOOLCHAIN}"
