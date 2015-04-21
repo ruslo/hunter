@@ -7,6 +7,7 @@ include("../common.cmake")
 
 include(hunter_config)
 
+set(HUNTER_ALLOW_CONFIG_LOADING YES)
 set(HUNTER_Foo_VERSION "")
 hunter_config(Foo VERSION 1.2.3)
 
