@@ -13,6 +13,7 @@ function(hunter_gate_settings varname)
       HUNTER_VERSION
       HUNTER_TOOLCHAIN_SHA1
       HUNTER_STATUS_DEBUG
+      HUNTER_JOBS_NUMBER
   )
     list(APPEND settings "-D${hunter_var}=${${hunter_var}}")
   endforeach()

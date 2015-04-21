@@ -23,6 +23,13 @@ hunter_test_string_not_empty("@HUNTER_PACKAGE_DOWNLOAD_DIR@")
 hunter_test_string_not_empty("@HUNTER_PACKAGE_SOURCE_DIR@")
 hunter_test_string_not_empty("@HUNTER_INSTALL_PREFIX@")
 
+string(COMPARE NOTEQUAL "@HUNTER_JOBS_OPTION@" "" have_jobs)
+if(have_jobs)
+  set(jobs_option "-jobs" "@HUNTER_JOBS_OPTION@"
+else()
+  set(jobs_option "")
+endif()
+
 execute_process(
     COMMAND xcrun -f clang++
     RESULT_VARIABLE result
@@ -54,7 +61,7 @@ ExternalProject_Add(
     ""
     BUILD_COMMAND
     "CC=${compiler}" && . "@HUNTER_SELF@/scripts/clear-all.sh" &&
-    xcodebuild -target ios-sim -configuration Release
+    xcodebuild -target ios-sim -configuration Release -- ${jobs_option}
     BUILD_IN_SOURCE
     1
     INSTALL_COMMAND

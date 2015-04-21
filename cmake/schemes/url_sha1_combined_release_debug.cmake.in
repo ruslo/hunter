@@ -34,6 +34,13 @@ hunter_test_string_not_empty("@HUNTER_INSTALL_PREFIX@")
 hunter_test_string_not_empty("@CMAKE_DEBUG_POSTFIX@")
 hunter_test_string_not_empty("${CMAKE_TOOLCHAIN_FILE}")
 
+string(COMPARE NOTEQUAL "@HUNTER_JOBS_OPTION@" "" have_jobs)
+if(is_xcode AND have_jobs)
+  set(jobs_option "-jobs" "@HUNTER_JOBS_OPTION@")
+else()
+  set(jobs_option "")
+endif()
+
 hunter_gate_settings(gate_settings)
 
 ExternalProject_Add(
@@ -55,7 +62,7 @@ ExternalProject_Add(
     "-DCMAKE_TOOLCHAIN_FILE=${CMAKE_TOOLCHAIN_FILE}"
     ${gate_settings}
     INSTALL_COMMAND
-    "@CMAKE_COMMAND@" --build . --target install --config Release
+    "@CMAKE_COMMAND@" --build . --target install --config Release -- ${jobs_option}
     COMMAND
-    "@CMAKE_COMMAND@" --build . --target install --config Debug
+    "@CMAKE_COMMAND@" --build . --target install --config Debug -- ${jobs_option}
 )

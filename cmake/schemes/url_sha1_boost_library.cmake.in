@@ -209,6 +209,11 @@ if("@MSVC@" AND is_x64)
   list(APPEND build_opts "address-model=64")
 endif()
 
+string(COMPARE NOTEQUAL "@HUNTER_JOBS_OPTION@" "" have_jobs)
+if(have_jobs)
+  list(APPEND build_opts "-j" "@HUNTER_JOBS_OPTION@")
+endif()
+
 if(@HUNTER_STATUS_DEBUG@)
   set(verbose_output "-d+2 --debug-configuration")
 endif()

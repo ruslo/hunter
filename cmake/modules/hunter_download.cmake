@@ -9,6 +9,7 @@ include(hunter_create_args_file)
 include(hunter_find_stamps)
 include(hunter_gate_settings)
 include(hunter_internal_error)
+include(hunter_jobs_number)
 include(hunter_print_cmd)
 include(hunter_status_debug)
 include(hunter_status_print)
@@ -180,6 +181,10 @@ function(hunter_download)
       "${HUNTER_DOWNLOAD_TOOLCHAIN}"
       "include(\"${HUNTER_ARGS_FILE}\")\n"
   )
+
+  hunter_jobs_number(HUNTER_JOBS_OPTION "${HUNTER_DOWNLOAD_TOOLCHAIN}")
+  hunter_status_debug("HUNTER_JOBS_NUMBER: ${HUNTER_JOBS_NUMBER}")
+  hunter_status_debug("HUNTER_JOBS_OPTION: ${HUNTER_JOBS_OPTION}")
 
   # support for toolchain file forwarding
   if(hunter_has_toolchain)

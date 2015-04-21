@@ -32,6 +32,18 @@ endif()
 
 hunter_gate_settings(gate_settings)
 
+string(COMPARE NOTEQUAL "@HUNTER_JOBS_OPTION@" "" have_jobs)
+if(have_jobs)
+  string(COMPARE NOTEQUAL "@XCODE_VERSION@" "" is_xcode)
+  if(is_xcode)
+    set(jobs_option "-jobs" "@HUNTER_JOBS_OPTION@")
+  else()
+    set(jobs_option "-j@HUNTER_JOBS_OPTION@")
+  endif()
+else()
+  set(jobs_option "")
+endif()
+
 ExternalProject_Add(
     "@HUNTER_EP_NAME@"
     URL
@@ -54,7 +66,7 @@ ExternalProject_Add(
     BUILD_COMMAND
         "@CMAKE_COMMAND@" --build .
         --config Release # for Xcode and MSVC
-        --target install
+        --target install -- ${jobs_option}
     INSTALL_COMMAND
     ""
 )

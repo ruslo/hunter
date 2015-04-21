@@ -1,4 +1,4 @@
-# Copyright (c) 2013, Ruslan Baratov
+# Copyright (c) 2013-2015, Ruslan Baratov
 # All rights reserved.
 
 cmake_minimum_required(VERSION 3.0)
@@ -37,6 +37,13 @@ hunter_test_string_not_empty("@HUNTER_INSTALL_PREFIX@")
 hunter_test_string_not_empty("@CMAKE_DEBUG_POSTFIX@")
 hunter_test_string_not_empty("${CMAKE_TOOLCHAIN_FILE}")
 
+string(COMPARE NOTEQUAL "@HUNTER_JOBS_OPTION@" "" have_jobs)
+if(have_jobs)
+  set(jobs_option "-j@HUNTER_JOBS_OPTION@")
+else()
+  set(jobs_option "")
+endif()
+
 if("@HUNTER_STATUS_DEBUG@")
   set(verbose_makefile "-DCMAKE_VERBOSE_MAKEFILE=ON")
 endif()
@@ -56,6 +63,8 @@ ExternalProject_Add(
     INSTALL_DIR
     "@HUNTER_INSTALL_PREFIX@"
         # not used, just avoid creating Install/<name>_Release empty directory
+    BUILD_COMMAND
+    "@CMAKE_COMMAND@" --build . --config Release -- ${jobs_option}
     CMAKE_ARGS
     "-DCMAKE_BUILD_TYPE=Release"
     "-DCMAKE_INSTALL_PREFIX=@HUNTER_INSTALL_PREFIX@"
@@ -75,6 +84,8 @@ ExternalProject_Add(
     "@HUNTER_PACKAGE_SOURCE_DIR@"
     INSTALL_DIR
     "@HUNTER_INSTALL_PREFIX@"
+    BUILD_COMMAND
+    "@CMAKE_COMMAND@" --build . --config Debug -- ${jobs_option}
     CMAKE_ARGS
     "-DCMAKE_BUILD_TYPE=Debug"
     "-DCMAKE_INSTALL_PREFIX=@HUNTER_INSTALL_PREFIX@"

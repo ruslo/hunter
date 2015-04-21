@@ -128,6 +128,11 @@ if(CMAKE_CXX_FLAGS)
   list(APPEND build_opts "cxxflags=${CMAKE_CXX_FLAGS}")
 endif()
 
+string(COMPARE NOTEQUAL "@HUNTER_JOBS_OPTION@" "" have_jobs)
+if(have_jobs)
+  list(APPEND build_opts "-j" "@HUNTER_JOBS_OPTION@")
+endif()
+
 set(
     build_opts_iphoneos
     toolset=darwin-iphoneos
