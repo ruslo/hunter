@@ -23,6 +23,17 @@ hunter_add_version(
     53ed435a6768c6b3bc41a541d3a097426af4f446
 )
 
+hunter_add_version(
+    PACKAGE_NAME
+    GPUImage
+    VERSION
+    "0.1.6-p2"
+    URL
+    "https://github.com/hunter-packages/GPUImage/archive/v0.1.6-p2.tar.gz"
+    SHA1
+    52973241283f01da4c240adae3f9208426a5901f
+)
+
 hunter_pick_scheme(
     DEFAULT
     url_sha1_release_debug
