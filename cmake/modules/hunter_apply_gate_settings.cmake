@@ -86,6 +86,7 @@ function(hunter_apply_gate_settings)
     endif()
   endif()
 
+  # This variables will be saved in HUNTER_CACHE_FILE (hunter_create_cache_file)
   set(HUNTER_CACHED_ROOT "${HUNTER_GATE_ROOT}" CACHE INTERNAL "")
   set(HUNTER_SHA1 "${HUNTER_GATE_SHA1}" CACHE INTERNAL "")
   set(HUNTER_CONFIG_SHA1 "${HUNTER_GATE_CONFIG_SHA1}" CACHE INTERNAL "")

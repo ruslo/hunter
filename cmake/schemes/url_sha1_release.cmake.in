@@ -10,7 +10,6 @@ include(ExternalProject) # ExternalProject_Add
 
 list(APPEND CMAKE_MODULE_PATH "@HUNTER_SELF@/cmake/modules")
 
-include(hunter_gate_settings)
 include(hunter_status_debug)
 include(hunter_test_string_not_empty)
 
@@ -24,13 +23,12 @@ hunter_test_string_not_empty("@HUNTER_PACKAGE_SHA1@")
 hunter_test_string_not_empty("@HUNTER_PACKAGE_DOWNLOAD_DIR@")
 hunter_test_string_not_empty("@HUNTER_PACKAGE_SOURCE_DIR@")
 hunter_test_string_not_empty("@HUNTER_INSTALL_PREFIX@")
+hunter_test_string_not_empty("@HUNTER_CACHE_FILE@")
 hunter_test_string_not_empty("${CMAKE_TOOLCHAIN_FILE}")
 
 if("@HUNTER_STATUS_DEBUG@")
   set(verbose_makefile "-DCMAKE_VERBOSE_MAKEFILE=ON")
 endif()
-
-hunter_gate_settings(gate_settings)
 
 string(COMPARE NOTEQUAL "@HUNTER_JOBS_OPTION@" "" have_jobs)
 if(have_jobs)
@@ -58,10 +56,10 @@ ExternalProject_Add(
     "@HUNTER_INSTALL_PREFIX@"
         # not used, just avoid creating Install/<name>-release empty directory
     CMAKE_ARGS
+    "-C@HUNTER_CACHE_FILE@"
     "-DCMAKE_BUILD_TYPE=Release"
     "-DCMAKE_INSTALL_PREFIX=@HUNTER_INSTALL_PREFIX@"
     ${verbose_makefile}
-    ${gate_settings}
     "-DCMAKE_TOOLCHAIN_FILE=${CMAKE_TOOLCHAIN_FILE}"
     BUILD_COMMAND
         "@CMAKE_COMMAND@" --build .
