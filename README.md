@@ -29,10 +29,11 @@ Hunter (0.4.2) = {
 * **Reusable** `ExternalProject_Add` recipies ([DRY principle][dry-principle])
  * Once written formula ([build scheme][build-schemes-dir]) can be used by other projects, subprojects etc. without copying of collection of
 superbuild files. Just change 2 lines of code: input parameters `SHA1`/`URL` of HunterGate command
-* Three level of **customization** of root directory (+ Debug/Release builds):
+* Several levels of build **customization**:
  * [Hunter-ID][hunter-id] - list of packages and mapping version-url-sha1
  * [Config-ID][config-id] - version of package to build and build options
  * [Toolchain-ID][toolchain-id] - compiler and flags
+ * [Build type][hunter-configuration-types] (e.g. Release/Debug)
 * **Shareable** root directory with build synchronization
  * Any number of projects can use root directory and add new packages simultaneously
 * Manage **anything** that can be downloaded by `URL` and checked with `SHA1` hash:
@@ -242,6 +243,7 @@ Read [wiki][hunter-wiki] before making changes. Please send a patch as a pull re
 [usr.multiple.huntergate]: https://github.com/ruslo/hunter/wiki/usr.multiple.huntergate
 [dev.variables-hunter-skip-lock]: https://github.com/ruslo/hunter/wiki/dev.variables#hunter_skip_lock
 [error.can.not.lock]: https://github.com/ruslo/hunter/wiki/error.can.not.lock
+[hunter-configuration-types]: https://github.com/ruslo/hunter/wiki/usr.variables#hunter_configuration_types
 
 [hunter-new-issue]: https://github.com/ruslo/hunter/issues/new
 
