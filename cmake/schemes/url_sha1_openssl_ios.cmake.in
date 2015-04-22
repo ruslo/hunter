@@ -34,13 +34,6 @@ if("@HUNTER_STATUS_DEBUG@")
   set(CMAKE_VERBOSE_MAKEFILE ON)
 endif()
 
-string(COMPARE NOTEQUAL "@HUNTER_JOBS_OPTION@" "" have_jobs)
-if(have_jobs)
-  set(jobs_option "-j@HUNTER_JOBS_OPTION@")
-else()
-  set(jobs_option "")
-endif()
-
 hunter_unsetvar(ssl_input_libraries)
 hunter_unsetvar(crypto_input_libraries)
 
@@ -136,7 +129,6 @@ foreach(variant @IPHONEOS_ARCHS@ @IPHONESIMULATOR_ARCHS@)
       export CROSS_TOP=${CROSS_TOP} &&
       export CROSS_SDK=${CROSS_SDK} &&
       make
-      ${jobs_option}
       BUILD_IN_SOURCE
       1
       INSTALL_COMMAND

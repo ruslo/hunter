@@ -41,11 +41,6 @@ set(
 )
 set(build_command . "@HUNTER_SELF@/scripts/clear-all.sh" && make)
 
-string(COMPARE NOTEQUAL "@HUNTER_JOBS_OPTION@" "" have_jobs)
-if(have_jobs)
-  list(APPEND build_command "-j@HUNTER_JOBS_OPTION@")
-endif()
-
 set(configure_opts ${configure_opts} threads no-shared)
 
 ExternalProject_Add(
