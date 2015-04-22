@@ -45,16 +45,10 @@ hunter_add_version(
     5eec42672e1c11e5417c4e5833ef6c2889bf4418
 )
 
-hunter_pick_scheme(
-    DEFAULT
-    url_sha1_release_debug
-    COMBINED
-    url_sha1_combined_release_debug
-)
-
 hunter_cmake_args(
     GPUImage
     CMAKE_ARGS GPUIMAGE_BUILD_EXAMPLES=OFF
 )
 
+hunter_pick_scheme(DEFAULT url_sha1_cmake)
 hunter_download(PACKAGE_NAME GPUImage)

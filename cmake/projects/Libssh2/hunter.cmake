@@ -34,11 +34,6 @@ hunter_add_version(
     4a5bb23ff19218f92af6e15e46ca5d997c3d7680
 )
 
-hunter_pick_scheme(
-    DEFAULT url_sha1_release_debug
-    COMBINED url_sha1_combined_release_debug
-)
-
 hunter_cmake_args(
     Libssh2
     CMAKE_ARGS
@@ -47,4 +42,5 @@ hunter_cmake_args(
       HUNTER_ENABLED=ON
 )
 
+hunter_pick_scheme(DEFAULT url_sha1_cmake)
 hunter_download(PACKAGE_NAME Libssh2)

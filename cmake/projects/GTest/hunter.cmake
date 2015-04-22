@@ -132,11 +132,5 @@ hunter_add_version(
     374e6dbe8619ab467c6b1a0b470a598407b172e9
 )
 
-hunter_pick_scheme(
-    DEFAULT
-    url_sha1_release_debug
-    COMBINED
-    url_sha1_combined_release_debug
-)
-
+hunter_pick_scheme(DEFAULT url_sha1_cmake)
 hunter_download(PACKAGE_NAME GTest)

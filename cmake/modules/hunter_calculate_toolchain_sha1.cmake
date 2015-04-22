@@ -64,10 +64,22 @@ function(hunter_calculate_toolchain_sha1 hunter_self hunter_base)
       "-B${temp_build_dir}"
   )
 
+  foreach(configuration ${HUNTER_CONFIGURATION_TYPES})
+    string(TOUPPER "${configuration}" configuration_upper)
+    list(
+        APPEND
+        cmd
+        "-DCMAKE_${configuration_upper}_POSTFIX=${CMAKE_${configuration_upper}_POSTFIX}"
+    )
+  endforeach()
+
   hunter_print_cmd("${temp_project_dir}" "${cmd}")
 
+  # HUNTER_CONFIGURATION_TYPES notes: list is tricky...
   execute_process(
-      COMMAND ${cmd}
+      COMMAND
+          ${cmd}
+          "-DHUNTER_CONFIGURATION_TYPES=${HUNTER_CONFIGURATION_TYPES}"
       WORKING_DIRECTORY "${temp_project_dir}"
       RESULT_VARIABLE generate_result
       ${logging_params}

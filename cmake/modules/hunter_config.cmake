@@ -7,7 +7,6 @@ include(hunter_fatal_error)
 include(hunter_unsetvar)
 include(hunter_user_error)
 
-# internal variables: _hunter_*
 macro(hunter_config)
   if(NOT HUNTER_ALLOW_CONFIG_LOADING)
     hunter_fatal_error(
@@ -18,7 +17,7 @@ macro(hunter_config)
     )
   endif()
   set(_hunter_one_value VERSION)
-  set(_hunter_multiple_values CMAKE_ARGS)
+  set(_hunter_multiple_values CMAKE_ARGS CONFIGURATION_TYPES)
   cmake_parse_arguments(
       _hunter
       ""
@@ -45,6 +44,10 @@ macro(hunter_config)
   if(_hunter_VERSION)
     set(HUNTER_${_hunter_current_project}_VERSION ${_hunter_VERSION})
     set(HUNTER_${_hunter_current_project}_CMAKE_ARGS ${_hunter_CMAKE_ARGS})
+    set(
+        HUNTER_${_hunter_current_project}_CONFIGURATION_TYPES
+        ${_hunter_CONFIGURATION_TYPES}
+    )
   else()
     hunter_user_error("Expected VERSION option for 'hunter_config' command")
   endif()

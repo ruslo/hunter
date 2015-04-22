@@ -7,7 +7,6 @@ include(CMakeParseArguments) # cmake_parse_arguments
 
 include(hunter_create_args_file)
 include(hunter_find_stamps)
-include(hunter_gate_settings)
 include(hunter_internal_error)
 include(hunter_jobs_number)
 include(hunter_print_cmd)
@@ -38,6 +37,7 @@ function(hunter_download)
   hunter_test_string_not_empty("${HUNTER_INSTALL_PREFIX}")
   hunter_test_string_not_empty("${HUNTER_PACKAGE_NAME}")
   hunter_test_string_not_empty("${HUNTER_TOOLCHAIN_ID_PATH}")
+  hunter_test_string_not_empty("${HUNTER_CACHE_FILE}")
 
   string(COMPARE NOTEQUAL "${HUNTER_BINARY_DIR}" "" hunter_has_binary_dir)
   string(COMPARE NOTEQUAL "${HUNTER_PACKAGE_COMPONENT}" "" hunter_has_component)
@@ -57,6 +57,16 @@ function(hunter_download)
   set(ver ${HUNTER_${h_name}_VERSION})
   set(HUNTER_PACKAGE_URL "${HUNTER_${h_name}_URL}")
   set(HUNTER_PACKAGE_SHA1 "${HUNTER_${h_name}_SHA1}")
+  set(
+      HUNTER_PACKAGE_CONFIGURATION_TYPES
+      "${HUNTER_${h_name}_CONFIGURATION_TYPES}"
+  )
+  string(COMPARE EQUAL "${HUNTER_PACKAGE_CONFIGURATION_TYPES}" "" no_types)
+  if(no_types)
+    set(HUNTER_PACKAGE_CONFIGURATION_TYPES ${HUNTER_CACHED_CONFIGURATION_TYPES})
+  endif()
+
+  hunter_test_string_not_empty("${HUNTER_PACKAGE_CONFIGURATION_TYPES}")
 
   string(COMPARE EQUAL "${HUNTER_PACKAGE_URL}" "" hunter_no_url)
 
@@ -162,9 +172,6 @@ function(hunter_download)
   file(REMOVE "${HUNTER_DOWNLOAD_TOOLCHAIN}")
   file(REMOVE "${HUNTER_ARGS_FILE}")
 
-  # Forward Hunter cache variables
-  hunter_gate_settings(gate_settings)
-
   # Do not lock hunter directory if package is internal (already locked)
   file(APPEND "${HUNTER_DOWNLOAD_TOOLCHAIN}" "set(HUNTER_SKIP_LOCK YES)\n")
 
@@ -218,6 +225,11 @@ function(hunter_download)
   hunter_status_debug("Download scheme: ${HUNTER_DOWNLOAD_SCHEME}")
   hunter_status_debug("Url: ${HUNTER_PACKAGE_URL}")
   hunter_status_debug("SHA1: ${HUNTER_PACKAGE_SHA1}")
+  if(HUNTER_DOWNLOAD_SCHEME_INSTALL)
+    hunter_status_debug(
+        "Configuration types: ${HUNTER_PACKAGE_CONFIGURATION_TYPES}"
+    )
+  endif()
 
   set(
       download_scheme
@@ -253,12 +265,12 @@ function(hunter_download)
   set(
       cmd
       "${CMAKE_COMMAND}"
+      "-C${HUNTER_CACHE_FILE}"
       "-H${HUNTER_PACKAGE_HOME_DIR}"
       "-B${HUNTER_PACKAGE_BUILD_DIR}"
       "-DCMAKE_TOOLCHAIN_FILE=${HUNTER_DOWNLOAD_TOOLCHAIN}"
       "-DHUNTER_STATUS_DEBUG=${HUNTER_STATUS_DEBUG}"
       "-G${CMAKE_GENERATOR}"
-      ${gate_settings}
       ${verbose_makefile}
   )
   hunter_print_cmd("${HUNTER_PACKAGE_HOME_DIR}" "${cmd}")

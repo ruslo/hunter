@@ -7,7 +7,7 @@ if(NOT HUNTER_SELF)
   message("[hunter ** INTERNAL **] [Directory:${CMAKE_CURRENT_LIST_DIR}]")
   message("")
   message("------------------------------ WIKI -------------------------------")
-  message("    https://github.com/ruslo/hunter/wiki/Error-%28Internal%29")
+  message("    https://github.com/ruslo/hunter/wiki/error.internal")
   message("-------------------------------------------------------------------")
   message(FATAL_ERROR "")
 endif()
@@ -27,6 +27,9 @@ if(EXISTS "${TOOLCHAIN_INFO_FILE}")
   hunter_internal_error("${TOOLCHAIN_INFO_FILE} already exists")
 endif()
 
+include(hunter_test_string_not_empty)
+hunter_test_string_not_empty("${HUNTER_CONFIGURATION_TYPES}")
+
 file(
     WRITE
     "${TOOLCHAIN_INFO_FILE}"
@@ -35,7 +38,14 @@ file(
     "    IPHONESIMULATOR_ARCHS: ${IPHONESIMULATOR_ARCHS}\n"
     "Other:\n"
     "    CMAKE_GENERATOR: ${CMAKE_GENERATOR}\n"
+    "    HUNTER_CONFIGURATION_TYPES: ${HUNTER_CONFIGURATION_TYPES}\n"
 )
+
+foreach(configuration ${HUNTER_CONFIGURATION_TYPES})
+  string(TOUPPER "${configuration}" configuration_upper)
+  file(APPEND "${TOOLCHAIN_INFO_FILE}" "    CMAKE_${configuration_upper}_POSTFIX: ")
+  file(APPEND "${TOOLCHAIN_INFO_FILE}" "${CMAKE_${configuration_upper}_POSTFIX}\n")
+endforeach()
 
 set(predefined "${HUNTER_SELF}/scripts/ShowPredefined.cpp")
 if(NOT EXISTS "${predefined}")

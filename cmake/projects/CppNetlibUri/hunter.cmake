@@ -66,11 +66,5 @@ hunter_add_version(
     c093562c2588c84749f2645f652c372655052c1c
 )
 
-hunter_pick_scheme(
-    DEFAULT
-    url_sha1_release_debug
-    COMBINED
-    url_sha1_combined_release_debug
-)
-
+hunter_pick_scheme(DEFAULT url_sha1_cmake)
 hunter_download(PACKAGE_NAME CppNetlibUri)

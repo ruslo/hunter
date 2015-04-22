@@ -17,22 +17,27 @@ include(hunter_test_string_not_empty)
 function(hunter_apply_gate_settings)
   get_property(gate_done GLOBAL PROPERTY HUNTER_GATE_DONE SET)
 
-  set(cache_init NO)
-  if(
-     HUNTER_CACHED_ROOT OR
-     HUNTER_SHA1 OR
-     HUNTER_CONFIG_SHA1 OR
-     HUNTER_VERSION OR
-     HUNTER_TOOLCHAIN_SHA1
+  # Check any of cache variable is not empty
+  string(
+      COMPARE
+      NOTEQUAL
+      "${HUNTER_CACHED_ROOT}${HUNTER_SHA1}${HUNTER_CONFIG_SHA1}${HUNTER_VERSION}${HUNTER_TOOLCHAIN_SHA1}${HUNTER_CACHED_CONFIGURATION_TYPES}"
+      ""
+      cache_init
   )
-    set(cache_init YES)
-  endif()
 
   # Unify values
   if(gate_done)
     set(gate_done YES)
   else()
     set(gate_done NO)
+  endif()
+
+  # Unify values
+  if(cache_init)
+    set(cache_init YES)
+  else()
+    set(cache_init NO)
   endif()
 
   hunter_status_debug("Settings:")
@@ -67,6 +72,29 @@ function(hunter_apply_gate_settings)
       "${hunter_self}" "${hunter_base}" "${config_location}"
   )
 
+  string(COMPARE EQUAL "${HUNTER_CONFIGURATION_TYPES}" "" use_default)
+  if(use_default)
+    set(HUNTER_CONFIGURATION_TYPES "Release;Debug")
+  endif()
+
+  foreach(configuration ${HUNTER_CONFIGURATION_TYPES})
+    string(TOUPPER "${configuration}" configuration_upper)
+    string(COMPARE EQUAL "${configuration_upper}" "RELEASE" is_release)
+    string(COMPARE EQUAL "${configuration_upper}" "DEBUG" is_debug)
+    string(COMPARE EQUAL "${CMAKE_${configuration_upper}_POSTFIX}" "" is_empty)
+    if(NOT is_release AND is_empty)
+      if(is_debug)
+        set(CMAKE_DEBUG_POSTFIX "d")
+        hunter_status_debug("Set CMAKE_DEBUG_POSTFIX to: d")
+      else()
+        set(CMAKE_${configuration_upper}_POSTFIX "-${configuration}")
+        hunter_status_debug(
+            "Set CMAKE_${configuration_upper}_POSTFIX to: -${configuration}"
+        )
+      endif()
+    endif()
+  endforeach()
+
   # HUNTER_GATE_TOOLCHAIN_SHA1
   hunter_calculate_toolchain_sha1("${hunter_self}" "${hunter_base}")
 
@@ -86,9 +114,27 @@ function(hunter_apply_gate_settings)
     endif()
   endif()
 
+  # This variables will be saved in HUNTER_CACHE_FILE (hunter_create_cache_file)
   set(HUNTER_CACHED_ROOT "${HUNTER_GATE_ROOT}" CACHE INTERNAL "")
   set(HUNTER_SHA1 "${HUNTER_GATE_SHA1}" CACHE INTERNAL "")
   set(HUNTER_CONFIG_SHA1 "${HUNTER_GATE_CONFIG_SHA1}" CACHE INTERNAL "")
   set(HUNTER_VERSION "${HUNTER_GATE_VERSION}" CACHE INTERNAL "")
   set(HUNTER_TOOLCHAIN_SHA1 "${HUNTER_GATE_TOOLCHAIN_SHA1}" CACHE INTERNAL "")
+  set(
+      HUNTER_CACHED_CONFIGURATION_TYPES
+      "${HUNTER_CONFIGURATION_TYPES}"
+      CACHE
+      INTERNAL
+      ""
+  )
+  foreach(configuration ${HUNTER_CACHED_CONFIGURATION_TYPES})
+    string(TOUPPER "${configuration}" configuration_upper)
+    set(
+        CMAKE_${configuration_upper}_POSTFIX
+        "${CMAKE_${configuration_upper}_POSTFIX}"
+        CACHE
+        INTERNAL
+        ""
+    )
+  endforeach()
 endfunction()
