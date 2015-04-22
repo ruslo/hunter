@@ -73,6 +73,24 @@ function(hunter_apply_gate_settings)
     set(HUNTER_CONFIGURATION_TYPES "Release;Debug")
   endif()
 
+  foreach(configuration ${HUNTER_CONFIGURATION_TYPES})
+    string(TOUPPER "${configuration}" configuration_upper)
+    string(COMPARE EQUAL "${configuration_upper}" "RELEASE" is_release)
+    string(COMPARE EQUAL "${configuration_upper}" "DEBUG" is_debug)
+    string(COMPARE EQUAL "${CMAKE_${configuration_upper}_POSTFIX}" "" is_empty)
+    if(NOT is_release AND is_empty)
+      if(is_debug)
+        set(CMAKE_DEBUG_POSTFIX "d")
+        hunter_status_debug("Set CMAKE_DEBUG_POSTFIX to: d")
+      else()
+        set(CMAKE_${configuration_upper}_POSTFIX "-${configuration}")
+        hunter_status_debug(
+            "Set CMAKE_${configuration_upper}_POSTFIX to: -${configuration}"
+        )
+      endif()
+    endif()
+  endforeach()
+
   # HUNTER_GATE_TOOLCHAIN_SHA1
   hunter_calculate_toolchain_sha1("${hunter_self}" "${hunter_base}")
 
@@ -105,4 +123,14 @@ function(hunter_apply_gate_settings)
       INTERNAL
       ""
   )
+  foreach(configuration ${HUNTER_CACHED_CONFIGURATION_TYPES})
+    string(TOUPPER "${configuration}" configuration_upper)
+    set(
+        CMAKE_${configuration_upper}_POSTFIX
+        "${CMAKE_${configuration_upper}_POSTFIX}"
+        CACHE
+        INTERNAL
+        ""
+    )
+  endforeach()
 endfunction()

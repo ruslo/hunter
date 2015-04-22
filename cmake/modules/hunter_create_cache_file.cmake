@@ -58,6 +58,16 @@ function(hunter_create_cache_file cache_path)
       "set(HUNTER_JOBS_NUMBER \"${HUNTER_JOBS_NUMBER}\" CACHE INTERNAL \"\")\n"
   )
 
+  # Let all projects have same postfixes
+  foreach(configuration ${HUNTER_CACHED_CONFIGURATION_TYPES})
+    string(TOUPPER "${configuration}" configuration_upper)
+    file(
+        APPEND
+        "${temp_path}"
+        "set(CMAKE_${configuration_upper}_POSTFIX \"${CMAKE_${configuration_upper}_POSTFIX}\" CACHE INTERNAL \"\")\n"
+    )
+  endforeach()
+
   # Forward variables that affect/form root directory and toolchain-ID creation
   file(
       APPEND
@@ -87,7 +97,7 @@ function(hunter_create_cache_file cache_path)
   file(
       APPEND
       "${temp_path}"
-      "set(HUNTER_CACHE_CONFIGURATION_TYPES \"${HUNTER_CACHE_CONFIGURATION_TYPES}\" CACHE INTERNAL \"\")\n"
+      "set(HUNTER_CACHED_CONFIGURATION_TYPES \"${HUNTER_CACHED_CONFIGURATION_TYPES}\" CACHE INTERNAL \"\")\n"
   )
 
   # Atomic operation

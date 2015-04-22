@@ -68,13 +68,6 @@ hunter_status_print("${_id_info}")
 set(HUNTER_CACHE_FILE "${HUNTER_TOOLCHAIN_ID_PATH}/cache.cmake")
 hunter_create_cache_file("${HUNTER_CACHE_FILE}")
 
-if(NOT CMAKE_DEBUG_POSTFIX)
-  set(CMAKE_DEBUG_POSTFIX d)
-  hunter_status_debug(
-      "CMAKE_DEBUG_POSTFIX is empty, set to '${CMAKE_DEBUG_POSTFIX}'"
-  )
-endif()
-
 if(MSVC)
   include(hunter_setup_msvc_arch)
   include(hunter_setup_msvc_vcvarsall)
