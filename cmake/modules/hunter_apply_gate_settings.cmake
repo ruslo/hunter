@@ -33,6 +33,13 @@ function(hunter_apply_gate_settings)
     set(gate_done NO)
   endif()
 
+  # Unify values
+  if(cache_init)
+    set(cache_init YES)
+  else()
+    set(cache_init NO)
+  endif()
+
   hunter_status_debug("Settings:")
   hunter_status_debug("  HunterGate done (${gate_done})")
   hunter_status_debug("  Cache init (${cache_init})")
