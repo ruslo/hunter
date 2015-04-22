@@ -17,17 +17,14 @@ include(hunter_test_string_not_empty)
 function(hunter_apply_gate_settings)
   get_property(gate_done GLOBAL PROPERTY HUNTER_GATE_DONE SET)
 
-  set(cache_init NO)
-  if(
-     HUNTER_CACHED_ROOT OR
-     HUNTER_SHA1 OR
-     HUNTER_CONFIG_SHA1 OR
-     HUNTER_VERSION OR
-     HUNTER_TOOLCHAIN_SHA1 OR
-     HUNTER_CACHED_CONFIGURATION_TYPES
+  # Check any of cache variable is not empty
+  string(
+      COMPARE
+      NOTEQUAL
+      "${HUNTER_CACHED_ROOT}${HUNTER_SHA1}${HUNTER_CONFIG_SHA1}${HUNTER_VERSION}${HUNTER_TOOLCHAIN_SHA1}${HUNTER_CACHED_CONFIGURATION_TYPES}"
+      ""
+      cache_init
   )
-    set(cache_init YES)
-  endif()
 
   # Unify values
   if(gate_done)
