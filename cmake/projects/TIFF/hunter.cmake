@@ -44,9 +44,5 @@ hunter_add_version(
     37c71656488797c4e5fde620570f1a1b9be36037
 )
 
-hunter_pick_scheme(
-    DEFAULT url_sha1_release_debug
-    COMBINED url_sha1_combined_release_debug
-)
-
+hunter_pick_scheme(DEFAULT url_sha1_cmake)
 hunter_download(PACKAGE_NAME TIFF)

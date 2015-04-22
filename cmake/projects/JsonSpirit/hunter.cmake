@@ -55,11 +55,5 @@ hunter_add_version(
     2e71239f1d5f3e78a18e5e41c1d60b44b14a21e8
 )
 
-hunter_pick_scheme(
-     DEFAULT
-     url_sha1_release_debug
-     COMBINED
-     url_sha1_combined_release_debug
-)
-
+hunter_pick_scheme(DEFAULT url_sha1_cmake)
 hunter_download(PACKAGE_NAME JsonSpirit)

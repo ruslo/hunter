@@ -22,11 +22,5 @@ hunter_add_version(
     c814809c68d90d3554aa17f4f4de72b85cdc83ec
 )
 
-hunter_pick_scheme(
-    DEFAULT
-    url_sha1_release_debug
-    COMBINED
-    url_sha1_combined_release_debug
-)
-
+hunter_pick_scheme(DEFAULT url_sha1_cmake)
 hunter_download(PACKAGE_NAME Igloo)

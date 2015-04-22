@@ -49,6 +49,6 @@ hunter_cmake_args(
     LLVM_INCLUDE_DOCS=OFF
 )
 
-hunter_pick_scheme(DEFAULT url_sha1_release)
-
+hunter_configuration_types(LLVM CONFIGURATION_TYPES Release)
+hunter_pick_scheme(DEFAULT url_sha1_cmake)
 hunter_download(PACKAGE_NAME LLVM)

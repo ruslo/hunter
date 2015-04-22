@@ -78,11 +78,5 @@ hunter_add_version(
     390df257a5b22087c96f67a08b52902e7dea1bc2
 )
 
-hunter_pick_scheme(
-    DEFAULT
-    url_sha1_release_debug
-    COMBINED
-    url_sha1_combined_release_debug
-)
-
+hunter_pick_scheme(DEFAULT url_sha1_cmake)
 hunter_download(PACKAGE_NAME Leathers)

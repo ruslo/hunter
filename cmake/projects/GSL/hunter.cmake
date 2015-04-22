@@ -28,9 +28,5 @@ hunter_add_version(
     ce16e45c82191e351359ab30a2a77fcd21cbdb4c
 )
 
-hunter_pick_scheme(
-    DEFAULT url_sha1_release_debug
-    COMBINED url_sha1_combined_release_debug
-)
-
+hunter_pick_scheme(DEFAULT url_sha1_cmake)
 hunter_download(PACKAGE_NAME GSL)

@@ -7,19 +7,9 @@ else()
   set(HUNTER_CMAKE_PROJECTS_CPPNETLIB_HUNTER_CMAKE_ 1)
 endif()
 
-include(hunter_add_package)
 include(hunter_add_version)
 include(hunter_download)
 include(hunter_pick_scheme)
-
-# Dependencies --
-hunter_add_package(Boost)
-hunter_add_package(OpenSSL)
-hunter_add_package(Sugar)
-if(APPLE)
-  hunter_add_package(ios_sim)
-endif()
-# -- end
 
 hunter_add_version(
     PACKAGE_NAME
@@ -54,11 +44,5 @@ hunter_add_version(
     b9e558264a4c2e24a59e037cfeb38509e2ce664c
 )
 
-hunter_pick_scheme(
-    DEFAULT
-    url_sha1_release_debug
-    COMBINED
-    url_sha1_combined_release_debug
-)
-
+hunter_pick_scheme(DEFAULT url_sha1_cmake)
 hunter_download(PACKAGE_NAME CppNetlib)
