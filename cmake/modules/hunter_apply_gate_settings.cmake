@@ -23,7 +23,8 @@ function(hunter_apply_gate_settings)
      HUNTER_SHA1 OR
      HUNTER_CONFIG_SHA1 OR
      HUNTER_VERSION OR
-     HUNTER_TOOLCHAIN_SHA1
+     HUNTER_TOOLCHAIN_SHA1 OR
+     HUNTER_CACHED_CONFIGURATION_TYPES
   )
     set(cache_init YES)
   endif()
@@ -67,6 +68,11 @@ function(hunter_apply_gate_settings)
       "${hunter_self}" "${hunter_base}" "${config_location}"
   )
 
+  string(COMPARE EQUAL "${HUNTER_CONFIGURATION_TYPES}" "" use_default)
+  if(use_default)
+    set(HUNTER_CONFIGURATION_TYPES "Release;Debug")
+  endif()
+
   # HUNTER_GATE_TOOLCHAIN_SHA1
   hunter_calculate_toolchain_sha1("${hunter_self}" "${hunter_base}")
 
@@ -92,4 +98,11 @@ function(hunter_apply_gate_settings)
   set(HUNTER_CONFIG_SHA1 "${HUNTER_GATE_CONFIG_SHA1}" CACHE INTERNAL "")
   set(HUNTER_VERSION "${HUNTER_GATE_VERSION}" CACHE INTERNAL "")
   set(HUNTER_TOOLCHAIN_SHA1 "${HUNTER_GATE_TOOLCHAIN_SHA1}" CACHE INTERNAL "")
+  set(
+      HUNTER_CACHED_CONFIGURATION_TYPES
+      "${HUNTER_CONFIGURATION_TYPES}"
+      CACHE
+      INTERNAL
+      ""
+  )
 endfunction()

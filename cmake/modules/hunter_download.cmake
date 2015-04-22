@@ -57,6 +57,16 @@ function(hunter_download)
   set(ver ${HUNTER_${h_name}_VERSION})
   set(HUNTER_PACKAGE_URL "${HUNTER_${h_name}_URL}")
   set(HUNTER_PACKAGE_SHA1 "${HUNTER_${h_name}_SHA1}")
+  set(
+      HUNTER_PACKAGE_CONFIGURATION_TYPES
+      "${HUNTER_${h_name}_CONFIGURATION_TYPES}"
+  )
+  string(COMPARE EQUAL "${HUNTER_PACKAGE_CONFIGURATION_TYPES}" "" no_types)
+  if(no_types)
+    set(HUNTER_PACKAGE_CONFIGURATION_TYPES ${HUNTER_CACHED_CONFIGURATION_TYPES})
+  endif()
+
+  hunter_test_string_not_empty("${HUNTER_PACKAGE_CONFIGURATION_TYPES}")
 
   string(COMPARE EQUAL "${HUNTER_PACKAGE_URL}" "" hunter_no_url)
 
@@ -215,6 +225,11 @@ function(hunter_download)
   hunter_status_debug("Download scheme: ${HUNTER_DOWNLOAD_SCHEME}")
   hunter_status_debug("Url: ${HUNTER_PACKAGE_URL}")
   hunter_status_debug("SHA1: ${HUNTER_PACKAGE_SHA1}")
+  if(HUNTER_DOWNLOAD_SCHEME_INSTALL)
+    hunter_status_debug(
+        "Configuration types: ${HUNTER_PACKAGE_CONFIGURATION_TYPES}"
+    )
+  endif()
 
   set(
       download_scheme

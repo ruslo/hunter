@@ -71,6 +71,22 @@ function(hunter_check_flush_needed hunter_self flush_done)
     set(flush TRUE)
   endif()
 
+  string(
+      COMPARE
+      EQUAL
+      "${HUNTER_CONFIGURATION_TYPES}"
+      "${HUNTER_CACHED_CONFIGURATION_TYPES}"
+      is_ok
+  )
+  if(NOT is_ok)
+    hunter_status_debug(
+        "HUNTER_CONFIGURATION_TYPES changed"
+        "  ${HUNTER_CONFIGURATION_TYPES}"
+        "  ${HUNTER_CACHED_CONFIGURATION_TYPES}"
+    )
+    set(flush TRUE)
+  endif()
+
   if(NOT flush)
     set("${flush_done}" FALSE PARENT_SCOPE)
     return()

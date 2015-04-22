@@ -35,6 +35,7 @@ file(
     "    IPHONESIMULATOR_ARCHS: ${IPHONESIMULATOR_ARCHS}\n"
     "Other:\n"
     "    CMAKE_GENERATOR: ${CMAKE_GENERATOR}\n"
+    "    HUNTER_CONFIGURATION_TYPES: ${HUNTER_CONFIGURATION_TYPES}\n"
 )
 
 set(predefined "${HUNTER_SELF}/scripts/ShowPredefined.cpp")

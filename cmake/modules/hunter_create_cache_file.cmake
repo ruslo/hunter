@@ -84,6 +84,11 @@ function(hunter_create_cache_file cache_path)
       "${temp_path}"
       "set(HUNTER_TOOLCHAIN_SHA1 \"${HUNTER_TOOLCHAIN_SHA1}\" CACHE INTERNAL \"\")\n"
   )
+  file(
+      APPEND
+      "${temp_path}"
+      "set(HUNTER_CACHE_CONFIGURATION_TYPES \"${HUNTER_CACHE_CONFIGURATION_TYPES}\" CACHE INTERNAL \"\")\n"
+  )
 
   # Atomic operation
   file(RENAME "${temp_path}" "${cache_path}")
