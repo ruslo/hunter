@@ -45,6 +45,17 @@ hunter_add_version(
     5eec42672e1c11e5417c4e5833ef6c2889bf4418
 )
 
+hunter_add_version(
+    PACKAGE_NAME
+    GPUImage
+    VERSION
+    "0.1.6-p4"
+    URL
+    "https://github.com/hunter-packages/GPUImage/archive/v0.1.6-p4.tar.gz"
+    SHA1
+    a03a33c393521c6a8e4bcc06ab0bd17bcf717f11
+)
+
 hunter_cmake_args(
     GPUImage
     CMAKE_ARGS GPUIMAGE_BUILD_EXAMPLES=OFF
