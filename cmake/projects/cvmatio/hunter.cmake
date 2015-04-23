@@ -33,11 +33,13 @@ hunter_add_version(
 )
 
 # Pick a download scheme
-hunter_pick_scheme(
-    DEFAULT
-    url_sha1_release_debug # For separate release/debug generators, like Makefile
-    COMBINED
-    url_sha1_combined_release_debug # For Xcode and Visual Studio
-)
+# hunter_pick_scheme(
+#     DEFAULT
+#     url_sha1_release_debug # For separate release/debug generators, like Makefile
+#     COMBINED
+#     url_sha1_combined_release_debug # For Xcode and Visual Studio
+# )
+
+hunter_pick_scheme(DEFAULT url_sha1_cmake)
 
 hunter_download(PACKAGE_NAME cvmatio)
