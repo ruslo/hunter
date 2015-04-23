@@ -27,9 +27,8 @@ hunter_test_string_not_empty("@HUNTER_PACKAGE_SOURCE_DIR@")
 hunter_test_string_not_empty("@HUNTER_PACKAGE_BUILD_DIR@")
 hunter_test_string_not_empty("@HUNTER_INSTALL_PREFIX@")
 hunter_test_string_not_empty("@HUNTER_PACKAGE_COMPONENT@")
-hunter_test_string_not_empty("@IPHONEOS_ARCHS@")
-# This test was disabled to support single architecture/native iOS builds (i.e., arm64)
-#hunter_test_string_not_empty("@IPHONESIMULATOR_ARCHS@")
+# Note: support for single architecture/native iOS builds (i.e., arm64)
+hunter_test_string_not_empty("@IPHONESIMULATOR_ARCHS@@IPHONEOS_ARCHS@")
 hunter_test_string_not_empty("@IPHONESIMULATOR_ROOT@")
 hunter_test_string_not_empty("@IPHONEOS_ROOT@")
 hunter_test_string_not_empty("@IPHONEOS_SDK_ROOT@")
@@ -87,14 +86,38 @@ if(NOT libfound)
   hunter_internal_error("No such library")
 endif()
 
-hunter_unsetvar(iphoneos_archs)
+set(has_iphoneos FALSE)
+set(has_isim FALSE)
+
+set(iphoneos_archs "")
+set(arm_instruction_set "")
+set(is_first YES)
 foreach(x @IPHONEOS_ARCHS@)
-  set(iphoneos_archs "${iphoneos_archs} -arch ${x}")
+  string(COMPARE EQUAL "${x}" "arm64" is_arm64)
+  if(is_first AND NOT is_arm64)
+    # First goes to instruction-set option;
+    # arm64 is not supported:
+    #   * https://svn.boost.org/trac/boost/ticket/10910
+    set(arm_instruction_set "${x}")
+    set(is_first NO)
+  else()
+    # others go to the C++ flags directly
+    set(iphoneos_archs "${iphoneos_archs} -arch ${x}")
+  endif()
+  # Has at least one iPhoneOS architecture to build
+  set(has_iphoneos TRUE)
 endforeach()
 
-hunter_unsetvar(isim_archs)
+string(COMPARE EQUAL "${arm_instruction_set}" "" no_instruction_set)
+if(no_instruction_set)
+  # set default value (for build with one arm64)
+  set(arm_instruction_set "armv7")
+endif()
+
+set(isim_archs "")
 foreach(x @IPHONESIMULATOR_ARCHS@)
   set(isim_archs "${isim_archs} -arch ${x}")
+  set(has_isim TRUE)
 endforeach()
 
 set(boost_user_jam "@HUNTER_PACKAGE_BUILD_DIR@/boost.user.jam")
@@ -139,7 +162,7 @@ set(
     toolset=darwin-iphoneos
     target-os=iphone
     architecture=arm
-    instruction-set=armv7
+    instruction-set=${arm_instruction_set}
     ${build_opts}
 )
 
@@ -164,53 +187,105 @@ if(@HUNTER_STATUS_DEBUG@)
   set(verbose_output "-d+2 --debug-configuration")
 endif()
 
-ExternalProject_Add(
-    "@HUNTER_EP_NAME@-ios"
-    URL
-    @HUNTER_PACKAGE_URL@
-    URL_HASH
-    SHA1=@HUNTER_PACKAGE_SHA1@
-    DOWNLOAD_DIR
-    "@HUNTER_PACKAGE_DOWNLOAD_DIR@"
-    SOURCE_DIR
-    "@HUNTER_PACKAGE_SOURCE_DIR@"
-    INSTALL_DIR
-    "@HUNTER_INSTALL_PREFIX@"
-        # not used, just avoid creating Install/<name> empty directory
-    CONFIGURE_COMMAND
-    ${bootstrap}
-    BUILD_COMMAND
-    ./b2
-    ${verbose_output}
-    ${build_opts_iphoneos}
-    BUILD_IN_SOURCE
-    1
-    INSTALL_COMMAND
-    ""
-)
+if(has_iphoneos)
+  ExternalProject_Add(
+      "@HUNTER_EP_NAME@-ios"
+      URL
+      @HUNTER_PACKAGE_URL@
+      URL_HASH
+      SHA1=@HUNTER_PACKAGE_SHA1@
+      DOWNLOAD_DIR
+      "@HUNTER_PACKAGE_DOWNLOAD_DIR@"
+      SOURCE_DIR
+      "@HUNTER_PACKAGE_SOURCE_DIR@"
+      INSTALL_DIR
+      "@HUNTER_INSTALL_PREFIX@"
+          # not used, just avoid creating Install/<name> empty directory
+      CONFIGURE_COMMAND
+      ${bootstrap}
+      BUILD_COMMAND
+      ./b2
+      ${verbose_output}
+      ${build_opts_iphoneos}
+      BUILD_IN_SOURCE
+      1
+      INSTALL_COMMAND
+      ""
+  )
+else()
+  # Add dummy target
+  ExternalProject_Add(
+      "@HUNTER_EP_NAME@-ios"
+      URL
+      @HUNTER_PACKAGE_URL@
+      URL_HASH
+      SHA1=@HUNTER_PACKAGE_SHA1@
+      DOWNLOAD_DIR
+      "@HUNTER_PACKAGE_DOWNLOAD_DIR@"
+      SOURCE_DIR
+      "@HUNTER_PACKAGE_SOURCE_DIR@"
+      INSTALL_DIR
+      "@HUNTER_INSTALL_PREFIX@"
+          # not used, just avoid creating Install/<name> empty directory
+      DOWNLOAD_COMMAND
+      ""
+      CONFIGURE_COMMAND
+      ""
+      BUILD_COMMAND
+      ""
+      INSTALL_COMMAND
+      ""
+  )
+endif()
 
-ExternalProject_Add(
-    "@HUNTER_EP_NAME@-ios_sim"
-    DOWNLOAD_COMMAND
-    ""
-    DOWNLOAD_DIR
-    "@HUNTER_PACKAGE_DOWNLOAD_DIR@"
-    SOURCE_DIR
-    "@HUNTER_PACKAGE_SOURCE_DIR@"
-    INSTALL_DIR
-    "@HUNTER_INSTALL_PREFIX@"
-        # not used, just avoid creating Install/<name> empty directory
-    CONFIGURE_COMMAND
-    ${bootstrap}
-    BUILD_COMMAND
-    ./b2
-    ${verbose_output}
-    ${build_opts_iphonesimulator}
-    BUILD_IN_SOURCE
-    1
-    INSTALL_COMMAND
-    ""
-)
+if(has_isim)
+  ExternalProject_Add(
+      "@HUNTER_EP_NAME@-ios_sim"
+      DOWNLOAD_COMMAND
+      ""
+      DOWNLOAD_DIR
+      "@HUNTER_PACKAGE_DOWNLOAD_DIR@"
+      SOURCE_DIR
+      "@HUNTER_PACKAGE_SOURCE_DIR@"
+      INSTALL_DIR
+      "@HUNTER_INSTALL_PREFIX@"
+          # not used, just avoid creating Install/<name> empty directory
+      CONFIGURE_COMMAND
+      ${bootstrap}
+      BUILD_COMMAND
+      ./b2
+      ${verbose_output}
+      ${build_opts_iphonesimulator}
+      BUILD_IN_SOURCE
+      1
+      INSTALL_COMMAND
+      ""
+  )
+else()
+  # Add dummy target
+  ExternalProject_Add(
+      "@HUNTER_EP_NAME@-ios_sim"
+      URL
+      @HUNTER_PACKAGE_URL@
+      URL_HASH
+      SHA1=@HUNTER_PACKAGE_SHA1@
+      DOWNLOAD_DIR
+      "@HUNTER_PACKAGE_DOWNLOAD_DIR@"
+      SOURCE_DIR
+      "@HUNTER_PACKAGE_SOURCE_DIR@"
+      INSTALL_DIR
+      "@HUNTER_INSTALL_PREFIX@"
+          # not used, just avoid creating Install/<name> empty directory
+      DOWNLOAD_COMMAND
+      ""
+      CONFIGURE_COMMAND
+      ""
+      BUILD_COMMAND
+      ""
+      INSTALL_COMMAND
+      ""
+  )
+endif()
 
 add_dependencies(
     "@HUNTER_EP_NAME@-ios_sim"

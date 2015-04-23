@@ -1,4 +1,4 @@
-#!/bin/bash -e
+#!/bin/bash
 
 # Copyright (c) 2013, Ruslan Baratov
 # All rights reserved.
@@ -18,15 +18,50 @@ IPHONE_RELEASE=`find "${COMMON_DIR}/darwin-iphoneos/release" -name "libboost_${L
 SIM_DEBUG=`find "${COMMON_DIR}/darwin-iphonesimulator/debug" -name "libboost_${LIBNAME}[^_]*.a"`
 SIM_RELEASE=`find "${COMMON_DIR}/darwin-iphonesimulator/release" -name "libboost_${LIBNAME}[^_]*.a"`
 
-echo "IPHONE_DEBUG: $IPHONE_DEBUG"
-echo "IPHONE_RELEASE: $IPHONE_RELEASE"
-echo "SIM_DEBUG: $SIM_DEBUG"
-echo "SIM_RELEASE: $SIM_RELEASE"
+echo "-- [iOS universal] IPHONE_DEBUG: $IPHONE_DEBUG"
+echo "-- [iOS universal] IPHONE_RELEASE: $IPHONE_RELEASE"
+echo "-- [iOS universal] ISIM_DEBUG: $SIM_DEBUG"
+echo "-- [iOS universal] ISIM_RELEASE: $SIM_RELEASE"
 
-DEBUG=`basename ${SIM_DEBUG}`
-RELEASE=`basename ${SIM_RELEASE}`
+if [[ -f "${SIM_DEBUG}" ]]
+then
+  DEBUG=`basename ${SIM_DEBUG}`
+else
+  DEBUG=`basename ${IPHONE_DEBUG}`
+fi
 
-lipo -create "${IPHONE_DEBUG}" "${SIM_DEBUG}" -o "${INSTALL_DIR}/${DEBUG}"
-lipo -create "${IPHONE_RELEASE}" "${SIM_RELEASE}" -o "${INSTALL_DIR}/${RELEASE}"
+if [[ -f "${SIM_RELEASE}" ]]
+then
+  RELEASE=`basename ${SIM_RELEASE}`
+else
+  RELEASE=`basename ${IPHONE_RELEASE}`
+fi
 
-echo "Done: ${INSTALL_DIR}/{${DEBUG}, ${RELEASE}}"
+function lipo_create {
+  iphone=$1
+  sim=$2
+  dst=$3
+
+  if [[ -f "${iphone}" || -f "${sim}" ]]
+  then
+    if [[ -f "${iphone}" && -f "${sim}" ]]
+    then
+      lipo -create "${iphone}" "${sim}" -o "${dst}"
+    else
+      if [[ -f "${iphone}" ]]
+      then
+        cp "${iphone}" "${dst}"
+      fi
+      if [[ -f "${sim}" ]]
+      then
+        cp "${sim}" "${dst}"
+      fi
+    fi
+  fi
+
+}
+
+lipo_create "${IPHONE_DEBUG}" "${SIM_DEBUG}" "${INSTALL_DIR}/${DEBUG}"
+lipo_create "${IPHONE_RELEASE}" "${SIM_RELEASE}" "${INSTALL_DIR}/${RELEASE}"
+
+echo "-- [iOS universal] Done: ${INSTALL_DIR}/{${DEBUG}, ${RELEASE}}"
