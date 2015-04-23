@@ -54,4 +54,5 @@ hunter_config(Sugar VERSION 1.2.2)
 hunter_config(TIFF VERSION 4.0.2-hunter-2)
 hunter_config(Washer VERSION 0.1.2)
 hunter_config(ZLIB VERSION 1.2.8-p2)
+hunter_config(cvmatio VERSION 1.0.18
 hunter_config(ios_sim VERSION 3.1.1)
