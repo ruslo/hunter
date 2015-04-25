@@ -7,6 +7,7 @@ cmake_minimum_required(VERSION 3.0)
 set(gate_dir "${CMAKE_CURRENT_LIST_DIR}/../gate")
 set(gate_module "${gate_dir}/cmake/HunterGate.cmake")
 
+get_filename_component(gate_module "${gate_module}" ABSOLUTE)
 if(NOT EXISTS "${gate_module}")
   message(
       FATAL_ERROR
@@ -14,6 +15,7 @@ if(NOT EXISTS "${gate_module}")
   )
 endif()
 
+message("Including HunterGate: ${gate_module}")
 include("${gate_module}")
 
 ### Check testing variables are set

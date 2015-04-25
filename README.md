@@ -49,6 +49,7 @@ superbuild files. Just change 2 lines of code: input parameters `SHA1`/`URL` of 
 
 * [3.0.0][cmake-3.0.0-release-notes] **Minimum required**
   * Interface header-only libraries
+  * Sub-option `VERSION` for command `project`
   * New MSVC generator names
 * [3.1.0][cmake-3.1.0-release-notes]
   * Retry download on hash mismatch ([change][cmake-retry-commit])

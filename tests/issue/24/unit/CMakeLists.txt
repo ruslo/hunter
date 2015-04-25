@@ -1,6 +1,8 @@
 cmake_minimum_required(VERSION 3.0)
 
-include("../../../common.cmake")
+include("../../../../examples/common.cmake")
+
+project(TestIssue24Unit)
 
 include(hunter_cmake_args)
 include(hunter_config)
