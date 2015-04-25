@@ -15,7 +15,8 @@ if(NOT unix_is_good)
   message(FATAL_ERROR "UNIX changed: ${OLD_UNIX} -> ${UNIX}")
 endif()
 
-if(NOT win32_is_good)
+# On cygwin WIN32 unset
+if(NOT win32_is_good AND NOT CYGWIN)
   message(FATAL_ERROR "WIN32 changed: ${OLD_WIN32} -> ${WIN32}")
 endif()
 
