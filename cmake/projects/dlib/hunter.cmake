@@ -11,7 +11,6 @@ endif()
 include(hunter_add_version)
 include(hunter_download)
 include(hunter_pick_scheme)
-include(hunter_add_package)
 
 # List of versions here...
 hunter_add_version(
