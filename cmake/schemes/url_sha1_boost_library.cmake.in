@@ -180,7 +180,7 @@ endif()
 
 string(COMPARE NOTEQUAL "@CMAKE_OSX_SYSROOT@" "" have_osx_sysroot)
 if(have_osx_sysroot)
-  set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -isystem @CMAKE_OSX_SYSROOT@")
+  set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -isysroot @CMAKE_OSX_SYSROOT@")
 endif()
 
 if("@HUNTER_ENABLE_BOOST_SHARED@")
