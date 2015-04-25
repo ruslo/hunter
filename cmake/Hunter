@@ -7,7 +7,30 @@ else()
   set(HUNTER_CMAKE_HUNTER_ 1)
 endif()
 
+if(NOT DEFINED CMAKE_INSTALL_PREFIX)
+  # If CMAKE_INSTALL_PREFIX not defined CMake will set some default value
+  # in first 'project' command. For Windows it is:
+  #   * Program Files/<project-name>
+  # Since first project call will be 'project(Hunter)' (see below) it always be
+  # 'Program Files/Hunter', i.e. user's name will be lost. Set this variable to
+  # revert defaults.
+  set(_hunter_revert_cmake_install_prefix YES)
+else()
+  set(_hunter_revert_cmake_install_prefix NO)
+endif()
+
+# Here must be some code to init builtin toolchains
+# (i.e. set value for CMAKE_TOOLCHAIN_FILE)
+# PROJECT_NAME is empty here
+
+# We need to call 'project' command since Hunter using such variables like MSVC
 project(Hunter)
+
+if(_hunter_revert_cmake_install_prefix)
+  # Fix: https://github.com/ruslo/hunter/issues/104
+  unset(CMAKE_INSTALL_PREFIX CACHE)
+  unset(CMAKE_SYSTEM_SPECIFIC_INFORMATION_LOADED)
+endif()
 
 option(HUNTER_ENABLED "Enable Hunter package manager support" ON)
 option(HUNTER_STATUS_PRINT "Print working status" ON)
