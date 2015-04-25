@@ -1,4 +1,4 @@
-# Copyright (c) 2013, Ruslan Baratov
+# Copyright (c) 2013-2015, Ruslan Baratov
 # All rights reserved.
 
 cmake_minimum_required(VERSION 3.0)
@@ -200,6 +200,13 @@ set(
     "--user-config=${boost_user_jam}"
     --with-@HUNTER_PACKAGE_COMPONENT@
 )
+
+string(COMPARE EQUAL "@HUNTER_PACKAGE_COMPONENT@" "iostreams" is_iostreams)
+if(is_iostreams)
+  if(IOSTREAMS_NO_BZIP2)
+    list(APPEND build_opts -s NO_BZIP2=1)
+  endif()
+endif()
 
 if(CMAKE_CXX_FLAGS)
   list(APPEND build_opts "cxxflags=${CMAKE_CXX_FLAGS}")

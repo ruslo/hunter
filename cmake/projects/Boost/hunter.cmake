@@ -8,6 +8,7 @@ else()
 endif()
 
 include(hunter_add_version)
+include(hunter_cmake_args)
 include(hunter_download)
 include(hunter_pick_scheme)
 
@@ -149,6 +150,8 @@ hunter_add_version(
     SHA1
     26a52840e9d12f829e3008589abf0a925ce88524
 )
+
+hunter_cmake_args(Boost CMAKE_ARGS IOSTREAMS_NO_BZIP2=1)
 
 hunter_pick_scheme(DEFAULT url_sha1_boost)
 hunter_download(PACKAGE_NAME Boost)
