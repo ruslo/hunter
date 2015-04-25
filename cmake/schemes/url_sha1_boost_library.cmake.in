@@ -201,6 +201,13 @@ set(
     --with-@HUNTER_PACKAGE_COMPONENT@
 )
 
+string(COMPARE EQUAL "@HUNTER_PACKAGE_COMPONENT@" "iostreams" is_iostreams)
+if(is_iostreams)
+if(IOSTREAMS_NO_BZIP2)
+  list(APPEND build_opts -s NO_BZIP2=1)
+endif(IOSTREAMS_NO_BZIP2)
+endif(is_iostreams)
+
 if(CMAKE_CXX_FLAGS)
   list(APPEND build_opts "cxxflags=${CMAKE_CXX_FLAGS}")
 endif()
