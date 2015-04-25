@@ -5,6 +5,8 @@ cmake_minimum_required(VERSION 3.0)
 
 include("../common.cmake")
 
+project(TestsSimple)
+
 include(hunter_config)
 
 set(HUNTER_ALLOW_CONFIG_LOADING YES)

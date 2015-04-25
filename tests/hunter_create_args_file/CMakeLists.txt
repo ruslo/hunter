@@ -4,6 +4,7 @@
 cmake_minimum_required(VERSION 3.0)
 
 include("../common.cmake")
+project(TestModuleHunterCreateArgsFile)
 
 include(hunter_create_args_file)
 
