@@ -52,6 +52,7 @@ superbuild files. Just change 2 lines of code: input parameters `SHA1`/`URL` of 
   * Sub-option `VERSION` for command `project`
   * New MSVC generator names
 * [3.1.0][cmake-3.1.0-release-notes]
+  * **Buggy**, see [issue #105](https://github.com/ruslo/hunter/issues/105)
   * Retry download on hash mismatch ([change][cmake-retry-commit])
   * New [CMP0054][cmake-cmp0054] (best CMake policy! See [this SO question][so-cmp0054])
 * [3.2.0][cmake-3.2-release-notes]
