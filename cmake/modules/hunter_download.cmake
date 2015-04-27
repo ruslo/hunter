@@ -172,9 +172,6 @@ function(hunter_download)
   file(REMOVE "${HUNTER_DOWNLOAD_TOOLCHAIN}")
   file(REMOVE "${HUNTER_ARGS_FILE}")
 
-  # Do not lock hunter directory if package is internal (already locked)
-  file(APPEND "${HUNTER_DOWNLOAD_TOOLCHAIN}" "set(HUNTER_SKIP_LOCK YES)\n")
-
   # Force building of static libraries:
   # * https://github.com/ruslo/hunter/issues/77
   file(

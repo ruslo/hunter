@@ -68,6 +68,13 @@ function(hunter_create_cache_file cache_path)
     )
   endforeach()
 
+  # If build start then directory is already locked => no need for locking
+  file(
+      APPEND
+      "${temp_path}"
+      "set(HUNTER_SKIP_LOCK YES CACHE INTERNAL \"\")\n"
+  )
+
   # Forward variables that affect/form root directory and toolchain-ID creation
   file(
       APPEND
