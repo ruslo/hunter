@@ -16,6 +16,7 @@ include(hunter_fatal_error)
 include(hunter_internal_error)
 include(hunter_status_debug)
 include(hunter_test_string_not_empty)
+include(hunter_boost_component_b2_args)
 
 hunter_status_debug("Scheme: url_sha1_boost_library")
 
@@ -201,12 +202,13 @@ set(
     --with-@HUNTER_PACKAGE_COMPONENT@
 )
 
-string(COMPARE EQUAL "@HUNTER_PACKAGE_COMPONENT@" "iostreams" is_iostreams)
-if(is_iostreams)
-  if(IOSTREAMS_NO_BZIP2)
-    list(APPEND build_opts -s NO_BZIP2=1)
-  endif()
-endif()
+hunter_boost_component_b2_args(
+  "@HUNTER_PACKAGE_COMPONENT@"
+  "@HUNTER_Boost_CMAKE_ARGS@"
+  b2_component_opts
+  )
+
+list(APPEND build_opts ${b2_component_opts})
 
 if(CMAKE_CXX_FLAGS)
   list(APPEND build_opts "cxxflags=${CMAKE_CXX_FLAGS}")
