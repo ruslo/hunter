@@ -17,7 +17,7 @@ function(hunter_create_cache_file cache_path)
     return()
   endif()
 
-  hunter_lock_directory("${HUNTER_TOOLCHAIN_ID_PATH}")
+  hunter_lock_directory("${HUNTER_TOOLCHAIN_ID_PATH}" "")
 
   # While waiting for lock other instance can create this file
   if(EXISTS "${cache_path}")
@@ -75,13 +75,6 @@ function(hunter_create_cache_file cache_path)
         "set(CMAKE_${configuration_upper}_POSTFIX \"${CMAKE_${configuration_upper}_POSTFIX}\" CACHE INTERNAL \"\")\n"
     )
   endforeach()
-
-  # If build start then directory is already locked => no need for locking
-  file(
-      APPEND
-      "${temp_path}"
-      "set(HUNTER_SKIP_LOCK YES CACHE INTERNAL \"\")\n"
-  )
 
   # Force building of static libraries:
   # * https://github.com/ruslo/hunter/issues/77

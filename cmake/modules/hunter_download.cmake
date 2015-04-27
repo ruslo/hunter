@@ -150,11 +150,17 @@ function(hunter_download)
     return()
   endif()
 
-  hunter_lock_directory("${HUNTER_PACKAGE_DOWNLOAD_DIR}")
+  hunter_lock_directory(
+      "${HUNTER_PACKAGE_DOWNLOAD_DIR}" HUNTER_ALREADY_LOCKED_DIRECTORIES
+  )
   if(HUNTER_DOWNLOAD_SCHEME_INSTALL)
-    hunter_lock_directory("${HUNTER_TOOLCHAIN_ID_PATH}")
+    hunter_lock_directory(
+        "${HUNTER_TOOLCHAIN_ID_PATH}" HUNTER_ALREADY_LOCKED_DIRECTORIES
+    )
     if(hunter_has_binary_dir)
-      hunter_lock_directory("${HUNTER_BINARY_DIR}")
+      hunter_lock_directory(
+          "${HUNTER_BINARY_DIR}" HUNTER_ALREADY_LOCKED_DIRECTORIES
+      )
     endif()
   endif()
 
@@ -172,8 +178,11 @@ function(hunter_download)
   file(REMOVE "${HUNTER_DOWNLOAD_TOOLCHAIN}")
   file(REMOVE "${HUNTER_ARGS_FILE}")
 
-  # Init empty file in case no extra variables needed
-  file(WRITE "${HUNTER_DOWNLOAD_TOOLCHAIN}" "")
+  file(
+      WRITE
+      "${HUNTER_DOWNLOAD_TOOLCHAIN}"
+      "set(HUNTER_ALREADY_LOCKED_DIRECTORIES \"${HUNTER_ALREADY_LOCKED_DIRECTORIES}\" CACHE INTERNAL \"\")\n"
+  )
 
   hunter_jobs_number(HUNTER_JOBS_OPTION "${HUNTER_DOWNLOAD_TOOLCHAIN}")
   hunter_status_debug("HUNTER_JOBS_NUMBER: ${HUNTER_JOBS_NUMBER}")
