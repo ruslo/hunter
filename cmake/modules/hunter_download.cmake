@@ -172,14 +172,6 @@ function(hunter_download)
   file(REMOVE "${HUNTER_DOWNLOAD_TOOLCHAIN}")
   file(REMOVE "${HUNTER_ARGS_FILE}")
 
-  # Force building of static libraries:
-  # * https://github.com/ruslo/hunter/issues/77
-  file(
-      APPEND
-      "${HUNTER_DOWNLOAD_TOOLCHAIN}"
-      "set(BUILD_SHARED_LIBS OFF CACHE BOOL \"\" FORCE)\n"
-  )
-
   file(
       APPEND
       "${HUNTER_DOWNLOAD_TOOLCHAIN}"
