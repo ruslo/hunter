@@ -12,6 +12,7 @@ include(hunter_cmake_args)
 include(hunter_configuration_types)
 include(hunter_download)
 include(hunter_pick_scheme)
+include(hunter_report_broken_package)
 
 hunter_add_package(Clang) # CLANG_ROOT
 hunter_add_package(ClangToolsExtra) # CLANGTOOLSEXTRA_ROOT
@@ -63,4 +64,13 @@ hunter_cmake_args(
 
 hunter_configuration_types(LLVM CONFIGURATION_TYPES Release)
 hunter_pick_scheme(DEFAULT url_sha1_cmake)
+
+if(MSVC_IDE)
+  hunter_report_broken_package(
+      "LLVM build broken on Visual Studio, see:"
+      "http://llvm.1065342.n5.nabble.com/Install-Problem-of-Compiler-rt-with-Visual-Studio-Express-2013-for-Windows-Desktop-td66575.html"
+      " (use MINGW or NMake generators)"
+  )
+endif()
+
 hunter_download(PACKAGE_NAME LLVM)
