@@ -172,11 +172,8 @@ function(hunter_download)
   file(REMOVE "${HUNTER_DOWNLOAD_TOOLCHAIN}")
   file(REMOVE "${HUNTER_ARGS_FILE}")
 
-  file(
-      APPEND
-      "${HUNTER_DOWNLOAD_TOOLCHAIN}"
-      "include(\"${HUNTER_ARGS_FILE}\")\n"
-  )
+  # Init empty file in case no extra variables needed
+  file(WRITE "${HUNTER_DOWNLOAD_TOOLCHAIN}" "")
 
   hunter_jobs_number(HUNTER_JOBS_OPTION "${HUNTER_DOWNLOAD_TOOLCHAIN}")
   hunter_status_debug("HUNTER_JOBS_NUMBER: ${HUNTER_JOBS_NUMBER}")
@@ -249,6 +246,7 @@ function(hunter_download)
       cmd
       "${CMAKE_COMMAND}"
       "-C${HUNTER_CACHE_FILE}"
+      "-C${HUNTER_ARGS_FILE}" # After cache (high priority for user's variable)
       "-H${HUNTER_PACKAGE_HOME_DIR}"
       "-B${HUNTER_PACKAGE_BUILD_DIR}"
       "-DCMAKE_TOOLCHAIN_FILE=${HUNTER_DOWNLOAD_TOOLCHAIN}"
