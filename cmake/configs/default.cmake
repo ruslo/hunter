@@ -25,7 +25,7 @@ include(hunter_config)
 
 hunter_config(Boost VERSION 1.57.0)
 hunter_config(CLAPACK VERSION 3.2.1)
-hunter_config(Clang VERSION 3.5.0)
+hunter_config(Clang VERSION 3.6.0)
 hunter_config(ClangToolsExtra VERSION ${HUNTER_Clang_VERSION})
 hunter_config(Comet VERSION 4.0.1)
 hunter_config(CppNetlib VERSION 0.10.1-hunter-3)

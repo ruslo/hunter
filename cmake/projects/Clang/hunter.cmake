@@ -15,6 +15,17 @@ hunter_add_version(
     PACKAGE_NAME
     Clang
     VERSION
+    "3.6.0"
+    URL
+    "http://llvm.org/releases/3.6.0/cfe-3.6.0.src.tar.xz"
+    SHA1
+    06b252867a3d118c95ca279fd3c4ac05f6730551
+)
+
+hunter_add_version(
+    PACKAGE_NAME
+    Clang
+    VERSION
     "3.5.0"
     URL
     "http://llvm.org/releases/3.5.0/cfe-3.5.0.src.tar.xz"
