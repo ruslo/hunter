@@ -77,7 +77,7 @@ function(hunter_calculate_config_sha1 hunter_self hunter_base user_config)
     return()
   endif()
 
-  hunter_lock_directory("${hunter_config_id_path}")
+  hunter_lock_directory("${hunter_config_id_path}" "")
   if(EXISTS "${dst}")
     return()
   endif()

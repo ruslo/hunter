@@ -30,10 +30,6 @@ hunter_test_string_not_empty("@IOS_SDK_VERSION@")
 hunter_test_string_not_empty("@IPHONESIMULATOR_ROOT@")
 hunter_test_string_not_empty("@IPHONEOS_ROOT@")
 
-if("@HUNTER_STATUS_DEBUG@")
-  set(CMAKE_VERBOSE_MAKEFILE ON)
-endif()
-
 hunter_unsetvar(ssl_input_libraries)
 hunter_unsetvar(crypto_input_libraries)
 

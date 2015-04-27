@@ -17,7 +17,7 @@ function(hunter_create_cache_file cache_path)
     return()
   endif()
 
-  hunter_lock_directory("${HUNTER_TOOLCHAIN_ID_PATH}")
+  hunter_lock_directory("${HUNTER_TOOLCHAIN_ID_PATH}" "")
 
   # While waiting for lock other instance can create this file
   if(EXISTS "${cache_path}")
@@ -51,6 +51,14 @@ function(hunter_create_cache_file cache_path)
       "set(HUNTER_STATUS_DEBUG \"${HUNTER_STATUS_DEBUG}\" CACHE INTERNAL \"\")\n"
   )
 
+  if(HUNTER_STATUS_DEBUG)
+    file(
+        APPEND
+        "${temp_path}"
+        "set(CMAKE_VERBOSE_MAKEFILE ON CACHE INTERNAL \"\")\n"
+    )
+  endif()
+
   # Let all project build with the same number of jobs
   file(
       APPEND
@@ -67,6 +75,18 @@ function(hunter_create_cache_file cache_path)
         "set(CMAKE_${configuration_upper}_POSTFIX \"${CMAKE_${configuration_upper}_POSTFIX}\" CACHE INTERNAL \"\")\n"
     )
   endforeach()
+
+  # Force building of static libraries:
+  # * https://github.com/ruslo/hunter/issues/77
+  # Note:
+  #   user may rewrite this setting in custom config.cmake file. Since
+  #   HUNTER_CACHE_FILE loaded first and then args.cmake user's setting
+  #   will be respected.
+  file(
+      APPEND
+      "${temp_path}"
+      "set(BUILD_SHARED_LIBS OFF CACHE INTERNAL \"\")\n"
+  )
 
   # Forward variables that affect/form root directory and toolchain-ID creation
   file(

@@ -150,11 +150,17 @@ function(hunter_download)
     return()
   endif()
 
-  hunter_lock_directory("${HUNTER_PACKAGE_DOWNLOAD_DIR}")
+  hunter_lock_directory(
+      "${HUNTER_PACKAGE_DOWNLOAD_DIR}" HUNTER_ALREADY_LOCKED_DIRECTORIES
+  )
   if(HUNTER_DOWNLOAD_SCHEME_INSTALL)
-    hunter_lock_directory("${HUNTER_TOOLCHAIN_ID_PATH}")
+    hunter_lock_directory(
+        "${HUNTER_TOOLCHAIN_ID_PATH}" HUNTER_ALREADY_LOCKED_DIRECTORIES
+    )
     if(hunter_has_binary_dir)
-      hunter_lock_directory("${HUNTER_BINARY_DIR}")
+      hunter_lock_directory(
+          "${HUNTER_BINARY_DIR}" HUNTER_ALREADY_LOCKED_DIRECTORIES
+      )
     endif()
   endif()
 
@@ -172,21 +178,10 @@ function(hunter_download)
   file(REMOVE "${HUNTER_DOWNLOAD_TOOLCHAIN}")
   file(REMOVE "${HUNTER_ARGS_FILE}")
 
-  # Do not lock hunter directory if package is internal (already locked)
-  file(APPEND "${HUNTER_DOWNLOAD_TOOLCHAIN}" "set(HUNTER_SKIP_LOCK YES)\n")
-
-  # Force building of static libraries:
-  # * https://github.com/ruslo/hunter/issues/77
   file(
-      APPEND
+      WRITE
       "${HUNTER_DOWNLOAD_TOOLCHAIN}"
-      "set(BUILD_SHARED_LIBS OFF CACHE BOOL \"\" FORCE)\n"
-  )
-
-  file(
-      APPEND
-      "${HUNTER_DOWNLOAD_TOOLCHAIN}"
-      "include(\"${HUNTER_ARGS_FILE}\")\n"
+      "set(HUNTER_ALREADY_LOCKED_DIRECTORIES \"${HUNTER_ALREADY_LOCKED_DIRECTORIES}\" CACHE INTERNAL \"\")\n"
   )
 
   hunter_jobs_number(HUNTER_JOBS_OPTION "${HUNTER_DOWNLOAD_TOOLCHAIN}")
@@ -203,12 +198,6 @@ function(hunter_download)
   hunter_create_args_file(
       "${HUNTER_${h_name}_CMAKE_ARGS}" "${HUNTER_ARGS_FILE}"
   )
-
-  if(HUNTER_STATUS_DEBUG)
-    set(verbose_makefile "-DCMAKE_VERBOSE_MAKEFILE=ON")
-  else()
-    set(verbose_makefile "")
-  endif()
 
   if(hunter_no_url)
     set(avail ${HUNTER_${h_name}_VERSIONS})
@@ -266,12 +255,11 @@ function(hunter_download)
       cmd
       "${CMAKE_COMMAND}"
       "-C${HUNTER_CACHE_FILE}"
+      "-C${HUNTER_ARGS_FILE}" # After cache (high priority for user's variable)
       "-H${HUNTER_PACKAGE_HOME_DIR}"
       "-B${HUNTER_PACKAGE_BUILD_DIR}"
       "-DCMAKE_TOOLCHAIN_FILE=${HUNTER_DOWNLOAD_TOOLCHAIN}"
-      "-DHUNTER_STATUS_DEBUG=${HUNTER_STATUS_DEBUG}"
       "-G${CMAKE_GENERATOR}"
-      ${verbose_makefile}
   )
   hunter_print_cmd("${HUNTER_PACKAGE_HOME_DIR}" "${cmd}")
 

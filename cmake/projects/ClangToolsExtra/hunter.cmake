@@ -15,6 +15,17 @@ hunter_add_version(
     PACKAGE_NAME
     ClangToolsExtra
     VERSION
+    "3.6.0"
+    URL
+    "http://llvm.org/releases/3.6.0/clang-tools-extra-3.6.0.src.tar.xz"
+    SHA1
+    30c6acd7404b9abf0338110818fba255d5744978
+)
+
+hunter_add_version(
+    PACKAGE_NAME
+    ClangToolsExtra
+    VERSION
     "3.5.0"
     URL
     "http://llvm.org/releases/3.5.0/clang-tools-extra-3.5.0.src.tar.xz"

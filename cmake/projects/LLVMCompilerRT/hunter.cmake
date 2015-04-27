@@ -15,6 +15,17 @@ hunter_add_version(
     PACKAGE_NAME
     LLVMCompilerRT
     VERSION
+    "3.6.0"
+    URL
+    "http://llvm.org/releases/3.6.0/compiler-rt-3.6.0.src.tar.xz"
+    SHA1
+    771cbf0535dce1ca3a3be022377781e32fdea70e
+)
+
+hunter_add_version(
+    PACKAGE_NAME
+    LLVMCompilerRT
+    VERSION
     "3.5.0"
     URL
     "http://llvm.org/releases/3.5.0/compiler-rt-3.5.0.src.tar.xz"
