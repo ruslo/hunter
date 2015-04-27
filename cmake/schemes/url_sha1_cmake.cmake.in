@@ -49,10 +49,6 @@ else()
   set(jobs_option "")
 endif()
 
-if("@HUNTER_STATUS_DEBUG@")
-  set(verbose_makefile "-DCMAKE_VERBOSE_MAKEFILE=ON")
-endif()
-
 set(previous_project "")
 
 foreach(configuration @HUNTER_PACKAGE_CONFIGURATION_TYPES@)
