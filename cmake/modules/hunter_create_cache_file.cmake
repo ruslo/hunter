@@ -51,6 +51,14 @@ function(hunter_create_cache_file cache_path)
       "set(HUNTER_STATUS_DEBUG \"${HUNTER_STATUS_DEBUG}\" CACHE INTERNAL \"\")\n"
   )
 
+  if(HUNTER_STATUS_DEBUG)
+    file(
+        APPEND
+        "${temp_path}"
+        "set(CMAKE_VERBOSE_MAKEFILE ON CACHE INTERNAL \"\")\n"
+    )
+  endif()
+
   # Let all project build with the same number of jobs
   file(
       APPEND

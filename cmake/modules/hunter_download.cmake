@@ -201,12 +201,6 @@ function(hunter_download)
       "${HUNTER_${h_name}_CMAKE_ARGS}" "${HUNTER_ARGS_FILE}"
   )
 
-  if(HUNTER_STATUS_DEBUG)
-    set(verbose_makefile "-DCMAKE_VERBOSE_MAKEFILE=ON")
-  else()
-    set(verbose_makefile "")
-  endif()
-
   if(hunter_no_url)
     set(avail ${HUNTER_${h_name}_VERSIONS})
     hunter_internal_error(
@@ -268,7 +262,6 @@ function(hunter_download)
       "-DCMAKE_TOOLCHAIN_FILE=${HUNTER_DOWNLOAD_TOOLCHAIN}"
       "-DHUNTER_STATUS_DEBUG=${HUNTER_STATUS_DEBUG}"
       "-G${CMAKE_GENERATOR}"
-      ${verbose_makefile}
   )
   hunter_print_cmd("${HUNTER_PACKAGE_HOME_DIR}" "${cmd}")
 
