@@ -19,7 +19,7 @@ function(hunter_make_directory parent sha1 result)
   set(sha1_path "${dir_path}/SHA1")
 
   if(NOT EXISTS "${done_path}")
-    hunter_lock_directory("${dir_path}")
+    hunter_lock_directory("${dir_path}" "")
   endif()
 
   if(EXISTS "${done_path}")

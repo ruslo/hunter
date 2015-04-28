@@ -33,6 +33,7 @@ hunter_test_string_not_empty("@HUNTER_PACKAGE_SOURCE_DIR@")
 hunter_test_string_not_empty("@HUNTER_INSTALL_PREFIX@")
 hunter_test_string_not_empty("@HUNTER_PACKAGE_CONFIGURATION_TYPES@")
 hunter_test_string_not_empty("@HUNTER_CACHE_FILE@")
+hunter_test_string_not_empty("@HUNTER_ARGS_FILE@")
 hunter_test_string_not_empty("@CMAKE_GENERATOR@")
 hunter_test_string_not_empty("${CMAKE_TOOLCHAIN_FILE}")
 
@@ -46,10 +47,6 @@ if(have_jobs)
   endif()
 else()
   set(jobs_option "")
-endif()
-
-if("@HUNTER_STATUS_DEBUG@")
-  set(verbose_makefile "-DCMAKE_VERBOSE_MAKEFILE=ON")
 endif()
 
 set(previous_project "")
@@ -87,6 +84,7 @@ foreach(configuration @HUNTER_PACKAGE_CONFIGURATION_TYPES@)
       CMAKE_ARGS
       "-G@CMAKE_GENERATOR@"
       "-C@HUNTER_CACHE_FILE@"
+      "-C@HUNTER_ARGS_FILE@"
       "-D${postfix_name}=${${postfix_name}}"
       "-DCMAKE_BUILD_TYPE=${configuration}"
       "-DCMAKE_CONFIGURATION_TYPES=${configuration}"

@@ -21,8 +21,22 @@ include(hunter_add_package) # For user project
 include(hunter_apply_gate_settings)
 include(hunter_calculate_self)
 include(hunter_create_cache_file)
+include(hunter_fatal_error)
 include(hunter_status_debug)
 include(hunter_status_print)
+
+if(NOT CMAKE_C_ABI_COMPILED)
+  hunter_fatal_error(
+      "ABI not detected for C compiler" WIKI "error.abi.detection.failure"
+  )
+endif()
+
+if(NOT CMAKE_CXX_ABI_COMPILED)
+  hunter_fatal_error(
+      "ABI not detected for CXX compiler" WIKI "error.abi.detection.failure"
+  )
+endif()
+
 
 string(COMPARE NOTEQUAL "$ENV{HUNTER_BINARY_DIR}" "" _env_not_empty)
 if(_env_not_empty)
