@@ -12,5 +12,5 @@ project(download-ccv)
 hunter_add_package(ccv)
 find_package(ccv REQUIRED CONFIG)
 
-add_executable(test test.cpp)
-target_link_libraries(test PRIVATE ccv::ccv)
+add_executable(foo test.c)
+target_link_libraries(foo PRIVATE ccv::ccv)
