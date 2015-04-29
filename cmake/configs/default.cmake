@@ -23,6 +23,7 @@ include(hunter_config)
 
 # NOTE: no names with spaces!
 
+hunter_config(BZip2 VERSION 1.0.6-p1)
 hunter_config(Boost VERSION 1.57.0)
 hunter_config(CLAPACK VERSION 3.2.1)
 hunter_config(Clang VERSION 3.6.0)
@@ -54,6 +55,8 @@ hunter_config(Sugar VERSION 1.2.2)
 hunter_config(TIFF VERSION 4.0.2-hunter-2)
 hunter_config(Washer VERSION 0.1.2)
 hunter_config(ZLIB VERSION 1.2.8-p2)
+hunter_config(ccv VERSION 0.7-p4)
 hunter_config(cvmatio VERSION 1.0.11)
 hunter_config(dlib VERSION 18.14-p1)
 hunter_config(ios_sim VERSION 3.1.1)
+hunter_config(wxWidgets VERSION 3.0.2)
