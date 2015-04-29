@@ -124,6 +124,12 @@ function(hunter_download)
     set(HUNTER_PACKAGE_SOURCE_DIR "${HUNTER_PACKAGE_HOME_DIR}/Source")
     hunter_status_debug("Install to: ${HUNTER_INSTALL_PREFIX}")
   else()
+    if(hunter_has_component)
+      hunter_internal_error(
+          "Component for unpack-only package:"
+          " ${HUNTER_PACKAGE_NAME} ${HUNTER_PACKAGE_COMPONENT}"
+      )
+    endif()
     set(HUNTER_PACKAGE_SOURCE_DIR "${HUNTER_PACKAGE_DOWNLOAD_DIR}/Unpacked")
     set(${root_name} "${HUNTER_PACKAGE_SOURCE_DIR}")
     set(HUNTER_PACKAGE_DONE_STAMP "${HUNTER_PACKAGE_DOWNLOAD_DIR}/Stamp/DONE")
