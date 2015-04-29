@@ -199,7 +199,7 @@ function(hunter_download)
   )
 
   file(
-      WRITE
+      APPEND
       "${HUNTER_DOWNLOAD_TOOLCHAIN}"
       "set(HUNTER_PARENT_PACKAGE \"${HUNTER_PACKAGE_NAME};${HUNTER_PACKAGE_COMPONENT}\" CACHE INTERNAL \"\")\n"
   )
