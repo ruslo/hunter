@@ -2,7 +2,7 @@
 # All rights reserved.
 
 cmake_minimum_required(VERSION 3.0)
-project(Hunter) # Language is not NONE, need CMAKE_CXX_FLAGS from toolchain
+project(Hunter)
 
 include(ExternalProject) # ExternalProject_Add
 
