@@ -92,35 +92,36 @@ function(hunter_download)
   #   * HUNTER_PACKAGE_DONE_STAMP
   #   * HUNTER_PACKAGE_BUILD_DIR
   #   * HUNTER_PACKAGE_HOME_DIR
-  if(HUNTER_DOWNLOAD_SCHEME_INSTALL)
-    set(${root_name} "${HUNTER_INSTALL_PREFIX}")
-    set(HUNTER_PACKAGE_HOME_DIR "${HUNTER_TOOLCHAIN_ID_PATH}/Build")
+  set(HUNTER_PACKAGE_HOME_DIR "${HUNTER_TOOLCHAIN_ID_PATH}/Build")
+  set(
+      HUNTER_PACKAGE_HOME_DIR
+      "${HUNTER_PACKAGE_HOME_DIR}/${HUNTER_PACKAGE_NAME}"
+  )
+  if(hunter_has_component)
     set(
         HUNTER_PACKAGE_HOME_DIR
-        "${HUNTER_PACKAGE_HOME_DIR}/${HUNTER_PACKAGE_NAME}"
+        "${HUNTER_PACKAGE_HOME_DIR}/__${HUNTER_PACKAGE_COMPONENT}"
+    )
+  endif()
+  set(HUNTER_PACKAGE_DONE_STAMP "${HUNTER_PACKAGE_HOME_DIR}/DONE")
+  if(hunter_has_binary_dir)
+    set(
+        HUNTER_PACKAGE_BUILD_DIR
+        "${HUNTER_BINARY_DIR}/${HUNTER_PACKAGE_NAME}"
     )
     if(hunter_has_component)
       set(
-          HUNTER_PACKAGE_HOME_DIR
-          "${HUNTER_PACKAGE_HOME_DIR}/__${HUNTER_PACKAGE_COMPONENT}"
-      )
-    endif()
-    set(HUNTER_PACKAGE_DONE_STAMP "${HUNTER_PACKAGE_HOME_DIR}/DONE")
-    if(hunter_has_binary_dir)
-      set(
           HUNTER_PACKAGE_BUILD_DIR
-          "${HUNTER_BINARY_DIR}/${HUNTER_PACKAGE_NAME}"
+          "${HUNTER_PACKAGE_BUILD_DIR}/__${HUNTER_PACKAGE_COMPONENT}"
       )
-      if(hunter_has_component)
-        set(
-            HUNTER_PACKAGE_BUILD_DIR
-            "${HUNTER_PACKAGE_BUILD_DIR}/__${HUNTER_PACKAGE_COMPONENT}"
-        )
-      endif()
-    else()
-      set(HUNTER_PACKAGE_BUILD_DIR "${HUNTER_PACKAGE_HOME_DIR}/Build")
     endif()
-    set(HUNTER_PACKAGE_SOURCE_DIR "${HUNTER_PACKAGE_HOME_DIR}/Source")
+  else()
+    set(HUNTER_PACKAGE_BUILD_DIR "${HUNTER_PACKAGE_HOME_DIR}/Build")
+  endif()
+  set(HUNTER_PACKAGE_SOURCE_DIR "${HUNTER_PACKAGE_HOME_DIR}/Source")
+
+  if(HUNTER_DOWNLOAD_SCHEME_INSTALL)
+    set(${root_name} "${HUNTER_INSTALL_PREFIX}")
     hunter_status_debug("Install to: ${HUNTER_INSTALL_PREFIX}")
   else()
     if(hunter_has_component)
@@ -129,11 +130,7 @@ function(hunter_download)
           " ${HUNTER_PACKAGE_NAME} ${HUNTER_PACKAGE_COMPONENT}"
       )
     endif()
-    set(HUNTER_PACKAGE_SOURCE_DIR "${HUNTER_PACKAGE_DOWNLOAD_DIR}/Unpacked")
     set(${root_name} "${HUNTER_PACKAGE_SOURCE_DIR}")
-    set(HUNTER_PACKAGE_DONE_STAMP "${HUNTER_PACKAGE_DOWNLOAD_DIR}/Stamp/DONE")
-    set(HUNTER_PACKAGE_BUILD_DIR "${HUNTER_PACKAGE_DOWNLOAD_DIR}/Build")
-    set(HUNTER_PACKAGE_HOME_DIR "${HUNTER_PACKAGE_DOWNLOAD_DIR}")
     hunter_status_debug("Unpack to: ${HUNTER_PACKAGE_SOURCE_DIR}")
   endif()
 
@@ -165,15 +162,13 @@ function(hunter_download)
   hunter_lock_directory(
       "${HUNTER_PACKAGE_DOWNLOAD_DIR}" HUNTER_ALREADY_LOCKED_DIRECTORIES
   )
-  if(HUNTER_DOWNLOAD_SCHEME_INSTALL)
+  hunter_lock_directory(
+      "${HUNTER_TOOLCHAIN_ID_PATH}" HUNTER_ALREADY_LOCKED_DIRECTORIES
+  )
+  if(hunter_has_binary_dir)
     hunter_lock_directory(
-        "${HUNTER_TOOLCHAIN_ID_PATH}" HUNTER_ALREADY_LOCKED_DIRECTORIES
+        "${HUNTER_BINARY_DIR}" HUNTER_ALREADY_LOCKED_DIRECTORIES
     )
-    if(hunter_has_binary_dir)
-      hunter_lock_directory(
-          "${HUNTER_BINARY_DIR}" HUNTER_ALREADY_LOCKED_DIRECTORIES
-      )
-    endif()
   endif()
 
   # While locking other instance can finish package building
