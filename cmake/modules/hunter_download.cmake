@@ -16,13 +16,15 @@ include(hunter_user_error)
 
 function(hunter_download)
   set(one PACKAGE_NAME PACKAGE_COMPONENT)
+  set(multiple PACKAGE_DEPENDS_ON)
 
-  cmake_parse_arguments(HUNTER "" "${one}" "" ${ARGV})
+  cmake_parse_arguments(HUNTER "" "${one}" "${multiple}" ${ARGV})
   # -> HUNTER_PACKAGE_NAME
   # -> HUNTER_PACKAGE_COMPONENT
+  # -> HUNTER_PACKAGE_DEPENDS_ON
 
   if(HUNTER_UNPARSED_ARGUMENTS)
-    hunter_internal_error("Unparsed")
+    hunter_internal_error("Unparsed: ${HUNTER_UNPARSED_ARGUMENTS}")
   endif()
 
   set(versions "[${HUNTER_${HUNTER_PACKAGE_NAME}_VERSIONS}]")
@@ -150,6 +152,14 @@ function(hunter_download)
       DEPENDS_ON_PACKAGE "${HUNTER_PACKAGE_NAME}"
       DEPENDS_ON_COMPONENT "${HUNTER_PACKAGE_COMPONENT}"
   )
+
+  foreach(deps ${HUNTER_PACKAGE_DEPENDS_ON})
+    # Register explicit dependency
+    hunter_register_dependency(
+        PACKAGE "${HUNTER_PACKAGE_NAME};${HUNTER_PACKAGE_COMPONENT}"
+        DEPENDS_ON_PACKAGE "${deps}"
+    )
+  endforeach()
 
   if(EXISTS "${HUNTER_PACKAGE_DONE_STAMP}")
     hunter_status_debug("Package already installed: ${HUNTER_PACKAGE_NAME}")
