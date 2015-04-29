@@ -103,7 +103,7 @@ function(hunter_download)
     if(hunter_has_component)
       set(
           HUNTER_PACKAGE_HOME_DIR
-          "${HUNTER_PACKAGE_HOME_DIR}/${HUNTER_PACKAGE_COMPONENT}"
+          "${HUNTER_PACKAGE_HOME_DIR}/__${HUNTER_PACKAGE_COMPONENT}"
       )
     endif()
     set(HUNTER_PACKAGE_DONE_STAMP "${HUNTER_PACKAGE_HOME_DIR}/DONE")
@@ -115,7 +115,7 @@ function(hunter_download)
       if(hunter_has_component)
         set(
             HUNTER_PACKAGE_BUILD_DIR
-            "${HUNTER_PACKAGE_BUILD_DIR}/${HUNTER_PACKAGE_COMPONENT}"
+            "${HUNTER_PACKAGE_BUILD_DIR}/__${HUNTER_PACKAGE_COMPONENT}"
         )
       endif()
     else()
