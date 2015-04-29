@@ -10,6 +10,7 @@ include(hunter_find_stamps)
 include(hunter_internal_error)
 include(hunter_jobs_number)
 include(hunter_print_cmd)
+include(hunter_register_dependency)
 include(hunter_status_debug)
 include(hunter_status_print)
 include(hunter_test_string_not_empty)
@@ -148,6 +149,13 @@ function(hunter_download)
   # separate file with build options
   set(HUNTER_ARGS_FILE "${HUNTER_PACKAGE_HOME_DIR}/args.cmake")
 
+  # Registering dependency (before return!)
+  hunter_register_dependency(
+      PACKAGE "${HUNTER_PARENT_PACKAGE}"
+      DEPENDS_ON_PACKAGE "${HUNTER_PACKAGE_NAME}"
+      DEPENDS_ON_COMPONENT "${HUNTER_PACKAGE_COMPONENT}"
+  )
+
   if(EXISTS "${HUNTER_PACKAGE_DONE_STAMP}")
     hunter_status_debug("Package already installed: ${HUNTER_PACKAGE_NAME}")
     if(hunter_has_component)
@@ -188,6 +196,12 @@ function(hunter_download)
       WRITE
       "${HUNTER_DOWNLOAD_TOOLCHAIN}"
       "set(HUNTER_ALREADY_LOCKED_DIRECTORIES \"${HUNTER_ALREADY_LOCKED_DIRECTORIES}\" CACHE INTERNAL \"\")\n"
+  )
+
+  file(
+      WRITE
+      "${HUNTER_DOWNLOAD_TOOLCHAIN}"
+      "set(HUNTER_PARENT_PACKAGE \"${HUNTER_PACKAGE_NAME};${HUNTER_PACKAGE_COMPONENT}\" CACHE INTERNAL \"\")\n"
   )
 
   hunter_jobs_number(HUNTER_JOBS_OPTION "${HUNTER_DOWNLOAD_TOOLCHAIN}")
