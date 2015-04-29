@@ -1,8 +1,6 @@
 # Copyright (c) 2013-2015, Ruslan Baratov
 # All rights reserved.
 
-cmake_minimum_required(VERSION 3.0) # sleep
-
 include(CMakeParseArguments) # cmake_parse_arguments
 
 include(hunter_create_args_file)
