@@ -23,7 +23,7 @@ hunter_test_string_not_empty("@HUNTER_PACKAGE_URL@")
 hunter_test_string_not_empty("@HUNTER_PACKAGE_SHA1@")
 hunter_test_string_not_empty("@HUNTER_PACKAGE_DOWNLOAD_DIR@")
 hunter_test_string_not_empty("@HUNTER_PACKAGE_SOURCE_DIR@")
-hunter_test_string_not_empty("@HUNTER_INSTALL_PREFIX@")
+hunter_test_string_not_empty("@HUNTER_PACKAGE_INSTALL_PREFIX@")
 hunter_test_string_not_empty("@HUNTER_Boost_VERSION@")
 if("@MSVC@")
   hunter_test_string_not_empty("@HUNTER_MSVC_ARCH@")
@@ -112,7 +112,7 @@ ExternalProject_Add(
     SOURCE_DIR
     "@HUNTER_PACKAGE_SOURCE_DIR@"
     INSTALL_DIR
-    "@HUNTER_INSTALL_PREFIX@"
+    "@HUNTER_PACKAGE_INSTALL_PREFIX@"
         # not used, just avoid creating Install/<name> empty directory
     CONFIGURE_COMMAND
     ${env_cmd}
@@ -128,5 +128,5 @@ ExternalProject_Add(
     -d0
     install
     ${boost_list}
-    "--prefix=@HUNTER_INSTALL_PREFIX@"
+    "--prefix=@HUNTER_PACKAGE_INSTALL_PREFIX@"
 )

@@ -21,7 +21,7 @@ hunter_test_string_not_empty("@HUNTER_PACKAGE_URL@")
 hunter_test_string_not_empty("@HUNTER_PACKAGE_SHA1@")
 hunter_test_string_not_empty("@HUNTER_PACKAGE_DOWNLOAD_DIR@")
 hunter_test_string_not_empty("@HUNTER_PACKAGE_SOURCE_DIR@")
-hunter_test_string_not_empty("@HUNTER_INSTALL_PREFIX@")
+hunter_test_string_not_empty("@HUNTER_PACKAGE_INSTALL_PREFIX@")
 
 string(COMPARE NOTEQUAL "@HUNTER_JOBS_OPTION@" "" have_jobs)
 if(have_jobs)
@@ -55,7 +55,7 @@ ExternalProject_Add(
     SOURCE_DIR
     "@HUNTER_PACKAGE_SOURCE_DIR@"
     INSTALL_DIR
-    "@HUNTER_INSTALL_PREFIX@"
+    "@HUNTER_PACKAGE_INSTALL_PREFIX@"
         # not used, just avoid creating Install/<name> empty directory
     CONFIGURE_COMMAND
     ""
@@ -65,5 +65,5 @@ ExternalProject_Add(
     BUILD_IN_SOURCE
     1
     INSTALL_COMMAND
-    "@CMAKE_COMMAND@" -E copy build/Release/ios-sim "@HUNTER_INSTALL_PREFIX@"
+    "@CMAKE_COMMAND@" -E copy build/Release/ios-sim "@HUNTER_PACKAGE_INSTALL_PREFIX@"
 )

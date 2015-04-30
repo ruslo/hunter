@@ -26,7 +26,7 @@ hunter_test_string_not_empty("@HUNTER_PACKAGE_SHA1@")
 hunter_test_string_not_empty("@HUNTER_PACKAGE_DOWNLOAD_DIR@")
 hunter_test_string_not_empty("@HUNTER_PACKAGE_SOURCE_DIR@")
 hunter_test_string_not_empty("@HUNTER_PACKAGE_BUILD_DIR@")
-hunter_test_string_not_empty("@HUNTER_INSTALL_PREFIX@")
+hunter_test_string_not_empty("@HUNTER_PACKAGE_INSTALL_PREFIX@")
 hunter_test_string_not_empty("@HUNTER_PACKAGE_COMPONENT@")
 # Note: support for single architecture/native iOS builds (i.e., arm64)
 hunter_test_string_not_empty("@IPHONESIMULATOR_ARCHS@@IPHONEOS_ARCHS@")
@@ -189,7 +189,7 @@ set(
     . "@HUNTER_SELF@/scripts/clear-all.sh" &&
     ./bootstrap.sh
     "--with-libraries=@HUNTER_PACKAGE_COMPONENT@"
-    "--prefix=@HUNTER_INSTALL_PREFIX@"
+    "--prefix=@HUNTER_PACKAGE_INSTALL_PREFIX@"
 )
 
 if(@HUNTER_STATUS_DEBUG@)
@@ -208,7 +208,7 @@ if(has_iphoneos)
       SOURCE_DIR
       "@HUNTER_PACKAGE_SOURCE_DIR@"
       INSTALL_DIR
-      "@HUNTER_INSTALL_PREFIX@"
+      "@HUNTER_PACKAGE_INSTALL_PREFIX@"
           # not used, just avoid creating Install/<name> empty directory
       CONFIGURE_COMMAND
       ${bootstrap}
@@ -234,7 +234,7 @@ else()
       SOURCE_DIR
       "@HUNTER_PACKAGE_SOURCE_DIR@"
       INSTALL_DIR
-      "@HUNTER_INSTALL_PREFIX@"
+      "@HUNTER_PACKAGE_INSTALL_PREFIX@"
           # not used, just avoid creating Install/<name> empty directory
       DOWNLOAD_COMMAND
       ""
@@ -257,7 +257,7 @@ if(has_isim)
       SOURCE_DIR
       "@HUNTER_PACKAGE_SOURCE_DIR@"
       INSTALL_DIR
-      "@HUNTER_INSTALL_PREFIX@"
+      "@HUNTER_PACKAGE_INSTALL_PREFIX@"
           # not used, just avoid creating Install/<name> empty directory
       CONFIGURE_COMMAND
       ${bootstrap}
@@ -283,7 +283,7 @@ else()
       SOURCE_DIR
       "@HUNTER_PACKAGE_SOURCE_DIR@"
       INSTALL_DIR
-      "@HUNTER_INSTALL_PREFIX@"
+      "@HUNTER_PACKAGE_INSTALL_PREFIX@"
           # not used, just avoid creating Install/<name> empty directory
       DOWNLOAD_COMMAND
       ""
@@ -317,7 +317,7 @@ if(log_setup_target)
       "@HUNTER_PACKAGE_SOURCE_DIR@"
       "log_setup"
       "@HUNTER_PACKAGE_COMPONENT@"
-      "@HUNTER_INSTALL_PREFIX@/lib"
+      "@HUNTER_PACKAGE_INSTALL_PREFIX@/lib"
   )
 else()
   set(extra_lib_command "")
@@ -335,19 +335,19 @@ ExternalProject_Add(
     SOURCE_DIR
     "@HUNTER_PACKAGE_SOURCE_DIR@"
     INSTALL_DIR
-    "@HUNTER_INSTALL_PREFIX@"
+    "@HUNTER_PACKAGE_INSTALL_PREFIX@"
         # not used, just avoid creating Install/<name> empty directory
     CONFIGURE_COMMAND
     ""
     BUILD_COMMAND
     ""
     INSTALL_COMMAND
-    "${CMAKE_COMMAND}" -E make_directory "@HUNTER_INSTALL_PREFIX@/lib"
+    "${CMAKE_COMMAND}" -E make_directory "@HUNTER_PACKAGE_INSTALL_PREFIX@/lib"
     COMMAND
     "@HUNTER_SELF@/scripts/create-boost-ios-fatlib.sh"
     "@HUNTER_PACKAGE_SOURCE_DIR@"
     "${LIBNAME}"
     "@HUNTER_PACKAGE_COMPONENT@"
-    "@HUNTER_INSTALL_PREFIX@/lib"
+    "@HUNTER_PACKAGE_INSTALL_PREFIX@/lib"
     ${extra_lib_command}
 )

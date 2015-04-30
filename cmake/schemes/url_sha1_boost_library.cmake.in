@@ -26,7 +26,7 @@ hunter_test_string_not_empty("@HUNTER_EP_NAME@")
 hunter_test_string_not_empty("@HUNTER_PACKAGE_DOWNLOAD_DIR@")
 hunter_test_string_not_empty("@HUNTER_PACKAGE_SOURCE_DIR@")
 hunter_test_string_not_empty("@HUNTER_PACKAGE_BUILD_DIR@")
-hunter_test_string_not_empty("@HUNTER_INSTALL_PREFIX@")
+hunter_test_string_not_empty("@HUNTER_PACKAGE_INSTALL_PREFIX@")
 hunter_test_string_not_empty("@HUNTER_PACKAGE_COMPONENT@")
 hunter_test_string_not_empty("@CMAKE_CXX_COMPILER@")
 hunter_test_string_not_empty("@CMAKE_CXX_COMPILER_ID@")
@@ -265,7 +265,7 @@ ExternalProject_Add(
     SOURCE_DIR
     "@HUNTER_PACKAGE_SOURCE_DIR@"
     INSTALL_DIR
-    "@HUNTER_INSTALL_PREFIX@"
+    "@HUNTER_PACKAGE_INSTALL_PREFIX@"
         # not used, just avoid creating Install/<name> empty directory
     CONFIGURE_COMMAND
     ${env_cmd}
@@ -283,7 +283,7 @@ ExternalProject_Add(
     -d0
     ${build_opts}
     stage # install only libraries, headers installed in `url_sha1_boost`
-    "--stagedir=@HUNTER_INSTALL_PREFIX@"
+    "--stagedir=@HUNTER_PACKAGE_INSTALL_PREFIX@"
 )
 
 if(APPLE)
@@ -295,7 +295,7 @@ if(APPLE)
       "${PYTHON_EXECUTABLE}"
       "@HUNTER_SELF@/scripts/fix-boost-dylib-id.py"
       "--install-dir"
-      "@HUNTER_INSTALL_PREFIX@/lib"
+      "@HUNTER_PACKAGE_INSTALL_PREFIX@/lib"
       DEPENDEES
       install
   )

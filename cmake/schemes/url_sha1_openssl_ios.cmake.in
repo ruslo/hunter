@@ -23,7 +23,7 @@ hunter_test_string_not_empty("@HUNTER_PACKAGE_URL@")
 hunter_test_string_not_empty("@HUNTER_PACKAGE_SHA1@")
 hunter_test_string_not_empty("@HUNTER_PACKAGE_DOWNLOAD_DIR@")
 hunter_test_string_not_empty("@HUNTER_PACKAGE_SOURCE_DIR@")
-hunter_test_string_not_empty("@HUNTER_INSTALL_PREFIX@")
+hunter_test_string_not_empty("@HUNTER_PACKAGE_INSTALL_PREFIX@")
 # Note: support for single architecture/native iOS builds (i.e., arm64)
 hunter_test_string_not_empty("@IPHONEOS_ARCHS@@IPHONESIMULATOR_ARCHS@")
 hunter_test_string_not_empty("@IOS_SDK_VERSION@")
@@ -56,7 +56,7 @@ ExternalProject_Add(
     SOURCE_DIR
     "@HUNTER_PACKAGE_SOURCE_DIR@/ios_universal"
     INSTALL_DIR
-    "@HUNTER_INSTALL_PREFIX@"
+    "@HUNTER_PACKAGE_INSTALL_PREFIX@"
         # not used, just avoid creating Install/<name> empty directory
     CONFIGURE_COMMAND
     ""
@@ -67,13 +67,13 @@ ExternalProject_Add(
     -create
     ${ssl_input_libraries}
     -o
-    "@HUNTER_INSTALL_PREFIX@/lib/libssl.a"
+    "@HUNTER_PACKAGE_INSTALL_PREFIX@/lib/libssl.a"
     COMMAND
     lipo
     -create
     ${crypto_input_libraries}
     -o
-    "@HUNTER_INSTALL_PREFIX@/lib/libcrypto.a"
+    "@HUNTER_PACKAGE_INSTALL_PREFIX@/lib/libcrypto.a"
 )
 
 foreach(variant @IPHONEOS_ARCHS@ @IPHONESIMULATOR_ARCHS@)
@@ -109,7 +109,7 @@ foreach(variant @IPHONEOS_ARCHS@ @IPHONESIMULATOR_ARCHS@)
       SOURCE_DIR
       "@HUNTER_PACKAGE_SOURCE_DIR@/${variant}"
       INSTALL_DIR
-      "@HUNTER_INSTALL_PREFIX@"
+      "@HUNTER_PACKAGE_INSTALL_PREFIX@"
           # not used, just avoid creating Install/<name> empty directory
       CONFIGURE_COMMAND
       ./Configure
@@ -117,7 +117,7 @@ foreach(variant @IPHONEOS_ARCHS@ @IPHONESIMULATOR_ARCHS@)
       threads
       no-shared
       "${noasm}"
-      "--prefix=@HUNTER_INSTALL_PREFIX@"
+      "--prefix=@HUNTER_PACKAGE_INSTALL_PREFIX@"
       "${iphone_minversion}"
       "-arch ${variant}"
       BUILD_COMMAND
