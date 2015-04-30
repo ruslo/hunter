@@ -207,6 +207,12 @@ function(hunter_download)
     return()
   endif()
 
+  # load from cache using SHA1 of args.cmake file
+  file(REMOVE "${HUNTER_ARGS_FILE}")
+  hunter_create_args_file(
+      "${HUNTER_${h_name}_CMAKE_ARGS}" "${HUNTER_ARGS_FILE}"
+  )
+
   # Check if package can be loaded from cache
   hunter_load_from_cache()
 
@@ -221,7 +227,6 @@ function(hunter_download)
   file(REMOVE_RECURSE "${HUNTER_PACKAGE_BUILD_DIR}")
   file(REMOVE "${HUNTER_PACKAGE_HOME_DIR}/CMakeLists.txt")
   file(REMOVE "${HUNTER_DOWNLOAD_TOOLCHAIN}")
-  file(REMOVE "${HUNTER_ARGS_FILE}")
 
   file(WRITE "${HUNTER_DOWNLOAD_TOOLCHAIN}" "")
 
@@ -248,10 +253,6 @@ function(hunter_download)
       "set(HUNTER_ALREADY_LOCKED_DIRECTORIES \"${HUNTER_ALREADY_LOCKED_DIRECTORIES}\" CACHE INTERNAL \"\")\n"
   )
 
-
-  hunter_create_args_file(
-      "${HUNTER_${h_name}_CMAKE_ARGS}" "${HUNTER_ARGS_FILE}"
-  )
 
   if(hunter_no_url)
     set(avail ${HUNTER_${h_name}_VERSIONS})
