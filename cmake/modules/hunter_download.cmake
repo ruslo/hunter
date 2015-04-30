@@ -55,7 +55,8 @@ function(hunter_download)
   string(TOUPPER "${HUNTER_PACKAGE_NAME}" root_name) # FOO
   set(root_name "${root_name}_ROOT") # FOO_ROOT
 
-  set(ver ${HUNTER_${h_name}_VERSION})
+  set(HUNTER_PACKAGE_VERSION "${HUNTER_${h_name}_VERSION}")
+  set(ver "${HUNTER_PACKAGE_VERSION}")
   set(HUNTER_PACKAGE_URL "${HUNTER_${h_name}_URL}")
   set(HUNTER_PACKAGE_SHA1 "${HUNTER_${h_name}_SHA1}")
   set(
