@@ -67,6 +67,8 @@ function(hunter_download)
     set(HUNTER_PACKAGE_CONFIGURATION_TYPES ${HUNTER_CACHED_CONFIGURATION_TYPES})
   endif()
 
+  set(HUNTER_PACKAGE_CACHEABLE "${HUNTER_${h_name}_CACHEABLE}")
+
   hunter_test_string_not_empty("${HUNTER_PACKAGE_CONFIGURATION_TYPES}")
 
   string(COMPARE EQUAL "${HUNTER_PACKAGE_URL}" "" hunter_no_url)
