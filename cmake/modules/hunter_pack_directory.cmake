@@ -6,7 +6,7 @@ include(hunter_print_cmd)
 include(hunter_status_debug)
 include(hunter_status_print)
 
-function(hunter_pack_directory dir_to_pack dest_dir)
+function(hunter_pack_directory dir_to_pack dest_dir result_sha1)
   file(MAKE_DIRECTORY "${dest_dir}")
   set(temp "${dest_dir}/cache.tar.bz2")
 
@@ -50,6 +50,8 @@ function(hunter_pack_directory dir_to_pack dest_dir)
   file(SHA1 "${temp}" archive_sha1)
   set(dest_archive "${dest_dir}/${archive_sha1}.tar.bz2")
   file(RENAME "${temp}" "${dest_archive}")
+
+  set("${result_sha1}" "${archive_sha1}" PARENT_SCOPE)
 
   hunter_status_print("Cache saved: ${dest_archive}")
 endfunction()
