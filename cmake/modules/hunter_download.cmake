@@ -7,8 +7,10 @@ include(hunter_create_args_file)
 include(hunter_find_stamps)
 include(hunter_internal_error)
 include(hunter_jobs_number)
+include(hunter_load_from_cache)
 include(hunter_print_cmd)
 include(hunter_register_dependency)
+include(hunter_save_to_cache)
 include(hunter_status_debug)
 include(hunter_status_print)
 include(hunter_test_string_not_empty)
@@ -125,6 +127,15 @@ function(hunter_download)
   endif()
   set(HUNTER_PACKAGE_SOURCE_DIR "${HUNTER_PACKAGE_HOME_DIR}/Source")
 
+  if(HUNTER_PACKAGE_CACHEABLE)
+    if(NOT HUNTER_DOWNLOAD_SCHEME_INSTALL)
+      hunter_internal_error("Unpack-only packages is cacheable by default")
+    endif()
+    set(HUNTER_PACKAGE_INSTALL_PREFIX "${HUNTER_PACKAGE_HOME_DIR}/Install")
+  else()
+    set(HUNTER_PACKAGE_INSTALL_PREFIX "${HUNTER_INSTALL_PREFIX}")
+  endif()
+
   if(HUNTER_DOWNLOAD_SCHEME_INSTALL)
     set(${root_name} "${HUNTER_INSTALL_PREFIX}")
     hunter_status_debug("Install to: ${HUNTER_INSTALL_PREFIX}")
@@ -157,6 +168,9 @@ function(hunter_download)
   )
 
   foreach(deps ${HUNTER_PACKAGE_DEPENDS_ON})
+    if(HUNTER_DOWNLOAD_SCHEME_INSTALL)
+      hunter_internal_error("Unpack-only scheme can't depends on anything")
+    endif()
     # Register explicit dependency
     hunter_register_dependency(
         PACKAGE "${HUNTER_PACKAGE_NAME};${HUNTER_PACKAGE_COMPONENT}"
@@ -187,6 +201,17 @@ function(hunter_download)
   # While locking other instance can finish package building
   if(EXISTS "${HUNTER_PACKAGE_DONE_STAMP}")
     hunter_status_debug("Package already installed: ${HUNTER_PACKAGE_NAME}")
+    if(hunter_has_component)
+      hunter_status_debug("Component: ${HUNTER_PACKAGE_COMPONENT}")
+    endif()
+    return()
+  endif()
+
+  # Check if package can be loaded from cache
+  hunter_load_from_cache()
+
+  if(EXISTS "${HUNTER_PACKAGE_DONE_STAMP}")
+    hunter_status_debug("Package installed from cache: ${HUNTER_PACKAGE_NAME}")
     if(hunter_has_component)
       hunter_status_debug("Component: ${HUNTER_PACKAGE_COMPONENT}")
     endif()
@@ -339,6 +364,8 @@ function(hunter_download)
 
   hunter_find_stamps("${HUNTER_PACKAGE_BUILD_DIR}")
 
+  hunter_save_to_cache()
+
   file(REMOVE_RECURSE "${HUNTER_PACKAGE_BUILD_DIR}")
   if(HUNTER_DOWNLOAD_SCHEME_INSTALL)
     # Unpacked directory not needed (save some disk space)
@@ -348,6 +375,10 @@ function(hunter_download)
   file(REMOVE "${HUNTER_PACKAGE_HOME_DIR}/CMakeLists.txt")
   file(REMOVE "${HUNTER_DOWNLOAD_TOOLCHAIN}")
   file(REMOVE "${HUNTER_ARGS_FILE}")
+
+  if(HUNTER_PACKAGE_CACHEABLE)
+    file(REMOVE_RECURSE "${HUNTER_PACKAGE_INSTALL_PREFIX}")
+  endif()
 
   file(WRITE "${HUNTER_PACKAGE_DONE_STAMP}" "")
 endfunction()
