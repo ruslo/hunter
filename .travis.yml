@@ -139,6 +139,7 @@ env:
     - PROJECT_DIR=tests/hunter_create_args_file TOOLCHAIN=default
     - PROJECT_DIR=tests/hunter_pack_directory TOOLCHAIN=default
     - PROJECT_DIR=tests/hunter_register_dependency TOOLCHAIN=default
+    - PROJECT_DIR=tests/hunter_unpack_directory TOOLCHAIN=default
     ### -- end
 
 script:
