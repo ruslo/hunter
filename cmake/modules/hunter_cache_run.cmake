@@ -23,7 +23,6 @@ function(hunter_cache_run)
     hunter_internal_error("Unparsed: ${x_UNPARSED_ARGUMENTS}")
   endif()
 
-  list(REMOVE_ITEM HUNTER_PARENT_PACKAGE "")
   string(COMPARE EQUAL "${HUNTER_PARENT_PACKAGE}" "" is_empty)
   if(NOT is_empty)
     hunter_internal_error("HUNTER_PARENT_PACKAGE is not empty")
