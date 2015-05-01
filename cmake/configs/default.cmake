@@ -52,7 +52,7 @@ hunter_config(PNG VERSION 1.6.16-patch-4)
 hunter_config(RapidJSON VERSION 0.11-hunter)
 hunter_config(Sober VERSION 0.1.1) # Relax warnings
 hunter_config(Sugar VERSION 1.2.2)
-hunter_config(TIFF VERSION 4.0.2-hunter-2)
+hunter_config(TIFF VERSION 4.0.2-p3)
 hunter_config(Washer VERSION 0.1.2)
 hunter_config(ZLIB VERSION 1.2.8-p3)
 hunter_config(ccv VERSION 0.7-p4)
