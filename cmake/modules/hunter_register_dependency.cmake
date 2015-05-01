@@ -50,6 +50,7 @@ function(hunter_register_dependency)
     hunter_internal_error("Incorrect PACKAGE: ${hunter_PACKAGE}")
   endif()
 
+  hunter_test_string_not_empty("${hunter_PACKAGE_NAME}")
   hunter_test_string_not_empty("${HUNTER_TOOLCHAIN_ID_PATH}")
   set(
       dependencies_dir
