@@ -3,6 +3,7 @@
 
 include(CMakeParseArguments) # cmake_parse_arguments
 
+include(hunter_create_dependency_entry)
 include(hunter_internal_error)
 include(hunter_test_string_not_empty)
 
@@ -33,21 +34,11 @@ function(hunter_process_dependency_node)
     hunter_internal_error("Unparsed: ${x_UNPARSED_ARGUMENTS}")
   endif()
 
-  set(top_dir "${HUNTER_TOOLCHAIN_ID_PATH}/Build")
-
-  set(dep_dir "${top_dir}/${x_PACKAGE}")
+  set(dep_dir "${HUNTER_TOOLCHAIN_ID_PATH}/Build/${x_PACKAGE}")
   if(has_component)
     set(dep_dir "${dep_dir}/__${x_COMPONENT}")
   endif()
-  set(cache_file "${dep_dir}/cache.sha1")
   set(dep_dir "${dep_dir}/Dependencies")
-
-  if(NOT EXISTS "${cache_file}")
-    hunter_fatal_error(
-        "Not found: ${cache_file}" WIKI "error.cache.file.not.found"
-    )
-  endif()
-  file(READ "${cache_file}" x_SHA1)
 
   set(package_dependencies "")
   set(depends_all "")
@@ -62,34 +53,25 @@ function(hunter_process_dependency_node)
       # format: <package> <sha1>
       list(GET curr_dep_dir 0 package)
       set(component "")
-      set(curr_has_component FALSE)
     else()
       # format: <package> <component> <sha1>
       list(GET curr_dep_dir 0 package)
       list(GET curr_dep_dir 1 component)
-      set(curr_has_component TRUE)
     else()
       hunter_internal_error("Incorrect directory")
     endif()
 
-    set(cache_file "${top_dir}/${package}")
-    if(curr_has_component)
-      set(cache_file "${top_dir}/${package}/__${component}")
-    endif()
-    set(cache_file "${cache_file}/cache.sha1")
-
-    if(NOT EXISTS "${cache_file}")
+    hunter_create_dependency_entry(
+        PACKAGE "${package}" COMPONENT "${component}" RESULT current_item
+    )
+    if(current_item STREQUAL "")
       hunter_fatal_error(
-          "Not found: ${cache_file}" WIKI "error.cache.file.not.found"
+          "Cache not found: ${package}/${component}"
+          WIKI "error.cache.file.not.found"
       )
     endif()
-    file(READ "${cache_file}" cache_sha1)
 
-    if(curr_has_component)
-      list(APPEND package_dependencies "${package} ${component} ${cache_sha1}")
-    else()
-      list(APPEND package_dependencies "${package} ${cache_sha1}")
-    endif()
+    list(APPEND package_dependencies ${current_item})
 
     hunter_process_dependency_node(
         PACKAGE "${package}"
@@ -108,10 +90,14 @@ function(hunter_process_dependency_node)
 
   list(REMOVE_ITEM package_dependencies ${x_READY} "")
 
-  if(has_component)
-    set(this_item "${x_PACKAGE} ${x_COMPONENT} ${x_SHA1}")
-  else()
-    set(this_item "${x_PACKAGE} ${x_SHA1}")
+  hunter_create_dependency_entry(
+      PACKAGE "${x_PACKAGE}" COMPONENT "${x_COMPONENT}" RESULT this_item
+  )
+  if(this_item STREQUAL "")
+    hunter_fatal_error(
+        "Cache not found: ${x_PACKAGE}/${x_COMPONENT}"
+        WIKI "error.cache.file.not.found"
+    )
   endif()
 
   list(LENGTH package_dependencies dep_len)
