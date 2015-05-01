@@ -5,6 +5,7 @@ include(CMakeParseArguments) # cmake_parse_arguments
 
 include(hunter_internal_error)
 include(hunter_status_debug)
+include(hunter_test_string_not_empty)
 
 # internal variables: _hunter_ap_*
 macro(hunter_add_package)
@@ -20,6 +21,7 @@ macro(hunter_add_package)
   endif()
   list(GET _hunter_ap_arg_UNPARSED_ARGUMENTS 0 _hunter_ap_project)
 
+  hunter_test_string_not_empty("${HUNTER_SELF}")
   set(
       _hunter_ap_project_dir
       "${HUNTER_SELF}/cmake/projects/${_hunter_ap_project}"
