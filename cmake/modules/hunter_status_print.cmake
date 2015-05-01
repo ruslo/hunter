@@ -3,6 +3,10 @@
 
 function(hunter_status_print)
   if(HUNTER_STATUS_PRINT OR HUNTER_STATUS_DEBUG)
-    message(STATUS "[hunter] ${ARGV}")
+    if(HUNTER_CACHE_RUN)
+      hunter_status_debug("${ARGV}")
+    else()
+      message(STATUS "[hunter] ${ARGV}")
+    endif()
   endif()
 endfunction()
