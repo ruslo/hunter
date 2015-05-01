@@ -42,7 +42,7 @@ function(hunter_pack_directory dir_to_pack dest_dir result_sha1)
   )
 
   if(packing_result EQUAL 0)
-    hunter_status_debug("Packing successful: ${temp})")
+    hunter_status_debug("Packing successful: ${temp}")
   else()
     hunter_internal_error("Packing failed")
   endif()
