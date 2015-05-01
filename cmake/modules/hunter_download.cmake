@@ -216,6 +216,10 @@ function(hunter_download)
   # Check if package can be loaded from cache
   hunter_load_from_cache()
 
+  if(HUNTER_CACHE_RUN)
+    return()
+  endif()
+
   if(EXISTS "${HUNTER_PACKAGE_DONE_STAMP}")
     hunter_status_debug("Package installed from cache: ${HUNTER_PACKAGE_NAME}")
     if(hunter_has_component)
