@@ -2,6 +2,7 @@
 # All rights reserved.
 
 include(hunter_create_dependency_entry)
+include(hunter_process_dependency_node)
 include(hunter_test_string_not_empty)
 
 # Get list of dependencies in format (see hunter_create_dependency_entry):
