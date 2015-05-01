@@ -54,7 +54,7 @@ hunter_config(Sober VERSION 0.1.1) # Relax warnings
 hunter_config(Sugar VERSION 1.2.2)
 hunter_config(TIFF VERSION 4.0.2-hunter-2)
 hunter_config(Washer VERSION 0.1.2)
-hunter_config(ZLIB VERSION 1.2.8-p2)
+hunter_config(ZLIB VERSION 1.2.8-p3)
 hunter_config(ccv VERSION 0.7-p4)
 hunter_config(cvmatio VERSION 1.0.11)
 hunter_config(dlib VERSION 18.14-p1)

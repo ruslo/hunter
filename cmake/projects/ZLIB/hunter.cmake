@@ -15,6 +15,17 @@ hunter_add_version(
     PACKAGE_NAME
     ZLIB
     VERSION
+    "1.2.8-p3"
+    URL
+    "https://github.com/hunter-packages/zlib/archive/v1.2.8-p3.tar.gz"
+    SHA1
+    573dc28474be47d0c7abc1475a14aa12f0dfcadc
+)
+
+hunter_add_version(
+    PACKAGE_NAME
+    ZLIB
+    VERSION
     "1.2.8-p2"
     URL
     "https://github.com/hunter-packages/zlib/archive/v1.2.8-p2.tar.gz"
