@@ -168,7 +168,7 @@ function(hunter_download)
   )
 
   foreach(deps ${HUNTER_PACKAGE_DEPENDS_ON})
-    if(HUNTER_DOWNLOAD_SCHEME_INSTALL)
+    if(NOT HUNTER_DOWNLOAD_SCHEME_INSTALL)
       hunter_internal_error("Unpack-only scheme can't depends on anything")
     endif()
     # Register explicit dependency
