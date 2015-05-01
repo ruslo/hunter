@@ -7,7 +7,6 @@ include(hunter_test_string_not_empty)
 
 function(hunter_create_cache_meta_directory cache_directory result)
   hunter_test_string_not_empty("${HUNTER_ARGS_FILE}")
-  hunter_test_string_not_empty("${HUNTER_PACKAGE_COMPONENT}")
   hunter_test_string_not_empty("${HUNTER_PACKAGE_CONFIGURATION_TYPES}")
   hunter_test_string_not_empty("${HUNTER_PACKAGE_HOME_DIR}")
   hunter_test_string_not_empty("${HUNTER_PACKAGE_NAME}")
@@ -17,6 +16,8 @@ function(hunter_create_cache_meta_directory cache_directory result)
   hunter_test_string_not_empty("${HUNTER_TOOLCHAIN_SHA1}")
   hunter_test_string_not_empty("${cache_directory}")
   hunter_test_string_not_empty("${result}")
+
+  string(COMPARE NOTEQUAL "${HUNTER_PACKAGE_COMPONENT}" "" has_component)
 
   # Save toolchain-id
   hunter_make_directory(
