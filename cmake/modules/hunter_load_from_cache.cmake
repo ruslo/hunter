@@ -24,6 +24,12 @@ function(hunter_load_from_cache)
   hunter_test_string_not_empty("${HUNTER_PACKAGE_NAME}")
   hunter_test_string_not_empty("${HUNTER_PACKAGE_SHA1}")
 
+  set(human_readable "${HUNTER_PACKAGE_NAME}")
+  string(COMPARE NOTEQUAL "${HUNTER_PACKAGE_COMPONENT}" "" has_component)
+  if(has_component)
+    set(human_readable "${human_readable} (comp.: ${HUNTER_PACKAGE_COMPONENT})")
+  endif()
+
   set(cache_file "${HUNTER_PACKAGE_HOME_DIR}/cache.sha1")
 
   if(NOT DEFINED HUNTER_DOWNLOAD_SCHEME_INSTALL)
@@ -106,7 +112,7 @@ function(hunter_load_from_cache)
     endforeach()
 
     if(cache_hit)
-      hunter_status_debug("Cache HIT")
+      hunter_status_print("Cache HIT: ${human_readable}")
 
       set(cache_sha1_file "${dep_id_dir}/cache.sha1")
       if(NOT EXISTS "${cache_sha1_file}")
@@ -154,5 +160,5 @@ function(hunter_load_from_cache)
       return()
     endif()
   endforeach()
-  hunter_status_debug("Cache MISS")
+  hunter_status_debug("Cache MISS: ${human_readable}")
 endfunction()
