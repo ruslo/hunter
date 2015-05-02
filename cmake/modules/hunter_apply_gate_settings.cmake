@@ -17,6 +17,12 @@ include(hunter_test_string_not_empty)
 function(hunter_apply_gate_settings)
   get_property(gate_done GLOBAL PROPERTY HUNTER_GATE_DONE SET)
 
+  if(HUNTER_GATE_DONE)
+    # Can be set explicitly in case of loading package
+    # from scheme (without HunterGate)
+    set(gate_done YES)
+  endif()
+
   # Check any of cache variable is not empty
   string(
       COMPARE
