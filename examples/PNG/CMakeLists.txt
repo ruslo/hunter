@@ -12,9 +12,7 @@ project(example-hunter-png)
 
 hunter_add_package(PNG)
 
-find_package(PNG REQUIRED)
+find_package(PNG CONFIG REQUIRED)
 
 add_executable(foo main.cpp)
-target_compile_definitions(foo PRIVATE ${PNG_DEFINITIONS})
-target_include_directories(foo PRIVATE ${PNG_INCLUDE_DIRS})
-target_link_libraries(foo PRIVATE ${PNG_LIBRARIES})
+target_link_libraries(foo PRIVATE PNG::png)
