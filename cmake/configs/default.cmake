@@ -48,7 +48,7 @@ hunter_config(Libcxxabi VERSION ${HUNTER_Clang_VERSION})
 hunter_config(Libssh2 VERSION 1.4.4-patch-2)
 hunter_config(OpenCV VERSION 3.0.0-beta-p2)
 hunter_config(OpenSSL VERSION 1.0.2a)
-hunter_config(PNG VERSION 1.6.16-patch-4)
+hunter_config(PNG VERSION 1.6.16-p3)
 hunter_config(RapidJSON VERSION 0.11-hunter)
 hunter_config(Sober VERSION 0.1.1) # Relax warnings
 hunter_config(Sugar VERSION 1.2.2)

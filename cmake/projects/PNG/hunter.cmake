@@ -9,6 +9,7 @@ else()
 endif()
 
 include(hunter_add_version)
+include(hunter_cacheable)
 include(hunter_cmake_args)
 include(hunter_download)
 include(hunter_pick_scheme)
@@ -17,30 +18,15 @@ hunter_add_version(
     PACKAGE_NAME
     PNG
     VERSION
-    "1.6.16-patch-4"
+    "1.6.16-p3"
     URL
-    "https://github.com/alamaison/libpng/archive/v1.6.16-hunter-4.tar.gz"
+    "https://github.com/hunter-packages/libpng/archive/v1.6.16-p3.tar.gz"
     SHA1
-    97f41d5584a244b068a3b9a68b759f8eaa9d8d5e
+    3e083ca37efc461704d9af256cdf2231cae6ee9d
 )
 
-hunter_add_version(
-    PACKAGE_NAME
-    PNG
-    VERSION
-    "1.6.16"
-    URL
-    "https://github.com/alamaison/libpng/archive/v1.6.16-hunter-3.tar.gz"
-    SHA1
-    903f19355c16221f8c8fa9253bda85c7d74ece3a
-)
-
-hunter_cmake_args(
-    PNG
-    CMAKE_ARGS
-      PNG_SHARED=OFF
-      PNG_TESTS=OFF
-)
+hunter_cmake_args(PNG CMAKE_ARGS PNG_TESTS=OFF)
 
 hunter_pick_scheme(DEFAULT url_sha1_cmake)
+hunter_cacheable(PNG)
 hunter_download(PACKAGE_NAME PNG)
