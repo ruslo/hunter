@@ -16,44 +16,11 @@ hunter_add_version(
     PACKAGE_NAME
     GPUImage
     VERSION
-    "0.1.6-hunter-1"
+    "0.1.6-p5"
     URL
-    "https://github.com/hunter-packages/GPUImage/archive/v0.1.6-hunter-1.tar.gz"
+    "https://github.com/hunter-packages/GPUImage/archive/v0.1.6-p5.tar.gz"
     SHA1
-    53ed435a6768c6b3bc41a541d3a097426af4f446
-)
-
-hunter_add_version(
-    PACKAGE_NAME
-    GPUImage
-    VERSION
-    "0.1.6-p2"
-    URL
-    "https://github.com/hunter-packages/GPUImage/archive/v0.1.6-p2.tar.gz"
-    SHA1
-    52973241283f01da4c240adae3f9208426a5901f
-)
-
-hunter_add_version(
-    PACKAGE_NAME
-    GPUImage
-    VERSION
-    "0.1.6-p3"
-    URL
-    "https://github.com/hunter-packages/GPUImage/archive/v0.1.6-p3.tar.gz"
-    SHA1
-    5eec42672e1c11e5417c4e5833ef6c2889bf4418
-)
-
-hunter_add_version(
-    PACKAGE_NAME
-    GPUImage
-    VERSION
-    "0.1.6-p4"
-    URL
-    "https://github.com/hunter-packages/GPUImage/archive/v0.1.6-p4.tar.gz"
-    SHA1
-    a03a33c393521c6a8e4bcc06ab0bd17bcf717f11
+    463564d96442c214d21faa28a3ca229962ca086c
 )
 
 hunter_cmake_args(
