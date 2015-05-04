@@ -18,11 +18,11 @@ hunter_add_version(
     PACKAGE_NAME
     ccv
     VERSION
-    "0.7-p5"
+    "0.7-p6"
      URL
-     "https://github.com/hunter-packages/ccv/archive/v0.7-p5.tar.gz"
+     "https://github.com/hunter-packages/ccv/archive/v0.7-p6.tar.gz"
      SHA1
-     6317031cf45b4eff7900ffcebdb1b940422c240e
+     6fdcc8fe0e31a169a3fb26df7c694873208ccc44
 )
 
 hunter_pick_scheme(DEFAULT url_sha1_cmake)
