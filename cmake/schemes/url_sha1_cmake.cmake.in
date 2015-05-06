@@ -78,8 +78,9 @@ foreach(configuration @HUNTER_PACKAGE_CONFIGURATION_TYPES@)
       INSTALL_DIR
       "@HUNTER_PACKAGE_INSTALL_PREFIX@"
           # not used, just avoid creating Install/<name> empty directory
-      BUILD_COMMAND
-      ""
+      BUILD_COMMAND ""
+          # this command is empty because all necessary targets will
+          # be built on install stage
       CMAKE_ARGS
       "-G@CMAKE_GENERATOR@"
       "-C@HUNTER_CACHE_FILE@"
