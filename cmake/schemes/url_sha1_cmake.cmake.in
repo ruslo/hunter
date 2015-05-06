@@ -17,7 +17,6 @@ include(ExternalProject) # ExternalProject_Add
 
 list(APPEND CMAKE_MODULE_PATH "@HUNTER_SELF@/cmake/modules")
 
-include(hunter_internal_error)
 include(hunter_status_debug)
 include(hunter_test_string_not_empty)
 
@@ -78,7 +77,7 @@ foreach(configuration @HUNTER_PACKAGE_CONFIGURATION_TYPES@)
       "@HUNTER_PACKAGE_SOURCE_DIR@"
       INSTALL_DIR
       "@HUNTER_PACKAGE_INSTALL_PREFIX@"
-          # not used, just avoid creating Install/<name>e empty directory
+          # not used, just avoid creating Install/<name> empty directory
       BUILD_COMMAND
       ""
       CMAKE_ARGS
@@ -89,7 +88,6 @@ foreach(configuration @HUNTER_PACKAGE_CONFIGURATION_TYPES@)
       "-DCMAKE_BUILD_TYPE=${configuration}"
       "-DCMAKE_CONFIGURATION_TYPES=${configuration}"
       "-DCMAKE_INSTALL_PREFIX=@HUNTER_PACKAGE_INSTALL_PREFIX@"
-      ${verbose_makefile}
       "-DCMAKE_TOOLCHAIN_FILE=${CMAKE_TOOLCHAIN_FILE}"
       INSTALL_COMMAND
           "@CMAKE_COMMAND@"
