@@ -284,6 +284,11 @@ ExternalProject_Add(
     ${build_opts}
     stage # install only libraries, headers installed in `url_sha1_boost`
     "--stagedir=@HUNTER_PACKAGE_INSTALL_PREFIX@"
+    # Logging as Workaround for VS_UNICODE_OUTPUT issue:
+    # https://public.kitware.com/Bug/view.php?id=14266
+    LOG_CONFIGURE 1
+    LOG_BUILD 1
+    LOG_INSTALL 1
 )
 
 if(APPLE)
