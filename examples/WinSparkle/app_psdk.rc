@@ -1,0 +1,47 @@
+/*
+ *  This file is part of WinSparkle (http://winsparkle.org)
+ *
+ *  This example code is public domain.
+ *
+ */
+
+appicon ICON "appicon.ico"
+
+#include <winver.h>
+#include <winsparkle.rc>
+
+// Get updates from this appcast feed:
+FeedURL     APPCAST     {"http://winsparkle.org/example/appcast.xml"}
+
+// Version information; this, too, is used by WinSparkle
+1 VERSIONINFO
+ FILEVERSION     1,0,0,0
+ PRODUCTVERSION  1,0,0,0
+ FILEFLAGSMASK   VS_FFI_FILEFLAGSMASK
+ FILEFLAGS       0
+ FILEOS          VOS_NT_WINDOWS32
+ FILETYPE        VFT_APP
+ FILESUBTYPE     VFT2_UNKNOWN
+BEGIN
+    BLOCK "StringFileInfo"
+    BEGIN
+        BLOCK "040904B0" // US English, Unicode
+        BEGIN
+            VALUE "Comments", "Example app."
+            VALUE "CompanyName", "winsparkle.org\0"
+            VALUE "FileDescription", "WinSparkle example\0"
+            VALUE "FileVersion", "1.0\0"
+            VALUE "InternalName", "example_psdk\0"
+            VALUE "OriginalFilename", "example_psdk.exe\0"
+            VALUE "LegalCopyright", "Public Domain\0"
+            VALUE "ProductName", "WinSparkle Example App\0"
+            VALUE "ProductVersion", "1.0\0"
+        END
+    END
+
+    BLOCK "VarFileInfo"
+    BEGIN
+        VALUE "Translation", 0x0409, 0x04B0
+    END
+END
+
