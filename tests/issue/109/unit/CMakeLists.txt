@@ -1,6 +1,8 @@
 cmake_minimum_required(VERSION 3.0)
 
-include("../../../../cmake/modules/hunter_boost_component_b2_args.cmake")
+include("../../../../examples/common.cmake")
+include(hunter_boost_component_b2_args)
+
 project(TestIssue109Unit)
 
 hunter_boost_component_b2_args(
