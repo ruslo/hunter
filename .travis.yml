@@ -136,6 +136,7 @@ env:
     - PROJECT_DIR=tests/issue/22 TOOLCHAIN=default
     - PROJECT_DIR=tests/issue/24/unit TOOLCHAIN=default
     - PROJECT_DIR=tests/issue/107 TOOLCHAIN=default
+    - PROJECT_DIR=tests/issue/109/unit TOOLCHAIN=default
     - PROJECT_DIR=tests/hunter_create_args_file TOOLCHAIN=default
     - PROJECT_DIR=tests/hunter_create_dependency_entry TOOLCHAIN=default
     - PROJECT_DIR=tests/hunter_get_dependency_list TOOLCHAIN=default
