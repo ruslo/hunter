@@ -23,16 +23,13 @@ function(hunter_cache_run)
     hunter_internal_error("Unparsed: ${x_UNPARSED_ARGUMENTS}")
   endif()
 
-  string(COMPARE EQUAL "${HUNTER_PARENT_PACKAGE}" "" is_empty)
-  if(NOT is_empty)
-    hunter_internal_error("HUNTER_PARENT_PACKAGE is not empty")
-  endif()
-
   if(HUNTER_CACHE_RUN)
     return()
   endif()
 
   set(HUNTER_CACHE_RUN TRUE)
+  set(HUNTER_PARENT_PACKAGE "") # Avoid dependency registration
+
   if(has_component)
     hunter_add_package(${x_PACKAGE})
   else()
