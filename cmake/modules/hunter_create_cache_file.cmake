@@ -1,6 +1,7 @@
 # Copyright (c) 2015, Ruslan Baratov
 # All rights reserved.
 
+include(hunter_status_debug)
 include(hunter_test_string_not_empty)
 
 function(hunter_create_cache_file cache_path)
@@ -50,6 +51,58 @@ function(hunter_create_cache_file cache_path)
       "${temp_path}"
       "set(HUNTER_STATUS_DEBUG \"${HUNTER_STATUS_DEBUG}\" CACHE INTERNAL \"\")\n"
   )
+
+  # Pass compiler ABI info through to avoid recalculating in every project
+  foreach(lang C CXX)
+    if(DEFINED CMAKE_${lang}_SIZEOF_DATA_PTR)
+      hunter_status_debug("ABI forwarding: CMAKE_${lang}_SIZEOF_DATA_PTR = ${CMAKE_${lang}_SIZEOF_DATA_PTR}")
+      file(
+          APPEND
+          "${temp_path}"
+          "set(CMAKE_${lang}_SIZEOF_DATA_PTR \"${CMAKE_${lang}_SIZEOF_DATA_PTR}\" CACHE INTERNAL \"\")\n"
+      )
+    endif()
+    if(DEFINED CMAKE_${lang}_COMPILER_ABI)
+      hunter_status_debug("ABI forwarding: CMAKE_${lang}_COMPILER_ABI = ${CMAKE_${lang}_COMPILER_ABI}")
+      file(
+          APPEND
+          "${temp_path}"
+          "set(CMAKE_${lang}_COMPILER_ABI \"${CMAKE_${lang}_COMPILER_ABI}\" CACHE INTERNAL \"\")\n"
+      )
+    endif()
+    hunter_status_debug("ABI forwarding: CMAKE_${lang}_IMPLICIT_LINK_LIBRARIES = ${CMAKE_${lang}_IMPLICIT_LINK_LIBRARIES}")
+    file(
+        APPEND
+        "${temp_path}"
+        "set(CMAKE_${lang}_IMPLICIT_LINK_LIBRARIES \"${CMAKE_${lang}_IMPLICIT_LINK_LIBRARIES}\" CACHE INTERNAL \"\")\n"
+    )
+    hunter_status_debug("ABI forwarding: CMAKE_${lang}_IMPLICIT_LINK_DIRECTORIES = ${CMAKE_${lang}_IMPLICIT_LINK_DIRECTORIES}")
+    file(
+        APPEND
+        "${temp_path}"
+        "set(CMAKE_${lang}_IMPLICIT_LINK_DIRECTORIES \"${CMAKE_${lang}_IMPLICIT_LINK_DIRECTORIES}\" CACHE INTERNAL \"\")\n"
+    )
+    hunter_status_debug("ABI forwarding: CMAKE_${lang}_IMPLICIT_LINK_FRAMEWORK_DIRECTORIES = ${CMAKE_${lang}_IMPLICIT_LINK_FRAMEWORK_DIRECTORIES}")
+    file(
+        APPEND
+        "${temp_path}"
+        "set(CMAKE_${lang}_IMPLICIT_LINK_FRAMEWORK_DIRECTORIES \"${CMAKE_${lang}_IMPLICIT_LINK_FRAMEWORK_DIRECTORIES}\" CACHE INTERNAL \"\")\n"
+    )
+    if(DEFINED CMAKE_${lang}_LIBRARY_ARCHITECTURE)
+      hunter_status_debug("ABI forwarding: CMAKE_${lang}_LIBRARY_ARCHITECTURE = ${CMAKE_${lang}_LIBRARY_ARCHITECTURE}")
+      file(
+          APPEND
+          "${temp_path}"
+          "set(CMAKE_${lang}_LIBRARY_ARCHITECTURE \"${CMAKE_${lang}_LIBRARY_ARCHITECTURE}\" CACHE INTERNAL \"\")\n"
+      )
+    endif()
+    hunter_status_debug("ABI forwarding: CMAKE_${lang}_ABI_COMPILED = ${CMAKE_${lang}_ABI_COMPILED}")
+    file(
+        APPEND
+        "${temp_path}"
+        "set(CMAKE_${lang}_ABI_COMPILED \"${CMAKE_${lang}_ABI_COMPILED}\" CACHE INTERNAL \"\")\n"
+    )
+  endforeach()
 
   if(HUNTER_STATUS_DEBUG)
     file(
