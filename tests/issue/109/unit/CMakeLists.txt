@@ -45,3 +45,38 @@ string(COMPARE EQUAL "${positiveList}" "-s;BAZ=1" is_good)
 if(NOT is_good)
   message(FATAL_ERROR "positiveList should have been '-s;BAZ=1'")
 endif()
+
+# IOSTREAMS test
+# --------------
+
+hunter_boost_component_b2_args(
+  "iostreams"
+  ""
+  ioList
+  )
+
+list(FIND ioList "NO_COMPRESSION=0" noCompPos)
+if(noCompPos EQUAL -1)
+  message(FATAL_ERROR "ioList should have 'NO_COMPRESSION=0'")
+endif()
+
+list(FIND ioList "NO_ZLIB=0" noZlibPos)
+if(noZlibPos EQUAL -1)
+  message(FATAL_ERROR "ioList should have 'NO_ZLIB=0'")
+endif()
+
+list(FIND ioList "NO_BZIP2=0" noBzipPos)
+if(noBzipPos EQUAL -1)
+  message(FATAL_ERROR "ioList should have 'NO_BZIP2=0'")
+endif()
+
+string(REPLACE ";" " " ioList ${ioList})
+string(FIND ${ioList} "ZLIB_BINARY" zlibBinary)
+if(zlibBinary EQUAL -1)
+  message(FATAL_ERROR "ioList should have 'ZLIB_BINARY=...'")
+endif()
+
+string(FIND ${ioList} "BZIP2_BINARY" bzipBinary)
+if(bzipBinary EQUAL -1)
+  message(FATAL_ERROR "ioList should have 'BZIP2_BINARY=...'")
+endif()
