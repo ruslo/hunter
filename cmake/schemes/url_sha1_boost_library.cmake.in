@@ -104,7 +104,8 @@ endif()
 if("@MSVC@")
   set(env_cmd "@HUNTER_MSVC_VCVARSALL@" "@HUNTER_MSVC_ARCH@")
 else()
-  set(env_cmd "")
+  # Workaround for: http://public.kitware.com/Bug/view.php?id=15567
+  set(env_cmd "@CMAKE_COMMAND@" -E echo "configure")
 endif()
 
 if("@MSVC@")
