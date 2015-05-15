@@ -187,5 +187,5 @@ hunter_add_version(
     f33ac0045d6ee4582d41f5290010802ad72fe2fa
 )
 
-hunter_pick_scheme(DEFAULT url_sha1_no_install)
+hunter_pick_scheme(DEFAULT url_sha1_unpack)
 hunter_download(PACKAGE_NAME Sugar)

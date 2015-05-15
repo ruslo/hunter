@@ -23,7 +23,7 @@ list(APPEND CMAKE_MODULE_PATH "@HUNTER_SELF@/cmake/modules")
 include(hunter_status_debug)
 include(hunter_test_string_not_empty)
 
-hunter_status_debug("Scheme: url_sha1_no_install")
+hunter_status_debug("Scheme: url_sha1_unpack")
 
 # Check preconditions
 hunter_test_string_not_empty("@HUNTER_SELF@")

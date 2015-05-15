@@ -45,7 +45,7 @@ function(hunter_pick_scheme)
       COMPARE
       EQUAL
       "${HUNTER_DOWNLOAD_SCHEME}"
-      "url_sha1_no_install"
+      "url_sha1_unpack"
       is_unpack
   )
 

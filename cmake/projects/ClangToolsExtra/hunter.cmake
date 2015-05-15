@@ -44,6 +44,6 @@ hunter_add_version(
     56afa36c2ddd11a53f1e199152b04dfb9347d93a
 )
 
-hunter_pick_scheme(DEFAULT url_sha1_no_install)
+hunter_pick_scheme(DEFAULT url_sha1_unpack)
 
 hunter_download(PACKAGE_NAME ClangToolsExtra)

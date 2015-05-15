@@ -44,6 +44,6 @@ hunter_add_version(
     add5420b10c3c3a38c4dc2322f8b64ba0a5def97
 )
 
-hunter_pick_scheme(DEFAULT url_sha1_no_install)
+hunter_pick_scheme(DEFAULT url_sha1_unpack)
 
 hunter_download(PACKAGE_NAME Clang)

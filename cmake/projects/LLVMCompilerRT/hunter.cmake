@@ -44,6 +44,6 @@ hunter_add_version(
     d644b1e4f306f7ad35df0a134d14a1123cd9f082
 )
 
-hunter_pick_scheme(DEFAULT url_sha1_no_install)
+hunter_pick_scheme(DEFAULT url_sha1_unpack)
 
 hunter_download(PACKAGE_NAME LLVMCompilerRT)
