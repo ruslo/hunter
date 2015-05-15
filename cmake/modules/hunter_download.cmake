@@ -90,8 +90,8 @@ function(hunter_download)
       HUNTER_PACKAGE_DOWNLOAD_DIR
   )
 
-  if(NOT DEFINED HUNTER_DOWNLOAD_SCHEME_INSTALL)
-    hunter_internal_error("HUNTER_DOWNLOAD_SCHEME_INSTALL not defined")
+  if(NOT DEFINED HUNTER_PACKAGE_SCHEME_INSTALL)
+    hunter_internal_error("HUNTER_PACKAGE_SCHEME_INSTALL not defined")
   endif()
 
   # Set:
@@ -128,7 +128,7 @@ function(hunter_download)
   set(HUNTER_PACKAGE_SOURCE_DIR "${HUNTER_PACKAGE_HOME_DIR}/Source")
 
   if(HUNTER_PACKAGE_CACHEABLE)
-    if(NOT HUNTER_DOWNLOAD_SCHEME_INSTALL)
+    if(NOT HUNTER_PACKAGE_SCHEME_INSTALL)
       hunter_internal_error("Unpack-only packages is cacheable by default")
     endif()
     set(HUNTER_PACKAGE_INSTALL_PREFIX "${HUNTER_PACKAGE_HOME_DIR}/Install")
@@ -136,7 +136,7 @@ function(hunter_download)
     set(HUNTER_PACKAGE_INSTALL_PREFIX "${HUNTER_INSTALL_PREFIX}")
   endif()
 
-  if(HUNTER_DOWNLOAD_SCHEME_INSTALL)
+  if(HUNTER_PACKAGE_SCHEME_INSTALL)
     set(${root_name} "${HUNTER_INSTALL_PREFIX}")
     hunter_status_debug("Install to: ${HUNTER_INSTALL_PREFIX}")
   else()
@@ -168,7 +168,7 @@ function(hunter_download)
   )
 
   foreach(deps ${HUNTER_PACKAGE_DEPENDS_ON})
-    if(NOT HUNTER_DOWNLOAD_SCHEME_INSTALL)
+    if(NOT HUNTER_PACKAGE_SCHEME_INSTALL)
       hunter_internal_error("Unpack-only scheme can't depends on anything")
     endif()
     # Register explicit dependency
@@ -273,7 +273,7 @@ function(hunter_download)
   hunter_status_debug("Download scheme: ${HUNTER_DOWNLOAD_SCHEME}")
   hunter_status_debug("Url: ${HUNTER_PACKAGE_URL}")
   hunter_status_debug("SHA1: ${HUNTER_PACKAGE_SHA1}")
-  if(HUNTER_DOWNLOAD_SCHEME_INSTALL)
+  if(HUNTER_PACKAGE_SCHEME_INSTALL)
     hunter_status_debug(
         "Configuration types: ${HUNTER_PACKAGE_CONFIGURATION_TYPES}"
     )
@@ -372,7 +372,7 @@ function(hunter_download)
   hunter_save_to_cache()
 
   file(REMOVE_RECURSE "${HUNTER_PACKAGE_BUILD_DIR}")
-  if(HUNTER_DOWNLOAD_SCHEME_INSTALL)
+  if(HUNTER_PACKAGE_SCHEME_INSTALL)
     # Unpacked directory not needed (save some disk space)
     file(REMOVE_RECURSE "${HUNTER_PACKAGE_SOURCE_DIR}")
   endif()

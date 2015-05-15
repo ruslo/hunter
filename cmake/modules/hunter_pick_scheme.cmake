@@ -8,7 +8,7 @@ include(hunter_test_string_not_empty)
 
 # Set variables:
 #     * HUNTER_DOWNLOAD_SCHEME
-#     * HUNTER_DOWNLOAD_SCHEME_INSTALL
+#     * HUNTER_PACKAGE_SCHEME_INSTALL
 function(hunter_pick_scheme)
   hunter_test_string_not_empty("${CMAKE_GENERATOR}")
 
@@ -33,20 +33,20 @@ function(hunter_pick_scheme)
     hunter_internal_error("hunter_pick_scheme: expected DEFAULT")
   endif()
 
-  # set HUNTER_DOWNLOAD_SCHEME_INSTALL
+  # set HUNTER_PACKAGE_SCHEME_INSTALL
   string(
       COMPARE
       NOTEQUAL
       "${HUNTER_DOWNLOAD_SCHEME}"
       "url_sha1_no_install"
-      HUNTER_DOWNLOAD_SCHEME_INSTALL
+      HUNTER_PACKAGE_SCHEME_INSTALL
   )
 
   # Forward to parent scope
   set(HUNTER_DOWNLOAD_SCHEME "${HUNTER_DOWNLOAD_SCHEME}" PARENT_SCOPE)
   set(
-      HUNTER_DOWNLOAD_SCHEME_INSTALL
-      "${HUNTER_DOWNLOAD_SCHEME_INSTALL}"
+      HUNTER_PACKAGE_SCHEME_INSTALL
+      "${HUNTER_PACKAGE_SCHEME_INSTALL}"
       PARENT_SCOPE
   )
 endfunction()

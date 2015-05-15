@@ -14,7 +14,7 @@ include(hunter_unpack_directory)
 # Set DONE stamp on success
 # Notes:
 #   1. Skip everything if package is not cacheable (HUNTER_PACKAGE_CACHEABLE)
-#   2. Save SHA1 of package if package is unpack-only (HUNTER_DOWNLOAD_SCHEME_INSTALL)
+#   2. Save SHA1 of package if package is unpack-only (HUNTER_PACKAGE_SCHEME_INSTALL)
 #   3. Toolchain-ID directory already locked
 function(hunter_load_from_cache)
   hunter_test_string_not_empty("${HUNTER_CACHED_ROOT}")
@@ -32,11 +32,11 @@ function(hunter_load_from_cache)
 
   set(cache_file "${HUNTER_PACKAGE_HOME_DIR}/cache.sha1")
 
-  if(NOT DEFINED HUNTER_DOWNLOAD_SCHEME_INSTALL)
-    hunter_internal_error("HUNTER_DOWNLOAD_SCHEME_INSTALL not defined")
+  if(NOT DEFINED HUNTER_PACKAGE_SCHEME_INSTALL)
+    hunter_internal_error("HUNTER_PACKAGE_SCHEME_INSTALL not defined")
   endif()
 
-  if(NOT HUNTER_DOWNLOAD_SCHEME_INSTALL)
+  if(NOT HUNTER_PACKAGE_SCHEME_INSTALL)
     # We only need to save cache.sha1 file:
     #   * no dependencies possible
     #   * cache SHA1 = archive SHA1
