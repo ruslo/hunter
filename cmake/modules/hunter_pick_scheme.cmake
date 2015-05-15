@@ -6,8 +6,11 @@ include(CMakeParseArguments) # cmake_parse_arguments
 include(hunter_internal_error)
 include(hunter_test_string_not_empty)
 
-# Set variables:
+# Set variable:
 #     * HUNTER_DOWNLOAD_SCHEME
+# Set one of the variables:
+#     * HUNTER_PACKAGE_SCHEME_DOWNLOAD
+#     * HUNTER_PACKAGE_SCHEME_UNPACK
 #     * HUNTER_PACKAGE_SCHEME_INSTALL
 function(hunter_pick_scheme)
   hunter_test_string_not_empty("${CMAKE_GENERATOR}")
@@ -33,17 +36,38 @@ function(hunter_pick_scheme)
     hunter_internal_error("hunter_pick_scheme: expected DEFAULT")
   endif()
 
+  set(HUNTER_PACKAGE_SCHEME_DOWNLOAD "")
+  set(HUNTER_PACKAGE_SCHEME_UNPACK "")
+  set(HUNTER_PACKAGE_SCHEME_INSTALL "")
+
   # set HUNTER_PACKAGE_SCHEME_INSTALL
   string(
       COMPARE
-      NOTEQUAL
+      EQUAL
       "${HUNTER_DOWNLOAD_SCHEME}"
       "url_sha1_no_install"
-      HUNTER_PACKAGE_SCHEME_INSTALL
+      is_unpack
   )
+
+  if(is_unpack)
+    set(HUNTER_PACKAGE_SCHEME_UNPACK "1")
+  else()
+    set(HUNTER_PACKAGE_SCHEME_INSTALL "1")
+  endif()
 
   # Forward to parent scope
   set(HUNTER_DOWNLOAD_SCHEME "${HUNTER_DOWNLOAD_SCHEME}" PARENT_SCOPE)
+
+  set(
+      HUNTER_PACKAGE_SCHEME_DOWNLOAD
+      "${HUNTER_PACKAGE_SCHEME_DOWNLOAD}"
+      PARENT_SCOPE
+  )
+  set(
+      HUNTER_PACKAGE_SCHEME_UNPACK
+      "${HUNTER_PACKAGE_SCHEME_UNPACK}"
+      PARENT_SCOPE
+  )
   set(
       HUNTER_PACKAGE_SCHEME_INSTALL
       "${HUNTER_PACKAGE_SCHEME_INSTALL}"

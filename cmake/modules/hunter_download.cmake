@@ -90,8 +90,21 @@ function(hunter_download)
       HUNTER_PACKAGE_DOWNLOAD_DIR
   )
 
-  if(NOT DEFINED HUNTER_PACKAGE_SCHEME_INSTALL)
-    hunter_internal_error("HUNTER_PACKAGE_SCHEME_INSTALL not defined")
+
+  # Check that only one scheme is set to 1
+  set(all_schemes "")
+  set(all_schemes "${all_schemes}${HUNTER_PACKAGE_SCHEME_DOWNLOAD}")
+  set(all_schemes "${all_schemes}${HUNTER_PACKAGE_SCHEME_UNPACK}")
+  set(all_schemes "${all_schemes}${HUNTER_PACKAGE_SCHEME_INSTALL}")
+
+  string(COMPARE EQUAL "${all_schemes}" "1" is_good)
+  if(NOT is_good)
+    hunter_internal_error(
+        "Incorrect schemes:"
+        "  HUNTER_PACKAGE_SCHEME_DOWNLOAD = ${HUNTER_PACKAGE_SCHEME_DOWNLOAD}"
+        "  HUNTER_PACKAGE_SCHEME_UNPACK = ${HUNTER_PACKAGE_SCHEME_UNPACK}"
+        "  HUNTER_PACKAGE_SCHEME_INSTALL = ${HUNTER_PACKAGE_SCHEME_INSTALL}"
+    )
   endif()
 
   # Set:
@@ -129,7 +142,7 @@ function(hunter_download)
 
   if(HUNTER_PACKAGE_CACHEABLE)
     if(NOT HUNTER_PACKAGE_SCHEME_INSTALL)
-      hunter_internal_error("Unpack-only packages is cacheable by default")
+      hunter_internal_error("Non-install packages is cacheable by default")
     endif()
     set(HUNTER_PACKAGE_INSTALL_PREFIX "${HUNTER_PACKAGE_HOME_DIR}/Install")
   else()
@@ -169,7 +182,7 @@ function(hunter_download)
 
   foreach(deps ${HUNTER_PACKAGE_DEPENDS_ON})
     if(NOT HUNTER_PACKAGE_SCHEME_INSTALL)
-      hunter_internal_error("Unpack-only scheme can't depends on anything")
+      hunter_internal_error("Non-install scheme can't depends on anything")
     endif()
     # Register explicit dependency
     hunter_register_dependency(

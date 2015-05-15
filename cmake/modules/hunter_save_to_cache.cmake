@@ -13,7 +13,7 @@ include(hunter_unpack_directory)
 
 # Save results of install
 # Note:
-#  1. Unpack-only schemes is always cacheable (HUNTER_PACKAGE_SCHEME_INSTALL)
+#  1. Non-install schemes is always cacheable (HUNTER_PACKAGE_SCHEME_INSTALL)
 #  2. Skip everything if package is not cacheable (HUNTER_PACKAGE_CACHEABLE)
 #  3. Pack everything from HUNTER_PACKAGE_INSTALL_PREFIX to Cache
 #  4. Unpack archive from Cache to HUNTER_INSTALL_PREFIX
@@ -36,13 +36,9 @@ function(hunter_save_to_cache)
   endif()
   hunter_status_debug("Saving to cache: ${human_readable}")
 
-  if(NOT DEFINED HUNTER_PACKAGE_SCHEME_INSTALL)
-    hunter_internal_error("HUNTER_PACKAGE_SCHEME_INSTALL not defined")
-  endif()
-
   set(cache_file "${HUNTER_PACKAGE_HOME_DIR}/cache.sha1")
 
-  ### Unpack-only must be saved already (see hunter_load_from_cache)
+  ### Non-install packages must be saved already (see hunter_load_from_cache)
   if(NOT HUNTER_PACKAGE_SCHEME_INSTALL)
     if(NOT EXISTS "${cache_file}")
       hunter_internal_error("Cache file not found")
