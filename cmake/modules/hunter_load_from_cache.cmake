@@ -38,7 +38,7 @@ function(hunter_load_from_cache)
     #   * cache SHA1 = archive SHA1
     file(WRITE "${cache_file}" "${HUNTER_PACKAGE_SHA1}")
     hunter_status_debug(
-        "Unpack-only saved: ${cache_file} (${HUNTER_PACKAGE_SHA1})"
+        "Non-install saved: ${cache_file} (${HUNTER_PACKAGE_SHA1})"
     )
     return()
   endif()

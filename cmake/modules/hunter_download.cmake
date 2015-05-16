@@ -155,12 +155,19 @@ function(hunter_download)
   else()
     if(hunter_has_component)
       hunter_internal_error(
-          "Component for unpack-only package:"
+          "Component for non-install package:"
           " ${HUNTER_PACKAGE_NAME} ${HUNTER_PACKAGE_COMPONENT}"
       )
     endif()
-    set(${root_name} "${HUNTER_PACKAGE_SOURCE_DIR}")
-    hunter_status_debug("Unpack to: ${HUNTER_PACKAGE_SOURCE_DIR}")
+    if(HUNTER_PACKAGE_SCHEME_DOWNLOAD)
+      set(${root_name} "${HUNTER_PACKAGE_SOURCE_DIR}")
+      hunter_status_debug("Download to: ${HUNTER_PACKAGE_SOURCE_DIR}")
+    elseif(HUNTER_PACKAGE_SCHEME_UNPACK)
+      set(${root_name} "${HUNTER_PACKAGE_SOURCE_DIR}")
+      hunter_status_debug("Unpack to: ${HUNTER_PACKAGE_SOURCE_DIR}")
+    else()
+      hunter_internal_error("Invalid scheme")
+    endif()
   endif()
 
   set(${root_name} "${${root_name}}" PARENT_SCOPE)
@@ -380,7 +387,11 @@ function(hunter_download)
     )
   endif()
 
-  hunter_find_stamps("${HUNTER_PACKAGE_BUILD_DIR}")
+  if(HUNTER_PACKAGE_SCHEME_DOWNLOAD)
+    # This scheme not using ExternalProject_Add so there will be no stamps
+  else()
+    hunter_find_stamps("${HUNTER_PACKAGE_BUILD_DIR}")
+  endif()
 
   hunter_save_to_cache()
 

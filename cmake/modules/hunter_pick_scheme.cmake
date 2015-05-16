@@ -40,7 +40,7 @@ function(hunter_pick_scheme)
   set(HUNTER_PACKAGE_SCHEME_UNPACK "")
   set(HUNTER_PACKAGE_SCHEME_INSTALL "")
 
-  # set HUNTER_PACKAGE_SCHEME_INSTALL
+  # set HUNTER_PACKAGE_SCHEME_*
   string(
       COMPARE
       EQUAL
@@ -49,8 +49,18 @@ function(hunter_pick_scheme)
       is_unpack
   )
 
+  string(
+      COMPARE
+      EQUAL
+      "${HUNTER_DOWNLOAD_SCHEME}"
+      "url_sha1_download"
+      is_download
+  )
+
   if(is_unpack)
     set(HUNTER_PACKAGE_SCHEME_UNPACK "1")
+  elseif(is_download)
+    set(HUNTER_PACKAGE_SCHEME_DOWNLOAD "1")
   else()
     set(HUNTER_PACKAGE_SCHEME_INSTALL "1")
   endif()

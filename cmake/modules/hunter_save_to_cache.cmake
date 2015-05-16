@@ -43,7 +43,7 @@ function(hunter_save_to_cache)
     if(NOT EXISTS "${cache_file}")
       hunter_internal_error("Cache file not found")
     endif()
-    hunter_status_debug("Unpack only (already cached)")
+    hunter_status_debug("Non-install (already cached)")
     return()
   endif()
 
