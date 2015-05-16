@@ -1,0 +1,71 @@
+# Copyright (c) 2015 Ruslan Baratov
+# All rights reserved.
+
+cmake_minimum_required(VERSION 3.0)
+project(Hunter)
+
+list(APPEND CMAKE_MODULE_PATH "@HUNTER_SELF@/cmake/modules")
+
+include(hunter_fatal_error)
+include(hunter_status_debug)
+include(hunter_status_print)
+include(hunter_test_string_not_empty)
+
+hunter_status_debug("Scheme: url_sha1_download")
+
+# Check preconditions
+hunter_test_string_not_empty("@HUNTER_EP_NAME@")
+hunter_test_string_not_empty("@HUNTER_PACKAGE_DOWNLOAD_DIR@")
+hunter_test_string_not_empty("@HUNTER_PACKAGE_SOURCE_DIR@")
+hunter_test_string_not_empty("@HUNTER_PACKAGE_SHA1@")
+hunter_test_string_not_empty("@HUNTER_PACKAGE_URL@")
+hunter_test_string_not_empty("@HUNTER_SELF@")
+
+get_filename_component(filename "@HUNTER_PACKAGE_URL@" NAME)
+set(dest "@HUNTER_PACKAGE_DOWNLOAD_DIR@/${filename}")
+set(dest_home "@HUNTER_PACKAGE_SOURCE_DIR@/${filename}")
+
+hunter_status_debug("Project `@HUNTER_EP_NAME@`. Downloading:")
+hunter_status_debug("  @HUNTER_PACKAGE_URL@")
+hunter_status_debug("  -> ${dest}")
+hunter_status_debug("  -> ${dest_home}")
+
+set(counter "")
+
+while(TRUE)
+  string(COMPARE EQUAL "${counter}" "xxx" stop)
+  if(stop)
+    hunter_fatal_error("Download failed")
+  endif()
+
+  # Copy/paste from CMake standard module Modules/ExternalProject.cmake
+  file(
+      DOWNLOAD "@HUNTER_PACKAGE_URL@" "${dest}"
+      SHOW_PROGRESS
+      STATUS status
+      LOG log
+  )
+  list(GET status 0 status_code)
+  list(GET status 1 status_string)
+
+  if(NOT status_code EQUAL 0)
+    hunter_status_print("Error: downloading '@HUNTER_PACKAGE_URL@' failed")
+    hunter_status_print("  status_code: ${status_code}")
+    hunter_status_print("  status_string: ${status_string}")
+    hunter_status_print("  log: ${log}")
+  else()
+    file(SHA1 "${dest}" dest_sha1)
+    string(COMPARE EQUAL "${dest_sha1}" "@HUNTER_PACKAGE_SHA1@" is_good)
+    if(is_good)
+      break()
+    else()
+      hunter_status_print("Hash mismatch:")
+      hunter_status_print("  expected: @HUNTER_PACKAGE_SHA1@")
+      hunter_status_print("  got: ${dest_sha1}")
+    endif()
+  endif()
+
+  set(counter "${counter}x")
+endwhile()
+
+file(COPY "${dest}" DESTINATION "@HUNTER_PACKAGE_SOURCE_DIR@")
