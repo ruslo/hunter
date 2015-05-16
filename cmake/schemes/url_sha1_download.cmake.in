@@ -38,6 +38,14 @@ while(TRUE)
     hunter_fatal_error("Download failed")
   endif()
 
+  if(EXISTS "${dest}")
+    file(SHA1 "${dest}" dest_sha1)
+    string(COMPARE EQUAL "${dest_sha1}" "@HUNTER_PACKAGE_SHA1@" is_good)
+    if(is_good)
+      break()
+    endif()
+  endif()
+
   # Copy/paste from CMake standard module Modules/ExternalProject.cmake
   file(
       DOWNLOAD "@HUNTER_PACKAGE_URL@" "${dest}"
