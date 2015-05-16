@@ -130,6 +130,8 @@ env:
     - PROJECT_DIR=examples/TIFF TOOLCHAIN=gcc
     - PROJECT_DIR=examples/TIFF TOOLCHAIN=ios-nocodesign
     - PROJECT_DIR=examples/TIFF TOOLCHAIN=analyze
+    #
+    - PROJECT_DIR=examples/ippicv TOOLCHAIN=default
 
     ### TESTS --
     - PROJECT_DIR=tests/simple TOOLCHAIN=default
