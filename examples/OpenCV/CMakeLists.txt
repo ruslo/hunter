@@ -10,7 +10,6 @@ include("../common.cmake")
 project(download-opencv)
 
 hunter_add_package(OpenCV)
-find_package(ZLIB CONFIG REQUIRED) # Before OpenCV
 find_package(OpenCV REQUIRED)
 
 add_executable(foo foo.cpp)

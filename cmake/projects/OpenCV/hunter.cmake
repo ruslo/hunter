@@ -19,6 +19,17 @@ hunter_add_version(
     PACKAGE_NAME
     OpenCV
     VERSION
+    "3.0.0-rc1-p0"
+    URL
+    "https://github.com/hunter-packages/opencv/archive/3.0.0-rc1-p0.tar.gz"
+    SHA1
+    e04591de27a049851dcd69e42d649e9492c0fd90
+)
+
+hunter_add_version(
+    PACKAGE_NAME
+    OpenCV
+    VERSION
     "3.0.0-beta-p2"
     URL
     "https://github.com/hunter-packages/opencv/archive/3.0.0-beta-p2.tar.gz"
@@ -70,6 +81,14 @@ hunter_add_version(
     a0c2d5944364fc4f26b6160b33c03082b1fa08c1
 )
 
+string(COMPARE EQUAL "${CMAKE_OSX_SYSROOT}" "iphoneos" _is_ios)
+
+if(_is_ios)
+  set(_ios_args ENABLE_NEON=ON)
+else()
+  set(_ios_args "")
+endif()
+
 hunter_cmake_args(
     OpenCV
     CMAKE_ARGS
@@ -78,6 +97,7 @@ hunter_cmake_args(
         BUILD_PERF_TESTS=OFF
         BUILD_opencv_apps=OFF
         BUILD_EXAMPLES=OFF
+        ${_ios_args}
         # Find packages in Hunter (instead of building from OpenCV sources)
         BUILD_ZLIB=OFF
         BUILD_TIFF=OFF
