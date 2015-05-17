@@ -10,6 +10,7 @@ include(ExternalProject) # ExternalProject_Add
 
 list(APPEND CMAKE_MODULE_PATH "@HUNTER_SELF@/cmake/modules")
 
+include(hunter_install_boost_config)
 include(hunter_report_broken_package)
 include(hunter_status_debug)
 include(hunter_test_string_not_empty)
@@ -130,3 +131,10 @@ ExternalProject_Add(
     ${boost_list}
     "--prefix=@HUNTER_PACKAGE_INSTALL_PREFIX@"
 )
+
+# Forward some variables
+set(HUNTER_SELF "@HUNTER_SELF@")
+set(HUNTER_PACKAGE_INSTALL_PREFIX "@HUNTER_PACKAGE_INSTALL_PREFIX@")
+set(HUNTER_Boost_VERSION "@HUNTER_Boost_VERSION@")
+
+hunter_install_boost_config()

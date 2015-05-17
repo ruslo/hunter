@@ -12,11 +12,12 @@ list(APPEND CMAKE_MODULE_PATH "@HUNTER_SELF@/cmake/modules")
 
 include(CheckSymbolExists) # check_symbol_exists
 
+include(hunter_boost_component_b2_args)
 include(hunter_fatal_error)
+include(hunter_install_boost_config)
 include(hunter_internal_error)
 include(hunter_status_debug)
 include(hunter_test_string_not_empty)
-include(hunter_boost_component_b2_args)
 
 hunter_status_debug("Scheme: url_sha1_boost_library")
 
@@ -306,3 +307,10 @@ if(APPLE)
       install
   )
 endif()
+
+# Forward some variables
+set(HUNTER_SELF "@HUNTER_SELF@")
+set(HUNTER_PACKAGE_INSTALL_PREFIX "@HUNTER_PACKAGE_INSTALL_PREFIX@")
+set(HUNTER_Boost_VERSION "@HUNTER_Boost_VERSION@")
+
+hunter_install_boost_config()
