@@ -9,10 +9,22 @@ else()
 endif()
 
 # Load used modules
+include(hunter_add_package)
 include(hunter_add_version)
+include(hunter_cacheable)
 include(hunter_download)
 include(hunter_pick_scheme)
-include(hunter_add_package)
+
+hunter_add_version(
+    PACKAGE_NAME
+    cvmatio
+    VERSION
+    "1.0.12"
+     URL
+     "https://github.com/hunter-packages/cvmatio/archive/v1.0.12.tar.gz"
+     SHA1
+     73eff2a0e9fed7246a4720f3d2aa1244b5daa43a
+)
 
 hunter_add_version(
     PACKAGE_NAME
@@ -26,5 +38,5 @@ hunter_add_version(
 )
 
 hunter_pick_scheme(DEFAULT url_sha1_cmake)
-
+hunter_cacheable(cvmatio)
 hunter_download(PACKAGE_NAME cvmatio)
