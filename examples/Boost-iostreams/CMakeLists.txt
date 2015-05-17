@@ -13,9 +13,15 @@ project(boost_iostreams)
 hunter_add_package(Boost COMPONENTS iostreams)
 
 # now boost can be used
+find_package(Boost CONFIG REQUIRED iostreams)
+add_executable(foo foo.cpp)
+target_link_libraries(foo Boost::iostreams)
+
+# Compatibility mode
 set(Boost_USE_STATIC_LIBS ON)
 if(MSVC)
   add_definitions(-DBOOST_ALL_NO_LIB=1)
 endif()
-find_package(Boost 1.55 REQUIRED iostreams)
-message("boost libraries: ${Boost_LIBRARIES}")
+find_package(Boost REQUIRED iostreams)
+include_directories(${Boost_INCLUDE_DIRS})
+target_link_libraries(foo ${Boost_LIBRARIES})

@@ -13,5 +13,11 @@ project(download-boost)
 hunter_add_package(Boost)
 
 # now boost can be used
-find_package(Boost 1.55 REQUIRED)
-message("Boost include: ${Boost_INCLUDE_DIRS}")
+find_package(Boost CONFIG REQUIRED)
+
+add_executable(foo foo.cpp)
+target_link_libraries(foo Boost::boost)
+
+# Compatibility mode
+find_package(Boost REQUIRED)
+include_directories("${Boost_INCLUDE_DIRS}")
