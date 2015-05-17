@@ -10,6 +10,7 @@ endif()
 # Load used modules
 include(hunter_add_package)
 include(hunter_add_version)
+include(hunter_cacheable)
 include(hunter_cmake_args)
 include(hunter_download)
 include(hunter_pick_scheme)
@@ -113,4 +114,5 @@ hunter_pick_scheme(DEFAULT url_sha1_cmake)
 #     * libexample_A.a
 #     * libexample_Ad.a
 
+hunter_cacheable(OpenCV)
 hunter_download(PACKAGE_NAME OpenCV)
