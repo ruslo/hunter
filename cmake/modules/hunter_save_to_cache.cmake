@@ -31,7 +31,7 @@ function(hunter_save_to_cache)
   if(has_component)
     set(
         human_readable
-        "${human_readable} (component: ${HUNTER_PACKAGE_COMPONENT}"
+        "${human_readable} (component: ${HUNTER_PACKAGE_COMPONENT})"
     )
   endif()
   hunter_status_debug("Saving to cache: ${human_readable}")
