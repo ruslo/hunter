@@ -132,6 +132,7 @@ env:
     - PROJECT_DIR=examples/TIFF TOOLCHAIN=analyze
     #
     - PROJECT_DIR=examples/ippicv TOOLCHAIN=default
+    - PROJECT_DIR=examples/AndroidTools TOOLCHAIN=default
 
     ### TESTS --
     - PROJECT_DIR=tests/simple TOOLCHAIN=default
