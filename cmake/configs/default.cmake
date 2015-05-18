@@ -23,6 +23,7 @@ include(hunter_config)
 
 # NOTE: no names with spaces!
 
+hunter_config(AndroidPlatform VERSION 21_r01)
 hunter_config(AndroidTools VERSION 23.0.5)
 hunter_config(BZip2 VERSION 1.0.6-p1)
 hunter_config(Boost VERSION 1.57.0)

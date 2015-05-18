@@ -133,6 +133,7 @@ env:
     #
     - PROJECT_DIR=examples/ippicv TOOLCHAIN=default
     - PROJECT_DIR=examples/AndroidTools TOOLCHAIN=default
+    - PROJECT_DIR=examples/AndroidPlatform TOOLCHAIN=default
 
     ### TESTS --
     - PROJECT_DIR=tests/simple TOOLCHAIN=default
