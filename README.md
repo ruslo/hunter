@@ -83,8 +83,8 @@ include("cmake/HunterGate.cmake")
 
 ```cmake
 HunterGate(
-    URL "https://github.com/ruslo/hunter/archive/v0.8.9.tar.gz"
-    SHA1 "a63185bfe1235b42a4644e84ab121c7ac4a0db65"
+    URL "https://github.com/ruslo/hunter/archive/v0.10.7.tar.gz"
+    SHA1 "fcefc85a841d7d0f03fb02e3c5d6a390d946285e"
 )
 ```
 
@@ -93,18 +93,17 @@ HunterGate(
 project(Foo)
 ```
 
-* Let's download and install `boost.regex` and `boost.filesystem`:
+* Let's download and install `boost.{regex,system,filesystem}`:
 ```cmake
-hunter_add_package(Boost COMPONENTS regex filesystem)
+hunter_add_package(Boost COMPONENTS regex system filesystem)
 ```
 
-* Hunter part is done, now well known CMake-style kung-fu:
+* Hunter part is done, now well known CMake-style kung-fu (see [pkg.boost](https://github.com/ruslo/hunter/wiki/pkg.boost)):
 ```cmake
-find_package(Boost REQUIRED regex filesystem)
+find_package(Boost CONFIG REQUIRED regex system filesystem)
 
-include_directories(${Boost_INCLUDE_DIR})
 add_executable(foo foo.cpp)
-target_link_libraries(foo ${Boost_LIBRARIES})
+target_link_libraries(foo PUBLIC Boost::regex Boost::system Boost::filesystem)
 ```
 
 * Build it:
