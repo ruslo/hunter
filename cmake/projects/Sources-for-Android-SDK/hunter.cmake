@@ -15,7 +15,7 @@ hunter_add_version(
     PACKAGE_NAME
     Sources-for-Android-SDK
     VERSION
-    "22_r01"
+    "22" # version affects layout: <sdk>/sources/android-22
     URL
     "http://dl-ssl.google.com/android/repository/sources-22_r01.zip"
     SHA1
