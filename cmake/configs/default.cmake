@@ -23,9 +23,9 @@ include(hunter_config)
 
 # NOTE: no names with spaces!
 
-hunter_config(AndroidPlatform VERSION 22_r02)
-hunter_config(AndroidPlatformTools VERSION r22)
-hunter_config(AndroidTools VERSION 24.2)
+hunter_config(Android-SDK-Platform VERSION 22_r02)
+hunter_config(Android-SDK-Platform-tools VERSION r22)
+hunter_config(Android-SDK-Tools VERSION 24.2)
 hunter_config(BZip2 VERSION 1.0.6-p1)
 hunter_config(Boost VERSION 1.57.0)
 hunter_config(CLAPACK VERSION 3.2.1)

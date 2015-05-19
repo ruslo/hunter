@@ -9,4 +9,4 @@ include("../common.cmake")
 
 project(Foo)
 
-hunter_add_package(AndroidPlatformTools)
+hunter_add_package(Android-SDK-Platform-tools)

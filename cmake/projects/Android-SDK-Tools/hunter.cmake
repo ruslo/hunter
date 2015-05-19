@@ -1,10 +1,10 @@
 # Copyright (c) 2015, Ruslan Baratov
 # All rights reserved.
 
-if(DEFINED HUNTER_CMAKE_PROJECTS_ANDROIDTOOLS_HUNTER_CMAKE_)
+if(DEFINED HUNTER_CMAKE_PROJECTS_ANDROID_SDK_TOOLS_HUNTER_CMAKE_)
   return()
 else()
-  set(HUNTER_CMAKE_PROJECTS_ANDROIDTOOLS_HUNTER_CMAKE_ 1)
+  set(HUNTER_CMAKE_PROJECTS_ANDROID_SDK_TOOLS_HUNTER_CMAKE_ 1)
 endif()
 
 include(hunter_add_version)
@@ -14,7 +14,7 @@ include(hunter_pick_scheme)
 if(APPLE)
   hunter_add_version(
       PACKAGE_NAME
-      AndroidTools
+      Android-SDK-Tools
       VERSION
       "24.2"
       URL
@@ -25,7 +25,7 @@ if(APPLE)
 
   hunter_add_version(
       PACKAGE_NAME
-      AndroidTools
+      Android-SDK-Tools
       VERSION
       "23.0.5"
       URL
@@ -36,7 +36,7 @@ if(APPLE)
 elseif(UNIX)
   hunter_add_version(
       PACKAGE_NAME
-      AndroidTools
+      Android-SDK-Tools
       VERSION
       "24.2"
       URL
@@ -47,7 +47,7 @@ elseif(UNIX)
 
   hunter_add_version(
       PACKAGE_NAME
-      AndroidTools
+      Android-SDK-Tools
       VERSION
       "23.0.5"
       URL
@@ -58,7 +58,7 @@ elseif(UNIX)
 elseif(WIN32)
   hunter_add_version(
       PACKAGE_NAME
-      AndroidTools
+      Android-SDK-Tools
       VERSION
       "24.2"
       URL
@@ -69,7 +69,7 @@ elseif(WIN32)
 
   hunter_add_version(
       PACKAGE_NAME
-      AndroidTools
+      Android-SDK-Tools
       VERSION
       "23.0.5"
       URL
@@ -80,4 +80,4 @@ elseif(WIN32)
 endif()
 
 hunter_pick_scheme(DEFAULT url_sha1_unpack)
-hunter_download(PACKAGE_NAME AndroidTools)
+hunter_download(PACKAGE_NAME Android-SDK-Tools)

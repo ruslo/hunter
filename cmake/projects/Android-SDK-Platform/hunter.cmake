@@ -1,10 +1,10 @@
 # Copyright (c) 2015, Ruslan Baratov
 # All rights reserved.
 
-if(DEFINED HUNTER_CMAKE_PROJECTS_ANDROIDPLATFORM_HUNTER_CMAKE_)
+if(DEFINED HUNTER_CMAKE_PROJECTS_ANDROID_SDK_PLATFORM_HUNTER_CMAKE_)
   return()
 else()
-  set(HUNTER_CMAKE_PROJECTS_ANDROIDPLATFORM_HUNTER_CMAKE_ 1)
+  set(HUNTER_CMAKE_PROJECTS_ANDROID_SDK_PLATFORM_HUNTER_CMAKE_ 1)
 endif()
 
 include(hunter_add_version)
@@ -13,7 +13,7 @@ include(hunter_pick_scheme)
 
 hunter_add_version(
     PACKAGE_NAME
-    AndroidPlatform
+    Android-SDK-Platform
     VERSION
     "22_r02"
     URL
@@ -24,7 +24,7 @@ hunter_add_version(
 
 hunter_add_version(
     PACKAGE_NAME
-    AndroidPlatform
+    Android-SDK-Platform
     VERSION
     "21_r01"
     URL
@@ -34,4 +34,4 @@ hunter_add_version(
 )
 
 hunter_pick_scheme(DEFAULT url_sha1_unpack)
-hunter_download(PACKAGE_NAME AndroidPlatform)
+hunter_download(PACKAGE_NAME Android-SDK-Platform)
