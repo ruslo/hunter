@@ -16,6 +16,17 @@ if(APPLE)
       PACKAGE_NAME
       Android-Build-Tools
       VERSION
+      "22.0.1"
+      URL
+      "https://dl-ssl.google.com/android/repository/build-tools_r22.0.1-macosx.zip"
+      SHA1
+      53dad7f608e01d53b17176ba11165acbfccc5bbf
+  )
+
+  hunter_add_version(
+      PACKAGE_NAME
+      Android-Build-Tools
+      VERSION
       "18.1"
       URL
       "https://dl-ssl.google.com/android/repository/build-tools_r18.1-macosx.zip"
@@ -38,6 +49,17 @@ elseif(UNIX)
       PACKAGE_NAME
       Android-Build-Tools
       VERSION
+      "22.0.1"
+      URL
+      "https://dl-ssl.google.com/android/repository/build-tools_r22.0.1-linux.zip"
+      SHA1
+      da8b9c5c3ede39298e6cf0283c000c2ee9029646
+  )
+
+  hunter_add_version(
+      PACKAGE_NAME
+      Android-Build-Tools
+      VERSION
       "18.1"
       URL
       "https://dl-ssl.google.com/android/repository/build-tools_r18.1-linux.zip"
@@ -56,6 +78,17 @@ elseif(UNIX)
       f11618492b0d2270c332325d45d752d3656a9640
   )
 elseif(WIN32)
+  hunter_add_version(
+      PACKAGE_NAME
+      Android-Build-Tools
+      VERSION
+      "22.0.1"
+      URL
+      "https://dl-ssl.google.com/android/repository/build-tools_r22.0.1-windows.zip"
+      SHA1
+      61d8cbe069d9e0a57872a83e5e5abe164b7d52cf
+  )
+
   hunter_add_version(
       PACKAGE_NAME
       Android-Build-Tools
