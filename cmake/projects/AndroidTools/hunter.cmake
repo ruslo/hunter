@@ -16,6 +16,17 @@ if(APPLE)
       PACKAGE_NAME
       AndroidTools
       VERSION
+      "24.2"
+      URL
+      "http://dl-ssl.google.com/android/repository/tools_r24.2-macosx.zip"
+      SHA1
+      bae733afb4b024fdcbdaad1105d4dedf5689454f
+  )
+
+  hunter_add_version(
+      PACKAGE_NAME
+      AndroidTools
+      VERSION
       "23.0.5"
       URL
       "http://dl-ssl.google.com/android/repository/tools_r23.0.5-macosx.zip"
@@ -27,6 +38,17 @@ elseif(UNIX)
       PACKAGE_NAME
       AndroidTools
       VERSION
+      "24.2"
+      URL
+      "http://dl-ssl.google.com/android/repository/tools_r24.2-linux.zip"
+      SHA1
+      4dd9d54af10eb999efe606899d3007cb6b1eaa78
+  )
+
+  hunter_add_version(
+      PACKAGE_NAME
+      AndroidTools
+      VERSION
       "23.0.5"
       URL
       "http://dl-ssl.google.com/android/repository/tools_r23.0.5-linux.zip"
@@ -34,6 +56,17 @@ elseif(UNIX)
       398c38494d50d98dd9f3ae02899ba32be32c912d
   )
 elseif(WIN32)
+  hunter_add_version(
+      PACKAGE_NAME
+      AndroidTools
+      VERSION
+      "24.2"
+      URL
+      "http://dl-ssl.google.com/android/repository/tools_r24.2-windows.zip"
+      SHA1
+      a2d6b9e00516c63455d17fae9c9fe2463f4389a1
+  )
+
   hunter_add_version(
       PACKAGE_NAME
       AndroidTools
