@@ -93,7 +93,7 @@ HunterGate(
 project(Foo)
 ```
 
-* Let's download and install `boost.regex` and `boost.filesystem`:
+* Let's download and install `boost.{regex,system,filesystem}`:
 ```cmake
 hunter_add_package(Boost COMPONENTS regex system filesystem)
 ```
