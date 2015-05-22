@@ -53,6 +53,14 @@ env:
     - PROJECT_DIR=examples/Boost-system TOOLCHAIN=ios-nocodesign
     - PROJECT_DIR=examples/Boost-system TOOLCHAIN=analyze
     #
+    - PROJECT_DIR=examples/Boost-iostreams TOOLCHAIN=default
+    - PROJECT_DIR=examples/Boost-iostreams TOOLCHAIN=libcxx
+    - PROJECT_DIR=examples/Boost-iostreams TOOLCHAIN=clang-libstdcxx
+    - PROJECT_DIR=examples/Boost-iostreams TOOLCHAIN=xcode
+    - PROJECT_DIR=examples/Boost-iostreams TOOLCHAIN=gcc
+    - PROJECT_DIR=examples/Boost-iostreams TOOLCHAIN=ios-nocodesign
+    - PROJECT_DIR=examples/Boost-iostreams TOOLCHAIN=analyze
+    #
     - PROJECT_DIR=examples/Expat TOOLCHAIN=default
     - PROJECT_DIR=examples/Expat TOOLCHAIN=libcxx
     - PROJECT_DIR=examples/Expat TOOLCHAIN=clang-libstdcxx
