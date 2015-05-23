@@ -11,6 +11,12 @@ include(hunter_add_version)
 include(hunter_cacheable)
 include(hunter_download)
 include(hunter_pick_scheme)
+include(hunter_report_broken_package)
+
+string(COMPARE EQUAL "${CMAKE_OSX_SYSROOT}" "iphoneos" _hunter_ios)
+if(_hunter_ios)
+  hunter_report_broken_package("BZip2 is broken on iOS")
+endif()
 
 hunter_add_version(
     PACKAGE_NAME
