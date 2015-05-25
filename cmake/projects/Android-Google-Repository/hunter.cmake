@@ -11,6 +11,19 @@ include(hunter_add_version)
 include(hunter_download)
 include(hunter_pick_scheme)
 
+# https://dl.google.com/android/repository/addon.xml
+
+hunter_add_version(
+    PACKAGE_NAME
+    Android-Google-Repository
+    VERSION
+    "18"
+    URL
+    "https://dl.google.com/android/repository/google_m2repository_r18.zip"
+    SHA1
+    fa37e64775ffe5dc78c41364fb665406e88951c2
+)
+
 hunter_add_version(
     PACKAGE_NAME
     Android-Google-Repository
