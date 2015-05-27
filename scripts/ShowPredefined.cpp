@@ -759,10 +759,6 @@
 # pragma message(HUNTER_INFO(__FUNCSIG__))
 #endif
 
-#if defined(__FUNCTION__)
-# pragma message(HUNTER_INFO(__FUNCTION__))
-#endif
-
 #if defined(__FXSR__)
 # pragma message(HUNTER_INFO(__FXSR__))
 #endif
