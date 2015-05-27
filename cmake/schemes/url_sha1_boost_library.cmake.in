@@ -293,21 +293,6 @@ ExternalProject_Add(
     LOG_INSTALL 1
 )
 
-if(APPLE)
-  find_package(PythonInterp 3.2 REQUIRED)
-  ExternalProject_Add_Step(
-      "@HUNTER_EP_NAME@"
-      FixDylibId
-      COMMAND
-      "${PYTHON_EXECUTABLE}"
-      "@HUNTER_SELF@/scripts/fix-boost-dylib-id.py"
-      "--install-dir"
-      "@HUNTER_PACKAGE_INSTALL_PREFIX@/lib"
-      DEPENDEES
-      install
-  )
-endif()
-
 # Forward some variables
 set(HUNTER_SELF "@HUNTER_SELF@")
 set(HUNTER_PACKAGE_INSTALL_PREFIX "@HUNTER_PACKAGE_INSTALL_PREFIX@")
