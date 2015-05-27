@@ -134,6 +134,10 @@ cpp_head = """
     "__HUNTER_MACRO_CHECK_END__"
 
 #include <exception> // Check std library version
+
+#if defined(__ANDROID__)
+# include <android/api-level.h> // Header with __ANDROID_API__
+#endif
 """
 
 cpp_one_check = """

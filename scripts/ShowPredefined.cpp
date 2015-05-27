@@ -11,6 +11,10 @@
 
 #include <exception> // Check std library version
 
+#if defined(__ANDROID__)
+# include <android/api-level.h> // Header with __ANDROID_API__
+#endif
+
 #if defined(_AIX)
 # pragma message(HUNTER_INFO(_AIX))
 #endif
@@ -329,6 +333,10 @@
 
 #if defined(__AARCH64EL__)
 # pragma message(HUNTER_INFO(__AARCH64EL__))
+#endif
+
+#if defined(__ANDROID_API__)
+# pragma message(HUNTER_INFO(__ANDROID_API__))
 #endif
 
 #if defined(__ANDROID__)
