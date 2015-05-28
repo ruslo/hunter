@@ -24,7 +24,7 @@ include(hunter_config)
 # NOTE: no names with spaces!
 
 hunter_config(BZip2 VERSION 1.0.6-p1)
-hunter_config(Boost VERSION 1.57.0)
+hunter_config(Boost VERSION 1.58.0)
 hunter_config(CLAPACK VERSION 3.2.1)
 hunter_config(Clang VERSION 3.6.0)
 hunter_config(ClangToolsExtra VERSION ${HUNTER_Clang_VERSION})
