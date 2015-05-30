@@ -11,6 +11,8 @@ include(hunter_add_version)
 include(hunter_download)
 include(hunter_pick_scheme)
 
+# https://dl.google.com/android/repository/sys-img/android/sys-img.xml
+
 hunter_add_version(
     PACKAGE_NAME
     Android-Intel-x86-Atom-System-Image
@@ -20,6 +22,17 @@ hunter_add_version(
     "https://dl.google.com/android/repository/sys-img/android/sysimg_x86-22_r01.zip"
     SHA1
     6c7bb51e41a16099bb1f2a3cc81fdb5aa053fc15
+)
+
+hunter_add_version(
+    PACKAGE_NAME
+    Android-Intel-x86-Atom-System-Image
+    VERSION
+    "21"
+    URL
+    "https://dl.google.com/android/repository/sys-img/android/sysimg_x86-21_r03.zip"
+    SHA1
+    a0b510c66769e84fa5e40515531be2d266a4247f
 )
 
 hunter_pick_scheme(DEFAULT url_sha1_unpack)
