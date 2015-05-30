@@ -11,6 +11,19 @@ include(hunter_add_version)
 include(hunter_download)
 include(hunter_pick_scheme)
 
+# https://dl.google.com/android/repository/addon.xml
+
+hunter_add_version(
+    PACKAGE_NAME
+    Android-Support-Repository
+    VERSION
+    "15"
+    URL
+    "http://dl-ssl.google.com/android/repository/android_m2repository_r15.zip"
+    SHA1
+    2c51feb406ce3c7e09db8339a0d680beb91b8bf1
+)
+
 hunter_add_version(
     PACKAGE_NAME
     Android-Support-Repository
