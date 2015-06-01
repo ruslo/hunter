@@ -102,6 +102,23 @@ else()
   hunter_fatal_error("TODO: set toolset for boost" WIKI "error.boost.toolset")
 endif()
 
+if("@ANDROID@")
+  set(toolset_version ndk)
+endif()
+
+get_directory_property(defs COMPILE_DEFINITIONS)
+foreach(def ${defs})
+    set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -D${def}")
+endforeach()
+
+get_directory_property(include_dirs INCLUDE_DIRECTORIES)
+foreach(include_dir ${include_dirs})
+  set(
+      CMAKE_CXX_FLAGS
+      "${CMAKE_CXX_FLAGS} ${CMAKE_INCLUDE_SYSTEM_FLAG_CXX} ${include_dir}"
+  )
+endforeach()
+
 if("@MSVC@")
   set(env_cmd "@HUNTER_MSVC_VCVARSALL@" "@HUNTER_MSVC_ARCH@")
 else()
@@ -163,8 +180,10 @@ set(boost_user_jam "@HUNTER_PACKAGE_BUILD_DIR@/boost.user.jam")
 file(
      WRITE
      ${boost_user_jam}
-     "using ${toolset_name} :\n"
+     "using ${toolset_name}\n"
+     "    : ${toolset_version}\n"
      "    : \"${boost_compiler}\"\n"
+     "    : <archiver> \"${CMAKE_AR}\"\n"
      ";\n"
      "${using_mpi}\n"
 )
@@ -192,6 +211,10 @@ else()
   set(link_opts link=static)
 endif()
 
+set(toolset_full_name ${toolset_name})
+if (toolset_version)
+  set(toolset_full_name ${toolset_full_name}-${toolset_version})
+endif()
 set(
     build_opts
     -a
@@ -199,7 +222,7 @@ set(
     threading=multi
     ${variants}
     --layout=tagged
-    toolset=${toolset_name}
+    toolset=${toolset_full_name}
     "--user-config=${boost_user_jam}"
     --with-@HUNTER_PACKAGE_COMPONENT@
 )
@@ -242,9 +265,9 @@ else()
   set(b2_cmd "./b2")
 endif()
 
-file(READ "${boost_user_jam}" USER_JAM_CONTENT)
 
 if(HUNTER_STATUS_DEBUG)
+file(READ "${boost_user_jam}" USER_JAM_CONTENT)
   hunter_status_debug("Build options:")
   foreach(opt ${build_opts})
     hunter_status_debug("  ${opt}")
