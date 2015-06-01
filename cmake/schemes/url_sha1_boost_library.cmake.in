@@ -145,33 +145,33 @@ if(is_mpi)
     if(NOT MPI_CXX_FOUND)
       # Fix concurrent output to console
       execute_process(
-        COMMAND
-        "@CMAKE_COMMAND@"
-        -E
-        echo
-        "MPI is required. Please install it. For example MS-MPI: "
-        "http://msdn.microsoft.com/en-us/library/bb524831%28v=vs.85%29.aspx"
+          COMMAND
+          "@CMAKE_COMMAND@"
+          -E
+          echo
+          "MPI is required. Please install it. For example MS-MPI: "
+          "http://msdn.microsoft.com/en-us/library/bb524831%28v=vs.85%29.aspx"
       )
       hunter_fatal_error("MPI is required" WIKI "error.boost.mpi.on.windows")
     endif()
     get_filename_component(MPI_DIR "${MPI_CXX_INCLUDE_PATH}/.." ABSOLUTE)
     string(REPLACE "/" "\\\\" MPI_DIR "${MPI_DIR}")
     configure_file(
-      "@HUNTER_SELF@/scripts/mpi.jam"
-      "@HUNTER_PACKAGE_BUILD_DIR@/tools/build/v2/tools/mpi.jam"
+        "@HUNTER_SELF@/scripts/mpi.jam"
+        "@HUNTER_PACKAGE_BUILD_DIR@/tools/build/v2/tools/mpi.jam"
     )
 
     # HUNTER_PACKAGE_SOURCE_DIR will be removed while unpacking. Save mpi.jam
     # in HUNTER_PACKAGE_BUILD_DIR first and move it to HUNTER_PACKAGE_SOURCE_DIR
     # on configure step
     set(
-      copy_mpi_command
-      COMMAND
-      "@CMAKE_COMMAND@"
-      -E
-      copy
-      "@HUNTER_PACKAGE_BUILD_DIR@/tools/build/v2/tools/mpi.jam"
-      "@HUNTER_PACKAGE_SOURCE_DIR@/tools/build/v2/tools/mpi.jam"
+        copy_mpi_command
+        COMMAND
+        "@CMAKE_COMMAND@"
+        -E
+        copy
+        "@HUNTER_PACKAGE_BUILD_DIR@/tools/build/v2/tools/mpi.jam"
+        "@HUNTER_PACKAGE_SOURCE_DIR@/tools/build/v2/tools/mpi.jam"
     )
   endif()
   set(variants variant=release) # build bug
@@ -183,14 +183,14 @@ endif()
 
 set(boost_user_jam "@HUNTER_PACKAGE_BUILD_DIR@/boost.user.jam")
 file(
-  WRITE
-  ${boost_user_jam}
-  "using ${toolset_name}\n"
-  "  : ${toolset_version}\n"
-  "  : \"${boost_compiler}\"\n"
-  "  : <archiver> \"${CMAKE_AR}\"\n"
-  ";\n"
-  "${using_mpi}\n"
+    WRITE
+    ${boost_user_jam}
+    "using ${toolset_name}\n"
+    "  : ${toolset_version}\n"
+    "  : \"${boost_compiler}\"\n"
+    "  : <archiver> \"${CMAKE_AR}\"\n"
+    ";\n"
+    "${using_mpi}\n"
 )
 
 if("@MSVC@")
@@ -221,21 +221,21 @@ if (toolset_version)
   set(toolset_full_name ${toolset_full_name}-${toolset_version})
 endif()
 set(
-  build_opts
-  -a
-  ${link_opts}
-  threading=multi
-  ${variants}
-  --layout=tagged
-  toolset=${toolset_full_name}
-  "--user-config=${boost_user_jam}"
-  --with-@HUNTER_PACKAGE_COMPONENT@
+    build_opts
+    -a
+    ${link_opts}
+    threading=multi
+    ${variants}
+    --layout=tagged
+    toolset=${toolset_full_name}
+    "--user-config=${boost_user_jam}"
+    --with-@HUNTER_PACKAGE_COMPONENT@
 )
 
 hunter_boost_component_b2_args(
-  "@HUNTER_PACKAGE_COMPONENT@"
-  "@HUNTER_Boost_CMAKE_ARGS@"
-  b2_component_opts
+    "@HUNTER_PACKAGE_COMPONENT@"
+    "@HUNTER_Boost_CMAKE_ARGS@"
+    b2_component_opts
 )
 
 list(APPEND build_opts ${b2_component_opts})
@@ -285,40 +285,40 @@ if(HUNTER_STATUS_DEBUG)
 endif()
 
 ExternalProject_Add(
-  "@HUNTER_EP_NAME@"
-  URL
-  @HUNTER_PACKAGE_URL@
-  URL_HASH
-  SHA1=@HUNTER_PACKAGE_SHA1@
-  DOWNLOAD_DIR
-  "@HUNTER_PACKAGE_DOWNLOAD_DIR@"
-  SOURCE_DIR
-  "@HUNTER_PACKAGE_SOURCE_DIR@"
-  INSTALL_DIR
-  "@HUNTER_PACKAGE_INSTALL_PREFIX@"
-      # not used, just avoid creating Install/<name> empty directory
-  CONFIGURE_COMMAND
-  ${env_cmd}
-  ${copy_mpi_command}
-  COMMAND
-  ${bootstrap_cmd}
-  BUILD_COMMAND
-  ${b2_cmd}
-  ${verbose_output}
-  ${build_opts}
-  BUILD_IN_SOURCE
-  1
-  INSTALL_COMMAND
-  ${b2_cmd}
-  -d0
-  ${build_opts}
-  stage # install only libraries, headers installed in `url_sha1_boost`
-  "--stagedir=@HUNTER_PACKAGE_INSTALL_PREFIX@"
-  # Logging as Workaround for VS_UNICODE_OUTPUT issue:
-  # https://public.kitware.com/Bug/view.php?id=14266
-  LOG_CONFIGURE 1
-  LOG_BUILD 1
-  LOG_INSTALL 1
+    "@HUNTER_EP_NAME@"
+    URL
+    @HUNTER_PACKAGE_URL@
+    URL_HASH
+    SHA1=@HUNTER_PACKAGE_SHA1@
+    DOWNLOAD_DIR
+    "@HUNTER_PACKAGE_DOWNLOAD_DIR@"
+    SOURCE_DIR
+    "@HUNTER_PACKAGE_SOURCE_DIR@"
+    INSTALL_DIR
+    "@HUNTER_PACKAGE_INSTALL_PREFIX@"
+        # not used, just avoid creating Install/<name> empty directory
+    CONFIGURE_COMMAND
+    ${env_cmd}
+    ${copy_mpi_command}
+    COMMAND
+    ${bootstrap_cmd}
+    BUILD_COMMAND
+    ${b2_cmd}
+    ${verbose_output}
+    ${build_opts}
+    BUILD_IN_SOURCE
+    1
+    INSTALL_COMMAND
+    ${b2_cmd}
+    -d0
+    ${build_opts}
+    stage # install only libraries, headers installed in `url_sha1_boost`
+    "--stagedir=@HUNTER_PACKAGE_INSTALL_PREFIX@"
+    # Logging as Workaround for VS_UNICODE_OUTPUT issue:
+    # https://public.kitware.com/Bug/view.php?id=14266
+    LOG_CONFIGURE 1
+    LOG_BUILD 1
+    LOG_INSTALL 1
 )
 
 # Forward some variables
