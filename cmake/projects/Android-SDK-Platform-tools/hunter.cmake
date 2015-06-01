@@ -11,7 +11,7 @@ include(hunter_add_version)
 include(hunter_download)
 include(hunter_pick_scheme)
 
-if(APPLE)
+if(CMAKE_HOST_APPLE)
   hunter_add_version(
       PACKAGE_NAME
       Android-SDK-Platform-tools
@@ -33,7 +33,7 @@ if(APPLE)
       SHA1
       6675f9f583841972c5c5ef8d2c131e1209529fde
   )
-elseif(UNIX)
+elseif(CMAKE_HOST_UNIX)
   hunter_add_version(
       PACKAGE_NAME
       Android-SDK-Platform-tools
@@ -55,7 +55,7 @@ elseif(UNIX)
       SHA1
       2502ade68af9f6288c4dd7726796599e8d9a4337
   )
-elseif(WIN32)
+elseif(CMAKE_HOST_WIN32)
   hunter_add_version(
       PACKAGE_NAME
       Android-SDK-Platform-tools

@@ -13,7 +13,7 @@ include(hunter_pick_scheme)
 
 # http://dl-ssl.google.com/android/repository/repository-10.xml
 
-if(APPLE)
+if(CMAKE_HOST_APPLE)
   hunter_add_version(
       PACKAGE_NAME
       Android-SDK-Tools
@@ -46,7 +46,7 @@ if(APPLE)
       SHA1
       a567215d89b3ff80766e54f8f969b3487bce8d71
   )
-elseif(UNIX)
+elseif(CMAKE_HOST_UNIX)
   hunter_add_version(
       PACKAGE_NAME
       Android-SDK-Tools
@@ -79,7 +79,7 @@ elseif(UNIX)
       SHA1
       398c38494d50d98dd9f3ae02899ba32be32c912d
   )
-elseif(WIN32)
+elseif(CMAKE_HOST_WIN32)
   hunter_add_version(
       PACKAGE_NAME
       Android-SDK-Tools
