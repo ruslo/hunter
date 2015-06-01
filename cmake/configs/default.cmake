@@ -23,6 +23,7 @@ include(hunter_config)
 
 # NOTE: no names with spaces!
 
+hunter_config(Android-Apk VERSION 1.0.0)
 hunter_config(Android-Build-Tools VERSION 22.0.1)
 hunter_config(Android-Google-APIs VERSION 21) # API 21
 hunter_config(Android-Google-APIs-Intel-x86-Atom-System-Image VERSION 21) # API 21
