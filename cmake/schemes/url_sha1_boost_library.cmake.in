@@ -90,16 +90,38 @@ endif()
 
 string(COMPARE EQUAL "@CMAKE_CXX_COMPILER_ID@" "Clang" compiler_is_clang)
 
-if("@APPLE@")
-  set(toolset_name darwin)
+if("@ANDROID@")
+  set(toolset_name "gcc")
+  set(toolset_version "ndk")
+elseif("@APPLE@")
+  set(toolset_name "darwin")
+  set(toolset_version "")
 elseif("@CMAKE_COMPILER_IS_GNUCXX@")
-  set(toolset_name gcc)
+  set(toolset_name "gcc")
+  set(toolset_version "")
 elseif(compiler_is_clang)
-  set(toolset_name clang)
+  set(toolset_name "clang")
+  set(toolset_version "")
 elseif("@MSVC@")
-  set(toolset_name msvc)
+  set(toolset_name "msvc")
+  set(toolset_version "")
 else()
   hunter_fatal_error("TODO: set toolset for boost" WIKI "error.boost.toolset")
+endif()
+
+if("@ANDROID@")
+  get_directory_property(defs COMPILE_DEFINITIONS)
+  foreach(def ${defs})
+    set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -D${def}")
+  endforeach()
+  
+  get_directory_property(include_dirs INCLUDE_DIRECTORIES)
+  foreach(include_dir ${include_dirs})
+    set(
+      CMAKE_CXX_FLAGS
+      "${CMAKE_CXX_FLAGS} ${CMAKE_INCLUDE_SYSTEM_FLAG_CXX} ${include_dir}"
+    )
+  endforeach()
 endif()
 
 if("@MSVC@")
@@ -161,12 +183,14 @@ endif()
 
 set(boost_user_jam "@HUNTER_PACKAGE_BUILD_DIR@/boost.user.jam")
 file(
-     WRITE
-     ${boost_user_jam}
-     "using ${toolset_name} :\n"
-     "    : \"${boost_compiler}\"\n"
-     ";\n"
-     "${using_mpi}\n"
+    WRITE
+    ${boost_user_jam}
+    "using ${toolset_name}\n"
+    "  : ${toolset_version}\n"
+    "  : \"${boost_compiler}\"\n"
+    "  : <archiver> \"${CMAKE_AR}\"\n"
+    ";\n"
+    "${using_mpi}\n"
 )
 
 if("@MSVC@")
@@ -192,6 +216,11 @@ else()
   set(link_opts link=static)
 endif()
 
+set(toolset_full_name ${toolset_name})
+string(COMPARE NOTEQUAL "${toolset_version}" "" has_toolset_version)
+if (has_toolset_version)
+  set(toolset_full_name ${toolset_name}-${toolset_version})
+endif()
 set(
     build_opts
     -a
@@ -199,7 +228,7 @@ set(
     threading=multi
     ${variants}
     --layout=tagged
-    toolset=${toolset_name}
+    toolset=${toolset_full_name}
     "--user-config=${boost_user_jam}"
     --with-@HUNTER_PACKAGE_COMPONENT@
 )
@@ -208,7 +237,7 @@ hunter_boost_component_b2_args(
   "@HUNTER_PACKAGE_COMPONENT@"
   "@HUNTER_Boost_CMAKE_ARGS@"
   b2_component_opts
-  )
+)
 
 list(APPEND build_opts ${b2_component_opts})
 
@@ -242,9 +271,9 @@ else()
   set(b2_cmd "./b2")
 endif()
 
-file(READ "${boost_user_jam}" USER_JAM_CONTENT)
 
 if(HUNTER_STATUS_DEBUG)
+  file(READ "${boost_user_jam}" USER_JAM_CONTENT)
   hunter_status_debug("Build options:")
   foreach(opt ${build_opts})
     hunter_status_debug("  ${opt}")
