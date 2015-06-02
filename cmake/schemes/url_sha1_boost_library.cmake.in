@@ -217,8 +217,9 @@ else()
 endif()
 
 set(toolset_full_name ${toolset_name})
-if (toolset_version)
-  set(toolset_full_name ${toolset_full_name}-${toolset_version})
+string(COMPARE NOTEQUAL "${toolset_version}" "" has_toolset_version)
+if (has_toolset_version)
+  set(toolset_full_name ${toolset_name}-${toolset_version})
 endif()
 set(
     build_opts
@@ -233,9 +234,9 @@ set(
 )
 
 hunter_boost_component_b2_args(
-    "@HUNTER_PACKAGE_COMPONENT@"
-    "@HUNTER_Boost_CMAKE_ARGS@"
-    b2_component_opts
+  "@HUNTER_PACKAGE_COMPONENT@"
+  "@HUNTER_Boost_CMAKE_ARGS@"
+  b2_component_opts
 )
 
 list(APPEND build_opts ${b2_component_opts})
