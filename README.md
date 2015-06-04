@@ -2,7 +2,7 @@ Hunter [![Build Status][travis-master]][travis-hunter]
 ======
 
 * Cross-platform package manager for C++ (based on CMake [ExternalProject][cmake-external-project])
-* Supported platforms: **Linux**, **Mac**, **Windows**, **iOS**
+* Supported platforms: **Linux**, **Mac**, **Windows**, **iOS**, **Android**
 
 ### What is it?
 
@@ -190,6 +190,7 @@ Message in logs:
 ```
 
 * [Collection of toolchains][polly]
+* [Android example](https://github.com/forexample/android-cmake)
 
 ### Uninstall
 
