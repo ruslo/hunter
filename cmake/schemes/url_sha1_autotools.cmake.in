@@ -1,0 +1,101 @@
+# Copyright (c) 2013, 2015 Ruslan Baratov, Alexandre Pretyman
+# All rights reserved.
+
+cmake_minimum_required(VERSION 3.0)
+project(Hunter)
+
+include(ExternalProject) # ExternalProject_Add
+
+list(APPEND CMAKE_MODULE_PATH "@HUNTER_SELF@/cmake/modules")
+
+include(hunter_status_debug)
+include(hunter_test_string_not_empty)
+
+list(APPEND CMAKE_MODULE_PATH "@HUNTER_SELF@/cmake/schemes") 
+include(autotools_append_toolchain_binaries)
+include(autotools_append_preprocessor_flags)
+include(autotools_append_compiler_cxxflags)
+include(autotools_append_compiler_cflags)
+include(autotools_append_linker_flags)
+
+hunter_status_debug("Scheme: url_sha1_autotools")
+
+# Check preconditions
+hunter_test_string_not_empty("@HUNTER_SELF@")
+hunter_test_string_not_empty("@HUNTER_EP_NAME@")
+hunter_test_string_not_empty("@HUNTER_PACKAGE_URL@")
+hunter_test_string_not_empty("@HUNTER_PACKAGE_SHA1@")
+hunter_test_string_not_empty("@HUNTER_PACKAGE_DOWNLOAD_DIR@")
+hunter_test_string_not_empty("@HUNTER_PACKAGE_SOURCE_DIR@")
+hunter_test_string_not_empty("@HUNTER_PACKAGE_INSTALL_PREFIX@")
+
+set(HUNTER_STATUS_DEBUG "@HUNTER_STATUS_DEBUG@")
+
+set(configure_command "./configure")
+if ("@ANDROID@")
+  set(configure_opts ${configure_opts} --host=${ANDROID_TOOLCHAIN_MACHINE_NAME})
+endif()
+
+if (HUNTER_STATUS_DEBUG)
+	message("[hunter] configure_opts start with: ${configure_opts}")
+endif()
+
+autotools_append_toolchain_binaries(configure_opts)
+if (HUNTER_STATUS_DEBUG)
+	message("[hunter] configure_opts after autotools_append_toolchain_binaries: ${configure_opts}")
+endif()
+
+autotools_append_preprocessor_flags("" configure_opts)
+if (HUNTER_STATUS_DEBUG)
+	message("[hunter] configure_opts after autotools_append_preprocessor_flags: ${configure_opts}")
+endif()
+
+autotools_append_compiler_cxxflags("" configure_opts)
+if (HUNTER_STATUS_DEBUG)
+	message("[hunter] configure_opts after autotools_append_compiler_cxxflags: ${configure_opts}")
+endif()
+
+autotools_append_compiler_cflags("" configure_opts)
+if (HUNTER_STATUS_DEBUG)
+	message("[hunter] configure_opts after autotools_append_compiler_cflags: ${configure_opts}")
+endif()
+
+if (STATIC_LIBRARY_FLAGS)
+  set(ldflags "${STATIC_LIBRARY_FLAGS}")
+endif()
+
+autotools_append_linker_flags("${ldflags}" configure_opts)
+if (HUNTER_STATUS_DEBUG)
+	message("[hunter] configure_opts after autotools_append_linker_flags: ${configure_opts}")
+endif()
+
+set(
+    configure_command
+    . "@HUNTER_SELF@/scripts/clear-all.sh" && "${configure_command}"
+)
+set(build_command . "@HUNTER_SELF@/scripts/clear-all.sh" && make)
+
+ExternalProject_Add(
+    "@HUNTER_EP_NAME@"
+    URL
+    @HUNTER_PACKAGE_URL@
+    URL_HASH
+    SHA1=@HUNTER_PACKAGE_SHA1@
+    DOWNLOAD_DIR
+    "@HUNTER_PACKAGE_DOWNLOAD_DIR@"
+    SOURCE_DIR
+    "@HUNTER_PACKAGE_SOURCE_DIR@"
+    INSTALL_DIR
+    "@HUNTER_PACKAGE_INSTALL_PREFIX@"
+        # not used, just avoid creating Install/<name> empty directory
+    CONFIGURE_COMMAND
+    ${configure_command}
+    ${configure_opts}
+    "--prefix=@HUNTER_PACKAGE_INSTALL_PREFIX@"
+    BUILD_COMMAND
+    ${build_command}
+    BUILD_IN_SOURCE
+    1
+    INSTALL_COMMAND
+    make install
+)
