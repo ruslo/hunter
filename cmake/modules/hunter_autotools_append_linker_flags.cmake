@@ -4,7 +4,7 @@
 # Adds to append_result 
 #   LDFLAGS=${ldflags} 
 #
-function(autotools_append_linker_flags ldflags append_result)
+function(hunter_autotools_append_linker_flags ldflags append_result)
   #Linker flags
   string(STRIP "${ldflags}" ldflags)
   string(COMPARE NOTEQUAL "${ldflags}" "" has_ldflags)

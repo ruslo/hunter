@@ -8,14 +8,12 @@ else()
 endif()
 
 include(hunter_add_version)
-include(hunter_cacheable)
-include(hunter_cmake_args)
 include(hunter_download)
 include(hunter_pick_scheme)
 
 hunter_add_version(
     PACKAGE_NAME
-   	odb 
+    odb 
     VERSION
     "2.4.0"
     URL
@@ -25,5 +23,4 @@ hunter_add_version(
 )
 
 hunter_pick_scheme(DEFAULT url_sha1_autotools)
-#hunter_cacheable(odb)
 hunter_download(PACKAGE_NAME odb)

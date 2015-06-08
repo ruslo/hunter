@@ -4,7 +4,7 @@
 # Adds to append_result 
 #   CPPFLAGS=${cppflags} [-D${COMPILE_DEFINITIONS}] [-I${INCLUDE_DIRECTORIES}]
 #
-function(autotools_append_preprocessor_flags cppflags append_result)
+function(hunter_autotools_append_preprocessor_flags cppflags append_result)
   #C Preprocessor flags
   get_directory_property(defs COMPILE_DEFINITIONS)
   foreach(def ${defs})
@@ -19,7 +19,7 @@ function(autotools_append_preprocessor_flags cppflags append_result)
 	set(_cppflags "${_cppflags} ${cppflags}")
   string(STRIP "${_cppflags}" cppflags)
   string(COMPARE NOTEQUAL "${_cppflags}" "" has_cppflags)
-  if (has_cppflags)
+  if(has_cppflags)
     set(${append_result} ${${append_result}} CPPFLAGS=${_cppflags} PARENT_SCOPE)
   endif()
 endfunction()
