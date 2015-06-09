@@ -21,7 +21,7 @@ hunter_add_version(
     VERSION
     "1.0.21"
      URL
-     "https://github.com/headupinclouds/cvmatio/archive/v1.0.21.tar.gz"
+     "https://github.com/headupinclouds/cvmatio/archive/1.0.21.tar.gz"
      SHA1
      2061c3ce3f0c06d8527f326f3b93e56357b8f85f
 )
