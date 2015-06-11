@@ -20,6 +20,17 @@ hunter_add_version(
     PACKAGE_NAME
     Boost
     VERSION
+    "1.58.0-p0"
+    URL
+    "https://github.com/headupinclouds/boost/archive/v1.58.0-p0.tar.gz"
+    SHA1
+    b28c8a9966594cb688aed8ef1404c311ebd4ed0c
+)
+
+hunter_add_version(
+    PACKAGE_NAME
+    Boost
+    VERSION
     "1.58.0"
     URL
     "http://sourceforge.net/projects/boost/files/boost/1.58.0/boost_1_58_0.tar.bz2/download"

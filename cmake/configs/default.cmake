@@ -23,7 +23,7 @@ include(hunter_config)
 
 # NOTE: no names with spaces!
 
-hunter_config(Android-Apk VERSION 1.1.1)
+hunter_config(Android-Apk VERSION 1.1.2)
 hunter_config(Android-Build-Tools VERSION 22.0.1)
 hunter_config(Android-Google-APIs VERSION 21) # API 21
 hunter_config(Android-Google-APIs-Intel-x86-Atom-System-Image VERSION 21) # API 21
@@ -36,7 +36,7 @@ hunter_config(Android-SDK-Platform-tools VERSION r22)
 hunter_config(Android-SDK-Tools VERSION 24.3)
 hunter_config(Android-Support-Repository VERSION 15)
 hunter_config(BZip2 VERSION 1.0.6-p1)
-hunter_config(Boost VERSION 1.58.0)
+hunter_config(Boost VERSION 1.58.0-p0)
 hunter_config(CLAPACK VERSION 3.2.1)
 hunter_config(Clang VERSION 3.6.0)
 hunter_config(ClangToolsExtra VERSION ${HUNTER_Clang_VERSION})
