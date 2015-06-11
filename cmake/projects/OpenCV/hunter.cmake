@@ -93,11 +93,13 @@ endif()
 hunter_cmake_args(
     OpenCV
     CMAKE_ARGS
+        BUILD_ANDROID_EXAMPLES=OFF
         BUILD_DOCS=OFF
-        BUILD_TESTS=OFF
-        BUILD_PERF_TESTS=OFF
-        BUILD_opencv_apps=OFF
         BUILD_EXAMPLES=OFF
+        BUILD_PERF_TESTS=OFF
+        BUILD_TESTS=OFF
+        BUILD_opencv_apps=OFF
+        INSTALL_PYTHON_EXAMPLES=OFF
         ${_ios_args}
         # Find packages in Hunter (instead of building from OpenCV sources)
         BUILD_ZLIB=OFF
