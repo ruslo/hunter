@@ -34,6 +34,7 @@ hunter_test_string_not_empty("@HUNTER_PACKAGE_SOURCE_DIR@")
 hunter_test_string_not_empty("@HUNTER_PACKAGE_INSTALL_PREFIX@")
 
 set(configure_command "./configure")
+set(configure_opts "")
 if("@ANDROID@")
   #used by hunter_autotools_append_preprocessor_flags
   hunter_test_string_not_empty("${CMAKE_C_FLAGS}")
