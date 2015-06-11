@@ -102,7 +102,11 @@ else()
 endif()
 
 if(ANDROID)
-  set(_android_args ENABLE_NEON=ON)
+  set(_android_args 
+    ENABLE_NEON=ON
+    BUILD_ANDROID_SERVICE=OFF
+    BUILD_ANDROID_EXAMPLES=OFF
+    )
 else()
   set(_android_args "")
 endif()
