@@ -1,8 +1,8 @@
 # Copyright (c) 2015 Ruslan Baratov, Alexandre Pretyman
 # All rights reserved.
 #
-# Adds to append_result 
-#   LDFLAGS=${ldflags} 
+# Adds to append_result
+#   LDFLAGS=${ldflags}
 #
 function(hunter_autotools_append_linker_flags ldflags append_result)
   #Linker flags

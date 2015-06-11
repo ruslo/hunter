@@ -1,7 +1,7 @@
 # Copyright (c) 2015 Ruslan Baratov, Alexandre Pretyman
 # All rights reserved.
 #
-# Adds to append_result 
+# Adds to append_result
 #   AR=${CMAKE_AR}
 #   AS=${CMAKE_ASM_COMPILER}
 #   LD=${CMAKE_LINKER}

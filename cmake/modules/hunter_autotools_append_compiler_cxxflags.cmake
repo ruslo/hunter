@@ -1,11 +1,11 @@
 # Copyright (c) 2015 Ruslan Baratov, Alexandre Pretyman
 # All rights reserved.
 #
-# Adds to append_result 
+# Adds to append_result
 #   CXXFLAGS=${cxxflags} ${CMAKE_CXX_FLAGS}
 #
 function(hunter_autotools_append_compiler_cxxflags cxxflags append_result)
-  #C++ Compiler flags (defines or include directories should not be needed here) 
+  #C++ Compiler flags (defines or include directories should not be needed here)
   set(_cxxflags "${cxxflags} ${CMAKE_CXX_FLAGS}")
   string(STRIP "${_cxxflags}" _cxxflags)
   string(COMPARE NOTEQUAL "${_cxxflags}" "" has_cxxflags)

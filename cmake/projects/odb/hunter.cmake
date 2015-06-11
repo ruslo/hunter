@@ -13,7 +13,7 @@ include(hunter_pick_scheme)
 
 hunter_add_version(
     PACKAGE_NAME
-    odb 
+    odb
     VERSION
     "2.4.0"
     URL
