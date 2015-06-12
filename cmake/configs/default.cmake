@@ -23,7 +23,7 @@ include(hunter_config)
 
 # NOTE: no names with spaces!
 
-hunter_config(Android-Apk VERSION 1.1.1)
+hunter_config(Android-Apk VERSION 1.1.3)
 hunter_config(Android-Build-Tools VERSION 22.0.1)
 hunter_config(Android-Google-APIs VERSION 21) # API 21
 hunter_config(Android-Google-APIs-Intel-x86-Atom-System-Image VERSION 21) # API 21
@@ -58,7 +58,7 @@ hunter_config(Leathers VERSION 0.1.6)
 hunter_config(Libcxx VERSION ${HUNTER_Clang_VERSION})
 hunter_config(Libcxxabi VERSION ${HUNTER_Clang_VERSION})
 hunter_config(Libssh2 VERSION 1.4.4-patch-2)
-hunter_config(OpenCV VERSION 3.0.0-rc1-p0)
+hunter_config(OpenCV VERSION 3.0.0-p0)
 hunter_config(OpenCV-Extra VERSION 3.0.0)
 hunter_config(OpenSSL VERSION 1.0.2a)
 hunter_config(PNG VERSION 1.6.16-p3)
@@ -72,7 +72,7 @@ hunter_config(Washer VERSION 0.1.2)
 hunter_config(WinSparkle VERSION 0.4.0)
 hunter_config(ZLIB VERSION 1.2.8-p3)
 hunter_config(ccv VERSION 0.7-p6)
-hunter_config(cvmatio VERSION 1.0.12)
+hunter_config(cvmatio VERSION 1.0.26)
 hunter_config(dlib VERSION 18.14-p1)
 hunter_config(ios_sim VERSION 3.1.1)
 hunter_config(ippicv VERSION 20141027)

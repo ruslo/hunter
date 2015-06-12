@@ -20,6 +20,17 @@ hunter_add_version(
     PACKAGE_NAME
     OpenCV
     VERSION
+    "3.0.0-p0"
+    URL
+    "https://github.com/headupinclouds/opencv/archive/3.0.0-p0.tar.gz"
+    SHA1
+    bd69a9b3f28e7d5131402e2c3566734b4fd517aa
+)
+
+hunter_add_version(
+    PACKAGE_NAME
+    OpenCV
+    VERSION
     "3.0.0-rc1-p0"
     URL
     "https://github.com/hunter-packages/opencv/archive/3.0.0-rc1-p0.tar.gz"
@@ -90,6 +101,16 @@ else()
   set(_ios_args "")
 endif()
 
+if(ANDROID)
+  set(_android_args 
+    ENABLE_NEON=ON
+    BUILD_ANDROID_SERVICE=OFF
+    BUILD_ANDROID_EXAMPLES=OFF
+    )
+else()
+  set(_android_args "")
+endif()
+
 hunter_cmake_args(
     OpenCV
     CMAKE_ARGS
@@ -101,6 +122,7 @@ hunter_cmake_args(
         BUILD_opencv_apps=OFF
         INSTALL_PYTHON_EXAMPLES=OFF
         ${_ios_args}
+        ${_android_args}
         # Find packages in Hunter (instead of building from OpenCV sources)
         BUILD_ZLIB=OFF
         BUILD_TIFF=OFF
