@@ -19,6 +19,17 @@ hunter_add_version(
     PACKAGE_NAME
     cvmatio
     VERSION
+    "1.0.26"
+     URL
+     "https://github.com/hunter-packages/cvmatio/archive/v1.0.26.tar.gz"
+     SHA1
+     b28ffa0509752dd6af8f034fbde5b63955ae8d1c
+)
+
+hunter_add_version(
+    PACKAGE_NAME
+    cvmatio
+    VERSION
     "1.0.12"
      URL
      "https://github.com/hunter-packages/cvmatio/archive/v1.0.12.tar.gz"
