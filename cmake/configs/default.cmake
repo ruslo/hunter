@@ -63,6 +63,7 @@ hunter_config(OpenCV-Extra VERSION 3.0.0)
 hunter_config(OpenSSL VERSION 1.0.2a)
 hunter_config(PNG VERSION 1.6.16-p3)
 hunter_config(RapidJSON VERSION 0.11-hunter)
+hunter_config(SQLite3 VERSION autoconf-3080803) #R-Tree enabled
 hunter_config(Sober VERSION 0.1.1) # Relax warnings
 hunter_config(Sources-for-Android-SDK VERSION 21) # API 21
 hunter_config(sparsehash VERSION 2.0.2)
@@ -77,4 +78,6 @@ hunter_config(dlib VERSION 18.14-p1)
 hunter_config(ios_sim VERSION 3.1.1)
 hunter_config(ippicv VERSION 20141027)
 hunter_config(odb VERSION 2.4.0)
+hunter_config(odb-compiler VERSION 2.4.0)
+hunter_config(odb-sqlite VERSION 2.4.0)
 hunter_config(wxWidgets VERSION 3.0.2)
