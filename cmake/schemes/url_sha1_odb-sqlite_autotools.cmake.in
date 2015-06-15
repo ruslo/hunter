@@ -18,7 +18,7 @@ include(hunter_autotools_append_compiler_cxxflags)
 include(hunter_autotools_append_compiler_cflags)
 include(hunter_autotools_append_linker_flags)
 
-hunter_status_debug("Scheme: url_sha1_autotools")
+hunter_status_debug("Scheme: url_sha1_odb-sqlite_autotools")
 
 set(HUNTER_STATUS_DEBUG "@HUNTER_STATUS_DEBUG@")
 
@@ -29,10 +29,10 @@ endif()
 list(APPEND CMAKE_MODULE_PATH "@HUNTER_SELF@/cmake/find")
 
 set(ODB_ROOT "@ODB_ROOT@")
-find_package(odb)
+find_package(odb REQUIRED)
 
 set(SQLITE3_ROOT "@SQLITE3_ROOT@")
-find_package(SQLite3)
+find_package(SQLite3 REQUIRED)
 
 # Check preconditions
 hunter_test_string_not_empty("@HUNTER_SELF@")
@@ -44,6 +44,8 @@ hunter_test_string_not_empty("@HUNTER_PACKAGE_SOURCE_DIR@")
 hunter_test_string_not_empty("@HUNTER_PACKAGE_INSTALL_PREFIX@")
 
 set(configure_command "./configure")
+set(configure_opts "")
+set(ldflags "")
 if("@ANDROID@")
   #used by hunter_autotools_append_preprocessor_flags
   hunter_test_string_not_empty("${CMAKE_C_FLAGS}") 
@@ -54,6 +56,10 @@ if("@ANDROID@")
   #  of where to put them.
   hunter_test_string_not_empty("${ANDROID_TOOLCHAIN_MACHINE_NAME}")
   set(configure_opts ${configure_opts} --host=${ANDROID_TOOLCHAIN_MACHINE_NAME})
+	set(ldflags "${ldflags} ${__libstl}")
+	if(ANDROID_LINKER_FLAGS)
+		set(ldflags "${ldflags} ${ANDROID_LINKER_FLAGS}")
+	endif()
 endif()
 
 hunter_autotools_append_toolchain_binaries(configure_opts)
@@ -61,7 +67,7 @@ hunter_autotools_append_preprocessor_flags(" -I${ODB_INCLUDE_DIR} -I${SQLITE3_IN
 hunter_autotools_append_compiler_cxxflags("" configure_opts)
 hunter_autotools_append_compiler_cflags("" configure_opts)
 
-set(ldflags "${STATIC_LIBRARY_FLAGS} -L${ODB_LIB_DIR} -lodb -L${SQLITE3_LIB_DIR} -lsqlite3")
+set(ldflags "${ldflags} ${STATIC_LIBRARY_FLAGS} -L${ODB_LIB_DIR} -lodb -L${SQLITE3_LIB_DIR} -lsqlite3")
 
 hunter_autotools_append_linker_flags("${ldflags}" configure_opts)
 

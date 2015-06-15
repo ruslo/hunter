@@ -18,7 +18,7 @@ include(hunter_autotools_append_compiler_cxxflags)
 include(hunter_autotools_append_compiler_cflags)
 include(hunter_autotools_append_linker_flags)
 
-hunter_status_debug("Scheme: url_sha1_autotools")
+hunter_status_debug("Scheme: url_sha1_sqlite3_autotools")
 
 set(HUNTER_STATUS_DEBUG "@HUNTER_STATUS_DEBUG@")
 
@@ -36,6 +36,8 @@ hunter_test_string_not_empty("@HUNTER_PACKAGE_SOURCE_DIR@")
 hunter_test_string_not_empty("@HUNTER_PACKAGE_INSTALL_PREFIX@")
 
 set(configure_command "./configure")
+set(configure_opts "")
+set(ldflags "")
 if("@ANDROID@")
   #used by hunter_autotools_append_preprocessor_flags
   hunter_test_string_not_empty("${CMAKE_C_FLAGS}") 
@@ -46,6 +48,10 @@ if("@ANDROID@")
   #  of where to put them.
   hunter_test_string_not_empty("${ANDROID_TOOLCHAIN_MACHINE_NAME}")
   set(configure_opts ${configure_opts} --host=${ANDROID_TOOLCHAIN_MACHINE_NAME})
+	set(ldflags "${ldflags} ${__libstl}")
+	if(ANDROID_LINKER_FLAGS)
+		set(ldflags "${ldflags} ${ANDROID_LINKER_FLAGS}")
+	endif()
 endif()
 
 hunter_autotools_append_toolchain_binaries(configure_opts)
@@ -53,7 +59,11 @@ hunter_autotools_append_preprocessor_flags(" -DSQLITE_ENABLE_UNLOCK_NOTIFY=1 -DS
 hunter_autotools_append_compiler_cxxflags("" configure_opts)
 hunter_autotools_append_compiler_cflags("" configure_opts)
 
-set(ldflags "${STATIC_LIBRARY_FLAGS}")
+if(STATIC_LIBRARY_FLAGS)
+  set(ldflags "${ldflags} ${STATIC_LIBRARY_FLAGS}")
+endif()
+
+
 
 hunter_autotools_append_linker_flags("${ldflags}" configure_opts)
 

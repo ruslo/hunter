@@ -35,6 +35,7 @@ hunter_test_string_not_empty("@HUNTER_PACKAGE_INSTALL_PREFIX@")
 
 set(configure_command "./configure")
 set(configure_opts "")
+set(ldflags "")
 if("@ANDROID@")
   #used by hunter_autotools_append_preprocessor_flags
   hunter_test_string_not_empty("${CMAKE_C_FLAGS}")
@@ -45,6 +46,10 @@ if("@ANDROID@")
   #  of where to put them.
   hunter_test_string_not_empty("${ANDROID_TOOLCHAIN_MACHINE_NAME}")
   set(configure_opts ${configure_opts} --host=${ANDROID_TOOLCHAIN_MACHINE_NAME})
+	set(ldflags "${ldflags} ${__libstl}")
+	if(ANDROID_LINKER_FLAGS)
+		set(ldflags "${ldflags} ${ANDROID_LINKER_FLAGS}")
+	endif()
 endif()
 
 hunter_autotools_append_toolchain_binaries(configure_opts)
@@ -52,8 +57,9 @@ hunter_autotools_append_preprocessor_flags("" configure_opts)
 hunter_autotools_append_compiler_cxxflags("" configure_opts)
 hunter_autotools_append_compiler_cflags("" configure_opts)
 
+
 if(STATIC_LIBRARY_FLAGS)
-  set(ldflags "${STATIC_LIBRARY_FLAGS}")
+  set(ldflags "${ldflags} ${STATIC_LIBRARY_FLAGS}")
 endif()
 
 hunter_autotools_append_linker_flags("${ldflags}" configure_opts)
