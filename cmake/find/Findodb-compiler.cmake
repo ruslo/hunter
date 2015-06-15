@@ -26,7 +26,7 @@
 
 list(FIND CMAKE_FIND_ROOT_PATH "${ODB-COMPILER_ROOT}" _odb-compiler_root_index)
 if(_odb-compiler_root_index EQUAL -1)
-	list(APPEND CMAKE_FIND_ROOT_PATH "${ODB-COMPILER_ROOT}")
+  list(APPEND CMAKE_FIND_ROOT_PATH "${ODB-COMPILER_ROOT}")
 endif()
 
 find_program(

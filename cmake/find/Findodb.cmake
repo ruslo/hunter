@@ -10,7 +10,7 @@ endif()
 
 list(FIND CMAKE_FIND_ROOT_PATH "${ODB_ROOT}" _odb_root_index)
 if(_odb_root_index EQUAL -1)
-	list(APPEND CMAKE_FIND_ROOT_PATH "${ODB_ROOT}")
+  list(APPEND CMAKE_FIND_ROOT_PATH "${ODB_ROOT}")
 endif()
 
 set(ODB_INCLUDE_DIRS "") 
@@ -82,7 +82,7 @@ foreach(_odb_component ${odb_FIND_COMPONENTS})
     list(APPEND _component_link_libraries "odb")    
     string(COMPARE EQUAL "${_odb_component}" "sqlite" is_sqlite)
     if(is_sqlite)
-			find_package(SQLite3 REQUIRED)
+      find_package(SQLite3 REQUIRED)
       list(APPEND _component_link_libraries "SQLite3")    
     endif()
 
