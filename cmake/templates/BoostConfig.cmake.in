@@ -87,3 +87,8 @@ foreach(_boost_component ${Boost_FIND_COMPONENTS})
     )
   endif()
 endforeach()
+
+if(TARGET Boost::iostreams)
+  include("${CMAKE_CURRENT_LIST_DIR}/BoostZLIBDependency.cmake" OPTIONAL)
+  include("${CMAKE_CURRENT_LIST_DIR}/BoostBZip2Dependency.cmake" OPTIONAL)
+endif()

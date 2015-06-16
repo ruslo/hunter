@@ -22,4 +22,20 @@ function(hunter_install_boost_config)
       "${configs}/BoostConfig.cmake"
       @ONLY
   )
+
+  if(BOOST_CONFIG_LINK_ZLIB)
+    configure_file(
+        "${templates}/BoostZLIBDependency.cmake.in"
+        "${configs}/BoostZLIBDependency.cmake"
+        @ONLY
+    )
+  endif()
+
+  if(BOOST_CONFIG_LINK_BZIP2)
+    configure_file(
+        "${templates}/BoostBZIP2Dependency.cmake.in"
+        "${configs}/BoostBZIP2Dependency.cmake"
+        @ONLY
+    )
+  endif()
 endfunction()

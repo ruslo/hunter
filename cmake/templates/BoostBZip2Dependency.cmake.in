@@ -1,0 +1,15 @@
+# Copyright (c) 2015, Ruslan Baratov
+# All rights reserved.
+
+hunter_add_package(BZip2)
+find_package(BZip2 CONFIG REQUIRED)
+
+get_target_property(
+   _interface_link_libraries Boost::iostreams INTERFACE_LINK_LIBRARIES
+)
+
+set_target_properties(
+    Boost::iostreams
+    PROPERTIES
+    INTERFACE_LINK_LIBRARIES "${_interface_link_libraries};BZip2::bz2"
+)
