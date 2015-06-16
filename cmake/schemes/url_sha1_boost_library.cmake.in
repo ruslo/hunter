@@ -205,6 +205,8 @@ string(COMPARE NOTEQUAL "${toolset_version}" "" has_toolset_version)
 if(has_toolset_version)
   set(toolset_full_name ${toolset_name}-${toolset_version})
 endif()
+
+set(boost_user_jam "@HUNTER_PACKAGE_BUILD_DIR@/boost.user.jam")
 set(
     build_opts
     -a
@@ -223,7 +225,6 @@ hunter_boost_component_b2_args(
     b2_component_opts
 )
 
-set(boost_user_jam "@HUNTER_PACKAGE_BUILD_DIR@/boost.user.jam")
 file(
     WRITE
     ${boost_user_jam}
