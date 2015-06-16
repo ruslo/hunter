@@ -181,18 +181,6 @@ else()
   set(copy_mpi_command "")
 endif()
 
-set(boost_user_jam "@HUNTER_PACKAGE_BUILD_DIR@/boost.user.jam")
-file(
-    WRITE
-    ${boost_user_jam}
-    "using ${toolset_name}\n"
-    "  : ${toolset_version}\n"
-    "  : \"${boost_compiler}\"\n"
-    "  : <archiver> \"${CMAKE_AR}\"\n"
-    ";\n"
-    "${using_mpi}\n"
-)
-
 if("@MSVC@")
   # Disable auto-linking
   set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} /DBOOST_ALL_NO_LIB=1")
@@ -233,6 +221,18 @@ hunter_boost_component_b2_args(
     "@HUNTER_PACKAGE_COMPONENT@"
     "@HUNTER_Boost_CMAKE_ARGS@"
     b2_component_opts
+)
+
+set(boost_user_jam "@HUNTER_PACKAGE_BUILD_DIR@/boost.user.jam")
+file(
+    WRITE
+    ${boost_user_jam}
+    "using ${toolset_name}\n"
+    "  : ${toolset_version}\n"
+    "  : \"${boost_compiler}\"\n"
+    "  : <archiver> \"${CMAKE_AR}\"\n"
+    ";\n"
+    "${using_mpi}\n"
 )
 
 list(APPEND build_opts ${b2_component_opts})
