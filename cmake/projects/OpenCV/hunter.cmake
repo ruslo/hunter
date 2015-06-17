@@ -133,6 +133,7 @@ hunter_cmake_args(
         BUILD_TESTS=OFF
         BUILD_opencv_apps=OFF
         INSTALL_PYTHON_EXAMPLES=OFF
+        BUILD_WITH_STATIC_CRT=OFF # Fix https://github.com/ruslo/hunter/issues/177
         ${_ios_args}
         # Find packages in Hunter (instead of building from OpenCV sources)
         BUILD_ZLIB=OFF
