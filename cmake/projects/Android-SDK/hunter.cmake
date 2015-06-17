@@ -8,6 +8,7 @@ else()
 endif()
 
 include(hunter_add_version)
+include(hunter_configuration_types)
 include(hunter_download)
 include(hunter_pick_scheme)
 
@@ -21,6 +22,9 @@ hunter_add_version(
     SHA1
     3b151f3cb559dc2ae1d0df85155e9cae5a33958d
 )
+
+# This is unpack-like package. No need to install variants
+hunter_configuration_types(Android-SDK CONFIGURATION_TYPES Release)
 
 hunter_pick_scheme(DEFAULT url_sha1_cmake)
 hunter_download(PACKAGE_NAME Android-SDK)
