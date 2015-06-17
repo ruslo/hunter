@@ -23,9 +23,9 @@ hunter_add_version(
     VERSION
     "1.58.0-p0"
     URL
-    "https://github.com/hunter-packages/boost/archive/v1.58.0.tar.gz"
+    "https://github.com/hunter-packages/boost/archive/v1.58.0-p0.tar.gz"
     SHA1
-    bab1bf06fabccbe7843350023b9393a7ab4e670b
+    0c3a2f284e85a61e2d2ccc1a6fdc8dc7a443ef67
 )
 
 hunter_add_version(
