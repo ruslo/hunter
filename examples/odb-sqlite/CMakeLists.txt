@@ -10,11 +10,11 @@ hunter_add_package(odb-sqlite)
 find_package(odb COMPONENTS sqlite compiler)
 
 set(${PROJECT_NAME}_SOURCES
-    driver.cpp
-    database.h)
+    driver.cxx
+    database.hxx)
 
 set(${PROJECT_NAME}_ODB_HEADERS
-    person.h)
+    person.hxx)
 
 add_executable(${PROJECT_NAME}
     ${${PROJECT_NAME}_SOURCES}

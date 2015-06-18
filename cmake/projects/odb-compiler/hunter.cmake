@@ -36,7 +36,7 @@ elseif(CMAKE_HOST_UNIX)
       f8b5797af1ce185db6adfa1d91ba5c90584d220f
   )
 elseif(CMAKE_HOST_WIN32)
-	hunter_add_version(
+  hunter_add_version(
       PACKAGE_NAME
       odb-compiler
       VERSION

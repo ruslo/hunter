@@ -28,4 +28,7 @@ hunter_add_version(
 
 hunter_pick_scheme(DEFAULT url_sha1_odb-sqlite_autotools)
 #hunter_cacheable(odb-sqlite)
-hunter_download(PACKAGE_NAME odb-sqlite)
+hunter_download(
+    PACKAGE_NAME odb-sqlite
+    PACKAGE_DEPENDS_ON odb SQLite3
+)

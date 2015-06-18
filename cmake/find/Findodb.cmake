@@ -4,13 +4,22 @@
 # Copyright (C) 2015 Alexandre Pretyman. All rights reserved.
 #
 # ----------------------------------------------------------------------
-if(HUNTER_STATUS_DEBUG)
-  message("[hunter] ODB_ROOT: ${ODB_ROOT}")
+
+if(NOT HUNTER_ENABLED)
+  macro(hunter_status_debug)
+    message(${ARGV})
+  endmacro()
 endif()
 
-list(FIND CMAKE_FIND_ROOT_PATH "${ODB_ROOT}" _odb_root_index)
-if(_odb_root_index EQUAL -1)
-  list(APPEND CMAKE_FIND_ROOT_PATH "${ODB_ROOT}")
+hunter_status_debug("[hunter] ODB_ROOT: ${ODB_ROOT}")
+
+if(ANDROID) 
+  #AWP: this seems to be only needed by the Android toolchain, maybe this should
+  #     be elsewhere?
+  list(FIND CMAKE_FIND_ROOT_PATH "${ODB_ROOT}" _odb_root_index)
+  if(_odb_root_index EQUAL -1)
+    list(APPEND CMAKE_FIND_ROOT_PATH "${ODB_ROOT}")
+  endif()
 endif()
 
 set(ODB_INCLUDE_DIRS "") 
@@ -22,9 +31,8 @@ find_path(
     NO_DEFAULT_PATH
 )
 
-if(HUNTER_STATUS_DEBUG)
-  message("[hunter] ODB_INCLUDE_DIR: ${ODB_INCLUDE_DIR}")
-endif()
+hunter_status_debug("[hunter] ODB_INCLUDE_DIR: ${ODB_INCLUDE_DIR}")
+
 list(APPEND ODB_INCLUDE_DIRS "${ODB_INCLUDE_DIR}") 
 find_library(
     ODB_CORE_LIBRARY 
@@ -34,9 +42,7 @@ find_library(
     NO_DEFAULT_PATH
 )
 
-if(HUNTER_STATUS_DEBUG)
-  message("[hunter] ODB_CORE_LIBRARY: ${ODB_CORE_LIBRARY}")
-endif()
+hunter_status_debug("[hunter] ODB_CORE_LIBRARY: ${ODB_CORE_LIBRARY}")
 
 if(NOT TARGET "odb")
   if(NOT ODB_CORE_LIBRARY)
@@ -46,8 +52,8 @@ if(NOT TARGET "odb")
   set_target_properties(
       "odb"
       PROPERTIES 
-      INTERFACE_INCLUDE_DIRECTORIES "${ODB_INCLUDE_DIR}"
-      IMPORTED_LOCATION "${ODB_CORE_LIBRARY}"
+        INTERFACE_INCLUDE_DIRECTORIES "${ODB_INCLUDE_DIR}"
+        IMPORTED_LOCATION "${ODB_CORE_LIBRARY}"
   )
   get_filename_component(ODB_LIB_DIR "${ODB_CORE_LIBRARY}" DIRECTORY CACHE)
   if(HUNTER_STATUS_DEBUG)
@@ -76,7 +82,7 @@ foreach(_odb_component ${odb_FIND_COMPONENTS})
     set_target_properties(
         "${_odb_lib}"
         PROPERTIES
-        IMPORTED_LOCATION "${ODB_${_lib_upper}_LIBRARY}"
+          IMPORTED_LOCATION "${ODB_${_lib_upper}_LIBRARY}"
     )
     unset(_component_link_libraries)
     list(APPEND _component_link_libraries "odb")    
@@ -89,8 +95,8 @@ foreach(_odb_component ${odb_FIND_COMPONENTS})
     set_target_properties(
         "${_odb_lib}"
         PROPERTIES
-        INTERFACE_LINK_LIBRARIES "${_component_link_libraries}"
-        INTERFACE_INCLUDE_DIRECTORIES "${ODB_INCLUDE_DIR}"
+          INTERFACE_LINK_LIBRARIES "${_component_link_libraries}"
+          INTERFACE_INCLUDE_DIRECTORIES "${ODB_INCLUDE_DIR}"
     )
 
   if(HUNTER_STATUS_DEBUG)

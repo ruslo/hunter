@@ -1,4 +1,4 @@
-# Copyright (c) 2013, Ruslan Baratov
+# Copyright (c) 2015, Ruslan Baratov, Alexandre Pretyman
 # All rights reserved.
 
 if(DEFINED HUNTER_CMAKE_PROJECTS_SQLITE3_HUNTER_CMAKE)
@@ -12,7 +12,6 @@ include(hunter_cacheable)
 include(hunter_download)
 include(hunter_pick_scheme)
 
-# Disable searching in locations not specified by these hint variables.
 hunter_add_version(
     PACKAGE_NAME
     SQLite3

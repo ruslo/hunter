@@ -1,4 +1,4 @@
-// file      : hello/driver.cxx
+// file      : driver.cxx
 // copyright : not copyrighted - public domain
 
 #include <memory>   // std::auto_ptr
@@ -7,10 +7,10 @@
 #include <odb/database.hxx>
 #include <odb/transaction.hxx>
 
-#include "database.h" // create_database
+#include "database.hxx" // create_database
 
-#include "person.h"
-#include "person_odb.h"
+#include "person.hxx"
+#include "person-odb.hxx"
 
 using namespace std;
 using namespace odb::core;

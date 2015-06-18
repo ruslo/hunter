@@ -20,13 +20,87 @@
 # HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION
 # OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE
 # SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
-# 
 #
+# Instructions:
+# 
+# odb_compile command takes a target as first argument, so *AFTER* either:
+#   add_executable("target" ...)
+#   add_library("target" ...)
+#
+# odb_compile just forwards options to the command line of the compiler, 
+# more information: http://www.codesynthesis.com/products/odb/doc/odb.xhtml
+#
+# the call options are:
+#   odb_compile("target" 
+#       FILES                     # header files to be parsed *REQUIRED*
+#         persistent_object1.hxx
+#         persistent_object2.hxx
+#       DB                        # --database *REQUIRED*
+#         sqlite
+#       INCLUDE                   # -I dir
+#         /usr/include/dir
+#         /home/example/include
+#       GENERATE_QUERY            # --generate-query
+#       GENERATE_SESSION          # --generate-session
+#       GENERATE_SCHEMA           # --generate-schema
+#       SCHEMA_FORMAT             # --schema-format
+#         embedded
+#       SCHEMA_NAME               # --schema-name
+#         schema_name
+#       TABLE_PREFIX              # --table-prefix
+#         prefix
+#       STANDARD                  # --std 
+#         c++11
+#       SLOC_LIMIT                # --sloc-limit
+#         99999
+#       ODB_PROLOGUE              # --odb-prologue
+#         "\#include \"this\""
+#       HEADER_PROLOGUE           # --hxx-prologue
+#         "header prologue"
+#       INLINE_PROLOGUE           # --ixx-prologue
+#         "inline prologue"
+#       SOURCE_PROLOGUE           # --cxx-prologue
+#         "source prologue"
+#       ODB_EPILOGUE              # --odb-epilogue
+#         "odb epilogue"
+#       HEADER_EPILOGUE           # --hxx-epilogue
+#         "header epilogue"
+#       INLINE_EPILOGUE           # --ixx-epilogue
+#         "inline epilogue"
+#       SOURCE_EPILOGUE           # --cxx-epilogue
+#         "header epilogue"
+#       ODB_PROLOGUE-FILE         # --odb-prologue-file
+#         ${CMAKE_SOURCE_DIR}/file.ext
+#       HEADER_PROLOGUE-FILE      # --hxx-prologue-file
+#         ${CMAKE_SOURCE_DIR}/file.ext
+#       INLINE_PROLOGUE-FILE      # --ixx-prologue-file
+#         ${CMAKE_SOURCE_DIR}/file.ext
+#       SOURCE_PROLOGUE-FILE      # --cxx-prologue-file
+#         ${CMAKE_SOURCE_DIR}/file.ext
+#       ODB_EPILOGUE-FILE         # --odb-epilogue-file
+#         ${CMAKE_SOURCE_DIR}/file.ext
+#       HEADER_EPILOGUE-FILE      # --hxx-epilogue-file
+#         ${CMAKE_SOURCE_DIR}/file.ext
+#       INLINE_EPILOGUE-FILE      # --ixx-epilogue-file
+#         ${CMAKE_SOURCE_DIR}/file.ext
+#       SOURCE_EPILOGUE-FILE      # --cxx-epilogue-file
+#         ${CMAKE_SOURCE_DIR}/file.ext
+#    )
 # ----------------------------------------------------------------------
 
-list(FIND CMAKE_FIND_ROOT_PATH "${ODB-COMPILER_ROOT}" _odb-compiler_root_index)
-if(_odb-compiler_root_index EQUAL -1)
-  list(APPEND CMAKE_FIND_ROOT_PATH "${ODB-COMPILER_ROOT}")
+if(NOT HUNTER_ENABLED)
+  macro(hunter_status_debug)
+    message(${ARGV})
+  endmacro()
+endif()
+
+if(ANDROID) 
+  #AWP: this seems to be only needed by the Android toolchain, maybe this should
+  #     be elsewhere?
+  list(FIND CMAKE_FIND_ROOT_PATH "${ODB-COMPILER_ROOT}" _odb-compiler_root_index)
+  if(_odb-compiler_root_index EQUAL -1)
+     list(APPEND CMAKE_FIND_ROOT_PATH "${ODB-COMPILER_ROOT}")
+  endif()
 endif()
 
 find_program(
@@ -37,9 +111,8 @@ find_program(
     PATHS
       "${ODB-COMPILER_ROOT}/bin"
 )
-if (HUNTER_STATUS_DEBUG)
-  message("[hunter] ODB_COMPILER - ${ODB_COMPILER}")
-endif()
+
+hunter_status_debug("[hunter] ODB_COMPILER - ${ODB_COMPILER}")
 
 if(NOT ODB_COMPILER)
   if (odb-compiler_FIND_REQUIRED)
@@ -47,20 +120,12 @@ if(NOT ODB_COMPILER)
   endif()
 endif()
 
-set(ODB_COMPILE_DEBUG FALSE)
-set(ODB_COMPILE_OUTPUT_DIR "${CMAKE_CURRENT_SOURCE_DIR}/odb_gen")
-set(ODB_COMPILE_HEADER_SUFFIX ".h")
-set(ODB_COMPILE_INLINE_SUFFIX "_inline.h")
-set(ODB_COMPILE_SOURCE_SUFFIX ".cpp")
-set(ODB_COMPILE_FILE_SUFFIX "_odb")
-
-
 function(odb_compile _target)
   if(NOT ODB_COMPILER)
     message(FATAL_ERROR "odb compiler executable not found")
   endif()
   if(NOT TARGET ${_target}) 
-    message(FATAL_ERROR "odb_compile called on target: ${_target} - but target has not been yet declared")
+    message(FATAL_ERROR "odb_compile called on target: ${_target} - but target hasn't yet been created")
   endif()
 
   set(options GENERATE_QUERY GENERATE_SESSION GENERATE_SCHEMA GENERATE_PREPARED)
@@ -77,13 +142,39 @@ function(odb_compile _target)
   cmake_parse_arguments(PARAM "${options}" "${oneValueParams}" "${multiValueParams}" ${ARGN})
 
   if(PARAM_UNPARSED_ARGUMENTS)
-    message(FATAL_ERROR "invalid arguments passed to odb_wrap_cpp: ${PARAM_UNPARSED_ARGUMENTS}")
+    message(FATAL_ERROR "invalid arguments passed to odb_compile: ${PARAM_UNPARSED_ARGUMENTS}")
   endif()
 
   if(NOT PARAM_FILES)
-    message(FATAL_ERROR: "no input files to odb_compile")
+    message(FATAL_ERROR: "odb_compile called without FILES to compile")
   endif()
-  
+
+  if(NOT PARAM_DB)
+    message(FATAL_ERROR: "odb_compile called without a DB")
+  endif()
+
+  string(COMPARE EQUAL "${ODB_COMPILE_OUTPUT_DIR}" "" output_dir_is_empty)
+  if (output_dir_is_empty)
+    set(ODB_COMPILE_OUTPUT_DIR "${CMAKE_CURRENT_SOURCE_DIR}/generated-odb")
+  endif()
+
+  #AWP: these are the odb compiler defaults
+  string(COMPARE EQUAL "${ODB_COMPILE_HEADER_SUFFIX}" "" header_suffix_is_empty)
+  if(header_suffix_is_empty)
+    set(ODB_COMPILE_HEADER_SUFFIX ".hxx")
+  endif()
+  string(COMPARE EQUAL "${ODB_COMPILE_INLINE_SUFFIX}" "" inline_suffix_is_empty)
+  if(inline_suffix_is_empty)
+    set(ODB_COMPILE_INLINE_SUFFIX ".ixx")
+  endif()
+  string(COMPARE EQUAL "${ODB_COMPILE_SOURCE_SUFFIX}" "" source_suffix_is_empty)
+  if(source_suffix_is_empty)
+    set(ODB_COMPILE_SOURCE_SUFFIX ".cxx")
+  endif()
+  string(COMPARE EQUAL "${ODB_COMPILE_FILE_SUFFIX}" "" compile_file_suffix_is_empty)
+  if(compile_file_suffix_is_empty)
+    set(ODB_COMPILE_FILE_SUFFIX "-odb")
+  endif()
 
   set(ODB_ARGS)
 
@@ -230,7 +321,7 @@ function(odb_compile _target)
   file(REMOVE_RECURSE "${ODB_COMPILE_OUTPUT_DIR}")
   file(MAKE_DIRECTORY "${ODB_COMPILE_OUTPUT_DIR}")
 
-  #  list(APPEND ODB_ARGS --odb-epilogue "\#include <stdio")
+  #AWP: TODO: add contents of *-file param as dependencies of custom_command
   set(generated_source_files)
   foreach(input ${PARAM_FILES})
     get_filename_component(fname "${input}" NAME_WE)
@@ -242,13 +333,12 @@ function(odb_compile _target)
 
       if(NOT "${PARAM_MULTI_DATABASE}" MATCHES "static" OR NOT "${pfx}" MATCHES "common")
         set(output "${ODB_COMPILE_OUTPUT_DIR}/${fname}${sfx}${ODB_COMPILE_SOURCE_SUFFIX}")
-        #        list(APPEND ${outvar} "${output}")
         list(APPEND outputs "${output}")
         list(APPEND generated_source_files "${output}")
       endif()
     endforeach()
 
-    if(ODB_COMPILE_DEBUG)
+    if(HUNTER_STATUS_DEBUG)
       set(_msg "${ODB_COMPILER} ${ODB_ARGS} ${input}")
       string(REPLACE ";" " " _msg "${_msg}")
       message(STATUS "ODB_COMPILE_OPTIONS: ${_msg}")
@@ -260,18 +350,17 @@ function(odb_compile _target)
       WORKING_DIRECTORY "${CMAKE_CURRENT_SOURCE_DIR}"
       VERBATIM)
   endforeach()
+
+  #AWP: update target sources
   get_target_property(_target_sources ${_target} SOURCES)
-  message("SOURCES: ${_target_sources}")
   list(APPEND _target_sources ${generated_source_files})
-  message("SOURCES: ${_target_sources}")
   set_target_properties(${_target} 
       PROPERTIES
         SOURCES "${_target_sources}"
   )
   target_include_directories(${_target}
       PUBLIC
-         ${ODB_COMPILE_OUTPUT_DIR}
+        ${ODB_COMPILE_OUTPUT_DIR}
         ${ODB_INCLUDE_DIRS}
   )  
-#set(${outvar} ${${outvar}} PARENT_SCOPE)
 endfunction()
