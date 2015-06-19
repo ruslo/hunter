@@ -225,13 +225,27 @@ hunter_boost_component_b2_args(
     b2_component_opts
 )
 
+string(REPLACE " " ";" cxx_flags_list "${CMAKE_CXX_FLAGS}")
+
 file(
     WRITE
     ${boost_user_jam}
     "using ${toolset_name}\n"
     "  : ${toolset_version}\n"
-    "  : \"${boost_compiler}\" ${CMAKE_CXX_FLAGS}\n"
+    "  : \"${boost_compiler}\"\n"
     "  : <archiver> \"${CMAKE_AR}\"\n"
+)
+foreach(cxx_flag ${cxx_flags_list})
+  file(
+      APPEND
+      ${boost_user_jam}
+      "  <compileflags>${cxx_flag}\n"
+  )
+endforeach()
+
+file(
+    APPEND
+    ${boost_user_jam}
     ";\n"
     "${using_mpi}\n"
 )
