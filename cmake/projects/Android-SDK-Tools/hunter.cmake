@@ -62,6 +62,17 @@ elseif(CMAKE_HOST_UNIX)
       PACKAGE_NAME
       Android-SDK-Tools
       VERSION
+      "24.3"
+      URL
+      "http://dl-ssl.google.com/android/repository/tools_r24.3-linux.zip"
+      SHA1
+      ecb86253e97cd14459888701fc3478b4d153a86c
+  )
+
+  hunter_add_version(
+      PACKAGE_NAME
+      Android-SDK-Tools
+      VERSION
       "24.2"
       URL
       "http://dl-ssl.google.com/android/repository/tools_r24.2-linux.zip"
@@ -80,6 +91,17 @@ elseif(CMAKE_HOST_UNIX)
       398c38494d50d98dd9f3ae02899ba32be32c912d
   )
 elseif(CMAKE_HOST_WIN32)
+  hunter_add_version(
+      PACKAGE_NAME
+      Android-SDK-Tools
+      VERSION
+      "24.3"
+      URL
+      "http://dl-ssl.google.com/android/repository/tools_r24.3-windows.zip"
+      SHA1
+      a8fd4332b5c9288f663d28bd5bb8076d933f76cd
+  )
+
   hunter_add_version(
       PACKAGE_NAME
       Android-SDK-Tools
