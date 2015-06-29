@@ -1,10 +1,10 @@
 # Copyright (c) 2014-2015, Oliver Daniell
 # All rights reserved.
 
-if(DEFINED HUNTER_CMAKE_PROJECTS_rabbitmq-c_HUNTER_CMAKE_)
+if(DEFINED HUNTER_CMAKE_PROJECTS_RABBITMQ_C_HUNTER_CMAKE_)
   return()
 else()
-  set(HUNTER_CMAKE_PROJECTS_rabbitmq-c_HUNTER_CMAKE_ 1)
+  set(HUNTER_CMAKE_PROJECTS_RABBITMQ_C_HUNTER_CMAKE_ 1)
 endif()
 
 include(hunter_add_version)
