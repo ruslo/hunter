@@ -62,7 +62,7 @@ hunter_config(OpenCV VERSION 3.0.0-p2)
 hunter_config(OpenCV-Extra VERSION 3.0.0)
 hunter_config(OpenSSL VERSION 1.0.2a)
 hunter_config(PNG VERSION 1.6.16-p3)
-hunter_config(rabbitmq-c VERSION 0.7.0)
+hunter_config(rabbitmq-c VERSION 0.7.0-p1)
 hunter_config(RapidJSON VERSION 0.11-hunter)
 hunter_config(Sober VERSION 0.1.2)
 hunter_config(Sources-for-Android-SDK VERSION 21) # API 21

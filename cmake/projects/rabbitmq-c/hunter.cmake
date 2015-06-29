@@ -16,13 +16,12 @@ hunter_add_version(
     PACKAGE_NAME
     rabbitmq-c
     VERSION
-    "0.7.0"
+    "0.7.0-p1"
     URL
-    "https://github.com/oliverdaniell/rabbitmq-c/archive/v0.7.0-hunter.tar.gz"
+    "https://github.com/oliverdaniell/rabbitmq-c/archive/v0.7.0-hunter-p1.tar.gz"
     SHA1
-    e0b789bf6cafe44ffe7dd6fbfc182ab2422ad1ea
+    89ba52ea76eb615fdbdb5aafa2a2b5037e67c303
 )
 
 hunter_pick_scheme(DEFAULT url_sha1_cmake)
-hunter_cacheable(rabbitmq-c)
 hunter_download(PACKAGE_NAME rabbitmq-c)
