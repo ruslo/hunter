@@ -9,10 +9,8 @@ include("../common.cmake")
 
 project(download-rabbitmq-c)
 
-# download gtest
 hunter_add_package(rabbitmq-c)
 
-# now gtest can be used
 find_package(rabbitmq-c REQUIRED)
 
 add_executable(foo amq_bind.c utils.c)
