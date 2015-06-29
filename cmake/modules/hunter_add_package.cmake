@@ -3,12 +3,27 @@
 
 include(CMakeParseArguments) # cmake_parse_arguments
 
+include(hunter_fatal_error)
+include(hunter_finalize)
 include(hunter_internal_error)
 include(hunter_status_debug)
 include(hunter_test_string_not_empty)
 
 # internal variables: _hunter_ap_*
 macro(hunter_add_package)
+  string(COMPARE EQUAL "${PROJECT_NAME}" "" _project_name_is_empty)
+  if(_project_name_is_empty)
+    hunter_fatal_error(
+        "Please set hunter_add_package *after* project command"
+        WIKI "error.hunteraddpackage.after.project"
+    )
+  endif()
+
+  if(NOT HUNTER_FINALIZED)
+    hunter_finalize()
+    set(HUNTER_FINALIZED TRUE)
+  endif()
+
   cmake_parse_arguments(_hunter_ap_arg "" "" COMPONENTS ${ARGV})
 
   # Get project name

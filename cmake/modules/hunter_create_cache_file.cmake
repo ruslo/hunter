@@ -37,6 +37,11 @@ function(hunter_create_cache_file cache_path)
       "${temp_path}"
       "set(HUNTER_GATE_DONE ON CACHE INTERNAL \"\")\n"
   )
+  file(
+      APPEND
+      "${temp_path}"
+      "set(HUNTER_GATE_SETTINGS_APPLIED ON CACHE INTERNAL \"\")\n"
+  )
 
   # Enable Hunter package manager for projects where it is disabled by default
   file(

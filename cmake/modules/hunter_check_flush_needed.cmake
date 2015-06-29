@@ -2,6 +2,7 @@
 # All rights reserved.
 
 include(hunter_flush_cache_variables)
+include(hunter_internal_error)
 include(hunter_status_debug)
 include(hunter_test_string_not_empty)
 
@@ -9,23 +10,23 @@ function(hunter_check_flush_needed hunter_self flush_done)
   hunter_test_string_not_empty("${flush_done}")
   hunter_test_string_not_empty("${hunter_self}")
 
-  set(flush FALSE)
-
+  # Variables must be checked in 'hunter_initialize'
   string(COMPARE EQUAL "${HUNTER_CACHED_ROOT}" "${HUNTER_GATE_ROOT}" is_ok)
   if(NOT is_ok)
-    hunter_status_debug("HUNTER_ROOT changed:")
-    hunter_status_debug("  ${HUNTER_CACHED_ROOT}")
-    hunter_status_debug("  ${HUNTER_GATE_ROOT}")
-    set(flush TRUE)
+    hunter_internal_error("Bad HUNTER_ROOT")
+  endif()
+
+  string(COMPARE EQUAL "${HUNTER_VERSION}" "${HUNTER_GATE_VERSION}" is_ok)
+  if(NOT is_ok)
+    hunter_internal_error("Bad HUNTER_VERSION")
   endif()
 
   string(COMPARE EQUAL "${HUNTER_SHA1}" "${HUNTER_GATE_SHA1}" is_ok)
   if(NOT is_ok)
-    hunter_status_debug("HUNTER_SHA1 changed:")
-    hunter_status_debug("  ${HUNTER_SHA1}")
-    hunter_status_debug("  ${HUNTER_GATE_SHA1}")
-    set(flush TRUE)
+    hunter_internal_error("Bad HUNTER_SHA1")
   endif()
+
+  set(flush FALSE)
 
   string(
       COMPARE EQUAL "${HUNTER_CONFIG_SHA1}" "${HUNTER_GATE_CONFIG_SHA1}" is_ok
@@ -34,16 +35,6 @@ function(hunter_check_flush_needed hunter_self flush_done)
     hunter_status_debug("HUNTER_CONFIG_SHA1 changed:")
     hunter_status_debug("  ${HUNTER_CONFIG_SHA1}")
     hunter_status_debug("  ${HUNTER_GATE_CONFIG_SHA1}")
-    set(flush TRUE)
-  endif()
-
-  string(
-      COMPARE EQUAL "${HUNTER_VERSION}" "${HUNTER_GATE_VERSION}" is_ok
-  )
-  if(NOT is_ok)
-    hunter_status_debug("HUNTER_VERSION changed:")
-    hunter_status_debug("  ${HUNTER_VERSION}")
-    hunter_status_debug("  ${HUNTER_GATE_VERSION}")
     set(flush TRUE)
   endif()
 

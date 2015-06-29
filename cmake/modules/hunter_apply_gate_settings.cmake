@@ -15,9 +15,10 @@ include(hunter_status_debug)
 include(hunter_test_string_not_empty)
 
 function(hunter_apply_gate_settings)
-  get_property(gate_done GLOBAL PROPERTY HUNTER_GATE_DONE SET)
+  get_property(gate_done GLOBAL PROPERTY HUNTER_GATE_SETTINGS_APPLIED SET)
+  set_property(GLOBAL PROPERTY HUNTER_GATE_SETTINGS_APPLIED YES)
 
-  if(HUNTER_GATE_DONE)
+  if(HUNTER_GATE_SETTINGS_APPLIED)
     # Can be set explicitly in case of loading package
     # from scheme (without HunterGate)
     set(gate_done YES)
@@ -27,7 +28,7 @@ function(hunter_apply_gate_settings)
   string(
       COMPARE
       NOTEQUAL
-      "${HUNTER_CACHED_ROOT}${HUNTER_SHA1}${HUNTER_CONFIG_SHA1}${HUNTER_VERSION}${HUNTER_TOOLCHAIN_SHA1}${HUNTER_CACHED_CONFIGURATION_TYPES}"
+      "${HUNTER_CONFIG_SHA1}${HUNTER_TOOLCHAIN_SHA1}${HUNTER_CACHED_CONFIGURATION_TYPES}"
       ""
       cache_init
   )
@@ -46,7 +47,7 @@ function(hunter_apply_gate_settings)
     set(cache_init NO)
   endif()
 
-  hunter_status_debug("Settings:")
+  hunter_status_debug("Settings (finalize):")
   hunter_status_debug("  HunterGate done (${gate_done})")
   hunter_status_debug("  Cache init (${cache_init})")
 
@@ -120,11 +121,13 @@ function(hunter_apply_gate_settings)
     endif()
   endif()
 
+  # See hunter_initialize
+  hunter_test_string_not_empty("${HUNTER_CACHED_ROOT}")
+  hunter_test_string_not_empty("${HUNTER_VERSION}")
+  hunter_test_string_not_empty("${HUNTER_SHA1}")
+
   # This variables will be saved in HUNTER_CACHE_FILE (hunter_create_cache_file)
-  set(HUNTER_CACHED_ROOT "${HUNTER_GATE_ROOT}" CACHE INTERNAL "")
-  set(HUNTER_SHA1 "${HUNTER_GATE_SHA1}" CACHE INTERNAL "")
   set(HUNTER_CONFIG_SHA1 "${HUNTER_GATE_CONFIG_SHA1}" CACHE INTERNAL "")
-  set(HUNTER_VERSION "${HUNTER_GATE_VERSION}" CACHE INTERNAL "")
   set(HUNTER_TOOLCHAIN_SHA1 "${HUNTER_GATE_TOOLCHAIN_SHA1}" CACHE INTERNAL "")
   set(
       HUNTER_CACHED_CONFIGURATION_TYPES
