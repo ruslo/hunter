@@ -102,6 +102,14 @@ else()
   endif()
 endif()
 
+if("@MSVC@")
+  # Logging as Workaround for VS_UNICODE_OUTPUT issue:
+  # https://public.kitware.com/Bug/view.php?id=14266
+  set(log_opts LOG_CONFIGURE 1 LOG_BUILD 1 LOG_INSTALL 1)
+else()
+  set(log_opts "")
+endif()
+
 ExternalProject_Add(
     "@HUNTER_EP_NAME@"
     URL
@@ -130,11 +138,7 @@ ExternalProject_Add(
     install
     ${boost_list}
     "--prefix=@HUNTER_PACKAGE_INSTALL_PREFIX@"
-    # Logging as Workaround for VS_UNICODE_OUTPUT issue:
-    # https://public.kitware.com/Bug/view.php?id=14266
-    LOG_CONFIGURE 1
-    LOG_BUILD 1
-    LOG_INSTALL 1
+    ${log_opts}
 )
 
 # Forward some variables
