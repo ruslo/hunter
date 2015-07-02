@@ -233,16 +233,36 @@ file(
     ${boost_user_jam}
     "using ${toolset_name}\n"
     "  : ${toolset_version}\n"
-    "  : \"${boost_compiler}\"\n"
+)
+
+if(ANDROID)
+  # For Android C++ flags must be part of the compiler section:
+  #   * https://github.com/ruslo/hunter/issues/174
+  # But such approach doesn't work for Visual Studio:
+  #   * https://github.com/ruslo/hunter/issues/179
+  file(
+      APPEND ${boost_user_jam} "  : \"${boost_compiler}\" ${CMAKE_CXX_FLAGS}\n"
+  )
+else()
+  file(APPEND ${boost_user_jam} "  : \"${boost_compiler}\"\n")
+endif()
+
+file(
+    APPEND
+    ${boost_user_jam}
     "  : <archiver> \"${CMAKE_AR}\"\n"
 )
-foreach(cxx_flag ${cxx_flags_list})
-  file(
-      APPEND
-      ${boost_user_jam}
-      "  <compileflags>${cxx_flag}\n"
-  )
-endforeach()
+
+if(NOT ANDROID)
+  # See 'boost_compiler' section
+  foreach(cxx_flag ${cxx_flags_list})
+    file(
+        APPEND
+        ${boost_user_jam}
+        "  <compileflags>${cxx_flag}\n"
+    )
+  endforeach()
+endif()
 
 file(
     APPEND
