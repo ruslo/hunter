@@ -228,14 +228,17 @@ hunter_boost_component_b2_args(
 
 string(REPLACE " " ";" cxx_flags_list "${CMAKE_CXX_FLAGS}")
 
+# Note: sysroot needs to be specified on teh ${boost_compiler} line for internal boost build
+# link tests to pass.  This is used at least (exclusively?) for the zlib link test.
 file(
     WRITE
     ${boost_user_jam}
     "using ${toolset_name}\n"
     "  : ${toolset_version}\n"
-    "  : \"${boost_compiler}\"\n"
+    "  : \"${boost_compiler}\" ${CMAKE_CXX_FLAGS}\n"
     "  : <archiver> \"${CMAKE_AR}\"\n"
 )
+
 foreach(cxx_flag ${cxx_flags_list})
   file(
       APPEND
