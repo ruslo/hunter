@@ -10,12 +10,12 @@ include("../common.cmake")
 project(boost_iostreams)
 
 # download boost
-hunter_add_package(Boost COMPONENTS iostreams)
+hunter_add_package(Boost COMPONENTS iostreams serialization)
 
 # now boost can be used
-find_package(Boost CONFIG REQUIRED iostreams)
+find_package(Boost CONFIG REQUIRED iostreams serialization)
 add_executable(foo foo.cpp)
-target_link_libraries(foo Boost::iostreams)
+target_link_libraries(foo Boost::iostreams Boost::serialization)
 
 # Compatibility mode
 set(Boost_USE_STATIC_LIBS ON)
