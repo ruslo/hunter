@@ -1,0 +1,60 @@
+# Copyright (c) 2015 Ruslan Baratov, Alexandre Pretyman
+# All rights reserved.
+
+cmake_minimum_required(VERSION 3.0)
+
+
+# Unpack the archive and copy contents to HUNTER_PACKAGE_INSTALL_PREFIX
+
+list(APPEND CMAKE_MODULE_PATH "@HUNTER_SELF@/cmake/modules")
+
+include(hunter_status_debug)
+include(hunter_test_string_not_empty)
+
+hunter_status_debug("Scheme: url_sha1_unpack_install")
+
+# Check preconditions
+hunter_test_string_not_empty("@HUNTER_SELF@")
+hunter_test_string_not_empty("@HUNTER_EP_NAME@")
+hunter_test_string_not_empty("@HUNTER_PACKAGE_URL@")
+hunter_test_string_not_empty("@HUNTER_PACKAGE_SHA1@")
+hunter_test_string_not_empty("@HUNTER_PACKAGE_DOWNLOAD_DIR@")
+hunter_test_string_not_empty("@HUNTER_PACKAGE_SOURCE_DIR@")
+hunter_test_string_not_empty("@HUNTER_PACKAGE_INSTALL_PREFIX@")
+
+#I don't know how to make hunter set this, so I have to set it explicitly, or else it is not set
+set(HUNTER_STATUS_DEBUG "@HUNTER_STATUS_DEBUG@") 
+
+string(COMPARE EQUAL "${UNPACK_INSTALL_SCHEME_RUN_INSTALL}" "" is_not_run_install)
+hunter_status_debug("Scheme: url_sha1_unpack_install is_not_run_install: " ${is_not_run_install})
+
+if(is_not_run_install) # then setup the external project
+  include(ExternalProject) # ExternalProject_Add
+  ExternalProject_Add(
+      "@HUNTER_EP_NAME@"
+      URL
+      @HUNTER_PACKAGE_URL@
+      URL_HASH
+      SHA1=@HUNTER_PACKAGE_SHA1@
+      DOWNLOAD_DIR
+      "@HUNTER_PACKAGE_DOWNLOAD_DIR@"
+      SOURCE_DIR
+      "@HUNTER_PACKAGE_SOURCE_DIR@"
+      INSTALL_DIR
+      "@HUNTER_PACKAGE_INSTALL_PREFIX@"
+      CONFIGURE_COMMAND
+      ""
+      BUILD_COMMAND
+      ""
+      INSTALL_COMMAND
+      "${CMAKE_COMMAND}"
+      -DUNPACK_INSTALL_SCHEME_RUN_INSTALL:BOOL=TRUE
+      -DHUNTER_STATUS_DEBUG="${HUNTER_STATUS_DEBUG}"
+      -P "${CMAKE_CURRENT_LIST_FILE}"
+  )
+else() # copy the uncompressed files to @HUNTER_PACKAGE_INSTALL_PREFIX@
+  file(GLOB files_to_install @HUNTER_PACKAGE_SOURCE_DIR@/*)
+  hunter_status_debug("Scheme: url_sha1_unpack_install FILES " ${files_to_install})
+  hunter_status_debug("Scheme: url_sha1_unpack_install DESTINATION @HUNTER_PACKAGE_INSTALL_PREFIX@")
+  file(COPY ${files_to_install} DESTINATION "@HUNTER_PACKAGE_INSTALL_PREFIX@")
+endif()
