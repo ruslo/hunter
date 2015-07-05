@@ -6,18 +6,28 @@ project(Hunter)
 
 include(ExternalProject) # ExternalProject_Add
 
-list(APPEND CMAKE_MODULE_PATH "@HUNTER_SELF@/cmake/modules")
+include(@HUNTER_SELF@/cmake/Hunter)
 
 include(hunter_fatal_error)
 include(hunter_status_debug)
 include(hunter_test_string_not_empty)
 include(hunter_autotools_configure_options)
 
-hunter_status_debug("Scheme: url_sha1_autotools")
+hunter_status_debug("Scheme: url_sha1_odb-sqlite_autotools")
+
+set(HUNTER_STATUS_DEBUG "@HUNTER_STATUS_DEBUG@")
 
 if("@MSVC@")
-  hunter_fatal_error("Autotools scheme not supported with Visual Studio")
+  hunter_fatal_error("Autotools scheme not supported with Visual Studio")   
 endif()
+
+list(APPEND CMAKE_MODULE_PATH "@HUNTER_SELF@/cmake/find")
+
+hunter_add_package(odb)
+find_package(odb REQUIRED)
+
+hunter_add_package(SQLite3)
+find_package(SQLite3 REQUIRED)
 
 # Check preconditions
 hunter_test_string_not_empty("@HUNTER_SELF@")
@@ -30,7 +40,12 @@ hunter_test_string_not_empty("@HUNTER_PACKAGE_INSTALL_PREFIX@")
 
 set(configure_command "./configure")
 
-hunter_autotools_configure_options(configure_opts)
+hunter_autotools_configure_options(configure_opts
+    CPPFLAGS
+      "-I${ODB_INCLUDE_DIR} -I${SQLITE3_INCLUDE_DIR}"
+    LDFLAGS
+      "-L${ODB_LIB_DIR} -lodb -L${SQLITE3_LIB_DIR} -lsqlite3"
+)
 
 hunter_status_debug("Autotools configure options: ${configure_opts}")
 
