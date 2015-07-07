@@ -63,6 +63,7 @@ hunter_config(OpenCV-Extra VERSION 3.0.0)
 hunter_config(OpenSSL VERSION 1.0.2a)
 hunter_config(PNG VERSION 1.6.16-p3)
 hunter_config(RapidJSON VERSION 0.11-hunter)
+hunter_config(SQLite3 VERSION autoconf-3080803) #R-Tree enabled
 hunter_config(Sober VERSION 0.1.2)
 hunter_config(Sources-for-Android-SDK VERSION 21) # API 21
 hunter_config(Sugar VERSION 1.2.2)

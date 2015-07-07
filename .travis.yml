@@ -146,6 +146,7 @@ env:
     - PROJECT_DIR=examples/Sources-for-Android-SDK TOOLCHAIN=default
     #
     - PROJECT_DIR=examples/odb TOOLCHAIN=default
+    - PROJECT_DIR=examples/SQLite3 TOOLCHAIN=default
 
     ### TESTS --
     - PROJECT_DIR=tests/simple TOOLCHAIN=default
