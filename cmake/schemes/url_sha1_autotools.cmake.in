@@ -11,12 +11,7 @@ list(APPEND CMAKE_MODULE_PATH "@HUNTER_SELF@/cmake/modules")
 include(hunter_fatal_error)
 include(hunter_status_debug)
 include(hunter_test_string_not_empty)
-
-include(hunter_autotools_append_toolchain_binaries)
-include(hunter_autotools_append_preprocessor_flags)
-include(hunter_autotools_append_compiler_cxxflags)
-include(hunter_autotools_append_compiler_cflags)
-include(hunter_autotools_append_linker_flags)
+include(hunter_autotools_configure_options)
 
 hunter_status_debug("Scheme: url_sha1_autotools")
 
@@ -34,29 +29,8 @@ hunter_test_string_not_empty("@HUNTER_PACKAGE_SOURCE_DIR@")
 hunter_test_string_not_empty("@HUNTER_PACKAGE_INSTALL_PREFIX@")
 
 set(configure_command "./configure")
-set(configure_opts "")
-if("@ANDROID@")
-  #used by hunter_autotools_append_preprocessor_flags
-  hunter_test_string_not_empty("${CMAKE_C_FLAGS}")
-  #used by hunter_autotools_append_compiler_cxxflags
-  hunter_test_string_not_empty("${CMAKE_CXX_FLAGS}")
-  #AWP: in theory, lots of other checks should be in place.
-  #  lets wait for the RaspberryPi support so we get a better
-  #  of where to put them.
-  hunter_test_string_not_empty("${ANDROID_TOOLCHAIN_MACHINE_NAME}")
-  set(configure_opts ${configure_opts} --host=${ANDROID_TOOLCHAIN_MACHINE_NAME})
-endif()
 
-hunter_autotools_append_toolchain_binaries(configure_opts)
-hunter_autotools_append_preprocessor_flags("" configure_opts)
-hunter_autotools_append_compiler_cxxflags("" configure_opts)
-hunter_autotools_append_compiler_cflags("" configure_opts)
-
-if(STATIC_LIBRARY_FLAGS)
-  set(ldflags "${STATIC_LIBRARY_FLAGS}")
-endif()
-
-hunter_autotools_append_linker_flags("${ldflags}" configure_opts)
+hunter_autotools_configure_options(configure_opts)
 
 hunter_status_debug("Autotools configure options: ${configure_opts}")
 
