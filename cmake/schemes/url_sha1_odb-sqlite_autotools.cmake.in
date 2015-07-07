@@ -1,0 +1,79 @@
+# Copyright (c) 2013, 2015 Ruslan Baratov, Alexandre Pretyman
+# All rights reserved.
+
+cmake_minimum_required(VERSION 3.0)
+project(Hunter)
+
+include(ExternalProject) # ExternalProject_Add
+
+include("@HUNTER_SELF@/cmake/Hunter")
+
+include(hunter_autotools_configure_options)
+include(hunter_fatal_error)
+include(hunter_status_debug)
+include(hunter_test_string_not_empty)
+
+hunter_status_debug("Scheme: url_sha1_odb-sqlite_autotools")
+
+if("@MSVC@")
+  hunter_fatal_error("Autotools scheme not supported with Visual Studio")
+endif()
+
+list(APPEND CMAKE_MODULE_PATH "@HUNTER_SELF@/cmake/find")
+
+hunter_add_package(odb)
+find_package(odb REQUIRED)
+
+hunter_add_package(SQLite3)
+find_package(SQLite3 REQUIRED)
+
+# Check preconditions
+hunter_test_string_not_empty("@HUNTER_SELF@")
+hunter_test_string_not_empty("@HUNTER_EP_NAME@")
+hunter_test_string_not_empty("@HUNTER_PACKAGE_URL@")
+hunter_test_string_not_empty("@HUNTER_PACKAGE_SHA1@")
+hunter_test_string_not_empty("@HUNTER_PACKAGE_DOWNLOAD_DIR@")
+hunter_test_string_not_empty("@HUNTER_PACKAGE_SOURCE_DIR@")
+hunter_test_string_not_empty("@HUNTER_PACKAGE_INSTALL_PREFIX@")
+
+set(configure_command "./configure")
+
+hunter_autotools_configure_options(configure_opts
+    CPPFLAGS
+      "-I${ODB_INCLUDE_DIR} -I${SQLITE3_INCLUDE_DIR}"
+    LDFLAGS
+      "-L${ODB_LIB_DIR} -lodb -L${SQLITE3_LIB_DIR} -lsqlite3"
+)
+
+hunter_status_debug("Autotools configure options: ${configure_opts}")
+
+set(
+    configure_command
+    . "@HUNTER_SELF@/scripts/clear-all.sh" && "${configure_command}"
+)
+set(build_command . "@HUNTER_SELF@/scripts/clear-all.sh" && make)
+
+ExternalProject_Add(
+    "@HUNTER_EP_NAME@"
+    URL
+    @HUNTER_PACKAGE_URL@
+    URL_HASH
+    SHA1=@HUNTER_PACKAGE_SHA1@
+    DOWNLOAD_DIR
+    "@HUNTER_PACKAGE_DOWNLOAD_DIR@"
+    SOURCE_DIR
+    "@HUNTER_PACKAGE_SOURCE_DIR@"
+    INSTALL_DIR
+    "@HUNTER_PACKAGE_INSTALL_PREFIX@"
+        # not used, just avoid creating Install/<name> empty directory
+    CONFIGURE_COMMAND
+    ${configure_command}
+    ${configure_opts}
+    "--prefix=@HUNTER_PACKAGE_INSTALL_PREFIX@"
+    BUILD_COMMAND
+    ${build_command}
+    BUILD_IN_SOURCE
+    1
+    INSTALL_COMMAND
+    make install
+)
