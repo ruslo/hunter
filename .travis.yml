@@ -144,6 +144,8 @@ env:
     - PROJECT_DIR=examples/Android-SDK-Platform-tools TOOLCHAIN=default
     - PROJECT_DIR=examples/Android-SDK-Tools TOOLCHAIN=default
     - PROJECT_DIR=examples/Sources-for-Android-SDK TOOLCHAIN=default
+    #
+    - PROJECT_DIR=examples/odb TOOLCHAIN=default
 
     ### TESTS --
     - PROJECT_DIR=tests/simple TOOLCHAIN=default
