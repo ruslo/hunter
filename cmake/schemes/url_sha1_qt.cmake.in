@@ -12,7 +12,7 @@ include(hunter_fatal_error)
 include(hunter_status_debug)
 include(hunter_test_string_not_empty)
 
-hunter_status_debug("Scheme: url_sha1_qt_autotools")
+hunter_status_debug("Scheme: url_sha1_qt")
 
 # Check preconditions
 hunter_test_string_not_empty("@HUNTER_SELF@")
@@ -25,22 +25,79 @@ hunter_test_string_not_empty("@HUNTER_PACKAGE_INSTALL_PREFIX@")
 
 set(configure_command "./configure")
 set(configure_opts)
+
+
 list(APPEND 
     configure_opts
-      -opensource 
       -confirm-license 
-      -no-dbus 
-      -no-framework 
       -nomake examples 
       -nomake tests
 )
-hunter_status_debug("Autotools configure options: ${configure_opts}")
+
+string(COMPARE NOTEQUAL "@QT_COMMERCIAL@" "" _is_qt_commercial)
+if(_is_qt_commercial)
+  list(APPEND 
+      configure_opts
+        -commercial
+  )
+else() # is standard opensource
+  list(APPEND 
+      configure_opts
+        -opensource 
+  )
+endif()
+
+string(COMPARE EQUAL "@CMAKE_OSX_SYSROOT@" "iphoneos" _is_iphoneos)
+string(COMPARE NOTEQUAL "@ANDROID@" "" _is_android)
+string(COMPARE EQUAL "@CMAKE_SYSTEM_NAME@" "Linux" _is_linux)
+string(COMPARE EQUAL "@CMAKE_SYSTEM_NAME@" "Darwin" _is_darwin)
+#insert windows test here
+if(_is_iphoneos)
+  list(APPEND 
+      configure_opts
+        -xplatform macx-ios-clang
+  )
+  string(COMPARE EQUAL "@IPHONESIMULATOR_ARCHS@" "" _no_simulator_config)
+  if (_no_simulator_config)
+    list(APPEND 
+        configure_opts
+          -sdk iphoneos
+    )
+  endif()
+elseif(_is_android)
+	#setup the android ndk options and skip unsupported modules
+  list(APPEND 
+    configure_opts
+			-xplatform android-g++ 
+		 	-android-sdk <path/to/sdk> 
+			-android-ndk-host <e.g. linux-x86_64> 
+			-android-toolchain-version <e.g. 4.8> 
+			-skip qttranslations 
+			-skip qtwebkit 
+			-skip qtserialport 
+			-skip qtwebkit-examples 
+			-no-warnings-are-errors
+  )
+elseif(_is_darwin) 
+  list(APPEND 
+    configure_opts
+      -no-framework 
+      -no-dbus 
+  )
+elseif(_is_linux)
+  list(APPEND 
+    configure_opts
+      -qt-xcb
+  )
+endif()
+
+hunter_status_debug("Qt configure options: ${configure_opts}")
 
 set(
     configure_command
     . "@HUNTER_SELF@/scripts/clear-all.sh" && "${configure_command}"
 )
-set(build_command . "@HUNTER_SELF@/scripts/clear-all.sh" && make)
+set(build_command . "@HUNTER_SELF@/scripts/clear-all.sh" && make -j5)
 
 ExternalProject_Add(
     "@HUNTER_EP_NAME@"
