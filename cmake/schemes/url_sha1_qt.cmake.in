@@ -65,18 +65,18 @@ if(_is_iphoneos)
     )
   endif()
 elseif(_is_android)
-	#setup the android ndk options and skip unsupported modules
+  #setup the android ndk options and skip unsupported modules
   list(APPEND 
     configure_opts
-			-xplatform android-g++ 
-		 	-android-sdk <path/to/sdk> 
-			-android-ndk-host <e.g. linux-x86_64> 
-			-android-toolchain-version <e.g. 4.8> 
-			-skip qttranslations 
-			-skip qtwebkit 
-			-skip qtserialport 
-			-skip qtwebkit-examples 
-			-no-warnings-are-errors
+      -xplatform android-g++ 
+       -android-sdk <path/to/sdk> 
+      -android-ndk-host <e.g. linux-x86_64> 
+      -android-toolchain-version <e.g. 4.8> 
+      -skip qttranslations 
+      -skip qtwebkit 
+      -skip qtserialport 
+      -skip qtwebkit-examples 
+      -no-warnings-are-errors
   )
 elseif(_is_darwin) 
   list(APPEND 
@@ -97,7 +97,13 @@ set(
     configure_command
     . "@HUNTER_SELF@/scripts/clear-all.sh" && "${configure_command}"
 )
-set(build_command . "@HUNTER_SELF@/scripts/clear-all.sh" && make -j5)
+set(build_command . "@HUNTER_SELF@/scripts/clear-all.sh" && make)
+
+set(build_opts)
+string(COMPARE NOTEQUAL "@HUNTER_JOBS_OPTION@" "" have_jobs)
+if(have_jobs)
+  list(APPEND build_opts "-j" "@HUNTER_JOBS_OPTION@")
+endif()
 
 ExternalProject_Add(
     "@HUNTER_EP_NAME@"
@@ -118,6 +124,7 @@ ExternalProject_Add(
     "--prefix=@HUNTER_PACKAGE_INSTALL_PREFIX@"
     BUILD_COMMAND
     ${build_command}
+		${build_opts}
     BUILD_IN_SOURCE
     1
     INSTALL_COMMAND
