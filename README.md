@@ -48,6 +48,7 @@ superbuild files. Just change 2 lines of code: input parameters `SHA1`/`URL` of 
 ### Notes about version of CMake
 
 * [3.0.0][cmake-3.0.0-release-notes] **Minimum required**
+  * **Buggy**, see [PR #198](https://github.com/ruslo/hunter/pull/198#issuecomment-120630877)
   * Interface header-only libraries
   * Sub-option `VERSION` for command `project`
   * New MSVC generator names

@@ -53,6 +53,13 @@ set(
 )
 set(build_command . "@HUNTER_SELF@/scripts/clear-all.sh" && make)
 
+set(build_opts)
+string(COMPARE NOTEQUAL "@HUNTER_JOBS_OPTION@" "" have_jobs)
+if(have_jobs)
+  list(APPEND build_opts "-j" "@HUNTER_JOBS_OPTION@")
+endif()
+
+
 ExternalProject_Add(
     "@HUNTER_EP_NAME@"
     URL
@@ -72,6 +79,7 @@ ExternalProject_Add(
     "--prefix=@HUNTER_PACKAGE_INSTALL_PREFIX@"
     BUILD_COMMAND
     ${build_command}
+    ${build_opts}
     BUILD_IN_SOURCE
     1
     INSTALL_COMMAND
