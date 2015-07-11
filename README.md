@@ -1,4 +1,4 @@
-Hunter [![Build Status][travis-master]][travis-hunter]
+Hunter [![Build Status][travis-master]][travis-hunter] ![Release](https://img.shields.io/github/release/ruslo/hunter.svg)
 ======
 
 * Cross-platform package manager for C++ (based on CMake [ExternalProject][cmake-external-project])
