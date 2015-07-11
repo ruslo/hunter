@@ -58,18 +58,19 @@ if(_is_iphoneos)
         -xplatform macx-ios-clang
   )
   string(COMPARE EQUAL "@IPHONESIMULATOR_ARCHS@" "" _no_simulator_config)
-  if (_no_simulator_config)
+  #if (_no_simulator_config)
     list(APPEND 
         configure_opts
           -sdk iphoneos
+          -release
     )
-  endif()
+  #endif()
 elseif(_is_android)
   #setup the android ndk options and skip unsupported modules
   list(APPEND 
     configure_opts
       -xplatform android-g++ 
-       -android-sdk <path/to/sdk> 
+      -android-sdk <path/to/sdk> 
       -android-ndk-host <e.g. linux-x86_64> 
       -android-toolchain-version <e.g. 4.8> 
       -skip qttranslations 
@@ -124,7 +125,7 @@ ExternalProject_Add(
     "--prefix=@HUNTER_PACKAGE_INSTALL_PREFIX@"
     BUILD_COMMAND
     ${build_command}
-		${build_opts}
+    ${build_opts}
     BUILD_IN_SOURCE
     1
     INSTALL_COMMAND
