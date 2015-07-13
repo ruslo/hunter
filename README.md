@@ -2,7 +2,7 @@ Hunter [![Build Status][travis-master]][travis-hunter] [![Release](https://img.s
 ======
 
 * Cross-platform package manager for C++ (based on CMake [ExternalProject][cmake-external-project])
-* Supported platforms: **Linux**, **Mac**, **Windows**, **iOS**, **Android**
+* Supported platforms: **Linux**, **Mac**, **Windows**, **iOS**, **Android**, **Raspberry Pi**
 
 ### What is it?
 
@@ -171,7 +171,7 @@ Message in logs:
 
 ### Toolchain-ID
 
-Third level of customization. Each build can be run with different toolchain. In general the result is completely different root `lib`/`include` directories. For example on Windows you can simultaniously build Visual Studio (32/64), NMake, Cygwin and MinGW projects, on Linux GCC/Clang, on Mac Xcode, Makefile, iOS. Or choose different clang tools like static analyzer and sanitizers. Each toolchain file will be forwarded to external project so if you create toolchain with compiler `g++` and flag `-std=c++11` all dependent projects will be built by `g++ -std=c++11`. Information about toolchain has some internal representation (`toolchain.info`) and user can see first 7 digits (ID) of `SHA1` hash of this file.
+Third level of customization. Each build can be run with different toolchain. In general the result is completely different root `lib`/`include` directories. For example on Windows you can simultaniously build Visual Studio (32/64), NMake, Cygwin and MinGW projects, on Linux GCC/Clang, on Mac Xcode, Makefile, iOS. Or choose different clang tools like static analyzer/sanitizers and other platforms like Android/Raspberry Pi. Each toolchain file will be forwarded to external project so if you create toolchain with compiler `g++` and flag `-std=c++11` all dependent projects will be built by `g++ -std=c++11`. Information about toolchain has some internal representation (`toolchain.info`) and user can see first 7 digits (ID) of `SHA1` hash of this file.
 
 * `d46ea0b`
  * `gcc`
