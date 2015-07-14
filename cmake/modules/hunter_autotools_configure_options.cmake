@@ -50,15 +50,18 @@ function(hunter_autotools_configure_options configure_opts)
   set(_configure_opts)
   set(_ldflags)
   string(COMPARE NOTEQUAL "${ANDROID}" "" is_android)
+  string(COMPARE NOTEQUAL "${CROSS_COMPILE_TOOLCHAIN_PREFIX}" "" is_cross_compile)
   if(is_android)
     hunter_test_string_not_empty("${CMAKE_C_FLAGS}")
     hunter_test_string_not_empty("${CMAKE_CXX_FLAGS}")
     #AWP: in theory, lots of other checks should be in place.
-    #  lets wait for the RaspberryPi support so we get a better idea
+    #  let RaspberryPi support mature so we get a better idea
     #  of where to put them.
     hunter_test_string_not_empty("${ANDROID_TOOLCHAIN_MACHINE_NAME}")
     list(APPEND _configure_opts --host=${ANDROID_TOOLCHAIN_MACHINE_NAME})
     set(_ldflags "${_ldflags} ${__libstl}")
+  elseif(is_cross_compile)
+    list(APPEND _configure_opts --host=${CROSS_COMPILE_TOOLCHAIN_PREFIX})
   endif()
 
   # Sets the toolchain binaries
