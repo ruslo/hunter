@@ -18,6 +18,17 @@ hunter_add_version(
     PACKAGE_NAME
     PNG
     VERSION
+    "1.6.16-p4"
+    URL
+    "https://github.com/hunter-packages/libpng/archive/v1.6.16-p4.tar.gz"
+    SHA1
+    54356d278d0c4b003280d275f61b4de746ebbb52
+)
+
+hunter_add_version(
+    PACKAGE_NAME
+    PNG
+    VERSION
     "1.6.16-p3"
     URL
     "https://github.com/hunter-packages/libpng/archive/v1.6.16-p3.tar.gz"
