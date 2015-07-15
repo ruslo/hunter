@@ -27,4 +27,3 @@ add_executable(helloworld WIN32 main.cpp MainWindow.cpp ${_mainwindow_ui})
 
 # Use the Widgets module from Qt 5.
 target_link_libraries(helloworld Qt5::Widgets)
-

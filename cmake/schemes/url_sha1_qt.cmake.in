@@ -27,23 +27,23 @@ set(configure_command "./configure")
 set(configure_opts)
 
 
-list(APPEND 
+list(APPEND
     configure_opts
-      -confirm-license 
-      -nomake examples 
+      -confirm-license
+      -nomake examples
       -nomake tests
 )
 
 string(COMPARE NOTEQUAL "@QT_COMMERCIAL@" "" _is_qt_commercial)
 if(_is_qt_commercial)
-  list(APPEND 
+  list(APPEND
       configure_opts
         -commercial
   )
 else() # is standard opensource
-  list(APPEND 
+  list(APPEND
       configure_opts
-        -opensource 
+        -opensource
   )
 endif()
 
@@ -53,13 +53,13 @@ string(COMPARE EQUAL "@CMAKE_SYSTEM_NAME@" "Linux" _is_linux)
 string(COMPARE EQUAL "@CMAKE_SYSTEM_NAME@" "Darwin" _is_darwin)
 #insert windows test here
 if(_is_iphoneos)
-  list(APPEND 
+  list(APPEND
       configure_opts
         -xplatform macx-ios-clang
   )
   string(COMPARE EQUAL "@IPHONESIMULATOR_ARCHS@" "" _no_simulator_config)
   #if (_no_simulator_config)
-    list(APPEND 
+    list(APPEND
         configure_opts
           -sdk iphoneos
           -release
@@ -67,26 +67,26 @@ if(_is_iphoneos)
   #endif()
 elseif(_is_android)
   #setup the android ndk options and skip unsupported modules
-  list(APPEND 
+  list(APPEND
     configure_opts
-      -xplatform android-g++ 
-      -android-sdk <path/to/sdk> 
-      -android-ndk-host <e.g. linux-x86_64> 
-      -android-toolchain-version <e.g. 4.8> 
-      -skip qttranslations 
-      -skip qtwebkit 
-      -skip qtserialport 
-      -skip qtwebkit-examples 
+      -xplatform android-g++
+      -android-sdk <path/to/sdk>
+      -android-ndk-host <e.g. linux-x86_64>
+      -android-toolchain-version <e.g. 4.8>
+      -skip qttranslations
+      -skip qtwebkit
+      -skip qtserialport
+      -skip qtwebkit-examples
       -no-warnings-are-errors
   )
-elseif(_is_darwin) 
-  list(APPEND 
+elseif(_is_darwin)
+  list(APPEND
     configure_opts
-      -no-framework 
-      -no-dbus 
+      -no-framework
+      -no-dbus
   )
 elseif(_is_linux)
-  list(APPEND 
+  list(APPEND
     configure_opts
       -qt-xcb
   )
