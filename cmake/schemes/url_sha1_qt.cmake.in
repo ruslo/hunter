@@ -95,6 +95,10 @@ elseif(_is_linux)
   )
 endif()
 
+if(HUNTER_STATUS_DEBUG)
+  list(APPEND configure_opts "-verbose")
+endif()
+
 list(APPEND configure_opts "-prefix" "@HUNTER_PACKAGE_INSTALL_PREFIX@")
 
 hunter_status_debug("Qt configure options: ${configure_opts}")
