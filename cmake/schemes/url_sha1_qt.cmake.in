@@ -95,6 +95,8 @@ elseif(_is_linux)
   )
 endif()
 
+list(APPEND configure_opts "-prefix" "@HUNTER_PACKAGE_INSTALL_PREFIX@")
+
 hunter_status_debug("Qt configure options: ${configure_opts}")
 
 set(
@@ -125,7 +127,6 @@ ExternalProject_Add(
     CONFIGURE_COMMAND
     ${configure_command}
     ${configure_opts}
-    "--prefix=@HUNTER_PACKAGE_INSTALL_PREFIX@"
     BUILD_COMMAND
     ${build_command}
     ${build_opts}
