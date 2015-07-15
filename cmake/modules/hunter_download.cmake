@@ -395,6 +395,8 @@ function(hunter_download)
 
   hunter_save_to_cache()
 
+  hunter_status_debug("Cleaning up build directories...")
+
   file(REMOVE_RECURSE "${HUNTER_PACKAGE_BUILD_DIR}")
   if(HUNTER_PACKAGE_SCHEME_INSTALL)
     # Unpacked directory not needed (save some disk space)
