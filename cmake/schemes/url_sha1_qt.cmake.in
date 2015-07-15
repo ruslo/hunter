@@ -99,6 +99,12 @@ if(HUNTER_STATUS_DEBUG)
   list(APPEND configure_opts "-verbose")
 endif()
 
+if(BUILD_SHARED_LIBS)
+  list(APPEND configure_opts "-shared")
+else()
+  list(APPEND configure_opts "-static")
+endif()
+
 list(APPEND configure_opts "-prefix" "@HUNTER_PACKAGE_INSTALL_PREFIX@")
 
 hunter_status_debug("Qt configure options: ${configure_opts}")
