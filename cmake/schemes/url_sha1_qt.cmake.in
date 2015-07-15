@@ -8,7 +8,6 @@ include(ExternalProject) # ExternalProject_Add
 
 include("@HUNTER_SELF@/cmake/Hunter")
 
-include(hunter_fatal_error)
 include(hunter_status_debug)
 include(hunter_test_string_not_empty)
 
@@ -25,7 +24,6 @@ hunter_test_string_not_empty("@HUNTER_PACKAGE_INSTALL_PREFIX@")
 
 set(configure_command "./configure")
 set(configure_opts)
-
 
 list(APPEND
     configure_opts
