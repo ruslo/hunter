@@ -90,6 +90,13 @@ macro(hunter_finalize)
   set(CMAKE_FIND_PACKAGE_NO_SYSTEM_PACKAGE_REGISTRY ON)
   ### -- end
 
+  ### Disable environment variables
+  ### http://www.cmake.org/cmake/help/v3.3/command/find_package.html
+  set(ENV{CMAKE_PREFIX_PATH} "")
+  set(ENV{CMAKE_FRAMEWORK_PATH} "")
+  set(ENV{CMAKE_APPBUNDLE_PATH} "")
+  ### -- end
+
   ### 1. Clear all '<NAME>_ROOT' variables (cache, environment, ...)
   ### 2. Set '<NAME>_ROOT' or 'HUNTER_<name>_VERSION' variables
   set(HUNTER_ALLOW_CONFIG_LOADING YES)
