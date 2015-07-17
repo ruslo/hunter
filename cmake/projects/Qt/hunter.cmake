@@ -9,8 +9,6 @@ endif()
 
 include(hunter_add_version)
 include(hunter_cacheable)
-include(hunter_download)
-include(hunter_pick_scheme)
 
 hunter_add_version(
     PACKAGE_NAME
@@ -23,6 +21,6 @@ hunter_add_version(
     5a11602e781ef3160965dce9e959b2d4f93e6def
 )
 
-hunter_pick_scheme(DEFAULT url_sha1_qt)
 hunter_cacheable(Qt)
-hunter_download(PACKAGE_NAME Qt)
+
+include("${CMAKE_CURRENT_LIST_DIR}/qtbase/hunter.cmake")
