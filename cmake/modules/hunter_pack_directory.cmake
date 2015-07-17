@@ -20,6 +20,12 @@ function(hunter_pack_directory dir_to_pack dest_dir result_sha1)
   list(APPEND cmd "${temp}" "--")
 
   file(GLOB dir_list RELATIVE "${dir_to_pack}" "${dir_to_pack}/*")
+
+  list(LENGTH dir_list len)
+  if(len EQUAL 0)
+    hunter_internal_error("No objects in directory: ${dir_to_pack}")
+  endif()
+
   foreach(x ${dir_list})
     list(APPEND cmd "${x}")
   endforeach()
