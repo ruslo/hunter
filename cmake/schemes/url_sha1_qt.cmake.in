@@ -22,6 +22,7 @@ hunter_test_string_not_empty("@HUNTER_PACKAGE_COMPONENT@")
 hunter_test_string_not_empty("@HUNTER_PACKAGE_DOWNLOAD_DIR@")
 hunter_test_string_not_empty("@HUNTER_PACKAGE_BUILD_DIR@")
 hunter_test_string_not_empty("@HUNTER_TOOLCHAIN_ID_PATH@")
+hunter_test_string_not_empty("@HUNTER_INSTALL_PREFIX@")
 hunter_test_string_not_empty("@HUNTER_PACKAGE_INSTALL_PREFIX@")
 
 set(configure_command "./configure")
@@ -123,6 +124,8 @@ endif()
 
 set(qt_component "@HUNTER_PACKAGE_COMPONENT@")
 set(hunter_self "@HUNTER_SELF@")
+set(global_install_dir "@HUNTER_INSTALL_PREFIX@")
+set(local_install_dir "@HUNTER_PACKAGE_INSTALL_PREFIX@")
 
 # We can't use HUNTER_PACKAGE_SOURCE_DIR since it will be removed after
 # successful installation of component (we always need to have 'qtbase'
@@ -147,6 +150,25 @@ set(qt_source_dir "@HUNTER_TOOLCHAIN_ID_PATH@/QtBuild")
 configure_file(
     "@HUNTER_SELF@/scripts/qt-configure.cmake.in"
     "@HUNTER_PACKAGE_BUILD_DIR@/qt-configure.cmake"
+    @ONLY
+)
+
+# We are always building 'qtbase' component (alone or + one component), hence
+# libraries from 'qtbase' will always be saved to cache archive. For space
+# optimization reason files from 'qtbase' will be saved to file:
+#   * <root-id>/Install/qtbase_installed_files.cmake
+# Other components will exclude files from this list and install only
+# necessary components (note that Qt is cacheable => we install libs to
+# local HUNTER_PACKAGE_INSTALL_PREFIX before HUNTER_INSTALL_PREFIX).
+
+# Used variables:
+#   * global_install_dir
+#   * local_install_dir
+#   * qt_component
+#   * hunter_self
+configure_file(
+    "@HUNTER_SELF@/scripts/qt-install.cmake.in"
+    "@HUNTER_PACKAGE_BUILD_DIR@/qt-install.cmake"
     @ONLY
 )
 
@@ -185,5 +207,10 @@ ExternalProject_Add(
     BUILD_IN_SOURCE
     1
     INSTALL_COMMAND
-    make install
+        "@CMAKE_COMMAND@"
+        -E copy
+        "@HUNTER_PACKAGE_BUILD_DIR@/qt-install.cmake"
+        "${qt_source_dir}/qt-install.cmake"
+    COMMAND
+        "@CMAKE_COMMAND@" -P "${qt_source_dir}/qt-install.cmake"
 )

@@ -1,0 +1,89 @@
+### Input params check
+
+string(COMPARE EQUAL "@global_install_dir@" "" is_empty)
+if(is_empty)
+  message(FATAL_ERROR "global_install_dir is empty")
+endif()
+
+string(COMPARE EQUAL "@local_install_dir@" "" is_empty)
+if(is_empty)
+  message(FATAL_ERROR "local_install_dir is empty")
+endif()
+
+string(COMPARE EQUAL "@qt_component@" "" is_empty)
+if(is_empty)
+  message(FATAL_ERROR "qt_component is empty")
+endif()
+
+string(COMPARE EQUAL "@hunter_self@" "" is_empty)
+if(is_empty)
+  message(FATAL_ERROR "hunter_self is empty")
+endif()
+
+### -- end
+
+string(COMPARE EQUAL "@qt_component@" "qtbase" is_qtbase)
+
+if(NOT is_qtbase)
+  set(qt_base_list "@global_install_dir@/qtbase_installed_files.cmake")
+  if(NOT EXISTS "${qt_base_list}")
+    message(FATAL_ERROR "File not found: ${qt_base_list}")
+  endif()
+  set(QTBASE_INSTALLED_FILES)
+  include("${qt_base_list}")
+  string(COMPARE EQUAL "${QTBASE_INSTALLED_FILES}" "" is_empty)
+  if(is_empty)
+    message(FATAL_ERROR "Empty list in file ${qt_base_list}")
+  endif()
+endif()
+
+include("@hunter_self@/scripts/clear-all.cmake")
+
+execute_process(COMMAND make install RESULT_VARIABLE result)
+
+if(NOT result EQUAL 0)
+  message(FATAL_ERROR "Qt install failed: ${result}")
+endif()
+
+if(is_qtbase)
+  # Save installed files
+  file(
+      GLOB_RECURSE
+      installed_files
+      RELATIVE "@local_install_dir@"
+      "@local_install_dir@/*"
+  )
+  set(QTBASE_INSTALLED_FILES)
+  foreach(filepath ${installed_files})
+    if(EXISTS "@local_install_dir@/${filepath}")
+      if(IS_DIRECTORY "@local_install_dir@/${filepath}")
+        # not need to save directories
+      else()
+        list(APPEND QTBASE_INSTALLED_FILES "${filepath}")
+      endif()
+    else()
+      message(FATAL_ERROR "Internal error")
+    endif()
+  endforeach()
+  string(COMPARE EQUAL "${QTBASE_INSTALLED_FILES}" "" is_empty)
+  if(is_empty)
+    message(FATAL_ERROR "Empty list for directory: @local_install_dir@")
+  endif()
+  file(
+      WRITE
+      "@local_install_dir@/qtbase_installed_files.cmake"
+      "set(QTBASE_INSTALLED_FILES ${QTBASE_INSTALLED_FILES})\n"
+  )
+else()
+  # Remove 'qtbase' files
+  foreach(installed_file ${QTBASE_INSTALLED_FILES})
+    set(filepath "@local_install_dir@/${installed_file}")
+    if(NOT EXISTS "${filepath}")
+      message(FATAL_ERROR "File not found: ${filepath}")
+    endif()
+    file(REMOVE "${filepath}")
+    if(EXISTS "${filepath}")
+      message(FATAL_ERROR "File not removed: ${filepath}")
+    endif()
+  endforeach()
+endif()
