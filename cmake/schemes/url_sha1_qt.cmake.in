@@ -18,8 +18,10 @@ hunter_test_string_not_empty("@HUNTER_SELF@")
 hunter_test_string_not_empty("@HUNTER_EP_NAME@")
 hunter_test_string_not_empty("@HUNTER_PACKAGE_URL@")
 hunter_test_string_not_empty("@HUNTER_PACKAGE_SHA1@")
+hunter_test_string_not_empty("@HUNTER_PACKAGE_COMPONENT@")
 hunter_test_string_not_empty("@HUNTER_PACKAGE_DOWNLOAD_DIR@")
-hunter_test_string_not_empty("@HUNTER_PACKAGE_SOURCE_DIR@")
+hunter_test_string_not_empty("@HUNTER_PACKAGE_BUILD_DIR@")
+hunter_test_string_not_empty("@HUNTER_TOOLCHAIN_ID_PATH@")
 hunter_test_string_not_empty("@HUNTER_PACKAGE_INSTALL_PREFIX@")
 
 set(configure_command "./configure")
@@ -107,18 +109,53 @@ endif()
 
 list(APPEND configure_opts "-prefix" "@HUNTER_PACKAGE_INSTALL_PREFIX@")
 
-hunter_status_debug("Qt configure options: ${configure_opts}")
+hunter_status_debug("Qt configure options (without -skip): ${configure_opts}")
 
-set(
-    configure_command
-    . "@HUNTER_SELF@/scripts/clear-all.sh" && "${configure_command}"
-)
+list(APPEND configure_command ${configure_opts})
+
 set(build_command . "@HUNTER_SELF@/scripts/clear-all.sh" && make)
 
 set(build_opts)
 string(COMPARE NOTEQUAL "@HUNTER_JOBS_OPTION@" "" have_jobs)
 if(have_jobs)
   list(APPEND build_opts "-j" "@HUNTER_JOBS_OPTION@")
+endif()
+
+set(qt_component "@HUNTER_PACKAGE_COMPONENT@")
+set(hunter_self "@HUNTER_SELF@")
+
+# We can't use HUNTER_PACKAGE_SOURCE_DIR since it will be removed after
+# successful installation of component (we always need to have 'qtbase'
+# component, no other components will be built without it).
+# We optimize build time by not rebuilding qtbase every time (~ 30 min) but
+# lose some extra HDD space. Example: Qt base + 2 components + sources ~ 4.4G
+set(qt_source_dir "@HUNTER_TOOLCHAIN_ID_PATH@/QtBuild")
+
+# We are building only one component "qt_component". To skip all other
+# components we need to add extra '-skip' options. To get the list of components
+# we need to find all directories in top of sources that starts with the 'qt*'.
+# Since we have no sources at this moment we need to use a script on
+# CONFIGURE_COMMAND stage. Also note that this script must not be located in
+# 'qt_source_dir' since this directory will be removed while unpacking
+# the archive. First create script in 'HUNTER_PACKAGE_BUILD_DIR' then copy
+# it to 'qt_source_dir' on CONFIGURE_COMMAND stage.
+
+# Used variables:
+#   * configure_command
+#   * qt_component
+#   * hunter_self
+configure_file(
+    "@HUNTER_SELF@/scripts/qt-configure.cmake.in"
+    "@HUNTER_PACKAGE_BUILD_DIR@/qt-configure.cmake"
+    @ONLY
+)
+
+string(COMPARE EQUAL "${qt_component}" "qtbase" is_qtbase)
+if(is_qtbase)
+  # qtbase component will do the real download
+  set(download_step)
+else()
+  set(download_step DOWNLOAD_COMMAND "@CMAKE_COMMAND@" -E echo "skip download")
 endif()
 
 ExternalProject_Add(
@@ -130,13 +167,18 @@ ExternalProject_Add(
     DOWNLOAD_DIR
     "@HUNTER_PACKAGE_DOWNLOAD_DIR@"
     SOURCE_DIR
-    "@HUNTER_PACKAGE_SOURCE_DIR@"
+    "${qt_source_dir}"
     INSTALL_DIR
     "@HUNTER_PACKAGE_INSTALL_PREFIX@"
         # not used, just avoid creating Install/<name> empty directory
+    ${download_step}
     CONFIGURE_COMMAND
-    ${configure_command}
-    ${configure_opts}
+        "@CMAKE_COMMAND@"
+        -E copy
+        "@HUNTER_PACKAGE_BUILD_DIR@/qt-configure.cmake"
+        "${qt_source_dir}/qt-configure.cmake"
+    COMMAND
+        "@CMAKE_COMMAND@" -P "${qt_source_dir}/qt-configure.cmake"
     BUILD_COMMAND
     ${build_command}
     ${build_opts}
