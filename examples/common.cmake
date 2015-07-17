@@ -27,8 +27,8 @@ if(NOT url_is_empty AND NOT sha1_is_empty AND NOT hunter_root_is_empty)
   get_filename_component(TESTING_URL "${TESTING_URL}" ABSOLUTE)
 
   ### HunterGate module
-  HunterGate(URL "${TESTING_URL}" SHA1 "${TESTING_SHA1}")
+  HunterGate(URL "${TESTING_URL}" SHA1 "${TESTING_SHA1}" ${TESTING_CONFIG_OPT})
 else()
   get_filename_component(HUNTER_ROOT "${CMAKE_CURRENT_LIST_DIR}/.." ABSOLUTE)
-  HunterGate(URL "x" SHA1 "xxxxxxxx")
+  HunterGate(URL "x" SHA1 "xxxxxxxx" ${TESTING_CONFIG_OPT})
 endif()
