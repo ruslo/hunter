@@ -16,11 +16,10 @@ set(CMAKE_INCLUDE_CURRENT_DIR ON)
 
 # Instruct CMake to run moc automatically when needed.
 set(CMAKE_AUTOMOC ON)
+set(CMAKE_AUTOUIC ON)
 
 # Find the QtWidgets library
 find_package(Qt5Widgets)
-
-qt5_wrap_ui(_mainwindow_ui MainWindow.ui)
 
 get_target_property(qt5_widgets_type Qt5::Widgets TYPE)
 string(COMPARE EQUAL "${qt5_widgets_type}" "STATIC_LIBRARY" qt5_is_static)
@@ -36,7 +35,7 @@ add_executable(
     WIN32
     main.cpp
     MainWindow.cpp
-    ${_mainwindow_ui}
+    MainWindow.ui
     ${plugins_src}
 )
 
