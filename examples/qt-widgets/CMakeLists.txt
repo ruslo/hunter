@@ -43,27 +43,52 @@ add_executable(
 target_link_libraries(helloworld Qt5::Widgets)
 
 if(qt5_is_static)
+  set(qt_lib_dir "${Qt5Core_DIR}/../..")
   if(APPLE)
-    find_package(Qt5PrintSupport)
-    set(qt_lib_dir "${Qt5Core_DIR}/../..")
+    if(IOS)
+      target_link_libraries(
+          helloworld
+          # Frameworks
+          "-framework UIKit"
+          "-framework AssetsLibrary"
+          "-framework OpenGLES"
+          "-framework Foundation"
+          "-framework QuartzCore"
+          "-framework CoreFoundation"
+          "-framework CoreText"
+          "-framework CoreGraphics"
+          # Qt
+          Qt5::QIOSIntegrationPlugin
+          # Qt non-imported
+          "${qt_lib_dir}/libqtharfbuzzng$<$<CONFIG:Debug>:_debug>.a"
+          "${qt_lib_dir}/libqtpcre$<$<CONFIG:Debug>:_debug>.a"
+          "${qt_lib_dir}/libQt5PlatformSupport$<$<CONFIG:Debug>:_debug>.a"
+          # 3rdParty
+          z # TODO: link Hunter version
+          # linker flags
+          "-all_load"
+      )
+    else()
+      find_package(Qt5PrintSupport)
 
-    target_link_libraries(
-        helloworld
-        # Frameworks
-        "-framework Carbon"
-        "-framework Cocoa"
-        "-framework IOKit"
-        "-framework OpenGL"
-        # Qt
-        Qt5::PrintSupport
-        Qt5::QCocoaIntegrationPlugin
-        # Qt non-imported
-        "${qt_lib_dir}/libqtharfbuzzng$<$<CONFIG:Debug>:_debug>.a"
-        "${qt_lib_dir}/libqtpcre$<$<CONFIG:Debug>:_debug>.a"
-        "${qt_lib_dir}/libQt5PlatformSupport$<$<CONFIG:Debug>:_debug>.a"
-        # 3rdParty
-        z # TODO: link Hunter version
-        cups # TODO: Hunterize and link
-    )
+      target_link_libraries(
+          helloworld
+          # Frameworks
+          "-framework Carbon"
+          "-framework Cocoa"
+          "-framework IOKit"
+          "-framework OpenGL"
+          # Qt
+          Qt5::PrintSupport
+          Qt5::QCocoaIntegrationPlugin
+          # Qt non-imported
+          "${qt_lib_dir}/libqtharfbuzzng$<$<CONFIG:Debug>:_debug>.a"
+          "${qt_lib_dir}/libqtpcre$<$<CONFIG:Debug>:_debug>.a"
+          "${qt_lib_dir}/libQt5PlatformSupport$<$<CONFIG:Debug>:_debug>.a"
+          # 3rdParty
+          z # TODO: link Hunter version
+          cups # TODO: Hunterize and link
+      )
+    endif()
   endif()
 endif()
