@@ -64,9 +64,9 @@ if(_is_iphoneos)
   string(COMPARE NOTEQUAL "@IPHONEOS_ARCHS@" "" has_dev)
 
   if(has_sim AND NOT has_dev)
-    list(APPEND configure_opts -sdk iphoneos)
-  elseif(has_dev AND NOT has_sim)
     list(APPEND configure_opts -sdk iphonesimulator)
+  elseif(has_dev AND NOT has_sim)
+    list(APPEND configure_opts -sdk iphoneos)
   else()
     # build both, no extra options
   endif()
