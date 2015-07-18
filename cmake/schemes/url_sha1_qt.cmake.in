@@ -21,6 +21,7 @@ hunter_test_string_not_empty("@HUNTER_PACKAGE_SHA1@")
 hunter_test_string_not_empty("@HUNTER_PACKAGE_COMPONENT@")
 hunter_test_string_not_empty("@HUNTER_PACKAGE_DOWNLOAD_DIR@")
 hunter_test_string_not_empty("@HUNTER_PACKAGE_BUILD_DIR@")
+hunter_test_string_not_empty("@HUNTER_PACKAGE_CONFIGURATION_TYPES@")
 hunter_test_string_not_empty("@HUNTER_TOOLCHAIN_ID_PATH@")
 hunter_test_string_not_empty("@HUNTER_INSTALL_PREFIX@")
 hunter_test_string_not_empty("@HUNTER_PACKAGE_INSTALL_PREFIX@")
@@ -69,8 +70,6 @@ if(_is_iphoneos)
   else()
     # build both, no extra options
   endif()
-
-  list(APPEND configure_opts -release)
 elseif(_is_android)
   #setup the android ndk options and skip unsupported modules
   list(APPEND
@@ -109,6 +108,27 @@ else()
 endif()
 
 list(APPEND configure_opts "-prefix" "@HUNTER_PACKAGE_INSTALL_PREFIX@")
+
+### Configuration type --
+
+set(cfg "@HUNTER_PACKAGE_CONFIGURATION_TYPES@")
+
+string(COMPARE EQUAL "${cfg}" "Release" is_release)
+string(COMPARE EQUAL "${cfg}" "Debug" is_debug)
+string(COMPARE EQUAL "${cfg}" "Release;Debug" is_release_debug)
+string(COMPARE EQUAL "${cfg}" "Debug;Release" is_debug_release)
+
+if(is_release)
+  list(APPEND configure_opts "-release")
+elseif(is_debug)
+  list(APPEND configure_opts "-debug")
+elseif(is_release_debug OR is_debug_release)
+  list(APPEND configure_opts "-debug-and-release")
+else()
+  hunter_user_error("Qt configuration type `${cfg}` is not supported")
+endif()
+
+### -- end
 
 hunter_status_debug("Qt configure options (without -skip): ${configure_opts}")
 
