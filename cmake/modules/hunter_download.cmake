@@ -17,13 +17,14 @@ include(hunter_test_string_not_empty)
 include(hunter_user_error)
 
 function(hunter_download)
-  set(one PACKAGE_NAME PACKAGE_COMPONENT)
+  set(one PACKAGE_NAME PACKAGE_COMPONENT PACKAGE_INTERNAL_DEPS_ID)
   set(multiple PACKAGE_DEPENDS_ON)
 
   cmake_parse_arguments(HUNTER "" "${one}" "${multiple}" ${ARGV})
   # -> HUNTER_PACKAGE_NAME
   # -> HUNTER_PACKAGE_COMPONENT
   # -> HUNTER_PACKAGE_DEPENDS_ON
+  # -> HUNTER_PACKAGE_INTERNAL_DEPS_ID
 
   if(HUNTER_UNPARSED_ARGUMENTS)
     hunter_internal_error("Unparsed: ${HUNTER_UNPARSED_ARGUMENTS}")
@@ -45,6 +46,13 @@ function(hunter_download)
   string(COMPARE NOTEQUAL "${HUNTER_BINARY_DIR}" "" hunter_has_binary_dir)
   string(COMPARE NOTEQUAL "${HUNTER_PACKAGE_COMPONENT}" "" hunter_has_component)
   string(COMPARE NOTEQUAL "${CMAKE_TOOLCHAIN_FILE}" "" hunter_has_toolchain)
+  string(
+      COMPARE
+      NOTEQUAL
+      "${HUNTER_PACKAGE_INTERNAL_DEPS_ID}"
+      ""
+      has_internal_deps_id
+  )
 
   if(hunter_has_component)
     set(HUNTER_EP_NAME "${HUNTER_PACKAGE_NAME}-${HUNTER_PACKAGE_COMPONENT}")
@@ -296,6 +304,12 @@ function(hunter_download)
   if(HUNTER_PACKAGE_SCHEME_INSTALL)
     hunter_status_debug(
         "Configuration types: ${HUNTER_PACKAGE_CONFIGURATION_TYPES}"
+    )
+  endif()
+
+  if(has_internal_deps_id)
+    hunter_status_debug(
+        "Internal dependencies ID: ${HUNTER_PACKAGE_INTERNAL_DEPS_ID}"
     )
   endif()
 

@@ -56,5 +56,14 @@ function(hunter_create_cache_meta_directory cache_directory result)
   hunter_make_directory("${cache_meta_dir}" "${types_sha1}" cache_meta_dir)
   file(COPY "${types_info}" DESTINATION "${cache_meta_dir}")
 
+  # Save internal-dependencies information
+  set(internal_deps_id "${HUNTER_PACKAGE_HOME_DIR}/internal_deps.id")
+  file(WRITE "${internal_deps_id}" "${HUNTER_PACKAGE_INTERNAL_DEPS_ID}")
+  file(SHA1 "${internal_deps_id}" internal_deps_sha1)
+  hunter_make_directory(
+      "${cache_meta_dir}" "${internal_deps_sha1}" cache_meta_dir
+  )
+  file(COPY "${internal_deps_id}" DESTINATION "${cache_meta_dir}")
+
   set("${result}" "${cache_meta_dir}" PARENT_SCOPE)
 endfunction()

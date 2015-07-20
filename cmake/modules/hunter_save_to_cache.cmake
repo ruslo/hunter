@@ -26,6 +26,13 @@ function(hunter_save_to_cache)
   hunter_test_string_not_empty("${HUNTER_PACKAGE_NAME}")
 
   string(COMPARE NOTEQUAL "${HUNTER_PACKAGE_COMPONENT}" "" has_component)
+  string(
+      COMPARE
+      NOTEQUAL
+      "${HUNTER_PACKAGE_INTERNAL_DEPS_ID}"
+      ""
+      has_internal_deps_id
+  )
 
   set(human_readable "${HUNTER_PACKAGE_NAME}")
   if(has_component)
@@ -43,6 +50,11 @@ function(hunter_save_to_cache)
     if(NOT EXISTS "${cache_file}")
       hunter_internal_error("Cache file not found")
     endif()
+    if(has_internal_deps_id)
+      hunter_internal_error(
+          "HUNTER_PACKAGE_INTERNAL_DEPS_ID for non-install package"
+      )
+    endif()
     hunter_status_debug("Non-install (already cached)")
     return()
   endif()
@@ -50,6 +62,11 @@ function(hunter_save_to_cache)
   ### Skip non-cacheable
   if(NOT HUNTER_PACKAGE_CACHEABLE)
     hunter_status_debug("Not cacheable")
+    if(has_internal_deps_id)
+      hunter_internal_error(
+          "HUNTER_PACKAGE_INTERNAL_DEPS_ID for non-cacheable package"
+      )
+    endif()
     return()
   endif()
 
