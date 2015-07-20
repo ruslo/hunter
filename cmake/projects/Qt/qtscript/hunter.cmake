@@ -11,4 +11,8 @@ include(hunter_download)
 include(hunter_pick_scheme)
 
 hunter_pick_scheme(DEFAULT url_sha1_qt)
-hunter_download(PACKAGE_NAME Qt PACKAGE_COMPONENT qtscript)
+hunter_download(
+    PACKAGE_NAME Qt
+    PACKAGE_COMPONENT qtscript
+    PACKAGE_INTERNAL_DEPS_ID "1"
+)
