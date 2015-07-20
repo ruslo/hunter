@@ -19,11 +19,11 @@ set(CMAKE_AUTOMOC ON)
 set(CMAKE_AUTOUIC ON)
 
 # Find the QtWidgets library
-find_package(Qt5Widgets)
+find_package(Qt5Widgets REQUIRED)
 
 get_target_property(qt5_widgets_type Qt5::Widgets TYPE)
 string(COMPARE EQUAL "${qt5_widgets_type}" "STATIC_LIBRARY" qt5_is_static)
-if(qt5_is_static)
+if(qt5_is_static AND NOT IOS)
   set(plugins_src static_qt_plugins.cpp)
 else()
   set(plugins_src)
@@ -44,51 +44,26 @@ target_link_libraries(helloworld Qt5::Widgets)
 
 if(qt5_is_static)
   set(qt_lib_dir "${Qt5Core_DIR}/../..")
-  if(APPLE)
-    if(IOS)
-      target_link_libraries(
-          helloworld
-          # Frameworks
-          "-framework UIKit"
-          "-framework AssetsLibrary"
-          "-framework OpenGLES"
-          "-framework Foundation"
-          "-framework QuartzCore"
-          "-framework CoreFoundation"
-          "-framework CoreText"
-          "-framework CoreGraphics"
-          # Qt
-          Qt5::QIOSIntegrationPlugin
-          # Qt non-imported
-          "${qt_lib_dir}/libqtharfbuzzng$<$<CONFIG:Debug>:_debug>.a"
-          "${qt_lib_dir}/libqtpcre$<$<CONFIG:Debug>:_debug>.a"
-          "${qt_lib_dir}/libQt5PlatformSupport$<$<CONFIG:Debug>:_debug>.a"
-          # 3rdParty
-          z # TODO: link Hunter version
-          # linker flags
-          "-all_load"
-      )
-    else()
-      find_package(Qt5PrintSupport)
+  if(APPLE AND NOT IOS)
+    find_package(Qt5PrintSupport)
 
-      target_link_libraries(
-          helloworld
-          # Frameworks
-          "-framework Carbon"
-          "-framework Cocoa"
-          "-framework IOKit"
-          "-framework OpenGL"
-          # Qt
-          Qt5::PrintSupport
-          Qt5::QCocoaIntegrationPlugin
-          # Qt non-imported
-          "${qt_lib_dir}/libqtharfbuzzng$<$<CONFIG:Debug>:_debug>.a"
-          "${qt_lib_dir}/libqtpcre$<$<CONFIG:Debug>:_debug>.a"
-          "${qt_lib_dir}/libQt5PlatformSupport$<$<CONFIG:Debug>:_debug>.a"
-          # 3rdParty
-          z # TODO: link Hunter version
-          cups # TODO: Hunterize and link
-      )
-    endif()
+    target_link_libraries(
+        helloworld
+        # Frameworks
+        "-framework Carbon"
+        "-framework Cocoa"
+        "-framework IOKit"
+        "-framework OpenGL"
+        # Qt
+        Qt5::PrintSupport
+        Qt5::QCocoaIntegrationPlugin
+        # Qt non-imported
+        "${qt_lib_dir}/libqtharfbuzzng$<$<CONFIG:Debug>:_debug>.a"
+        "${qt_lib_dir}/libqtpcre$<$<CONFIG:Debug>:_debug>.a"
+        "${qt_lib_dir}/libQt5PlatformSupport$<$<CONFIG:Debug>:_debug>.a"
+        # 3rdParty
+        z # TODO: link Hunter version
+        cups # TODO: Hunterize and link
+    )
   endif()
 endif()

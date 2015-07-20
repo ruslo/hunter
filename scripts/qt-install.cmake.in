@@ -46,6 +46,13 @@ if(NOT result EQUAL 0)
 endif()
 
 if(is_qtbase)
+  # Install Hunter plugins
+  configure_file(
+      "@hunter_self@/scripts/Qt5Widgets_HunterPlugin.cmake"
+      "@local_install_dir@/lib/cmake/Qt5Widgets/Qt5Widgets_HunterPlugin.cmake"
+      COPYONLY
+  )
+
   # Save installed files
   file(
       GLOB_RECURSE
