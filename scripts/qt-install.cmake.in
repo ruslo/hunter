@@ -53,6 +53,13 @@ if(is_qtbase)
       COPYONLY
   )
 
+  # Install extra helper sources
+  configure_file(
+      "@hunter_self@/scripts/static_qt_plugins.cpp"
+      "@local_install_dir@/src/static_qt_plugins.cpp"
+      COPYONLY
+  )
+
   # Save installed files
   file(
       GLOB_RECURSE

@@ -132,4 +132,60 @@ if(IOS)
   else()
     message(FATAL_ERROR "At least one file must exist: ${_libqios_release} ${_libqios_debug}")
   endif()
+elseif(APPLE)
+  get_target_property(_qt5_widgets_type Qt5::Widgets TYPE)
+  string(COMPARE EQUAL "${_qt5_widgets_type}" "STATIC_LIBRARY" _qt5_is_static)
+
+  if(_qt5_is_static)
+    if(CMAKE_VERSION VERSION_LESS 3.1)
+      message(
+          WARNING
+          "Can't use INTERFACE_SOURCES properties. "
+          "Please update CMake to version 3.1+ or add source manually: "
+          "\${QT_ROOT}/src/static_qt_plugins.cpp"
+      )
+    else()
+      set_target_properties(
+          Qt5::Widgets
+          PROPERTIES
+          INTERFACE_SOURCES
+          "${_qt5Widgets_install_prefix}/src/static_qt_plugins.cpp"
+      )
+    endif()
+
+    find_package(Qt5PrintSupport REQUIRED)
+
+    # Frameworks
+    _hunter_plugin_add_interface(Qt5::Widgets "-framework Carbon")
+    _hunter_plugin_add_interface(Qt5::Widgets "-framework Cocoa")
+    _hunter_plugin_add_interface(Qt5::Widgets "-framework IOKit")
+    _hunter_plugin_add_interface(Qt5::Widgets "-framework OpenGL")
+
+    # Qt
+    _hunter_plugin_add_interface(Qt5::Widgets Qt5::PrintSupport)
+    _hunter_plugin_add_interface(Qt5::Widgets Qt5::QCocoaIntegrationPlugin)
+
+    # Qt non-imported
+    _hunter_plugin_add_interface_release_debug(
+        Qt5::Widgets
+        "${_qt5Widgets_install_prefix}/lib/libqtharfbuzzng.a"
+        "${_qt5Widgets_install_prefix}/lib/libqtharfbuzzng_debug.a"
+    )
+
+    _hunter_plugin_add_interface_release_debug(
+        Qt5::Widgets
+        "${_qt5Widgets_install_prefix}/lib/libqtpcre.a"
+        "${_qt5Widgets_install_prefix}/lib/libqtpcre_debug.a"
+    )
+
+    _hunter_plugin_add_interface_release_debug(
+        Qt5::Widgets
+        "${_qt5Widgets_install_prefix}/lib/libQt5PlatformSupport.a"
+        "${_qt5Widgets_install_prefix}/lib/libQt5PlatformSupport_debug.a"
+    )
+
+    # 3rdParty
+    _hunter_plugin_add_interface(Qt5::Widgets "z") # TODO: link Hunter version
+    _hunter_plugin_add_interface(Qt5::Widgets "cups") # TODO: Hunterize and link
+  endif()
 endif()
