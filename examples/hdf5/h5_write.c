@@ -40,8 +40,8 @@ main (void)
      * Data  and output buffer initialization.
      */
     for(j = 0; j < NX; j++)
-	for(i = 0; i < NY; i++)
-	    data[j][i] = i + j;
+    for(i = 0; i < NY; i++)
+        data[j][i] = i + j;
     /*
      * 0 1 2 3 4 5
      * 1 2 3 4 5 6
@@ -77,7 +77,7 @@ main (void)
      * datatype and default dataset creation properties.
      */
     dataset = H5Dcreate2(file, DATASETNAME, datatype, dataspace,
-			H5P_DEFAULT, H5P_DEFAULT, H5P_DEFAULT);
+            H5P_DEFAULT, H5P_DEFAULT, H5P_DEFAULT);
 
     /*
      * Write the data to the dataset using default transfer properties.
