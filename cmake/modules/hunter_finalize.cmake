@@ -12,13 +12,29 @@ include(hunter_status_print)
 #   * calculate toolchain-id
 #   * calculate config-id
 macro(hunter_finalize)
-  if(NOT CMAKE_C_ABI_COMPILED)
+  get_property(_enabled_languages GLOBAL PROPERTY ENABLED_LANGUAGES)
+
+  list(FIND _enabled_languages "C" _c_enabled_result)
+  if(_c_enabled_result EQUAL -1)
+    set(_c_enabled FALSE)
+  else()
+    set(_c_enabled TRUE)
+  endif()
+
+  list(FIND _enabled_languages "CXX" _cxx_enabled_result)
+  if(_cxx_enabled_result EQUAL -1)
+    set(_cxx_enabled FALSE)
+  else()
+    set(_cxx_enabled TRUE)
+  endif()
+
+  if(_c_enabled AND NOT CMAKE_C_ABI_COMPILED)
     hunter_fatal_error(
         "ABI not detected for C compiler" WIKI "error.abi.detection.failure"
     )
   endif()
 
-  if(NOT CMAKE_CXX_ABI_COMPILED)
+  if(_cxx_enabled AND NOT CMAKE_CXX_ABI_COMPILED)
     hunter_fatal_error(
         "ABI not detected for CXX compiler" WIKI "error.abi.detection.failure"
     )
