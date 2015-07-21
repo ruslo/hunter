@@ -19,9 +19,9 @@ hunter_add_version(
     VERSION
     "1.8.15-p1"
     URL
-	"https://github.com/hunter-packages/hdf5/archive/v1.8.15-p1.tar.gz"
+	"https://github.com/hunter-packages/hdf5/archive/v1.8.15-p2.tar.gz"
     SHA1
-    "7556c3b89e74cbed170eadcf39f9b2a4db4dcbbf"
+    "aa7524bae51f286a4f2b2c22434c1cbab71ff530"
 )
 
 hunter_cmake_args(
