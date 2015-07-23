@@ -35,5 +35,16 @@ hunter_add_version(
     137a5044915d32bea297a8c1552684802bbc2e25
 )
 
+hunter_add_version(
+    PACKAGE_NAME
+    Sources-for-Android-SDK
+    VERSION
+    "19" # version affects layout: <sdk>/sources/android-19
+    URL
+    "http://dl-ssl.google.com/android/repository/sources-19_r02.zip"
+    SHA1
+    433a1d043ef77561571250e94cb7a0ef24a202e7
+)
+
 hunter_pick_scheme(DEFAULT url_sha1_unpack)
 hunter_download(PACKAGE_NAME Sources-for-Android-SDK)

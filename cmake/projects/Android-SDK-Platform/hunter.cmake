@@ -46,5 +46,16 @@ hunter_add_version(
     218ca22f8cb744396fa11e65b8a3d2d1ae07f10e
 )
 
+hunter_add_version(
+    PACKAGE_NAME
+    Android-SDK-Platform
+    VERSION
+    "19_r04"
+    URL
+    "http://dl-ssl.google.com/android/repository/android-19_r04.zip"
+    SHA1
+    2ff20d89e68f2f5390981342e009db5a2d456aaa
+)
+
 hunter_pick_scheme(DEFAULT url_sha1_unpack)
 hunter_download(PACKAGE_NAME Android-SDK-Platform)

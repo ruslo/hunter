@@ -11,6 +11,8 @@ include(hunter_add_version)
 include(hunter_download)
 include(hunter_pick_scheme)
 
+# From: https://dl.google.com/android/repository/sys-img/google_apis/sys-img.xml
+
 hunter_add_version(
     PACKAGE_NAME
     Android-Google-APIs-Intel-x86-Atom-System-Image
