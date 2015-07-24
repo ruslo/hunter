@@ -30,7 +30,7 @@ hunter_config(Android-Google-APIs-Intel-x86-Atom-System-Image VERSION 21) # API 
 hunter_config(Android-Google-Repository VERSION 19)
 hunter_config(Android-Intel-x86-Atom-System-Image VERSION 21) # API 21
 hunter_config(Android-Modules VERSION 1.0.0)
-hunter_config(Android-SDK VERSION 0.0.1)
+hunter_config(Android-SDK VERSION 0.0.2)
 hunter_config(Android-SDK-Platform VERSION 21_r02) # API 21
 hunter_config(Android-SDK-Platform-tools VERSION r22)
 hunter_config(Android-SDK-Tools VERSION 24.3.3)

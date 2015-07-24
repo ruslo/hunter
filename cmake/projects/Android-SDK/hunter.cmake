@@ -16,6 +16,17 @@ hunter_add_version(
     PACKAGE_NAME
     Android-SDK
     VERSION
+    "0.0.2"
+    URL
+    "https://github.com/hunter-packages/android-sdk/archive/v0.0.2.tar.gz"
+    SHA1
+    5ec350bce2fe7b9bcbc96072384f785e8cee0f6b
+)
+
+hunter_add_version(
+    PACKAGE_NAME
+    Android-SDK
+    VERSION
     "0.0.1"
     URL
     "https://github.com/hunter-packages/android-sdk/archive/v0.0.1.tar.gz"
