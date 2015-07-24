@@ -71,17 +71,13 @@ if(_is_iphoneos)
     # build both, no extra options
   endif()
 elseif(_is_android)
-  #setup the android ndk options and skip unsupported modules
+  #setup the android ndk options
   list(APPEND
     configure_opts
       -xplatform android-g++
       -android-sdk <path/to/sdk>
       -android-ndk-host <e.g. linux-x86_64>
       -android-toolchain-version <e.g. 4.8>
-      -skip qttranslations
-      -skip qtwebkit
-      -skip qtserialport
-      -skip qtwebkit-examples
       -no-warnings-are-errors
   )
 elseif(_is_darwin)
