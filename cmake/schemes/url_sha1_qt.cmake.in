@@ -8,6 +8,7 @@ include(ExternalProject) # ExternalProject_Add
 
 include("@HUNTER_SELF@/cmake/Hunter")
 
+include(hunter_internal_error)
 include(hunter_status_debug)
 include(hunter_test_string_not_empty)
 
@@ -77,10 +78,23 @@ elseif(_is_android)
     configure_opts
       -xplatform android-g++
       -android-sdk "${ANDROID-SDK_ROOT}/android-sdk"
-      -android-ndk-host <e.g. linux-x86_64>
-      -android-toolchain-version <e.g. 4.8>
+      -android-ndk "${ANDROID_NDK}"
+      -android-ndk-platform "android-${ANDROID_NATIVE_API_LEVEL}"
+      -android-arch "${ANDROID_NDK_ABI_NAME}"
+      # -android-toolchain-version # ???
       -no-warnings-are-errors
   )
+
+  # Hint: directory ${ANDROID_NDK}/prebuilt
+  if(CMAKE_HOST_APPLE)
+    list(APPEND configure_opts -android-ndk-host "darwin-x86_64")
+  elseif(CMAKE_HOST_UNIX)
+    list(APPEND configure_opts -android-ndk-host "linux-x86_64")
+  elseif(CMAKE_HOST_WIN32)
+    list(APPEND configure_opts -android-ndk-host "windows-x86_64")
+  else()
+    hunter_internal_error("Can't detect host")
+  endif()
 elseif(_is_darwin)
   list(APPEND
     configure_opts
