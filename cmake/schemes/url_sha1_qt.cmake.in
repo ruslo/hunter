@@ -72,10 +72,11 @@ if(_is_iphoneos)
   endif()
 elseif(_is_android)
   #setup the android ndk options
+  hunter_add_package(Android-SDK)
   list(APPEND
     configure_opts
       -xplatform android-g++
-      -android-sdk <path/to/sdk>
+      -android-sdk "${ANDROID-SDK_ROOT}/android-sdk"
       -android-ndk-host <e.g. linux-x86_64>
       -android-toolchain-version <e.g. 4.8>
       -no-warnings-are-errors
