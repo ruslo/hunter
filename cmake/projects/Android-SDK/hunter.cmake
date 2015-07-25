@@ -8,6 +8,7 @@ else()
 endif()
 
 include(hunter_add_version)
+include(hunter_cacheable)
 include(hunter_configuration_types)
 include(hunter_download)
 include(hunter_pick_scheme)
@@ -38,4 +39,8 @@ hunter_add_version(
 hunter_configuration_types(Android-SDK CONFIGURATION_TYPES Release)
 
 hunter_pick_scheme(DEFAULT url_sha1_cmake)
+
+# This package must be cacheable since it's used by Qt Android build scheme
+hunter_cacheable(Android-SDK)
+
 hunter_download(PACKAGE_NAME Android-SDK)
