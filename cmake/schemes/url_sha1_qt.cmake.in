@@ -148,7 +148,15 @@ hunter_status_debug("Qt configure options (without -skip): ${configure_opts}")
 
 list(APPEND configure_command ${configure_opts})
 
-set(build_command . "@HUNTER_SELF@/scripts/clear-all.sh" && make)
+set(ANDROID_API_VERSION "${HUNTER_Android-SDK-Platform_VERSION}")
+
+if(ANDROID)
+  set(make_cmd ANDROID_API_VERSION=${ANDROID_API_VERSION} make)
+else()
+  set(make_cmd make)
+endif()
+
+set(build_command . "@HUNTER_SELF@/scripts/clear-all.sh" && ${make_cmd})
 
 set(build_opts)
 string(COMPARE NOTEQUAL "@HUNTER_JOBS_OPTION@" "" have_jobs)
@@ -200,6 +208,7 @@ configure_file(
 #   * local_install_dir
 #   * qt_component
 #   * hunter_self
+#   * ANDROID_API_VERSION
 configure_file(
     "@HUNTER_SELF@/scripts/qt-install.cmake.in"
     "@HUNTER_PACKAGE_BUILD_DIR@/qt-install.cmake"

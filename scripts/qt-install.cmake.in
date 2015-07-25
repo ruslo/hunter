@@ -39,6 +39,8 @@ endif()
 
 include("@hunter_self@/scripts/clear-all.cmake")
 
+set(ENV{ANDROID_API_VERSION} "@ANDROID_API_VERSION@") # used by `make install`
+
 execute_process(COMMAND make install RESULT_VARIABLE result)
 
 if(NOT result EQUAL 0)
