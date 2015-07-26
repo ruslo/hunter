@@ -186,6 +186,14 @@ function(hunter_autotools_configure_options configure_opts)
     list(APPEND _configure_opts LDFLAGS=${_ldflags})
   endif()
 
+  # Hunter builds static libraries by default
+  if(BUILD_SHARED_LIBS)
+    list(APPEND PARAM_EXTRA_FLAGS --enable-shared --disable-static)
+  else()
+    list(APPEND PARAM_EXTRA_FLAGS --disable-shared --enable-static)
+  endif()
+
+
   if(PARAM_EXTRA_FLAGS)
     list(APPEND _configure_opts ${PARAM_EXTRA_FLAGS})
   endif()
