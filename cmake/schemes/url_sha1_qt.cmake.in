@@ -209,6 +209,7 @@ configure_file(
 #   * qt_component
 #   * hunter_self
 #   * ANDROID_API_VERSION
+#   * qt_source_dir
 configure_file(
     "@HUNTER_SELF@/scripts/qt-install.cmake.in"
     "@HUNTER_PACKAGE_BUILD_DIR@/qt-install.cmake"

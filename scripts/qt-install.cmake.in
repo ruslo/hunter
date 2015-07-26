@@ -20,6 +20,11 @@ if(is_empty)
   message(FATAL_ERROR "hunter_self is empty")
 endif()
 
+string(COMPARE EQUAL "@qt_source_dir@" "" is_empty)
+if(is_empty)
+  message(FATAL_ERROR "qt_source_dir is empty")
+endif()
+
 ### -- end
 
 string(COMPARE EQUAL "@qt_component@" "qtbase" is_qtbase)
@@ -40,6 +45,14 @@ endif()
 include("@hunter_self@/scripts/clear-all.cmake")
 
 set(ENV{ANDROID_API_VERSION} "@ANDROID_API_VERSION@") # used by `make install`
+
+set(broken_makefile "@qt_source_dir@/qttools/src/qtplugininfo/Makefile")
+if(EXISTS "${broken_makefile}")
+  # Workaround for bug
+  file(READ "${broken_makefile}" makefile_content)
+  string(REPLACE "\$(INSTALL_ROOT)" "@local_install_dir@" makefile_content "${makefile_content}")
+  file(WRITE "${broken_makefile}" "${makefile_content}")
+endif()
 
 execute_process(COMMAND make install RESULT_VARIABLE result)
 
