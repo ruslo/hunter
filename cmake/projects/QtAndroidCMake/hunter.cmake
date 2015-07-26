@@ -15,6 +15,17 @@ hunter_add_version(
     PACKAGE_NAME
     QtAndroidCMake
     VERSION
+    "1.0.1"
+    URL
+    "https://github.com/hunter-packages/qt-android-cmake/archive/v1.0.1.tar.gz"
+    SHA1
+    fed89d21c0fe68c3644ea6815751ec4bdad42fdd
+)
+
+hunter_add_version(
+    PACKAGE_NAME
+    QtAndroidCMake
+    VERSION
     "1.0.0"
     URL
     "https://github.com/hunter-packages/qt-android-cmake/archive/v1.0.0.tar.gz"
