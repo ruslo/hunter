@@ -60,21 +60,24 @@ if(NOT result EQUAL 0)
   message(FATAL_ERROR "Qt install failed: ${result}")
 endif()
 
+# Note: all components must install this files to simplify check
+# (see __remove_files)
+
+# Install Hunter plugins
+configure_file(
+    "@hunter_self@/scripts/Qt5Widgets_HunterPlugin.cmake"
+    "@local_install_dir@/lib/cmake/Qt5Widgets/Qt5Widgets_HunterPlugin.cmake"
+    COPYONLY
+)
+
+# Install extra helper sources
+configure_file(
+    "@hunter_self@/scripts/static_qt_plugins.cpp"
+    "@local_install_dir@/src/static_qt_plugins.cpp"
+    COPYONLY
+)
+
 if(is_qtbase)
-  # Install Hunter plugins
-  configure_file(
-      "@hunter_self@/scripts/Qt5Widgets_HunterPlugin.cmake"
-      "@local_install_dir@/lib/cmake/Qt5Widgets/Qt5Widgets_HunterPlugin.cmake"
-      COPYONLY
-  )
-
-  # Install extra helper sources
-  configure_file(
-      "@hunter_self@/scripts/static_qt_plugins.cpp"
-      "@local_install_dir@/src/static_qt_plugins.cpp"
-      COPYONLY
-  )
-
   # Save installed files
   file(
       GLOB_RECURSE
@@ -104,7 +107,7 @@ if(is_qtbase)
       "set(QTBASE_INSTALLED_FILES ${QTBASE_INSTALLED_FILES})\n"
   )
 else()
-  # Remove 'qtbase' files
+  # Remove 'qtbase' files (__remove_files)
   foreach(installed_file ${QTBASE_INSTALLED_FILES})
     set(filepath "@local_install_dir@/${installed_file}")
     if(NOT EXISTS "${filepath}")
