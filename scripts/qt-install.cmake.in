@@ -48,7 +48,7 @@ set(ENV{ANDROID_API_VERSION} "@ANDROID_API_VERSION@") # used by `make install`
 
 set(broken_makefile "@qt_source_dir@/qttools/src/qtplugininfo/Makefile")
 if(EXISTS "${broken_makefile}")
-  # Workaround for bug
+  # Workaround for bug: https://bugreports.qt.io/browse/QTBUG-47453
   file(READ "${broken_makefile}" makefile_content)
   string(REPLACE "\$(INSTALL_ROOT)" "@local_install_dir@" makefile_content "${makefile_content}")
   file(WRITE "${broken_makefile}" "${makefile_content}")
