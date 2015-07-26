@@ -188,4 +188,95 @@ elseif(APPLE)
     _hunter_plugin_add_interface(Qt5::Widgets "z") # TODO: link Hunter version
     _hunter_plugin_add_interface(Qt5::Widgets "cups") # TODO: Hunterize and link
   endif()
+elseif(ANDROID)
+  # TODO
+elseif(UNIX)
+  # Linux
+
+  get_target_property(_qt5_widgets_type Qt5::Widgets TYPE)
+  string(COMPARE EQUAL "${_qt5_widgets_type}" "STATIC_LIBRARY" _qt5_is_static)
+
+  if(_qt5_is_static)
+    if(CMAKE_VERSION VERSION_LESS 3.1)
+      message(
+          WARNING
+          "Can't use INTERFACE_SOURCES properties. "
+          "Please update CMake to version 3.1+ or add source manually: "
+          "\${QT_ROOT}/src/static_qt_plugins.cpp"
+      )
+    else()
+      set_target_properties(
+          Qt5::Widgets
+          PROPERTIES
+          INTERFACE_SOURCES
+          "${_qt5Widgets_install_prefix}/src/static_qt_plugins.cpp"
+      )
+    endif()
+
+    find_package(Qt5DBus REQUIRED)
+
+    # Order is important. Clean-up first.
+    set_target_properties(Qt5::Widgets PROPERTIES INTERFACE_LINK_LIBRARIES "")
+
+    # 3rd party
+    # defined: `glBindTexture'
+    _hunter_plugin_add_interface(Qt5::Widgets "GL")
+
+    # defined: 'IceProcessMessages'
+    _hunter_plugin_add_interface(Qt5::Widgets "ICE")
+
+    # defined: `SmcCloseConnection'
+    _hunter_plugin_add_interface(Qt5::Widgets "SM")
+
+    _hunter_plugin_add_interface(Qt5::Widgets "X11")
+    _hunter_plugin_add_interface(Qt5::Widgets "X11-xcb")
+    _hunter_plugin_add_interface(Qt5::Widgets "dl")
+
+    # defined: pthread_once
+    _hunter_plugin_add_interface(Qt5::Widgets "pthread")
+
+    _hunter_plugin_add_interface(Qt5::Widgets "xcb")
+
+    # defined: `crc32'
+    _hunter_plugin_add_interface(Qt5::Widgets "z")
+
+    # defined `hb_ot_tags_from_script'
+    # should be set before Qt5::Gui
+    _hunter_plugin_add_interface(
+        Qt5::Widgets "${_qt5Widgets_install_prefix}/lib/libqtharfbuzzng.a"
+    )
+
+    # should be set before Qt5::Gui
+    _hunter_plugin_add_interface(
+        Qt5::Widgets "${_qt5Widgets_install_prefix}/lib/libqtpcre.a"
+    )
+
+    # libs should be set before libQt5PlatformSupport
+    # defined: QPlatformMenuItem::activated()
+    # (depends on z, libqtharfbuzzng, GL)
+    _hunter_plugin_add_interface(Qt5::Widgets Qt5::Gui)
+
+    # before libQt5PlatformSupport.a
+    _hunter_plugin_add_interface(Qt5::Widgets Qt5::DBus)
+
+    _hunter_plugin_add_interface(
+        Qt5::Widgets "${_qt5Widgets_install_prefix}/lib/libxcb-static.a"
+    )
+    _hunter_plugin_add_interface(
+        Qt5::Widgets "${_qt5Widgets_install_prefix}/lib/libqtfreetype.a"
+    )
+
+    # undefined: QPlatformMenuItem::activated() (depends on Qt5::Gui)
+    _hunter_plugin_add_interface(
+        Qt5::Widgets "${_qt5Widgets_install_prefix}/lib/libQt5PlatformSupport.a"
+    )
+
+    # undefined reference to `SmcCloseConnection' (depends on SM, ICE)
+    _hunter_plugin_add_interface(
+        Qt5::Widgets "${_qt5Widgets_install_prefix}/lib/libQt5XcbQpa.a"
+    )
+
+    # should be set after libQt5XcbQpa
+    _hunter_plugin_add_interface(Qt5::Widgets Qt5::QXcbIntegrationPlugin)
+  endif()
 endif()

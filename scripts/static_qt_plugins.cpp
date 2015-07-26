@@ -9,4 +9,6 @@
 # error "Not for iOS"
 #elif defined(Q_OS_DARWIN)
   Q_IMPORT_PLUGIN(QCocoaIntegrationPlugin);
+#elif defined(Q_OS_LINUX)
+  Q_IMPORT_PLUGIN(QXcbIntegrationPlugin);
 #endif
