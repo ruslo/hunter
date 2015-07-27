@@ -189,7 +189,7 @@ elseif(APPLE)
     _hunter_plugin_add_interface(Qt5::Widgets "cups") # TODO: Hunterize and link
   endif()
 elseif(ANDROID)
-  # TODO
+  _hunter_plugin_add_interface(Qt5::Widgets "GLESv2")
 elseif(UNIX)
   # Linux
 
