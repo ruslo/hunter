@@ -9,6 +9,7 @@ endif()
 
 include(hunter_add_version)
 include(hunter_cacheable)
+include(hunter_cmake_args)
 include(hunter_configuration_types)
 
 hunter_add_version(
@@ -26,6 +27,11 @@ hunter_cacheable(Qt)
 
 if(NOT APPLE)
   hunter_configuration_types(Qt CONFIGURATION_TYPES Release)
+endif()
+
+if(ANDROID)
+  # Static variant is not supported: https://bugreports.qt.io/browse/QTBUG-47455
+  hunter_cmake_args(Qt CMAKE_ARGS BUILD_SHARED_LIBS=ON)
 endif()
 
 include("${CMAKE_CURRENT_LIST_DIR}/qtbase/hunter.cmake")
