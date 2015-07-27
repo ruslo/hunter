@@ -1,26 +1,42 @@
 # Copyright (c) 2015 Ruslan Baratov, Alexandre Pretyman
 # All rights reserved.
 #
-# This function builds the configure options for autotools
+# This function builds an autotools based project.
 #
-# hunter_autotools_configure_options(target_variable [PARAMETERS])
-#   [PARAMETERS] are optional
+# It forwards to ExternalProject_Add the following parameters:
+#   URL, URL_HASH, DOWNLOAD_DIR, SOURCE_DIR and INSTALL_DIR
 #
 # Usage example:
-# hunter_autotools_configure_options(configure_opts
-#     CPPFLAGS                        # C pre-processor flags
+# hunter_autotools_project("@HUNTER_EP_NAME@" # target name
+#     HUNTER_SELF                             # hunter home
+#       "@HUNTER_SELF@"
+#     URL                                     # external project URL
+#       @HUNTER_PACKAGE_URL@
+#     URL_HASH                                # external project URL_HASH
+#       SHA1=@HUNTER_PACKAGE_SHA1@
+#     DOWNLOAD_DIR                            # external project DOWNLOAD_DIR
+#       "@HUNTER_PACKAGE_DOWNLOAD_DIR@"
+#     SOURCE_DIR                              # external project SOURCE_DIR
+#       "@HUNTER_PACKAGE_SOURCE_DIR@"
+#     INSTALL_DIR                             # external project INSTALL_DIR
+#       "@HUNTER_PACKAGE_INSTALL_PREFIX@"
+#     PARALLEL_JOBS                           # number of parallel jobs for make
+#       "@HUNTER_JOBS_OPTION@"
+#     CPPFLAGS                                # C pre-processor flags
 #       "-DEXAMPLE -I/usr/local/include/library"
-#     CFLAGS                          # C Compiler flags
+#     CFLAGS                                  # C Compiler flags
 #       "-super-optimation"
-#     CXXFLAGS                        # CXX compiler flags
+#     CXXFLAGS                                # CXX compiler flags
 #       "-super-optimation"
-#     LDFLAGS                          # Linker flags
+#     LDFLAGS                                 # Linker flags
 #       "-L/usr/local/lib -llibrary"
-#     EXTRA_FLAGS                      # any other flag that will go at the end
+#     EXTRA_FLAGS                             # any other flag that will go at the end
 #       --enable-feature
 #       --disable-other
 #       --with-library
-#
+# )
+
+include(ExternalProject) # ExternalProject_Add
 
 include(hunter_fatal_error)
 include(hunter_status_debug)
@@ -28,9 +44,9 @@ include(hunter_test_string_not_empty)
 
 include(CMakeParseArguments) # cmake_parse_arguments
 
-function(hunter_autotools_configure_options configure_opts)
+function(hunter_autotools_project target_name)
   set(optional_params)
-  set(one_value_params CPPFLAGS CFLAGS CXXFLAGS LDFLAGS)
+  set(one_value_params HUNTER_SELF URL URL_HASH DOWNLOAD_DIR SOURCE_DIR INSTALL_DIR PARALLEL_JOBS CPPFLAGS CFLAGS CXXFLAGS LDFLAGS)
   set(multi_value_params EXTRA_FLAGS)
 
   cmake_parse_arguments(
@@ -47,9 +63,10 @@ function(hunter_autotools_configure_options configure_opts)
     )
   endif()
 
-  set(_configure_opts)
+  set(configure_opts)
   set(_ldflags)
   string(COMPARE NOTEQUAL "${ANDROID}" "" is_android)
+  string(COMPARE NOTEQUAL "${IOS}" "" is_ios)
   string(COMPARE NOTEQUAL "${CROSS_COMPILE_TOOLCHAIN_PREFIX}" "" is_cross_compile)
   if(is_android)
     hunter_test_string_not_empty("${CMAKE_C_FLAGS}")
@@ -58,10 +75,12 @@ function(hunter_autotools_configure_options configure_opts)
     #  let RaspberryPi support mature so we get a better idea
     #  of where to put them.
     hunter_test_string_not_empty("${ANDROID_TOOLCHAIN_MACHINE_NAME}")
-    list(APPEND _configure_opts --host=${ANDROID_TOOLCHAIN_MACHINE_NAME})
+    list(APPEND configure_opts --host=${ANDROID_TOOLCHAIN_MACHINE_NAME})
     set(_ldflags "${_ldflags} ${__libstl}")
+  elseif(is_ios)
+      hunter_fatal_error("Autotools for iOS not yet supported")
   elseif(is_cross_compile)
-    list(APPEND _configure_opts --host=${CROSS_COMPILE_TOOLCHAIN_PREFIX})
+    list(APPEND configure_opts --host=${CROSS_COMPILE_TOOLCHAIN_PREFIX})
   endif()
 
   # Sets the toolchain binaries
@@ -124,7 +143,7 @@ function(hunter_autotools_configure_options configure_opts)
   endif()
   string(COMPARE NOTEQUAL "${_toolchain_binaries}" "" has_changes)
   if(has_changes)
-    list(APPEND _configure_opts ${_toolchain_binaries})
+    list(APPEND configure_opts ${_toolchain_binaries})
   endif()
 
   # CPPFLAGS=${PARAM_CPPFLAGS} [-D${COMPILE_DEFINITIONS}]
@@ -150,7 +169,7 @@ function(hunter_autotools_configure_options configure_opts)
   hunter_status_debug("CPPFLAGS=${_cppflags}")
   string(COMPARE NOTEQUAL "${_cppflags}" "" has_cppflags)
   if(has_cppflags)
-    list(APPEND _configure_opts CPPFLAGS=${_cppflags})
+    list(APPEND configure_opts CPPFLAGS=${_cppflags})
   endif()
 
   # CFLAGS=${cflags} ${CMAKE_C_FLAGS}
@@ -161,7 +180,7 @@ function(hunter_autotools_configure_options configure_opts)
   hunter_status_debug("CFLAGS=${_cflags}")
   string(COMPARE NOTEQUAL "${_cflags}" "" has_cflags)
   if(has_cflags)
-    list(APPEND _configure_opts CFLAGS=${_cflags})
+    list(APPEND configure_opts CFLAGS=${_cflags})
   endif()
 
   # CXXFLAGS=${cxxflags} ${CMAKE_CXX_FLAGS}
@@ -172,7 +191,7 @@ function(hunter_autotools_configure_options configure_opts)
   string(STRIP "${_cxxflags}" _cxxflags)
   string(COMPARE NOTEQUAL "${_cxxflags}" "" has_cxxflags)
   if(has_cxxflags)
-    list(APPEND _configure_opts CXXFLAGS=${_cxxflags})
+    list(APPEND configure_opts CXXFLAGS=${_cxxflags})
   endif()
 
   # LDFLAGS=${ldflags}
@@ -183,7 +202,7 @@ function(hunter_autotools_configure_options configure_opts)
   hunter_status_debug("LDFLAGS=${_ldflags}")
   string(COMPARE NOTEQUAL "${_ldflags}" "" has_ldflags)
   if(has_ldflags)
-    list(APPEND _configure_opts LDFLAGS=${_ldflags})
+    list(APPEND configure_opts LDFLAGS=${_ldflags})
   endif()
 
   # Hunter builds static libraries by default
@@ -195,7 +214,7 @@ function(hunter_autotools_configure_options configure_opts)
 
 
   if(PARAM_EXTRA_FLAGS)
-    list(APPEND _configure_opts ${PARAM_EXTRA_FLAGS})
+    list(APPEND configure_opts ${PARAM_EXTRA_FLAGS})
   endif()
 
   if(HUNTER_STATUS_DEBUG)
@@ -203,5 +222,41 @@ function(hunter_autotools_configure_options configure_opts)
     hunter_status_debug("EXTRA_FLAGS=${_extra_flags}")
   endif()
 
-  set(${configure_opts} ${_configure_opts} PARENT_SCOPE)
+  set(configure_command "./configure")
+  set(configure_command
+      . "${PARAM_HUNTER_SELF}/scripts/clear-all.sh" && "${configure_command}"
+  )
+  set(build_command . "${PARAM_HUNTER_SELF}/scripts/clear-all.sh" && make)
+
+  set(build_opts)
+  string(COMPARE NOTEQUAL "${PARAM_PARALLEL_JOBS}" "" have_jobs)
+  if(have_jobs)
+    list(APPEND build_opts "-j" "${PARAM_PARALLEL_JOBS}")
+  endif()
+
+  ExternalProject_Add(
+      ${target_name}
+      URL
+      ${PARAM_URL}
+      URL_HASH
+      ${PARAM_URL_HASH}
+      DOWNLOAD_DIR
+      ${PARAM_DOWNLOAD_DIR}
+      SOURCE_DIR
+      ${PARAM_SOURCE_DIR}
+      INSTALL_DIR
+      ${PARAM_INSTALL_DIR}
+          # not used, just avoid creating Install/<name> empty directory
+      CONFIGURE_COMMAND
+      ${configure_command}
+      ${configure_opts}
+      "--prefix=${PARAM_INSTALL_DIR}"
+      BUILD_COMMAND
+      ${build_command}
+      ${build_opts}
+      BUILD_IN_SOURCE
+      1
+      INSTALL_COMMAND
+      make install
+  )
 endfunction()
