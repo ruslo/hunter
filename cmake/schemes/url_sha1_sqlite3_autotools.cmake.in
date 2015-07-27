@@ -4,11 +4,9 @@
 cmake_minimum_required(VERSION 3.0)
 project(Hunter)
 
-include(ExternalProject) # ExternalProject_Add
-
 list(APPEND CMAKE_MODULE_PATH "@HUNTER_SELF@/cmake/modules")
 
-include(hunter_autotools_configure_options)
+include(hunter_autotools_project)
 include(hunter_fatal_error)
 include(hunter_status_debug)
 include(hunter_test_string_not_empty)
@@ -28,42 +26,22 @@ hunter_test_string_not_empty("@HUNTER_PACKAGE_DOWNLOAD_DIR@")
 hunter_test_string_not_empty("@HUNTER_PACKAGE_SOURCE_DIR@")
 hunter_test_string_not_empty("@HUNTER_PACKAGE_INSTALL_PREFIX@")
 
-set(configure_command "./configure")
-
-hunter_autotools_configure_options(configure_opts
+hunter_autotools_project("@HUNTER_EP_NAME@"
+    HUNTER_SELF
+      "@HUNTER_SELF@"
+    URL
+      @HUNTER_PACKAGE_URL@
+    URL_HASH
+      SHA1=@HUNTER_PACKAGE_SHA1@
+    DOWNLOAD_DIR
+      "@HUNTER_PACKAGE_DOWNLOAD_DIR@"
+    SOURCE_DIR
+      "@HUNTER_PACKAGE_SOURCE_DIR@"
+    INSTALL_DIR
+      "@HUNTER_PACKAGE_INSTALL_PREFIX@"
+    PARALLEL_JOBS
+      "@HUNTER_JOBS_OPTION@"
     CPPFLAGS
       "-DSQLITE_ENABLE_UNLOCK_NOTIFY=1 -DSQLITE_ENABLE_RTREE=1"
 )
 
-hunter_status_debug("Autotools configure options: ${configure_opts}")
-
-set(
-    configure_command
-    . "@HUNTER_SELF@/scripts/clear-all.sh" && "${configure_command}"
-)
-set(build_command . "@HUNTER_SELF@/scripts/clear-all.sh" && make)
-
-ExternalProject_Add(
-    "@HUNTER_EP_NAME@"
-    URL
-    @HUNTER_PACKAGE_URL@
-    URL_HASH
-    SHA1=@HUNTER_PACKAGE_SHA1@
-    DOWNLOAD_DIR
-    "@HUNTER_PACKAGE_DOWNLOAD_DIR@"
-    SOURCE_DIR
-    "@HUNTER_PACKAGE_SOURCE_DIR@"
-    INSTALL_DIR
-    "@HUNTER_PACKAGE_INSTALL_PREFIX@"
-        # not used, just avoid creating Install/<name> empty directory
-    CONFIGURE_COMMAND
-    ${configure_command}
-    ${configure_opts}
-    "--prefix=@HUNTER_PACKAGE_INSTALL_PREFIX@"
-    BUILD_COMMAND
-    ${build_command}
-    BUILD_IN_SOURCE
-    1
-    INSTALL_COMMAND
-    make install
-)
