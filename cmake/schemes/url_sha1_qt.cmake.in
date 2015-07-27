@@ -72,6 +72,9 @@ if(_is_iphoneos)
     # build both, no extra options
   endif()
 elseif(_is_android)
+  if(NOT BUILD_SHARED_LIBS)
+    hunter_user_error("Static variant of Qt is not supported")
+  endif()
   #setup the android ndk options
   hunter_add_package(Android-SDK)
   list(APPEND
