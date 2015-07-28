@@ -246,29 +246,28 @@ function(hunter_autotools_project target_name)
     list(APPEND build_opts "-j" "${PARAM_PARALLEL_JOBS}")
   endif()
 
-  ExternalProject_Add(
-      ${target_name}
+  ExternalProject_Add(${target_name}
       URL
-      ${PARAM_URL}
+        ${PARAM_URL}
       URL_HASH
-      ${PARAM_URL_HASH}
+        ${PARAM_URL_HASH}
       DOWNLOAD_DIR
-      ${PARAM_DOWNLOAD_DIR}
+        ${PARAM_DOWNLOAD_DIR}
       SOURCE_DIR
-      ${PARAM_SOURCE_DIR}
+        ${PARAM_SOURCE_DIR}
       INSTALL_DIR
-      ${PARAM_INSTALL_DIR}
-          # not used, just avoid creating Install/<name> empty directory
+        ${PARAM_INSTALL_DIR}
+        # not used, just avoid creating Install/<name> empty directory
       CONFIGURE_COMMAND
-      ${configure_command}
-      ${configure_opts}
-      "--prefix=${PARAM_INSTALL_DIR}"
+        ${configure_command}
+        ${configure_opts}
+        "--prefix=${PARAM_INSTALL_DIR}"
       BUILD_COMMAND
-      ${build_command}
-      ${build_opts}
+        ${build_command}
+        ${build_opts}
       BUILD_IN_SOURCE
-      1
+        1
       INSTALL_COMMAND
-      make install
+        make install
   )
 endfunction()
