@@ -75,26 +75,6 @@ function(hunter_autotools_project target_name)
     )
   endif()
 
-  set(configure_opts)
-  set(ldflags)
-  string(COMPARE NOTEQUAL "${ANDROID}" "" is_android)
-  string(COMPARE NOTEQUAL "${IOS}" "" is_ios)
-  string(COMPARE NOTEQUAL "${CROSS_COMPILE_TOOLCHAIN_PREFIX}" "" is_cross_compile)
-  if(is_android)
-    hunter_test_string_not_empty("${CMAKE_C_FLAGS}")
-    hunter_test_string_not_empty("${CMAKE_CXX_FLAGS}")
-    #AWP: in theory, lots of other checks should be in place.
-    #  let RaspberryPi support mature so we get a better idea
-    #  of where to put them.
-    hunter_test_string_not_empty("${ANDROID_TOOLCHAIN_MACHINE_NAME}")
-    list(APPEND configure_opts --host=${ANDROID_TOOLCHAIN_MACHINE_NAME})
-    set(ldflags "${ldflags} ${__libstl}")
-  elseif(is_ios)
-      hunter_fatal_error("Autotools for iOS not yet supported")
-  elseif(is_cross_compile)
-    list(APPEND configure_opts --host=${CROSS_COMPILE_TOOLCHAIN_PREFIX})
-  endif()
-
   # Sets the toolchain binaries
   #   AR=${CMAKE_AR}
   #   AS=${CMAKE_ASM_COMPILER}
@@ -153,10 +133,6 @@ function(hunter_autotools_project target_name)
       hunter_status_debug("  ${x}")
     endforeach()
   endif()
-  string(COMPARE NOTEQUAL "${toolchain_binaries}" "" has_changes)
-  if(has_changes)
-    list(APPEND configure_opts ${toolchain_binaries})
-  endif()
 
   # CPPFLAGS=${PARAM_CPPFLAGS} [-D${COMPILE_DEFINITIONS}]
   #          [-I${INCLUDE_DIRECTORIES}]
@@ -178,39 +154,67 @@ function(hunter_autotools_project target_name)
   set(cppflags "${cppflags} ${PARAM_CPPFLAGS}")
   string(STRIP "${cppflags}" cppflags)
   hunter_status_debug("CPPFLAGS=${cppflags}")
-  string(COMPARE NOTEQUAL "${cppflags}" "" has_cppflags)
-  if(has_cppflags)
-    list(APPEND configure_opts CPPFLAGS=${cppflags})
-  endif()
 
-  # CFLAGS=${cflags} ${CMAKE_C_FLAGS}
+	# CFLAGS=${cflags} ${CMAKE_C_FLAGS}
   #
   # C Compiler Flags (defines or include directories should not be needed here)
   set(cflags "${CMAKE_C_FLAGS} ${PARAM_CFLAGS}")
   string(STRIP "${cflags}" cflags)
   hunter_status_debug("CFLAGS=${cflags}")
+
+  # CXXFLAGS=${cxxflags} ${CMAKE_CXX_FLAGS}
+  #
+  # C++ Compiler flags (defines or include directories should not be needed here)
+  set(cxxflags "${CMAKE_CXX_FLAGS} ${PARAM_CXXFLAGS}")
+  string(STRIP "${cxxflags}" cxxflags)
+  hunter_status_debug("CXXFLAGS=${cxxflags}")
+
+	# LDFLAGS=${ldflags}
+  #
+  # Linker flags
+  set(ldflags "${CMAKE_EXE_LINKER_FLAGS} ${PARAM_LDFLAGS}")
+  string(STRIP "${ldflags}" ldflags)
+  hunter_status_debug("LDFLAGS=${ldflags}")
+
+  set(configure_opts)
+  string(COMPARE NOTEQUAL "${ANDROID}" "" is_android)
+  string(COMPARE NOTEQUAL "${IOS}" "" is_ios)
+  string(COMPARE NOTEQUAL "${CROSS_COMPILE_TOOLCHAIN_PREFIX}" "" is_cross_compile)
+  if(is_android)
+    hunter_test_string_not_empty("${CMAKE_C_FLAGS}")
+    hunter_test_string_not_empty("${CMAKE_CXX_FLAGS}")
+    #AWP: in theory, lots of other checks should be in place.
+    #  let RaspberryPi support mature so we get a better idea
+    #  of where to put them.
+    hunter_test_string_not_empty("${ANDROID_TOOLCHAIN_MACHINE_NAME}")
+    list(APPEND configure_opts --host=${ANDROID_TOOLCHAIN_MACHINE_NAME})
+    set(ldflags "${ldflags} ${__libstl}")
+  elseif(is_ios)
+      hunter_fatal_error("Autotools for iOS not yet supported")
+  elseif(is_cross_compile)
+    list(APPEND configure_opts --host=${CROSS_COMPILE_TOOLCHAIN_PREFIX})
+  endif()
+
+  string(COMPARE NOTEQUAL "${toolchain_binaries}" "" has_changes)
+  if(has_changes)
+    list(APPEND configure_opts ${toolchain_binaries})
+  endif()
+
+  string(COMPARE NOTEQUAL "${cppflags}" "" has_cppflags)
+  if(has_cppflags)
+    list(APPEND configure_opts CPPFLAGS=${cppflags})
+  endif()
+
   string(COMPARE NOTEQUAL "${cflags}" "" has_cflags)
   if(has_cflags)
     list(APPEND configure_opts CFLAGS=${cflags})
   endif()
 
-  # CXXFLAGS=${cxxflags} ${CMAKE_CXX_FLAGS}
-  #
-  # C++ Compiler flags (defines or include directories should not be needed here)
-  set(cxxflags "${CMAKE_CXX_FLAGS} ${PARAM_CXX_FLAGS}")
-  hunter_status_debug("CXXFLAGS=${cxxflags}")
-  string(STRIP "${cxxflags}" cxxflags)
   string(COMPARE NOTEQUAL "${cxxflags}" "" has_cxxflags)
   if(has_cxxflags)
     list(APPEND configure_opts CXXFLAGS=${cxxflags})
   endif()
 
-  # LDFLAGS=${ldflags}
-  #
-  # Linker flags
-  set(ldflags "${ldflags} ${CMAKE_EXE_LINKER_FLAGS} ${PARAM_LDFLAGS}")
-  string(STRIP "${ldflags}" ldflags)
-  hunter_status_debug("LDFLAGS=${ldflags}")
   string(COMPARE NOTEQUAL "${ldflags}" "" hasldflags)
   if(hasldflags)
     list(APPEND configure_opts LDFLAGS=${ldflags})
