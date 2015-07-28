@@ -37,18 +37,29 @@
 # )
 
 include(ExternalProject) # ExternalProject_Add
+include(CMakeParseArguments) # cmake_parse_arguments
 
 include(hunter_fatal_error)
 include(hunter_status_debug)
 include(hunter_test_string_not_empty)
 
-include(CMakeParseArguments) # cmake_parse_arguments
-
 function(hunter_autotools_project target_name)
-  set(optional_params)
-  set(one_value_params HUNTER_SELF URL URL_HASH DOWNLOAD_DIR SOURCE_DIR INSTALL_DIR PARALLEL_JOBS CPPFLAGS CFLAGS CXXFLAGS LDFLAGS)
-  set(multi_value_params EXTRA_FLAGS)
 
+  set(optional_params)
+  set(one_value_params
+      HUNTER_SELF
+      URL
+      URL_HASH
+      DOWNLOAD_DIR
+      SOURCE_DIR
+      INSTALL_DIR
+      PARALLEL_JOBS
+      CPPFLAGS
+      CFLAGS
+      CXXFLAGS
+      LDFLAGS
+  )
+  set(multi_value_params EXTRA_FLAGS)
   cmake_parse_arguments(
       PARAM
       "${optional_params}"
@@ -56,6 +67,7 @@ function(hunter_autotools_project target_name)
       "${multi_value_params}"
       ${ARGN}
   )
+
   if(PARAM_UNPARSED_ARGUMENTS)
     hunter_fatal_error(
         "Invalid arguments passed to hunter_autotools_configure:"
@@ -64,7 +76,7 @@ function(hunter_autotools_project target_name)
   endif()
 
   set(configure_opts)
-  set(_ldflags)
+  set(ldflags)
   string(COMPARE NOTEQUAL "${ANDROID}" "" is_android)
   string(COMPARE NOTEQUAL "${IOS}" "" is_ios)
   string(COMPARE NOTEQUAL "${CROSS_COMPILE_TOOLCHAIN_PREFIX}" "" is_cross_compile)
@@ -76,7 +88,7 @@ function(hunter_autotools_project target_name)
     #  of where to put them.
     hunter_test_string_not_empty("${ANDROID_TOOLCHAIN_MACHINE_NAME}")
     list(APPEND configure_opts --host=${ANDROID_TOOLCHAIN_MACHINE_NAME})
-    set(_ldflags "${_ldflags} ${__libstl}")
+    set(ldflags "${ldflags} ${__libstl}")
   elseif(is_ios)
       hunter_fatal_error("Autotools for iOS not yet supported")
   elseif(is_cross_compile)
@@ -96,113 +108,112 @@ function(hunter_autotools_project target_name)
   #   CC=${CMAKE_C_COMPILER}
   #   CXX=${CMAKE_CXX_COMPILER}
   #
-  set(_toolchain_binaries)
+  set(toolchain_binaries)
   if(CMAKE_AR)
-    list(APPEND _toolchain_binaries AR=${CMAKE_AR})
+    list(APPEND toolchain_binaries AR=${CMAKE_AR})
   endif()
   if(CMAKE_ASM_COMPILER)
-    list(APPEND _toolchain_binaries AS=${CMAKE_ASM_COMPILER})
+    list(APPEND toolchain_binaries AS=${CMAKE_ASM_COMPILER})
   endif()
   if(CMAKE_LINKER)
-    list(APPEND _toolchain_binaries LD=${CMAKE_LINKER})
+    list(APPEND toolchain_binaries LD=${CMAKE_LINKER})
   endif()
   if(CMAKE_NM)
-    list(APPEND _toolchain_binaries NM=${CMAKE_NM})
+    list(APPEND toolchain_binaries NM=${CMAKE_NM})
   endif()
   if(CMAKE_OBJCOPY)
-    list(APPEND _toolchain_binaries OBJCOPY=${CMAKE_OBJCOPY})
+    list(APPEND toolchain_binaries OBJCOPY=${CMAKE_OBJCOPY})
   endif()
   if(CMAKE_OBJDUMP)
-    list(APPEND _toolchain_binaries OBJDUMP=${CMAKE_OBJDUMP})
+    list(APPEND toolchain_binaries OBJDUMP=${CMAKE_OBJDUMP})
   endif()
   if(CMAKE_RANLIB)
-    list(APPEND _toolchain_binaries RANLIB=${CMAKE_RANLIB})
+    list(APPEND toolchain_binaries RANLIB=${CMAKE_RANLIB})
   endif()
   if(CMAKE_STRIP)
-    list(APPEND _toolchain_binaries STRIP=${CMAKE_STRIP})
+    list(APPEND toolchain_binaries STRIP=${CMAKE_STRIP})
   endif()
   if(CMAKE_C_PREPROCESSOR)
-    list(APPEND _toolchain_binaries CPP=${CMAKE_C_PREPROCESSOR})
+    list(APPEND toolchain_binaries CPP=${CMAKE_C_PREPROCESSOR})
   endif()
   if(CMAKE_C_COMPILER)
-    list(APPEND _toolchain_binaries CC=${CMAKE_C_COMPILER})
+    list(APPEND toolchain_binaries CC=${CMAKE_C_COMPILER})
   endif()
   if(CMAKE_CXX_COMPILER)
-    list(APPEND _toolchain_binaries CXX=${CMAKE_CXX_COMPILER})
+    list(APPEND toolchain_binaries CXX=${CMAKE_CXX_COMPILER})
   endif()
 
-  string(STRIP "${_toolchain_binaries}" _toolchain_binaries)
+  string(STRIP "${toolchain_binaries}" toolchain_binaries)
   if(HUNTER_STATUS_DEBUG)
     string(
-        REPLACE ";" "\n" _toolchain_binaries_new_line "${_toolchain_binaries}"
+        REPLACE ";" "\n" toolchain_binaries_new_line "${toolchain_binaries}"
     )
     hunter_status_debug("Toolchain Binaries:")
-    foreach(x ${_toolchain_binaries})
+    foreach(x ${toolchain_binaries})
       hunter_status_debug("  ${x}")
     endforeach()
   endif()
-  string(COMPARE NOTEQUAL "${_toolchain_binaries}" "" has_changes)
+  string(COMPARE NOTEQUAL "${toolchain_binaries}" "" has_changes)
   if(has_changes)
-    list(APPEND configure_opts ${_toolchain_binaries})
+    list(APPEND configure_opts ${toolchain_binaries})
   endif()
 
   # CPPFLAGS=${PARAM_CPPFLAGS} [-D${COMPILE_DEFINITIONS}]
   #          [-I${INCLUDE_DIRECTORIES}]
   #
   # C Preprocessor flags
-  set(_cppflags)
+  set(cppflags)
   get_directory_property(defs COMPILE_DEFINITIONS)
   foreach(def ${defs})
-    set(_cppflags "${_cppflags} -D${def}")
+    set(cppflags "${cppflags} -D${def}")
   endforeach()
 
   get_directory_property(include_dirs INCLUDE_DIRECTORIES)
   foreach(include_dir ${include_dirs})
-    set(
-        _cppflags
-        "${_cppflags} ${CMAKE_INCLUDE_SYSTEM_FLAG_CXX} ${include_dir}"
+    set(cppflags
+        "${cppflags} ${CMAKE_INCLUDE_SYSTEM_FLAG_CXX} ${include_dir}"
     )
   endforeach()
 
-  set(_cppflags "${_cppflags} ${PARAM_CPPFLAGS}")
-  string(STRIP "${_cppflags}" cppflags)
-  hunter_status_debug("CPPFLAGS=${_cppflags}")
-  string(COMPARE NOTEQUAL "${_cppflags}" "" has_cppflags)
+  set(cppflags "${cppflags} ${PARAM_CPPFLAGS}")
+  string(STRIP "${cppflags}" cppflags)
+  hunter_status_debug("CPPFLAGS=${cppflags}")
+  string(COMPARE NOTEQUAL "${cppflags}" "" has_cppflags)
   if(has_cppflags)
-    list(APPEND configure_opts CPPFLAGS=${_cppflags})
+    list(APPEND configure_opts CPPFLAGS=${cppflags})
   endif()
 
   # CFLAGS=${cflags} ${CMAKE_C_FLAGS}
   #
   # C Compiler Flags (defines or include directories should not be needed here)
-  set(_cflags "${CMAKE_C_FLAGS} ${PARAM_CFLAGS}")
-  string(STRIP "${_cflags}" _cflags)
-  hunter_status_debug("CFLAGS=${_cflags}")
-  string(COMPARE NOTEQUAL "${_cflags}" "" has_cflags)
+  set(cflags "${CMAKE_C_FLAGS} ${PARAM_CFLAGS}")
+  string(STRIP "${cflags}" cflags)
+  hunter_status_debug("CFLAGS=${cflags}")
+  string(COMPARE NOTEQUAL "${cflags}" "" has_cflags)
   if(has_cflags)
-    list(APPEND configure_opts CFLAGS=${_cflags})
+    list(APPEND configure_opts CFLAGS=${cflags})
   endif()
 
   # CXXFLAGS=${cxxflags} ${CMAKE_CXX_FLAGS}
   #
   # C++ Compiler flags (defines or include directories should not be needed here)
-  set(_cxxflags "${cxxflags} ${CMAKE_CXX_FLAGS}")
-  hunter_status_debug("CXXFLAGS=${_cxxflags}")
-  string(STRIP "${_cxxflags}" _cxxflags)
-  string(COMPARE NOTEQUAL "${_cxxflags}" "" has_cxxflags)
+  set(cxxflags "${CMAKE_CXX_FLAGS} ${PARAM_CXX_FLAGS}")
+  hunter_status_debug("CXXFLAGS=${cxxflags}")
+  string(STRIP "${cxxflags}" cxxflags)
+  string(COMPARE NOTEQUAL "${cxxflags}" "" has_cxxflags)
   if(has_cxxflags)
-    list(APPEND configure_opts CXXFLAGS=${_cxxflags})
+    list(APPEND configure_opts CXXFLAGS=${cxxflags})
   endif()
 
   # LDFLAGS=${ldflags}
   #
   # Linker flags
-  set(_ldflags "${_ldflags} ${CMAKE_EXE_LINKER_FLAGS} ${PARAM_LDFLAGS}")
-  string(STRIP "${_ldflags}" _ldflags)
-  hunter_status_debug("LDFLAGS=${_ldflags}")
-  string(COMPARE NOTEQUAL "${_ldflags}" "" has_ldflags)
-  if(has_ldflags)
-    list(APPEND configure_opts LDFLAGS=${_ldflags})
+  set(ldflags "${ldflags} ${CMAKE_EXE_LINKER_FLAGS} ${PARAM_LDFLAGS}")
+  string(STRIP "${ldflags}" ldflags)
+  hunter_status_debug("LDFLAGS=${ldflags}")
+  string(COMPARE NOTEQUAL "${ldflags}" "" hasldflags)
+  if(hasldflags)
+    list(APPEND configure_opts LDFLAGS=${ldflags})
   endif()
 
   # Hunter builds static libraries by default
@@ -218,14 +229,15 @@ function(hunter_autotools_project target_name)
   endif()
 
   if(HUNTER_STATUS_DEBUG)
-    string(REPLACE ";" " " _extra_flags "${PARAM_EXTRA_FLAGS}")
-    hunter_status_debug("EXTRA_FLAGS=${_extra_flags}")
+    string(REPLACE ";" " " extra_flags "${PARAM_EXTRA_FLAGS}")
+    hunter_status_debug("EXTRA_FLAGS=${extra_flags}")
   endif()
 
   set(configure_command "./configure")
   set(configure_command
       . "${PARAM_HUNTER_SELF}/scripts/clear-all.sh" && "${configure_command}"
   )
+
   set(build_command . "${PARAM_HUNTER_SELF}/scripts/clear-all.sh" && make)
 
   set(build_opts)
