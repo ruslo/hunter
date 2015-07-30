@@ -345,9 +345,8 @@ function(hunter_autotools_project target_name)
       list(APPEND configure_opts LDFLAGS=${arch_flags}${ldflags})
       list(APPEND configure_opts ${PARAM_EXTRA_FLAGS})
 
-      #architecture specific source dir
+      # architecture specific source dir
       set(arch_source_dir ${PARAM_SOURCE_DIR}/multi-arch-build/${ios_architecture})
-      #set(arch_install_dir ${PARAM_INSTALL_DIR}-${ios_architecture}-installed)
       set(arch_install_dir ${PARAM_SOURCE_DIR}/multi-arch-install/${ios_architecture})
       set(arch_target ${target_name}-${ios_architecture})
       ExternalProject_Add(${arch_target}
@@ -361,7 +360,6 @@ function(hunter_autotools_project target_name)
             ${arch_source_dir}
           INSTALL_DIR
             ${arch_install_dir}
-            # ${PARAM_INSTALL_DIR}
             # not used, just avoid creating Install/<name> empty directory
           CONFIGURE_COMMAND
             ${configure_command}

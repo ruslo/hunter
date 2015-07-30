@@ -39,9 +39,8 @@ endforeach()
 foreach(x ${all_except_library_files})
   # we need to create the directory before we move the files
   get_filename_component(dir @HUNTER_PACKAGE_INSTALL_PREFIX@/${x} DIRECTORY)
-  if(NOT EXISTS ${dir})
-    file(MAKE_DIRECTORY ${dir})
-  endif()
+  file(MAKE_DIRECTORY ${dir})
+
   file(RENAME ${first_built_root}/${x} @HUNTER_PACKAGE_INSTALL_PREFIX@/${x})
 endforeach()
 
@@ -50,9 +49,7 @@ foreach(x ${library_files})
   # if the dir to put the library in, does not exist, then create it
   # this is needed or else lipo could fail
   get_filename_component(dir @HUNTER_PACKAGE_INSTALL_PREFIX@/${x} DIRECTORY)
-  if(NOT EXISTS ${dir})
-    file(MAKE_DIRECTORY ${dir})
-  endif()
+  file(MAKE_DIRECTORY ${dir})
 
   set(input_libraries)
   foreach(built_arch_root ${built_arch_roots})
@@ -65,7 +62,14 @@ foreach(x ${library_files})
         ${input_libraries}
         -o
         @HUNTER_PACKAGE_INSTALL_PREFIX@/${x}
+      RESULT_VARIABLE
+        lipo_result
+      ERROR_VARIABLE
+        lipo_error
   )
+  if(NOT ${lipo_result} EQUAL 0)
+    message(FATAL_ERROR "lipo execution failed: ${lipo_error}")
+  endif()
 endforeach()
 
 
