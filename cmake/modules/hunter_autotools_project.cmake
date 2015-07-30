@@ -383,7 +383,7 @@ function(hunter_autotools_project target_name)
       )
     endforeach()
 
-		set(HUNTER_PACKAGE_INSTALL_PREFIX ${PARAM_INSTALL_DIR})
+    set(HUNTER_PACKAGE_INSTALL_PREFIX ${PARAM_INSTALL_DIR})
     configure_file(
         "${PARAM_HUNTER_SELF}/scripts/autotools-lipo.cmake.in"
         "${PARAM_SOURCE_DIR}/universal/autotools-lipo.cmake"
