@@ -12,6 +12,9 @@ include(hunter_add_version)
 include(hunter_cmake_args)
 include(hunter_download)
 include(hunter_pick_scheme)
+include(hunter_cacheable)
+
+hunter_cacheable(Eigen)
 
 # List of versions here...
 hunter_add_version(
