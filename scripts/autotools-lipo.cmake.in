@@ -1,0 +1,75 @@
+# Copyright (c) 2015 Ruslan Baratov, Alexandre Pretyman
+# All rights reserved.
+
+### Input params check
+
+string(COMPARE EQUAL "@ios_built_arch_roots@" "" is_empty)
+if(is_empty)
+  message(FATAL_ERROR "ios_built_arch_roots is empty")
+endif()
+
+string(COMPARE EQUAL "@HUNTER_PACKAGE_INSTALL_PREFIX@" "" is_empty)
+if(is_empty)
+  message(FATAL_ERROR "HUNTER_PACKAGE_INSTALL_PREFIX is empty")
+endif()
+
+set(built_arch_roots "@ios_built_arch_roots@")
+
+# We work with the first root path: we move everything, except the *.a static
+# library files into @HUNTER_PACKAGE_INSTALL_PREFIX@, then we lipo the static
+# libraries together into @HUNTER_PACKAGE_INSTALL_PREFIX@
+list(GET built_arch_roots 0 first_built_root)
+file(GLOB_RECURSE
+    library_files
+    RELATIVE
+      "${first_built_root}"
+    ${first_built_root}/*.a
+)
+file(GLOB_RECURSE
+    all_except_library_files
+    RELATIVE
+      "${first_built_root}"
+    ${first_built_root}/*
+)
+#Remove the library files
+foreach(x ${library_files})
+  list(REMOVE_ITEM all_except_library_files ${x})
+endforeach()
+
+foreach(x ${all_except_library_files})
+  # we need to create the directory before we move the files
+  get_filename_component(dir @HUNTER_PACKAGE_INSTALL_PREFIX@/${x} DIRECTORY)
+  if(NOT EXISTS ${dir})
+    file(MAKE_DIRECTORY ${dir})
+  endif()
+  file(RENAME ${first_built_root}/${x} @HUNTER_PACKAGE_INSTALL_PREFIX@/${x})
+endforeach()
+
+# we lipo the libraries into @HUNTER_PACKAGE_INSTALL_PREFIX@
+foreach(x ${library_files})
+  # if the dir to put the library in, does not exist, then create it
+  # this is needed or else lipo could fail
+  get_filename_component(dir @HUNTER_PACKAGE_INSTALL_PREFIX@/${x} DIRECTORY)
+  if(NOT EXISTS ${dir})
+    file(MAKE_DIRECTORY ${dir})
+  endif()
+
+  set(input_libraries)
+  foreach(built_arch_root ${built_arch_roots})
+    list(APPEND input_libraries ${built_arch_root}/${x})
+  endforeach()
+  execute_process(
+      COMMAND
+        lipo
+        -create
+        ${input_libraries}
+        -o
+        @HUNTER_PACKAGE_INSTALL_PREFIX@/${x}
+  )
+endforeach()
+
+
+#TODO: sed all references in the install dir of ${first_built_root} to @HUNTER_PACKAGE_INSTALL_PREFIX@
+
+#TODO: would be great if there was a way to detect if the different built had other differences apart
+#      from the *.a libraries generated. If so we could log/warn somewhere

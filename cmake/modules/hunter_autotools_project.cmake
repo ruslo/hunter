@@ -155,7 +155,7 @@ function(hunter_autotools_project target_name)
   string(STRIP "${cppflags}" cppflags)
   hunter_status_debug("CPPFLAGS=${cppflags}")
 
-	# CFLAGS=${cflags} ${CMAKE_C_FLAGS}
+  # CFLAGS=${cflags} ${CMAKE_C_FLAGS}
   #
   # C Compiler Flags (defines or include directories should not be needed here)
   set(cflags "${CMAKE_C_FLAGS} ${PARAM_CFLAGS}")
@@ -169,16 +169,16 @@ function(hunter_autotools_project target_name)
   string(STRIP "${cxxflags}" cxxflags)
   hunter_status_debug("CXXFLAGS=${cxxflags}")
 
-	# LDFLAGS=${ldflags}
+  # LDFLAGS=${ldflags}
   #
   # Linker flags
   set(ldflags "${CMAKE_EXE_LINKER_FLAGS} ${PARAM_LDFLAGS}")
   string(STRIP "${ldflags}" ldflags)
   hunter_status_debug("LDFLAGS=${ldflags}")
 
-  set(configure_opts)
+  set(configure_host)
   string(COMPARE NOTEQUAL "${ANDROID}" "" is_android)
-  string(COMPARE NOTEQUAL "${IOS}" "" is_ios)
+  string(COMPARE NOTEQUAL "${IPHONEOS_ARCHS}${IPHONESIMULATOR_ARCHS}" "" is_ios)
   string(COMPARE NOTEQUAL "${CROSS_COMPILE_TOOLCHAIN_PREFIX}" "" is_cross_compile)
   if(is_android)
     hunter_test_string_not_empty("${CMAKE_C_FLAGS}")
@@ -187,12 +187,48 @@ function(hunter_autotools_project target_name)
     #  let RaspberryPi support mature so we get a better idea
     #  of where to put them.
     hunter_test_string_not_empty("${ANDROID_TOOLCHAIN_MACHINE_NAME}")
-    list(APPEND configure_opts --host=${ANDROID_TOOLCHAIN_MACHINE_NAME})
+    set(configure_host --host=${ANDROID_TOOLCHAIN_MACHINE_NAME})
     set(ldflags "${ldflags} ${__libstl}")
   elseif(is_ios)
-      hunter_fatal_error("Autotools for iOS not yet supported")
+    if(BUILD_SHARED_LIBS)
+      hunter_fatal_error("Autotools: building iOS libraries as shared is not supported")
+    endif()
+    set(ios_architectures)
+    list(APPEND ios_architectures ${IPHONEOS_ARCHS} ${IPHONESIMULATOR_ARCHS})
   elseif(is_cross_compile)
-    list(APPEND configure_opts --host=${CROSS_COMPILE_TOOLCHAIN_PREFIX})
+    set(configure_host --host=${CROSS_COMPILE_TOOLCHAIN_PREFIX})
+  endif()
+
+  # Hunter builds static libraries by default
+  if(BUILD_SHARED_LIBS)
+    list(APPEND PARAM_EXTRA_FLAGS --enable-shared --disable-static)
+  else()
+    list(APPEND PARAM_EXTRA_FLAGS --disable-shared --enable-static)
+  endif()
+
+  if(HUNTER_STATUS_DEBUG)
+    string(REPLACE ";" " " extra_flags "${PARAM_EXTRA_FLAGS}")
+    hunter_status_debug("EXTRA_FLAGS=${extra_flags}")
+  endif()
+
+  # Build command and options
+  set(build_command . "${PARAM_HUNTER_SELF}/scripts/clear-all.sh" && make)
+  set(build_opts)
+  string(COMPARE NOTEQUAL "${PARAM_PARALLEL_JOBS}" "" have_jobs)
+  if(have_jobs)
+    list(APPEND build_opts "-j" "${PARAM_PARALLEL_JOBS}")
+  endif()
+
+  set(configure_command "./configure")
+  set(configure_command
+      . "${PARAM_HUNTER_SELF}/scripts/clear-all.sh" && "${configure_command}"
+  )
+
+  # Build the configure command line options
+  set(configure_opts)
+  string(COMPARE NOTEQUAL "${configure_host}" "" has_configure_host)
+  if(has_configure_host)
+    list(APPEND configure_opts ${configure_host})
   endif()
 
   string(COMPARE NOTEQUAL "${toolchain_binaries}" "" has_changes)
@@ -220,58 +256,138 @@ function(hunter_autotools_project target_name)
     list(APPEND configure_opts LDFLAGS=${ldflags})
   endif()
 
-  # Hunter builds static libraries by default
-  if(BUILD_SHARED_LIBS)
-    list(APPEND PARAM_EXTRA_FLAGS --enable-shared --disable-static)
-  else()
-    list(APPEND PARAM_EXTRA_FLAGS --disable-shared --enable-static)
-  endif()
-
-
   if(PARAM_EXTRA_FLAGS)
     list(APPEND configure_opts ${PARAM_EXTRA_FLAGS})
   endif()
 
-  if(HUNTER_STATUS_DEBUG)
-    string(REPLACE ";" " " extra_flags "${PARAM_EXTRA_FLAGS}")
-    hunter_status_debug("EXTRA_FLAGS=${extra_flags}")
+  if(NOT is_ios)
+    ExternalProject_Add(${target_name}
+        URL
+          ${PARAM_URL}
+        URL_HASH
+          ${PARAM_URL_HASH}
+        DOWNLOAD_DIR
+          ${PARAM_DOWNLOAD_DIR}
+        SOURCE_DIR
+          ${PARAM_SOURCE_DIR}
+        INSTALL_DIR
+          ${PARAM_INSTALL_DIR}
+          # not used, just avoid creating Install/<name> empty directory
+        CONFIGURE_COMMAND
+          ${configure_command}
+          ${configure_opts}
+          "--prefix=${PARAM_INSTALL_DIR}"
+        BUILD_COMMAND
+          ${build_command}
+          ${build_opts}
+        BUILD_IN_SOURCE
+          1
+        INSTALL_COMMAND
+          make install
+    )
+  else()
+    set(ios_universal_target ${target_name}-universal)
+    ExternalProject_Add(${ios_universal_target}
+        DOWNLOAD_COMMAND
+          ""
+        SOURCE_DIR
+          ${PARAM_SOURCE_DIR}/universal
+        INSTALL_DIR
+          ${PARAM_INSTALL_DIR}
+          # not used, just avoid creating Install/<name> empty directory
+        CONFIGURE_COMMAND
+          ""
+        BUILD_COMMAND
+          ""
+        BUILD_IN_SOURCE
+          1
+        INSTALL_COMMAND
+        ${CMAKE_COMMAND}
+        -P
+        "${PARAM_SOURCE_DIR}/universal/autotools-lipo.cmake"
+    )
+    set(ios_built_arch_roots)
+    foreach(ios_architecture ${ios_architectures})
+      hunter_status_debug("Autotools: building for iOS architecture ${ios_architecture}")
+
+      #clear the conf options
+      set(is_simulator FALSE)
+      if(${ios_architecture} STREQUAL "armv7"
+          OR ${ios_architecture} STREQUAL "armv7s")
+        set(configure_host "arm-apple-darwin")
+      elseif(${ios_architecture} STREQUAL "arm64")
+        set(configure_host "aarch64-apple-darwin")
+      elseif(${ios_architecture} STREQUAL "i386")
+        set(configure_host "i386-apple-darwin")
+        set(is_simulator TRUE)
+      elseif(${ios_architecture} STREQUAL "x86_64")
+        set(configure_host "x86_64-apple-darwin")
+        set(is_simulator TRUE)
+      else()
+        hunter_fatal_error("iOS architecture: ${ios_architecture} not supported")
+      endif()
+
+      set(arch_flags)
+      set(configure_opts)
+      # Extra space at the end of the arch_flags is needed below when appending
+      # to configure_opts, please do not remove!
+      if(is_simulator)
+        set(arch_flags "-arch ${ios_architecture} -isysroot ${IPHONESIMULATOR_SDK_ROOT} -miphoneos-version-min=${IOS_SDK_VERSION} ")
+      else()
+        set(arch_flags "-arch ${ios_architecture} -isysroot ${IPHONEOS_SDK_ROOT} -miphoneos-version-min=${IOS_SDK_VERSION} ")
+      endif()
+
+      list(APPEND configure_opts --host=${configure_host})
+      list(APPEND configure_opts ${toolchain_binaries})
+      list(APPEND configure_opts CPPFLAGS=${arch_flags}${cppflags})
+      list(APPEND configure_opts CFLAGS=${arch_flags}${cflags})
+      list(APPEND configure_opts CXXFLAGS=${arch_flags}${cxxflags})
+      list(APPEND configure_opts LDFLAGS=${arch_flags}${ldflags})
+      list(APPEND configure_opts ${PARAM_EXTRA_FLAGS})
+
+      #architecture specific source dir
+      set(arch_source_dir ${PARAM_SOURCE_DIR}/multi-arch-build/${ios_architecture})
+      #set(arch_install_dir ${PARAM_INSTALL_DIR}-${ios_architecture}-installed)
+      set(arch_install_dir ${PARAM_SOURCE_DIR}/multi-arch-install/${ios_architecture})
+      set(arch_target ${target_name}-${ios_architecture})
+      ExternalProject_Add(${arch_target}
+          URL
+            ${PARAM_URL}
+          URL_HASH
+            ${PARAM_URL_HASH}
+          DOWNLOAD_DIR
+            ${PARAM_DOWNLOAD_DIR}
+          SOURCE_DIR
+            ${arch_source_dir}
+          INSTALL_DIR
+            ${arch_install_dir}
+            # ${PARAM_INSTALL_DIR}
+            # not used, just avoid creating Install/<name> empty directory
+          CONFIGURE_COMMAND
+            ${configure_command}
+            ${configure_opts}
+            "--prefix=${arch_install_dir}"
+          BUILD_COMMAND
+            ${build_command}
+            ${build_opts}
+          BUILD_IN_SOURCE
+            1
+          INSTALL_COMMAND
+            make install
+      )
+
+      list(APPEND ios_built_arch_roots ${arch_install_dir})
+      add_dependencies(
+        "${ios_universal_target}"
+        "${arch_target}"
+      )
+    endforeach()
+
+		set(HUNTER_PACKAGE_INSTALL_PREFIX ${PARAM_INSTALL_DIR})
+    configure_file(
+        "${PARAM_HUNTER_SELF}/scripts/autotools-lipo.cmake.in"
+        "${PARAM_SOURCE_DIR}/universal/autotools-lipo.cmake"
+        @ONLY
+    )
   endif()
-
-  set(configure_command "./configure")
-  set(configure_command
-      . "${PARAM_HUNTER_SELF}/scripts/clear-all.sh" && "${configure_command}"
-  )
-
-  set(build_command . "${PARAM_HUNTER_SELF}/scripts/clear-all.sh" && make)
-
-  set(build_opts)
-  string(COMPARE NOTEQUAL "${PARAM_PARALLEL_JOBS}" "" have_jobs)
-  if(have_jobs)
-    list(APPEND build_opts "-j" "${PARAM_PARALLEL_JOBS}")
-  endif()
-
-  ExternalProject_Add(${target_name}
-      URL
-        ${PARAM_URL}
-      URL_HASH
-        ${PARAM_URL_HASH}
-      DOWNLOAD_DIR
-        ${PARAM_DOWNLOAD_DIR}
-      SOURCE_DIR
-        ${PARAM_SOURCE_DIR}
-      INSTALL_DIR
-        ${PARAM_INSTALL_DIR}
-        # not used, just avoid creating Install/<name> empty directory
-      CONFIGURE_COMMAND
-        ${configure_command}
-        ${configure_opts}
-        "--prefix=${PARAM_INSTALL_DIR}"
-      BUILD_COMMAND
-        ${build_command}
-        ${build_opts}
-      BUILD_IN_SOURCE
-        1
-      INSTALL_COMMAND
-        make install
-  )
 endfunction()
