@@ -12,15 +12,22 @@ include(hunter_cacheable)
 include(hunter_cmake_args)
 include(hunter_configuration_types)
 
+# Use *.7z version.
+# Qt 5.5 overview:
+#   zip 540M
+#   tar.gz 436M (don't have qtbase/configure.exe)
+#   7z 297M
+#   tar.xz 305M (don't have qtbase/configure.exe)
+
 hunter_add_version(
     PACKAGE_NAME
     Qt
     VERSION
     "5.5.0"
     URL
-    "http://download.qt.io/official_releases/qt/5.5/5.5.0/single/qt-everywhere-opensource-src-5.5.0.tar.gz"
+    "http://download.qt.io/official_releases/qt/5.5/5.5.0/single/qt-everywhere-opensource-src-5.5.0.7z"
     SHA1
-    5a11602e781ef3160965dce9e959b2d4f93e6def
+    df2c0a7a20f219f921246b260df086600515955d
 )
 
 hunter_cacheable(Qt)
