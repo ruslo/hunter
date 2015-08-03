@@ -169,8 +169,10 @@ if(is_release)
 elseif(is_debug)
   list(APPEND configure_opts "-debug")
 elseif(is_release_debug OR is_debug_release)
-  if(NOT APPLE)
-    hunter_user_error("Qt debug+release is available only on Mac platforms")
+  if(NOT APPLE AND NOT WIN32)
+    hunter_user_error(
+        "Qt debug+release is available only on Mac/Win32 platforms"
+    )
   endif()
   list(APPEND configure_opts "-debug-and-release")
 else()

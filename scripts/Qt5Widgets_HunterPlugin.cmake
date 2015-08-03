@@ -304,18 +304,24 @@ elseif(MSVC)
     _hunter_plugin_add_interface(Qt5::Widgets Qt5::Gui_GLESv2)
 
     # defined: '_hb_buffer_create'
-    _hunter_plugin_add_interface(
-        Qt5::Widgets "${_qt5Widgets_install_prefix}/lib/qtharfbuzzng.lib"
+    _hunter_plugin_add_interface_release_debug(
+        Qt5::Widgets
+        "${_qt5Widgets_install_prefix}/lib/qtharfbuzzng.lib"
+        "${_qt5Widgets_install_prefix}/lib/qtharfbuzzngd.lib"
     )
 
     # defined: 'CreateTLSIndex'
-    _hunter_plugin_add_interface(
-        Qt5::Widgets "${_qt5Widgets_install_prefix}/lib/translator.lib"
+    _hunter_plugin_add_interface_release_debug(
+        Qt5::Widgets
+        "${_qt5Widgets_install_prefix}/lib/translator.lib"
+        "${_qt5Widgets_install_prefix}/lib/translatord.lib"
     )
 
     # defined: '_pcre16_compile2'
-    _hunter_plugin_add_interface(
-        Qt5::Widgets "${_qt5Widgets_install_prefix}/lib/qtpcre.lib"
+    _hunter_plugin_add_interface_release_debug(
+        Qt5::Widgets
+        "${_qt5Widgets_install_prefix}/lib/qtpcre.lib"
+        "${_qt5Widgets_install_prefix}/lib/qtpcred.lib"
     )
 
     # defined: '_WSAAsyncSelect'
@@ -325,8 +331,10 @@ elseif(MSVC)
     _hunter_plugin_add_interface(Qt5::Widgets Qt5::QWindowsIntegrationPlugin)
 
     # defined: 'QBasicFontDatabase::populateFontDatabase'
-    _hunter_plugin_add_interface(
-        Qt5::Widgets "${_qt5Widgets_install_prefix}/lib/Qt5PlatformSupport.lib"
+    _hunter_plugin_add_interface_release_debug(
+        Qt5::Widgets
+        "${_qt5Widgets_install_prefix}/lib/Qt5PlatformSupport.lib"
+        "${_qt5Widgets_install_prefix}/lib/Qt5PlatformSupportd.lib"
     )
 
     # defined: '_ImmGetDefaultIMEWnd'
@@ -345,13 +353,17 @@ elseif(MSVC)
     _hunter_plugin_add_interface(Qt5::Widgets dxguid)
 
     # defined: '_FT_New_Face'
-    _hunter_plugin_add_interface(
-        Qt5::Widgets "${_qt5Widgets_install_prefix}/lib/qtfreetype.lib"
+    _hunter_plugin_add_interface_release_debug(
+        Qt5::Widgets
+        "${_qt5Widgets_install_prefix}/lib/qtfreetype.lib"
+        "${_qt5Widgets_install_prefix}/lib/qtfreetyped.lib"
     )
 
     # defined: 'pp::Preprocessor::Preprocessor'
-    _hunter_plugin_add_interface(
-        Qt5::Widgets "${_qt5Widgets_install_prefix}/lib/preprocessor.lib"
+    _hunter_plugin_add_interface_release_debug(
+        Qt5::Widgets
+        "${_qt5Widgets_install_prefix}/lib/preprocessor.lib"
+        "${_qt5Widgets_install_prefix}/lib/preprocessord.lib"
     )
   endif()
 endif()

@@ -32,7 +32,7 @@ hunter_add_version(
 
 hunter_cacheable(Qt)
 
-if(NOT APPLE)
+if(NOT APPLE AND NOT WIN32)
   hunter_configuration_types(Qt CONFIGURATION_TYPES Release)
 endif()
 
