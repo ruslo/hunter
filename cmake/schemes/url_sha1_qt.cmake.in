@@ -26,8 +26,38 @@ hunter_test_string_not_empty("@HUNTER_PACKAGE_CONFIGURATION_TYPES@")
 hunter_test_string_not_empty("@HUNTER_TOOLCHAIN_ID_PATH@")
 hunter_test_string_not_empty("@HUNTER_INSTALL_PREFIX@")
 hunter_test_string_not_empty("@HUNTER_PACKAGE_INSTALL_PREFIX@")
+if("@MSVC@")
+  hunter_test_string_not_empty("@HUNTER_MSVC_ARCH@")
+  hunter_test_string_not_empty("@HUNTER_MSVC_VCVARSALL@")
+endif()
 
-set(configure_command "./configure")
+if("@MSVC@")
+  set(env_cmd "@HUNTER_MSVC_VCVARSALL@" "@HUNTER_MSVC_ARCH@")
+
+  # Find the year of Visual Studio
+  string(REPLACE " " ";" msvc_year "${CMAKE_GENERATOR}")
+  list(GET msvc_year 3 msvc_year)
+
+  hunter_status_debug("CMake generator: ${CMAKE_GENERATOR}")
+  hunter_status_debug("Year: ${msvc_year}")
+
+  string(COMPARE EQUAL "${msvc_year}" "" is_empty)
+  if(is_empty)
+    hunter_internal_error("Can't detect error of Visual Studio generator")
+  endif()
+
+  hunter_status_debug("Environment command: ${env_cmd}")
+else()
+  # Workaround for: http://public.kitware.com/Bug/view.php?id=15567
+  set(env_cmd "@CMAKE_COMMAND@" -E echo "configure")
+endif()
+
+if(WIN32)
+  set(configure_command "configure.bat")
+else()
+  set(configure_command "./configure")
+endif()
+
 set(configure_opts)
 
 list(APPEND
@@ -109,9 +139,11 @@ elseif(_is_linux)
     configure_opts
       -qt-xcb
   )
+elseif("@MSVC@")
+  list(APPEND configure_opts -platform "win32-msvc${msvc_year}")
 endif()
 
-if(HUNTER_STATUS_DEBUG)
+if(HUNTER_STATUS_DEBUG AND NOT "@MSVC@")
   list(APPEND configure_opts "-verbose")
 endif()
 
@@ -159,11 +191,15 @@ else()
   set(make_cmd make)
 endif()
 
-set(build_command . "@HUNTER_SELF@/scripts/clear-all.sh" && ${make_cmd})
+if("@MSVC@")
+  set(build_command nmake)
+else()
+  set(build_command . "@HUNTER_SELF@/scripts/clear-all.sh" && ${make_cmd})
+endif()
 
 set(build_opts)
 string(COMPARE NOTEQUAL "@HUNTER_JOBS_OPTION@" "" have_jobs)
-if(have_jobs)
+if(have_jobs AND NOT "@MSVC_IDE@")
   list(APPEND build_opts "-j" "@HUNTER_JOBS_OPTION@")
 endif()
 
@@ -242,6 +278,8 @@ ExternalProject_Add(
         # not used, just avoid creating Install/<name> empty directory
     ${download_step}
     CONFIGURE_COMMAND
+    ${env_cmd}
+    COMMAND
         "@CMAKE_COMMAND@"
         -E copy
         "@HUNTER_PACKAGE_BUILD_DIR@/qt-configure.cmake"
@@ -249,11 +287,15 @@ ExternalProject_Add(
     COMMAND
         "@CMAKE_COMMAND@" -P "${qt_source_dir}/qt-configure.cmake"
     BUILD_COMMAND
+    ${env_cmd}
+    COMMAND
     ${build_command}
     ${build_opts}
     BUILD_IN_SOURCE
     1
     INSTALL_COMMAND
+    ${env_cmd}
+    COMMAND
         "@CMAKE_COMMAND@"
         -E copy
         "@HUNTER_PACKAGE_BUILD_DIR@/qt-install.cmake"

@@ -72,7 +72,11 @@ if(is_qttools)
   endforeach()
 endif()
 
-execute_process(COMMAND make install RESULT_VARIABLE result)
+if("@MSVC@")
+  execute_process(COMMAND nmake install RESULT_VARIABLE result)
+else()
+  execute_process(COMMAND make install RESULT_VARIABLE result)
+endif()
 
 if(NOT result EQUAL 0)
   message(FATAL_ERROR "Qt install failed: ${result}")
