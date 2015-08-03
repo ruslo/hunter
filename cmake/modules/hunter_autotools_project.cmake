@@ -327,15 +327,17 @@ function(hunter_autotools_project target_name)
         hunter_fatal_error("iOS architecture: ${ios_architecture} not supported")
       endif()
 
+			set(arch_install_dir ${PARAM_INSTALL_DIR}/multi-arch/${ios_architecture})
       set(arch_flags)
       set(configure_opts)
+      if(is_simulator)
+        set(arch_flags "-arch ${ios_architecture} -isysroot ${IPHONESIMULATOR_SDK_ROOT} -miphoneos-version-min=${IOS_SDK_VERSION}")
+      else()
+        set(arch_flags "-arch ${ios_architecture} -isysroot ${IPHONEOS_SDK_ROOT} -miphoneos-version-min=${IOS_SDK_VERSION}")
+      endif()
       # Extra space at the end of the arch_flags is needed below when appending
       # to configure_opts, please do not remove!
-      if(is_simulator)
-        set(arch_flags "-arch ${ios_architecture} -isysroot ${IPHONESIMULATOR_SDK_ROOT} -miphoneos-version-min=${IOS_SDK_VERSION} ")
-      else()
-        set(arch_flags "-arch ${ios_architecture} -isysroot ${IPHONEOS_SDK_ROOT} -miphoneos-version-min=${IOS_SDK_VERSION} ")
-      endif()
+			string(CONCAT arch_flags ${arch_flags} " -I${arch_install_dir}/include ")
 
       list(APPEND configure_opts --host=${configure_host})
       list(APPEND configure_opts ${toolchain_binaries})
@@ -347,7 +349,6 @@ function(hunter_autotools_project target_name)
 
       # architecture specific source dir
       set(arch_source_dir ${PARAM_SOURCE_DIR}/multi-arch-build/${ios_architecture})
-      set(arch_install_dir ${PARAM_SOURCE_DIR}/multi-arch-install/${ios_architecture})
       set(arch_target ${target_name}-${ios_architecture})
       ExternalProject_Add(${arch_target}
           URL

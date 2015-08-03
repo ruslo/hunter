@@ -56,40 +56,45 @@ foreach(built_arch_root ${built_arch_roots})
   endforeach()
 endforeach()
 
-## Compare for differences between built_arch_roots, failing if any are found
-#set(built_arch_roots_except_first ${built_arch_roots})
-#list(REMOVE_AT built_arch_roots_except_first 0)
-#foreach(x ${all_except_library_files})
-#  set(different_roots)
-#  foreach(built_arch_root ${built_arch_roots_except_first})
-#    file(DIFFERENT
-#        is_different
-#        FILES
-#          "${first_built_root}/${x}"
-#          "${built_arch_root}/${x}"
-#    )
-#
-#    if(is_different)
-#      list(APPEND different_roots "${built_arch_root}/${x}")
-#    endif()
-#  endforeach()
-#  list(LENGTH different_roots len)
-#  if(NOT ${len} EQUAL 0)
-#    message(FATAL_ERROR
-#      "File: ${x} is different at paths ${first_built_root};${different_roots}"
-#    )
-#  endif()
-#endforeach()
-
-
-# Move the non library files form the ${first_built_root} to @HUNTER_PACKAGE_INSTALL_PREFIX@
+# Compare for differences between built_arch_roots, failing if any are found
+set(built_arch_roots_except_first ${built_arch_roots})
+list(REMOVE_AT built_arch_roots_except_first 0)
 foreach(x ${all_except_library_files})
-  # we need to create the directory before we move the files
-  get_filename_component(dir @HUNTER_PACKAGE_INSTALL_PREFIX@/${x} DIRECTORY)
-  file(MAKE_DIRECTORY ${dir})
+  set(different_roots)
+  foreach(built_arch_root ${built_arch_roots_except_first})
+    file(DIFFERENT
+        is_different
+        FILES
+          "${first_built_root}/${x}"
+          "${built_arch_root}/${x}"
+    )
 
-  file(RENAME ${first_built_root}/${x} @HUNTER_PACKAGE_INSTALL_PREFIX@/${x})
+    if(is_different)
+      list(APPEND different_roots "${built_arch_root}/${x}")
+    endif()
+  endforeach()
+  list(LENGTH different_roots len)
+  if(${len} EQUAL 0)
+    # Files are the same, so we move them to @HUNTER_PACKAGE_INSTALL_PREFIX@
+    get_filename_component(dir @HUNTER_PACKAGE_INSTALL_PREFIX@/${x} DIRECTORY)
+    file(MAKE_DIRECTORY ${dir})
+
+    file(RENAME ${first_built_root}/${x} @HUNTER_PACKAGE_INSTALL_PREFIX@/${x})
+    foreach(built_arch_root ${built_arch_roots_except_first})
+      file(REMOVE ${built_arch_root}/${x})
+    endforeach()
+  endif()
 endforeach()
+
+
+## Move the non library files form the ${first_built_root} to @HUNTER_PACKAGE_INSTALL_PREFIX@
+#foreach(x ${all_except_library_files})
+#  # we need to create the directory before we move the files
+#  get_filename_component(dir @HUNTER_PACKAGE_INSTALL_PREFIX@/${x} DIRECTORY)
+#  file(MAKE_DIRECTORY ${dir})
+#
+#  file(RENAME ${first_built_root}/${x} @HUNTER_PACKAGE_INSTALL_PREFIX@/${x})
+#endforeach()
 
 # we lipo the libraries into @HUNTER_PACKAGE_INSTALL_PREFIX@
 foreach(x ${library_files})
@@ -117,10 +122,6 @@ foreach(x ${library_files})
   if(NOT ${lipo_result} EQUAL 0)
     message(FATAL_ERROR "lipo execution failed: ${lipo_error}")
   endif()
+
+  file(REMOVE ${input_libraries})
 endforeach()
-
-
-#TODO: sed all references in the install dir of ${first_built_root} to @HUNTER_PACKAGE_INSTALL_PREFIX@
-
-#TODO: would be great if there was a way to detect if the different built had other differences apart
-#      from the *.a libraries generated. If so we could log/warn somewhere
