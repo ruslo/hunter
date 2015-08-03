@@ -31,11 +31,58 @@ file(GLOB_RECURSE
       "${first_built_root}"
     ${first_built_root}/*
 )
-#Remove the library files
+# Remove the library files
 foreach(x ${library_files})
   list(REMOVE_ITEM all_except_library_files ${x})
 endforeach()
 
+# Search and replace all occurences of each ${built_arch_root}
+# into @HUNTER_PACKAGE_INSTALL_PREFIX@
+foreach(built_arch_root ${built_arch_roots})
+  foreach(x ${all_except_library_files})
+    set(filename ${built_arch_root}/${x})
+    file(READ ${filename} file_contents)
+    message("Replacing ${built_arch_root} with @HUNTER_PACKAGE_INSTALL_PREFIX@")
+    string(REPLACE
+        "${built_arch_root}"
+        "@HUNTER_PACKAGE_INSTALL_PREFIX@"
+        file_contents_after_replace
+        "${file_contents}"
+    )
+  if(NOT "${file_contents}" STREQUAL "${file_contents_after_replace}")
+    message("Autotools lipo: CHANGED: ${filename}")
+    file(WRITE ${filename} "${file_contents_after_replace}")
+  endif()
+  endforeach()
+endforeach()
+
+## Compare for differences between built_arch_roots, failing if any are found
+#set(built_arch_roots_except_first ${built_arch_roots})
+#list(REMOVE_AT built_arch_roots_except_first 0)
+#foreach(x ${all_except_library_files})
+#  set(different_roots)
+#  foreach(built_arch_root ${built_arch_roots_except_first})
+#    file(DIFFERENT
+#        is_different
+#        FILES
+#          "${first_built_root}/${x}"
+#          "${built_arch_root}/${x}"
+#    )
+#
+#    if(is_different)
+#      list(APPEND different_roots "${built_arch_root}/${x}")
+#    endif()
+#  endforeach()
+#  list(LENGTH different_roots len)
+#  if(NOT ${len} EQUAL 0)
+#    message(FATAL_ERROR
+#      "File: ${x} is different at paths ${first_built_root};${different_roots}"
+#    )
+#  endif()
+#endforeach()
+
+
+# Move the non library files form the ${first_built_root} to @HUNTER_PACKAGE_INSTALL_PREFIX@
 foreach(x ${all_except_library_files})
   # we need to create the directory before we move the files
   get_filename_component(dir @HUNTER_PACKAGE_INSTALL_PREFIX@/${x} DIRECTORY)
