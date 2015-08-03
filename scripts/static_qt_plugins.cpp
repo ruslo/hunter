@@ -11,4 +11,6 @@
   Q_IMPORT_PLUGIN(QCocoaIntegrationPlugin);
 #elif defined(Q_OS_LINUX)
   Q_IMPORT_PLUGIN(QXcbIntegrationPlugin);
+#elif defined(Q_OS_WIN)
+  Q_IMPORT_PLUGIN(QWindowsIntegrationPlugin);
 #endif
