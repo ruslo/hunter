@@ -74,6 +74,8 @@ endif()
 
 if("@MSVC@")
   execute_process(COMMAND nmake install RESULT_VARIABLE result)
+elseif("@MINGW@")
+  execute_process(COMMAND mingw32-make install RESULT_VARIABLE result)
 else()
   execute_process(COMMAND make install RESULT_VARIABLE result)
 endif()
