@@ -190,6 +190,7 @@ function(hunter_autotools_project target_name)
     set(configure_host --host=${ANDROID_TOOLCHAIN_MACHINE_NAME})
     set(ldflags "${ldflags} ${__libstl}")
   elseif(is_ios)
+    hunter_status_debug("Autotools iOS IPHONEOS_ARCHS: ${IPHONEOS_ARCHS} IPHONESIMULATOR_ARCHS: ${IPHONESIMULATOR_ARCHS}")
     if(BUILD_SHARED_LIBS)
       hunter_fatal_error("Autotools: building iOS libraries as shared is not supported")
     endif()
@@ -287,6 +288,7 @@ function(hunter_autotools_project target_name)
     )
   else()
     set(ios_universal_target ${target_name}-universal)
+    set(merge_lipo_script "autotools-merge-lipo.cmake")
     ExternalProject_Add(${ios_universal_target}
         DOWNLOAD_COMMAND
           ""
@@ -304,9 +306,10 @@ function(hunter_autotools_project target_name)
         INSTALL_COMMAND
         ${CMAKE_COMMAND}
         -P
-        "${PARAM_SOURCE_DIR}/universal/autotools-lipo.cmake"
+        "${PARAM_SOURCE_DIR}/universal/${merge_lipo_script}"
     )
     set(ios_built_arch_roots)
+    set(multi_arch_install_root ${PARAM_INSTALL_DIR}/multi-arch)
     foreach(ios_architecture ${ios_architectures})
       hunter_status_debug("Autotools: building for iOS architecture ${ios_architecture}")
 
@@ -327,18 +330,15 @@ function(hunter_autotools_project target_name)
         hunter_fatal_error("iOS architecture: ${ios_architecture} not supported")
       endif()
 
-			set(arch_install_dir ${PARAM_INSTALL_DIR}/multi-arch/${ios_architecture})
       set(arch_flags)
       set(configure_opts)
-      if(is_simulator)
-        set(arch_flags "-arch ${ios_architecture} -isysroot ${IPHONESIMULATOR_SDK_ROOT} -miphoneos-version-min=${IOS_SDK_VERSION}")
-      else()
-        set(arch_flags "-arch ${ios_architecture} -isysroot ${IPHONEOS_SDK_ROOT} -miphoneos-version-min=${IOS_SDK_VERSION}")
-      endif()
       # Extra space at the end of the arch_flags is needed below when appending
       # to configure_opts, please do not remove!
-			string(CONCAT arch_flags ${arch_flags} " -I${arch_install_dir}/include ")
-
+      if(is_simulator)
+        set(arch_flags "-arch ${ios_architecture} -isysroot ${IPHONESIMULATOR_SDK_ROOT} -miphoneos-version-min=${IOS_SDK_VERSION} ")
+      else()
+        set(arch_flags "-arch ${ios_architecture} -isysroot ${IPHONEOS_SDK_ROOT} -miphoneos-version-min=${IOS_SDK_VERSION} ")
+      endif()
       list(APPEND configure_opts --host=${configure_host})
       list(APPEND configure_opts ${toolchain_binaries})
       list(APPEND configure_opts CPPFLAGS=${arch_flags}${cppflags})
@@ -348,8 +348,15 @@ function(hunter_autotools_project target_name)
       list(APPEND configure_opts ${PARAM_EXTRA_FLAGS})
 
       # architecture specific source dir
-      set(arch_source_dir ${PARAM_SOURCE_DIR}/multi-arch-build/${ios_architecture})
-      set(arch_target ${target_name}-${ios_architecture})
+      set(arch_source_dir
+          ${PARAM_SOURCE_DIR}/multi-arch-build/${ios_architecture}
+      )
+      set(arch_target
+          ${target_name}-${ios_architecture}
+      )
+      set(arch_install_dir
+          ${multi_arch_install_root}/${ios_architecture}
+      )
       ExternalProject_Add(${arch_target}
           URL
             ${PARAM_URL}
@@ -384,8 +391,8 @@ function(hunter_autotools_project target_name)
 
     set(HUNTER_PACKAGE_INSTALL_PREFIX ${PARAM_INSTALL_DIR})
     configure_file(
-        "${PARAM_HUNTER_SELF}/scripts/autotools-lipo.cmake.in"
-        "${PARAM_SOURCE_DIR}/universal/autotools-lipo.cmake"
+        "${PARAM_HUNTER_SELF}/scripts/${merge_lipo_script}.in"
+        "${PARAM_SOURCE_DIR}/universal/${merge_lipo_script}"
         @ONLY
     )
   endif()
