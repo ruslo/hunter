@@ -230,7 +230,7 @@ Feel free to open new [issue][hunter-new-issue] if you want to ask any questions
 
 ### Contribution
 
-Read [wiki][hunter-wiki] before making changes. Please send a patch as a pull request against the branch [develop][hunter-dev-branch]. After successfull build this branch will be merged to [master][hunter-master-branch] automatically.
+* [Contribution](https://github.com/ruslo/hunter/wiki/dev.contribution)
 
 ### Links
 * [Gate to hunter packages][hunter-gate]
