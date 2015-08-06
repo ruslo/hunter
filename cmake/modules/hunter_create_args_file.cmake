@@ -68,7 +68,7 @@ function(hunter_create_args_file args filename)
       string(REGEX MATCH "=.*=" bad "${entry}")
       if(bad)
         hunter_user_error(
-            "${bad_message} (two '=' symbols): ${args}"
+            "${bad_message} (two '=' symbols): ${entry}"
         )
       endif()
       string(REGEX REPLACE "=.*" "" var_name "${entry}")
