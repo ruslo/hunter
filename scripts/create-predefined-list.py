@@ -100,10 +100,8 @@ if args.boost_predef:
   ]
 
 if args.compiler:
-  macroses = subprocess.check_output(
-      [args.compiler, '-E', '-x', 'c++', '-dM', '/dev/null'],
-      universal_newlines=True
-  )
+  run_args = [args.compiler, '-E', '-x', 'c++', '-dM', '/dev/null']
+  macroses = subprocess.check_output(run_args, universal_newlines=True)
   compiler_macro_list = macroses.split('\n')
   for x in compiler_macro_list:
     if re.match(r'^#define _', x):
