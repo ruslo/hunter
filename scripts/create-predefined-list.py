@@ -40,6 +40,13 @@ argparser.add_argument(
 )
 
 argparser.add_argument(
+    '--arch',
+    help="""
+        Architecture for compiler (e.g. armv7, armv7s, arm64, i386, x86_64, ...)
+    """
+)
+
+argparser.add_argument(
     '--boost-predef',
     action='store_true',
     help="""
@@ -101,6 +108,8 @@ if args.boost_predef:
 
 if args.compiler:
   run_args = [args.compiler, '-E', '-x', 'c++', '-dM', '/dev/null']
+  if args.arch:
+    run_args += ['-arch', args.arch]
   macroses = subprocess.check_output(run_args, universal_newlines=True)
   compiler_macro_list = macroses.split('\n')
   for x in compiler_macro_list:
