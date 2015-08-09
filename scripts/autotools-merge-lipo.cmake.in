@@ -139,7 +139,9 @@ function(merge_header_diff_archs file_name)
     )
     preprocessor_macro(${arch} arch_define)
     if (arch_counter EQUAL 1)
-      set(merged_file_contents "#ifdef ${arch_define}\n")
+      set(merged_file_contents
+          "${merged_file_contents}\n#ifdef ${arch_define}\n"
+      )
     else()
       set(merged_file_contents
           "${merged_file_contents}\n#elif ${arch_define}\n"
