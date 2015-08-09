@@ -45,7 +45,7 @@ file(GLOB_RECURSE
 )
 
 # Remove all libtool_la_files from all built roots
-foreach(arch @ios_architectures@)
+foreach(arch ${ios_architectures})
   foreach(file_name ${libtool_la_files})
     file(REMOVE
         "@multi_arch_install_root@/${arch}/${file_name}"
@@ -129,11 +129,11 @@ function(merge_header_diff_archs file_name)
  * ${file_name}
  * which differed its contents in a multi-arch build. *
  * The supported architectures are:                   *
- * @ios_architectures@
+ * ${ios_architectures}
  *****************************************************/\n"
   )
   set(arch_counter 1)
-  foreach(arch @ios_architectures@)
+  foreach(arch ${ios_architectures})
     set(full_path_file_name
         "@multi_arch_install_root@/${arch}/${file_name}"
     )
@@ -161,7 +161,7 @@ function(merge_header_diff_archs file_name)
       set(merged_file_contents
           "${merged_file_contents}
 #else
-# error Architecture not supported. It is not one of @ios_architectures@
+# error Architecture not supported. It is not one of ${ios_architectures}
 #endif\n"
       )
     endif()
