@@ -262,27 +262,9 @@ foreach(x ${library_files})
   file(REMOVE ${input_libraries})
 endforeach()
 
-
-# Function to delete empty directories
-function(remove_empty_dirs_recursive dir)
-  if("${dir}" STREQUAL "")
-    message(FATAL_ERROR "Empty argument passed to remove_empty_dirs_recursive!")
-    return() # return is not really needed, but seems safe
-  endif()
-  file(GLOB dir_contents ${dir}/*)
-  foreach(maybe_dir ${dir_contents})
-    if(IS_DIRECTORY "${maybe_dir}")
-      remove_empty_dirs_recursive("${maybe_dir}")
-    endif()
-  endforeach()
-
-  file(GLOB dir_contents ${dir}/*)
-  list(LENGTH dir_contents len)
-  if(${len} EQUAL 0)
-    # REMOVE_RECURSE is needed because REMOVE won't delete the directory
-    file(REMOVE_RECURSE "${dir}")
-  endif()
-endfunction()
-
-# Remove all empty directories from @multi_arch_install_root@
-remove_empty_dirs_recursive("@multi_arch_install_root@")
+# Check no files left (i.e. all binaries fused by lipo, all headers merged)
+file(GLOB_RECURSE files_left "@multi_arch_install_root@/*")
+string(COMPARE EQUAL "${files_left}" "" is_empty)
+if(NOT is_empty)
+  message(FATAL_ERROR "Unexpected files: ${files_left}")
+endif()
