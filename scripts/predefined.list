@@ -80,10 +80,16 @@ __AARCH64EB__
 __AARCH64EL__
 __ANDROID_API__
 __ANDROID__
+__APCS_32__
 __APPLE_CC__
 __APPLE__
 __ARMEB__
 __ARMEL__
+__ARM_ARCH
+__ARM_ARCH_7A__
+__ARM_ARCH_PROFILE
+__ARM_NEON__
+__ARM_VFPV3__
 __ATOMIC_ACQUIRE
 __ATOMIC_ACQ_REL
 __ATOMIC_CONSUME
@@ -395,6 +401,7 @@ __TARGET_ARCH_THUMB
 __TARGET_LIB__
 __THUMBEB__
 __THUMBEL__
+__THUMB_INTERWORK__
 __THW_370__
 __THW_INTEL__
 __THW_RS6000
@@ -436,7 +443,9 @@ __UINT_LEAST64_TYPE__
 __UINT_LEAST8_MAX__
 __UINT_LEAST8_TYPE__
 __USER_LABEL_PREFIX__
+__USING_SJLJ_EXCEPTIONS__
 __VERSION__
+__VFP_FP__
 __VMS
 __VMS_VER
 __WATCOMC__
@@ -459,6 +468,7 @@ __amd64
 __amd64__
 __amigaos__
 __apple_build_version__
+__arm
 __arm64
 __arm__
 __bfin__
@@ -538,6 +548,7 @@ __strong
 __sun
 __svr4__
 __sysv__
+__thumb2__
 __thumb__
 __tune_core2__
 __unix

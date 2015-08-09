@@ -343,6 +343,10 @@
 # pragma message(HUNTER_INFO(__ANDROID__))
 #endif
 
+#if defined(__APCS_32__)
+# pragma message(HUNTER_INFO(__APCS_32__))
+#endif
+
 #if defined(__APPLE_CC__)
 # pragma message(HUNTER_INFO(__APPLE_CC__))
 #endif
@@ -357,6 +361,26 @@
 
 #if defined(__ARMEL__)
 # pragma message(HUNTER_INFO(__ARMEL__))
+#endif
+
+#if defined(__ARM_ARCH)
+# pragma message(HUNTER_INFO(__ARM_ARCH))
+#endif
+
+#if defined(__ARM_ARCH_7A__)
+# pragma message(HUNTER_INFO(__ARM_ARCH_7A__))
+#endif
+
+#if defined(__ARM_ARCH_PROFILE)
+# pragma message(HUNTER_INFO(__ARM_ARCH_PROFILE))
+#endif
+
+#if defined(__ARM_NEON__)
+# pragma message(HUNTER_INFO(__ARM_NEON__))
+#endif
+
+#if defined(__ARM_VFPV3__)
+# pragma message(HUNTER_INFO(__ARM_VFPV3__))
 #endif
 
 #if defined(__ATOMIC_ACQUIRE)
@@ -1603,6 +1627,10 @@
 # pragma message(HUNTER_INFO(__THUMBEL__))
 #endif
 
+#if defined(__THUMB_INTERWORK__)
+# pragma message(HUNTER_INFO(__THUMB_INTERWORK__))
+#endif
+
 #if defined(__THW_370__)
 # pragma message(HUNTER_INFO(__THW_370__))
 #endif
@@ -1767,8 +1795,16 @@
 # pragma message(HUNTER_INFO(__USER_LABEL_PREFIX__))
 #endif
 
+#if defined(__USING_SJLJ_EXCEPTIONS__)
+# pragma message(HUNTER_INFO(__USING_SJLJ_EXCEPTIONS__))
+#endif
+
 #if defined(__VERSION__)
 # pragma message(HUNTER_INFO(__VERSION__))
+#endif
+
+#if defined(__VFP_FP__)
+# pragma message(HUNTER_INFO(__VFP_FP__))
 #endif
 
 #if defined(__VMS)
@@ -1857,6 +1893,10 @@
 
 #if defined(__apple_build_version__)
 # pragma message(HUNTER_INFO(__apple_build_version__))
+#endif
+
+#if defined(__arm)
+# pragma message(HUNTER_INFO(__arm))
 #endif
 
 #if defined(__arm64)
@@ -2173,6 +2213,10 @@
 
 #if defined(__sysv__)
 # pragma message(HUNTER_INFO(__sysv__))
+#endif
+
+#if defined(__thumb2__)
+# pragma message(HUNTER_INFO(__thumb2__))
 #endif
 
 #if defined(__thumb__)
