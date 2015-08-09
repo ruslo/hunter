@@ -34,7 +34,7 @@ file(GLOB_RECURSE
     binary_files
     RELATIVE
       "${first_built_root}"
-    ${first_built_root}/*.a
+    ${first_built_root}/*
 )
 
 file(GLOB_RECURSE
@@ -42,6 +42,13 @@ file(GLOB_RECURSE
     RELATIVE
       "${first_built_root}"
     ${first_built_root}/lib/*.la
+)
+
+file(GLOB_RECURSE
+    text_files
+    RELATIVE
+      "${first_built_root}"
+    ${first_built_root}/include/*
 )
 
 # Remove all libtool_la_files from all built roots
@@ -53,17 +60,14 @@ foreach(arch ${ios_architectures})
   endforeach()
 endforeach()
 
-file(GLOB_RECURSE
-    all_except_library_files
-    RELATIVE
-      "${first_built_root}"
-    ${first_built_root}/*
-)
-# Remove the library files
-foreach(x ${binary_files})
-  list(REMOVE_ITEM all_except_library_files ${x})
+# Exclude text files and .la files from binaries list
+foreach(x ${libtool_la_files})
+  list(REMOVE_ITEM binary_files ${x})
 endforeach()
 
+foreach(x ${text_files})
+  list(REMOVE_ITEM binary_files ${x})
+endforeach()
 
 # The preprocessor macros below are from
 # http://sourceforge.net/p/predef/wiki/Architectures/
@@ -181,29 +185,10 @@ function(merge_header_diff_archs file_name)
   )
 endfunction()
 
-function(move_to_final_install_dir_appending_arch file_name)
-  foreach(arch ${ios_architectures})
-    file(RENAME
-        "@multi_arch_install_root@/${arch}/${file_name}"
-        "@HUNTER_PACKAGE_INSTALL_PREFIX@/${file_name}-${arch}"
-    )
-  endforeach()
-endfunction()
-
 # Compare for differences between files in built_arch_roots
 # If files are different and are in the include/ directory
 # they are merged with #ifdef guards
-# If files are different and are not in the include directory
-# they are moved into the final install dir with their architecture
-# appended to their name with a dash, for example:
-#   bin/sqlite3
-# becomes
-#   bin/sqlite3-armv7
-#   bin/sqlite3-armv7s
-#   bin/sqlite3-arm64
-#   bin/sqlite3-i386
-#   bin/sqlite3-x86_64
-foreach(file_name ${all_except_library_files})
+foreach(file_name ${text_files})
   get_filename_component(final_dir
       "@HUNTER_PACKAGE_INSTALL_PREFIX@/${file_name}"
       DIRECTORY
@@ -216,18 +201,8 @@ foreach(file_name ${all_except_library_files})
     # Files are the same, so we move them to @HUNTER_PACKAGE_INSTALL_PREFIX@
     move_one_delete_other("${file_name}")
   else()
-    # Files are not the same
-    string(FIND "${file_name}" "include/" find_result)
-    # If is a file in the include diretory
-    if (${find_result} EQUAL 0)
-      # then we merge the file contents with #ifdef guards
-      merge_header_diff_archs(${file_name})
-    else()
-      # file is not in the include directory
-      # move the file from each architecture to the install
-      # dir by appending its arch
-      move_to_final_install_dir_appending_arch(${file_name})
-    endif()
+    # merge the file contents with #ifdef guards
+    merge_header_diff_archs(${file_name})
   endif()
 endforeach()
 
