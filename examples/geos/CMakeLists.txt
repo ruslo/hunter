@@ -10,3 +10,6 @@ include("../common.cmake")
 project(example-geos)
 
 hunter_add_package(geos)
+find_package(geos)
+add_executable(example-geos geos.cpp)
+target_link_libraries(example-geos geos)
