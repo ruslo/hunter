@@ -145,18 +145,18 @@ function(merge_header_diff_archs file_name)
               "${merged_file_contents}\n#elif ${arch_define}\n"
           )
         endif()
-          file(READ
-              ${full_path_file_name}
-              file_contents
-          )
-          # Append contents to the merged file
-          set(merged_file_contents
-              "${merged_file_contents}${file_contents}"
-          )
-          # Discard the file
-          file(REMOVE
-              ${full_path_file_name}
-          )
+        file(READ
+            ${full_path_file_name}
+            file_contents
+        )
+        # Append contents to the merged file
+        set(merged_file_contents
+            "${merged_file_contents}${file_contents}"
+        )
+        # Discard the file
+        file(REMOVE
+            ${full_path_file_name}
+        )
         if (${arch_counter} EQUAL ${total_arch_number})
           set(merged_file_contents
             "${merged_file_contents}
