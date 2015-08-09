@@ -88,6 +88,8 @@ endfunction()
 # List the different roots which ${file_name} differ from
 # ${first_built_root} and store them in result
 # If result is an empty list, all files are equal
+set(built_arch_roots_except_first ${built_arch_roots})
+list(REMOVE_AT built_arch_roots_except_first 0)
 function(list_roots_file_diff file_name result)
   # make different_roots a list, so it can be printed for better investigation
   set(different_roots)
@@ -201,8 +203,6 @@ endfunction()
 #   bin/sqlite3-arm64
 #   bin/sqlite3-i386
 #   bin/sqlite3-x86_64
-set(built_arch_roots_except_first ${built_arch_roots})
-list(REMOVE_AT built_arch_roots_except_first 0)
 foreach(file_name ${all_except_library_files})
   get_filename_component(final_dir
       "@HUNTER_PACKAGE_INSTALL_PREFIX@/${file_name}"
