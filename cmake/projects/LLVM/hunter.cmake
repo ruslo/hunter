@@ -22,6 +22,17 @@ hunter_add_version(
     PACKAGE_NAME
     LLVM
     VERSION
+    "3.6.2"
+    URL
+    "http://llvm.org/releases/3.6.2/llvm-3.6.2.src.tar.xz"
+    SHA1
+    7a00257eb2bc9431e4c77c3a36b033072c54bc7e
+)
+
+hunter_add_version(
+    PACKAGE_NAME
+    LLVM
+    VERSION
     "3.6.0"
     URL
     "http://llvm.org/releases/3.6.0/llvm-3.6.0.src.tar.xz"

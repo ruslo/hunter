@@ -45,6 +45,27 @@ foreach(dir ${directories_list})
   endif()
 endforeach()
 
+set(required_qtdeclarative NO)
+set(
+    qtdeclarative_list
+    qt3d
+    qtcanvas3d
+    qtenginio
+    qtgraphicaleffects
+    qtlocation
+    qtmultimedia
+    qtsensors
+    qtwebchannel
+    qtwebkit
+    qtwebsockets
+)
+foreach(component ${qtdeclarative_list})
+  string(COMPARE EQUAL "@qt_component@" "${component}" is_equal)
+  if(is_equal)
+    set(required_qtdeclarative YES)
+  endif()
+endforeach()
+
 # Skip all components except one we need
 set(components_opts)
 set(component_found FALSE)
@@ -52,8 +73,12 @@ foreach(component ${components})
   string(COMPARE NOTEQUAL "@qt_component@" "${component}" skip)
   if(skip)
     string(COMPARE EQUAL "${component}" "qtbase" is_qtbase)
+    string(COMPARE EQUAL "${component}" "qtdeclarative" is_qtdeclarative)
     if(is_qtbase)
       # Can't be skipped
+    elseif(is_qtdeclarative AND required_qtdeclarative)
+      # Do not skip. See:
+      # * https://github.com/ruslo/hunter/issues/116#issuecomment-127040329
     else()
       list(APPEND components_opts "-skip" "${component}")
     endif()

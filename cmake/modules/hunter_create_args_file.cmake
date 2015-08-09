@@ -65,14 +65,14 @@ function(hunter_create_args_file args filename)
       )
     else()
       # Format <name>=<value>
-      string(REGEX MATCH "=.*=" bad "${entry}")
-      if(bad)
-        hunter_user_error(
-            "${bad_message} (two '=' symbols): ${args}"
-        )
-      endif()
+      # Note that we can have more than one '=' sign, e.g. A=-opt=value1
       string(REGEX REPLACE "=.*" "" var_name "${entry}")
-      string(REGEX REPLACE ".*=" "" var_value "${entry}")
+
+      # 'string(REGEX REPLACE' will replace as much patterns as it found so
+      # it's not possible to replace only one '=' as we need.
+      string(LENGTH "${var_name}" var_name_len)
+      math(EXPR value_begin "${var_name_len} + 1")
+      string(SUBSTRING "${entry}" "${value_begin}" -1 var_value)
 
       string(REGEX MATCH ":.*:" bad "${var_name}")
       if(bad)

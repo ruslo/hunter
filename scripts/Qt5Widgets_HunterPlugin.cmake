@@ -279,4 +279,166 @@ elseif(UNIX)
     # should be set after libQt5XcbQpa
     _hunter_plugin_add_interface(Qt5::Widgets Qt5::QXcbIntegrationPlugin)
   endif()
+elseif(MSVC)
+  get_target_property(_qt5_widgets_type Qt5::Widgets TYPE)
+  string(COMPARE EQUAL "${_qt5_widgets_type}" "STATIC_LIBRARY" _qt5_is_static)
+
+  if(_qt5_is_static)
+    if(CMAKE_VERSION VERSION_LESS 3.1)
+      message(
+          WARNING
+          "Can't use INTERFACE_SOURCES properties. "
+          "Please update CMake to version 3.1+ or add source manually: "
+          "\${QT_ROOT}/src/static_qt_plugins.cpp"
+      )
+    else()
+      set_target_properties(
+          Qt5::Widgets
+          PROPERTIES
+          INTERFACE_SOURCES
+          "${_qt5Widgets_install_prefix}/src/static_qt_plugins.cpp"
+      )
+    endif()
+
+    # defined: '_glBindBuffer'
+    _hunter_plugin_add_interface(Qt5::Widgets Qt5::Gui_GLESv2)
+
+    # defined: '_hb_buffer_create'
+    _hunter_plugin_add_interface_release_debug(
+        Qt5::Widgets
+        "${_qt5Widgets_install_prefix}/lib/qtharfbuzzng.lib"
+        "${_qt5Widgets_install_prefix}/lib/qtharfbuzzngd.lib"
+    )
+
+    # defined: 'CreateTLSIndex'
+    _hunter_plugin_add_interface_release_debug(
+        Qt5::Widgets
+        "${_qt5Widgets_install_prefix}/lib/translator.lib"
+        "${_qt5Widgets_install_prefix}/lib/translatord.lib"
+    )
+
+    # defined: '_pcre16_compile2'
+    _hunter_plugin_add_interface_release_debug(
+        Qt5::Widgets
+        "${_qt5Widgets_install_prefix}/lib/qtpcre.lib"
+        "${_qt5Widgets_install_prefix}/lib/qtpcred.lib"
+    )
+
+    # defined: '_WSAAsyncSelect'
+    _hunter_plugin_add_interface(Qt5::Widgets ws2_32)
+
+    # for static plugin
+    _hunter_plugin_add_interface(Qt5::Widgets Qt5::QWindowsIntegrationPlugin)
+
+    # defined: 'QBasicFontDatabase::populateFontDatabase'
+    _hunter_plugin_add_interface_release_debug(
+        Qt5::Widgets
+        "${_qt5Widgets_install_prefix}/lib/Qt5PlatformSupport.lib"
+        "${_qt5Widgets_install_prefix}/lib/Qt5PlatformSupportd.lib"
+    )
+
+    # defined: '_ImmGetDefaultIMEWnd'
+    _hunter_plugin_add_interface(Qt5::Widgets imm32)
+
+    # defined: '__imp__PlaySoundW'
+    _hunter_plugin_add_interface(Qt5::Widgets winmm)
+
+    # defined: '_eglChooseConfig'
+    _hunter_plugin_add_interface(Qt5::Widgets Qt5::Gui_EGL)
+
+    # defined: '_Direct3DCreate9'
+    _hunter_plugin_add_interface(Qt5::Widgets d3d9)
+
+    # defined: '_IID_IDirect3D9'
+    _hunter_plugin_add_interface(Qt5::Widgets dxguid)
+
+    # defined: '_FT_New_Face'
+    _hunter_plugin_add_interface_release_debug(
+        Qt5::Widgets
+        "${_qt5Widgets_install_prefix}/lib/qtfreetype.lib"
+        "${_qt5Widgets_install_prefix}/lib/qtfreetyped.lib"
+    )
+
+    # defined: 'pp::Preprocessor::Preprocessor'
+    _hunter_plugin_add_interface_release_debug(
+        Qt5::Widgets
+        "${_qt5Widgets_install_prefix}/lib/preprocessor.lib"
+        "${_qt5Widgets_install_prefix}/lib/preprocessord.lib"
+    )
+  endif()
+elseif(MINGW)
+  get_target_property(_qt5_widgets_type Qt5::Widgets TYPE)
+  string(COMPARE EQUAL "${_qt5_widgets_type}" "STATIC_LIBRARY" _qt5_is_static)
+
+  if(_qt5_is_static)
+    if(CMAKE_VERSION VERSION_LESS 3.1)
+      message(
+          WARNING
+          "Can't use INTERFACE_SOURCES properties. "
+          "Please update CMake to version 3.1+ or add source manually: "
+          "\${QT_ROOT}/src/static_qt_plugins.cpp"
+      )
+    else()
+      set_target_properties(
+          Qt5::Widgets
+          PROPERTIES
+          INTERFACE_SOURCES
+          "${_qt5Widgets_install_prefix}/src/static_qt_plugins.cpp"
+      )
+    endif()
+
+    # Order is important. Clean-up first.
+    set_target_properties(Qt5::Widgets PROPERTIES INTERFACE_LINK_LIBRARIES "")
+
+    # defined: 'FT_New_Memory_Face'
+    _hunter_plugin_add_interface_release_debug(
+        Qt5::Widgets
+        "${_qt5Widgets_install_prefix}/lib/libqtfreetype.a"
+        "${_qt5Widgets_install_prefix}/lib/libqtfreetyped.a"
+    )
+
+    # defined: 'ImmGetVirtualKey'
+    _hunter_plugin_add_interface(Qt5::Widgets imm32)
+
+    # defined: '_imp__PlaySoundW'
+    _hunter_plugin_add_interface(Qt5::Widgets winmm)
+
+    # defined: vtable for QPlatformNativeInterface
+    _hunter_plugin_add_interface_release_debug(
+        Qt5::Widgets
+        "${_qt5Widgets_install_prefix}/lib/libQt5PlatformSupport.a"
+        "${_qt5Widgets_install_prefix}/lib/libQt5PlatformSupportd.a"
+    )
+
+    # defined: '_imp__WSAAsyncSelect'
+    _hunter_plugin_add_interface(Qt5::Widgets ws2_32)
+
+    # defined: 'pcre16_exec'
+    _hunter_plugin_add_interface_release_debug(
+        Qt5::Widgets
+        "${_qt5Widgets_install_prefix}/lib/libqtpcre.a"
+        "${_qt5Widgets_install_prefix}/lib/libqtpcred.a"
+    )
+
+    # defined: 'uncompress'
+    _hunter_plugin_add_interface(Qt5::Widgets z) # TODO: link Hunter version
+
+    # defined: '_imp__glDepthRange'
+    _hunter_plugin_add_interface(Qt5::Widgets opengl32)
+
+    # defined: 'QObject::objectName'
+
+    # defined: '_hb_buffer_create'
+    _hunter_plugin_add_interface_release_debug(
+        Qt5::Widgets
+        "${_qt5Widgets_install_prefix}/lib/libqtharfbuzzng.a"
+        "${_qt5Widgets_install_prefix}/lib/libqtharfbuzzngd.a"
+    )
+
+    # defined: 'QPalette::~QPalette'
+    _hunter_plugin_add_interface(Qt5::Widgets Qt5::Gui)
+
+    # for static plugin
+    _hunter_plugin_add_interface(Qt5::Widgets Qt5::QWindowsIntegrationPlugin)
+  endif()
 endif()

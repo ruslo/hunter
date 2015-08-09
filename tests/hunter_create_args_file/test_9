@@ -1,0 +1,5 @@
+set("A" "value1" CACHE INTERNAL "")
+set("B" "value2" CACHE INTERNAL "")
+set("B" "${B}" "value3" CACHE INTERNAL "")
+set("C" "-opt=value4" CACHE INTERNAL "")
+set("D" "value5" CACHE INTERNAL "")

@@ -335,12 +335,20 @@
 # pragma message(HUNTER_INFO(__AARCH64EL__))
 #endif
 
+#if defined(__AARCH64_SIMD__)
+# pragma message(HUNTER_INFO(__AARCH64_SIMD__))
+#endif
+
 #if defined(__ANDROID_API__)
 # pragma message(HUNTER_INFO(__ANDROID_API__))
 #endif
 
 #if defined(__ANDROID__)
 # pragma message(HUNTER_INFO(__ANDROID__))
+#endif
+
+#if defined(__APCS_32__)
+# pragma message(HUNTER_INFO(__APCS_32__))
 #endif
 
 #if defined(__APPLE_CC__)
@@ -351,12 +359,112 @@
 # pragma message(HUNTER_INFO(__APPLE__))
 #endif
 
+#if defined(__ARM64_ARCH_8__)
+# pragma message(HUNTER_INFO(__ARM64_ARCH_8__))
+#endif
+
 #if defined(__ARMEB__)
 # pragma message(HUNTER_INFO(__ARMEB__))
 #endif
 
 #if defined(__ARMEL__)
 # pragma message(HUNTER_INFO(__ARMEL__))
+#endif
+
+#if defined(__ARM_64BIT_STATE)
+# pragma message(HUNTER_INFO(__ARM_64BIT_STATE))
+#endif
+
+#if defined(__ARM_ACLE)
+# pragma message(HUNTER_INFO(__ARM_ACLE))
+#endif
+
+#if defined(__ARM_ALIGN_MAX_STACK_PWR)
+# pragma message(HUNTER_INFO(__ARM_ALIGN_MAX_STACK_PWR))
+#endif
+
+#if defined(__ARM_ARCH)
+# pragma message(HUNTER_INFO(__ARM_ARCH))
+#endif
+
+#if defined(__ARM_ARCH_7A__)
+# pragma message(HUNTER_INFO(__ARM_ARCH_7A__))
+#endif
+
+#if defined(__ARM_ARCH_7S__)
+# pragma message(HUNTER_INFO(__ARM_ARCH_7S__))
+#endif
+
+#if defined(__ARM_ARCH_EXT_IDIV__)
+# pragma message(HUNTER_INFO(__ARM_ARCH_EXT_IDIV__))
+#endif
+
+#if defined(__ARM_ARCH_ISA_A64)
+# pragma message(HUNTER_INFO(__ARM_ARCH_ISA_A64))
+#endif
+
+#if defined(__ARM_ARCH_PROFILE)
+# pragma message(HUNTER_INFO(__ARM_ARCH_PROFILE))
+#endif
+
+#if defined(__ARM_FEATURE_CLZ)
+# pragma message(HUNTER_INFO(__ARM_FEATURE_CLZ))
+#endif
+
+#if defined(__ARM_FEATURE_CRYPTO)
+# pragma message(HUNTER_INFO(__ARM_FEATURE_CRYPTO))
+#endif
+
+#if defined(__ARM_FEATURE_DIV)
+# pragma message(HUNTER_INFO(__ARM_FEATURE_DIV))
+#endif
+
+#if defined(__ARM_FEATURE_FMA)
+# pragma message(HUNTER_INFO(__ARM_FEATURE_FMA))
+#endif
+
+#if defined(__ARM_FEATURE_UNALIGNED)
+# pragma message(HUNTER_INFO(__ARM_FEATURE_UNALIGNED))
+#endif
+
+#if defined(__ARM_FP)
+# pragma message(HUNTER_INFO(__ARM_FP))
+#endif
+
+#if defined(__ARM_FP16_FORMAT_IEEE)
+# pragma message(HUNTER_INFO(__ARM_FP16_FORMAT_IEEE))
+#endif
+
+#if defined(__ARM_NEON)
+# pragma message(HUNTER_INFO(__ARM_NEON))
+#endif
+
+#if defined(__ARM_NEON_FP)
+# pragma message(HUNTER_INFO(__ARM_NEON_FP))
+#endif
+
+#if defined(__ARM_NEON__)
+# pragma message(HUNTER_INFO(__ARM_NEON__))
+#endif
+
+#if defined(__ARM_PCS_AAPCS64)
+# pragma message(HUNTER_INFO(__ARM_PCS_AAPCS64))
+#endif
+
+#if defined(__ARM_SIZEOF_MINIMAL_ENUM)
+# pragma message(HUNTER_INFO(__ARM_SIZEOF_MINIMAL_ENUM))
+#endif
+
+#if defined(__ARM_SIZEOF_WCHAR_T)
+# pragma message(HUNTER_INFO(__ARM_SIZEOF_WCHAR_T))
+#endif
+
+#if defined(__ARM_VFPV3__)
+# pragma message(HUNTER_INFO(__ARM_VFPV3__))
+#endif
+
+#if defined(__ARM_VFPV4__)
+# pragma message(HUNTER_INFO(__ARM_VFPV4__))
 #endif
 
 #if defined(__ATOMIC_ACQUIRE)
@@ -1603,6 +1711,10 @@
 # pragma message(HUNTER_INFO(__THUMBEL__))
 #endif
 
+#if defined(__THUMB_INTERWORK__)
+# pragma message(HUNTER_INFO(__THUMB_INTERWORK__))
+#endif
+
 #if defined(__THW_370__)
 # pragma message(HUNTER_INFO(__THW_370__))
 #endif
@@ -1767,8 +1879,16 @@
 # pragma message(HUNTER_INFO(__USER_LABEL_PREFIX__))
 #endif
 
+#if defined(__USING_SJLJ_EXCEPTIONS__)
+# pragma message(HUNTER_INFO(__USING_SJLJ_EXCEPTIONS__))
+#endif
+
 #if defined(__VERSION__)
 # pragma message(HUNTER_INFO(__VERSION__))
+#endif
+
+#if defined(__VFP_FP__)
+# pragma message(HUNTER_INFO(__VFP_FP__))
 #endif
 
 #if defined(__VMS)
@@ -1823,6 +1943,10 @@
 # pragma message(HUNTER_INFO(__WINT_WIDTH__))
 #endif
 
+#if defined(__aarch64__)
+# pragma message(HUNTER_INFO(__aarch64__))
+#endif
+
 #if defined(__alpha)
 # pragma message(HUNTER_INFO(__alpha))
 #endif
@@ -1859,8 +1983,16 @@
 # pragma message(HUNTER_INFO(__apple_build_version__))
 #endif
 
+#if defined(__arm)
+# pragma message(HUNTER_INFO(__arm))
+#endif
+
 #if defined(__arm64)
 # pragma message(HUNTER_INFO(__arm64))
+#endif
+
+#if defined(__arm64__)
+# pragma message(HUNTER_INFO(__arm64__))
 #endif
 
 #if defined(__arm__)
@@ -2083,6 +2215,14 @@
 # pragma message(HUNTER_INFO(__mips__))
 #endif
 
+#if defined(__nocona)
+# pragma message(HUNTER_INFO(__nocona))
+#endif
+
+#if defined(__nocona__)
+# pragma message(HUNTER_INFO(__nocona__))
+#endif
+
 #if defined(__pic__)
 # pragma message(HUNTER_INFO(__pic__))
 #endif
@@ -2175,12 +2315,20 @@
 # pragma message(HUNTER_INFO(__sysv__))
 #endif
 
+#if defined(__thumb2__)
+# pragma message(HUNTER_INFO(__thumb2__))
+#endif
+
 #if defined(__thumb__)
 # pragma message(HUNTER_INFO(__thumb__))
 #endif
 
 #if defined(__tune_core2__)
 # pragma message(HUNTER_INFO(__tune_core2__))
+#endif
+
+#if defined(__tune_nocona__)
+# pragma message(HUNTER_INFO(__tune_nocona__))
 #endif
 
 #if defined(__unix)
