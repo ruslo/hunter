@@ -145,3 +145,79 @@ string(COMPARE EQUAL "${result}" "${output}" regex_match)
 if(NOT regex_match)
   message(FATAL_ERROR "Unexpected lipo output:\n  ${output}\n  ${result}")
 endif()
+
+### Test 4: armv7 library missed (error: files left)
+
+file(REMOVE_RECURSE "${multi_arch_install_root}")
+file(REMOVE_RECURSE "${HUNTER_PACKAGE_INSTALL_PREFIX}")
+set(ios_architectures "armv7;armv7s;arm64;i386;x86_64")
+
+foreach(arch ${ios_architectures})
+  if(NOT arch STREQUAL "armv7")
+    file(MAKE_DIRECTORY "${multi_arch_install_root}/${arch}/lib")
+    execute_process(
+        COMMAND
+        /usr/bin/clang++
+        -arch
+        "${arch}"
+        "${CMAKE_CURRENT_LIST_DIR}/a.cpp"
+        -o
+        "${multi_arch_install_root}/${arch}/lib/libA.a"
+        -c
+        RESULT_VARIABLE
+        result
+        OUTPUT_VARIABLE
+        output
+        ERROR_VARIABLE
+        output
+    )
+    if(NOT result EQUAL 0)
+      message(FATAL_ERROR "clang++ failed (${result}): ${output}")
+    endif()
+  endif()
+endforeach()
+
+configure_file(${script_in} ${script} @ONLY)
+
+execute_process(COMMAND ${CMAKE_COMMAND} -P ${script} RESULT_VARIABLE result)
+if(result EQUAL 0)
+  message(FATAL_ERROR "Script should fail!")
+endif()
+
+### Test 5: i386 library missed (error: lipo failed)
+
+file(REMOVE_RECURSE "${multi_arch_install_root}")
+file(REMOVE_RECURSE "${HUNTER_PACKAGE_INSTALL_PREFIX}")
+set(ios_architectures "armv7;armv7s;arm64;i386;x86_64")
+
+foreach(arch ${ios_architectures})
+  if(NOT arch STREQUAL "i386")
+    file(MAKE_DIRECTORY "${multi_arch_install_root}/${arch}/lib")
+    execute_process(
+        COMMAND
+        /usr/bin/clang++
+        -arch
+        "${arch}"
+        "${CMAKE_CURRENT_LIST_DIR}/a.cpp"
+        -o
+        "${multi_arch_install_root}/${arch}/lib/libA.a"
+        -c
+        RESULT_VARIABLE
+        result
+        OUTPUT_VARIABLE
+        output
+        ERROR_VARIABLE
+        output
+    )
+    if(NOT result EQUAL 0)
+      message(FATAL_ERROR "clang++ failed (${result}): ${output}")
+    endif()
+  endif()
+endforeach()
+
+configure_file(${script_in} ${script} @ONLY)
+
+execute_process(COMMAND ${CMAKE_COMMAND} -P ${script} RESULT_VARIABLE result)
+if(result EQUAL 0)
+  message(FATAL_ERROR "Script should fail!")
+endif()
