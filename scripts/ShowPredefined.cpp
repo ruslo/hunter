@@ -335,6 +335,10 @@
 # pragma message(HUNTER_INFO(__AARCH64EL__))
 #endif
 
+#if defined(__AARCH64_SIMD__)
+# pragma message(HUNTER_INFO(__AARCH64_SIMD__))
+#endif
+
 #if defined(__ANDROID_API__)
 # pragma message(HUNTER_INFO(__ANDROID_API__))
 #endif
@@ -355,12 +359,28 @@
 # pragma message(HUNTER_INFO(__APPLE__))
 #endif
 
+#if defined(__ARM64_ARCH_8__)
+# pragma message(HUNTER_INFO(__ARM64_ARCH_8__))
+#endif
+
 #if defined(__ARMEB__)
 # pragma message(HUNTER_INFO(__ARMEB__))
 #endif
 
 #if defined(__ARMEL__)
 # pragma message(HUNTER_INFO(__ARMEL__))
+#endif
+
+#if defined(__ARM_64BIT_STATE)
+# pragma message(HUNTER_INFO(__ARM_64BIT_STATE))
+#endif
+
+#if defined(__ARM_ACLE)
+# pragma message(HUNTER_INFO(__ARM_ACLE))
+#endif
+
+#if defined(__ARM_ALIGN_MAX_STACK_PWR)
+# pragma message(HUNTER_INFO(__ARM_ALIGN_MAX_STACK_PWR))
 #endif
 
 #if defined(__ARM_ARCH)
@@ -379,12 +399,64 @@
 # pragma message(HUNTER_INFO(__ARM_ARCH_EXT_IDIV__))
 #endif
 
+#if defined(__ARM_ARCH_ISA_A64)
+# pragma message(HUNTER_INFO(__ARM_ARCH_ISA_A64))
+#endif
+
 #if defined(__ARM_ARCH_PROFILE)
 # pragma message(HUNTER_INFO(__ARM_ARCH_PROFILE))
 #endif
 
+#if defined(__ARM_FEATURE_CLZ)
+# pragma message(HUNTER_INFO(__ARM_FEATURE_CLZ))
+#endif
+
+#if defined(__ARM_FEATURE_CRYPTO)
+# pragma message(HUNTER_INFO(__ARM_FEATURE_CRYPTO))
+#endif
+
+#if defined(__ARM_FEATURE_DIV)
+# pragma message(HUNTER_INFO(__ARM_FEATURE_DIV))
+#endif
+
+#if defined(__ARM_FEATURE_FMA)
+# pragma message(HUNTER_INFO(__ARM_FEATURE_FMA))
+#endif
+
+#if defined(__ARM_FEATURE_UNALIGNED)
+# pragma message(HUNTER_INFO(__ARM_FEATURE_UNALIGNED))
+#endif
+
+#if defined(__ARM_FP)
+# pragma message(HUNTER_INFO(__ARM_FP))
+#endif
+
+#if defined(__ARM_FP16_FORMAT_IEEE)
+# pragma message(HUNTER_INFO(__ARM_FP16_FORMAT_IEEE))
+#endif
+
+#if defined(__ARM_NEON)
+# pragma message(HUNTER_INFO(__ARM_NEON))
+#endif
+
+#if defined(__ARM_NEON_FP)
+# pragma message(HUNTER_INFO(__ARM_NEON_FP))
+#endif
+
 #if defined(__ARM_NEON__)
 # pragma message(HUNTER_INFO(__ARM_NEON__))
+#endif
+
+#if defined(__ARM_PCS_AAPCS64)
+# pragma message(HUNTER_INFO(__ARM_PCS_AAPCS64))
+#endif
+
+#if defined(__ARM_SIZEOF_MINIMAL_ENUM)
+# pragma message(HUNTER_INFO(__ARM_SIZEOF_MINIMAL_ENUM))
+#endif
+
+#if defined(__ARM_SIZEOF_WCHAR_T)
+# pragma message(HUNTER_INFO(__ARM_SIZEOF_WCHAR_T))
 #endif
 
 #if defined(__ARM_VFPV3__)
@@ -1871,6 +1943,10 @@
 # pragma message(HUNTER_INFO(__WINT_WIDTH__))
 #endif
 
+#if defined(__aarch64__)
+# pragma message(HUNTER_INFO(__aarch64__))
+#endif
+
 #if defined(__alpha)
 # pragma message(HUNTER_INFO(__alpha))
 #endif
@@ -1913,6 +1989,10 @@
 
 #if defined(__arm64)
 # pragma message(HUNTER_INFO(__arm64))
+#endif
+
+#if defined(__arm64__)
+# pragma message(HUNTER_INFO(__arm64__))
 #endif
 
 #if defined(__arm__)
