@@ -548,6 +548,8 @@ __mc68060
 __mc68060__
 __mips
 __mips__
+__nocona
+__nocona__
 __pic__
 __powerpc
 __powerpc__
@@ -574,6 +576,7 @@ __sysv__
 __thumb2__
 __thumb__
 __tune_core2__
+__tune_nocona__
 __unix
 __unsafe_unretained
 __weak

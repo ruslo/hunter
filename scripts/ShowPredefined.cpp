@@ -2215,6 +2215,14 @@
 # pragma message(HUNTER_INFO(__mips__))
 #endif
 
+#if defined(__nocona)
+# pragma message(HUNTER_INFO(__nocona))
+#endif
+
+#if defined(__nocona__)
+# pragma message(HUNTER_INFO(__nocona__))
+#endif
+
 #if defined(__pic__)
 # pragma message(HUNTER_INFO(__pic__))
 #endif
@@ -2317,6 +2325,10 @@
 
 #if defined(__tune_core2__)
 # pragma message(HUNTER_INFO(__tune_core2__))
+#endif
+
+#if defined(__tune_nocona__)
+# pragma message(HUNTER_INFO(__tune_nocona__))
 #endif
 
 #if defined(__unix)
