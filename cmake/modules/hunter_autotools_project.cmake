@@ -18,6 +18,8 @@
 #       "@HUNTER_PACKAGE_DOWNLOAD_DIR@"
 #     SOURCE_DIR                              # external project SOURCE_DIR
 #       "@HUNTER_PACKAGE_SOURCE_DIR@"
+#     BUILD_DIR                               # build directory
+#       "@HUNTER_PACKAGE_BUILD_DIR@"
 #     INSTALL_DIR                             # external project INSTALL_DIR
 #       "@HUNTER_PACKAGE_INSTALL_PREFIX@"
 #     PARALLEL_JOBS                           # number of parallel jobs for make
@@ -52,6 +54,7 @@ function(hunter_autotools_project target_name)
       URL_HASH
       DOWNLOAD_DIR
       SOURCE_DIR
+      BUILD_DIR
       INSTALL_DIR
       PARALLEL_JOBS
       CPPFLAGS
@@ -74,6 +77,8 @@ function(hunter_autotools_project target_name)
         " ${PARAM_UNPARSED_ARGUMENTS}"
     )
   endif()
+
+  hunter_test_string_not_empty("${PARAM_BUILD_DIR}")
 
   # Sets the toolchain binaries
   #   AR=${CMAKE_AR}
@@ -320,7 +325,7 @@ function(hunter_autotools_project target_name)
         "${PARAM_SOURCE_DIR}/universal/${merge_lipo_script}"
     )
     set(ios_built_arch_roots)
-    set(multi_arch_install_root ${PARAM_INSTALL_DIR}/multi-arch)
+    set(multi_arch_install_root ${PARAM_BUILD_DIR}/multi-arch)
     foreach(ios_architecture ${ios_architectures})
       hunter_status_debug("Autotools: building for iOS architecture ${ios_architecture}")
 
