@@ -112,7 +112,7 @@ function(move_one_delete_other file_name)
       "${first_built_root}/${file_name}"
       "@HUNTER_PACKAGE_INSTALL_PREFIX@/${file_name}"
   )
-  # Remove the uneeded copies
+  # Remove the unneeded copies
   foreach(built_arch_root ${built_arch_roots_except_first})
     file(REMOVE "${built_arch_root}/${file_name}")
   endforeach()
