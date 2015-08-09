@@ -371,6 +371,14 @@
 # pragma message(HUNTER_INFO(__ARM_ARCH_7A__))
 #endif
 
+#if defined(__ARM_ARCH_7S__)
+# pragma message(HUNTER_INFO(__ARM_ARCH_7S__))
+#endif
+
+#if defined(__ARM_ARCH_EXT_IDIV__)
+# pragma message(HUNTER_INFO(__ARM_ARCH_EXT_IDIV__))
+#endif
+
 #if defined(__ARM_ARCH_PROFILE)
 # pragma message(HUNTER_INFO(__ARM_ARCH_PROFILE))
 #endif
@@ -381,6 +389,10 @@
 
 #if defined(__ARM_VFPV3__)
 # pragma message(HUNTER_INFO(__ARM_VFPV3__))
+#endif
+
+#if defined(__ARM_VFPV4__)
+# pragma message(HUNTER_INFO(__ARM_VFPV4__))
 #endif
 
 #if defined(__ATOMIC_ACQUIRE)
