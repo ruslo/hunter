@@ -2135,10 +2135,6 @@
 # pragma message(HUNTER_INFO(__core2__))
 #endif
 
-#if defined(__cpluplus)
-# pragma message(HUNTER_INFO(__cpluplus))
-#endif
-
 #if defined(__cplusplus)
 # pragma message(HUNTER_INFO(__cplusplus))
 #endif
