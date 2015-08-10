@@ -247,6 +247,10 @@
 # pragma message(HUNTER_INFO(_PA_RISC2_0))
 #endif
 
+#if defined(_PDP_ENDIAN)
+# pragma message(HUNTER_INFO(_PDP_ENDIAN))
+#endif
+
 #if defined(_POSIX_SOURCE)
 # pragma message(HUNTER_INFO(_POSIX_SOURCE))
 #endif
@@ -337,6 +341,10 @@
 
 #if defined(__AARCH64_SIMD__)
 # pragma message(HUNTER_INFO(__AARCH64_SIMD__))
+#endif
+
+#if defined(__ALTIVEC__)
+# pragma message(HUNTER_INFO(__ALTIVEC__))
 #endif
 
 #if defined(__ANDROID_API__)
@@ -519,6 +527,10 @@
 # pragma message(HUNTER_INFO(__BIGGEST_ALIGNMENT__))
 #endif
 
+#if defined(__BIG_ENDIAN)
+# pragma message(HUNTER_INFO(__BIG_ENDIAN))
+#endif
+
 #if defined(__BIG_ENDIAN__)
 # pragma message(HUNTER_INFO(__BIG_ENDIAN__))
 #endif
@@ -557,6 +569,10 @@
 
 #if defined(__CODEGEARC__)
 # pragma message(HUNTER_INFO(__CODEGEARC__))
+#endif
+
+#if defined(__COMO_VERSION__)
+# pragma message(HUNTER_INFO(__COMO_VERSION__))
 #endif
 
 #if defined(__COMO__)
@@ -867,6 +883,14 @@
 # pragma message(HUNTER_INFO(__FLT_RADIX__))
 #endif
 
+#if defined(__FMA4__)
+# pragma message(HUNTER_INFO(__FMA4__))
+#endif
+
+#if defined(__FMA__)
+# pragma message(HUNTER_INFO(__FMA__))
+#endif
+
 #if defined(__FUNCDNAME__)
 # pragma message(HUNTER_INFO(__FUNCDNAME__))
 #endif
@@ -1013,6 +1037,10 @@
 
 #if defined(__GXX_WEAK__)
 # pragma message(HUNTER_INFO(__GXX_WEAK__))
+#endif
+
+#if defined(__HAIKU__)
+# pragma message(HUNTER_INFO(__HAIKU__))
 #endif
 
 #if defined(__HIGHC__)
@@ -1279,6 +1307,10 @@
 # pragma message(HUNTER_INFO(__LIBREL__))
 #endif
 
+#if defined(__LITTLE_ENDIAN)
+# pragma message(HUNTER_INFO(__LITTLE_ENDIAN))
+#endif
+
 #if defined(__LITTLE_ENDIAN__)
 # pragma message(HUNTER_INFO(__LITTLE_ENDIAN__))
 #endif
@@ -1297,6 +1329,10 @@
 
 #if defined(__MACH__)
 # pragma message(HUNTER_INFO(__MACH__))
+#endif
+
+#if defined(__MIC__)
+# pragma message(HUNTER_INFO(__MIC__))
 #endif
 
 #if defined(__MINGW32_VERSION_MAJOR)
@@ -1437,6 +1473,10 @@
 
 #if defined(__PATHCC__)
 # pragma message(HUNTER_INFO(__PATHCC__))
+#endif
+
+#if defined(__PDP_ENDIAN)
+# pragma message(HUNTER_INFO(__PDP_ENDIAN))
 #endif
 
 #if defined(__PGI)
@@ -1625,6 +1665,18 @@
 
 #if defined(__SSE3__)
 # pragma message(HUNTER_INFO(__SSE3__))
+#endif
+
+#if defined(__SSE4A__)
+# pragma message(HUNTER_INFO(__SSE4A__))
+#endif
+
+#if defined(__SSE4_1__)
+# pragma message(HUNTER_INFO(__SSE4_1__))
+#endif
+
+#if defined(__SSE4_2__)
+# pragma message(HUNTER_INFO(__SSE4_2__))
 #endif
 
 #if defined(__SSE_MATH__)
@@ -1883,6 +1935,14 @@
 # pragma message(HUNTER_INFO(__USING_SJLJ_EXCEPTIONS__))
 #endif
 
+#if defined(__VECTOR4DOUBLE__)
+# pragma message(HUNTER_INFO(__VECTOR4DOUBLE__))
+#endif
+
+#if defined(__VEC__)
+# pragma message(HUNTER_INFO(__VEC__))
+#endif
+
 #if defined(__VERSION__)
 # pragma message(HUNTER_INFO(__VERSION__))
 #endif
@@ -1897,6 +1957,10 @@
 
 #if defined(__VMS_VER)
 # pragma message(HUNTER_INFO(__VMS_VER))
+#endif
+
+#if defined(__VSX__)
+# pragma message(HUNTER_INFO(__VSX__))
 #endif
 
 #if defined(__WATCOMC__)
@@ -1941,6 +2005,10 @@
 
 #if defined(__WINT_WIDTH__)
 # pragma message(HUNTER_INFO(__WINT_WIDTH__))
+#endif
+
+#if defined(__XOP__)
+# pragma message(HUNTER_INFO(__XOP__))
 #endif
 
 #if defined(__aarch64__)
