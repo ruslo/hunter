@@ -69,10 +69,6 @@ if(NOT TARGET "geos::c")
       "geos::c"
       PROPERTIES
         IMPORTED_LOCATION "${GEOS_C_LIBRARY}"
-  )
-  add_dependencies(
-      "geos::c"
-      "geos"
+        IMPORTED_LINK_INTERFACE_LIBRARIES "geos"
   )
 endif()
-
