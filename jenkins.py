@@ -127,7 +127,12 @@ def run():
       print('Clearing directory: {}'.format(base_dir))
       for filename in os.listdir(base_dir):
         if filename != 'Download':
-          shutil.rmtree(os.path.join(base_dir, filename))
+          to_remove = os.path.join(base_dir, filename)
+          if os.name == 'nt':
+            # Fix "path too long" error
+            subprocess.check_call(['cmd', '/c', 'rmdir', to_remove, '/S', '/Q'])
+          else:
+            shutil.rmtree(to_remove)
 
   build_script = 'build.py'
   if os.name == 'nt':
