@@ -19,7 +19,7 @@ hunter_add_version(
     URL
     "https://github.com/pretyman/libgeos/archive/libgeos-3.4.2.tar.gz"
     SHA1
-    bee9fa1bb30bb0cd6d7d770e43886c3ff8e393eb
+    f6ea15c96b478cf33f2aa81b00e31c2cdd8ee951
 )
 
 hunter_pick_scheme(DEFAULT url_sha1_autotools)
