@@ -33,8 +33,8 @@ function(hunter_install_boost_config)
 
   if(BOOST_CONFIG_LINK_BZIP2)
     configure_file(
-        "${templates}/BoostBZIP2Dependency.cmake.in"
-        "${configs}/BoostBZIP2Dependency.cmake"
+        "${templates}/BoostBZip2Dependency.cmake.in"
+        "${configs}/BoostBZip2Dependency.cmake"
         @ONLY
     )
   endif()
