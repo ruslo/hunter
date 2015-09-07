@@ -46,5 +46,16 @@ hunter_add_version(
     3782f3ebac5e54b3de454570add401989515ffca
 )
 
+hunter_add_version(
+    PACKAGE_NAME
+    Android-Intel-x86-Atom-System-Image
+    VERSION
+    "16"
+    URL
+    "https://dl.google.com/android/repository/sys-img/android/sysimg_x86-16_r02.zip"
+    SHA1
+    36c2a2e394bcb3290583ce09815eae7711d0b2c2
+)
+
 hunter_pick_scheme(DEFAULT url_sha1_unpack)
 hunter_download(PACKAGE_NAME Android-Intel-x86-Atom-System-Image)
