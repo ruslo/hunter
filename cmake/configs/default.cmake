@@ -20,18 +20,15 @@
 #   * https://github.com/ruslo/hunter/wiki/dev.modules#hunter_config
 
 include(hunter_config)
+include(hunter_user_error)
 
 # NOTE: no names with spaces!
 
 hunter_config(Android-Apk VERSION 1.1.5)
 hunter_config(Android-Build-Tools VERSION 22.0.1)
-hunter_config(Android-Google-APIs VERSION 21) # API 21
-hunter_config(Android-Google-APIs-Intel-x86-Atom-System-Image VERSION 21) # API 21
 hunter_config(Android-Google-Repository VERSION 19)
-hunter_config(Android-Intel-x86-Atom-System-Image VERSION 21) # API 21
 hunter_config(Android-Modules VERSION 1.0.0)
 hunter_config(Android-SDK VERSION 0.0.2)
-hunter_config(Android-SDK-Platform VERSION 21_r02) # API 21
 hunter_config(Android-SDK-Platform-tools VERSION r22)
 hunter_config(Android-SDK-Tools VERSION 24.3.3)
 hunter_config(Android-Support-Repository VERSION 16)
@@ -67,7 +64,6 @@ hunter_config(QtAndroidCMake VERSION 1.0.1)
 hunter_config(RapidJSON VERSION 0.11-hunter)
 hunter_config(SQLite3 VERSION autoconf-3080803) #R-Tree enabled
 hunter_config(Sober VERSION 0.1.2)
-hunter_config(Sources-for-Android-SDK VERSION 21) # API 21
 hunter_config(Sugar VERSION 1.2.2)
 hunter_config(TIFF VERSION 4.0.2-p3)
 hunter_config(Washer VERSION 0.1.2)
@@ -88,3 +84,40 @@ hunter_config(rabbitmq-c VERSION 0.7.0-p1)
 hunter_config(sparsehash VERSION 2.0.2)
 hunter_config(szip VERSION 2.1.0-p1)
 hunter_config(wxWidgets VERSION 3.0.2)
+
+if(ANDROID)
+  string(COMPARE EQUAL "${ANDROID_NATIVE_API_LEVEL}" "" _is_empty)
+  if(_is_empty)
+    hunter_user_error("ANDROID_NATIVE_API_LEVEL is empty")
+  endif()
+
+  string(COMPARE EQUAL "${ANDROID_NATIVE_API_LEVEL}" "21" _is_api_21)
+  string(COMPARE EQUAL "${ANDROID_NATIVE_API_LEVEL}" "19" _is_api_19)
+  string(COMPARE EQUAL "${ANDROID_NATIVE_API_LEVEL}" "16" _is_api_16)
+
+  if(_is_api_21)
+    hunter_config(Android-Google-APIs VERSION 21)
+    hunter_config(Android-Google-APIs-Intel-x86-Atom-System-Image VERSION 21)
+    hunter_config(Android-Intel-x86-Atom-System-Image VERSION 21)
+    hunter_config(Android-SDK-Platform VERSION 21_r02)
+    hunter_config(Sources-for-Android-SDK VERSION 21)
+  elseif(_is_api_19)
+    hunter_config(Android-Google-APIs VERSION 19)
+    # No package Android-Google-APIs-Intel-x86-Atom-System-Image (?)
+    hunter_config(Android-Intel-x86-Atom-System-Image VERSION 19)
+    hunter_config(Android-SDK-Platform VERSION 19_r04)
+    hunter_config(Sources-for-Android-SDK VERSION 19)
+  elseif(_is_api_16)
+    hunter_config(Android-Google-APIs VERSION 16)
+    # No package Android-Google-APIs-Intel-x86-Atom-System-Image (?)
+    hunter_config(Android-Intel-x86-Atom-System-Image VERSION 16)
+    hunter_config(Android-SDK-Platform VERSION 16_r05)
+    hunter_config(Sources-for-Android-SDK VERSION 16)
+  else()
+    hunter_user_error(
+        "Android API (ANDROID_NATIVE_API_LEVEL)"
+        " Expected: `21`, `19`, `16`"
+        " Got: `${ANDROID_NATIVE_API_LEVEL}`"
+    )
+  endif()
+endif()
