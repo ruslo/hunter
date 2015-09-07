@@ -103,16 +103,22 @@ if(ANDROID)
     hunter_config(Sources-for-Android-SDK VERSION 21)
   elseif(_is_api_19)
     hunter_config(Android-Google-APIs VERSION 19)
-    # No package Android-Google-APIs-Intel-x86-Atom-System-Image (?)
     hunter_config(Android-Intel-x86-Atom-System-Image VERSION 19)
     hunter_config(Android-SDK-Platform VERSION 19_r04)
     hunter_config(Sources-for-Android-SDK VERSION 19)
+
+    # There is no package for API 19, use version 21
+    # (simplify build of Android-SDK package)
+    hunter_config(Android-Google-APIs-Intel-x86-Atom-System-Image VERSION 21)
   elseif(_is_api_16)
     hunter_config(Android-Google-APIs VERSION 16)
-    # No package Android-Google-APIs-Intel-x86-Atom-System-Image (?)
     hunter_config(Android-Intel-x86-Atom-System-Image VERSION 16)
     hunter_config(Android-SDK-Platform VERSION 16_r05)
     hunter_config(Sources-for-Android-SDK VERSION 16)
+
+    # There is no package for API 16, use version 21
+    # (simplify build of Android-SDK package)
+    hunter_config(Android-Google-APIs-Intel-x86-Atom-System-Image VERSION 21)
   else()
     hunter_user_error(
         "Android API (ANDROID_NATIVE_API_LEVEL)"
