@@ -136,6 +136,14 @@ env:
     - PROJECT_DIR=examples/TIFF TOOLCHAIN=ios-nocodesign
     - PROJECT_DIR=examples/TIFF TOOLCHAIN=analyze
     #
+    - PROJECT_DIR=examples/glog TOOLCHAIN=default
+    - PROJECT_DIR=examples/glog TOOLCHAIN=libcxx
+    - PROJECT_DIR=examples/glog TOOLCHAIN=clang-libstdcxx
+    - PROJECT_DIR=examples/glog TOOLCHAIN=xcode
+    - PROJECT_DIR=examples/glog TOOLCHAIN=gcc
+    - PROJECT_DIR=examples/glog TOOLCHAIN=ios-nocodesign
+    - PROJECT_DIR=examples/glog TOOLCHAIN=analyze
+    #
     - PROJECT_DIR=examples/Eigen TOOLCHAIN=default
     #
     - PROJECT_DIR=examples/ippicv TOOLCHAIN=default
