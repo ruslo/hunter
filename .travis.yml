@@ -142,7 +142,6 @@ env:
     - PROJECT_DIR=examples/glog TOOLCHAIN=xcode
     - PROJECT_DIR=examples/glog TOOLCHAIN=gcc
     - PROJECT_DIR=examples/glog TOOLCHAIN=ios-nocodesign
-    - PROJECT_DIR=examples/glog TOOLCHAIN=analyze
     #
     - PROJECT_DIR=examples/Eigen TOOLCHAIN=default
     #
