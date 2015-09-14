@@ -83,6 +83,7 @@ hunter_config(odb-compiler VERSION 2.4.0)
 hunter_config(odb-sqlite VERSION 2.4.0)
 hunter_config(rabbitmq-c VERSION 0.7.0-p1)
 hunter_config(sparsehash VERSION 2.0.2)
+hunter_config(spdlog VERSION 1.0.0-p0)
 hunter_config(szip VERSION 2.1.0-p1)
 hunter_config(wxWidgets VERSION 3.0.2)
 
