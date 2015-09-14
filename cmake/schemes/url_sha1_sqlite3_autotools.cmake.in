@@ -26,6 +26,7 @@ hunter_test_string_not_empty("@HUNTER_PACKAGE_DOWNLOAD_DIR@")
 hunter_test_string_not_empty("@HUNTER_PACKAGE_SOURCE_DIR@")
 hunter_test_string_not_empty("@HUNTER_PACKAGE_BUILD_DIR@")
 hunter_test_string_not_empty("@HUNTER_PACKAGE_INSTALL_PREFIX@")
+hunter_test_string_not_empty("@HUNTER_INSTALL_PREFIX@")
 
 hunter_autotools_project("@HUNTER_EP_NAME@"
     HUNTER_SELF
@@ -42,6 +43,8 @@ hunter_autotools_project("@HUNTER_EP_NAME@"
       "@HUNTER_PACKAGE_BUILD_DIR@"
     INSTALL_DIR
       "@HUNTER_PACKAGE_INSTALL_PREFIX@"
+    GLOBAL_INSTALL_DIR
+      "@HUNTER_INSTALL_PREFIX@"
     PARALLEL_JOBS
       "@HUNTER_JOBS_OPTION@"
     CPPFLAGS

@@ -22,6 +22,8 @@
 #       "@HUNTER_PACKAGE_BUILD_DIR@"
 #     INSTALL_DIR                             # external project INSTALL_DIR
 #       "@HUNTER_PACKAGE_INSTALL_PREFIX@"
+#     GLOBAL_INSTALL_DIR                      # global installation directory
+#       "@HUNTER_INSTALL_PREFIX@"
 #     PARALLEL_JOBS                           # number of parallel jobs for make
 #       "@HUNTER_JOBS_OPTION@"
 #     CPPFLAGS                                # C pre-processor flags
@@ -56,6 +58,7 @@ function(hunter_autotools_project target_name)
       SOURCE_DIR
       BUILD_DIR
       INSTALL_DIR
+      GLOBAL_INSTALL_DIR
       PARALLEL_JOBS
       CPPFLAGS
       CFLAGS
@@ -70,6 +73,9 @@ function(hunter_autotools_project target_name)
       "${multi_value_params}"
       ${ARGN}
   )
+  # -> PARAM_BUILD_DIR
+  # -> PARAM_GLOBAL_INSTALL_DIR
+  # -> PARAM_INSTALL_DIR
 
   if(PARAM_UNPARSED_ARGUMENTS)
     hunter_fatal_error(
@@ -79,6 +85,8 @@ function(hunter_autotools_project target_name)
   endif()
 
   hunter_test_string_not_empty("${PARAM_BUILD_DIR}")
+  hunter_test_string_not_empty("${PARAM_GLOBAL_INSTALL_DIR}")
+  hunter_test_string_not_empty("${PARAM_INSTALL_DIR}")
 
   # Sets the toolchain binaries
   #   AR=${CMAKE_AR}
