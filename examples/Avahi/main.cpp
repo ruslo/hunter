@@ -1,5 +1,5 @@
 #include <avahi-client/client.h>
-#include <dns_sd.h>
+#include <avahi-compat-libdns_sd/dns_sd.h>
 
 int main(int argc, char** argv) {
 }
