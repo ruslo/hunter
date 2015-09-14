@@ -239,6 +239,7 @@ function(hunter_autotools_project target_name)
   set(configure_command
     . "${PARAM_HUNTER_SELF}/scripts/clear-all.sh" && AR=${CMAKE_AR} "${configure_command}"
   )
+  set(configure_command export HUNTER_PACKAGE_INSTALL_PREFIX=${PARAM_INSTALL_DIR} && "${configure_command}")
 
   # Build the configure command line options
   set(configure_opts)

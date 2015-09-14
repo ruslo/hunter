@@ -289,5 +289,5 @@ unset YACC
 unset arch
 unset variant
 
-# Problems with Xcode and boost
-export PATH=/usr/bin:/bin:/usr/sbin:/sbin:/usr/local/bin
+# Problems with Xcode and boost and finding own binaries.
+export PATH=${HUNTER_PACKAGE_INSTALL_PREFIX}/bin:/usr/bin:/bin:/usr/sbin:/sbin:/usr/local/bin
