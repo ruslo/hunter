@@ -22,5 +22,11 @@ hunter_add_version(
     7e05bd78572c9088b03b1207a0ad5aba38490684
 )
 
+hunter_cmake_args(
+    Avahi 
+    CMAKE_ARGS
+      BUILD_SHARED_LIBS=ON  
+)
+
 hunter_pick_scheme(DEFAULT url_sha1_avahi_autotools)
 hunter_download(PACKAGE_NAME Avahi)
