@@ -239,6 +239,7 @@ function(hunter_autotools_project target_name)
   set(configure_command
     . "${PARAM_HUNTER_SELF}/scripts/clear-all.sh" && AR=${CMAKE_AR} "${configure_command}"
   )
+  set(configure_command export HUNTER_PACKAGE_INSTALL_PREFIX=${PARAM_INSTALL_DIR} && "${configure_command}")
 
   # Build the configure command line options
   set(configure_opts)
@@ -291,6 +292,7 @@ function(hunter_autotools_project target_name)
           ${PARAM_INSTALL_DIR}
           # not used, just avoid creating Install/<name> empty directory
         CONFIGURE_COMMAND
+          export PKG_CONFIG_PATH=${PARAM_INSTALL_DIR}/lib/pkgconfig:${PARAM_INSTALL_DIR}/share/pkgconfig
           ${configure_command}
           ${configure_opts}
           "--prefix=${PARAM_INSTALL_DIR}"
@@ -386,6 +388,7 @@ function(hunter_autotools_project target_name)
             ${arch_install_dir}
             # not used, just avoid creating Install/<name> empty directory
           CONFIGURE_COMMAND
+            export PKG_CONFIG_PATH=${arch_install_dir}/lib/pkgconfig:${arch_install_dir}/share/pkgconfig
             ${configure_command}
             ${configure_opts}
             "--prefix=${arch_install_dir}"

@@ -54,6 +54,7 @@ set(
     qtgraphicaleffects
     qtlocation
     qtmultimedia
+    qtquickcontrols
     qtsensors
     qtwebchannel
     qtwebkit

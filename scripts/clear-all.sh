@@ -11,6 +11,7 @@ unset APPLE_INTERNAL_DOCUMENTATION_DIR
 unset APPLE_INTERNAL_LIBRARY_DIR
 unset APPLE_INTERNAL_TOOLS
 unset APPLY_RULES_IN_COPY_FILES
+unset AR
 unset ARCHS
 unset ARCHS_STANDARD
 unset ARCHS_STANDARD_32_64_BIT
@@ -28,6 +29,7 @@ unset BUILT_PRODUCTS_DIR
 unset CACHE_ROOT
 unset CC
 unset CCHROOT
+unset CFLAGS
 unset CHMOD
 unset CHOWN
 unset CLASS_FILE_DIR
@@ -52,6 +54,7 @@ unset CREATE_INFOPLIST_SECTION_IN_BINARY
 unset CURRENT_ARCH
 unset CURRENT_VARIANT
 unset CXX
+unset CXXFLAGS
 unset DEAD_CODE_STRIPPING
 unset DEBUGGING_SYMBOLS
 unset DEBUG_INFORMATION_FORMAT
@@ -130,6 +133,8 @@ unset JAVA_USE_DEPENDENCIES
 unset JAVA_ZIP_FLAGS
 unset JIKES_DEFAULT_FLAGS
 unset KEEP_PRIVATE_EXTERNS
+unset LD
+unset LDFLAGS
 unset LD_DEPENDENCY_INFO_FILE
 unset LD_GENERATE_MAP_FILE
 unset LD_MAP_FILE_PATH
@@ -159,6 +164,7 @@ unset NATIVE_ARCH_32_BIT
 unset NATIVE_ARCH_64_BIT
 unset NATIVE_ARCH_ACTUAL
 unset NO_COMMON
+unset OBJDUMP
 unset OBJECT_FILE_DIR
 unset OBJECT_FILE_DIR_normal
 unset OBJROOT
@@ -196,6 +202,7 @@ unset PROJECT_FILE_PATH
 unset PROJECT_NAME
 unset PROJECT_TEMP_DIR
 unset PROJECT_TEMP_ROOT
+unset RANLIB
 unset RECURSIVE_SEARCH_PATHS_FOLLOW_SYMLINKS
 unset REMOVE_CVS_FROM_RESOURCES
 unset REMOVE_GIT_FROM_RESOURCES
@@ -221,6 +228,7 @@ unset SKIP_INSTALL
 unset SOURCE_ROOT
 unset SRCROOT
 unset STRINGS_FILE_OUTPUT_ENCODING
+unset STRIP
 unset STRIP_INSTALLED_PRODUCT
 unset STRIP_STYLE
 unset SUPPORTED_DEVICE_FAMILIES
@@ -281,5 +289,5 @@ unset YACC
 unset arch
 unset variant
 
-# Problems with Xcode and boost
-export PATH=/usr/bin:/bin:/usr/sbin:/sbin:/usr/local/bin
+# Problems with Xcode and boost and finding own binaries.
+export PATH=${HUNTER_PACKAGE_INSTALL_PREFIX}/bin:/usr/bin:/bin:/usr/sbin:/sbin:/usr/local/bin
