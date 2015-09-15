@@ -29,6 +29,7 @@ hunter_test_string_not_empty("@HUNTER_PACKAGE_SOURCE_DIR@")
 hunter_test_string_not_empty("@HUNTER_PACKAGE_BUILD_DIR@")
 hunter_test_string_not_empty("@HUNTER_PACKAGE_INSTALL_PREFIX@")
 
+hunter_add_package(dbus)
 hunter_add_package(Expat)
 hunter_add_package(libdaemon)
 hunter_add_package(intltool)
