@@ -48,8 +48,14 @@ hunter_autotools_project("@HUNTER_EP_NAME@"
       "@HUNTER_PACKAGE_BUILD_DIR@"
     INSTALL_DIR
       "@HUNTER_PACKAGE_INSTALL_PREFIX@"
+    GLOBAL_INSTALL_DIR
+      "@HUNTER_INSTALL_PREFIX@"
     PARALLEL_JOBS
       "@HUNTER_JOBS_OPTION@"
+    CPPFLAGS
+      "-I@HUNTER_INSTALL_PREFIX@/include" # find Expat
+    LDFLAGS
+      "-L@HUNTER_INSTALL_PREFIX@/lib" # find Expat
     EXTRA_FLAGS
      --disable-qt3
      --disable-qt4
@@ -61,4 +67,6 @@ hunter_autotools_project("@HUNTER_EP_NAME@"
      --disable-monodoc
      --with-xml=expat
      --enable-compat-libdns_sd
-)
+    MODIFY_PATH # find intltool-update executable (intltool package)
+    MODIFY_PKG_CONFIG # find libdaemon
+    )
