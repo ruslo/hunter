@@ -290,4 +290,4 @@ unset arch
 unset variant
 
 # Problems with Xcode and boost and finding own binaries.
-export PATH=${HUNTER_PACKAGE_INSTALL_PREFIX}/bin:/usr/bin:/bin:/usr/sbin:/sbin:/usr/local/bin
+export PATH=/usr/bin:/bin:/usr/sbin:/sbin:/usr/local/bin
