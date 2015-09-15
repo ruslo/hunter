@@ -143,9 +143,7 @@ env:
     - PROJECT_DIR=examples/glog TOOLCHAIN=gcc
     - PROJECT_DIR=examples/glog TOOLCHAIN=ios-nocodesign
     #
-    - PROJECT_DIR=examples/spdlog TOOLCHAIN=default
     - PROJECT_DIR=examples/spdlog TOOLCHAIN=libcxx
-    - PROJECT_DIR=examples/spdlog TOOLCHAIN=clang-libstdcxx
     - PROJECT_DIR=examples/spdlog TOOLCHAIN=xcode
     - PROJECT_DIR=examples/spdlog TOOLCHAIN=gcc
     - PROJECT_DIR=examples/spdlog TOOLCHAIN=ios-nocodesign
