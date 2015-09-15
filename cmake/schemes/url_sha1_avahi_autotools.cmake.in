@@ -32,6 +32,7 @@ hunter_test_string_not_empty("@HUNTER_PACKAGE_INSTALL_PREFIX@")
 hunter_add_package(Expat)
 hunter_add_package(libdaemon)
 hunter_add_package(intltool)
+hunter_add_package(dbus)
 
 hunter_autotools_project("@HUNTER_EP_NAME@"
     HUNTER_SELF
