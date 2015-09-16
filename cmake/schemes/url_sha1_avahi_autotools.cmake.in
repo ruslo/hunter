@@ -58,16 +58,18 @@ hunter_autotools_project("@HUNTER_EP_NAME@"
     LDFLAGS
       "-L@HUNTER_INSTALL_PREFIX@/lib" # find Expat
     EXTRA_FLAGS
-     --disable-qt3
-     --disable-qt4
-     --disable-gtk
-     --disable-gtk3
-     --disable-gdbm
-     --disable-python
-     --disable-mono
-     --disable-monodoc
-     --with-xml=expat
-     --enable-compat-libdns_sd
-    MODIFY_PATH # find intltool-update executable (intltool package)
-    MODIFY_PKG_CONFIG # find libdaemon
+      --disable-glib
+      --disable-gobject
+      --disable-qt3
+      --disable-qt4
+      --disable-gtk
+      --disable-gtk3
+      --disable-gdbm
+      --disable-python
+      --disable-mono
+      --disable-monodoc
+      --with-xml=expat
+      --enable-compat-libdns_sd
+      MODIFY_PATH # find intltool-update executable (intltool package)
+      MODIFY_PKG_CONFIG # find libdaemon
     )
