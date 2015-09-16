@@ -1,0 +1,75 @@
+# Copyright (c) 2013, 2015 Ruslan Baratov, Alexandre Pretyman
+# All rights reserved.
+
+cmake_minimum_required(VERSION 3.0)
+project(Hunter)
+
+list(APPEND CMAKE_MODULE_PATH "@HUNTER_SELF@/cmake/modules")
+
+include("@HUNTER_SELF@/cmake/Hunter")
+
+include(hunter_fatal_error)
+include(hunter_status_debug)
+include(hunter_test_string_not_empty)
+include(hunter_autotools_project)
+
+hunter_status_debug("Scheme: url_sha1_autotools")
+
+if("@MSVC@")
+  hunter_fatal_error("Autotools scheme not supported with Visual Studio")
+endif()
+
+# Check preconditions
+hunter_test_string_not_empty("@HUNTER_SELF@")
+hunter_test_string_not_empty("@HUNTER_EP_NAME@")
+hunter_test_string_not_empty("@HUNTER_PACKAGE_URL@")
+hunter_test_string_not_empty("@HUNTER_PACKAGE_SHA1@")
+hunter_test_string_not_empty("@HUNTER_PACKAGE_DOWNLOAD_DIR@")
+hunter_test_string_not_empty("@HUNTER_PACKAGE_SOURCE_DIR@")
+hunter_test_string_not_empty("@HUNTER_PACKAGE_BUILD_DIR@")
+hunter_test_string_not_empty("@HUNTER_PACKAGE_INSTALL_PREFIX@")
+
+hunter_add_package(dbus)
+hunter_add_package(Expat)
+hunter_add_package(libdaemon)
+hunter_add_package(intltool)
+
+hunter_autotools_project("@HUNTER_EP_NAME@"
+    HUNTER_SELF
+      "@HUNTER_SELF@"
+    URL
+      @HUNTER_PACKAGE_URL@
+    URL_HASH
+      SHA1=@HUNTER_PACKAGE_SHA1@
+    DOWNLOAD_DIR
+      "@HUNTER_PACKAGE_DOWNLOAD_DIR@"
+    SOURCE_DIR
+      "@HUNTER_PACKAGE_SOURCE_DIR@"
+    BUILD_DIR
+      "@HUNTER_PACKAGE_BUILD_DIR@"
+    INSTALL_DIR
+      "@HUNTER_PACKAGE_INSTALL_PREFIX@"
+    GLOBAL_INSTALL_DIR
+      "@HUNTER_INSTALL_PREFIX@"
+    PARALLEL_JOBS
+      "@HUNTER_JOBS_OPTION@"
+    CPPFLAGS
+      "-I@HUNTER_INSTALL_PREFIX@/include" # find Expat
+    LDFLAGS
+      "-L@HUNTER_INSTALL_PREFIX@/lib" # find Expat
+    EXTRA_FLAGS
+      --disable-glib
+      --disable-gobject
+      --disable-qt3
+      --disable-qt4
+      --disable-gtk
+      --disable-gtk3
+      --disable-gdbm
+      --disable-python
+      --disable-mono
+      --disable-monodoc
+      --with-xml=expat
+      --enable-compat-libdns_sd
+      MODIFY_PATH # find intltool-update executable (intltool package)
+      MODIFY_PKG_CONFIG # find libdaemon
+    )
