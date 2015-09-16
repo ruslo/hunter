@@ -8,7 +8,6 @@ project(download-Avahi)
 
 hunter_add_package(Avahi)
 find_package(Avahi REQUIRED)
-include_directories(AFTER ${Avahi_INCLUDE_DIRS})
 
 add_executable(main main.cpp)
 target_link_libraries(main 
