@@ -11,9 +11,9 @@ include(hunter_pick_scheme)
 
 hunter_add_version(
     PACKAGE_NAME dbus
-    VERSION "1.10.0-hunter-2"
-    URL "https://github.com/hunter-packages/dbus/archive/dbus-1.10.0-hunter-2.tar.gz"
-    SHA1 0bb28e1f4b22216122f36b9ef0e91201c90a3288 
+    VERSION "1.10.0-hunter-3"
+    URL "https://github.com/hunter-packages/dbus/archive/dbus-1.10.0-hunter-3.tar.gz"
+    SHA1 cd9dd58ed375d8c7eae1c1a3b33ae0deae41c47f 
 )
 
 hunter_cmake_args(
