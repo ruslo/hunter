@@ -19,6 +19,7 @@ list(APPEND CMAKE_MODULE_PATH "@HUNTER_SELF@/cmake/modules")
 
 include(hunter_status_debug)
 include(hunter_test_string_not_empty)
+include(hunter_user_error)
 
 hunter_status_debug("Scheme: url_sha1_cmake")
 
@@ -35,6 +36,18 @@ hunter_test_string_not_empty("@HUNTER_CACHE_FILE@")
 hunter_test_string_not_empty("@HUNTER_ARGS_FILE@")
 hunter_test_string_not_empty("@CMAKE_GENERATOR@")
 hunter_test_string_not_empty("${CMAKE_TOOLCHAIN_FILE}")
+
+if(IOS)
+  # Need to check that we are using patched version. Non-patched version will
+  # not install libraries but build package without errors. It means that
+  # "broken" iOS libraries will be saved to cache.
+  if(NOT EXISTS "${CMAKE_ROOT}/Modules/install_universal_ios_library.cmake")
+    hunter_fatal_error(
+        "Using non-patched CMake version for iOS build"
+        WIKI error.cmake.version.for.ios
+    )
+  endif()
+endif()
 
 string(COMPARE NOTEQUAL "@HUNTER_JOBS_OPTION@" "" have_jobs)
 if(have_jobs)
