@@ -22,6 +22,8 @@
 #       "@HUNTER_PACKAGE_BUILD_DIR@"
 #     INSTALL_DIR                             # external project INSTALL_DIR
 #       "@HUNTER_PACKAGE_INSTALL_PREFIX@"
+#     GLOBAL_INSTALL_DIR                      # global installation directory
+#       "@HUNTER_INSTALL_PREFIX@"
 #     PARALLEL_JOBS                           # number of parallel jobs for make
 #       "@HUNTER_JOBS_OPTION@"
 #     CPPFLAGS                                # C pre-processor flags
@@ -36,6 +38,11 @@
 #       --enable-feature
 #       --disable-other
 #       --with-library
+#     MODIFY_PATH                             # add <root-id>/bin folder to the
+#                                             # PATH environment variable
+#     MODIFY_PKG_CONFIG                       # add <root-id>/{lib,share}/pkgconfig
+#                                             # folders to the PKG_CONFIG_PATH
+#                                             # environment variable
 # )
 
 include(ExternalProject) # ExternalProject_Add
@@ -47,7 +54,7 @@ include(hunter_test_string_not_empty)
 
 function(hunter_autotools_project target_name)
 
-  set(optional_params)
+  set(optional_params MODIFY_PATH MODIFY_PKG_CONFIG)
   set(one_value_params
       HUNTER_SELF
       URL
@@ -56,6 +63,7 @@ function(hunter_autotools_project target_name)
       SOURCE_DIR
       BUILD_DIR
       INSTALL_DIR
+      GLOBAL_INSTALL_DIR
       PARALLEL_JOBS
       CPPFLAGS
       CFLAGS
@@ -70,15 +78,22 @@ function(hunter_autotools_project target_name)
       "${multi_value_params}"
       ${ARGN}
   )
+  # -> PARAM_BUILD_DIR
+  # -> PARAM_GLOBAL_INSTALL_DIR
+  # -> PARAM_INSTALL_DIR
+  # -> PARAM_MODIFY_PATH
+  # -> PARAM_MODIFY_PKG_CONFIG
 
   if(PARAM_UNPARSED_ARGUMENTS)
-    hunter_fatal_error(
+    hunter_internal_error(
         "Invalid arguments passed to hunter_autotools_configure:"
         " ${PARAM_UNPARSED_ARGUMENTS}"
     )
   endif()
 
   hunter_test_string_not_empty("${PARAM_BUILD_DIR}")
+  hunter_test_string_not_empty("${PARAM_GLOBAL_INSTALL_DIR}")
+  hunter_test_string_not_empty("${PARAM_INSTALL_DIR}")
 
   # Sets the toolchain binaries
   #   AR=${CMAKE_AR}
@@ -235,10 +250,24 @@ function(hunter_autotools_project target_name)
     list(APPEND build_opts "-j" "${PARAM_PARALLEL_JOBS}")
   endif()
 
-  set(configure_command "./configure")
-  set(configure_command
-    . "${PARAM_HUNTER_SELF}/scripts/clear-all.sh" && AR=${CMAKE_AR} "${configure_command}"
-  )
+  set(configure_command . "${PARAM_HUNTER_SELF}/scripts/clear-all.sh" &&)
+  list(APPEND configure_command AR=${CMAKE_AR})
+  if(PARAM_MODIFY_PATH)
+    # see clear-all.sh
+    set(default_path "/usr/bin:/bin:/usr/sbin:/sbin:/usr/local/bin")
+    list(
+        APPEND
+        configure_command
+        "PATH=${PARAM_GLOBAL_INSTALL_DIR}/bin:${default_path}"
+    )
+  endif()
+  if(PARAM_MODIFY_PKG_CONFIG)
+    set(d1 "${PARAM_GLOBAL_INSTALL_DIR}/lib/pkgconfig")
+    set(d2 "${PARAM_GLOBAL_INSTALL_DIR}/share/pkgconfig")
+    list(APPEND configure_command "PKG_CONFIG_PATH=${d1}:${d2}")
+  endif()
+
+  list(APPEND configure_command "./configure")
 
   # Build the configure command line options
   set(configure_opts)

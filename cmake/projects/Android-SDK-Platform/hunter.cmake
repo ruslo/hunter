@@ -57,5 +57,16 @@ hunter_add_version(
     2ff20d89e68f2f5390981342e009db5a2d456aaa
 )
 
+hunter_add_version(
+    PACKAGE_NAME
+    Android-SDK-Platform
+    VERSION
+    "16_r05"
+    URL
+    "http://dl-ssl.google.com/android/repository/android-16_r05.zip"
+    SHA1
+    12a5ce6235a76bc30f62c26bda1b680e336abd07
+)
+
 hunter_pick_scheme(DEFAULT url_sha1_unpack)
 hunter_download(PACKAGE_NAME Android-SDK-Platform)

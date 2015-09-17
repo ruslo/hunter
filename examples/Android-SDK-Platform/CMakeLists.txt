@@ -9,4 +9,9 @@ include("../common.cmake")
 
 project(Foo)
 
+# -- Emulate toolchain
+set(ANDROID TRUE)
+set(ANDROID_NATIVE_API_LEVEL 21)
+# -- end
+
 hunter_add_package(Android-SDK-Platform)
