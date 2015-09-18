@@ -36,6 +36,12 @@ if(NOT APPLE AND NOT WIN32)
   hunter_configuration_types(Qt CONFIGURATION_TYPES Release)
 endif()
 
+if(IOS)
+  # Rewrite HUNTER_CONFIGURATION_TYPES to workaround issue:
+  #  https://bugreports.qt.io/browse/QTBUG-48348
+  hunter_configuration_types(Qt CONFIGURATION_TYPES Debug Release)
+endif()
+
 if(ANDROID)
   # Static variant is not supported: https://bugreports.qt.io/browse/QTBUG-47455
   hunter_cmake_args(Qt CMAKE_ARGS BUILD_SHARED_LIBS=ON)

@@ -9,6 +9,7 @@ include(ExternalProject) # ExternalProject_Add
 include("@HUNTER_SELF@/cmake/Hunter")
 
 include(hunter_internal_error)
+include(hunter_report_broken_package)
 include(hunter_status_debug)
 include(hunter_test_string_not_empty)
 
@@ -164,14 +165,27 @@ set(cfg "@HUNTER_PACKAGE_CONFIGURATION_TYPES@")
 
 string(COMPARE EQUAL "${cfg}" "Release" is_release)
 string(COMPARE EQUAL "${cfg}" "Debug" is_debug)
-string(COMPARE EQUAL "${cfg}" "Release;Debug" is_release_debug)
-string(COMPARE EQUAL "${cfg}" "Debug;Release" is_debug_release)
+string(COMPARE EQUAL "${cfg}" "Release;Debug" is_str_release_debug)
+string(COMPARE EQUAL "${cfg}" "Debug;Release" is_str_debug_release)
+
+if(is_str_release_debug OR is_str_debug_release)
+  set(is_release_debug TRUE)
+else()
+  set(is_release_debug FALSE)
+endif()
+
+if(NOT is_release_debug AND IOS)
+  hunter_report_broken_package(
+      "Qt iOS should be built with Release+Debug. "
+      "See issue: https://bugreports.qt.io/browse/QTBUG-48348"
+  )
+endif()
 
 if(is_release)
   list(APPEND configure_opts "-release")
 elseif(is_debug)
   list(APPEND configure_opts "-debug")
-elseif(is_release_debug OR is_debug_release)
+elseif(is_release_debug)
   if(NOT APPLE AND NOT WIN32)
     hunter_user_error(
         "Qt debug+release is available only on Mac/Win32 platforms"
