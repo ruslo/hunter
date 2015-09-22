@@ -13,5 +13,3 @@ add_executable(main main.cpp)
 
 target_link_libraries(main
   nlohmann-json::nlohmann-json)
-set_target_properties(main PROPERTIES
-  COMPILE_FLAGS ${NLOHMANN_JSON_DEFINITIONS})
