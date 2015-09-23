@@ -133,6 +133,17 @@ hunter_add_version(
     374e6dbe8619ab467c6b1a0b470a598407b172e9
 )
 
+hunter_add_version(
+    PACKAGE_NAME
+    GTest
+    VERSION
+    "1.7.0-hunter-11"
+    URL
+    "https://github.com/hunter-packages/gtest/archive/v1.7.0-hunter-11.tar.gz"
+    SHA1
+    c6ae948ca2bea1d734af01b1069491b00933ed31
+)
+
 hunter_pick_scheme(DEFAULT url_sha1_cmake)
 hunter_cacheable(GTest)
-hunter_download(PACKAGE_NAME GTest)
+hunter_download(PACKAGE_NAME GTest PACKAGE_INTERNAL_DEPS_ID 1)
