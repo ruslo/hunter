@@ -16,6 +16,13 @@ hunter_add_version(
     SHA1 cd9dd58ed375d8c7eae1c1a3b33ae0deae41c47f 
 )
 
+hunter_add_version(
+    PACKAGE_NAME dbus
+    VERSION "1.10.0-hunter-4"
+    URL "https://github.com/hunter-packages/dbus/archive/dbus-1.10.0-hunter-4.tar.gz"
+    SHA1 5acf0e8c8caa4c01536a66b19cb5f8c0c94817da 
+)
+
 hunter_cmake_args(
     dbus 
     CMAKE_ARGS
