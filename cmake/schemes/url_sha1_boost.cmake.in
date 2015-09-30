@@ -14,6 +14,7 @@ include(hunter_install_boost_config)
 include(hunter_report_broken_package)
 include(hunter_status_debug)
 include(hunter_test_string_not_empty)
+include(hunter_copy_license_file)
 
 hunter_status_debug("Scheme: url_sha1_boost")
 
@@ -147,3 +148,5 @@ set(HUNTER_PACKAGE_INSTALL_PREFIX "@HUNTER_PACKAGE_INSTALL_PREFIX@")
 set(HUNTER_Boost_VERSION "@HUNTER_Boost_VERSION@")
 
 hunter_install_boost_config()
+
+hunter_copy_license_file("@HUNTER_PACKAGE_SOURCE_DIR@" "@HUNTER_PACKAGE_LICENSE_FILE@")
