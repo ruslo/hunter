@@ -284,6 +284,18 @@ else()
   set(download_step DOWNLOAD_COMMAND "@CMAKE_COMMAND@" -E echo "skip download")
 endif()
 
+if("@HUNTER_PACKAGE_LOG_BUILD@")
+  set(log_build 1)
+else()
+  set(log_build 0)
+endif()
+
+if("@HUNTER_PACKAGE_LOG_INSTALL@")
+  set(log_install 1)
+else()
+  set(log_install 0)
+endif()
+
 ExternalProject_Add(
     "@HUNTER_EP_NAME@"
     URL
@@ -323,4 +335,6 @@ ExternalProject_Add(
         "${qt_source_dir}/qt-install.cmake"
     COMMAND
         "@CMAKE_COMMAND@" -P "${qt_source_dir}/qt-install.cmake"
+    LOG_BUILD ${log_build}
+    LOG_INSTALL ${log_install}
 )

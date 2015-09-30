@@ -65,6 +65,18 @@ endif()
 
 set(previous_project "")
 
+if("@HUNTER_PACKAGE_LOG_BUILD@")
+  set(log_build 1)
+else()
+  set(log_build 0)
+endif()
+
+if("@HUNTER_PACKAGE_LOG_INSTALL@")
+  set(log_install 1)
+else()
+  set(log_install 0)
+endif()
+
 foreach(configuration @HUNTER_PACKAGE_CONFIGURATION_TYPES@)
   # All configurations use the same URL which will be downloaded only once
   # i.e. overhead only for unpacking archive + no files from the previous
@@ -112,6 +124,8 @@ foreach(configuration @HUNTER_PACKAGE_CONFIGURATION_TYPES@)
           --config ${configuration}
           --
           ${jobs_option}
+      LOG_BUILD ${log_build}
+      LOG_INSTALL ${log_install}
   )
 
   # Each external project must depends on previous one since they all use
