@@ -204,30 +204,16 @@ list(APPEND configure_command ${configure_opts})
 
 set(ANDROID_API_VERSION "${HUNTER_Android-SDK-Platform_VERSION}")
 
-if(ANDROID)
-  set(make_cmd ANDROID_API_VERSION=${ANDROID_API_VERSION} make)
-else()
-  set(make_cmd make)
-endif()
-
-if("@MSVC@")
-  set(build_command nmake)
-elseif("@MINGW@")
-  set(build_command mingw32-make)
-else()
-  set(build_command . "@HUNTER_SELF@/scripts/clear-all.sh" && ${make_cmd})
-endif()
+set(qt_component "@HUNTER_PACKAGE_COMPONENT@")
+set(hunter_self "@HUNTER_SELF@")
+set(global_install_dir "@HUNTER_INSTALL_PREFIX@")
+set(local_install_dir "@HUNTER_PACKAGE_INSTALL_PREFIX@")
 
 set(build_opts)
 string(COMPARE NOTEQUAL "@HUNTER_JOBS_OPTION@" "" have_jobs)
 if(have_jobs AND NOT "@MSVC_IDE@")
   list(APPEND build_opts "-j" "@HUNTER_JOBS_OPTION@")
 endif()
-
-set(qt_component "@HUNTER_PACKAGE_COMPONENT@")
-set(hunter_self "@HUNTER_SELF@")
-set(global_install_dir "@HUNTER_INSTALL_PREFIX@")
-set(local_install_dir "@HUNTER_PACKAGE_INSTALL_PREFIX@")
 
 # We can't use HUNTER_PACKAGE_SOURCE_DIR since it will be removed after
 # successful installation of component (we always need to have 'qtbase'
@@ -273,6 +259,17 @@ configure_file(
 configure_file(
     "@HUNTER_SELF@/scripts/qt-install.cmake.in"
     "@HUNTER_PACKAGE_BUILD_DIR@/qt-install.cmake"
+    @ONLY
+)
+
+# Used variables:
+#  * ANDROID
+#  * ANDROID_API_VERSION
+#  * build_opts
+#  * hunter_self
+configure_file(
+    "@HUNTER_SELF@/scripts/qt-build.cmake.in"
+    "@HUNTER_PACKAGE_BUILD_DIR@/qt-build.cmake"
     @ONLY
 )
 
@@ -322,8 +319,12 @@ ExternalProject_Add(
     BUILD_COMMAND
     ${env_cmd}
     COMMAND
-    ${build_command}
-    ${build_opts}
+        "@CMAKE_COMMAND@"
+        -E copy
+        "@HUNTER_PACKAGE_BUILD_DIR@/qt-build.cmake"
+        "${qt_source_dir}/qt-build.cmake"
+    COMMAND
+        "@CMAKE_COMMAND@" -P "${qt_source_dir}/qt-build.cmake"
     BUILD_IN_SOURCE
     1
     INSTALL_COMMAND
