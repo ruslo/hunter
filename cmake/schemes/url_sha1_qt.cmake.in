@@ -174,13 +174,6 @@ else()
   set(is_release_debug FALSE)
 endif()
 
-if(NOT is_release_debug AND IOS)
-  hunter_report_broken_package(
-      "Qt iOS should be built with Release+Debug. "
-      "See issue: https://bugreports.qt.io/browse/QTBUG-48348"
-  )
-endif()
-
 if(is_release)
   list(APPEND configure_opts "-release")
 elseif(is_debug)
@@ -267,6 +260,9 @@ configure_file(
 #  * ANDROID_API_VERSION
 #  * build_opts
 #  * hunter_self
+#  * is_release_debug
+#  * is_release
+#  * is_debug
 configure_file(
     "@HUNTER_SELF@/scripts/qt-build.cmake.in"
     "@HUNTER_PACKAGE_BUILD_DIR@/qt-build.cmake"

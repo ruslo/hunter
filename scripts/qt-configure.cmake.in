@@ -16,6 +16,21 @@ if(is_empty)
   message(FATAL_ERROR "hunter_self is empty")
 endif()
 
+string(COMPARE EQUAL "@is_release_debug@" "" is_empty)
+if(is_empty)
+  message(FATAL_ERROR "is_release_debug is empty")
+endif()
+
+string(COMPARE EQUAL "@is_release@" "" is_empty)
+if(is_empty)
+  message(FATAL_ERROR "is_release is empty")
+endif()
+
+string(COMPARE EQUAL "@is_debug@" "" is_empty)
+if(is_empty)
+  message(FATAL_ERROR "is_debug is empty")
+endif()
+
 ### -- end
 
 include("@hunter_self@/scripts/clear-all.cmake")
@@ -133,6 +148,34 @@ if("@IOS@")
   endforeach()
 
   file(WRITE "${conf_path}" "${output_content}\n")
+endif()
+
+if("@IOS@" AND NOT "@is_release_debug@")
+  # Workaround for https://bugreports.qt.io/browse/QTBUG-48348
+
+  if("@is_release@")
+    set(pattern_to_remove ".*_populate_.*_target_properties\\(DEBUG .*")
+  elseif("@is_debug@")
+    set(pattern_to_remove ".*_populate_.*_target_properties\\(RELEASE .*")
+  else()
+    message(FATAL_ERROR "Not Release and not Debug")
+  endif()
+
+  set(
+      template_path
+      "${CMAKE_CURRENT_LIST_DIR}/qtbase/mkspecs/features/data/cmake/Qt5BasicConfig.cmake.in"
+  )
+
+  file(STRINGS "${template_path}" lines)
+
+  set(output_content "")
+  foreach(line ${lines})
+    set(output ${line})
+    string(REGEX REPLACE "${pattern_to_remove}" "" output "${output}")
+    set(output_content "${output_content}\n${output}")
+  endforeach()
+
+  file(WRITE "${template_path}" "${output_content}\n")
 endif()
 
 message("Qt configure command: ${configure_command}")
