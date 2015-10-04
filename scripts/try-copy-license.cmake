@@ -1,6 +1,8 @@
 # Copyright (c) 2015 Aaditya Kalsi
 # All rights reserved.
 
+cmake_minimum_required(VERSION 3.0)
+
 string(COMPARE EQUAL "${srcdir}" "" is_empty)
 if(is_empty)
   message(FATAL_ERROR "'srcdir' should not be empty")
@@ -65,6 +67,18 @@ endif()
 # last effort; glob LICENSE*
 file(GLOB filelist "${srcdir}/LICENSE*")
 if(filelist)
-  list(GET filelist 0 licfile)
-  copyfileto(${licfile} ${dstfile})
+  set(licfile )
+  foreach(el ${filelist})
+    if(NOT IS_DIRECTORY ${el})
+      if(licfile)# if already set, unset and break; too many results
+        set(licfile )
+        break()
+      else()# set licfile to the one found
+        set(licfile ${el})
+      endif()
+    endif()
+  endforeach()
+  if(licfile)
+    copyfileto(${licfile} ${dstfile})
+  endif()
 endif()
