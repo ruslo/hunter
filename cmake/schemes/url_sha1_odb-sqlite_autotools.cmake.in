@@ -57,5 +57,11 @@ hunter_autotools_project("@HUNTER_EP_NAME@"
       "-I${ODB_INCLUDE_DIR} -I${SQLITE3_INCLUDE_DIR}"
     LDFLAGS
       "-L${ODB_LIB_DIR} -lodb -L${SQLITE3_LIB_DIR} -lsqlite3"
+    COMMAND # Copy license files
+    "@CMAKE_COMMAND@"
+    "-Dsrcdir=@HUNTER_PACKAGE_SOURCE_DIR@"
+    "-Ddstfile=@HUNTER_PACKAGE_LICENSE_FILE@"
+    -P
+    "@HUNTER_SELF@/scripts/try-copy-license.cmake"
 )
 

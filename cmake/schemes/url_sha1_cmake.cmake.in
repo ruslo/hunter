@@ -34,6 +34,7 @@ hunter_test_string_not_empty("@HUNTER_PACKAGE_INSTALL_PREFIX@")
 hunter_test_string_not_empty("@HUNTER_PACKAGE_CONFIGURATION_TYPES@")
 hunter_test_string_not_empty("@HUNTER_CACHE_FILE@")
 hunter_test_string_not_empty("@HUNTER_ARGS_FILE@")
+hunter_test_string_not_empty("@HUNTER_PACKAGE_LICENSE_FILE@")
 hunter_test_string_not_empty("@CMAKE_GENERATOR@")
 hunter_test_string_not_empty("${CMAKE_TOOLCHAIN_FILE}")
 
@@ -126,6 +127,12 @@ foreach(configuration @HUNTER_PACKAGE_CONFIGURATION_TYPES@)
           ${jobs_option}
       LOG_BUILD ${log_build}
       LOG_INSTALL ${log_install}
+      COMMAND # Copy license files
+      "@CMAKE_COMMAND@"
+      "-Dsrcdir=@HUNTER_PACKAGE_SOURCE_DIR@"
+      "-Ddstfile=@HUNTER_PACKAGE_LICENSE_FILE@"
+      -P
+      "@HUNTER_SELF@/scripts/try-copy-license.cmake"
   )
 
   # Each external project must depends on previous one since they all use
