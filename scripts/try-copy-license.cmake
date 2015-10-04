@@ -71,8 +71,7 @@ if(filelist)
   foreach(el ${filelist})
     if(NOT IS_DIRECTORY ${el})
       if(licfile)# if already set, unset and break; too many results
-        set(licfile )
-        break()
+        message(FATAL_ERROR "Could not find license unambiguously. Found:\n  ${licfile}\n ${el}")
       else()# set licfile to the one found
         set(licfile ${el})
       endif()

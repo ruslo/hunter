@@ -138,12 +138,6 @@ foreach(variant @IPHONEOS_ARCHS@ @IPHONESIMULATOR_ARCHS@)
       make install_sw
           # installed libraries will be rewrited,
           # other files are equal
-      COMMAND # Copy license files
-      "@CMAKE_COMMAND@"
-      "-Dsrcdir=@HUNTER_PACKAGE_SOURCE_DIR@"
-      "-Ddstfile=@HUNTER_PACKAGE_LICENSE_FILE@"
-      -P
-      "@HUNTER_SELF@/scripts/try-copy-license.cmake"
   )
 
   add_dependencies(

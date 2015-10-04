@@ -125,14 +125,14 @@ foreach(configuration @HUNTER_PACKAGE_CONFIGURATION_TYPES@)
           --config ${configuration}
           --
           ${jobs_option}
+        COMMAND # Copy license files
+          "@CMAKE_COMMAND@"
+          "-Dsrcdir=@HUNTER_PACKAGE_SOURCE_DIR@"
+          "-Ddstfile=@HUNTER_PACKAGE_LICENSE_FILE@"
+          -P
+          "@HUNTER_SELF@/scripts/try-copy-license.cmake"
       LOG_BUILD ${log_build}
       LOG_INSTALL ${log_install}
-      COMMAND # Copy license files
-      "@CMAKE_COMMAND@"
-      "-Dsrcdir=@HUNTER_PACKAGE_SOURCE_DIR@"
-      "-Ddstfile=@HUNTER_PACKAGE_LICENSE_FILE@"
-      -P
-      "@HUNTER_SELF@/scripts/try-copy-license.cmake"
   )
 
   # Each external project must depends on previous one since they all use

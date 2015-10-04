@@ -334,12 +334,12 @@ ExternalProject_Add(
         "${qt_source_dir}/qt-install.cmake"
     COMMAND
         "@CMAKE_COMMAND@" -P "${qt_source_dir}/qt-install.cmake"
-    LOG_BUILD ${log_build}
-    LOG_INSTALL ${log_install}
     COMMAND # Copy license files
       "@CMAKE_COMMAND@"
       "-Dsrcdir=@HUNTER_PACKAGE_SOURCE_DIR@"
       "-Ddstfile=@HUNTER_PACKAGE_LICENSE_FILE@"
       -P
       "@HUNTER_SELF@/scripts/try-copy-license.cmake"
+    LOG_BUILD ${log_build}
+    LOG_INSTALL ${log_install}
 )
