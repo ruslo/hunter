@@ -26,6 +26,7 @@ hunter_test_string_not_empty("@HUNTER_PACKAGE_DOWNLOAD_DIR@")
 hunter_test_string_not_empty("@HUNTER_PACKAGE_SOURCE_DIR@")
 hunter_test_string_not_empty("@HUNTER_PACKAGE_INSTALL_PREFIX@")
 hunter_test_string_not_empty("@HUNTER_Boost_VERSION@")
+hunter_test_string_not_empty("@HUNTER_PACKAGE_LICENSE_FILE@")
 if("@MSVC@")
   hunter_test_string_not_empty("@HUNTER_MSVC_ARCH@")
   hunter_test_string_not_empty("@HUNTER_MSVC_VCVARSALL@")
@@ -139,6 +140,12 @@ ExternalProject_Add(
     ${boost_list}
     "--prefix=@HUNTER_PACKAGE_INSTALL_PREFIX@"
     ${log_opts}
+    COMMAND # Copy license files
+    "@CMAKE_COMMAND@"
+    "-Dsrcdir=@HUNTER_PACKAGE_SOURCE_DIR@"
+    "-Ddstfile=@HUNTER_PACKAGE_LICENSE_FILE@"
+    -P
+    "@HUNTER_SELF@/scripts/try-copy-license.cmake"
 )
 
 # Forward some variables

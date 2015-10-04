@@ -11,6 +11,7 @@ project(download-boost)
 
 # download boost
 hunter_add_package(Boost)
+message("-- Boost license is located here: ${Boost_LICENSE}")
 
 # now boost can be used
 find_package(Boost CONFIG REQUIRED)
