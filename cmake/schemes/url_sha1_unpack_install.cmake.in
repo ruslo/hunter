@@ -20,6 +20,7 @@ hunter_test_string_not_empty("@HUNTER_PACKAGE_SHA1@")
 hunter_test_string_not_empty("@HUNTER_PACKAGE_DOWNLOAD_DIR@")
 hunter_test_string_not_empty("@HUNTER_PACKAGE_SOURCE_DIR@")
 hunter_test_string_not_empty("@HUNTER_PACKAGE_INSTALL_PREFIX@")
+hunter_test_string_not_empty("@HUNTER_PACKAGE_LICENSE_FILE@")
 
 include(ExternalProject) # ExternalProject_Add
 
@@ -44,4 +45,10 @@ ExternalProject_Add(
     "-Dfrom=@HUNTER_PACKAGE_SOURCE_DIR@"
     "-Dto=@HUNTER_PACKAGE_INSTALL_PREFIX@"
     -P "@HUNTER_SELF@/scripts/copy-files.cmake"
+    COMMAND # Copy license files
+    "@CMAKE_COMMAND@"
+    "-Dsrcdir=@HUNTER_PACKAGE_SOURCE_DIR@"
+    "-Ddstfile=@HUNTER_PACKAGE_LICENSE_FILE@"
+    -P
+    "@HUNTER_SELF@/scripts/try-copy-license.cmake"
 )

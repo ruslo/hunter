@@ -24,6 +24,7 @@ hunter_test_string_not_empty("@HUNTER_PACKAGE_SHA1@")
 hunter_test_string_not_empty("@HUNTER_PACKAGE_DOWNLOAD_DIR@")
 hunter_test_string_not_empty("@HUNTER_PACKAGE_SOURCE_DIR@")
 hunter_test_string_not_empty("@HUNTER_PACKAGE_INSTALL_PREFIX@")
+hunter_test_string_not_empty("@HUNTER_PACKAGE_LICENSE_FILE@")
 # Note: support for single architecture/native iOS builds (i.e., arm64)
 hunter_test_string_not_empty("@IPHONEOS_ARCHS@@IPHONESIMULATOR_ARCHS@")
 hunter_test_string_not_empty("@IOS_SDK_VERSION@")
@@ -74,6 +75,12 @@ ExternalProject_Add(
     ${crypto_input_libraries}
     -o
     "@HUNTER_PACKAGE_INSTALL_PREFIX@/lib/libcrypto.a"
+    COMMAND # Copy license files
+    "@CMAKE_COMMAND@"
+    "-Dsrcdir=@HUNTER_PACKAGE_SOURCE_DIR@"
+    "-Ddstfile=@HUNTER_PACKAGE_LICENSE_FILE@"
+    -P
+    "@HUNTER_SELF@/scripts/try-copy-license.cmake"
 )
 
 foreach(variant @IPHONEOS_ARCHS@ @IPHONESIMULATOR_ARCHS@)

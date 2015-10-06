@@ -58,4 +58,3 @@ hunter_autotools_project("@HUNTER_EP_NAME@"
     LDFLAGS
       "-L${ODB_LIB_DIR} -lodb -L${SQLITE3_LIB_DIR} -lsqlite3"
 )
-

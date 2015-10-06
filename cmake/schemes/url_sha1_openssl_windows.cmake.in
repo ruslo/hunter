@@ -27,6 +27,7 @@ hunter_test_string_not_empty("@HUNTER_PACKAGE_SOURCE_DIR@")
 hunter_test_string_not_empty("@HUNTER_PACKAGE_INSTALL_PREFIX@")
 hunter_test_string_not_empty("@HUNTER_MSVC_ARCH@")
 hunter_test_string_not_empty("@HUNTER_MSVC_VCVARSALL@")
+hunter_test_string_not_empty("@HUNTER_PACKAGE_LICENSE_FILE@")
 
 # `find_package(Perl)` is not suitable because `perl` from
 # cygwin directory can be found
@@ -89,4 +90,10 @@ ExternalProject_Add(
     INSTALL_COMMAND
     COMMAND
     nmake -f "ms\\nt.mak" install
+    COMMAND # Copy license files
+    "@CMAKE_COMMAND@"
+    "-Dsrcdir=@HUNTER_PACKAGE_SOURCE_DIR@"
+    "-Ddstfile=@HUNTER_PACKAGE_LICENSE_FILE@"
+    -P
+    "@HUNTER_SELF@/scripts/try-copy-license.cmake"
 )

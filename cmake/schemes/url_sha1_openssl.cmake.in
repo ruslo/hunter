@@ -23,6 +23,7 @@ hunter_test_string_not_empty("@HUNTER_PACKAGE_SHA1@")
 hunter_test_string_not_empty("@HUNTER_PACKAGE_DOWNLOAD_DIR@")
 hunter_test_string_not_empty("@HUNTER_PACKAGE_SOURCE_DIR@")
 hunter_test_string_not_empty("@HUNTER_PACKAGE_INSTALL_PREFIX@")
+hunter_test_string_not_empty("@HUNTER_PACKAGE_LICENSE_FILE@")
 
 if(APPLE)
   set(configure_command "./Configure")
@@ -64,4 +65,10 @@ ExternalProject_Add(
     make install_sw
     # Install without documentation
     # * https://github.com/openssl/openssl/issues/57
+    COMMAND # Copy license files
+    "@CMAKE_COMMAND@"
+    "-Dsrcdir=@HUNTER_PACKAGE_SOURCE_DIR@"
+    "-Ddstfile=@HUNTER_PACKAGE_LICENSE_FILE@"
+    -P
+    "@HUNTER_SELF@/scripts/try-copy-license.cmake"
 )

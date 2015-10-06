@@ -1,4 +1,4 @@
-# Copyright (c) 2013-2015, Ruslan Baratov
+# Copyright (c) 2013-2015, Ruslan Baratov, Aaditya Kalsi
 # All rights reserved.
 
 include(CMakeParseArguments) # cmake_parse_arguments
@@ -178,9 +178,16 @@ function(hunter_download)
     endif()
   endif()
 
+  # license file variable
+  set(HUNTER_PACKAGE_LICENSE_FILE "${HUNTER_PACKAGE_INSTALL_PREFIX}/licenses/${HUNTER_PACKAGE_NAME}/LICENSE")
+  set(license_var "${HUNTER_PACKAGE_NAME}_LICENSE")
+  set(license_val "${HUNTER_INSTALL_PREFIX}/licenses/${HUNTER_PACKAGE_NAME}/LICENSE")
+
   set(${root_name} "${${root_name}}" PARENT_SCOPE)
   set(ENV{${root_name}} "${${root_name}}")
   hunter_status_print("${root_name}: ${${root_name}} (ver.: ${ver})")
+
+  set(${license_var} ${license_val} PARENT_SCOPE)
 
   # temp toolchain file to set variables and include real toolchain
   set(HUNTER_DOWNLOAD_TOOLCHAIN "${HUNTER_PACKAGE_HOME_DIR}/toolchain.cmake")
