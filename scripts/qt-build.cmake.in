@@ -20,7 +20,7 @@ else()
   set(build_command make)
 endif()
 
-execute_process(COMMAND ${build_command} RESULT_VARIABLE result)
+execute_process(COMMAND ${build_command} @build_opts@ RESULT_VARIABLE result)
 
 if(NOT result EQUAL 0)
   message(FATAL_ERROR "Qt build failed: ${result}")
