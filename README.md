@@ -67,7 +67,7 @@ superbuild files. Just change 2 lines of code: input parameters `SHA1`/`URL` of 
 
 ### First step
 
-* Set `HUNTER_ROOT` environment variable (recommended but not mandatory, see 
+* Set [HUNTER_ROOT](https://github.com/ruslo/hunter/wiki/usr.variables#hunter_root) environment variable (recommended but not mandatory, see 
 [other options][hunter-gate-effects])
 
 * Set minimum CMake version:
