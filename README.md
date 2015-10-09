@@ -80,7 +80,7 @@ cmake_minimum_required(VERSION 3.0)
 include("cmake/HunterGate.cmake")
 ```
 
-* This module will download archive automatically from `URL` that you provide:
+* This module will download archive automatically from `URL` that you provide (it means that there is **no** need to clone this repository in general):
 
 ```cmake
 HunterGate(
