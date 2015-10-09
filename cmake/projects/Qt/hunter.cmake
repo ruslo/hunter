@@ -30,6 +30,17 @@ hunter_add_version(
     df2c0a7a20f219f921246b260df086600515955d
 )
 
+hunter_add_version(
+    PACKAGE_NAME
+    Qt
+    VERSION
+    "5.5.0-hunter-p0"
+    URL
+    "https://github.com/hunter-packages/Qt/releases/download/v5.5.0-p0/hunter-5.5.0.7z"
+    SHA1
+    a54e70921daba9dada49a2f0f05ce49a062d9d86
+)
+
 hunter_cacheable(Qt)
 
 if(NOT APPLE AND NOT WIN32)
