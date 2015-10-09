@@ -67,8 +67,7 @@ superbuild files. Just change 2 lines of code: input parameters `SHA1`/`URL` of 
 
 ### First step
 
-* Set [HUNTER_ROOT](https://github.com/ruslo/hunter/wiki/usr.variables#hunter_root) environment variable (recommended but not mandatory, see 
-[other options][hunter-gate-effects])
+* Set [HUNTER_ROOT](https://github.com/ruslo/hunter/wiki/usr.variables#hunter_root) environment variable to an empty directory. This directory will be used by `HunterGate` module for storing packages and utility files. Using environment variable is recommended but not mandatory, see [other options][hunter-gate-effects].
 
 * Set minimum CMake version:
 ```cmake
@@ -80,7 +79,7 @@ cmake_minimum_required(VERSION 3.0)
 include("cmake/HunterGate.cmake")
 ```
 
-* This module will download archive automatically from `URL` that you provide (it means that there is **no** need to clone this repository in general, see [notes](https://github.com/hunter-packages/gate#notes)):
+* This module will download archive automatically from `URL` that you provide to the `HUNTER_ROOT` directory (it means that there is **no** need to clone this repository in general, see [notes](https://github.com/hunter-packages/gate#notes)):
 
 ```cmake
 HunterGate(
