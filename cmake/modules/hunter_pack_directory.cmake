@@ -26,6 +26,12 @@ function(hunter_pack_directory dir_to_pack dest_dir result_sha1)
     hunter_internal_error("No objects in directory: ${dir_to_pack}")
   endif()
 
+  file(GLOB_RECURSE files_list "${dir_to_pack}/*")
+  string(COMPARE EQUAL "${files_list}" "" no_files_found)
+  if(no_files_found)
+    hunter_internal_error("Package has not files to pack")
+  endif()
+
   foreach(x ${dir_list})
     list(APPEND cmd "${x}")
   endforeach()
