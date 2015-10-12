@@ -18,6 +18,7 @@ macro(hunter_setup_msvc_vcvarsall)
     string(REPLACE " 2010" "" _hunter_result "${_hunter_result}")
     string(REPLACE " 2012" "" _hunter_result "${_hunter_result}")
     string(REPLACE " 2013" "" _hunter_result "${_hunter_result}")
+    string(REPLACE " 2015" "" _hunter_result "${_hunter_result}")
 
     set(_hunter_result "${_hunter_result}0")
     set(_hunter_result "VS${_hunter_result}COMNTOOLS")
