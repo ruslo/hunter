@@ -70,6 +70,18 @@ if(NOT _dont_build_it EQUAL -1)
   return()
 endif()
 
+string(COMPARE EQUAL "qtdeclarative" "qtdeclarative" _is_qtdeclarative)
+if(WIN32 AND _is_qtdeclarative)
+  find_program(_python_path NAME "python" PATHS ENV PATH)
+  if(NOT _python_path)
+    hunter_user_error(
+        "Python not found in PATH:\n  $ENV{PATH}\n"
+        "Python required for building Qt component (qtdeclarative):\n"
+        "  http://doc.qt.io/qt-5/windows-requirements.html"
+    )
+  endif()
+endif()
+
 hunter_pick_scheme(DEFAULT url_sha1_qt)
 hunter_download(
     PACKAGE_NAME Qt
