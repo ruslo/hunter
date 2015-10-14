@@ -1,4 +1,5 @@
 ### Input params check
+cmake_minimum_required(VERSION 3.0)
 
 string(COMPARE EQUAL "@global_install_dir@" "" is_empty)
 if(is_empty)
