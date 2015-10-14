@@ -70,33 +70,50 @@ include("@hunter_self@/scripts/clear-all.cmake")
 
 set(ENV{ANDROID_API_VERSION} "@ANDROID_API_VERSION@") # used by `make install`
 
-if(is_qttools AND "@ANDROID@")
-  set(broken_makefile "@qt_source_dir@/qttools/src/qtplugininfo/Makefile")
-  if(EXISTS "${broken_makefile}")
-    message("Patching: ${broken_makefile}")
+function(patch_broken_android_makefile makefile_path_relative)
+  set(makefile_path "@qt_source_dir@/${makefile_path_relative}")
+  if(EXISTS "${makefile_path}")
+    message("Patching: ${makefile_path}")
   else()
-    message(FATAL_ERROR "File not exists: ${broken_makefile}")
+    message(FATAL_ERROR "File not exists: ${makefile_path}")
   endif()
 
+  file(READ "${makefile_path}" makefile_content)
+  message("-- Makefile begin (original) --")
+  message("${makefile_content}")
+  message("-- Makefile end (original) --")
+  string(
+      REPLACE
+      "\$(INSTALL_ROOT)"
+      "@local_install_dir@"
+      makefile_content
+      "${makefile_content}"
+  )
+  message("-- Makefile begin (patched) --")
+  message("${makefile_content}")
+  message("-- Makefile end (patched) --")
+
+  file(WRITE "${makefile_path}" "${makefile_content}")
+endfunction()
+
+if(is_qttools AND "@ANDROID@")
   # Workaround for bug: https://bugreports.qt.io/browse/QTBUG-47453
   # Have to do it several times, don't ask me why...
   foreach(x RANGE 2)
-    file(READ "${broken_makefile}" makefile_content)
-    message("-- Makefile begin (original) --")
-    message("${makefile_content}")
-    message("-- Makefile end (original) --")
-    string(
-        REPLACE
-        "\$(INSTALL_ROOT)"
-        "@local_install_dir@"
-        makefile_content
-        "${makefile_content}"
-    )
-    message("-- Makefile begin (patched) --")
-    message("${makefile_content}")
-    message("-- Makefile end (patched) --")
-
-    file(WRITE "${broken_makefile}" "${makefile_content}")
+    patch_broken_android_makefile("qtbase/config.tests/unix/ptrsize/Makefile")
+    patch_broken_android_makefile("qtmultimedia/config.tests/openal/Makefile")
+    patch_broken_android_makefile("qttools/src/qtplugininfo/Makefile")
+    patch_broken_android_makefile("qtwebkit/Source/JavaScriptCore/Makefile.LLIntOffsetsExtractor")
+    patch_broken_android_makefile("qtwebkit/Source/JavaScriptCore/Makefile.jsc")
+    patch_broken_android_makefile("qtwebkit/Source/WebKit2/Makefile.WebProcess")
+    patch_broken_android_makefile("qtwebkit/Tools/qmake/config.tests/glx/Makefile")
+    patch_broken_android_makefile("qtwebkit/Tools/qmake/config.tests/gnuld/Makefile")
+    patch_broken_android_makefile("qtwebkit/Tools/qmake/config.tests/icu/Makefile")
+    patch_broken_android_makefile("qtwebkit/Tools/qmake/config.tests/leveldb/Makefile")
+    patch_broken_android_makefile("qtwebkit/Tools/qmake/config.tests/libXcomposite/Makefile")
+    patch_broken_android_makefile("qtwebkit/Tools/qmake/config.tests/libXrender/Makefile")
+    patch_broken_android_makefile("qtwebkit/Tools/qmake/config.tests/libwebp/Makefile")
+    patch_broken_android_makefile("qtwebkit/Tools/qmake/config.tests/libzlib/Makefile")
 
     execute_process(COMMAND make)
   endforeach()
