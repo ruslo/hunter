@@ -69,7 +69,7 @@ include("@hunter_self@/scripts/clear-all.cmake")
 
 set(ENV{ANDROID_API_VERSION} "@ANDROID_API_VERSION@") # used by `make install`
 
-if(is_qttools)
+if(is_qttools AND "@ANDROID@")
   set(broken_makefile "@qt_source_dir@/qttools/src/qtplugininfo/Makefile")
   if(EXISTS "${broken_makefile}")
     message("Patching: ${broken_makefile}")
@@ -81,6 +81,9 @@ if(is_qttools)
   # Have to do it several times, don't ask me why...
   foreach(x RANGE 2)
     file(READ "${broken_makefile}" makefile_content)
+    message("-- Makefile begin (original) --")
+    message("${makefile_content}")
+    message("-- Makefile end (original) --")
     string(
         REPLACE
         "\$(INSTALL_ROOT)"
@@ -88,6 +91,10 @@ if(is_qttools)
         makefile_content
         "${makefile_content}"
     )
+    message("-- Makefile begin (patched) --")
+    message("${makefile_content}")
+    message("-- Makefile end (patched) --")
+
     file(WRITE "${broken_makefile}" "${makefile_content}")
 
     execute_process(COMMAND make)
