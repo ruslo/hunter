@@ -59,11 +59,20 @@ else()
   add_executable(qt-camera ${SOURCES})
 endif()
 
+if(APPLE)
+  set(plugins Qt5::AVFMediaPlayerServicePlugin Qt5::AVFServicePlugin)
+elseif(UNIX)
+  set(plugins "")
+elseif(WIN32)
+  set(plugins "")
+else()
+  message(FATAL_ERROR "Not supported")
+endif()
+
 target_link_libraries(
   qt-camera
   PUBLIC
   Qt5::MultimediaWidgets
   Qt5::OpenGL
-  Qt5::AVFMediaPlayerServicePlugin
-  Qt5::AVFServicePlugin
+  ${plugins}
 )
