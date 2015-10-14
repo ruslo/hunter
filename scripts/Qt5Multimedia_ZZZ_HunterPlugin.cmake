@@ -76,7 +76,14 @@ if(TARGET Qt5::AVFServicePlugin)
 
   # Fix linking errors
   if(IOS)
-    # TODO
+    # _CVPixelBufferGetBaseAddress
+    _hunter_plugin_add_interface(Qt5::AVFServicePlugin "-framework CoreVideo")
+
+    # _AVCaptureExposureDurationCurrent
+    _hunter_plugin_add_interface(Qt5::AVFServicePlugin "-framework AVFoundation")
+
+    # _CMFormatDescriptionGetMediaSubType
+    _hunter_plugin_add_interface(Qt5::AVFServicePlugin "-framework CoreMedia")
   elseif(APPLE)
     _hunter_plugin_add_interface(Qt5::AVFServicePlugin "-framework AVFoundation")
     _hunter_plugin_add_interface(Qt5::AVFServicePlugin "-framework CoreMedia")
