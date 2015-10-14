@@ -259,6 +259,13 @@ elseif(UNIX)
         Qt5::Widgets "${_qt5Widgets_install_prefix}/lib/libqtpcre.a"
     )
 
+    _hunter_plugin_add_interface(Qt5::Widgets "jpeg")
+    _hunter_plugin_add_interface(Qt5::Widgets "png")
+    _hunter_plugin_add_interface(Qt5::Widgets "icuuc")
+
+    # defined: `ucal_close_52`
+    _hunter_plugin_add_interface(Qt5::Widgets "icui18n")
+
     # libs should be set before libQt5PlatformSupport
     # defined: QPlatformMenuItem::activated()
     # (depends on z, libqtharfbuzzng, GL)
