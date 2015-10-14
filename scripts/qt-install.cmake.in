@@ -64,6 +64,7 @@ foreach(deps ${depends_on})
 endforeach()
 
 string(COMPARE EQUAL "@qt_component@" "qttools" is_qttools)
+string(COMPARE EQUAL "@qt_component@" "qtmultimedia" is_qtmultimedia)
 
 include("@hunter_self@/scripts/clear-all.cmake")
 
@@ -134,6 +135,19 @@ configure_file(
     "@local_install_dir@/src/static_qt_plugins.cpp"
     COPYONLY
 )
+
+if(is_qtmultimedia)
+  configure_file(
+      "@hunter_self@/scripts/static_qt_AVFServicePlugin.cpp"
+      "@local_install_dir@/src/static_qt_AVFServicePlugin.cpp"
+      COPYONLY
+  )
+  configure_file(
+      "@hunter_self@/scripts/Qt5Multimedia_ZZZ_HunterPlugin.cmake"
+      "@local_install_dir@/lib/cmake/Qt5Multimedia/Qt5Multimedia_ZZZ_HunterPlugin.cmake"
+      COPYONLY
+  )
+endif()
 
 # Remove files installed by other components
 foreach(installed_file ${QT_INSTALLED_FILES})
