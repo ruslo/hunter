@@ -116,3 +116,26 @@ if(TARGET Qt5::AVFMediaPlayerServicePlugin)
     )
   endif()
 endif()
+
+if(TARGET Qt5::DSServicePlugin)
+  # DSServicePlugin is not always installed (Windows only?),
+  # for simplicity check existence of target
+
+  if(_qt5_is_static)
+    if(CMAKE_VERSION VERSION_LESS 3.1)
+      message(
+          WARNING
+          "Can't use INTERFACE_SOURCES properties. "
+          "Please update CMake to version 3.1+ or add source manually: "
+          "\${QT_ROOT}/src/static_qt_DSServicePlugin.cpp"
+      )
+    else()
+      set_target_properties(
+          Qt5::DSServicePlugin
+          PROPERTIES
+          INTERFACE_SOURCES
+          "${_qt5Multimedia_install_prefix}/src/static_qt_DSServicePlugin.cpp"
+      )
+    endif()
+  endif()
+endif()
