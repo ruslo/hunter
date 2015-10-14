@@ -61,6 +61,8 @@ endif()
 
 if(APPLE)
   set(plugins Qt5::AVFMediaPlayerServicePlugin Qt5::AVFServicePlugin)
+elseif(ANDROID)
+  set(plugins "")
 elseif(UNIX)
   set(plugins "")
 elseif(WIN32)
