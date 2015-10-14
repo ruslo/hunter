@@ -46,6 +46,6 @@ do
 
   mkdir -p ${library}
   cp hunter.cmake.in ${library}/hunter.cmake
-  sed -i.back "s,qt_component,${library}," ${library}/hunter.cmake
-  sed -i.back "s,QT_COMPONENT,${LIBRARY_UPPER},g" ${library}/hunter.cmake
+  gsed -i "s,@qt_component@,${library}," ${library}/hunter.cmake
+  gsed -i "s,@QT_COMPONENT@,${LIBRARY_UPPER},g" ${library}/hunter.cmake
 done
