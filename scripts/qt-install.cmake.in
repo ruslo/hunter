@@ -149,6 +149,50 @@ if(is_qtmultimedia)
   )
 endif()
 
+if("@IOS@")
+  set(libs_path "@local_install_dir@/lib")
+  if("@BUILD_SHARED_LIBS@")
+    set(suffix "dylib")
+  else()
+    set(suffix "a")
+  endif()
+  file(
+      GLOB_RECURSE
+      simulator_libs
+      RELATIVE
+      "${libs_path}"
+      "${libs_path}/*_iphonesimulator*.${suffix}"
+  )
+
+  foreach(sim_lib ${simulator_libs})
+    string(REPLACE "_iphonesimulator" "" dev_lib "${sim_lib}")
+    string(COMPARE EQUAL "${sim_lib}" "${dev_lib}" is_same)
+    if(is_same)
+      message(FATAL_ERROR "Is same: ${sim_lib}")
+    endif()
+
+    if(NOT EXISTS "${libs_path}/${dev_lib}")
+      message(FATAL_ERROR "Not exists: ${libs_path}/${dev_lib}")
+    endif()
+
+    execute_process(
+        COMMAND
+        lipo
+        -create
+        "${libs_path}/${dev_lib}"
+        "${libs_path}/${sim_lib}"
+        -output
+        "${libs_path}/${dev_lib}"
+        RESULT_VARIABLE result
+    )
+    if(NOT result EQUAL 0)
+      message(FATAL_ERROR "lipo -create failed: ${result}")
+    endif()
+
+    file(REMOVE "${libs_path}/${sim_lib}")
+  endforeach()
+endif()
+
 # Remove files installed by other components
 foreach(installed_file ${QT_INSTALLED_FILES})
   set(filepath "@local_install_dir@/${installed_file}")
