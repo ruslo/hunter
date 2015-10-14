@@ -139,6 +139,57 @@ if("@IOS@" AND NOT "@is_release_debug@")
   file(WRITE "${template_path}" "${output_content}\n")
 endif()
 
+function(calculate_list listname)
+  message("Calculating list of files...")
+  file(
+      GLOB_RECURSE
+      result
+      RELATIVE
+      "${CMAKE_CURRENT_LIST_DIR}"
+      "${CMAKE_CURRENT_LIST_DIR}/.qmake.super"
+      "${CMAKE_CURRENT_LIST_DIR}/Makefile"
+      "${CMAKE_CURRENT_LIST_DIR}/*/*.pri"
+      "${CMAKE_CURRENT_LIST_DIR}/*/*.prl"
+      "${CMAKE_CURRENT_LIST_DIR}/*/.qmake.cache"
+      "${CMAKE_CURRENT_LIST_DIR}/*/Makefile*"
+      "${CMAKE_CURRENT_LIST_DIR}/*/config.status"
+      "${CMAKE_CURRENT_LIST_DIR}/*/config.summary"
+      "${CMAKE_CURRENT_LIST_DIR}/*/qt.conf"
+  )
+  set("${listname}" "${result}" PARENT_SCOPE)
+  message("Done")
+endfunction()
+
+set(original_list_path "${CMAKE_CURRENT_LIST_DIR}/original-list.cmake")
+string(COMPARE EQUAL "@qt_component@" "qtbase" is_qtbase)
+if(is_qtbase)
+  # Save all original file list
+  calculate_list(original_list)
+  file(WRITE "${original_list_path}" "set(original_list \"\")\n")
+  foreach(x ${original_list})
+    file(APPEND "${original_list_path}" "list(APPEND original_list \"${x}\")\n")
+  endforeach()
+else()
+  # Do clean-up before configure
+  if(NOT EXISTS "${original_list_path}")
+    message(FATAL_ERROR "File not found: ${original_list_path}")
+  endif()
+  set(original_list "")
+  include(${original_list_path})
+  string(COMPARE EQUAL "${original_list}" "" is_empty)
+  if(is_empty)
+    message(FATAL_ERROR "Can't load list from file: ${original_list}")
+  endif()
+
+  calculate_list(list_to_remove)
+  list(REMOVE_ITEM list_to_remove ${original_list})
+  message("Clean-up...")
+  foreach(x ${list_to_remove})
+    message("removing: ${x}")
+    file(REMOVE ${x})
+  endforeach()
+endif()
+
 message("Qt configure command: ${configure_command}")
 
 execute_process(COMMAND ${configure_command} RESULT_VARIABLE result)
