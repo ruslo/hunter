@@ -193,6 +193,18 @@ if("@IOS@")
   endforeach()
 endif()
 
+set(
+    qml_plugin_from
+    "@local_install_dir@/lib/cmake/Qt5Qml/Qt5Qml_QTcpServerConnection.cmake"
+)
+set(
+    qml_plugin_to
+    "@local_install_dir@/lib/cmake/Qt5Qml/Qt5Qml_QTcpServerConnectionPlugin.cmake"
+)
+if(EXISTS "${qml_plugin_from}")
+  file(RENAME "${qml_plugin_from}" "${qml_plugin_to}")
+endif()
+
 # Remove files installed by other components
 foreach(installed_file ${QT_INSTALLED_FILES})
   set(filepath "@local_install_dir@/${installed_file}")
