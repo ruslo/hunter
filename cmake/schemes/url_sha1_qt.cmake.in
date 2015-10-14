@@ -262,7 +262,6 @@ configure_file(
 #   * qt_source_dir
 #   * ANDROID
 #   * IOS
-#   * BUILD_SHARED_LIBS
 #   * HUNTER_Qt_VERSION
 configure_file(
     "@HUNTER_SELF@/scripts/qt-install.cmake.in"
