@@ -113,9 +113,17 @@ if(NOT result EQUAL 0)
   message(FATAL_ERROR "Qt install failed: ${result}")
 endif()
 
+if("@HUNTER_Qt_VERSION@" MATCHES "^5\\.5\\.")
+  set(plugin_name Qt5Widgets_HunterPlugin_5_5.cmake)
+elseif("@HUNTER_Qt_VERSION@" MATCHES "^5\\.6\\.")
+  set(plugin_name Qt5Widgets_HunterPlugin_5_6.cmake)
+else()
+  message(FATAL_ERROR "Unexpected version")
+endif()
+
 # Install Hunter plugins
 configure_file(
-    "@hunter_self@/scripts/Qt5Widgets_HunterPlugin.cmake"
+    "@hunter_self@/scripts/${plugin_name}"
     "@local_install_dir@/lib/cmake/Qt5Widgets/Qt5Widgets_HunterPlugin.cmake"
     COPYONLY
 )

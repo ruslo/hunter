@@ -34,11 +34,19 @@ function(_hunter_plugin_add_interface target lib)
 
   get_target_property(linked_libs ${target} INTERFACE_LINK_LIBRARIES)
 
-  set_target_properties(
-      ${target}
-      PROPERTIES
-      INTERFACE_LINK_LIBRARIES "${lib};${linked_libs}"
-  )
+  if(linked_libs)
+    set_target_properties(
+        ${target}
+        PROPERTIES
+        INTERFACE_LINK_LIBRARIES "${lib};${linked_libs}"
+    )
+  else()
+    set_target_properties(
+        ${target}
+        PROPERTIES
+        INTERFACE_LINK_LIBRARIES "${lib}"
+    )
+  endif()
 endfunction()
 
 function(_hunter_plugin_add_interface_release_debug target release debug)
@@ -176,6 +184,13 @@ elseif(APPLE)
         Qt5::Widgets
         "${_qt5Widgets_install_prefix}/lib/libqtpcre.a"
         "${_qt5Widgets_install_prefix}/lib/libqtpcre_debug.a"
+    )
+
+    # defined: '_FT_Done_Face'
+    _hunter_plugin_add_interface_release_debug(
+        Qt5::Widgets
+        "${_qt5Widgets_install_prefix}/lib/libqtfreetype.a"
+        "${_qt5Widgets_install_prefix}/lib/libqtfreetype_debug.a"
     )
 
     _hunter_plugin_add_interface_release_debug(
