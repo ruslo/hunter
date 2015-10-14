@@ -76,3 +76,15 @@ target_link_libraries(
   Qt5::OpenGL
   ${plugins}
 )
+
+# Workaround for Linux's linker problems (*_MULTIPLICITY doesn't help, TODO) --
+if(UNIX AND NOT APPLE AND CMAKE_COMPILER_IS_GNUCXX)
+  string(
+      REPLACE
+      "<LINK_LIBRARIES>"
+      " -Wl,--start-group <LINK_LIBRARIES> -Wl,--end-group "
+      CMAKE_CXX_LINK_EXECUTABLE
+      "${CMAKE_CXX_LINK_EXECUTABLE}"
+  )
+endif()
+# --
