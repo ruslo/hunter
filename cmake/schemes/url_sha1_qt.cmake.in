@@ -28,6 +28,9 @@ hunter_test_string_not_empty("@HUNTER_TOOLCHAIN_ID_PATH@")
 hunter_test_string_not_empty("@HUNTER_INSTALL_PREFIX@")
 hunter_test_string_not_empty("@HUNTER_PACKAGE_INSTALL_PREFIX@")
 hunter_test_string_not_empty("@HUNTER_PACKAGE_LICENSE_FILE@")
+hunter_test_string_not_empty("@HUNTER_Qt_VERSION@")
+
+set(HUNTER_Qt_VERSION "@HUNTER_Qt_VERSION@")
 
 if("@MSVC@")
   hunter_test_string_not_empty("@HUNTER_MSVC_ARCH@")
@@ -230,6 +233,9 @@ set(qt_source_dir "@HUNTER_TOOLCHAIN_ID_PATH@/QtBuild")
 #   * configure_command
 #   * qt_component
 #   * hunter_self
+#   * ANDROID
+#   * IOS
+#   * HUNTER_Qt_VERSION
 configure_file(
     "@HUNTER_SELF@/scripts/qt-configure.cmake.in"
     "@HUNTER_PACKAGE_BUILD_DIR@/qt-configure.cmake"
@@ -251,6 +257,10 @@ configure_file(
 #   * hunter_self
 #   * ANDROID_API_VERSION
 #   * qt_source_dir
+#   * ANDROID
+#   * IOS
+#   * BUILD_SHARED_LIBS
+#   * HUNTER_Qt_VERSION
 configure_file(
     "@HUNTER_SELF@/scripts/qt-install.cmake.in"
     "@HUNTER_PACKAGE_BUILD_DIR@/qt-install.cmake"
