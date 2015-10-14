@@ -64,7 +64,6 @@ foreach(deps ${depends_on})
 endforeach()
 
 string(COMPARE EQUAL "@qt_component@" "qttools" is_qttools)
-string(COMPARE EQUAL "@qt_component@" "qtmultimedia" is_qtmultimedia)
 
 include("@hunter_self@/scripts/clear-all.cmake")
 
@@ -139,6 +138,8 @@ else()
   message(FATAL_ERROR "Unexpected version")
 endif()
 
+# We should always install this file to simplify QT_INSTALLED_FILES check
+
 # Install Hunter plugins
 configure_file(
     "@hunter_self@/scripts/${plugin_name}"
@@ -153,23 +154,21 @@ configure_file(
     COPYONLY
 )
 
-if(is_qtmultimedia)
-  configure_file(
-      "@hunter_self@/scripts/static_qt_AVFServicePlugin.cpp"
-      "@local_install_dir@/src/static_qt_AVFServicePlugin.cpp"
-      COPYONLY
-  )
-  configure_file(
-      "@hunter_self@/scripts/static_qt_DSServicePlugin.cpp"
-      "@local_install_dir@/src/static_qt_DSServicePlugin.cpp"
-      COPYONLY
-  )
-  configure_file(
-      "@hunter_self@/scripts/Qt5Multimedia_ZZZ_HunterPlugin.cmake"
-      "@local_install_dir@/lib/cmake/Qt5Multimedia/Qt5Multimedia_ZZZ_HunterPlugin.cmake"
-      COPYONLY
-  )
-endif()
+configure_file(
+    "@hunter_self@/scripts/static_qt_AVFServicePlugin.cpp"
+    "@local_install_dir@/src/static_qt_AVFServicePlugin.cpp"
+    COPYONLY
+)
+configure_file(
+    "@hunter_self@/scripts/static_qt_DSServicePlugin.cpp"
+    "@local_install_dir@/src/static_qt_DSServicePlugin.cpp"
+    COPYONLY
+)
+configure_file(
+    "@hunter_self@/scripts/Qt5Multimedia_ZZZ_HunterPlugin.cmake"
+    "@local_install_dir@/lib/cmake/Qt5Multimedia/Qt5Multimedia_ZZZ_HunterPlugin.cmake"
+    COPYONLY
+)
 
 if("@IOS@")
   file(
