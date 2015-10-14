@@ -125,6 +125,7 @@ def run():
     base_dir = os.path.join(hunter_root, '_Base')
     if os.path.exists(base_dir):
       print('Clearing directory: {}'.format(base_dir))
+      shutil.rmtree(os.path.join(base_dir, 'Download', 'Hunter'))
       for filename in os.listdir(base_dir):
         if filename != 'Download':
           to_remove = os.path.join(base_dir, filename)
