@@ -41,6 +41,17 @@ hunter_add_version(
     a54e70921daba9dada49a2f0f05ce49a062d9d86
 )
 
+hunter_add_version(
+    PACKAGE_NAME
+    Qt
+    VERSION
+    "5.6.0-alpha"
+    URL
+    "http://download.qt.io/development_releases/qt/5.6/5.6.0-alpha/single/qt-everywhere-opensource-src-5.6.0-alpha.7z"
+    SHA1
+    d902b7df94219d2ed2f5c868839c85ce9daa056a
+)
+
 hunter_cacheable(Qt)
 
 if(NOT APPLE AND NOT WIN32)
