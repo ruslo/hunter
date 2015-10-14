@@ -1,10 +1,10 @@
 # Copyright (c) 2015, Ruslan Baratov
 # All rights reserved.
 
-if(DEFINED HUNTER_CMAKE_PROJECTS_QT_QTTRANSLATIONS_HUNTER_CMAKE_)
+if(DEFINED HUNTER_CMAKE_PROJECTS_QT_QTQUICKCONTROLS2_HUNTER_CMAKE_)
   return()
 else()
-  set(HUNTER_CMAKE_PROJECTS_QT_QTTRANSLATIONS_HUNTER_CMAKE_ 1)
+  set(HUNTER_CMAKE_PROJECTS_QT_QTQUICKCONTROLS2_HUNTER_CMAKE_ 1)
 endif()
 
 include(hunter_add_package)
@@ -14,9 +14,9 @@ include(hunter_pick_scheme)
 include(hunter_status_debug)
 
 ## 5.5 only --
-string(COMPARE EQUAL "qttranslations" "qtquick1" _is_qtquick1)
-string(COMPARE EQUAL "qttranslations" "qtwebkit" _is_qtwebkit)
-string(COMPARE EQUAL "qttranslations" "qtwebkit-examples" _is_qtwebkit_examples)
+string(COMPARE EQUAL "qtquickcontrols2" "qtquick1" _is_qtquick1)
+string(COMPARE EQUAL "qtquickcontrols2" "qtwebkit" _is_qtwebkit)
+string(COMPARE EQUAL "qtquickcontrols2" "qtwebkit-examples" _is_qtwebkit_examples)
 
 if(_is_qtquick1 OR _is_qtwebkit OR _is_qtwebkit_examples)
   if(NOT HUNTER_Qt_VERSION MATCHES "^5\\.5\\.")
@@ -26,8 +26,8 @@ endif()
 ## -- end
 
 ## 5.6 only --
-string(COMPARE EQUAL "qttranslations" "qtquickcontrol2" _is_qtquickcontrols2)
-string(COMPARE EQUAL "qttranslations" "qtwebview" _is_qtwebview)
+string(COMPARE EQUAL "qtquickcontrols2" "qtquickcontrol2" _is_qtquickcontrols2)
+string(COMPARE EQUAL "qtquickcontrols2" "qtwebview" _is_qtwebview)
 
 if(_is_qtquickcontrols2 OR _is_qtwebview)
   if(NOT HUNTER_Qt_VERSION MATCHES "^5\\.6\\.")
@@ -37,7 +37,7 @@ endif()
 ## -- end
 
 hunter_generate_qt_info(
-    "qttranslations"
+    "qtquickcontrols2"
     _unused_toskip
     _depends_on
     _unused_nobuild
@@ -53,7 +53,7 @@ endforeach()
 # We should call this function again since hunter_add_package is include-like
 # instruction, i.e. will overwrite variable values (foreach's _x will survive)
 hunter_generate_qt_info(
-    "qttranslations"
+    "qtquickcontrols2"
     _unused_toskip
     _unused_depends_on
     _nobuild
@@ -62,10 +62,10 @@ hunter_generate_qt_info(
     "${WIN32}"
 )
 
-list(FIND _nobuild "qttranslations" _dont_build_it)
+list(FIND _nobuild "qtquickcontrols2" _dont_build_it)
 if(NOT _dont_build_it EQUAL -1)
   hunter_status_debug(
-      "Qt component doesn't install anything and will be skipped: qttranslations"
+      "Qt component doesn't install anything and will be skipped: qtquickcontrols2"
   )
   return()
 endif()
@@ -73,6 +73,6 @@ endif()
 hunter_pick_scheme(DEFAULT url_sha1_qt)
 hunter_download(
     PACKAGE_NAME Qt
-    PACKAGE_COMPONENT "qttranslations"
+    PACKAGE_COMPONENT "qtquickcontrols2"
     PACKAGE_INTERNAL_DEPS_ID "1"
 )
