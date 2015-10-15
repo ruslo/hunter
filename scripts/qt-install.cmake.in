@@ -64,6 +64,7 @@ foreach(deps ${depends_on})
 endforeach()
 
 string(COMPARE EQUAL "@qt_component@" "qttools" is_qttools)
+list(FIND depends_on "qttools" depends_on_qttools_index)
 
 include("@hunter_self@/scripts/clear-all.cmake")
 
@@ -95,7 +96,17 @@ function(patch_broken_android_makefile makefile_path_relative)
   file(WRITE "${makefile_path}" "${makefile_content}")
 endfunction()
 
-if(is_qttools AND "@ANDROID@")
+if(is_qttools)
+  set(run_patches TRUE)
+elseif(depends_on_qttools_index EQUAL -1)
+  # is not qttools and doesn't depend on it
+  set(run_patches FALSE)
+else()
+  # depends on qttools
+  set(run_patches TRUE)
+endif()
+
+if(run_patches AND "@ANDROID@")
   # Workaround for bug: https://bugreports.qt.io/browse/QTBUG-47453
   # Have to do it several times, don't ask me why...
   foreach(x RANGE 2)
