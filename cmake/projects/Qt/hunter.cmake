@@ -11,6 +11,7 @@ include(hunter_add_version)
 include(hunter_cacheable)
 include(hunter_cmake_args)
 include(hunter_configuration_types)
+include(hunter_report_broken_package)
 
 # Use *.7z version.
 # Qt 5.5 overview:
@@ -83,6 +84,16 @@ endif()
 if(ANDROID)
   # Static variant is not supported: https://bugreports.qt.io/browse/QTBUG-47455
   hunter_cmake_args(Qt CMAKE_ARGS BUILD_SHARED_LIBS=ON)
+endif()
+
+if(IOS)
+  list(FIND IPHONEOS_ARCHS "armv7s" _armv7s_index)
+  if(NOT _armv7s_index EQUAL -1)
+    hunter_report_broken_package(
+        "Some parts of Qt can't be built for armv7s."
+        "For example Qt Multimedia: https://bugreports.qt.io/browse/QTBUG-48805"
+    )
+  endif()
 endif()
 
 include("${CMAKE_CURRENT_LIST_DIR}/qtbase/hunter.cmake")
