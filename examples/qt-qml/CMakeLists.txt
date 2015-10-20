@@ -15,9 +15,21 @@ set(CMAKE_AUTOMOC ON)
 set(CMAKE_AUTOUIC ON)
 set(CMAKE_AUTORCC ON)
 
+if(APPLE)
+  set(plugins "")
+elseif(ANDROID)
+  set(plugins "")
+elseif(UNIX)
+  set(plugins Qt5::QXcbEglIntegrationPlugin)
+elseif(WIN32)
+  set(plugins "")
+else()
+  message(FATAL_ERROR "Not supported")
+endif()
+
 add_executable(qmlexample main.cpp)
 target_link_libraries(
-    qmlexample Qt5::Widgets Qt5::Quick Qt5::QTcpServerConnection
+    qmlexample Qt5::Widgets Qt5::Quick Qt5::QTcpServerConnection ${plugins}
 )
 
 # Workaround for Linux's linker problems (*_MULTIPLICITY doesn't help, TODO) --
