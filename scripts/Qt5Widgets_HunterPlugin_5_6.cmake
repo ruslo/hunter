@@ -234,8 +234,6 @@ elseif(UNIX)
     set_target_properties(Qt5::Widgets PROPERTIES INTERFACE_LINK_LIBRARIES "")
 
     # 3rd party
-    # defined: `glBindTexture'
-    _hunter_plugin_add_interface(Qt5::Widgets "GL")
 
     # defined: 'IceProcessMessages'
     _hunter_plugin_add_interface(Qt5::Widgets "ICE")
@@ -245,7 +243,6 @@ elseif(UNIX)
 
     _hunter_plugin_add_interface(Qt5::Widgets "X11")
     _hunter_plugin_add_interface(Qt5::Widgets "X11-xcb")
-    _hunter_plugin_add_interface(Qt5::Widgets "dl")
 
     # defined: pthread_once
     _hunter_plugin_add_interface(Qt5::Widgets "pthread")

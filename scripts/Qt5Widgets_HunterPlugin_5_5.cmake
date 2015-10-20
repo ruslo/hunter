@@ -227,8 +227,6 @@ elseif(UNIX)
     set_target_properties(Qt5::Widgets PROPERTIES INTERFACE_LINK_LIBRARIES "")
 
     # 3rd party
-    # defined: `glBindTexture'
-    _hunter_plugin_add_interface(Qt5::Widgets "GL")
 
     # defined: 'IceProcessMessages'
     _hunter_plugin_add_interface(Qt5::Widgets "ICE")
@@ -238,7 +236,6 @@ elseif(UNIX)
 
     _hunter_plugin_add_interface(Qt5::Widgets "X11")
     _hunter_plugin_add_interface(Qt5::Widgets "X11-xcb")
-    _hunter_plugin_add_interface(Qt5::Widgets "dl")
 
     # defined: pthread_once
     _hunter_plugin_add_interface(Qt5::Widgets "pthread")
@@ -258,13 +255,6 @@ elseif(UNIX)
     _hunter_plugin_add_interface(
         Qt5::Widgets "${_qt5Widgets_install_prefix}/lib/libqtpcre.a"
     )
-
-    _hunter_plugin_add_interface(Qt5::Widgets "jpeg")
-    _hunter_plugin_add_interface(Qt5::Widgets "png")
-    _hunter_plugin_add_interface(Qt5::Widgets "icuuc")
-
-    # defined: `ucal_close_52`
-    _hunter_plugin_add_interface(Qt5::Widgets "icui18n")
 
     # libs should be set before libQt5PlatformSupport
     # defined: QPlatformMenuItem::activated()
