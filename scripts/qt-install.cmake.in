@@ -187,6 +187,11 @@ configure_file(
     COPYONLY
 )
 configure_file(
+    "@hunter_self@/scripts/Qt5Core_HunterPlugin.cmake"
+    "@local_install_dir@/lib/cmake/Qt5Core/Qt5Core_HunterPlugin.cmake"
+    COPYONLY
+)
+configure_file(
     "@hunter_self@/scripts/Qt5Network_ZZZ_HunterPlugin.cmake"
     "@local_install_dir@/lib/cmake/Qt5Network/Qt5Network_ZZZ_HunterPlugin.cmake"
     COPYONLY
