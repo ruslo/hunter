@@ -55,5 +55,11 @@ if(_qt5_is_static)
   # Fix linking errors
   if(IOS)
     _hunter_plugin_add_interface(Qt5::Network "-framework Security")
+  elseif(APPLE)
+    # _SCDynamicStoreCopyProxies
+    _hunter_plugin_add_interface(Qt5::Network "-framework SystemConfiguration")
+
+    # _SecKeychainFindInternetPassword
+    _hunter_plugin_add_interface(Qt5::Network "-framework Security")
   endif()
 endif()
