@@ -54,7 +54,7 @@ function(_hunter_plugin_add_interface_release_debug target release debug)
     message(FATAL_ERROR "Target not exists: ${target}")
   endif()
 
-  get_target_property(linked_libs Qt5::Widgets INTERFACE_LINK_LIBRARIES)
+  get_target_property(linked_libs ${target} INTERFACE_LINK_LIBRARIES)
 
   if(EXISTS "${release}" AND EXISTS "${debug}")
     set(debug_gen_expr "$<$<CONFIG:Debug>:${debug}>")
