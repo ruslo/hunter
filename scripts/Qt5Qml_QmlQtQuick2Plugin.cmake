@@ -87,4 +87,20 @@ if(NOT TARGET Qt5::QmlQtQuick2Plugin AND _qt5_is_static)
       )
     endif()
   endif()
+
+  if(CMAKE_VERSION VERSION_LESS 3.1)
+    message(
+        WARNING
+        "Can't use INTERFACE_SOURCES properties. "
+        "Please update CMake to version 3.1+ or add source manually: "
+        "\${QT_ROOT}/src/static_qt_QtQuick2Plugin.cpp"
+    )
+  else()
+    set_target_properties(
+        Qt5::QmlQtQuick2Plugin
+        PROPERTIES
+        INTERFACE_SOURCES
+        "${_qt5Qml_install_prefix}/src/static_qt_QtQuick2Plugin.cpp"
+    )
+  endif()
 endif()
