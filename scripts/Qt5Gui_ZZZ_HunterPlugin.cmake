@@ -270,3 +270,26 @@ if(TARGET Qt5::QTgaPlugin)
     endif()
   endif()
 endif()
+
+if(TARGET Qt5::QTiffPlugin)
+  # QTiffPlugin is not always installed (?),
+  # for simplicity check existence of target
+
+  if(_qt5_is_static)
+    if(CMAKE_VERSION VERSION_LESS 3.1)
+      message(
+          WARNING
+          "Can't use INTERFACE_SOURCES properties. "
+          "Please update CMake to version 3.1+ or add source manually: "
+          "\${QT_ROOT}/src/static_qt_QTiffPlugin.cpp"
+      )
+    else()
+      set_target_properties(
+          Qt5::QTiffPlugin
+          PROPERTIES
+          INTERFACE_SOURCES
+          "${_qt5Gui_install_prefix}/src/static_qt_QTiffPlugin.cpp"
+      )
+    endif()
+  endif()
+endif()
