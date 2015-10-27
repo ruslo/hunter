@@ -245,6 +245,11 @@ configure_file(
     "@local_install_dir@/src/static_qt_QM3uPlaylistPlugin.cpp"
     COPYONLY
 )
+configure_file(
+    "@hunter_self@/scripts/static_qt_QMultimediaDeclarativeModule.cpp"
+    "@local_install_dir@/src/static_qt_QMultimediaDeclarativeModule.cpp"
+    COPYONLY
+)
 
 configure_file(
     "@hunter_self@/scripts/Qt5Multimedia_ZZZ_HunterPlugin.cmake"

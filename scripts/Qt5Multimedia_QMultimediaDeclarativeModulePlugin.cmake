@@ -93,4 +93,19 @@ if(NOT TARGET Qt5::QMultimediaDeclarativeModule AND _qt5_is_static)
         "${_qt5Multimedia_install_prefix}/lib/libQt5MultimediaQuick_p_debug.a"
     )
   endif()
+  if(CMAKE_VERSION VERSION_LESS 3.1)
+    message(
+        WARNING
+        "Can't use INTERFACE_SOURCES properties. "
+        "Please update CMake to version 3.1+ or add source manually: "
+        "\${QT_ROOT}/src/static_qt_QMultimediaDeclarativeModule.cpp"
+    )
+  else()
+    set_target_properties(
+        Qt5::QMultimediaDeclarativeModule
+        PROPERTIES
+        INTERFACE_SOURCES
+        "${_qt5Multimedia_install_prefix}/src/static_qt_QMultimediaDeclarativeModule.cpp"
+    )
+  endif()
 endif()
