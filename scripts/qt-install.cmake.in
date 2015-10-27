@@ -220,6 +220,11 @@ configure_file(
     "@local_install_dir@/src/static_qt_QWbmpPlugin.cpp"
     COPYONLY
 )
+configure_file(
+    "@hunter_self@/scripts/static_qt_QWebpPlugin.cpp"
+    "@local_install_dir@/src/static_qt_QWebpPlugin.cpp"
+    COPYONLY
+)
 
 configure_file(
     "@hunter_self@/scripts/Qt5Multimedia_ZZZ_HunterPlugin.cmake"
