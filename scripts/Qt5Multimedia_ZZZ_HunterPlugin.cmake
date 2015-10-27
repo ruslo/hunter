@@ -108,7 +108,11 @@ if(TARGET Qt5::AVFMediaPlayerServicePlugin)
   # for simplicity check existence of target
 
   if(IOS)
-    # TODO
+    find_package(Qt5MultimediaWidgets REQUIRED) # Qt5::MultimediaWidgets
+
+    _hunter_plugin_add_interface(
+        Qt5::AVFMediaPlayerServicePlugin Qt5::MultimediaWidgets
+    )
   elseif(APPLE)
     _hunter_plugin_add_interface(
         Qt5::AVFMediaPlayerServicePlugin
@@ -135,6 +139,17 @@ if(TARGET Qt5::DSServicePlugin)
           PROPERTIES
           INTERFACE_SOURCES
           "${_qt5Multimedia_install_prefix}/src/static_qt_DSServicePlugin.cpp"
+      )
+    endif()
+  endif()
+endif()
+
+if(TARGET Qt5::CoreAudioPlugin)
+  if(_qt5_is_static)
+    if(IOS)
+      # _AudioSessionGetProperty
+      _hunter_plugin_add_interface(
+          Qt5::CoreAudioPlugin "-framework AudioToolbox"
       )
     endif()
   endif()
