@@ -252,6 +252,11 @@ configure_file(
     COPYONLY
 )
 configure_file(
+    "@hunter_self@/scripts/Qt5Multimedia_QMultimediaDeclarativeModulePlugin.cmake"
+    "@local_install_dir@/lib/cmake/Qt5Multimedia/Qt5Multimedia_QMultimediaDeclarativeModulePlugin.cmake"
+    COPYONLY
+)
+configure_file(
     "@hunter_self@/scripts/Qt5Core_HunterPlugin.cmake"
     "@local_install_dir@/lib/cmake/Qt5Core/Qt5Core_HunterPlugin.cmake"
     COPYONLY
