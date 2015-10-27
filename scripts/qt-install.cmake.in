@@ -190,6 +190,11 @@ configure_file(
     "@local_install_dir@/src/static_qt_QICNSPlugin.cpp"
     COPYONLY
 )
+configure_file(
+    "@hunter_self@/scripts/static_qt_QICOPlugin.cpp"
+    "@local_install_dir@/src/static_qt_QICOPlugin.cpp"
+    COPYONLY
+)
 
 configure_file(
     "@hunter_self@/scripts/Qt5Multimedia_ZZZ_HunterPlugin.cmake"
