@@ -177,3 +177,26 @@ if(TARGET Qt5::AudioCaptureServicePlugin)
     endif()
   endif()
 endif()
+
+if(TARGET Qt5::AVFMediaPlayerServicePlugin)
+  # AVFMediaPlayerServicePlugin is not always installed (???),
+  # for simplicity check existence of target
+
+  if(_qt5_is_static)
+    if(CMAKE_VERSION VERSION_LESS 3.1)
+      message(
+          WARNING
+          "Can't use INTERFACE_SOURCES properties. "
+          "Please update CMake to version 3.1+ or add source manually: "
+          "\${QT_ROOT}/src/static_qt_AVFMediaPlayerServicePlugin.cpp"
+      )
+    else()
+      set_target_properties(
+          Qt5::AVFMediaPlayerServicePlugin
+          PROPERTIES
+          INTERFACE_SOURCES
+          "${_qt5Multimedia_install_prefix}/src/static_qt_AVFMediaPlayerServicePlugin.cpp"
+      )
+    endif()
+  endif()
+endif()
