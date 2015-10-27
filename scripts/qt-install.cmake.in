@@ -276,6 +276,11 @@ configure_file(
     "@local_install_dir@/lib/cmake/Qt5Network/Qt5Network_ZZZ_HunterPlugin.cmake"
     COPYONLY
 )
+configure_file(
+    "@hunter_self@/scripts/Qt5Qml_QmlQtQuick2Plugin.cmake"
+    "@local_install_dir@/lib/cmake/Qt5Qml/Qt5Qml_QmlQtQuick2Plugin.cmake"
+    COPYONLY
+)
 
 if("@IOS@")
   file(
