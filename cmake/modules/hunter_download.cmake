@@ -187,6 +187,11 @@ function(hunter_download)
   set(ENV{${root_name}} "${${root_name}}")
   hunter_status_print("${root_name}: ${${root_name}} (ver.: ${ver})")
 
+  # Same for the "snake case"
+  string(REPLACE "-" "_" snake_case_root_name "${root_name}")
+  set(${snake_case_root_name} "${${root_name}}" PARENT_SCOPE)
+  set(ENV{${snake_case_root_name}} "${${root_name}}")
+
   set(${license_var} ${license_val} PARENT_SCOPE)
 
   # temp toolchain file to set variables and include real toolchain

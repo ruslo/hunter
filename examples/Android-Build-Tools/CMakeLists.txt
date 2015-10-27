@@ -10,3 +10,11 @@ include("../common.cmake")
 project(Foo)
 
 hunter_add_package(Android-Build-Tools)
+
+if(NOT EXISTS "${ANDROID_BUILD_TOOLS_ROOT}")
+  message(FATAL_ERROR "ANDROID_BUILD_TOOLS_ROOT")
+endif()
+
+if(NOT EXISTS "${ANDROID-BUILD-TOOLS_ROOT}")
+  message(FATAL_ERROR "ANDROID-BUILD-TOOLS_ROOT")
+endif()
