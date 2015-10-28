@@ -7,6 +7,7 @@ else()
   set(HUNTER_CMAKE_PROJECTS_QT_HUNTER_CMAKE 1)
 endif()
 
+include(hunter_add_package)
 include(hunter_add_version)
 include(hunter_cacheable)
 include(hunter_cmake_args)
@@ -108,3 +109,5 @@ if(IOS)
 endif()
 
 include("${CMAKE_CURRENT_LIST_DIR}/qtbase/hunter.cmake")
+
+hunter_add_package(QtCMakeExtra)
