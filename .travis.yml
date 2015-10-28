@@ -162,6 +162,7 @@ env:
     - PROJECT_DIR=examples/SQLite3 TOOLCHAIN=default
     - PROJECT_DIR=examples/odb-compiler TOOLCHAIN=default
     - PROJECT_DIR=examples/odb-sqlite TOOLCHAIN=default
+    - PROJECT_DIR=examples/QtCMakeExtra TOOLCHAIN=default
 
     ### TESTS --
     - PROJECT_DIR=tests/simple TOOLCHAIN=default
