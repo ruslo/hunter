@@ -63,7 +63,7 @@ hunter_config(OpenSSL VERSION 1.0.2d)
 hunter_config(PNG VERSION 1.6.16-p4)
 hunter_config(Qt VERSION 5.5.1-hunter-p1)
 hunter_config(QtAndroidCMake VERSION 1.0.6)
-hunter_config(QtCMakeExtra VERSION 1.0.2)
+hunter_config(QtCMakeExtra VERSION 1.0.3)
 hunter_config(QtQmlManager VERSION 1.0.0)
 hunter_config(RapidJSON VERSION 0.11-hunter)
 hunter_config(SQLite3 VERSION autoconf-3080803) #R-Tree enabled
