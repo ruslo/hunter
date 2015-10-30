@@ -105,6 +105,14 @@ if("@IOS@")
         output
         "${output}"
     )
+    string(
+        REGEX
+        REPLACE
+        "^QMAKE_IOS_DEPLOYMENT_TARGET = .*$"
+        "QMAKE_IOS_DEPLOYMENT_TARGET = ${CMAKE_XCODE_ATTRIBUTE_IPHONEOS_DEPLOYMENT_TARGET}"
+        output
+        "${output}"
+    )
     set(output_content "${output_content}\n${output}")
   endforeach()
 
