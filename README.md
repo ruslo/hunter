@@ -231,6 +231,10 @@ Feel free to open new [issue][hunter-new-issue] if you want to ask any questions
 
 * [Contribution](https://github.com/ruslo/hunter/wiki/dev.contribution)
 
+### Donations
+
+* [Donations](https://github.com/ruslo/hunter/blob/develop/donate.md)
+
 ### Links
 * [Gate to hunter packages][hunter-gate]
 * [Simple project example][hunter-simple]

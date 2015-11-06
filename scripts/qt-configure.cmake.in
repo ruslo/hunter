@@ -31,89 +31,51 @@ if(is_empty)
   message(FATAL_ERROR "is_debug is empty")
 endif()
 
+string(COMPARE EQUAL "@HUNTER_Qt_VERSION@" "" is_empty)
+if(is_empty)
+  message(FATAL_ERROR "HUNTER_Qt_VERSION is empty")
+endif()
+
 ### -- end
 
 include("@hunter_self@/scripts/clear-all.cmake")
 
-### Build list of components.
+list(APPEND CMAKE_MODULE_PATH "@hunter_self@/cmake/modules")
 
-# From [documentation](http://doc.qt.io/qt-5/configure-options.html):
-#
-#     Configure's -skip option allows certain Qt submodules to be excluded
-#     from the Qt build. These submodules correspond to the Git submodules
-#     in the standard Qt 5 repository.
-#
-# According to 'qtbase/configure' script from sources '-skip', option checks
-# directories by pattern 'qt*' (find "Attempting to skip non-existent module")
+include(hunter_generate_qt_info)
 
-file(
-    GLOB
-    directories_list
-    RELATIVE "${CMAKE_CURRENT_LIST_DIR}"
-    "${CMAKE_CURRENT_LIST_DIR}/qt*"
+hunter_generate_qt_info(
+    "@qt_component@"
+    components_toskip
+    depends_on
+    nobuild_list
+    "@HUNTER_Qt_VERSION@"
+    "@ANDROID@"
+    "@WIN32@"
 )
 
-# We need only directories. Exclude files like qt.pro
-set(components)
-foreach(dir ${directories_list})
-  if(IS_DIRECTORY "${CMAKE_CURRENT_LIST_DIR}/${dir}")
-    list(APPEND components "${dir}")
-  endif()
-endforeach()
+message("\nBuilding Qt component:\n  @qt_component@\n")
 
-set(required_qtdeclarative NO)
-set(
-    qtdeclarative_list
-    qt3d
-    qtcanvas3d
-    qtenginio
-    qtgraphicaleffects
-    qtlocation
-    qtmultimedia
-    qtquickcontrols
-    qtsensors
-    qtwebchannel
-    qtwebkit
-    qtwebsockets
-)
-foreach(component ${qtdeclarative_list})
-  string(COMPARE EQUAL "@qt_component@" "${component}" is_equal)
-  if(is_equal)
-    set(required_qtdeclarative YES)
-  endif()
+message("Dependent components:")
+foreach(x ${depends_on})
+  message("  ${x}")
 endforeach()
+message("\n")
 
-# Skip all components except one we need
+message("Components to skip:")
 set(components_opts)
-set(component_found FALSE)
-foreach(component ${components})
-  string(COMPARE NOTEQUAL "@qt_component@" "${component}" skip)
-  if(skip)
-    string(COMPARE EQUAL "${component}" "qtbase" is_qtbase)
-    string(COMPARE EQUAL "${component}" "qtdeclarative" is_qtdeclarative)
-    if(is_qtbase)
-      # Can't be skipped
-    elseif(is_qtdeclarative AND required_qtdeclarative)
-      # Do not skip. See:
-      # * https://github.com/ruslo/hunter/issues/116#issuecomment-127040329
-    else()
-      list(APPEND components_opts "-skip" "${component}")
-    endif()
-  else()
-    set(component_found TRUE)
-  endif()
+foreach(x ${components_toskip})
+  message("  ${x}")
+  list(APPEND components_opts "-skip" "${x}")
 endforeach()
+message("\n")
 
-if(NOT component_found)
-  message(FATAL_ERROR "Qt component `@qt_component@` not found")
-endif()
-
-set(configure_command "@configure_command@")
-list(APPEND configure_command ${components_opts})
+set(configure_command "@configure_command@" ${components_opts})
 
 if("@IOS@")
   set(dev_archs_oneline "@IPHONEOS_ARCHS@")
   set(sim_archs_oneline "@IPHONESIMULATOR_ARCHS@")
+  set(deployment_target "@CMAKE_XCODE_ATTRIBUTE_IPHONEOS_DEPLOYMENT_TARGET@")
 
   string(REPLACE ";" " " dev_archs_oneline "${dev_archs_oneline}")
   string(REPLACE ";" " " sim_archs_oneline "${sim_archs_oneline}")
@@ -123,6 +85,14 @@ if("@IOS@")
       "${CMAKE_CURRENT_LIST_DIR}/qtbase/mkspecs/macx-ios-clang/qmake.conf"
   )
 
+  string(COMPARE EQUAL "${deployment_target}" "" is_empty)
+  if(is_empty)
+    message(
+        FATAL_ERROR
+        "CMAKE_XCODE_ATTRIBUTE_IPHONEOS_DEPLOYMENT_TARGET is empty (should be set in iOS toolchain)"
+    )
+  endif()
+
   file(STRINGS "${conf_path}" lines)
 
   set(output_content "")
@@ -131,7 +101,7 @@ if("@IOS@")
     string(
         REGEX
         REPLACE
-        "^QMAKE_IOS_DEVICE_ARCHS = .*$"
+        "^QMAKE_IOS_DEVICE_ARCHS[ ]*=.*$"
         "QMAKE_IOS_DEVICE_ARCHS = ${dev_archs_oneline}"
         output
         "${output}"
@@ -139,8 +109,16 @@ if("@IOS@")
     string(
         REGEX
         REPLACE
-        "^QMAKE_IOS_SIMULATOR_ARCHS = .*$"
+        "^QMAKE_IOS_SIMULATOR_ARCHS[ ]*=.*$"
         "QMAKE_IOS_SIMULATOR_ARCHS = ${sim_archs_oneline}"
+        output
+        "${output}"
+    )
+    string(
+        REGEX
+        REPLACE
+        "^QMAKE_IOS_DEPLOYMENT_TARGET[ ]*=.*$"
+        "QMAKE_IOS_DEPLOYMENT_TARGET = ${deployment_target}"
         output
         "${output}"
     )
@@ -176,6 +154,65 @@ if("@IOS@" AND NOT "@is_release_debug@")
   endforeach()
 
   file(WRITE "${template_path}" "${output_content}\n")
+endif()
+
+function(calculate_list listname)
+  message("Calculating list of files...")
+  file(
+      GLOB_RECURSE
+      result
+      RELATIVE
+      "${CMAKE_CURRENT_LIST_DIR}"
+      "${CMAKE_CURRENT_LIST_DIR}/.qmake.super"
+      "${CMAKE_CURRENT_LIST_DIR}/Makefile"
+      "${CMAKE_CURRENT_LIST_DIR}/*/*.pri"
+      "${CMAKE_CURRENT_LIST_DIR}/*/*.prl"
+      "${CMAKE_CURRENT_LIST_DIR}/*/.qmake.cache"
+      "${CMAKE_CURRENT_LIST_DIR}/*/Makefile*"
+      "${CMAKE_CURRENT_LIST_DIR}/*/config.status"
+      "${CMAKE_CURRENT_LIST_DIR}/*/config.summary"
+      "${CMAKE_CURRENT_LIST_DIR}/*/qt.conf"
+  )
+  set("${listname}" "${result}" PARENT_SCOPE)
+  message("Done")
+endfunction()
+
+string(COMPARE EQUAL "@qt_component@" "qtbase" is_qtbase)
+set(original_list_path "${CMAKE_CURRENT_LIST_DIR}/original-list.cmake")
+if(EXISTS "${original_list_path}")
+  # Not the first component that is built in this directory
+  set(original_exists TRUE)
+else()
+  # First component that is building in this directory
+  set(original_exists FALSE)
+endif()
+
+if(is_qtbase AND original_exists)
+  message(FATAL_ERROR "qtbase is not the first component")
+elseif(original_exists)
+  # Do clean-up before configure
+  set(original_list "")
+  include(${original_list_path})
+  string(COMPARE EQUAL "${original_list}" "" is_empty)
+  if(is_empty)
+    message(FATAL_ERROR "Can't load list from file: ${original_list}")
+  endif()
+
+  calculate_list(list_to_remove)
+  list(REMOVE_ITEM list_to_remove ${original_list})
+  message("Clean-up...")
+  foreach(x ${list_to_remove})
+    message("removing: ${x}")
+    file(REMOVE ${x})
+  endforeach()
+else()
+  # Save all original file list
+  calculate_list(original_list)
+  file(WRITE "${original_list_path}" "set(original_list \"\")\n")
+  foreach(x ${original_list})
+    file(APPEND "${original_list_path}" "list(APPEND original_list \"${x}\")\n")
+  endforeach()
+else()
 endif()
 
 message("Qt configure command: ${configure_command}")

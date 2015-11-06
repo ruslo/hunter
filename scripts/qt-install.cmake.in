@@ -1,4 +1,5 @@
 ### Input params check
+cmake_minimum_required(VERSION 3.0)
 
 string(COMPARE EQUAL "@global_install_dir@" "" is_empty)
 if(is_empty)
@@ -25,48 +26,104 @@ if(is_empty)
   message(FATAL_ERROR "qt_source_dir is empty")
 endif()
 
+string(COMPARE EQUAL "@HUNTER_Qt_VERSION@" "" is_empty)
+if(is_empty)
+  message(FATAL_ERROR "HUNTER_Qt_VERSION is empty")
+endif()
+
 ### -- end
 
-string(COMPARE EQUAL "@qt_component@" "qtbase" is_qtbase)
-string(COMPARE EQUAL "@qt_component@" "qttools" is_qttools)
+list(APPEND CMAKE_MODULE_PATH "@hunter_self@/cmake/modules")
 
-if(NOT is_qtbase)
-  set(qt_base_list "@global_install_dir@/qtbase_installed_files.cmake")
-  if(NOT EXISTS "${qt_base_list}")
-    message(FATAL_ERROR "File not found: ${qt_base_list}")
+include(hunter_generate_qt_info)
+
+hunter_generate_qt_info(
+    "@qt_component@"
+    components_toskip
+    depends_on
+    nobuild_list
+    "@HUNTER_Qt_VERSION@"
+    "@ANDROID@"
+    "@WIN32@"
+)
+
+set(QT_INSTALLED_FILES "")
+foreach(deps ${depends_on})
+  list(FIND nobuild_list "${deps}" result)
+  if(result EQUAL -1)
+    set(list_file "@global_install_dir@/${deps}_installed_files.cmake")
+    if(NOT EXISTS "${list_file}")
+      message(FATAL_ERROR "File not found: ${list_file}")
+    endif()
+    include("${list_file}")
+    string(COMPARE EQUAL "${QT_INSTALLED_FILES}" "" is_empty)
+    if(is_empty)
+      message(FATAL_ERROR "Empty list in file ${list_file}")
+    endif()
   endif()
-  set(QTBASE_INSTALLED_FILES)
-  include("${qt_base_list}")
-  string(COMPARE EQUAL "${QTBASE_INSTALLED_FILES}" "" is_empty)
-  if(is_empty)
-    message(FATAL_ERROR "Empty list in file ${qt_base_list}")
-  endif()
-endif()
+endforeach()
+
+string(COMPARE EQUAL "@qt_component@" "qttools" is_qttools)
+list(FIND depends_on "qttools" depends_on_qttools_index)
 
 include("@hunter_self@/scripts/clear-all.cmake")
 
 set(ENV{ANDROID_API_VERSION} "@ANDROID_API_VERSION@") # used by `make install`
 
-if(is_qttools)
-  set(broken_makefile "@qt_source_dir@/qttools/src/qtplugininfo/Makefile")
-  if(EXISTS "${broken_makefile}")
-    message("Patching: ${broken_makefile}")
+function(patch_broken_android_makefile makefile_path_relative)
+  set(makefile_path "@qt_source_dir@/${makefile_path_relative}")
+  if(EXISTS "${makefile_path}")
+    message("Patching: ${makefile_path}")
   else()
-    message(FATAL_ERROR "File not exists: ${broken_makefile}")
+    message(FATAL_ERROR "File not exists: ${makefile_path}")
   endif()
 
+  file(READ "${makefile_path}" makefile_content)
+  message("-- Makefile begin (original) --")
+  message("${makefile_content}")
+  message("-- Makefile end (original) --")
+  string(
+      REPLACE
+      "\$(INSTALL_ROOT)"
+      "@local_install_dir@"
+      makefile_content
+      "${makefile_content}"
+  )
+  message("-- Makefile begin (patched) --")
+  message("${makefile_content}")
+  message("-- Makefile end (patched) --")
+
+  file(WRITE "${makefile_path}" "${makefile_content}")
+endfunction()
+
+if(is_qttools)
+  set(run_patches TRUE)
+elseif(depends_on_qttools_index EQUAL -1)
+  # is not qttools and doesn't depend on it
+  set(run_patches FALSE)
+else()
+  # depends on qttools
+  set(run_patches TRUE)
+endif()
+
+if(run_patches AND "@ANDROID@")
   # Workaround for bug: https://bugreports.qt.io/browse/QTBUG-47453
   # Have to do it several times, don't ask me why...
   foreach(x RANGE 2)
-    file(READ "${broken_makefile}" makefile_content)
-    string(
-        REPLACE
-        "\$(INSTALL_ROOT)"
-        "@local_install_dir@"
-        makefile_content
-        "${makefile_content}"
-    )
-    file(WRITE "${broken_makefile}" "${makefile_content}")
+    patch_broken_android_makefile("qtbase/config.tests/unix/ptrsize/Makefile")
+    patch_broken_android_makefile("qtmultimedia/config.tests/openal/Makefile")
+    patch_broken_android_makefile("qttools/src/qtplugininfo/Makefile")
+    patch_broken_android_makefile("qtwebkit/Source/JavaScriptCore/Makefile.LLIntOffsetsExtractor")
+    patch_broken_android_makefile("qtwebkit/Source/JavaScriptCore/Makefile.jsc")
+    patch_broken_android_makefile("qtwebkit/Source/WebKit2/Makefile.WebProcess")
+    patch_broken_android_makefile("qtwebkit/Tools/qmake/config.tests/glx/Makefile")
+    patch_broken_android_makefile("qtwebkit/Tools/qmake/config.tests/gnuld/Makefile")
+    patch_broken_android_makefile("qtwebkit/Tools/qmake/config.tests/icu/Makefile")
+    patch_broken_android_makefile("qtwebkit/Tools/qmake/config.tests/leveldb/Makefile")
+    patch_broken_android_makefile("qtwebkit/Tools/qmake/config.tests/libXcomposite/Makefile")
+    patch_broken_android_makefile("qtwebkit/Tools/qmake/config.tests/libXrender/Makefile")
+    patch_broken_android_makefile("qtwebkit/Tools/qmake/config.tests/libwebp/Makefile")
+    patch_broken_android_makefile("qtwebkit/Tools/qmake/config.tests/libzlib/Makefile")
 
     execute_process(COMMAND make)
   endforeach()
@@ -84,62 +141,95 @@ if(NOT result EQUAL 0)
   message(FATAL_ERROR "Qt install failed: ${result}")
 endif()
 
-# Note: all components must install this files to simplify check
-# (see __remove_files)
-
-# Install Hunter plugins
-configure_file(
-    "@hunter_self@/scripts/Qt5Widgets_HunterPlugin.cmake"
-    "@local_install_dir@/lib/cmake/Qt5Widgets/Qt5Widgets_HunterPlugin.cmake"
-    COPYONLY
-)
-
-# Install extra helper sources
-configure_file(
-    "@hunter_self@/scripts/static_qt_plugins.cpp"
-    "@local_install_dir@/src/static_qt_plugins.cpp"
-    COPYONLY
-)
-
-if(is_qtbase)
-  # Save installed files
+if("@IOS@")
   file(
       GLOB_RECURSE
-      installed_files
-      RELATIVE "@local_install_dir@"
-      "@local_install_dir@/*"
+      simulator_libs
+      RELATIVE
+      "@local_install_dir@"
+      "@local_install_dir@/*/*_iphonesimulator*.a"
+      "@local_install_dir@/*/*_iphonesimulator*.dylib"
   )
-  set(QTBASE_INSTALLED_FILES)
-  foreach(filepath ${installed_files})
-    if(EXISTS "@local_install_dir@/${filepath}")
-      if(IS_DIRECTORY "@local_install_dir@/${filepath}")
-        # not need to save directories
-      else()
-        list(APPEND QTBASE_INSTALLED_FILES "${filepath}")
-      endif()
-    else()
-      message(FATAL_ERROR "Internal error")
+
+  foreach(sim_lib ${simulator_libs})
+    string(REPLACE "_iphonesimulator" "" dev_lib "${sim_lib}")
+    string(COMPARE EQUAL "${sim_lib}" "${dev_lib}" is_same)
+    if(is_same)
+      message(FATAL_ERROR "Is same: ${sim_lib}")
     endif()
-  endforeach()
-  string(COMPARE EQUAL "${QTBASE_INSTALLED_FILES}" "" is_empty)
-  if(is_empty)
-    message(FATAL_ERROR "Empty list for directory: @local_install_dir@")
-  endif()
-  file(
-      WRITE
-      "@local_install_dir@/qtbase_installed_files.cmake"
-      "set(QTBASE_INSTALLED_FILES ${QTBASE_INSTALLED_FILES})\n"
-  )
-else()
-  # Remove 'qtbase' files (__remove_files)
-  foreach(installed_file ${QTBASE_INSTALLED_FILES})
-    set(filepath "@local_install_dir@/${installed_file}")
-    if(NOT EXISTS "${filepath}")
-      message(FATAL_ERROR "File not found: ${filepath}")
+
+    if(NOT EXISTS "@local_install_dir@/${dev_lib}")
+      message(FATAL_ERROR "Not exists: @local_install_dir@/${dev_lib}")
     endif()
-    file(REMOVE "${filepath}")
-    if(EXISTS "${filepath}")
-      message(FATAL_ERROR "File not removed: ${filepath}")
+
+    execute_process(
+        COMMAND
+        lipo
+        -create
+        "@local_install_dir@/${dev_lib}"
+        "@local_install_dir@/${sim_lib}"
+        -output
+        "@local_install_dir@/${dev_lib}"
+        RESULT_VARIABLE result
+    )
+    if(NOT result EQUAL 0)
+      message(FATAL_ERROR "lipo -create failed: ${result}")
     endif()
+
+    file(REMOVE "@local_install_dir@/${sim_lib}")
   endforeach()
 endif()
+
+set(
+    qml_plugin_from
+    "@local_install_dir@/lib/cmake/Qt5Qml/Qt5Qml_QTcpServerConnection.cmake"
+)
+set(
+    qml_plugin_to
+    "@local_install_dir@/lib/cmake/Qt5Qml/Qt5Qml_QTcpServerConnectionPlugin.cmake"
+)
+if(EXISTS "${qml_plugin_from}")
+  file(RENAME "${qml_plugin_from}" "${qml_plugin_to}")
+endif()
+
+# Remove files installed by other components
+foreach(installed_file ${QT_INSTALLED_FILES})
+  set(filepath "@local_install_dir@/${installed_file}")
+  if(NOT EXISTS "${filepath}")
+    message(FATAL_ERROR "File not found: ${filepath}")
+  endif()
+  file(REMOVE "${filepath}")
+  if(EXISTS "${filepath}")
+    message(FATAL_ERROR "File not removed: ${filepath}")
+  endif()
+endforeach()
+
+# Save list of files installed by this component
+file(
+    GLOB_RECURSE
+    installed_files
+    RELATIVE "@local_install_dir@"
+    "@local_install_dir@/*"
+)
+set(QT_INSTALLED_FILES)
+foreach(filepath ${installed_files})
+  if(NOT EXISTS "@local_install_dir@/${filepath}")
+    message(FATAL_ERROR "Internal error")
+  endif()
+
+  if(IS_DIRECTORY "@local_install_dir@/${filepath}")
+    # not need to save directories
+  else()
+    list(APPEND QT_INSTALLED_FILES "${filepath}")
+  endif()
+endforeach()
+
+string(COMPARE EQUAL "${QT_INSTALLED_FILES}" "" is_empty)
+if(is_empty)
+  message(FATAL_ERROR "Empty list for directory: @local_install_dir@")
+endif()
+file(
+    WRITE
+    "@local_install_dir@/@qt_component@_installed_files.cmake"
+    "list(APPEND QT_INSTALLED_FILES ${QT_INSTALLED_FILES})\n"
+)

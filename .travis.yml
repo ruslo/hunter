@@ -162,6 +162,7 @@ env:
     - PROJECT_DIR=examples/SQLite3 TOOLCHAIN=default
     - PROJECT_DIR=examples/odb-compiler TOOLCHAIN=default
     - PROJECT_DIR=examples/odb-sqlite TOOLCHAIN=default
+    - PROJECT_DIR=examples/QtCMakeExtra TOOLCHAIN=default
 
     ### TESTS --
     - PROJECT_DIR=tests/simple TOOLCHAIN=default
@@ -171,6 +172,7 @@ env:
     - PROJECT_DIR=tests/issue/109/unit TOOLCHAIN=default
     - PROJECT_DIR=tests/hunter_create_args_file TOOLCHAIN=default
     - PROJECT_DIR=tests/hunter_create_dependency_entry TOOLCHAIN=default
+    - PROJECT_DIR=tests/hunter_generate_qt_info TOOLCHAIN=default
     - PROJECT_DIR=tests/hunter_get_dependency_list TOOLCHAIN=default
     - PROJECT_DIR=tests/hunter_pack_directory TOOLCHAIN=default
     - PROJECT_DIR=tests/hunter_process_dependency_node TOOLCHAIN=default

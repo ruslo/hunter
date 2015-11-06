@@ -28,6 +28,9 @@ hunter_test_string_not_empty("@HUNTER_TOOLCHAIN_ID_PATH@")
 hunter_test_string_not_empty("@HUNTER_INSTALL_PREFIX@")
 hunter_test_string_not_empty("@HUNTER_PACKAGE_INSTALL_PREFIX@")
 hunter_test_string_not_empty("@HUNTER_PACKAGE_LICENSE_FILE@")
+hunter_test_string_not_empty("@HUNTER_Qt_VERSION@")
+
+set(HUNTER_Qt_VERSION "@HUNTER_Qt_VERSION@")
 
 if("@MSVC@")
   hunter_test_string_not_empty("@HUNTER_MSVC_ARCH@")
@@ -215,7 +218,10 @@ endif()
 # component, no other components will be built without it).
 # We optimize build time by not rebuilding qtbase every time (~ 30 min) but
 # lose some extra HDD space. Example: Qt base + 2 components + sources ~ 4.4G
-set(qt_source_dir "@HUNTER_TOOLCHAIN_ID_PATH@/QtBuild")
+set(
+    qt_source_dir
+    "@HUNTER_TOOLCHAIN_ID_PATH@/QtBuild/@HUNTER_PACKAGE_INTERNAL_DEPS_ID@"
+)
 
 # We are building only one component "qt_component". To skip all other
 # components we need to add extra '-skip' options. To get the list of components
@@ -230,6 +236,9 @@ set(qt_source_dir "@HUNTER_TOOLCHAIN_ID_PATH@/QtBuild")
 #   * configure_command
 #   * qt_component
 #   * hunter_self
+#   * ANDROID
+#   * IOS
+#   * HUNTER_Qt_VERSION
 configure_file(
     "@HUNTER_SELF@/scripts/qt-configure.cmake.in"
     "@HUNTER_PACKAGE_BUILD_DIR@/qt-configure.cmake"
@@ -251,6 +260,9 @@ configure_file(
 #   * hunter_self
 #   * ANDROID_API_VERSION
 #   * qt_source_dir
+#   * ANDROID
+#   * IOS
+#   * HUNTER_Qt_VERSION
 configure_file(
     "@HUNTER_SELF@/scripts/qt-install.cmake.in"
     "@HUNTER_PACKAGE_BUILD_DIR@/qt-install.cmake"
@@ -271,12 +283,22 @@ configure_file(
     @ONLY
 )
 
-string(COMPARE EQUAL "${qt_component}" "qtbase" is_qtbase)
-if(is_qtbase)
-  # qtbase component will do the real download
-  set(download_step)
+# This file created after archive with sources successfully
+# downloaded and unpacked
+if(EXISTS "${qt_source_dir}/qt-configure.cmake")
+  set(download_done TRUE)
 else()
+  set(download_done FALSE)
+endif()
+
+string(COMPARE EQUAL "${qt_component}" "qtbase" is_qtbase)
+
+if(is_qtbase AND download_done)
+  hunter_internal_error("qtbase is not the first component")
+elseif(download_done)
   set(download_step DOWNLOAD_COMMAND "@CMAKE_COMMAND@" -E echo "skip download")
+else()
+  set(download_step)
 endif()
 
 if("@HUNTER_PACKAGE_LOG_BUILD@")

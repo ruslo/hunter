@@ -1,0 +1,104 @@
+<?xml version="1.0"?>
+<manifest
+     android:versionName="1.0"
+     package="camera.qt"
+     android:installLocation="auto"
+     xmlns:android="http://schemas.android.com/apk/res/android"
+     android:versionCode="1"
+>
+    <application
+        android:label="camera-qt"
+        android:name="org.qtproject.qt5.android.bindings.QtApplication"
+        android:debuggable="true"
+        android:hardwareAccelerated="true"
+    >
+    <activity
+        android:label="camera-qt"
+        android:name="org.qtproject.qt5.android.bindings.QtActivity"
+        android:screenOrientation="unspecified"
+        android:configChanges="orientation|uiMode|screenLayout|screenSize|smallestScreenSize|locale|fontScale|keyboard|keyboardHidden|navigation"
+    >
+      <intent-filter>
+        <action android:name="android.intent.action.MAIN"/>
+        <category android:name="android.intent.category.LAUNCHER"/>
+      </intent-filter>
+      <meta-data
+          android:name="android.app.lib_name"
+          android:value="qt-camera"
+      />
+      <meta-data
+          android:name="android.app.qt_sources_resource_id"
+          android:resource="@array/qt_sources"
+      />
+      <meta-data
+          android:name="android.app.repository"
+          android:value="default"
+      />
+      <meta-data
+          android:name="android.app.qt_libs_resource_id"
+          android:resource="@array/qt_libs"
+      />
+      <meta-data
+          android:name="android.app.bundled_libs_resource_id"
+          android:resource="@array/bundled_libs"
+      />
+      <!-- Deploy Qt libs as part of package -->
+      <meta-data
+          android:name="android.app.bundle_local_qt_libs"
+          android:value="1"
+      />
+      <meta-data
+          android:name="android.app.bundled_in_lib_resource_id"
+          android:resource="@array/bundled_in_lib"
+      />
+      <meta-data
+          android:name="android.app.bundled_in_assets_resource_id"
+          android:resource="@array/bundled_in_assets"
+      />
+      <!-- Run with local libs -->
+      <meta-data
+          android:name="android.app.use_local_qt_libs"
+          android:value="1"
+      />
+      <meta-data
+          android:name="android.app.libs_prefix"
+          android:value="/data/local/tmp/qt/"
+      />
+      <meta-data
+          android:name="android.app.load_local_libs"
+          android:value="plugins/platforms/android/libqtforandroid.so:plugins/bearer/libqandroidbearer.so:plugins/mediaservice/libqtmedia_android.so"
+      />
+      <meta-data
+          android:name="android.app.load_local_jars"
+          android:value="jar/QtAndroid.jar:jar/QtAndroidAccessibility.jar:jar/QtAndroid-bundled.jar:jar/QtAndroidAccessibility-bundled.jar"
+      />
+      <meta-data
+          android:name="android.app.static_init_classes"
+          android:value=""
+      />
+      <!--  Messages maps -->
+      <meta-data
+          android:name="android.app.ministro_not_found_msg"
+          android:value="@string/ministro_not_found_msg"
+      />
+      <meta-data
+          android:name="android.app.ministro_needed_msg"
+          android:value="@string/ministro_needed_msg"
+      />
+      <meta-data
+          android:name="android.app.fatal_error_msg"
+          android:value="@string/fatal_error_msg"
+      />
+    </activity>
+  </application>
+  <supports-screens
+      android:anyDensity="true"
+      android:normalScreens="true"
+      android:smallScreens="true"
+      android:largeScreens="true"
+  />
+  <uses-sdk android:minSdkVersion="9" android:targetSdkVersion="@ANDROID_NATIVE_API_LEVEL@"/>
+  <uses-permission android:name="android.permission.CAMERA" />
+  <uses-permission android:name="android.permission.INTERNET"/>
+  <uses-feature android:name="android.hardware.camera" />
+</manifest>
