@@ -18,11 +18,11 @@ hunter_add_version(
     PACKAGE_NAME
 	libyuv
     VERSION
-	"1514-p1"
+	"1514-p3"
     URL
-	"https://github.com/headupinclouds/libyuv/archive/v1514-p1.tar.gz"
+	"https://github.com/headupinclouds/libyuv/archive/v1514-p3.tar.gz"
     SHA1
-	ccc106e46cf56e7ea9c6e3225249f0ac6b2b6ef9
+	901e135d27bfd2bf3faf6f16efe5d067e10d51f8
 )
 
 hunter_cmake_args(libyuv CMAKE_ARGS BUILD_EXAMPLES=OFF LIBYUV_USE_JPEG=OFF)
