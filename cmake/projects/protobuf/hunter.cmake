@@ -15,7 +15,7 @@ hunter_add_version(
     PACKAGE_NAME
     protobuf
     VERSION
-    "0.7.0-p1"
+    "2.6.0-rc1-hunter-1"
     URL
     "https://github.com/google/protobuf.git/archive/master.tar.gz"
     SHA1
