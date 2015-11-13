@@ -21,6 +21,18 @@ hunter_add_version(
     PACKAGE_NAME
     Boost
     VERSION
+    "1.59"
+    URL
+    "http://sourceforge.net/projects/boost/files/boost/1.59.0/boost_1_59_0.tar.gz/download"
+    SHA1
+    5123209db194d66d69a9cfa5af8ff473d5941d97
+)
+
+# Version without tests and docs
+hunter_add_version(
+    PACKAGE_NAME
+    Boost
+    VERSION
     "1.58.0-p1"
     URL
     "https://github.com/hunter-packages/boost/archive/v1.58.0-p1.tar.gz"
