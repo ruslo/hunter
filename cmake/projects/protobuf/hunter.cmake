@@ -16,13 +16,13 @@ hunter_add_version(
     PACKAGE_NAME
     protobuf
     VERSION
-    "2.6.0-rc1-hunter-1"
+    "v3.0.0-hunter-p1"
     URL
-    "https://github.com/google/protobuf/archive/master.tar.gz"
+    "https://github.com/dlinten/protobuf/archive/v3.0.0-hunter-p1.tar.gz"
     SHA1
-    40ac3a5f3a7235b4d7b8a3d0556482473b2f1d4d
+    ae933354e963798aae422e619f2fce06df729d0a
 )
 
 hunter_pick_scheme(DEFAULT url_sha1_cmake)
-hunter_cacheable(protobuf
+hunter_cacheable(protobuf)
 hunter_download(PACKAGE_NAME protobuf)
