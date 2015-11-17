@@ -22,3 +22,7 @@ _Base
 # archives
 *.tar.gz
 *.tar.bz2
+
+# emacs junk
+*.*~
+*~
