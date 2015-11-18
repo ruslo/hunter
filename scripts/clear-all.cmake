@@ -297,3 +297,4 @@ endif()
 # See bug https://github.com/headupinclouds/gatherer/issues/58
 unset(ENV{ANDROID_SDK_ROOT})
 unset(ENV{ANDROID_API_VERSION})
+unset(ENV{ANDROID_HOME})
