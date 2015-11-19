@@ -17,6 +17,17 @@ hunter_add_version(
     PACKAGE_NAME
     Android-Support-Repository
     VERSION
+    "25"
+    URL
+    "http://dl-ssl.google.com/android/repository/android_m2repository_r25.zip"
+    SHA1
+    c6f912c0996c0a805deb4158e63c3cd615470f78
+)
+
+hunter_add_version(
+    PACKAGE_NAME
+    Android-Support-Repository
+    VERSION
     "16"
     URL
     "http://dl-ssl.google.com/android/repository/android_m2repository_r16.zip"
