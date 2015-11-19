@@ -31,9 +31,9 @@ hunter_add_version(
     VERSION
     "21" # version affect layout: <sdk>/system-images/android-21/google_apis/
     URL
-    "https://dl.google.com/android/repository/sys-img/google_apis/sysimg_x86-21_r06.zip"
+    "https://dl.google.com/android/repository/sys-img/google_apis/sysimg_x86-21_r09.zip"
     SHA1
-    1e8dbdd5de5ef579eb7e3dd6d3caf9081694092f
+    b6a979f63c72e88142ea449b906e443f986a12cf
 )
 
 hunter_pick_scheme(DEFAULT url_sha1_unpack)
