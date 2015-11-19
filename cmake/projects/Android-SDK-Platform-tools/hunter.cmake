@@ -16,6 +16,17 @@ if(CMAKE_HOST_APPLE)
       PACKAGE_NAME
       Android-SDK-Platform-tools
       VERSION
+      "r23.0.1"
+      URL
+      "http://dl-ssl.google.com/android/repository/platform-tools_r23.0.1-macosx.zip"
+      SHA1
+      c461d66f3ca9fbae8ea0fa1a49c203b3b6fd653f
+  )
+
+  hunter_add_version(
+      PACKAGE_NAME
+      Android-SDK-Platform-tools
+      VERSION
       "r23"
       URL
       "http://dl-ssl.google.com/android/repository/platform-tools_r23-macosx.zip"
@@ -49,6 +60,17 @@ elseif(CMAKE_HOST_UNIX)
       PACKAGE_NAME
       Android-SDK-Platform-tools
       VERSION
+      "r23.0.1"
+      URL
+      "http://dl-ssl.google.com/android/repository/platform-tools_r23.0.1-linux.zip"
+      SHA1
+      94dcc5072b3d0d74cc69e4101958b6c2e227e738
+  )
+
+  hunter_add_version(
+      PACKAGE_NAME
+      Android-SDK-Platform-tools
+      VERSION
       "r23"
       URL
       "http://dl-ssl.google.com/android/repository/platform-tools_r23-linux.zip"
@@ -78,6 +100,17 @@ elseif(CMAKE_HOST_UNIX)
       2502ade68af9f6288c4dd7726796599e8d9a4337
   )
 elseif(CMAKE_HOST_WIN32)
+  hunter_add_version(
+      PACKAGE_NAME
+      Android-SDK-Platform-tools
+      VERSION
+      "r23.0.1"
+      URL
+      "http://dl-ssl.google.com/android/repository/platform-tools_r23.0.1-windows.zip"
+      SHA1
+      8f32d5f724618ad58e71909cc963ae006d0867b0
+  )
+
   hunter_add_version(
       PACKAGE_NAME
       Android-SDK-Platform-tools
