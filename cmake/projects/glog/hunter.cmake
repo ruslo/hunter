@@ -30,6 +30,7 @@ hunter_add_version(
     "0.3.4-p1"
     URL
     "https://github.com/hunter-packages/glog/archive/v0.3.4-p1.tar.gz"
+    SHA1
     512b8ad6d9aae9499cca2e4c4530b9386cb05440
 )
 
