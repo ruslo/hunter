@@ -23,6 +23,16 @@ hunter_add_version(
     de92243289267cb0f0f971a9aedf21bba74b71b3
 )
 
+hunter_add_version(
+    PACKAGE_NAME
+    glog
+    VERSION
+    "0.3.4-p1"
+    URL
+    "https://github.com/hunter-packages/glog/archive/v0.3.4-p1.tar.gz"
+    512b8ad6d9aae9499cca2e4c4530b9386cb05440
+)
+
 hunter_pick_scheme(DEFAULT url_sha1_cmake)
 hunter_cacheable(glog)
 hunter_download(PACKAGE_NAME glog)

@@ -5,7 +5,7 @@ If you like this project and it's goals consider supporting it by making a donat
 
 [![Donate][2]][1]
 
-[![Gratipay](http://img.shields.io/gratipay/Hunter.png)](https://www.gratipay.com/Hunter/)
+[![Gratipay](https://cdn.rawgit.com/gratipay/gratipay-badge/2.3.0/dist/gratipay.png)](https://www.gratipay.com/Hunter/)
 
 Sberbank of Russia:
 * 5469 3800 3946 0992 (USD)
@@ -15,3 +15,4 @@ Thanks! :)
 
 [1]: https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=UN8PDZZ3Q7VVL
 [2]: https://www.paypalobjects.com/en_US/i/btn/btn_donate_SM.gif
+[todo]: http://img.shields.io/gratipay/Hunter.png
