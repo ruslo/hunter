@@ -6,6 +6,7 @@ endif()
 
 # Load used modules
 include(hunter_add_version)
+include(hunter_cacheable)
 include(hunter_download)
 include(hunter_pick_scheme)
 
@@ -14,11 +15,11 @@ hunter_add_version(
     PACKAGE_NAME
     Async++
     VERSION
-    "0.0.1-hunter"
+    "0.0.2-hunter"
     URL
-    "https://github.com/alapshin/asyncplusplus/archive/v0.0.1-hunter.tar.gz"
+    "https://github.com/hunter-packages/asyncplusplus/archive/v0.0.2-hunter.tar.gz"
     SHA1
-    e013afbfb12e5843dc0b3d543c101ed28c325c1d
+    19ad060bed5addd8975f27757231ff610117aeb6
 )
 
 hunter_pick_scheme(DEFAULT url_sha1_cmake)
