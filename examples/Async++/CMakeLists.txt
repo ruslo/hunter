@@ -12,7 +12,7 @@ project(download-asyncpp)
 # download Async++
 hunter_add_package(Async++)
 
-# now gtest can be used
+# now Async++ can be used
 find_package(Async++ CONFIG REQUIRED)
 
 set(CMAKE_CXX_STANDARD 11)

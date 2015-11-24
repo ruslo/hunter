@@ -15,11 +15,11 @@ hunter_add_version(
     PACKAGE_NAME
     Async++
     VERSION
-    "0.0.2-hunter"
+    "0.0.3-hunter"
     URL
-    "https://github.com/hunter-packages/asyncplusplus/archive/v0.0.2-hunter.tar.gz"
+    "https://github.com/hunter-packages/asyncplusplus/archive/v0.0.3-hunter.tar.gz"
     SHA1
-    19ad060bed5addd8975f27757231ff610117aeb6
+    1d3cfdde4b18547eace113cdf7ac670fb6a2c420
 )
 
 hunter_pick_scheme(DEFAULT url_sha1_cmake)
