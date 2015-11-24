@@ -151,11 +151,8 @@ env:
     #
     - PROJECT_DIR=examples/Async++ TOOLCHAIN=default
     - PROJECT_DIR=examples/Async++ TOOLCHAIN=libcxx
-    - PROJECT_DIR=examples/Async++ TOOLCHAIN=clang-libstdcxx
     - PROJECT_DIR=examples/Async++ TOOLCHAIN=xcode
     - PROJECT_DIR=examples/Async++ TOOLCHAIN=gcc
-    - PROJECT_DIR=examples/Async++ TOOLCHAIN=ios-nocodesign
-    - PROJECT_DIR=examples/Async++ TOOLCHAIN=analyze
     #
     - PROJECT_DIR=examples/Eigen TOOLCHAIN=default
     #
