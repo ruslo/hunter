@@ -113,4 +113,9 @@ foreach(x ${list_of_strings})
   endif()
 endforeach()
 
+string(COMPARE EQUAL "${macroses}" "" is_empty)
+if(is_empty)
+  hunter_internal_error("No toolchain info generated")
+endif()
+
 file(APPEND "${TOOLCHAIN_INFO_FILE}" "Predefined macroses:\n${macroses}")
