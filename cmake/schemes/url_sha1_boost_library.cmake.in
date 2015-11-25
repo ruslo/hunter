@@ -2,6 +2,7 @@
 # All rights reserved.
 
 cmake_minimum_required(VERSION 3.0)
+
 project(Hunter)
 
 include(ExternalProject) # ExternalProject_Add
@@ -243,6 +244,35 @@ if(ANDROID)
   file(
       APPEND ${boost_user_jam} "  : \"${boost_compiler}\" ${CMAKE_CXX_FLAGS}\n"
   )
+elseif(WIN32)
+  # Even though user.config.jam provides the path to archiver 'b2'
+  # tries to find it based on the path to the compiler. In this 
+  # process if the path contains any spaces or any other invalid 
+  # characters that windows use for its long names, it derives a 
+  # path which is incorrect. To solve this we convert the path to 
+  # 8.3 FileName format or windows short filename format.
+  set(conversion_cmd
+	  "cmd" 
+	  "/c" 
+	  "for" 
+	  "%A" 
+	  "in" 
+	  ("${boost_compiler}") 
+	  "do" 
+	  "@echo"
+	  "%~sA"
+	)
+  
+  execute_process(
+      COMMAND ${conversion_cmd}
+      WORKING_DIRECTORY "${HUNTER_PACKAGE_HOME_DIR}"
+      RESULT_VARIABLE conversion_result
+      OUTPUT_VARIABLE boost_compiler
+  ) 
+  
+  string(REGEX REPLACE "\n" "" boost_compiler ${boost_compiler})
+  string(REGEX REPLACE "[\\]" "/" boost_compiler ${boost_compiler})
+  file(APPEND ${boost_user_jam} "  : \"${boost_compiler}\"\n")
 else()
   file(APPEND ${boost_user_jam} "  : \"${boost_compiler}\"\n")
 endif()
@@ -291,8 +321,11 @@ if(@HUNTER_STATUS_DEBUG@)
   set(verbose_output "-d+2 --debug-configuration")
 endif()
 
-if("@MSVC@" OR "@MINGW@")
+if("@MSVC@")
   set(bootstrap_cmd "bootstrap.bat")
+  set(b2_cmd "b2")
+elseif("@MINGW@")
+  set(bootstrap_cmd "bootstrap.bat" "mingw")
   set(b2_cmd "b2")
 else()
   set(bootstrap_cmd "./bootstrap.sh")
