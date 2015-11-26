@@ -120,7 +120,6 @@ env:
     - PROJECT_DIR=examples/CLAPACK TOOLCHAIN=clang-libstdcxx
     - PROJECT_DIR=examples/CLAPACK TOOLCHAIN=xcode
     - PROJECT_DIR=examples/CLAPACK TOOLCHAIN=gcc
-    - PROJECT_DIR=examples/CLAPACK TOOLCHAIN=analyze
     #
     - PROJECT_DIR=examples/TIFF TOOLCHAIN=default
     - PROJECT_DIR=examples/TIFF TOOLCHAIN=libcxx
