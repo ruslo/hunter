@@ -13,14 +13,11 @@ install:
     - export PATH="`pwd`/polly-${POLLY_VERSION}/bin:${PATH}"
     # -- end
     # install cmake
-    - CMAKE_VERSION="3.2.1-ruslo"
-    - wget "https://github.com/ruslo/CMake/archive/v${CMAKE_VERSION}.tar.gz"
-    - openssl sha1 "v${CMAKE_VERSION}.tar.gz"
-    - tar xf "v${CMAKE_VERSION}.tar.gz"
-    - cd "CMake-${CMAKE_VERSION}"
-    -   build.py --install --toolchain default --config Release --fwd "CMAKE_USE_SYSTEM_CURL=YES"
-    -   export PATH="`pwd`/_install/default/bin:${PATH}"
-    - cd ..
+    - CMAKE_TAG="3.3.2-p0"
+    - CMAKE_VERSION="3.3.2"
+    - wget "https://github.com/ruslo/CMake/releases/download/v${CMAKE_TAG}/cmake-${CMAKE_VERSION}-Darwin-x86_64.tar.gz"
+    - tar xf "cmake-${CMAKE_VERSION}-Darwin-x86_64.tar.gz"
+    - export PATH="`pwd`/cmake-${CMAKE_VERSION}-Darwin-x86_64/bin:${PATH}"
     # -- end
     # verify installed cmake
     - which cmake
