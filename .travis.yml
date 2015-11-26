@@ -114,7 +114,6 @@ env:
     - PROJECT_DIR=examples/GSL TOOLCHAIN=clang-libstdcxx
     - PROJECT_DIR=examples/GSL TOOLCHAIN=xcode
     - PROJECT_DIR=examples/GSL TOOLCHAIN=gcc
-    - PROJECT_DIR=examples/GSL TOOLCHAIN=analyze
     #
     - PROJECT_DIR=examples/CLAPACK TOOLCHAIN=default
     - PROJECT_DIR=examples/CLAPACK TOOLCHAIN=libcxx
