@@ -61,7 +61,6 @@ env:
     - PROJECT_DIR=examples/Expat TOOLCHAIN=xcode
     - PROJECT_DIR=examples/Expat TOOLCHAIN=gcc
     - PROJECT_DIR=examples/Expat TOOLCHAIN=ios-nocodesign
-    - PROJECT_DIR=examples/Expat TOOLCHAIN=analyze
     #
     - PROJECT_DIR=examples/GTest TOOLCHAIN=default
     - PROJECT_DIR=examples/GTest TOOLCHAIN=libcxx
