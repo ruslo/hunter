@@ -127,7 +127,6 @@ env:
     - PROJECT_DIR=examples/TIFF TOOLCHAIN=xcode
     - PROJECT_DIR=examples/TIFF TOOLCHAIN=gcc
     - PROJECT_DIR=examples/TIFF TOOLCHAIN=ios-nocodesign
-    - PROJECT_DIR=examples/TIFF TOOLCHAIN=analyze
     #
     - PROJECT_DIR=examples/glog TOOLCHAIN=default
     - PROJECT_DIR=examples/glog TOOLCHAIN=libcxx
