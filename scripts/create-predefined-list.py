@@ -153,6 +153,22 @@ cpp_one_check = """
 #endif
 """
 
+# http://clang.llvm.org/docs/AddressSanitizer.html#conditional-compilation-with-has-feature-address-sanitizer
+sanitize_detect_check = """
+#if defined(__has_feature)
+# if __has_feature({}_sanitizer)
+#  pragma message(HUNTER_INFO(__HUNTER_DETECT_FEATURE_{}_sanitizer))
+# endif
+#endif
+"""
+
+sanitizers_list = [
+    'address',
+#    'leak', # Not detected!
+    'memory',
+    'thread'
+]
+
 cpp_end = """
 int main() {
 }
@@ -163,4 +179,6 @@ if macros_list:
   cpp_result.write(cpp_head)
   for x in macros_list:
     cpp_result.write(cpp_one_check.format(x, x))
+  for x in sanitizers_list:
+    cpp_result.write(sanitize_detect_check.format(x, x))
   cpp_result.write(cpp_end)

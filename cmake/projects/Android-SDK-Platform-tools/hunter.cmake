@@ -16,6 +16,28 @@ if(CMAKE_HOST_APPLE)
       PACKAGE_NAME
       Android-SDK-Platform-tools
       VERSION
+      "r23.0.1"
+      URL
+      "http://dl-ssl.google.com/android/repository/platform-tools_r23.0.1-macosx.zip"
+      SHA1
+      c461d66f3ca9fbae8ea0fa1a49c203b3b6fd653f
+  )
+
+  hunter_add_version(
+      PACKAGE_NAME
+      Android-SDK-Platform-tools
+      VERSION
+      "r23"
+      URL
+      "http://dl-ssl.google.com/android/repository/platform-tools_r23-macosx.zip"
+      SHA1
+      1403fa0d1bb57ec31170d7905e8505e3b0ed05ee
+  )
+
+  hunter_add_version(
+      PACKAGE_NAME
+      Android-SDK-Platform-tools
+      VERSION
       "r22"
       URL
       "http://dl-ssl.google.com/android/repository/platform-tools_r22-macosx.zip"
@@ -38,6 +60,28 @@ elseif(CMAKE_HOST_UNIX)
       PACKAGE_NAME
       Android-SDK-Platform-tools
       VERSION
+      "r23.0.1"
+      URL
+      "http://dl-ssl.google.com/android/repository/platform-tools_r23.0.1-linux.zip"
+      SHA1
+      94dcc5072b3d0d74cc69e4101958b6c2e227e738
+  )
+
+  hunter_add_version(
+      PACKAGE_NAME
+      Android-SDK-Platform-tools
+      VERSION
+      "r23"
+      URL
+      "http://dl-ssl.google.com/android/repository/platform-tools_r23-linux.zip"
+      SHA1
+      31078104e5927d823c28550c01275c437a87def7
+  )
+
+  hunter_add_version(
+      PACKAGE_NAME
+      Android-SDK-Platform-tools
+      VERSION
       "r22"
       URL
       "http://dl-ssl.google.com/android/repository/platform-tools_r22-linux.zip"
@@ -56,6 +100,28 @@ elseif(CMAKE_HOST_UNIX)
       2502ade68af9f6288c4dd7726796599e8d9a4337
   )
 elseif(CMAKE_HOST_WIN32)
+  hunter_add_version(
+      PACKAGE_NAME
+      Android-SDK-Platform-tools
+      VERSION
+      "r23.0.1"
+      URL
+      "http://dl-ssl.google.com/android/repository/platform-tools_r23.0.1-windows.zip"
+      SHA1
+      8f32d5f724618ad58e71909cc963ae006d0867b0
+  )
+
+  hunter_add_version(
+      PACKAGE_NAME
+      Android-SDK-Platform-tools
+      VERSION
+      "r23"
+      URL
+      "http://dl-ssl.google.com/android/repository/platform-tools_r23-windows.zip"
+      SHA1
+      52b4816990d2d18a34645bbf20a31b38a7859d4c
+  )
+
   hunter_add_version(
       PACKAGE_NAME
       Android-SDK-Platform-tools

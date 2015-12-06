@@ -235,16 +235,19 @@ file(
     "  : ${toolset_version}\n"
 )
 
-if(ANDROID)
+if(MSVC)
+  # For Visual Studio C++ flags must not be set in compiler section.
+  # Section <compileflags> should be used.
+  #   * https://github.com/ruslo/hunter/issues/179
+  file(APPEND ${boost_user_jam} "  : \"${boost_compiler}\"\n")
+else()
   # For Android C++ flags must be part of the compiler section:
   #   * https://github.com/ruslo/hunter/issues/174
-  # But such approach doesn't work for Visual Studio:
-  #   * https://github.com/ruslo/hunter/issues/179
+  # For 'sanitize-address' toolchain flags must be part of the compiler section:
+  #   * https://github.com/ruslo/hunter/issues/269
   file(
       APPEND ${boost_user_jam} "  : \"${boost_compiler}\" ${CMAKE_CXX_FLAGS}\n"
   )
-else()
-  file(APPEND ${boost_user_jam} "  : \"${boost_compiler}\"\n")
 endif()
 
 file(
@@ -253,7 +256,7 @@ file(
     "  : <archiver> \"${CMAKE_AR}\"\n"
 )
 
-if(NOT ANDROID)
+if(MSVC)
   # See 'boost_compiler' section
   foreach(cxx_flag ${cxx_flags_list})
     file(

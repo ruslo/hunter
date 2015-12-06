@@ -154,6 +154,8 @@ def run():
       sys.executable,
       build_script,
       '--clear',
+      '--config',
+      'Release',
       '--toolchain',
       toolchain,
       '--home',

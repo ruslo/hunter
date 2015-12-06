@@ -7,20 +7,17 @@ install:
     - brew install cmake
     - brew install python3
     # install cmake toolchains and script
-    - POLLY_VERSION="0.6.2"
+    - POLLY_VERSION="0.8.0"
     - wget "https://github.com/ruslo/polly/archive/v${POLLY_VERSION}.tar.gz"
     - tar xf "v${POLLY_VERSION}.tar.gz"
     - export PATH="`pwd`/polly-${POLLY_VERSION}/bin:${PATH}"
     # -- end
     # install cmake
-    - CMAKE_VERSION="3.2.1-ruslo"
-    - wget "https://github.com/ruslo/CMake/archive/v${CMAKE_VERSION}.tar.gz"
-    - openssl sha1 "v${CMAKE_VERSION}.tar.gz"
-    - tar xf "v${CMAKE_VERSION}.tar.gz"
-    - cd "CMake-${CMAKE_VERSION}"
-    -   build.py --install --toolchain default --config Release --fwd "CMAKE_USE_SYSTEM_CURL=YES"
-    -   export PATH="`pwd`/_install/default/bin:${PATH}"
-    - cd ..
+    - CMAKE_TAG="3.3.2-p0"
+    - CMAKE_VERSION="3.3.2"
+    - wget "https://github.com/ruslo/CMake/releases/download/v${CMAKE_TAG}/cmake-${CMAKE_VERSION}-Darwin-x86_64.tar.gz"
+    - tar xf "cmake-${CMAKE_VERSION}-Darwin-x86_64.tar.gz"
+    - export PATH="`pwd`/cmake-${CMAKE_VERSION}-Darwin-x86_64/bin:${PATH}"
     # -- end
     # verify installed cmake
     - which cmake
@@ -64,7 +61,6 @@ env:
     - PROJECT_DIR=examples/Expat TOOLCHAIN=xcode
     - PROJECT_DIR=examples/Expat TOOLCHAIN=gcc
     - PROJECT_DIR=examples/Expat TOOLCHAIN=ios-nocodesign
-    - PROJECT_DIR=examples/Expat TOOLCHAIN=analyze
     #
     - PROJECT_DIR=examples/GTest TOOLCHAIN=default
     - PROJECT_DIR=examples/GTest TOOLCHAIN=libcxx
@@ -80,7 +76,6 @@ env:
     - PROJECT_DIR=examples/Libssh2 TOOLCHAIN=xcode
     - PROJECT_DIR=examples/Libssh2 TOOLCHAIN=gcc
     - PROJECT_DIR=examples/Libssh2 TOOLCHAIN=ios-nocodesign
-    - PROJECT_DIR=examples/Libssh2 TOOLCHAIN=analyze
     #
     - PROJECT_DIR=examples/OpenSSL TOOLCHAIN=default
     - PROJECT_DIR=examples/OpenSSL TOOLCHAIN=libcxx
@@ -119,14 +114,12 @@ env:
     - PROJECT_DIR=examples/GSL TOOLCHAIN=clang-libstdcxx
     - PROJECT_DIR=examples/GSL TOOLCHAIN=xcode
     - PROJECT_DIR=examples/GSL TOOLCHAIN=gcc
-    - PROJECT_DIR=examples/GSL TOOLCHAIN=analyze
     #
     - PROJECT_DIR=examples/CLAPACK TOOLCHAIN=default
     - PROJECT_DIR=examples/CLAPACK TOOLCHAIN=libcxx
     - PROJECT_DIR=examples/CLAPACK TOOLCHAIN=clang-libstdcxx
     - PROJECT_DIR=examples/CLAPACK TOOLCHAIN=xcode
     - PROJECT_DIR=examples/CLAPACK TOOLCHAIN=gcc
-    - PROJECT_DIR=examples/CLAPACK TOOLCHAIN=analyze
     #
     - PROJECT_DIR=examples/TIFF TOOLCHAIN=default
     - PROJECT_DIR=examples/TIFF TOOLCHAIN=libcxx
@@ -134,7 +127,6 @@ env:
     - PROJECT_DIR=examples/TIFF TOOLCHAIN=xcode
     - PROJECT_DIR=examples/TIFF TOOLCHAIN=gcc
     - PROJECT_DIR=examples/TIFF TOOLCHAIN=ios-nocodesign
-    - PROJECT_DIR=examples/TIFF TOOLCHAIN=analyze
     #
     - PROJECT_DIR=examples/glog TOOLCHAIN=default
     - PROJECT_DIR=examples/glog TOOLCHAIN=libcxx
@@ -149,7 +141,18 @@ env:
     - PROJECT_DIR=examples/spdlog TOOLCHAIN=ios-nocodesign
     - PROJECT_DIR=examples/spdlog TOOLCHAIN=analyze
     #
+    - PROJECT_DIR=examples/Async++ TOOLCHAIN=default
+    - PROJECT_DIR=examples/Async++ TOOLCHAIN=libcxx
+    - PROJECT_DIR=examples/Async++ TOOLCHAIN=xcode
+    - PROJECT_DIR=examples/Async++ TOOLCHAIN=gcc
+    #
     - PROJECT_DIR=examples/Eigen TOOLCHAIN=default
+    #
+    - PROJECT_DIR=examples/freetype TOOLCHAIN=default
+    - PROJECT_DIR=examples/freetype TOOLCHAIN=libcxx
+    - PROJECT_DIR=examples/freetype TOOLCHAIN=clang-libstdcxx
+    - PROJECT_DIR=examples/freetype TOOLCHAIN=xcode
+    - PROJECT_DIR=examples/freetype TOOLCHAIN=gcc
     #
     - PROJECT_DIR=examples/ippicv TOOLCHAIN=default
     - PROJECT_DIR=examples/Android-Build-Tools TOOLCHAIN=default

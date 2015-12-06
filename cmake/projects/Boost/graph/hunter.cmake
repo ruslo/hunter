@@ -22,4 +22,5 @@ hunter_download(
     Boost
     PACKAGE_COMPONENT
     graph
+    PACKAGE_INTERNAL_DEPS_ID "1"
 )

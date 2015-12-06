@@ -2427,5 +2427,23 @@
 # pragma message(HUNTER_INFO(_hpux))
 #endif
 
+#if defined(__has_feature)
+# if __has_feature(address_sanitizer)
+#  pragma message(HUNTER_INFO(__HUNTER_DETECT_FEATURE_address_sanitizer))
+# endif
+#endif
+
+#if defined(__has_feature)
+# if __has_feature(memory_sanitizer)
+#  pragma message(HUNTER_INFO(__HUNTER_DETECT_FEATURE_memory_sanitizer))
+# endif
+#endif
+
+#if defined(__has_feature)
+# if __has_feature(thread_sanitizer)
+#  pragma message(HUNTER_INFO(__HUNTER_DETECT_FEATURE_thread_sanitizer))
+# endif
+#endif
+
 int main() {
 }
