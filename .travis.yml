@@ -154,6 +154,14 @@ env:
     - PROJECT_DIR=examples/freetype TOOLCHAIN=xcode
     - PROJECT_DIR=examples/freetype TOOLCHAIN=gcc
     #
+    - PROJECT_DIR=examples/half TOOLCHAIN=default
+    - PROJECT_DIR=examples/half TOOLCHAIN=libcxx
+    - PROJECT_DIR=examples/half TOOLCHAIN=clang-libstdcxx
+    - PROJECT_DIR=examples/half TOOLCHAIN=xcode
+    - PROJECT_DIR=examples/half TOOLCHAIN=gcc
+    - PROJECT_DIR=examples/half TOOLCHAIN=ios-nocodesign
+    - PROJECT_DIR=examples/half TOOLCHAIN=analyze
+    #
     - PROJECT_DIR=examples/ippicv TOOLCHAIN=default
     - PROJECT_DIR=examples/Android-Build-Tools TOOLCHAIN=default
     - PROJECT_DIR=examples/Android-SDK-Platform TOOLCHAIN=default
