@@ -19,5 +19,7 @@ hunter_add_version(
     5395f8637c14b41f950b28f2c1dba65f30fa7030
 )
 
+hunter_cacheable(Lua)
+
 hunter_pick_scheme(DEFAULT url_sha1_cmake)
 hunter_download(PACKAGE_NAME Lua)
