@@ -153,8 +153,6 @@ env:
     - PROJECT_DIR=examples/freetype TOOLCHAIN=clang-libstdcxx
     - PROJECT_DIR=examples/freetype TOOLCHAIN=xcode
     - PROJECT_DIR=examples/freetype TOOLCHAIN=gcc
-    - PROJECT_DIR=examples/freetype TOOLCHAIN=ios-nocodesign
-    - PROJECT_DIR=examples/freetype TOOLCHAIN=analyze
     #
     - PROJECT_DIR=examples/ippicv TOOLCHAIN=default
     - PROJECT_DIR=examples/Android-Build-Tools TOOLCHAIN=default
