@@ -188,7 +188,7 @@ env:
     - PROJECT_DIR=tests/hunter_pack_directory TOOLCHAIN=default
     - PROJECT_DIR=tests/hunter_process_dependency_node TOOLCHAIN=default
     - PROJECT_DIR=tests/hunter_register_dependency TOOLCHAIN=default
-    - PROJECT_DIR=tests/hunter_setup_msvc_arch TOOLCHAIN=default
+    - PROJECT_DIR=tests/hunter_setup_msvc TOOLCHAIN=default
     - PROJECT_DIR=tests/hunter_unpack_directory TOOLCHAIN=default
     - PROJECT_DIR=tests/autotools-merge-lipo TOOLCHAIN=default
     ### -- end
