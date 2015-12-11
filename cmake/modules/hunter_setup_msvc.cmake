@@ -15,7 +15,7 @@ include(hunter_status_debug)
 macro(hunter_setup_msvc)
   if(MSVC AND NOT HUNTER_MSVC_ARCH)
     hunter_status_debug("MSVC generator: ${CMAKE_GENERATOR}")
-    STRING(REGEX REPLACE "^Visual Studio (8 2005|9 2008|10 2010|11 2012|12 2013)( Win64| ARM|)" "\\1;\\2" _hunter_msvc_check "${CMAKE_GENERATOR}")
+    STRING(REGEX REPLACE "^Visual Studio (8 2005|9 2008|10 2010|11 2012|12 2013|14 2015)( Win64| ARM|)" "\\1;\\2" _hunter_msvc_check "${CMAKE_GENERATOR}")
     list(GET _hunter_msvc_check 0 _hunter_msvc_check_string)
 
     string(COMPARE EQUAL "${_hunter_msvc_check_string}" "${CMAKE_GENERATOR}" _hunter_msvc_check_string_bool)
