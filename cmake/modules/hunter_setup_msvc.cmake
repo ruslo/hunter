@@ -4,6 +4,7 @@
 cmake_minimum_required(VERSION 3.0)
 
 include(hunter_internal_error)
+include(hunter_status_print)
 
 # Detect architecture, year and version by MSVC name generator.
 # Sets HUNTER_MSVC_ARCH, HUNTER_MSVC_VERSION, HUNTER_MSVC_YEAR
