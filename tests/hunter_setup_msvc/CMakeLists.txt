@@ -26,6 +26,7 @@ function(run_check generator expected_arch expected_version expected_year)
   message("  expected version: ${expected_version}")
   message("  expected year: ${expected_year}")
   
+  set(HUNTER_TESTING TRUE)
   hunter_setup_msvc()
 
   string(COMPARE EQUAL "${HUNTER_MSVC_ARCH}" "${expected_arch}" is_equal)

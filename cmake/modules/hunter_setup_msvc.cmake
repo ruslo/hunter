@@ -55,9 +55,13 @@ macro(hunter_setup_msvc)
 
       string(COMPARE EQUAL "${_hunter_vcvarsall_path}" "" _is_empty)
       if(_is_empty)
-        hunter_internal_error(
-             "Environment variable ${_hunter_vcvarsall_env} is empty"
-        )
+        if(HUNTER_TESTING)
+          # ignore error, see 'tests/hunter_setup_msvc/CMakeLists.txt'
+        else()
+          hunter_internal_error(
+               "Environment variable ${_hunter_vcvarsall_env} is empty"
+          )
+        endif()
       endif()
 
       set(_hunter_vcvarsall_path "${_hunter_vcvarsall_path}/../../VC")
@@ -70,7 +74,11 @@ macro(hunter_setup_msvc)
         NO_DEFAULT_PATH
       )
       if(NOT HUNTER_MSVC_VCVARSALL)
-        hunter_internal_error("vcvarsall.bat not found in `${_hunter_vcvarsall_path}`")
+        if(HUNTER_TESTING)
+          # ignore error, see 'tests/hunter_setup_msvc/CMakeLists.txt'
+        else()
+          hunter_internal_error("vcvarsall.bat not found in `${_hunter_vcvarsall_path}`")
+        endif()
       endif()
 
       hunter_status_debug("vcvarsall.bat file location: ${HUNTER_MSVC_VCVARSALL}")
