@@ -10,7 +10,14 @@ include(hunter_setup_msvc)
 
 function(run_check generator expected_arch expected_version expected_year)
   set(MSVC TRUE)
+
   set(HUNTER_MSVC_ARCH "")
+  set(HUNTER_MSVC_VERSION "")
+  set(HUNTER_MSVC_YEAR "")
+
+  unset(HUNTER_MSVC_VCVARSALL)
+  unset(HUNTER_MSVC_VCVARSALL CACHE)
+
   set(CMAKE_GENERATOR ${generator})
 
   message("Run test")
