@@ -49,20 +49,20 @@ macro(hunter_setup_msvc)
 
       hunter_status_print("HUNTER_MSVC_ARCH: ${HUNTER_MSVC_ARCH}")
 
-      set(_hunter_result "${HUNTER_MSVC_VERSION}0")
-      set(_hunter_result "VS${_hunter_result}COMNTOOLS")
+      set(_hunter_vcvarsall_path "${HUNTER_MSVC_VERSION}0")
+      set(_hunter_vcvarsall_path "VS${_hunter_vcvarsall_path}COMNTOOLS")
 
-      set(_hunter_result "$ENV{${_hunter_result}}/../../VC")
-      get_filename_component(_hunter_result "${_hunter_result}" ABSOLUTE)
+      set(_hunter_vcvarsall_path "$ENV{${_hunter_vcvarsall_path}}/../../VC")
+      get_filename_component(_hunter_vcvarsall_path "${_hunter_vcvarsall_path}" ABSOLUTE)
       find_file(
         HUNTER_MSVC_VCVARSALL
         "vcvarsall.bat"
         PATHS
-        "${_hunter_result}"
+        "${_hunter_vcvarsall_path}"
         NO_DEFAULT_PATH
       )
       if(NOT HUNTER_MSVC_VCVARSALL)
-        hunter_internal_error("vcvarsall.bat not found in `${_hunter_result}`")
+        hunter_internal_error("vcvarsall.bat not found in `${_hunter_vcvarsall_path}`")
       endif()
 
       hunter_status_print("vcvarsall.bat file location: ${HUNTER_MSVC_VCVARSALL}")
@@ -74,7 +74,7 @@ macro(hunter_setup_msvc)
       unset(_hunter_msvc_check_string)
       unset(_hunter_msvc_check_string_bool)
       unset(_hunter_msvc_version_list)
-      unset(_hunter_result)
+      unset(_hunter_vcvarsall_path)
     endif()
   endif()
 endmacro()
