@@ -93,10 +93,8 @@ macro(hunter_finalize)
   hunter_create_cache_file("${HUNTER_CACHE_FILE}")
 
   if(MSVC)
-    include(hunter_setup_msvc_arch)
-    include(hunter_setup_msvc_vcvarsall)
-    hunter_setup_msvc_arch()
-    hunter_setup_msvc_vcvarsall()
+    include(hunter_setup_msvc)
+    hunter_setup_msvc()
   endif()
 
   ### Disable package registry
