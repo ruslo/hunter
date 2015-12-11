@@ -35,23 +35,11 @@ set(HUNTER_Qt_VERSION "@HUNTER_Qt_VERSION@")
 if("@MSVC@")
   hunter_test_string_not_empty("@HUNTER_MSVC_ARCH@")
   hunter_test_string_not_empty("@HUNTER_MSVC_VCVARSALL@")
+  hunter_test_string_not_empty("@HUNTER_MSVC_YEAR@")
 endif()
 
 if("@MSVC@")
   set(env_cmd "@HUNTER_MSVC_VCVARSALL@" "@HUNTER_MSVC_ARCH@")
-
-  # Find the year of Visual Studio
-  string(REPLACE " " ";" msvc_year "${CMAKE_GENERATOR}")
-  list(GET msvc_year 3 msvc_year)
-
-  hunter_status_debug("CMake generator: ${CMAKE_GENERATOR}")
-  hunter_status_debug("Year: ${msvc_year}")
-
-  string(COMPARE EQUAL "${msvc_year}" "" is_empty)
-  if(is_empty)
-    hunter_internal_error("Can't detect error of Visual Studio generator")
-  endif()
-
   hunter_status_debug("Environment command: ${env_cmd}")
 else()
   # Workaround for: http://public.kitware.com/Bug/view.php?id=15567
@@ -146,7 +134,7 @@ elseif(_is_linux)
       -qt-xcb
   )
 elseif("@MSVC@")
-  list(APPEND configure_opts -platform "win32-msvc${msvc_year}")
+  list(APPEND configure_opts -platform "win32-msvc@HUNTER_MSVC_YEAR@")
 elseif("@MINGW@")
   list(APPEND configure_opts -platform "win32-g++")
   list(APPEND configure_opts -opengl "desktop")
