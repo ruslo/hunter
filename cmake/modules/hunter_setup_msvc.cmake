@@ -4,7 +4,7 @@
 cmake_minimum_required(VERSION 3.0)
 
 include(hunter_internal_error)
-include(hunter_status_print)
+include(hunter_status_debug)
 
 # Detect architecture, year and version by MSVC name generator.
 # Sets HUNTER_MSVC_ARCH, HUNTER_MSVC_VERSION, HUNTER_MSVC_YEAR
@@ -14,7 +14,7 @@ include(hunter_status_print)
 # Checks for file "vcvarsall.bat" and imports the file as HUNTER_MSVC_VCVARSALL
 macro(hunter_setup_msvc)
   if(MSVC AND NOT HUNTER_MSVC_ARCH)
-    hunter_status_print("MSVC generator: ${CMAKE_GENERATOR}")
+    hunter_status_debug("MSVC generator: ${CMAKE_GENERATOR}")
     STRING(REGEX REPLACE "^Visual Studio (8 2005|9 2008|10 2010|11 2012|12 2013)( Win64| ARM|)" "\\1;\\2" _hunter_msvc_check "${CMAKE_GENERATOR}")
     list(GET _hunter_msvc_check 0 _hunter_msvc_check_string)
 
@@ -27,8 +27,8 @@ macro(hunter_setup_msvc)
       list(GET _hunter_msvc_version_list 0 HUNTER_MSVC_VERSION)
       list(GET _hunter_msvc_version_list 1 HUNTER_MSVC_YEAR)
 
-      hunter_status_print("HUNTER_MSVC_VERSION: ${HUNTER_MSVC_VERSION}")
-      hunter_status_print("HUNTER_MSVC_YEAR: ${HUNTER_MSVC_YEAR}")
+      hunter_status_debug("HUNTER_MSVC_VERSION: ${HUNTER_MSVC_VERSION}")
+      hunter_status_debug("HUNTER_MSVC_YEAR: ${HUNTER_MSVC_YEAR}")
 
       list(GET _hunter_msvc_check 1 HUNTER_MSVC_ARCH)
       string(STRIP "${HUNTER_MSVC_ARCH}" HUNTER_MSVC_ARCH)
@@ -47,7 +47,7 @@ macro(hunter_setup_msvc)
         hunter_internal_error("Can't detect generator arch: ${CMAKE_GENERATOR}")
       endif()
 
-      hunter_status_print("HUNTER_MSVC_ARCH: ${HUNTER_MSVC_ARCH}")
+      hunter_status_debug("HUNTER_MSVC_ARCH: ${HUNTER_MSVC_ARCH}")
 
       set(_hunter_vcvarsall_env "${HUNTER_MSVC_VERSION}0")
       set(_hunter_vcvarsall_env "VS${_hunter_vcvarsall_env}COMNTOOLS")
@@ -73,7 +73,7 @@ macro(hunter_setup_msvc)
         hunter_internal_error("vcvarsall.bat not found in `${_hunter_vcvarsall_path}`")
       endif()
 
-      hunter_status_print("vcvarsall.bat file location: ${HUNTER_MSVC_VCVARSALL}")
+      hunter_status_debug("vcvarsall.bat file location: ${HUNTER_MSVC_VCVARSALL}")
 
       unset(_hunter_result_win64)
       unset(_hunter_result_arm)
