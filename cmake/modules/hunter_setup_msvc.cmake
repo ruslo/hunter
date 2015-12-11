@@ -49,10 +49,18 @@ macro(hunter_setup_msvc)
 
       hunter_status_print("HUNTER_MSVC_ARCH: ${HUNTER_MSVC_ARCH}")
 
-      set(_hunter_vcvarsall_path "${HUNTER_MSVC_VERSION}0")
-      set(_hunter_vcvarsall_path "VS${_hunter_vcvarsall_path}COMNTOOLS")
+      set(_hunter_vcvarsall_env "${HUNTER_MSVC_VERSION}0")
+      set(_hunter_vcvarsall_env "VS${_hunter_vcvarsall_env}COMNTOOLS")
+      set(_hunter_vcvarsall_path "$ENV{${_hunter_vcvarsall_env}}")
 
-      set(_hunter_vcvarsall_path "$ENV{${_hunter_vcvarsall_path}}/../../VC")
+      string(COMPARE EQUAL "${_hunter_vcvarsall_path}" "" _is_empty)
+      if(_is_empty)
+        hunter_internal_error(
+             "Environment variable ${_hunter_vcvarsall_env} is empty"
+        )
+      endif()
+
+      set(_hunter_vcvarsall_path "${_hunter_vcvarsall_path}/../../VC")
       get_filename_component(_hunter_vcvarsall_path "${_hunter_vcvarsall_path}" ABSOLUTE)
       find_file(
         HUNTER_MSVC_VCVARSALL
