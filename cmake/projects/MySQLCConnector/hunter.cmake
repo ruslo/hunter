@@ -14,7 +14,7 @@ include(hunter_pick_scheme)
 
 hunter_add_version(
     PACKAGE_NAME
-    MySQLCClient
+    MySQLCConnector
     VERSION
     "v6.1.6"
     URL
@@ -24,5 +24,5 @@ hunter_add_version(
 )
 
 hunter_pick_scheme(DEFAULT url_sha1_cmake)
-hunter_cacheable(MySQL)
-hunter_download(PACKAGE_NAME protobuf)
+hunter_cacheable(MySQLCConnector)
+hunter_download(PACKAGE_NAME MySQLCConnector)
