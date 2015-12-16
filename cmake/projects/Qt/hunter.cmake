@@ -80,6 +80,17 @@ hunter_add_version(
     PACKAGE_NAME
     Qt
     VERSION
+    "5.5.1-cvpixelbuffer-p0"
+    URL
+    "https://github.com/hunter-packages/Qt/releases/download/v5.5.1-cvpixelbuffer-p0/v5.5.1-cvpixelbuffer-p0.7z"
+    SHA1
+    6c077023b0b8a7402f04a46c5b90d4db99d74369
+)
+
+hunter_add_version(
+    PACKAGE_NAME
+    Qt
+    VERSION
     "5.6.0-alpha"
     URL
     "http://download.qt.io/development_releases/qt/5.6/5.6.0-alpha/single/qt-everywhere-opensource-src-5.6.0-alpha.7z"
