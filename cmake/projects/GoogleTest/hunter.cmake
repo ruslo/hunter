@@ -18,11 +18,12 @@ hunter_add_version(
   PACKAGE_NAME
   GoogleTest
   VERSION
-  "master"
+  1.8.0-pr-hunter-2
   URL
-  "https://github.com/Knitschi/googletest/archive/1.8.0-pr-hunter.tar.gz"
+  #"file://c:/CppLibraries/LocalPackages/GoogleTest.tar.gz"
+  "https://github.com/Knitschi/googletest/archive/1.8.0-pr-hunter-2.tar.gz"
   SHA1
-  5020e154ffb6d041d326b5d870d4267d1a6b3b23
+  c909e95dccc5806d00a09fce9bbe13b39ec6284a
 )
 
 
