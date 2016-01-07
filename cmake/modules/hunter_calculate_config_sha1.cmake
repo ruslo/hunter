@@ -20,56 +20,51 @@ function(hunter_calculate_config_sha1 hunter_self hunter_base user_config)
 
   hunter_status_print("Calculating Config-SHA1")
 
-  # Include default_config
-  set(default_config "${hunter_self}/cmake/configs/default.cmake")
-  if(NOT EXISTS "${default_config}")
-    hunter_internal_error("File `${default_config}` not exists")
-  endif()
-  set(HUNTER_ALLOW_CONFIG_LOADING YES)
-  include("${default_config}")
-  set(HUNTER_ALLOW_CONFIG_LOADING NO)
+  # Include config from alternate repos
+  foreach(repo "${hunter_self}/cmake/configs" ${HUNTER_RECIPE_DIRS})
+    if(EXISTS "${repo}/default.cmake")
+      set(configname "${repo}/default.cmake")
+    elseif(EXISTS "${repo}/../configs/default.cmake")
+      # really just in case original hunter is included first to get priorities
+      # right, e.g. if a repo has a package that overshadows one from hunter.
+      set(configname "${repo}/../configs/default.cmake")
+    else()
+      hunter_internal_error("Could not find default.cmake for ${repo}")
+    endif()
+    set(HUNTER_ALLOW_CONFIG_LOADING YES)
+    include("${configname}")
+    set(HUNTER_ALLOW_CONFIG_LOADING NO)
+  endforeach()
 
-  # Include user_config
+  # Include user_config: this is a filename, so it doesn't fit in the pattern
+  # above
   if(NOT EXISTS "${user_config}")
-    hunter_internal_error("Hunter config not exists")
+    hunter_internal_error("Hunter config does not exist")
   endif()
   set(HUNTER_ALLOW_CONFIG_LOADING YES)
   include("${user_config}")
   set(HUNTER_ALLOW_CONFIG_LOADING NO)
 
   # Create list of the projects
-  set(directory_with_projects "${hunter_self}/cmake/projects")
-  if(NOT EXISTS "${directory_with_projects}")
-    hunter_internal_error("Directory `${directory_with_projects}` not exists")
-  endif()
-  if(NOT IS_DIRECTORY "${directory_with_projects}")
-    hunter_internal_error(
-        "Path `${directory_with_projects}` is not a directory"
-    )
-  endif()
-
-  file(
-      GLOB projects
-      RELATIVE "${directory_with_projects}"
-      "${directory_with_projects}/*"
-  )
+  foreach(repo "${hunter_self}/cmake/projects" ${HUNTER_RECIPE_DIRS})
+    if(NOT EXISTS "${repo}")
+      hunter_internal_error("Directory `${repo}` not exists")
+    endif()
+    if(NOT IS_DIRECTORY "${repo}")
+      hunter_internal_error("Path `${repo}` is not a directory")
+    endif()
+    file(GLOB subdirectories RELATIVE "${repo}" "${repo}/*/")
+    foreach(projectname ${subdirectories})
+      if(EXISTS "${repo}/${projectname}/hunter.cmake")
+        list(APPEND projects ${projectname})
+      endif()
+    endforeach()
+  endforeach()
 
   if(NOT projects)
     hunter_internal_error("No projects found")
   endif()
 
-  set(real_projects "")
-  foreach(x ${projects})
-    if(IS_DIRECTORY "${directory_with_projects}/${x}")
-      list(APPEND real_projects "${x}")
-    endif()
-  endforeach()
-
-  if(NOT real_projects)
-    hunter_internal_error("No projects found")
-  endif()
-
-  set(projects "${real_projects}")
   list(SORT projects)
 
   # Create unified version
