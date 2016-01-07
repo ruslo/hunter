@@ -9,6 +9,22 @@ include(hunter_internal_error)
 include(hunter_status_debug)
 include(hunter_test_string_not_empty)
 
+function(_hunter_find_project_dir projectname output)
+  hunter_test_string_not_empty("${HUNTER_SELF}")
+
+  # 'system' directory comes last. It's always possible to add it to hunter
+  # recipe dirs if different order is required
+  foreach(prospective ${HUNTER_RECIPE_DIRS} "${HUNTER_SELF}/cmake/projects")
+    set(directory "${prospective}/${projectname}")
+    if(EXISTS "${directory}/hunter.cmake")
+      set(${output} "${directory}" PARENT_SCOPE)
+      return()
+    endif()
+  endforeach()
+
+  hunter_internal_error("Project '${projectname}' not found")
+endfunction()
+
 # internal variables: _hunter_ap_*
 macro(hunter_add_package)
   string(COMPARE EQUAL "${PROJECT_NAME}" "" _project_name_is_empty)
@@ -36,17 +52,7 @@ macro(hunter_add_package)
   endif()
   list(GET _hunter_ap_arg_UNPARSED_ARGUMENTS 0 _hunter_ap_project)
 
-  hunter_test_string_not_empty("${HUNTER_SELF}")
-  set(
-      _hunter_ap_project_dir
-      "${HUNTER_SELF}/cmake/projects/${_hunter_ap_project}"
-  )
-  if(NOT EXISTS "${_hunter_ap_project_dir}")
-    hunter_internal_error("Project '${_hunter_ap_project}' not found")
-  endif()
-  if(NOT IS_DIRECTORY "${_hunter_ap_project_dir}")
-    hunter_internal_error("Project '${_hunter_ap_project}' not found")
-  endif()
+  _hunter_find_project_dir(${_hunter_ap_project} _hunter_ap_project_dir)
 
   # Check components
   foreach(_hunter_ap_component ${_hunter_ap_arg_COMPONENTS})
