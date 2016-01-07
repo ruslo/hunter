@@ -15,9 +15,9 @@ hunter_add_version(
     VERSION
     "2.6.2"
     URL
-    "http://sourceforge.net/projects/freetype/files/freetype2/2.6.2/freetype-2.6.2.tar.bz2/download"
+    "https://github.com/hunter-packages/freetype/archive/hunter.tar.gz"
     SHA1
-    29c22b85b77cb22cf95c13e7062e21f39fe6b17a
+    d310255f984c3500389d3b2782ff35128f09518b
 )
 
 hunter_pick_scheme(DEFAULT url_sha1_cmake)
