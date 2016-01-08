@@ -14,8 +14,8 @@ function(_hunter_find_project_dir projectname output)
 
   # 'system' directory comes last. It's always possible to add it to hunter
   # recipe dirs if different order is required
-  foreach(prospective ${HUNTER_RECIPE_DIRS} "${HUNTER_SELF}/cmake/projects")
-    set(directory "${prospective}/${projectname}")
+  foreach(prospective ${HUNTER_RECIPE_DIRS} "${HUNTER_SELF}/cmake")
+    set(directory "${prospective}/projects/${projectname}")
     if(EXISTS "${directory}/hunter.cmake")
       set(${output} "${directory}" PARENT_SCOPE)
       return()
