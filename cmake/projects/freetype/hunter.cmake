@@ -19,7 +19,7 @@ hunter_add_version(
     URL
     "https://github.com/hunter-packages/freetype/archive/hunter.tar.gz"
     SHA1
-    d310255f984c3500389d3b2782ff35128f09518b
+    560edf6c2fe1cc67437d6cc2ab909afe7a26bc12
 )
 
 hunter_pick_scheme(DEFAULT url_sha1_cmake)
