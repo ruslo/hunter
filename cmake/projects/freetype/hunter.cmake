@@ -1,3 +1,5 @@
+# By Denis Kerzhemanov, 2016
+
 if(DEFINED HUNTER_CMAKE_PROJECTS_FREETYPE_HUNTER_CMAKE_)
   return()
 else()
