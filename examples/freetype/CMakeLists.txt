@@ -16,4 +16,4 @@ hunter_add_package(freetype)
 find_package(freetype CONFIG REQUIRED)
 
 add_executable(foo foo.cpp)
-target_link_libraries(foo freetype)
+target_link_libraries(foo freetype::freetype)
