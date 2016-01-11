@@ -361,26 +361,30 @@ function(hunter_download)
         "Internal dependencies ID: ${HUNTER_PACKAGE_INTERNAL_DEPS_ID}"
     )
   endif()
-  
-  set(_hunter_schemes_search_dirs "")
-  
+
+  # first try in current projects directory
   set(
       download_scheme
-      "${HUNTER_PACKAGE_SETUP_DIR}/schemes/${HUNTER_DOWNLOAD_SCHEME}.cmake.in"
+      "${CMAKE_CURRENT_LIST_DIR}/schemes/${HUNTER_DOWNLOAD_SCHEME}.cmake.in"
   )
-  set(_hunter_schemes_search_dirs "${_hunter_schemes_search_dirs}, ${download_scheme}")
-  
   if(NOT EXISTS "${download_scheme}")
-    set(
-      download_scheme
-      "${HUNTER_SELF}/cmake/schemes/${HUNTER_DOWNLOAD_SCHEME}.cmake.in"
-    )
-    set(_hunter_schemes_search_dirs "${_hunter_schemes_search_dirs}, ${download_scheme}")
-    if(NOT EXISTS "${download_scheme}")
-      hunter_internal_error("Download scheme `${download_scheme}` not found. Search locations: ${_hunter_schemes_search_dirs}")
-    endif()
+    # then in different repos: repos must be orthogonal
+    unset(download_scheme)
+    set(_hunter_schemes_search_dirs "${CMAKE_CURRENT_LIST_DIR}" "${HUNTER_SELF}/cmake/" ${HUNTER_RECIPE_DIRS})
+    foreach(repo ${_hunter_scheme_search_dirs})
+      set(scheme_file "${repo}/schemes/${HUNTER_DOWNLOAD_SCHEME}.cmake.in")
+      if(EXISTS "${scheme_file}")
+        if(download_scheme)
+          hunter_internal_error("Non-orthogonal repos: `${HUNTER_DOWNLOAD_SCHEME}` found twice")
+        endif()
+        set(download_scheme "${scheme_file}")
+      endif()
+    endforeach()
   endif()
-  
+  if(NOT EXISTS "${download_scheme}")
+    hunter_internal_error("Download scheme `${HUNTER_DOWNLOAD_SCHEME}` not found in ${_hunter_schemes_search_dir}")
+  endif()
+
   hunter_status_debug(
       "Scheme file used: ${download_scheme}"
   )
