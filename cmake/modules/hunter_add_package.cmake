@@ -14,15 +14,22 @@ function(_hunter_find_project_dir projectname output)
 
   # 'system' directory comes last. It's always possible to add it to hunter
   # recipe dirs if different order is required
+  unset(project_file)
   foreach(prospective ${HUNTER_RECIPE_DIRS} "${HUNTER_SELF}/cmake")
     set(directory "${prospective}/projects/${projectname}")
     if(EXISTS "${directory}/hunter.cmake")
-      set(${output} "${directory}" PARENT_SCOPE)
-      return()
+      # ensure repos are orthogonal
+      if(project_file)
+        hunter_internal_error("Overlapping repos: '${projectname}' found twice")
+      endif()
+      set(project_file "${directory}")
     endif()
   endforeach()
+  if(NOT project_file)
+    hunter_internal_error("Project '${projectname}' not found")
+  endif()
 
-  hunter_internal_error("Project '${projectname}' not found")
+  set(${output} "${project_file}" PARENT_SCOPE)
 endfunction()
 
 # internal variables: _hunter_ap_*
