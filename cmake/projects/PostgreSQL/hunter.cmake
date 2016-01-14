@@ -24,3 +24,4 @@ hunter_add_version(
 
 hunter_pick_scheme(DEFAULT url_sha1_autotools)
 hunter_download(PACKAGE_NAME PostgreSQL)
+
