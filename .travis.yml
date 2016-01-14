@@ -180,7 +180,6 @@ env:
     - PROJECT_DIR=examples/Lua TOOLCHAIN=clang-libstdcxx
     - PROJECT_DIR=examples/Lua TOOLCHAIN=xcode
     - PROJECT_DIR=examples/Lua TOOLCHAIN=gcc
-    - PROJECT_DIR=examples/Lua TOOLCHAIN=analyze
 
     ### TESTS --
     - PROJECT_DIR=tests/simple TOOLCHAIN=default
