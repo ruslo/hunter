@@ -76,9 +76,13 @@ foreach(_odb_component ${odb_FIND_COMPONENTS})
     unset(_component_link_libraries)
     list(APPEND _component_link_libraries "odb")
     string(COMPARE EQUAL "${_odb_component}" "sqlite" is_sqlite)
+    string(COMPARE EQUAL "${_odb_component}" "pgsql" is_pgsql)
     if(is_sqlite)
       find_package(SQLite3 REQUIRED)
       list(APPEND _component_link_libraries "SQLite3")
+    elseif(is_pgsql)
+      find_package(PostgreSQL REQUIRED)
+      list(APPEND _component_link_libraries "PostgreSQL::libpq")
     endif()
 
     set_target_properties(

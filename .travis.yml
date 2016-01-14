@@ -174,6 +174,20 @@ env:
     - PROJECT_DIR=examples/odb-compiler TOOLCHAIN=default
     - PROJECT_DIR=examples/odb-sqlite TOOLCHAIN=default
     - PROJECT_DIR=examples/QtCMakeExtra TOOLCHAIN=default
+    #
+    - PROJECT_DIR=examples/Lua TOOLCHAIN=default
+    - PROJECT_DIR=examples/Lua TOOLCHAIN=libcxx
+    - PROJECT_DIR=examples/Lua TOOLCHAIN=clang-libstdcxx
+    - PROJECT_DIR=examples/Lua TOOLCHAIN=xcode
+    - PROJECT_DIR=examples/Lua TOOLCHAIN=gcc
+    #
+    - PROJECT_DIR=examples/PostgreSQL TOOLCHAIN=default
+    - PROJECT_DIR=examples/PostgreSQL TOOLCHAIN=libcxx
+    - PROJECT_DIR=examples/PostgreSQL TOOLCHAIN=clang-libstdcxx
+    - PROJECT_DIR=examples/PostgreSQL TOOLCHAIN=xcode
+    - PROJECT_DIR=examples/PostgreSQL TOOLCHAIN=gcc
+    - PROJECT_DIR=examples/PostgreSQL TOOLCHAIN=ios-nocodesign
+    - PROJECT_DIR=examples/PostgreSQL TOOLCHAIN=analyze
 
     ### TESTS --
     - PROJECT_DIR=tests/simple TOOLCHAIN=default
