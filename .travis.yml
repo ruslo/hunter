@@ -186,8 +186,6 @@ env:
     - PROJECT_DIR=examples/PostgreSQL TOOLCHAIN=clang-libstdcxx
     - PROJECT_DIR=examples/PostgreSQL TOOLCHAIN=xcode
     - PROJECT_DIR=examples/PostgreSQL TOOLCHAIN=gcc
-    - PROJECT_DIR=examples/PostgreSQL TOOLCHAIN=ios-nocodesign
-    - PROJECT_DIR=examples/PostgreSQL TOOLCHAIN=analyze
 
     ### TESTS --
     - PROJECT_DIR=tests/simple TOOLCHAIN=default
