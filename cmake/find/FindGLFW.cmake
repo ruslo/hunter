@@ -1,5 +1,5 @@
 # ----------------------------------------------------------------------
-# Findodb.cmake - odb CMake module
+# FindGLFW.cmake - GLFW CMake module
 #
 # Copyright (C) 2016 Alexandre Pretyman. All rights reserved.
 #
