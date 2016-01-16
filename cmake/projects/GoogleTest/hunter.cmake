@@ -5,7 +5,8 @@ else()
   set(HUNTER_CMAKE_PROJECTS_GOOGLETEST_HUNTER_CMAKE_ 1)
 endif()
 
-# In Contrast to the standard package that is included in hunter, this package includes GTest AND GMock
+# In contrast to the hunter-package GTest which only includes the GTest library, 
+# this package also includes GMock.
 
 
 # Load used modules
@@ -25,15 +26,8 @@ hunter_add_version(
   f4f8d3a70be157519abb1299b172713357063e90
 )
 
-
-# Probably more versions for real packages...
-
 # Pick a download scheme
 hunter_pick_scheme(DEFAULT url_sha1_cmake) # use scheme for cmake projects
 
 # Download package.
-# Two versions of library will be build by default:
-#     * libexample_A.a
-#     * libexample_Ad.a
 hunter_download(PACKAGE_NAME GoogleTest)
-
