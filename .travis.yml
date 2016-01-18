@@ -177,11 +177,8 @@ env:
     #
     - PROJECT_DIR=examples/odb-pgsql TOOLCHAIN=default
     - PROJECT_DIR=examples/odb-pgsql TOOLCHAIN=libcxx
-    - PROJECT_DIR=examples/odb-pgsql TOOLCHAIN=clang-libstdcxx
     - PROJECT_DIR=examples/odb-pgsql TOOLCHAIN=xcode
     - PROJECT_DIR=examples/odb-pgsql TOOLCHAIN=gcc
-    - PROJECT_DIR=examples/odb-pgsql TOOLCHAIN=ios-nocodesign
-    - PROJECT_DIR=examples/odb-pgsql TOOLCHAIN=analyze
     #
     - PROJECT_DIR=examples/Lua TOOLCHAIN=default
     - PROJECT_DIR=examples/Lua TOOLCHAIN=libcxx
