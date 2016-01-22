@@ -16,7 +16,7 @@ hunter_add_version(
     PACKAGE_NAME
     json_spirit
     VERSION
-    "v4.08"
+    "4.8.0"
     URL
     "https://github.com/dlinten/json_spirit/archive/master.tar.gz"
     SHA1
