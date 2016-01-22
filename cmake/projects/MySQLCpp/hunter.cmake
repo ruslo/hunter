@@ -18,9 +18,9 @@ hunter_add_version(
     VERSION
     "v6.1.6"
     URL
-    "https://dev.mysql.com/get/Downloads/Connector-C/mysql-connector-c-6.1.6-src.tar.gz"
+    "http://dev.mysql.com/get/Downloads/Connector-C++/mysql-connector-c++-1.1.6.tar.gz"
     SHA1
-    2444586365c2c58e7ca2397d4617e5fe19f9f246
+    a28a90bc04797df0d2fefe147eab8735a340afb4
 )
 
 hunter_pick_scheme(DEFAULT url_sha1_cmake)
