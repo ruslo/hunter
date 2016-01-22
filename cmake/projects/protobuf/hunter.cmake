@@ -20,7 +20,7 @@ hunter_add_version(
     URL
     "https://github.com/dlinten/protobuf/archive/v3.0.0-hunter-p1.tar.gz"
     SHA1
-    ae933354e963798aae422e619f2fce06df729d0a
+    80dfa0cf7f3e1eb25736043a0a233d82478fdcfa
 )
 
 hunter_pick_scheme(DEFAULT url_sha1_cmake)
