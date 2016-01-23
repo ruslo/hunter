@@ -8,21 +8,19 @@ else()
 endif()
 
 include(hunter_add_version)
-include(hunter_cacheable)
 include(hunter_download)
 include(hunter_pick_scheme)
 
 hunter_add_version(
     PACKAGE_NAME
-    json_spirit
+    JSONSpirit
     VERSION
     "4.8.0"
     URL
     "https://github.com/dlinten/json_spirit/archive/master.tar.gz"
     SHA1
-    10fcc59d8eace6b8861920d52e08a22a821294c5
+    5cca725566013f3424c751711671ede7fab263d4
 )
 
 hunter_pick_scheme(DEFAULT url_sha1_cmake)
-hunter_cacheable(json_spirit)
-hunter_download(PACKAGE_NAME json_spirit)
+hunter_download(PACKAGE_NAME JSONSpirit)
