@@ -19,7 +19,7 @@ hunter_add_version(
     URL
     "https://github.com/dlinten/json_spirit/archive/master.tar.gz"
     SHA1
-    5cca725566013f3424c751711671ede7fab263d4
+    70ee9917f7cf849299a83fd1fa5121414e77d9a3
 )
 
 hunter_pick_scheme(DEFAULT url_sha1_cmake)
