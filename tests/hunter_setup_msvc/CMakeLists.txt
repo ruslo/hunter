@@ -54,12 +54,12 @@ function(run_check version architecture expected_arch expected_version expected_
   endif()
 endfunction()
 
-run_check("1400" "x86" "x86" "8" "2005")
-run_check("1500" "x86" "x86" "9" "2008")
-run_check("1600" "x86" "x86" "10" "2010")
-run_check("1700" "x86" "x86" "11" "2012")
-run_check("1800" "x86" "x86" "12" "2013")
-run_check("1900" "x86" "x86" "14" "2015")
+run_check("1400" "X86" "x86" "8" "2005")
+run_check("1500" "X86" "x86" "9" "2008")
+run_check("1600" "X86" "x86" "10" "2010")
+run_check("1700" "X86" "x86" "11" "2012")
+run_check("1800" "X86" "x86" "12" "2013")
+run_check("1900" "X86" "x86" "14" "2015")
 
 run_check("1400" "x64" "amd64" "8" "2005")
 run_check("1500" "x64" "amd64" "9" "2008")

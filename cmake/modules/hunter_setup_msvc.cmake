@@ -21,7 +21,7 @@ include(hunter_status_debug)
 #       Visual Studio 12 2013 Win64 -> amd64
 #       Visual Studio 12 2013 ARM -> x86_arm
 #     CMake's MSVC_CXX_ARCHITECTURE_ID:
-#       x86 -> x86
+#       X86 -> x86
 #       x64 -> amd64
 #       ARMV7 -> x86_arm
 # * HUNTER_MSVC_VCVARSALL - full path to the 'vcvarsall.bat' script
@@ -67,7 +67,7 @@ macro(hunter_setup_msvc)
     hunter_status_debug("HUNTER_MSVC_VERSION: ${HUNTER_MSVC_VERSION}")
     hunter_status_debug("HUNTER_MSVC_YEAR: ${HUNTER_MSVC_YEAR}")
 
-    string(COMPARE EQUAL "${MSVC_CXX_ARCHITECTURE_ID}" "x86" _is_x86)
+    string(COMPARE EQUAL "${MSVC_CXX_ARCHITECTURE_ID}" "X86" _is_x86)
     string(COMPARE EQUAL "${MSVC_CXX_ARCHITECTURE_ID}" "x64" _is_x64)
     string(COMPARE EQUAL "${MSVC_CXX_ARCHITECTURE_ID}" "ARMV7" _is_arm)
 
