@@ -25,7 +25,7 @@ function(run_check generator expected_arch expected_version expected_year)
   message("  expected arch: ${expected_arch}")
   message("  expected version: ${expected_version}")
   message("  expected year: ${expected_year}")
-  
+
   set(HUNTER_TESTING TRUE)
   hunter_setup_msvc()
 
@@ -35,14 +35,14 @@ function(run_check generator expected_arch expected_version expected_year)
   else()
     message(FATAL_ERROR "Unexpected: ${HUNTER_MSVC_ARCH}")
   endif()
-  
+
   string(COMPARE EQUAL "${HUNTER_MSVC_VERSION}" "${expected_version}" is_equal)
   if(is_equal)
     message("OK")
   else()
     message(FATAL_ERROR "Unexpected: ${HUNTER_MSVC_VERSION}")
   endif()
-  
+
   string(COMPARE EQUAL "${HUNTER_MSVC_YEAR}" "${expected_year}" is_equal)
   if(is_equal)
     message("OK")
