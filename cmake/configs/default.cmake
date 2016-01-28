@@ -104,7 +104,7 @@ hunter_config(wxWidgets VERSION 3.0.2)
 if(MINGW)
   hunter_config(GTest VERSION 1.7.0-hunter-6)
 else()
-  hunter_config(GTest VERSION 1.7.0-hunter-11)
+  hunter_config(GTest VERSION 1.8.0-hunter-p1)
 endif()
 
 if(ANDROID)
