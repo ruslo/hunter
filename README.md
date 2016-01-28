@@ -6,7 +6,7 @@ Hunter [![Build Status][travis-master]][travis-hunter]
 
 ### What is it?
 
-Every Hunter [release][hunter-releases] archive is a meta-package with build instructions and URLs of real packages:
+Every Hunter [release][hunter-releases] ([Atom feed](https://github.com/ruslo/hunter/releases.atom)) archive is a meta-package with build instructions and URLs of real packages:
 ```
 Hunter (0.4.2) = {
     Boost (1.55.0, 1.56.0, 1.57.0),

@@ -16,7 +16,9 @@ set(CMAKE_AUTOUIC ON)
 set(CMAKE_AUTORCC ON)
 
 if(APPLE)
-  set(plugins "")
+  # Have to link it manually because of cyclic dependencies in Qt
+  find_package(Qt5PrintSupport REQUIRED)
+  set(plugins Qt5::PrintSupport)
 elseif(ANDROID)
   set(plugins "")
 elseif(UNIX)
