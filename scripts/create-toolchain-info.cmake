@@ -13,6 +13,7 @@ if(NOT HUNTER_SELF)
 endif()
 
 list(APPEND CMAKE_MODULE_PATH "${HUNTER_SELF}/cmake/modules")
+include(hunter_fatal_error)
 include(hunter_internal_error)
 
 if(NOT TOOLCHAIN_INFO_FILE)
@@ -115,7 +116,7 @@ endforeach()
 
 string(COMPARE EQUAL "${macroses}" "" is_empty)
 if(is_empty)
-  hunter_internal_error("No toolchain info generated")
+  hunter_fatal_error("No toolchain info generated" WIKI error.no.toolchain.info)
 endif()
 
 file(APPEND "${TOOLCHAIN_INFO_FILE}" "Predefined macroses:\n${macroses}")
