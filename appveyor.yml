@@ -11,9 +11,6 @@ environment:
     - TOOLCHAIN: "nmake-vs-12-2013-win64"
       PROJECT_DIR: examples\GTest
 
-    - TOOLCHAIN: "nmake-vs-12-2013-win64"
-      PROJECT_DIR: examples\GTest
-
     - TOOLCHAIN: "nmake-vs-12-2013"
       PROJECT_DIR: examples\GTest
 
