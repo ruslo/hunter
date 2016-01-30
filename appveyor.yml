@@ -60,7 +60,7 @@ install:
   - cmd: set MINGW_PATH=C:\Qt\Tools\mingw492_32\bin
 
   # Install Polly toolchains
-  - cmd: set POLLY_VERSION="0.9.0"
+  - cmd: set POLLY_VERSION=0.9.0
   - cmd: appveyor DownloadFile "https://github.com/ruslo/polly/archive/v%POLLY_VERSION%.tar.gz"
   - cmd: cmake -E tar xf "v%POLLY_VERSION%.tar.gz"
   - cmd: set POLLY_ROOT=%cd%\polly-%POLLY_VERSION%
