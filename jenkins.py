@@ -137,15 +137,22 @@ def run():
           else:
             shutil.rmtree(to_remove)
 
-  build_script = 'build.py'
   if os.name == 'nt':
     which = 'where'
   else:
     which = 'which'
 
-  build_script = subprocess.check_output(
-      [which, 'build.py'], universal_newlines=True
-  ).split('\n')[0]
+  polly_root = os.getenv('POLLY_ROOT')
+  if polly_root:
+    print('Using POLLY_ROOT: {}'.format(polly_root))
+    build_script = os.path.join(polly_root, 'bin', 'build.py')
+  else:
+    build_script = subprocess.check_output(
+        [which, 'build.py'], universal_newlines=True
+    ).split('\n')[0]
+
+  if not os.path.exists(build_script):
+    sys.exit('Script not found: {}'.format(build_script))
 
   print('Testing in: {}'.format(testing_dir))
   os.chdir(testing_dir)

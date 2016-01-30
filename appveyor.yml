@@ -63,7 +63,7 @@ install:
   - cmd: set POLLY_VERSION="0.9.0"
   - cmd: appveyor DownloadFile "https://github.com/ruslo/polly/archive/v%POLLY_VERSION%.tar.gz"
   - cmd: cmake -E tar xf "v%POLLY_VERSION%.tar.gz"
-  - cmd: set PATH=%cd%\polly-%POLLY_VERSION%\bin;%PATH%
+  - cmd: set POLLY_ROOT=%cd%\polly-%POLLY_VERSION%
 
   # Python 3 for Polly
   - cmd: set PATH=C:\Python34-x64;%PATH%
