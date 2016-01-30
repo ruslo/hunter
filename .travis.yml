@@ -1,45 +1,74 @@
-# Mac OS X (https://github.com/travis-ci-tester/toolchain-table)
+# OSX/Linux (https://github.com/travis-ci-tester/toolchain-table)
 
-language:
-    - objective-c
+os:
+  - linux
+  - osx
 
-install:
-    - brew install cmake
-    - brew install python3
-    # install cmake toolchains and script
-    - POLLY_VERSION="0.8.0"
-    - wget "https://github.com/ruslo/polly/archive/v${POLLY_VERSION}.tar.gz"
-    - tar xf "v${POLLY_VERSION}.tar.gz"
-    - export PATH="`pwd`/polly-${POLLY_VERSION}/bin:${PATH}"
-    # -- end
-    # install cmake
-    - CMAKE_TAG="3.3.2-p0"
-    - CMAKE_VERSION="3.3.2"
-    - wget "https://github.com/ruslo/CMake/releases/download/v${CMAKE_TAG}/cmake-${CMAKE_VERSION}-Darwin-x86_64.tar.gz"
-    - tar xf "cmake-${CMAKE_VERSION}-Darwin-x86_64.tar.gz"
-    - export PATH="`pwd`/cmake-${CMAKE_VERSION}-Darwin-x86_64/bin:${PATH}"
-    # -- end
-    # verify installed cmake
-    - which cmake
-    - cmake --version
-    # -- end
+# Container-based infrastructure (Linux)
+# * https://docs.travis-ci.com/user/migrating-from-legacy/#How-can-I-use-container-based-infrastructure%3F
+sudo:
+  - false
+
+# Install packages differs for container-based infrastructure
+# * https://docs.travis-ci.com/user/migrating-from-legacy/#How-do-I-install-APT-sources-and-packages%3F
+# * http://stackoverflow.com/a/30925448/2288008
+addons:
+  apt:
+    sources:
+      - ubuntu-toolchain-r-test
+    packages:
+      - cmake
+      - python3
+
+      # https://github.com/travis-ci-tester/travis-test-clang-cxx-11
+      - libstdc++-4.8-dev
+
+      # https://github.com/travis-ci-tester/travis-test-gcc-cxx-11
+      - g++-4.8
 
 env:
-    - PROJECT_DIR=tests/simple TOOLCHAIN=default
-    - PROJECT_DIR=tests/issue/22 TOOLCHAIN=default
-    - PROJECT_DIR=tests/issue/24/unit TOOLCHAIN=default
-    - PROJECT_DIR=tests/issue/107 TOOLCHAIN=default
-    - PROJECT_DIR=tests/issue/109/unit TOOLCHAIN=default
-    - PROJECT_DIR=tests/hunter_create_args_file TOOLCHAIN=default
-    - PROJECT_DIR=tests/hunter_create_dependency_entry TOOLCHAIN=default
-    - PROJECT_DIR=tests/hunter_generate_qt_info TOOLCHAIN=default
-    - PROJECT_DIR=tests/hunter_get_dependency_list TOOLCHAIN=default
-    - PROJECT_DIR=tests/hunter_pack_directory TOOLCHAIN=default
-    - PROJECT_DIR=tests/hunter_process_dependency_node TOOLCHAIN=default
-    - PROJECT_DIR=tests/hunter_register_dependency TOOLCHAIN=default
-    - PROJECT_DIR=tests/hunter_setup_msvc TOOLCHAIN=default
-    - PROJECT_DIR=tests/hunter_unpack_directory TOOLCHAIN=default
-    - PROJECT_DIR=tests/autotools-merge-lipo TOOLCHAIN=default
+  - PROJECT_DIR=tests/simple TOOLCHAIN=default
+  - PROJECT_DIR=tests/issue/22 TOOLCHAIN=default
+  - PROJECT_DIR=tests/issue/24/unit TOOLCHAIN=default
+  - PROJECT_DIR=tests/issue/107 TOOLCHAIN=default
+  - PROJECT_DIR=tests/issue/109/unit TOOLCHAIN=default
+  - PROJECT_DIR=tests/hunter_create_args_file TOOLCHAIN=default
+  - PROJECT_DIR=tests/hunter_create_dependency_entry TOOLCHAIN=default
+  - PROJECT_DIR=tests/hunter_generate_qt_info TOOLCHAIN=default
+  - PROJECT_DIR=tests/hunter_get_dependency_list TOOLCHAIN=default
+  - PROJECT_DIR=tests/hunter_pack_directory TOOLCHAIN=default
+  - PROJECT_DIR=tests/hunter_process_dependency_node TOOLCHAIN=default
+  - PROJECT_DIR=tests/hunter_register_dependency TOOLCHAIN=default
+  - PROJECT_DIR=tests/hunter_setup_msvc TOOLCHAIN=default
+  - PROJECT_DIR=tests/hunter_unpack_directory TOOLCHAIN=default
+  - PROJECT_DIR=tests/autotools-merge-lipo TOOLCHAIN=default
+
+install:
+  - ./ci/install-deps.sh
+
+  # Installed by install-deps.sh if platform is Linux;
+  # (directory doesn't exist for OSX)
+  - export PATH="`pwd`/cmake-3.4.0-Linux-x86_64/bin:${PATH}"
+
+  # Installed by install-deps.sh if platform is OSX;
+  # (directory doesn't exist for Linux)
+  - export PATH="`pwd`/cmake-3.3.2-Darwin-x86_64/bin:${PATH}"
+
+  # Installed by install-deps.sh if toolchain is Android
+  # (otherwise directory doesn't exist)
+  - export ANDROID_NDK_r10e="`pwd`/android-ndk-r10e"
+
+  # Install Polly toolchains
+  - POLLY_VERSION="0.9.0"
+  - wget "https://github.com/ruslo/polly/archive/v${POLLY_VERSION}.tar.gz"
+  - tar xf "v${POLLY_VERSION}.tar.gz"
+  - export PATH="`pwd`/polly-${POLLY_VERSION}/bin:${PATH}"
+
+  # Check versions of tools
+  - which cmake
+  - cmake --version
+  - which python3
+  - python3 --version
 
 script:
-    - python3 ./jenkins.py
+  - python3 ./jenkins.py

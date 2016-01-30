@@ -1,0 +1,86 @@
+# Windows (https://github.com/travis-ci-tester/toolchain-table)
+
+environment:
+  matrix:
+  - PROJECT_DIR=tests\simple
+    TOOLCHAIN=default
+
+  - PROJECT_DIR=tests\issue\22
+    TOOLCHAIN=default
+
+  - PROJECT_DIR=tests\issue\24\unit
+    TOOLCHAIN=default
+
+  - PROJECT_DIR=tests\issue\107
+    TOOLCHAIN=default
+
+  - PROJECT_DIR=tests\issue\109\unit
+    TOOLCHAIN=default
+
+  - PROJECT_DIR=tests\hunter_create_args_file
+    TOOLCHAIN=default
+
+  - PROJECT_DIR=tests\hunter_create_dependency_entry
+    TOOLCHAIN=default
+
+  - PROJECT_DIR=tests\hunter_generate_qt_info
+    TOOLCHAIN=default
+
+  - PROJECT_DIR=tests\hunter_get_dependency_list
+    TOOLCHAIN=default
+
+  - PROJECT_DIR=tests\hunter_pack_directory
+    TOOLCHAIN=default
+
+  - PROJECT_DIR=tests\hunter_process_dependency_node
+    TOOLCHAIN=default
+
+  - PROJECT_DIR=tests\hunter_register_dependency
+    TOOLCHAIN=default
+
+  - PROJECT_DIR=tests\hunter_setup_msvc
+    TOOLCHAIN=default
+
+  - PROJECT_DIR=tests\hunter_unpack_directory
+    TOOLCHAIN=default
+
+  - PROJECT_DIR=tests\autotools-merge-lipo
+    TOOLCHAIN=default
+
+install:
+  - git submodule update --init --recursive
+
+  # Install ninja
+  - cmd: set NINJA_VERSION="1.6.0"
+  - cmd: appveyor DownloadFile "https://github.com/ninja-build/ninja/releases/download/v%NINJA_VERSION%/ninja-win.zip"
+  - cmd: cmake -E tar xf "ninja-win.zip"
+  - cmd: cmake -E make_directory "ninja"
+  - cmd: cmake -E rename "ninja.exe" "ninja/ninja.exe"
+  - cmd: set PATH=%cd%\ninja;%PATH%
+
+  # Remove entry with sh.exe from PATH to fix error with MinGW toolchain
+  # (For MinGW make to work correctly sh.exe must NOT be in your path)
+  # * http://stackoverflow.com/a/3870338/2288008
+  - cmd: set PATH=%PATH:C:\Program Files\Git\usr\bin;=%
+
+  # Use MinGW from Qt tools because version is higher
+  # * http://www.appveyor.com/docs/installed-software#qt
+  - cmd: set MINGW_PATH=C:\Qt\Tools\mingw492_32\bin
+
+  # Install Polly toolchains
+  - cmd: set POLLY_VERSION=0.9.0
+  - cmd: appveyor DownloadFile "https://github.com/ruslo/polly/archive/v%POLLY_VERSION%.tar.gz"
+  - cmd: cmake -E tar xf "v%POLLY_VERSION%.tar.gz"
+  - cmd: set POLLY_ROOT=%cd%\polly-%POLLY_VERSION%
+
+  # Python 3 for Polly
+  - cmd: set PATH=C:\Python34-x64;%PATH%
+
+  # Check versions of tools
+  - cmd: where cmake
+  - cmd: cmake --version
+  - cmd: where python
+  - cmd: python --version
+
+build_script:
+  - cmd: python .\jenkins.py
