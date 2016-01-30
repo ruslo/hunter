@@ -26,35 +26,6 @@ install:
 
 env:
     #
-    - PROJECT_DIR=examples/Boost TOOLCHAIN=default
-    - PROJECT_DIR=examples/Boost TOOLCHAIN=libcxx
-    - PROJECT_DIR=examples/Boost TOOLCHAIN=clang-libstdcxx
-    - PROJECT_DIR=examples/Boost TOOLCHAIN=xcode
-    - PROJECT_DIR=examples/Boost TOOLCHAIN=gcc
-    - PROJECT_DIR=examples/Boost TOOLCHAIN=ios-nocodesign
-    - PROJECT_DIR=examples/Boost TOOLCHAIN=analyze
-    #
-    - PROJECT_DIR=examples/Boost-filesystem TOOLCHAIN=default
-    - PROJECT_DIR=examples/Boost-filesystem TOOLCHAIN=libcxx
-    - PROJECT_DIR=examples/Boost-filesystem TOOLCHAIN=clang-libstdcxx
-    - PROJECT_DIR=examples/Boost-filesystem TOOLCHAIN=xcode
-    - PROJECT_DIR=examples/Boost-filesystem TOOLCHAIN=gcc
-    - PROJECT_DIR=examples/Boost-filesystem TOOLCHAIN=ios-nocodesign
-    - PROJECT_DIR=examples/Boost-filesystem TOOLCHAIN=analyze
-    #
-    - PROJECT_DIR=examples/Boost-system TOOLCHAIN=default
-    - PROJECT_DIR=examples/Boost-system TOOLCHAIN=libcxx
-    - PROJECT_DIR=examples/Boost-system TOOLCHAIN=clang-libstdcxx
-    - PROJECT_DIR=examples/Boost-system TOOLCHAIN=xcode
-    - PROJECT_DIR=examples/Boost-system TOOLCHAIN=gcc
-    - PROJECT_DIR=examples/Boost-system TOOLCHAIN=ios-nocodesign
-    - PROJECT_DIR=examples/Boost-system TOOLCHAIN=analyze
-    #
-    - PROJECT_DIR=examples/Boost-iostreams TOOLCHAIN=default
-    - PROJECT_DIR=examples/Boost-iostreams TOOLCHAIN=libcxx
-    - PROJECT_DIR=examples/Boost-iostreams TOOLCHAIN=xcode
-    - PROJECT_DIR=examples/Boost-iostreams TOOLCHAIN=gcc
-    #
     - PROJECT_DIR=examples/Expat TOOLCHAIN=default
     - PROJECT_DIR=examples/Expat TOOLCHAIN=libcxx
     - PROJECT_DIR=examples/Expat TOOLCHAIN=clang-libstdcxx
