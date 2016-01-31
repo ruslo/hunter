@@ -101,10 +101,10 @@ hunter_config(spdlog VERSION 1.0.0-p0)
 hunter_config(szip VERSION 2.1.0-p1)
 hunter_config(wxWidgets VERSION 3.0.2)
 
-if(MINGW)
+if(MINGW OR MSVC80)
   hunter_config(GTest VERSION 1.7.0-hunter-6)
 else()
-  hunter_config(GTest VERSION 1.7.0-hunter-11)
+  hunter_config(GTest VERSION 1.8.0-hunter-p2)
 endif()
 
 if(ANDROID)
