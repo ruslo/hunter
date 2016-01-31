@@ -67,9 +67,20 @@ macro(hunter_setup_msvc)
     hunter_status_debug("HUNTER_MSVC_VERSION: ${HUNTER_MSVC_VERSION}")
     hunter_status_debug("HUNTER_MSVC_YEAR: ${HUNTER_MSVC_YEAR}")
 
-    string(COMPARE EQUAL "${MSVC_CXX_ARCHITECTURE_ID}" "X86" _is_x86)
-    string(COMPARE EQUAL "${MSVC_CXX_ARCHITECTURE_ID}" "x64" _is_x64)
-    string(COMPARE EQUAL "${MSVC_CXX_ARCHITECTURE_ID}" "ARMV7" _is_arm)
+    string(COMPARE EQUAL "${MSVC_CXX_ARCHITECTURE_ID}" "" _cxx_is_empty)
+    string(COMPARE EQUAL "${MSVC_C_ARCHITECTURE_ID}" "" _c_is_empty)
+
+    if(NOT _cxx_is_empty)
+      set(_architecture_id "${MSVC_CXX_ARCHITECTURE_ID}")
+    elseif(NOT _c_is_empty)
+      set(_architecture_id "${MSVC_C_ARCHITECTURE_ID}")
+    else()
+      hunter_internal_error("MSVC_*_ARCHITECTURE_ID is empty")
+    endif()
+
+    string(COMPARE EQUAL "${_architecture_id}" "X86" _is_x86)
+    string(COMPARE EQUAL "${_architecture_id}" "x64" _is_x64)
+    string(COMPARE EQUAL "${_architecture_id}" "ARMV7" _is_arm)
 
     if(_is_x86)
       set(HUNTER_MSVC_ARCH "x86")
@@ -79,7 +90,7 @@ macro(hunter_setup_msvc)
       set(HUNTER_MSVC_ARCH "x86_arm")
     else()
       hunter_internal_error(
-          "Unexpected MSVC_CXX_ARCHITECTURE_ID: '${MSVC_CXX_ARCHITECTURE_ID}'"
+          "Unexpected MSVC_*_ARCHITECTURE_ID: '${_architecture_id}'"
       )
     endif()
 
