@@ -173,14 +173,13 @@ def run():
       'TESTING_SHA1={}'.format(hunter_sha1)
   ]
 
-  if not parsed_args.verbose:
-    args += ['HUNTER_STATUS_DEBUG=NO']
-
   if not parsed_args.nocreate:
     args += ['HUNTER_RUN_INSTALL=ON']
 
-  if verbose:
-    args += ['--verbose']
+  args += ['--verbose']
+  if not verbose:
+    args += ['--discard', '10']
+    args += ['--tail', '200']
 
   print('Execute command: [')
   for i in args:

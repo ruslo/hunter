@@ -139,13 +139,13 @@ ExternalProject_Add(
     install
     ${boost_list}
     "--prefix=@HUNTER_PACKAGE_INSTALL_PREFIX@"
-    ${log_opts}
     COMMAND # Copy license files
     "@CMAKE_COMMAND@"
     "-Dsrcdir=@HUNTER_PACKAGE_SOURCE_DIR@"
     "-Ddstfile=@HUNTER_PACKAGE_LICENSE_FILE@"
     -P
     "@HUNTER_SELF@/scripts/try-copy-license.cmake"
+    ${log_opts}
 )
 
 # Forward some variables
