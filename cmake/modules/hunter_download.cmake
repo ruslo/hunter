@@ -324,14 +324,44 @@ function(hunter_download)
         "Internal dependencies ID: ${HUNTER_PACKAGE_INTERNAL_DEPS_ID}"
     )
   endif()
-
-  set(
+  
+  set(_hunter_schemes_search_dirs "")
+  
+  if(hunter_has_component)
+    set(
+      download_scheme
+      "${HUNTER_SELF}/cmake/projects/${HUNTER_PACKAGE_NAME}/${HUNTER_PACKAGE_COMPONENT}/schemes/${HUNTER_DOWNLOAD_SCHEME}.cmake.in"
+    )
+    set(_hunter_schemes_search_dirs "${_hunter_schemes_search_dirs}, ${HUNTER_SELF}/cmake/projects/${HUNTER_PACKAGE_NAME}/${HUNTER_PACKAGE_COMPONENT}/schemes/")
+    if(NOT EXISTS "${download_scheme}")
+      set(
+        download_scheme
+        "${HUNTER_SELF}/cmake/projects/${HUNTER_PACKAGE_NAME}/schemes/${HUNTER_DOWNLOAD_SCHEME}.cmake.in"
+      )
+      set(_hunter_schemes_search_dirs "${_hunter_schemes_search_dirs}, ${HUNTER_SELF}/cmake/projects/${HUNTER_PACKAGE_NAME}/schemes/")
+    endif()
+  else()
+    set(
+      download_scheme
+      "${HUNTER_SELF}/cmake/projects/${HUNTER_PACKAGE_NAME}/schemes/${HUNTER_DOWNLOAD_SCHEME}.cmake.in"
+    )
+    set(_hunter_schemes_search_dirs "${_hunter_schemes_search_dirs}, ${HUNTER_SELF}/cmake/projects/${HUNTER_PACKAGE_NAME}/schemes/")
+  endif()
+  
+  if(NOT EXISTS "${download_scheme}")
+    set(
       download_scheme
       "${HUNTER_SELF}/cmake/schemes/${HUNTER_DOWNLOAD_SCHEME}.cmake.in"
-  )
-  if(NOT EXISTS "${download_scheme}")
-    hunter_internal_error("Download scheme `${download_scheme}` not found")
+    )
+    set(_hunter_schemes_search_dirs "${HUNTER_SELF}/cmake/schemes/")
+    if(NOT EXISTS "${download_scheme}")
+      hunter_internal_error("Download scheme `${download_scheme}` not found. Search locations: ${_hunter_schemes_search_dirs}")
+    endif()
   endif()
+  
+  hunter_status_debug(
+        "Scheme file used: ${download_scheme}"
+    )
 
   configure_file(
       "${download_scheme}"
