@@ -7,14 +7,14 @@ project(Hunter)
 list(APPEND CMAKE_MODULE_PATH "@HUNTER_SELF@/cmake/modules")
 
 include(hunter_autotools_project)
-include(hunter_fatal_error)
 include(hunter_status_debug)
 include(hunter_test_string_not_empty)
+include(hunter_user_error)
 
 hunter_status_debug("Scheme: url_sha1_sqlite3_autotools")
 
 if("@MSVC@")
-  hunter_fatal_error("Autotools scheme not supported with Visual Studio")
+  hunter_user_error("Autotools scheme not supported with Visual Studio")
 endif()
 
 # Check preconditions
