@@ -70,6 +70,10 @@ def run():
   if (project_dir == 'examples/OpenSSL') and (toolchain == 'xcode'):
     print('Skip (https://github.com/ruslo/hunter/issues/30)')
     sys.exit(0)
+
+  if (os.getenv('TRAVIS') and toolchain == 'dummy'):
+    print('Skip build: Travis CI empty matrix configuration workaround')
+    sys.exit(0)
   # -- end
 
   verbose = True
