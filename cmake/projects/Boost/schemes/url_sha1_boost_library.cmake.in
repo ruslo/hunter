@@ -160,7 +160,7 @@ if(is_mpi)
     get_filename_component(MPI_DIR "${MPI_CXX_INCLUDE_PATH}/.." ABSOLUTE)
     string(REPLACE "/" "\\\\" MPI_DIR "${MPI_DIR}")
     configure_file(
-        "@HUNTER_SELF@/scripts/mpi.jam"
+        "@HUNTER_SELF@/cmake/projects/Boost/scripts/mpi.jam"
         "@HUNTER_PACKAGE_BUILD_DIR@/tools/build/v2/tools/mpi.jam"
     )
 

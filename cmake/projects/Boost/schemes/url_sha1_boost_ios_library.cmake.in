@@ -316,7 +316,7 @@ if(log_setup_target)
   set(
       extra_lib_command
       COMMAND
-      "@HUNTER_SELF@/scripts/create-boost-ios-fatlib.sh"
+      "@HUNTER_SELF@/cmake/projects/Boost/scripts/create-boost-ios-fatlib.sh"
       "@HUNTER_PACKAGE_SOURCE_DIR@"
       "log_setup"
       "@HUNTER_PACKAGE_COMPONENT@"
