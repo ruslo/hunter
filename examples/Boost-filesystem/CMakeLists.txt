@@ -37,7 +37,10 @@ find_package(Boost REQUIRED system filesystem)
 include_directories("${Boost_INCLUDE_DIRS}")
 target_link_libraries(foo ${Boost_LIBRARIES})
 
-if(ANDROID)
+if(ANDROID AND NOT "$ENV{TRAVIS}")
+  # Travis CI failed builds:
+  # * https://travis-ci.org/ingenue/hunter/jobs/106905844
+  # * https://travis-ci.org/ingenue/hunter/jobs/106905851
   hunter_add_package(Android-Apk)
   list(APPEND CMAKE_MODULE_PATH "${ANDROID-APK_ROOT}")
   include(AndroidApk)
