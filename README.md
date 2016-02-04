@@ -1,8 +1,14 @@
-Hunter [![Build Status][travis-master]][travis-hunter]
+Hunter
 ======
 
 * Cross-platform package manager for C++ (based on CMake [ExternalProject][cmake-external-project])
 * Supported platforms: **Linux**, **Mac**, **Windows**, **iOS**, **Android**, **Raspberry Pi**
+
+### CI
+
+* Travis CI OSX/Linux: [![Build Status][travis-master]][travis-hunter]
+* AppVeyor CI Windows: [![Build Status][appveyor-master]][appveyor-hunter]
+* [Per package deep testing table](https://github.com/ingenue/hunter/branches/all)
 
 ### What is it?
 
@@ -242,8 +248,11 @@ Feel free to open new [issue][hunter-new-issue] if you want to ask any questions
 * [Toolchain examples][polly]
 * [Travis CI build example](https://github.com/forexample/hunter-simple/blob/master/.travis.yml)
 
-[travis-master]: https://travis-ci.org/ruslo/hunter.png?branch=master
-[travis-hunter]: https://travis-ci.org/ruslo/hunter
+[travis-master]: https://travis-ci.org/ruslo/hunter.svg?branch=master
+[travis-hunter]: https://travis-ci.org/ruslo/hunter/builds
+
+[appveyor-master]: https://ci.appveyor.com/api/projects/status/ubo6jse3lh5ciyvv/branch/master?svg=true
+[appveyor-hunter]: https://ci.appveyor.com/project/ruslo/hunter/history
 
 [cmake-external-project]: http://www.cmake.org/cmake/help/v3.2/module/ExternalProject.html
 [ios-bug]: http://public.kitware.com/Bug/view.php?id=12506
