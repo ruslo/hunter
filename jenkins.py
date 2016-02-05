@@ -71,8 +71,9 @@ def run():
     print('Skip (https://github.com/ruslo/hunter/issues/30)')
     sys.exit(0)
 
-  if (os.getenv('TRAVIS') and toolchain == 'dummy'):
-    print('Skip build: Travis CI empty matrix configuration workaround')
+  ci = os.getenv('TRAVIS') or os.getenv('APPVEYOR')
+  if (ci and toolchain == 'dummy'):
+    print('Skip build: CI dummy (workaround)')
     sys.exit(0)
   # -- end
 
