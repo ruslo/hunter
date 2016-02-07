@@ -17,9 +17,9 @@ hunter_add_version(
     VERSION
     "0.4.0"
     URL
-    "https://github.com/alamaison/winsparkle/archive/v0.4-hunter-3.tar.gz"
+    "https://github.com/alamaison/winsparkle/archive/v0.4-hunter-4.tar.gz"
     SHA1
-    8e7790c93fe7ffeae529621a7fc93ea10e9d2af6
+    9ad2237b4a31c5dc1c18d42c8f105c1a1049b5f0
 )
 
 hunter_pick_scheme(DEFAULT url_sha1_cmake)
