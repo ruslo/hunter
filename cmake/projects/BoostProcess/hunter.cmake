@@ -21,7 +21,7 @@ hunter_add_version(
     URL
     "https://github.com/alamaison/boost-process/archive/0.5-cmake-1.tar.gz"
     SHA1
-    db8bec0eb4c51857db09c96edef76f49cd153c59
+    4142d7fc128f51ce0035dc1aad5d3ea2209b6b6e
 )
 
 hunter_cmake_args(
