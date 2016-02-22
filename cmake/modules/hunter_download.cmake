@@ -325,12 +325,26 @@ function(hunter_download)
     )
   endif()
 
+  # first try in current projects directory
   set(
       download_scheme
-      "${HUNTER_SELF}/cmake/schemes/${HUNTER_DOWNLOAD_SCHEME}.cmake.in"
+      "${CMAKE_CURRENT_LIST_DIR}/schemes/${HUNTER_DOWNLOAD_SCHEME}.cmake.in"
   )
   if(NOT EXISTS "${download_scheme}")
-    hunter_internal_error("Download scheme `${download_scheme}` not found")
+    # then in different repos: repos must be orthogonal
+    unset(download_scheme)
+    foreach(repo "${CMAKE_CURRENT_LIST_DIR}" "${HUNTER_SELF}/cmake/" ${HUNTER_RECIPE_DIRS})
+      set(scheme_file "${repo}/schemes/${HUNTER_DOWNLOAD_SCHEME}.cmake.in")
+      if(EXISTS "${scheme_file}")
+        if(download_scheme)
+          hunter_internal_error("Non-orthogonal repos: `${HUNTER_DOWNLOAD_SCHEME}` found twice")
+        endif()
+        set(download_scheme "${scheme_file}")
+      endif()
+    endforeach()
+  endif()
+  if(NOT EXISTS "${download_scheme}")
+    hunter_internal_error("Download scheme `${HUNTER_DOWNLOAD_SCHEME}` not found")
   endif()
 
   configure_file(
