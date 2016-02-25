@@ -207,6 +207,8 @@ function(hunter_download)
   set(HUNTER_ARGS_FILE "${HUNTER_PACKAGE_HOME_DIR}/args.cmake")
 
   # Registering dependency (before return!)
+  # Note: there will be no dependency registration on cache run.
+  # HUNTER_PARENT_PACKAGE set to empty string in 'hunter_cache_run'
   hunter_register_dependency(
       PACKAGE "${HUNTER_PARENT_PACKAGE}"
       DEPENDS_ON_PACKAGE "${HUNTER_PACKAGE_NAME}"
