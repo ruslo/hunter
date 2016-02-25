@@ -97,7 +97,10 @@ function(hunter_save_to_cache)
   ### create cache.sha1 file in home (before saving dependencies)
   file(WRITE "${HUNTER_PACKAGE_HOME_DIR}/cache.sha1" "${archive_sha1}")
 
-  # Get package dependencies
+  # Get package dependencies.
+  # List sorted alphabetically and saved in format:
+  #   <package> <component> <sha1>
+  #   <package> <sha1>
   hunter_get_dependency_list(dep_list)
 
   # Save package dependencies to file
