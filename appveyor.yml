@@ -32,6 +32,9 @@ environment:
   - PROJECT_DIR: tests\hunter_get_dependency_list
     TOOLCHAIN: default
 
+  - PROJECT_DIR: tests\hunter_get_package_deps
+    TOOLCHAIN: default
+
   - PROJECT_DIR: tests\hunter_pack_directory
     TOOLCHAIN: default
 

@@ -36,6 +36,7 @@ env:
   - PROJECT_DIR=tests/hunter_create_dependency_entry TOOLCHAIN=default
   - PROJECT_DIR=tests/hunter_generate_qt_info TOOLCHAIN=default
   - PROJECT_DIR=tests/hunter_get_dependency_list TOOLCHAIN=default
+  - PROJECT_DIR=tests/hunter_get_package_deps TOOLCHAIN=default
   - PROJECT_DIR=tests/hunter_pack_directory TOOLCHAIN=default
   - PROJECT_DIR=tests/hunter_process_dependency_node TOOLCHAIN=default
   - PROJECT_DIR=tests/hunter_register_dependency TOOLCHAIN=default
