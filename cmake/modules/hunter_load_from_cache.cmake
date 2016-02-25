@@ -102,8 +102,8 @@ function(hunter_load_from_cache)
         hunter_internal_error("Bad format: ${dep_entry}")
       endif()
 
-      # Load cache.sha1 file from cache if package is cached
-      # This function will not install anything, just cache checking
+      # Load cache.sha1 file from cache to home directory if package is cached
+      # This function will not really install anything, just for cache checking
       hunter_cache_run(PACKAGE "${package}" COMPONENT "${component}")
 
       # Read
