@@ -35,6 +35,9 @@ environment:
   - PROJECT_DIR: tests\hunter_get_package_deps
     TOOLCHAIN: default
 
+  - PROJECT_DIR: tests\hunter_get_package_deps_recurse
+    TOOLCHAIN: default
+
   - PROJECT_DIR: tests\hunter_pack_directory
     TOOLCHAIN: default
 
