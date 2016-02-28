@@ -1,4 +1,4 @@
-# Copyright (c) 2014, Alexander Lamaison
+# Copyright (c) 2014, 2016 Alexander Lamaison
 # All rights reserved.
 
 if(DEFINED HUNTER_CMAKE_PROJECTS_LIBSSH2_HUNTER_CMAKE_)
@@ -11,6 +11,17 @@ include(hunter_add_version)
 include(hunter_cmake_args)
 include(hunter_download)
 include(hunter_pick_scheme)
+
+hunter_add_version(
+    PACKAGE_NAME
+    Libssh2
+    VERSION
+    "1.7.0"
+    URL
+    "https://github.com/hunter-packages/libssh2/archive/libssh2-1.7.0-hunter-1.tar.gz"
+    SHA1
+    d286289d2bb9aa8ef5365d06113e3f1c1f64e92f
+)
 
 hunter_add_version(
     PACKAGE_NAME
