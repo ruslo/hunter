@@ -26,6 +26,9 @@ environment:
   - PROJECT_DIR: tests\hunter_create_dependency_entry
     TOOLCHAIN: default
 
+  - PROJECT_DIR: tests\hunter_create_deps_info
+    TOOLCHAIN: default
+
   - PROJECT_DIR: tests\hunter_generate_qt_info
     TOOLCHAIN: default
 

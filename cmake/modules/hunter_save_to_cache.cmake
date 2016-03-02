@@ -145,7 +145,9 @@ function(hunter_save_to_cache)
   # List sorted alphabetically and saved in file in format:
   #   <package> <component> <sha1>
   #   <package> <sha1>
-  hunter_create_deps_info(temp_deps_info)
+  set(temp_deps_info "${cache_meta_dir}/deps.info-TEMP")
+  file(REMOVE "${temp_deps_info}")
+  hunter_create_deps_info("${temp_deps_info}")
   if(NOT EXISTS "${temp_deps_info}")
     hunter_internal_error("Dependency list is not created: ${temp_deps_info}")
   endif()
