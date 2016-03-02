@@ -108,7 +108,6 @@ hunter_config(spdlog VERSION 1.0.0-p0)
 hunter_config(szip VERSION 2.1.0-p1)
 hunter_config(wxWidgets VERSION 3.0.2)
 hunter_config(ZeroMQ VERSION 4.1.4)
-hunter_config(zmqpp VERSION 4.1.2)
 
 if(MINGW OR MSVC80)
   hunter_config(GTest VERSION 1.7.0-hunter-6)
