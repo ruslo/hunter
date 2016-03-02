@@ -330,8 +330,8 @@ function(hunter_download)
   set(_hunter_schemes_search_dirs "")
   
   set(
-    download_scheme
-    "${HUNTER_SELF}/cmake/projects/${HUNTER_PACKAGE_NAME}/schemes/${HUNTER_DOWNLOAD_SCHEME}.cmake.in"
+      download_scheme
+      "${HUNTER_PACKAGE_SETUP_DIR}/schemes/${HUNTER_DOWNLOAD_SCHEME}.cmake.in"
   )
   set(_hunter_schemes_search_dirs "${_hunter_schemes_search_dirs}, ${download_scheme}")
   
@@ -347,8 +347,8 @@ function(hunter_download)
   endif()
   
   hunter_status_debug(
-        "Scheme file used: ${download_scheme}"
-    )
+      "Scheme file used: ${download_scheme}"
+  )
 
   configure_file(
       "${download_scheme}"
