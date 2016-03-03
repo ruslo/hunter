@@ -144,6 +144,8 @@ hunter_config(xproto VERSION 7.0.23)
 hunter_config(xrender VERSION 0.9.7)
 hunter_config(xshmfence VERSION 1.2)
 hunter_config(xtrans VERSION 1.2.7)
+hunter_config(ZeroMQ VERSION 4.1.4)
+hunter_config(SDL2 VERSION 2.0.0)
 
 if(MINGW OR MSVC80)
   hunter_config(GTest VERSION 1.7.0-hunter-6)
