@@ -85,6 +85,8 @@ function(hunter_load_from_cache)
     hunter_internal_error("File not exists: ${basic_deps_info}")
   endif()
 
+  hunter_status_debug("Loading basic dependencies: ${basic_deps_info}")
+
   file(STRINGS "${basic_deps_info}" basic_deps_list)
   foreach(dependency_string ${basic_deps_list})
     string(REPLACE " " ";" dependency_list "${dependency_string}")

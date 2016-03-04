@@ -31,8 +31,10 @@ function(hunter_cache_run)
   set(HUNTER_PARENT_PACKAGE "") # Avoid dependency registration
 
   if(has_component)
+    hunter_status_debug("Try load package ${x_PACKAGE}")
     hunter_add_package(${x_PACKAGE})
   else()
+    hunter_status_debug("Try load package ${x_PACKAGE} (comp. ${x_COMPONENT})")
     hunter_add_package(${x_PACKAGE} COMPONENTS ${x_COMPONENT})
   endif()
 endfunction()
