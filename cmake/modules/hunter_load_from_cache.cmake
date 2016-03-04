@@ -138,6 +138,7 @@ function(hunter_load_from_cache)
   if(NOT EXISTS "${cache_sha1_file}")
     hunter_internal_error("cache.sha1 not exists")
   endif()
+  hunter_status_print("Cache info: ${cache_sha1_file}")
   file(COPY "${cache_sha1_file}" DESTINATION "${HUNTER_PACKAGE_HOME_DIR}")
 
   if(HUNTER_CACHE_RUN)
