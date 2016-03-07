@@ -14,9 +14,9 @@ hunter_add_version(
   VERSION
   "4.1.2"
   URL
-  "/home/kobold/Developments/zmqpp.tar.gz"
+  "https://github.com/hunter-packages/zmqpp/archive/4.1.2-hunter.tar.gz"
   SHA1
-  4934c38a30a7f6eb54acc7f13c713bad5c838daf
+  f7fb7ffda0d34fcc61b562e73f3e548490076ea9
   )
 
 hunter_pick_scheme(DEFAULT url_sha1_cmake)
