@@ -8,13 +8,10 @@ project(download-ZeroMQ)
 
 hunter_add_package(ZeroMQ)
 
-find_package(PkgConfig)
-set(PKG_CONFIG_USE_CMAKE_PREFIX_PATH ON)
-pkg_search_module(ZeroMQ REQUIRED libzmq)
-
-include_directories(${ZeroMQ_INCLUDE_DIRS})
-link_directories(${ZeroMQ_LIBRARY_DIRS})
-
+find_package(ZeroMQ CONFIG REQUIRED)
 
 add_executable(version main.cpp)
-target_link_libraries(version ${ZeroMQ_LIBRARIES})
+target_link_libraries(version ZeroMQ::libzmq)
+
+add_executable(version-static main.cpp)
+target_link_libraries(version-static ZeroMQ::libzmq-static)
