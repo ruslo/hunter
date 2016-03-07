@@ -14,9 +14,9 @@ hunter_add_version(
   VERSION
   "4.1.4"
   URL
-  "https://github.com/zeromq/zeromq4-1/archive/v4.1.4.tar.gz"
+  "https://github.com/hunter-packages/zeromq4-1/archive/v4.1.4-hunter-p1.tar.gz"
   SHA1
-  840b24394e68450f46178c16878b0f9dc163e406  
+  be57db45f4f998c04d1804132b1302f923405fa4
   )
 
 hunter_pick_scheme(DEFAULT url_sha1_cmake) 
