@@ -14,11 +14,10 @@ hunter_add_version(
   VERSION
   "3.0.0-beta-2"
   URL
-  "https://github.com/tatraian/protobuf/archive/protobuf-test-2.tar.gz"
+  "https://github.com/hunter-packages/protobuf/archive/v3.0.0-beta-2-hunter-1.tar.gz"
   SHA1
-  96af4dc198cf238265b695675b3d47be8347a236
+  15752454ef0cf119b58136e2f4ffe97baeaf07cd
   )
 
 hunter_pick_scheme(DEFAULT url_sha1_cmake) 
-
 hunter_download(PACKAGE_NAME Protobuf)
