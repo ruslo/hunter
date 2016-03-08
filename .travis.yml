@@ -27,53 +27,53 @@ addons:
       - g++-4.8
 
 env:
-  - PROJECT_DIR=examples/Foo TOOLCHAIN=default
-  - PROJECT_DIR=examples/Foo TOOLCHAIN=libcxx
-  - PROJECT_DIR=examples/Foo TOOLCHAIN=clang-libstdcxx
-  - PROJECT_DIR=examples/Foo TOOLCHAIN=xcode
-  - PROJECT_DIR=examples/Foo TOOLCHAIN=osx-10-9
-  - PROJECT_DIR=examples/Foo TOOLCHAIN=gcc
-  - PROJECT_DIR=examples/Foo TOOLCHAIN=gcc-4-8
-  - PROJECT_DIR=examples/Foo TOOLCHAIN=ios-nocodesign
-  - PROJECT_DIR=examples/Foo TOOLCHAIN=android-ndk-r10e-api-19-armeabi-v7a-neon
-  - PROJECT_DIR=examples/Foo TOOLCHAIN=analyze
-  - PROJECT_DIR=examples/Foo TOOLCHAIN=sanitize-address
-  - PROJECT_DIR=examples/Foo TOOLCHAIN=sanitize-leak
-  - PROJECT_DIR=examples/Foo TOOLCHAIN=sanitize-thread
+  - PROJECT_DIR=examples/qt-widgets TOOLCHAIN=default
+  - PROJECT_DIR=examples/qt-widgets TOOLCHAIN=libcxx
+  - PROJECT_DIR=examples/qt-widgets TOOLCHAIN=clang-libstdcxx
+  - PROJECT_DIR=examples/qt-widgets TOOLCHAIN=xcode
+  - PROJECT_DIR=examples/qt-widgets TOOLCHAIN=osx-10-9
+  - PROJECT_DIR=examples/qt-widgets TOOLCHAIN=gcc
+  - PROJECT_DIR=examples/qt-widgets TOOLCHAIN=gcc-4-8
+  - PROJECT_DIR=examples/qt-widgets TOOLCHAIN=ios-nocodesign
+  - PROJECT_DIR=examples/qt-widgets TOOLCHAIN=android-ndk-r10e-api-19-armeabi-v7a-neon
+  - PROJECT_DIR=examples/qt-widgets TOOLCHAIN=analyze
+  - PROJECT_DIR=examples/qt-widgets TOOLCHAIN=sanitize-address
+  - PROJECT_DIR=examples/qt-widgets TOOLCHAIN=sanitize-leak
+  - PROJECT_DIR=examples/qt-widgets TOOLCHAIN=sanitize-thread
 
 matrix:
   exclude:
     ### Linux excludes ###
     # https://github.com/travis-ci-tester/travis-test-clang-with-libcxx
     - os: linux
-      env: PROJECT_DIR=examples/Foo TOOLCHAIN=libcxx
+      env: PROJECT_DIR=examples/qt-widgets TOOLCHAIN=libcxx
 
     # Xcode is for OSX only
     - os: linux
-      env: PROJECT_DIR=examples/Foo TOOLCHAIN=xcode
+      env: PROJECT_DIR=examples/qt-widgets TOOLCHAIN=xcode
     - os: linux
-      env: PROJECT_DIR=examples/Foo TOOLCHAIN=osx-10-9
+      env: PROJECT_DIR=examples/qt-widgets TOOLCHAIN=osx-10-9
     - os: linux
-      env: PROJECT_DIR=examples/Foo TOOLCHAIN=ios-nocodesign
+      env: PROJECT_DIR=examples/qt-widgets TOOLCHAIN=ios-nocodesign
 
     # https://github.com/travis-ci-tester/travis-test-gcc-cxx-11
     - os: linux
-      env: PROJECT_DIR=examples/Foo TOOLCHAIN=gcc
+      env: PROJECT_DIR=examples/qt-widgets TOOLCHAIN=gcc
 
     ### OSX excludes ###
     # TOOLCHAIN=gcc works fine on OSX
     - os: osx
-      env: PROJECT_DIR=examples/Foo TOOLCHAIN=gcc-4-8
+      env: PROJECT_DIR=examples/qt-widgets TOOLCHAIN=gcc-4-8
 
     # https://github.com/travis-ci-tester/travis-test-mac-clang-address-sanitizer
     - os: osx
-      env: PROJECT_DIR=examples/Foo TOOLCHAIN=sanitize-address
+      env: PROJECT_DIR=examples/qt-widgets TOOLCHAIN=sanitize-address
 
     # Linux only
     - os: osx
-      env: PROJECT_DIR=examples/Foo TOOLCHAIN=sanitize-leak
+      env: PROJECT_DIR=examples/qt-widgets TOOLCHAIN=sanitize-leak
     - os: osx
-      env: PROJECT_DIR=examples/Foo TOOLCHAIN=sanitize-thread
+      env: PROJECT_DIR=examples/qt-widgets TOOLCHAIN=sanitize-thread
 
 install:
   - ./ci/install-deps.sh
