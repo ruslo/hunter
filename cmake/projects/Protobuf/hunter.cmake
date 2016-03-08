@@ -5,6 +5,7 @@ else()
 endif()
 
 include(hunter_add_version)
+include(hunter_cacheable)
 include(hunter_download)
 include(hunter_pick_scheme)
 
@@ -19,5 +20,6 @@ hunter_add_version(
   15752454ef0cf119b58136e2f4ffe97baeaf07cd
   )
 
-hunter_pick_scheme(DEFAULT url_sha1_cmake) 
+hunter_pick_scheme(DEFAULT url_sha1_cmake)
+hunter_cacheable(Protobuf)
 hunter_download(PACKAGE_NAME Protobuf)
