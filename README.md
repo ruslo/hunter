@@ -65,10 +65,8 @@ superbuild files. Just change 2 lines of code: input parameters `SHA1`/`URL` of 
 * [3.2.0][cmake-3.2-release-notes]
   * New synchronization command `file(LOCK ...)` ([change][cmake-file-lock-commit])
   * [HUNTER_SKIP_LOCK][error.can.not.lock]
-* iOS. Patched (workaround) version of CMake
-  * [Latest patched release](https://github.com/ruslo/CMake/releases/tag/v3.4.1-p0)
-  * Fix [iOS bug][ios-bug]
-  * Create universal (armv7, armv7s, arm64, i386, x86_64) libraries
+* [3.5.0](https://cmake.org/cmake/help/v3.5/release/3.5.html#platforms) **Minimum for iOS projects**
+  * New variable [CMAKE_IOS_INSTALL_COMBINED](https://cmake.org/cmake/help/v3.5/variable/CMAKE_IOS_INSTALL_COMBINED.html) ([change](https://github.com/Kitware/CMake/commit/565d080a9a1e133bda868e905226181b60e90356))
   * [iOS toolchain][polly-ios-toolchain]
 
 ### First step
