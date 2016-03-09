@@ -30,6 +30,7 @@ hunter_test_string_not_empty("@HUNTER_PACKAGE_INSTALL_PREFIX@")
 hunter_test_string_not_empty("@HUNTER_PACKAGE_LICENSE_FILE@")
 hunter_test_string_not_empty("@HUNTER_Qt_VERSION@")
 hunter_test_string_not_empty("@HUNTER_PACKAGE_SETUP_DIR@")
+hunter_test_string_not_empty("@HUNTER_GLOBAL_SCRIPT_DIR@")
 
 set(HUNTER_Qt_VERSION "@HUNTER_Qt_VERSION@")
 
@@ -350,7 +351,7 @@ ExternalProject_Add(
       "-Dsrcdir=@HUNTER_PACKAGE_SOURCE_DIR@"
       "-Ddstfile=@HUNTER_PACKAGE_LICENSE_FILE@"
       -P
-      "@HUNTER_SELF@/scripts/try-copy-license.cmake"
+      "@HUNTER_GLOBAL_SCRIPT_DIR@/try-copy-license.cmake"
     LOG_BUILD ${log_build}
     LOG_INSTALL ${log_install}
 )

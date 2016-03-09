@@ -24,6 +24,7 @@ hunter_test_string_not_empty("@HUNTER_PACKAGE_DOWNLOAD_DIR@")
 hunter_test_string_not_empty("@HUNTER_PACKAGE_SOURCE_DIR@")
 hunter_test_string_not_empty("@HUNTER_PACKAGE_INSTALL_PREFIX@")
 hunter_test_string_not_empty("@HUNTER_PACKAGE_LICENSE_FILE@")
+hunter_test_string_not_empty("@HUNTER_GLOBAL_SCRIPT_DIR@")
 
 if(APPLE)
   set(configure_command "./Configure")
@@ -34,9 +35,9 @@ endif()
 
 set(
     configure_command
-    . "@HUNTER_SELF@/scripts/clear-all.sh" && "${configure_command}"
+    . "@HUNTER_GLOBAL_SCRIPT_DIR@/clear-all.sh" && "${configure_command}"
 )
-set(build_command . "@HUNTER_SELF@/scripts/clear-all.sh" && make)
+set(build_command . "@HUNTER_GLOBAL_SCRIPT_DIR@/clear-all.sh" && make)
 
 set(configure_opts ${configure_opts} threads no-shared)
 
@@ -70,5 +71,5 @@ ExternalProject_Add(
     "-Dsrcdir=@HUNTER_PACKAGE_SOURCE_DIR@"
     "-Ddstfile=@HUNTER_PACKAGE_LICENSE_FILE@"
     -P
-    "@HUNTER_SELF@/scripts/try-copy-license.cmake"
+    "@HUNTER_GLOBAL_SCRIPT_DIR@/try-copy-license.cmake"
 )
