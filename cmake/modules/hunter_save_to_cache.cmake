@@ -172,6 +172,9 @@ function(hunter_save_to_cache)
 
   file(SHA1 "${temp_deps_info}" deps_sha1)
   hunter_make_directory("${cache_meta_dir}" "${deps_sha1}" cache_meta_dir)
+
+  hunter_status_debug("Cache directory: ${cache_meta_dir}")
+
   set(deps_info "${cache_meta_dir}/deps.info")
   file(RENAME "${temp_deps_info}" "${deps_info}")
 
