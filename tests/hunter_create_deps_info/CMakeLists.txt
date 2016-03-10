@@ -7,7 +7,6 @@ include("../../examples/common.cmake")
 project(TestModuleHunterCreateDepsInfo)
 
 include(hunter_create_deps_info)
-include(hunter_process_dependency_node)
 include(hunter_register_dependency)
 
 function(run_check file1)
