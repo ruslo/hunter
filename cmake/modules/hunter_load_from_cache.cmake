@@ -85,6 +85,12 @@ function(hunter_load_from_cache)
     hunter_internal_error("File not exists: ${basic_deps_info}")
   endif()
 
+  # Before cache run, for dependency registration.
+  set(
+      HUNTER_PARENT_PACKAGE
+      "${HUNTER_PACKAGE_NAME};${HUNTER_PACKAGE_COMPONENT}"
+  )
+
   hunter_status_debug("Loading basic dependencies: ${basic_deps_info}")
 
   file(STRINGS "${basic_deps_info}" basic_deps_list)
@@ -115,6 +121,8 @@ function(hunter_load_from_cache)
       return()
     endif()
   endforeach()
+
+  hunter_status_debug("Loading basic dependencies finished")
 
   # Note: we can't use cache directory since it need to be locked in this case
   set(temp_deps_info "${CMAKE_BINARY_DIR}/_3rdParty/hunter/deps.info")
@@ -147,12 +155,6 @@ function(hunter_load_from_cache)
     hunter_status_debug("CACHE RUN (Exit now)")
     return()
   endif()
-
-  # Do real install now
-  set(
-      HUNTER_PARENT_PACKAGE
-      "${HUNTER_PACKAGE_NAME};${HUNTER_PACKAGE_COMPONENT}"
-  )
 
   # Install dependencies
   file(STRINGS "${basic_deps_info}" basic_deps_list)
