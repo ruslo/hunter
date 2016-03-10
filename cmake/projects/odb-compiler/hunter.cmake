@@ -22,16 +22,16 @@ if(CMAKE_HOST_APPLE)
       SHA1
       14d4972b43278b12479950b4a12affe4e4e500c1
   )
-elseif(CMAKE_HOST_UNIX)
+elseif(CMAKE_HOST_UNIX) # if Linux
   hunter_add_version(
       PACKAGE_NAME
       odb-compiler
       VERSION
       "2.4.0"
       URL
-      "http://www.codesynthesis.com/download/odb/2.4/odb-2.4.0-i686-linux-gnu.tar.bz2"
+      "http://www.codesynthesis.com/download/odb/2.4/odb-2.4.0-x86_64-linux-gnu.tar.bz2"
       SHA1
-      f8b5797af1ce185db6adfa1d91ba5c90584d220f
+      630882a3461a8aa6349fd5b4e5ef20ec9afae09d
   )
 elseif(CMAKE_HOST_WIN32)
   hunter_add_version(
