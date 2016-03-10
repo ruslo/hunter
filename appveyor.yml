@@ -26,8 +26,11 @@ environment:
   - PROJECT_DIR: tests\hunter_create_dependency_entry
     TOOLCHAIN: default
 
-  - PROJECT_DIR: tests\hunter_create_deps_info
-    TOOLCHAIN: default
+  # Leave this test for Linux
+  # (need to create separate etalon files with Windows EOL)
+  # * https://ci.appveyor.com/project/ruslo/hunter/build/1.0.102/job/w06ih7x8gkcugw49
+  # - PROJECT_DIR: tests\hunter_create_deps_info
+  #   TOOLCHAIN: default
 
   - PROJECT_DIR: tests\hunter_generate_qt_info
     TOOLCHAIN: default
