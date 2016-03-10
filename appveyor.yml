@@ -32,9 +32,6 @@ environment:
   - PROJECT_DIR: tests\hunter_generate_qt_info
     TOOLCHAIN: default
 
-  - PROJECT_DIR: tests\hunter_get_dependency_list
-    TOOLCHAIN: default
-
   - PROJECT_DIR: tests\hunter_get_package_deps
     TOOLCHAIN: default
 
