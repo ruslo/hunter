@@ -53,7 +53,7 @@ function(hunter_process_dependency_node)
       # format: <package> <sha1>
       list(GET curr_dep_dir 0 package)
       set(component "")
-    else()
+    elseif(dep_len EQUAL 2)
       # format: <package> <component> <sha1>
       list(GET curr_dep_dir 0 package)
       list(GET curr_dep_dir 1 component)
