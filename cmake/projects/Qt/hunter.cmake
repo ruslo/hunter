@@ -113,6 +113,28 @@ hunter_add_version(
     PACKAGE_NAME
     Qt
     VERSION
+    "5.5.1-cvpixelbuffer-2-p2"
+    URL
+    "https://github.com/hunter-packages/Qt/releases/download/v5.5.1-cvpixelbuffer-2-p2/hunter-5.5.1-cvpixelbuffer-2.7z"
+    SHA1
+    1371bf9115360bc4830f49f4095cce783d57c6ed
+)
+
+hunter_add_version(
+    PACKAGE_NAME
+    Qt
+    VERSION
+    "5.5.1-cvpixelbuffer-2-p3"
+    URL
+    "https://github.com/hunter-packages/Qt/releases/download/v5.5.1-cvpixelbuffer-2-p3/hunter-5.5.1-cvpixelbuffer-2.7z"
+    SHA1
+    e5175d2a169e5ec2c22f5983eb4f4cd114c39a99
+)
+
+hunter_add_version(
+    PACKAGE_NAME
+    Qt
+    VERSION
     "5.6.0-alpha"
     URL
     "http://download.qt.io/development_releases/qt/5.6/5.6.0-alpha/single/qt-everywhere-opensource-src-5.6.0-alpha.7z"
