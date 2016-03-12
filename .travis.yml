@@ -1,5 +1,8 @@
 # OSX/Linux (https://github.com/travis-ci-tester/toolchain-table)
 
+language:
+  - cpp
+
 os:
   - linux
   - osx
@@ -17,8 +20,11 @@ addons:
     sources:
       - ubuntu-toolchain-r-test
     packages:
-      - cmake
       - python3
+
+      # python3-pip package is not available, use 'easy_install3':
+      # * https://github.com/travis-ci/apt-package-whitelist/issues/768
+      - python3-setuptools # easy_install3
 
       # https://github.com/travis-ci-tester/travis-test-clang-cxx-11
       - libstdc++-4.8-dev
@@ -44,31 +50,31 @@ env:
   - PROJECT_DIR=tests/autotools-merge-lipo TOOLCHAIN=default
 
 install:
-  - ./ci/install-deps.sh
+  # Info about OS
+  - uname -a
 
-  # Installed by install-deps.sh if platform is Linux;
-  # (directory doesn't exist for OSX)
-  - export PATH="`pwd`/cmake-3.4.0-Linux-x86_64/bin:${PATH}"
+  # Install Python 3
+  - if [[ "`uname`" == "Darwin" ]]; then brew install python3; fi
 
-  # Installed by install-deps.sh if platform is OSX;
-  # (directory doesn't exist for Linux)
-  - export PATH="`pwd`/cmake-3.3.2-Darwin-x86_64/bin:${PATH}"
+  # Install Python package 'requests'
+  # 'easy_install3' is not installed by 'brew install python3' on OS X 10.9 Maverick
+  - if [[ "`uname`" == "Darwin" ]]; then pip3 install requests; fi
+  - if [[ "`uname`" == "Linux" ]]; then easy_install3 --user requests; fi
 
-  # Installed by install-deps.sh if toolchain is Android
-  # (otherwise directory doesn't exist)
-  - export ANDROID_NDK_r10e="`pwd`/android-ndk-r10e"
+  # Install latest Polly toolchains and scripts
+  - wget https://github.com/ruslo/polly/archive/master.zip
+  - unzip master.zip
+  - POLLY_SOURCE_DIR="`pwd`/polly-master"
+  - export PATH="${POLLY_SOURCE_DIR}/bin:${PATH}"
 
-  # Install Polly toolchains
-  - POLLY_VERSION="0.9.0"
-  - wget "https://github.com/ruslo/polly/archive/v${POLLY_VERSION}.tar.gz"
-  - tar xf "v${POLLY_VERSION}.tar.gz"
-  - export PATH="`pwd`/polly-${POLLY_VERSION}/bin:${PATH}"
+  # Install dependencies (CMake, Android NDK)
+  - install-ci-dependencies.py
 
-  # Check versions of tools
-  - which cmake
-  - cmake --version
-  - which python3
-  - python3 --version
+  # Tune locations
+  - export PATH="`pwd`/_ci/cmake/bin:${PATH}"
+
+  # Installed if toolchain is Android (otherwise directory doesn't exist)
+  - export ANDROID_NDK_r10e="`pwd`/_ci/android-ndk-r10e"
 
 script:
   - python3 ./jenkins.py
