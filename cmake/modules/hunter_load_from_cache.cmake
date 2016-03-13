@@ -135,7 +135,10 @@ function(hunter_load_from_cache)
   file(SHA1 "${temp_deps_info}" deps_sha1)
   hunter_make_directory("${cache_meta_dir}" "${deps_sha1}" cache_meta_dir)
 
-  if(NOT EXISTS "${cache_meta_dir}/CACHE.DONE")
+  set(cache_sha1_file "${cache_meta_dir}/cache.sha1")
+  set(cache_done_file "${cache_meta_dir}/CACHE.DONE")
+
+  if(NOT EXISTS "${cache_done_file}")
     hunter_status_debug(
         "Cache miss (no entry found: ${cache_meta_dir}/CACHE.DONE)"
     )
@@ -144,7 +147,6 @@ function(hunter_load_from_cache)
 
   hunter_status_print("Cache HIT: ${human_readable}")
 
-  set(cache_sha1_file "${cache_meta_dir}/cache.sha1")
   if(NOT EXISTS "${cache_sha1_file}")
     hunter_internal_error("cache.sha1 not exists")
   endif()
