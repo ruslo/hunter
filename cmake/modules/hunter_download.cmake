@@ -298,7 +298,11 @@ function(hunter_download)
       "${HUNTER_DOWNLOAD_TOOLCHAIN}"
       "set(HUNTER_ALREADY_LOCKED_DIRECTORIES \"${HUNTER_ALREADY_LOCKED_DIRECTORIES}\" CACHE INTERNAL \"\")\n"
   )
-
+  file(
+      APPEND
+      "${HUNTER_DOWNLOAD_TOOLCHAIN}"
+      "list(APPEND HUNTER_CACHE_SERVERS ${HUNTER_CACHE_SERVERS})\n"
+  )
 
   if(hunter_no_url)
     set(avail ${HUNTER_${h_name}_VERSIONS})
