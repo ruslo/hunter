@@ -301,6 +301,11 @@ function(hunter_download)
   file(
       APPEND
       "${HUNTER_DOWNLOAD_TOOLCHAIN}"
+      "set(HUNTER_DISABLE_BUILDS \"${HUNTER_DISABLE_BUILDS}\" CACHE INTERNAL \"\")\n"
+  )
+  file(
+      APPEND
+      "${HUNTER_DOWNLOAD_TOOLCHAIN}"
       "list(APPEND HUNTER_CACHE_SERVERS ${HUNTER_CACHE_SERVERS})\n"
   )
 
@@ -353,6 +358,13 @@ function(hunter_download)
     )
   endif()
   hunter_status_print("${build_message}")
+
+  if(HUNTER_DISABLE_BUILDS AND HUNTER_PACKAGE_SCHEME_INSTALL)
+    hunter_fatal_error(
+        "Building package from source is disabled (dir: ${HUNTER_PACKAGE_HOME_DIR})"
+        WIKI "error.build.disabled"
+    )
+  endif()
 
   if(HUNTER_STATUS_DEBUG)
     set(logging_params "")
