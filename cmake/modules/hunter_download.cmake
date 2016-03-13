@@ -439,5 +439,7 @@ function(hunter_download)
     file(REMOVE_RECURSE "${HUNTER_PACKAGE_INSTALL_PREFIX}")
   endif()
 
+  hunter_status_debug("Clean up done")
+
   file(WRITE "${HUNTER_PACKAGE_DONE_STAMP}" "")
 endfunction()

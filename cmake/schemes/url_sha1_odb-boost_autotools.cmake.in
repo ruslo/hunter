@@ -1,23 +1,27 @@
-# Copyright (c) 2013, 2015 Ruslan Baratov, Alexandre Pretyman
+# Copyright (c) 2016 Ruslan Baratov, Alexandre Pretyman
 # All rights reserved.
 
 cmake_minimum_required(VERSION 3.0)
 project(Hunter)
 
-list(APPEND CMAKE_MODULE_PATH "@HUNTER_SELF@/cmake/modules")
-
 include("@HUNTER_SELF@/cmake/Hunter")
 
 include(hunter_autotools_project)
-include(hunter_report_broken_package)
+include(hunter_fatal_error)
 include(hunter_status_debug)
 include(hunter_test_string_not_empty)
 
-hunter_status_debug("Scheme: url_sha1_avahi_autotools")
+hunter_status_debug("Scheme: url_sha1_odb-boost_autotools")
 
 if("@MSVC@")
-  hunter_report_broken_package("Autotools scheme not supported with Visual Studio")
+  hunter_fatal_error("Autotools scheme not supported with Visual Studio")
 endif()
+
+hunter_add_package(odb)
+find_package(odb REQUIRED)
+
+hunter_add_package(Boost COMPONENTS date_time)
+find_package(Boost CONFIG REQUIRED COMPONENTS date_time)
 
 # Check preconditions
 hunter_test_string_not_empty("@HUNTER_SELF@")
@@ -28,11 +32,7 @@ hunter_test_string_not_empty("@HUNTER_PACKAGE_DOWNLOAD_DIR@")
 hunter_test_string_not_empty("@HUNTER_PACKAGE_SOURCE_DIR@")
 hunter_test_string_not_empty("@HUNTER_PACKAGE_BUILD_DIR@")
 hunter_test_string_not_empty("@HUNTER_PACKAGE_INSTALL_PREFIX@")
-
-hunter_add_package(dbus)
-hunter_add_package(Expat)
-hunter_add_package(libdaemon)
-hunter_add_package(intltool)
+hunter_test_string_not_empty("@HUNTER_INSTALL_PREFIX@")
 
 hunter_autotools_project("@HUNTER_EP_NAME@"
     HUNTER_SELF
@@ -54,22 +54,8 @@ hunter_autotools_project("@HUNTER_EP_NAME@"
     PARALLEL_JOBS
       "@HUNTER_JOBS_OPTION@"
     CPPFLAGS
-      "-I@HUNTER_INSTALL_PREFIX@/include" # find Expat
+      "-I${ODB_INCLUDE_DIR} -I${BOOST_ROOT}/include"
     LDFLAGS
-      "-L@HUNTER_INSTALL_PREFIX@/lib" # find Expat
-    EXTRA_FLAGS
-      --disable-glib
-      --disable-gobject
-      --disable-qt3
-      --disable-qt4
-      --disable-gtk
-      --disable-gtk3
-      --disable-gdbm
-      --disable-python
-      --disable-mono
-      --disable-monodoc
-      --with-xml=expat
-      --enable-compat-libdns_sd
-      MODIFY_PATH # find intltool-update executable (intltool package)
-      MODIFY_PKG_CONFIG # find libdaemon
-    )
+      "-L${ODB_LIB_DIR} -lodb"
+)
+
