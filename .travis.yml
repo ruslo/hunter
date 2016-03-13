@@ -49,6 +49,7 @@ env:
   - PROJECT_DIR=tests/hunter_setup_msvc TOOLCHAIN=default
   - PROJECT_DIR=tests/hunter_unpack_directory TOOLCHAIN=default
   - PROJECT_DIR=tests/hunter_download_cache_raw_file TOOLCHAIN=default
+  - PROJECT_DIR=tests/hunter_download_cache_meta_file TOOLCHAIN=default
   - PROJECT_DIR=tests/autotools-merge-lipo TOOLCHAIN=default
 
 install:
