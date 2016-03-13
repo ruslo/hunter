@@ -5,6 +5,8 @@ include(hunter_add_package)
 include(hunter_cache_run)
 include(hunter_create_cache_meta_directory)
 include(hunter_create_dependency_entry)
+include(hunter_download_cache_meta_file)
+include(hunter_download_cache_raw_file)
 include(hunter_internal_error)
 include(hunter_status_debug)
 include(hunter_test_string_not_empty)
@@ -74,6 +76,10 @@ function(hunter_load_from_cache)
   set(basic_deps_done "${cache_meta_dir}/basic-deps.DONE")
   set(basic_deps_info "${cache_meta_dir}/basic-deps.info")
 
+  hunter_download_cache_meta_file(
+      LOCAL "${basic_deps_info}" DONE "${basic_deps_done}"
+  )
+
   if(NOT EXISTS "${basic_deps_done}")
     hunter_status_debug(
         "Cache miss (no basic dependencies info found: ${basic_deps_done})"
@@ -138,6 +144,10 @@ function(hunter_load_from_cache)
   set(cache_sha1_file "${cache_meta_dir}/cache.sha1")
   set(cache_done_file "${cache_meta_dir}/CACHE.DONE")
 
+  hunter_download_cache_meta_file(
+      LOCAL "${cache_sha1_file}" DONE "${cache_done_file}"
+  )
+
   if(NOT EXISTS "${cache_done_file}")
     hunter_status_debug(
         "Cache miss (no entry found: ${cache_meta_dir}/CACHE.DONE)"
@@ -179,6 +189,9 @@ function(hunter_load_from_cache)
   # Unpack cache archive
   file(READ "${cache_sha1_file}" cache_sha1)
   set(archive_file "${cache_directory}/raw/${cache_sha1}.tar.bz2")
+
+  hunter_download_cache_raw_file(LOCAL "${archive_file}" SHA1 "${cache_sha1}")
+
   if(NOT EXISTS "${archive_file}")
     hunter_internal_error("archive file not found: ${archive_file}")
   endif()
