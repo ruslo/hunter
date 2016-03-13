@@ -11,10 +11,10 @@ include(hunter_download_cache_raw_file)
 set(HUNTER_CACHE_SERVERS "https://github.com/ingenue/hunter-cache")
 set(HUNTER_CACHED_ROOT "${CMAKE_CURRENT_BINARY_DIR}/_HUNTER")
 
-set(local_good "${HUNTER_CACHED_ROOT}/_Base/Cache/raw/a594d0527ba1233a6c2bb5cfde7bf90122f6bf9c.tar.gz")
-set(sha1_good "a594d0527ba1233a6c2bb5cfde7bf90122f6bf9c")
+set(local_good "${HUNTER_CACHED_ROOT}/_Base/Cache/raw/0940da93922ec0790836ebaccf2ccf14baf65df4.tar.bz2")
+set(sha1_good "0940da93922ec0790836ebaccf2ccf14baf65df4")
 
-set(local_not_exists "${HUNTER_CACHED_ROOT}/_Base/Cache/raw/a594d0527ba1233a6c2bb5cfde7bf90122f6bxxx.tar.gz")
+set(local_not_exists "${HUNTER_CACHED_ROOT}/_Base/Cache/raw/0940da93922ec0790836ebaccf2ccf14baf65xxx.tar.bz2")
 
 ### Successfull download
 hunter_download_cache_raw_file(LOCAL "${local_good}" SHA1 "${sha1_good}")
