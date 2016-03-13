@@ -11,9 +11,10 @@ include(hunter_user_error)
 function(hunter_download_cache_raw_file)
   hunter_test_string_not_empty("${HUNTER_CACHED_ROOT}")
 
-  cmake_parse_arguments(x "" "LOCAL;SHA1" "" ${ARGV})
+  cmake_parse_arguments(x "" "LOCAL;SHA1;FROMSERVER" "" ${ARGV})
   # -> x_LOCAL
   # -> x_SHA1
+  # -> x_FROMSERVER
   # -> x_UNPARSED_ARGUMENTS
 
   string(COMPARE NOTEQUAL "${x_UNPARSED_ARGUMENTS}" "" has_unparsed)
@@ -29,6 +30,11 @@ function(hunter_download_cache_raw_file)
   string(COMPARE EQUAL "${x_SHA1}" "" is_empty)
   if(is_empty)
     hunter_internal_error("SHA1 can't be empty")
+  endif()
+
+  string(COMPARE EQUAL "${x_FROMSERVER}" "" is_empty)
+  if(is_empty)
+    hunter_internal_error("FROMSERVER can't be empty")
   endif()
 
   set(cache_directory "${HUNTER_CACHED_ROOT}/_Base/Cache")
@@ -74,6 +80,7 @@ function(hunter_download_cache_raw_file)
           hunter_internal_error("Unexpected message: ${error_message}")
         endif()
         if(sha1_is_good)
+          file(WRITE "${x_FROMSERVER}" "")
           return()
         else()
           hunter_status_debug("SHA1 mismatch (retry):")

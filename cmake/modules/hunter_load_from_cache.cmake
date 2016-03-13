@@ -141,6 +141,7 @@ function(hunter_load_from_cache)
   file(SHA1 "${temp_deps_info}" deps_sha1)
   hunter_make_directory("${cache_meta_dir}" "${deps_sha1}" cache_meta_dir)
 
+  set(from_server_file "${cache_meta_dir}/from.server")
   set(cache_sha1_file "${cache_meta_dir}/cache.sha1")
   set(cache_done_file "${cache_meta_dir}/CACHE.DONE")
 
@@ -190,7 +191,11 @@ function(hunter_load_from_cache)
   file(READ "${cache_sha1_file}" cache_sha1)
   set(archive_file "${cache_directory}/raw/${cache_sha1}.tar.bz2")
 
-  hunter_download_cache_raw_file(LOCAL "${archive_file}" SHA1 "${cache_sha1}")
+  hunter_download_cache_raw_file(
+      LOCAL "${archive_file}"
+      SHA1 "${cache_sha1}"
+      FROMSERVER "${from_server_file}"
+  )
 
   if(NOT EXISTS "${archive_file}")
     hunter_internal_error("archive file not found: ${archive_file}")
