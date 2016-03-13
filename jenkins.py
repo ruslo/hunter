@@ -36,6 +36,11 @@ def run():
       action='store_true',
       help='Verbose output'
   )
+  parser.add_argument(
+      '--disable-builds',
+      action='store_true',
+      help='Disable building of package (useful for checking package can be loaded from cache)'
+  )
 
   parsed_args = parser.parse_args()
 
@@ -180,6 +185,9 @@ def run():
 
   if not parsed_args.nocreate:
     args += ['HUNTER_RUN_INSTALL=ON']
+
+  if parsed_args.disable_builds:
+    args += ['HUNTER_DISABLE_BUILDS=ON']
 
   args += ['--verbose']
   if not verbose:
