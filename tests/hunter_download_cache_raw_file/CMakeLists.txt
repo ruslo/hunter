@@ -1,0 +1,54 @@
+# Copyright (c) 2016, Ruslan Baratov
+# All rights reserved.
+
+cmake_minimum_required(VERSION 3.0)
+
+include("../../examples/common.cmake")
+project(TestModuleHunterDownloadCacheRawFile)
+
+include(hunter_download_cache_raw_file)
+
+set(HUNTER_CACHE_SERVERS "https://github.com/ingenue/hunter-cache")
+set(HUNTER_CACHED_ROOT "${CMAKE_CURRENT_BINARY_DIR}/_HUNTER")
+
+set(local_good "${HUNTER_CACHED_ROOT}/_Base/Cache/raw/a594d0527ba1233a6c2bb5cfde7bf90122f6bf9c.tar.gz")
+set(sha1_good "a594d0527ba1233a6c2bb5cfde7bf90122f6bf9c")
+
+set(local_not_exists "${HUNTER_CACHED_ROOT}/_Base/Cache/raw/a594d0527ba1233a6c2bb5cfde7bf90122f6bxxx.tar.gz")
+
+### Successfull download
+hunter_download_cache_raw_file(LOCAL "${local_good}" SHA1 "${sha1_good}")
+
+if(NOT EXISTS "${local_good}")
+  message(FATAL_ERROR "File not downloaded")
+endif()
+
+### File not found
+
+hunter_download_cache_raw_file(LOCAL "${local_not_exists}" SHA1 "${sha1_good}")
+
+if(EXISTS "${local_not_exists}")
+  message(FATAL_ERROR "File should be removed")
+endif()
+
+### File already downloaded, ok even server is bad
+
+set(HUNTER_CACHE_SERVERS "https://github.com/ingenue/bad-hunter-cache")
+
+hunter_download_cache_raw_file(LOCAL "${local_good}" SHA1 "${sha1_good}")
+
+if(NOT EXISTS "${local_good}")
+  message(FATAL_ERROR "File not downloaded")
+endif()
+
+### Server is bad
+
+file(REMOVE "${local_good}")
+
+set(HUNTER_CACHE_SERVERS "https://github.com/ingenue/bad-hunter-cache")
+
+hunter_download_cache_raw_file(LOCAL "${local_good}" SHA1 "${sha1_good}")
+
+if(EXISTS "${local_good}")
+  message(FATAL_ERROR "File should be removed")
+endif()
