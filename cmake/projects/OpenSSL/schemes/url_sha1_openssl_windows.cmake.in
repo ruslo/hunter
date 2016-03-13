@@ -28,6 +28,7 @@ hunter_test_string_not_empty("@HUNTER_PACKAGE_INSTALL_PREFIX@")
 hunter_test_string_not_empty("@HUNTER_MSVC_ARCH@")
 hunter_test_string_not_empty("@HUNTER_MSVC_VCVARSALL@")
 hunter_test_string_not_empty("@HUNTER_PACKAGE_LICENSE_FILE@")
+hunter_test_string_not_empty("@HUNTER_GLOBAL_SCRIPT_DIR@")
 
 # `find_package(Perl)` is not suitable because `perl` from
 # cygwin directory can be found
@@ -103,6 +104,6 @@ ExternalProject_Add(
     "-Dsrcdir=@HUNTER_PACKAGE_SOURCE_DIR@"
     "-Ddstfile=@HUNTER_PACKAGE_LICENSE_FILE@"
     -P
-    "@HUNTER_SELF@/scripts/try-copy-license.cmake"
+    "@HUNTER_GLOBAL_SCRIPT_DIR@/try-copy-license.cmake"
     ${log_opts}
 )
