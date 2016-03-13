@@ -18,6 +18,8 @@ include(hunter_install_boost_config)
 include(hunter_internal_error)
 include(hunter_status_debug)
 include(hunter_test_string_not_empty)
+include(hunter_windows_env_command)
+include(hunter_windows_to_snf_filename)
 
 hunter_status_debug("Scheme: url_sha1_boost_library")
 
@@ -235,26 +237,29 @@ file(
     "  : ${toolset_version}\n"
 )
 
-if(MSVC)
+if(CMAKE_HOST_WIN32)
   # For Visual Studio C++ flags must not be set in compiler section.
   # Section <compileflags> should be used.
   #   * https://github.com/ruslo/hunter/issues/179
-  file(APPEND ${boost_user_jam} "  : \"${boost_compiler}\"\n")
+  # Even though user.config.jam provides the path to archiver 'b2'
+  # tries to find it based on the path to the compiler. In this 
+  # process if the path contains any spaces or any other invalid 
+  # characters that windows use for its long names, it derives a 
+  # path which is incorrect. To solve this we convert the path to 
+  # 8.3 FileName format or windows short filename format.
+  # For reference check http://stackoverflow.com/a/10227715/2288008
+  hunter_windows_to_snf_filename(${boost_compiler} boost_compiler_snf)
+  hunter_windows_to_snf_filename(${CMAKE_AR} CMAKE_AR_snf)
+  file(APPEND ${boost_user_jam} "  : \"${boost_compiler_snf}\"\n")
+  file(APPEND ${boost_user_jam} "  : <archiver> \"${CMAKE_AR_snf}\"\n")
 else()
   # For Android C++ flags must be part of the compiler section:
   #   * https://github.com/ruslo/hunter/issues/174
   # For 'sanitize-address' toolchain flags must be part of the compiler section:
   #   * https://github.com/ruslo/hunter/issues/269
-  file(
-      APPEND ${boost_user_jam} "  : \"${boost_compiler}\" ${CMAKE_CXX_FLAGS}\n"
-  )
+  file(APPEND ${boost_user_jam} "  : \"${boost_compiler}\" ${CMAKE_CXX_FLAGS}\n")
+  file(APPEND ${boost_user_jam} "  : <archiver> \"${CMAKE_AR}\"\n")
 endif()
-
-file(
-    APPEND
-    ${boost_user_jam}
-    "  : <archiver> \"${CMAKE_AR}\"\n"
-)
 
 if(MSVC)
   # See 'boost_compiler' section
@@ -294,9 +299,14 @@ if(@HUNTER_STATUS_DEBUG@)
   set(verbose_output "-d+2 --debug-configuration")
 endif()
 
-if("@MSVC@" OR "@MINGW@")
-  set(bootstrap_cmd "bootstrap.bat")
-  set(b2_cmd "b2")
+if("@MSVC@")
+  hunter_windows_env_command("windows_env_command")
+  set(bootstrap_cmd "${windows_env_command}" "&&" "bootstrap.bat")
+  set(b2_cmd "${windows_env_command}" "&&" "b2")
+elseif("@MINGW@")
+  hunter_windows_env_command("windows_env_command")
+  set(bootstrap_cmd "${windows_env_command}" "&&" "bootstrap.bat" "mingw")
+  set(b2_cmd "${windows_env_command}" "&&" "b2")
 else()
   set(bootstrap_cmd "./bootstrap.sh")
   set(b2_cmd "./b2")
