@@ -14,6 +14,22 @@ import tarfile
 import tempfile
 import argparse
 
+def clear_except_download(hunter_root):
+  base_dir = os.path.join(hunter_root, '_Base')
+  if os.path.exists(base_dir):
+    print('Clearing directory: {}'.format(base_dir))
+    hunter_download_dir = os.path.join(base_dir, 'Download', 'Hunter')
+    if os.path.exists(hunter_download_dir):
+      shutil.rmtree(hunter_download_dir)
+    for filename in os.listdir(base_dir):
+      if filename != 'Download':
+        to_remove = os.path.join(base_dir, filename)
+        if os.name == 'nt':
+          # Fix "path too long" error
+          subprocess.check_call(['cmd', '/c', 'rmdir', to_remove, '/S', '/Q'])
+        else:
+          shutil.rmtree(to_remove)
+
 def run():
   parser = argparse.ArgumentParser("Testing script")
   parser.add_argument(
@@ -44,7 +60,7 @@ def run():
   parser.add_argument(
       '--upload',
       action='store_true',
-      help='Upload cache to server'
+      help='Upload cache to server and run checks (clean up will be triggered, same as --clear-except-download)'
   )
 
   parsed_args = parser.parse_args()
@@ -141,20 +157,7 @@ def run():
   hunter_root = os.path.join(testing_dir, 'Hunter')
 
   if parsed_args.clear_except_download:
-    base_dir = os.path.join(hunter_root, '_Base')
-    if os.path.exists(base_dir):
-      print('Clearing directory: {}'.format(base_dir))
-      hunter_download_dir = os.path.join(base_dir, 'Download', 'Hunter')
-      if os.path.exists(hunter_download_dir):
-        shutil.rmtree(hunter_download_dir)
-      for filename in os.listdir(base_dir):
-        if filename != 'Download':
-          to_remove = os.path.join(base_dir, filename)
-          if os.name == 'nt':
-            # Fix "path too long" error
-            subprocess.check_call(['cmd', '/c', 'rmdir', to_remove, '/S', '/Q'])
-          else:
-            shutil.rmtree(to_remove)
+    clear_except_download(hunter_root)
 
   if os.name == 'nt':
     which = 'where'
@@ -230,6 +233,8 @@ def run():
     ])
 
     print('Run sanity build')
+    clear_except_download(hunter_root)
+
     # Sanity check - run build again with disabled building from sources
     args = [
         sys.executable,
