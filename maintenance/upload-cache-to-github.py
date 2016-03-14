@@ -24,6 +24,10 @@ class Github:
     self.repo_owner = repo_owner
     self.repo = repo
 
+    r = requests.get('https://api.github.com/repos/{}'.format(repo_owner))
+    limit = int(r.headers['X-RateLimit-Remaining'])
+    print('GitHub Limit: {}'.format(limit))
+
   def get_release_by_tag(self, tagname):
     # https://developer.github.com/v3/repos/releases/#get-a-release-by-tag-name
     # GET /repos/:owner/:repo/releases/tags/:tag
