@@ -27,6 +27,8 @@ class Github:
     r = requests.get('https://api.github.com/repos/{}'.format(repo_owner))
     limit = int(r.headers['X-RateLimit-Remaining'])
     print('GitHub Limit: {}'.format(limit))
+    if limit == 0:
+      sys.exit('GitHub limit is 0, have to wait some time...')
 
   def get_release_by_tag(self, tagname):
     # https://developer.github.com/v3/repos/releases/#get-a-release-by-tag-name
