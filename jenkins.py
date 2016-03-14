@@ -41,8 +41,18 @@ def run():
       action='store_true',
       help='Disable building of package (useful for checking package can be loaded from cache)'
   )
+  parser.add_argument(
+      '--upload',
+      action='store_true',
+      help='Upload cache to server'
+  )
 
   parsed_args = parser.parse_args()
+
+  if parsed_args.upload:
+    password = os.getenv('GITHUB_USER_PASSWORD')
+    if password is None:
+      sys.exit('Expected environment variable GITHUB_USER_PASSWORD on uploading')
 
   cdir = os.getcwd()
   hunter_root = cdir
@@ -199,6 +209,52 @@ def run():
   print(']')
 
   subprocess.check_call(args)
+
+  if parsed_args.upload:
+    upload_script = os.path.join(cdir, 'maintenance', 'upload-cache-to-github.py')
+
+    print('Uploading cache')
+    subprocess.check_call([
+        sys.executable,
+        upload_script,
+        '--username',
+        'ingenue',
+        '--repo-owner',
+        'ingenue',
+        '--repo',
+        'hunter-cache',
+        '--cache-dir',
+        os.path.join(hunter_root, '_Base', 'Cache'),
+        '--temp-dir',
+        os.path.join(hunter_root, '__TEMP')
+    ])
+
+    print('Run sanity build')
+    # Sanity check - run build again with disabled building from sources
+    args = [
+        sys.executable,
+        build_script,
+        '--clear',
+        '--verbose',
+        '--config',
+        'Release',
+        '--toolchain',
+        toolchain,
+        '--home',
+        project_dir,
+        '--fwd',
+        'HUNTER_DISABLE_BUILDS=ON',
+        'HUNTER_ROOT={}'.format(hunter_root),
+        'TESTING_URL={}'.format(hunter_url),
+        'TESTING_SHA1={}'.format(hunter_sha1)
+    ]
+
+    print('Execute command: [')
+    for i in args:
+      print('  `{}`'.format(i))
+    print(']')
+
+    subprocess.check_call(args)
 
 if __name__ == "__main__":
   run()
