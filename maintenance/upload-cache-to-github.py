@@ -6,6 +6,7 @@ import hashlib
 import json
 import os
 import requests
+import sys
 
 # http://stackoverflow.com/a/16696317/2288008
 def download_file(url, local_file, chunk_size=1024):
