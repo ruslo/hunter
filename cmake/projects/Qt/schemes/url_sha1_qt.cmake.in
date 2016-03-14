@@ -29,6 +29,8 @@ hunter_test_string_not_empty("@HUNTER_INSTALL_PREFIX@")
 hunter_test_string_not_empty("@HUNTER_PACKAGE_INSTALL_PREFIX@")
 hunter_test_string_not_empty("@HUNTER_PACKAGE_LICENSE_FILE@")
 hunter_test_string_not_empty("@HUNTER_Qt_VERSION@")
+hunter_test_string_not_empty("@HUNTER_PACKAGE_SETUP_DIR@")
+hunter_test_string_not_empty("@HUNTER_GLOBAL_SCRIPT_DIR@")
 
 set(HUNTER_Qt_VERSION "@HUNTER_Qt_VERSION@")
 
@@ -228,7 +230,7 @@ set(
 #   * IOS
 #   * HUNTER_Qt_VERSION
 configure_file(
-    "@HUNTER_SELF@/scripts/qt-configure.cmake.in"
+    "@HUNTER_PACKAGE_SETUP_DIR@/ep-stages/qt-configure.cmake.in"
     "@HUNTER_PACKAGE_BUILD_DIR@/qt-configure.cmake"
     @ONLY
 )
@@ -252,7 +254,7 @@ configure_file(
 #   * IOS
 #   * HUNTER_Qt_VERSION
 configure_file(
-    "@HUNTER_SELF@/scripts/qt-install.cmake.in"
+    "@HUNTER_PACKAGE_SETUP_DIR@/ep-stages/qt-install.cmake.in"
     "@HUNTER_PACKAGE_BUILD_DIR@/qt-install.cmake"
     @ONLY
 )
@@ -266,7 +268,7 @@ configure_file(
 #  * is_release
 #  * is_debug
 configure_file(
-    "@HUNTER_SELF@/scripts/qt-build.cmake.in"
+    "@HUNTER_PACKAGE_SETUP_DIR@/ep-stages/qt-build.cmake.in"
     "@HUNTER_PACKAGE_BUILD_DIR@/qt-build.cmake"
     @ONLY
 )
@@ -349,7 +351,7 @@ ExternalProject_Add(
       "-Dsrcdir=@HUNTER_PACKAGE_SOURCE_DIR@"
       "-Ddstfile=@HUNTER_PACKAGE_LICENSE_FILE@"
       -P
-      "@HUNTER_SELF@/scripts/try-copy-license.cmake"
+      "@HUNTER_GLOBAL_SCRIPT_DIR@/try-copy-license.cmake"
     LOG_BUILD ${log_build}
     LOG_INSTALL ${log_install}
 )

@@ -25,6 +25,8 @@ hunter_test_string_not_empty("@HUNTER_PACKAGE_DOWNLOAD_DIR@")
 hunter_test_string_not_empty("@HUNTER_PACKAGE_SOURCE_DIR@")
 hunter_test_string_not_empty("@HUNTER_PACKAGE_INSTALL_PREFIX@")
 hunter_test_string_not_empty("@HUNTER_PACKAGE_LICENSE_FILE@")
+hunter_test_string_not_empty("@HUNTER_GLOBAL_SCRIPT_DIR@")
+
 # Note: support for single architecture/native iOS builds (i.e., arm64)
 hunter_test_string_not_empty("@IPHONEOS_ARCHS@@IPHONESIMULATOR_ARCHS@")
 hunter_test_string_not_empty("@IOS_SDK_VERSION@")
@@ -80,7 +82,7 @@ ExternalProject_Add(
     "-Dsrcdir=@HUNTER_PACKAGE_SOURCE_DIR@"
     "-Ddstfile=@HUNTER_PACKAGE_LICENSE_FILE@"
     -P
-    "@HUNTER_SELF@/scripts/try-copy-license.cmake"
+    "@HUNTER_GLOBAL_SCRIPT_DIR@/try-copy-license.cmake"
 )
 
 foreach(variant @IPHONEOS_ARCHS@ @IPHONESIMULATOR_ARCHS@)
@@ -128,7 +130,7 @@ foreach(variant @IPHONEOS_ARCHS@ @IPHONESIMULATOR_ARCHS@)
       "${iphone_minversion}"
       "-arch ${variant}"
       BUILD_COMMAND
-      . "@HUNTER_SELF@/scripts/clear-all.sh" &&
+      . "@HUNTER_GLOBAL_SCRIPT_DIR@/clear-all.sh" &&
       export CROSS_TOP=${CROSS_TOP} &&
       export CROSS_SDK=${CROSS_SDK} &&
       make
