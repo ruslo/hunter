@@ -25,7 +25,13 @@ class Github:
     self.repo_owner = repo_owner
     self.repo = repo
 
-    r = requests.get('https://api.github.com/repos/{}'.format(repo_owner))
+    r = requests.get(
+        'https://{}:{}@api.github.com/repos/{}'.format(
+            self.username,
+            self.password,
+            repo_owner,
+        )
+    )
     limit = int(r.headers['X-RateLimit-Remaining'])
     print('GitHub Limit: {}'.format(limit))
     if limit == 0:
@@ -35,7 +41,9 @@ class Github:
     # https://developer.github.com/v3/repos/releases/#get-a-release-by-tag-name
     # GET /repos/:owner/:repo/releases/tags/:tag
 
-    url = 'https://api.github.com/repos/{}/{}/releases/tags/{}'.format(
+    url = 'https://{}:{}@api.github.com/repos/{}/{}/releases/tags/{}'.format(
+        self.username,
+        self.password,
         self.repo_owner,
         self.repo,
         tagname
@@ -166,7 +174,9 @@ class CacheEntry:
       raise Exception('No files found in directory: {}'.format(dir_path))
     for i in to_upload:
       relative_path = i[len(self.cache_meta)+1:]
-      expected_download_url = 'https://raw.githubusercontent.com/{}/{}/master/{}'.format(
+      expected_download_url = 'https://{}:{}@raw.githubusercontent.com/{}/{}/master/{}'.format(
+          github.username,
+          github.password,
           github.repo_owner,
           github.repo,
           relative_path
