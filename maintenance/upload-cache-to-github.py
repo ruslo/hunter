@@ -208,7 +208,7 @@ class CacheEntry:
           relative_unix_path
       )
       print('Uploading file: {}'.format(relative_path))
-      ok = github.create_new_file(i, relative_path)
+      ok = github.create_new_file(i, relative_unix_path)
       if not ok:
         print('Already exist')
         temp_file = os.path.join(self.temp_dir, '__TEMP.FILE')
