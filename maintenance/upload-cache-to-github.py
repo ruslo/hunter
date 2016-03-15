@@ -161,32 +161,36 @@ class CacheEntry:
 
   def upload_meta(self, github, cache_done):
     self.upload_files_from_common_dir(github, self.cache_done_dir, cache_done)
-    self.upload_files_from_common_dir(github, self.internal_deps_id)
-    self.upload_files_from_common_dir(github, self.type_id)
-    self.upload_files_from_common_dir(github, self.args_id)
-    self.upload_files_from_common_dir(github, self.archive_id)
-    self.upload_files_from_common_dir(github, self.version, check_is_empty=True)
+    self.upload_files_from_common_dir(github, self.internal_deps_id, cache_done)
+    self.upload_files_from_common_dir(github, self.type_id, cache_done)
+    self.upload_files_from_common_dir(github, self.args_id, cache_done)
+    self.upload_files_from_common_dir(github, self.archive_id, cache_done)
+    self.upload_files_from_common_dir(github, self.version, cache_done, check_is_empty=True)
     if self.component != '':
-      self.upload_files_from_common_dir(github, self.component, check_is_empty=True)
-    self.upload_files_from_common_dir(github, self.package, check_is_empty=True)
-    self.upload_files_from_common_dir(github, self.toolchain_id)
+      self.upload_files_from_common_dir(github, self.component, cache_done, check_is_empty=True)
+    self.upload_files_from_common_dir(github, self.package, cache_done, check_is_empty=True)
+    self.upload_files_from_common_dir(github, self.toolchain_id, cache_done)
 
-  def upload_files_from_common_dir(self, github, dir_path, cache_done=False, check_is_empty=False):
+  def upload_files_from_common_dir(self, github, dir_path, cache_done, check_is_empty=False):
     to_upload = []
     for i in os.listdir(dir_path):
       if i == 'cmake.lock':
         continue
       if i == 'DONE':
         continue
-      if i == 'CACHE.DONE' and not cache_done:
+      done_file = (i == 'CACHE.DONE') or (i == 'basic-deps.DONE')
+      if done_file and not cache_done:
+        continue
+      if not done_file and cache_done:
         continue
       i_fullpath = os.path.join(dir_path, i)
       if os.path.isfile(i_fullpath):
         to_upload.append(i_fullpath)
-    if check_is_empty and len(to_upload) != 0:
-      raise Exception('Expected no files in directory: {}'.format(dir_path))
-    if not check_is_empty and len(to_upload) == 0:
-      raise Exception('No files found in directory: {}'.format(dir_path))
+    if not cache_done:
+      if check_is_empty and len(to_upload) != 0:
+        raise Exception('Expected no files in directory: {}'.format(dir_path))
+      if not check_is_empty and len(to_upload) == 0:
+        raise Exception('No files found in directory: {}'.format(dir_path))
     for i in to_upload:
       relative_path = i[len(self.cache_meta)+1:]
       expected_download_url = 'https://raw.githubusercontent.com/{}/{}/master/{}'.format(
@@ -303,4 +307,5 @@ github = Github(
 
 cache.upload_raw(github)
 cache.upload_meta(github, cache_done=False)
+print('Uploading DONE files')
 cache.upload_meta(github, cache_done=True) # Should be last
