@@ -102,7 +102,7 @@ class Github:
 
     upload_bzip(url, local_path, self.auth)
 
-  def create_new_file(self, local_path, github_path):
+  def try_create_new_file(self, local_path, github_path):
     # https://developer.github.com/v3/repos/contents/#create-a-file
     # PUT /repos/:owner/:repo/contents/:path
 
@@ -124,7 +124,19 @@ class Github:
     r = requests.put(url, data = json.dumps(put_data), auth=self.auth)
     if not r.ok:
       print('Put failed. Status code: {}'.format(r.status_code))
+      if r.status_code == 409:
+        raise Exception('Unavailable repository')
     return r.ok
+
+  def create_new_file(self, local_path, github_path):
+    max_retry = 3
+    for i in range(max_retry):
+      try:
+        return try_create_new_file(local_path, github_path)
+      except Exception as exc:
+        print('Exception catched ({}), retry... ({} of {})'.format(exc, i+1, max_retry))
+        time.sleep(60)
+    sys.exit('Upload failed')
 
 class CacheEntry:
   def __init__(self, cache_done_path, cache_dir, temp_dir):
