@@ -52,6 +52,12 @@ function(hunter_download_cache_raw_file)
     file(REMOVE "${x_LOCAL}")
   endif()
 
+  string(COMPARE EQUAL "${HUNTER_USE_CACHE_SERVERS}" "NO" disable_server)
+  if(disable_server)
+    hunter_status_debug("Skip servers")
+    return()
+  endif()
+
   foreach(server ${HUNTER_CACHE_SERVERS})
     string(REGEX MATCH "^https://github.com/" is_github "${server}")
     if(NOT is_github)
