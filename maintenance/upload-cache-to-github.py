@@ -199,17 +199,36 @@ class CacheEntry:
           github.repo,
           relative_path
       )
+      github_url = 'https://github.com/{}/{}/blob/master/{}'.format(
+          github.repo_owner,
+          github.repo,
+          relative_path
+      )
       print('Uploading file: {}'.format(relative_path))
       ok = github.create_new_file(i, relative_path)
       if not ok:
         print('Already exist')
         temp_file = os.path.join(self.temp_dir, '__TEMP.FILE')
         download_file(expected_download_url, temp_file, github.auth)
-        expected_hash = hashlib.sha1(open(i, 'rb').read()).hexdigest()
-        downloaded_hash = hashlib.sha1(open(temp_file, 'rb').read()).hexdigest()
+        expected_content = open(i, 'rb').read()
+        downloaded_content = open(temp_file, 'rb').read()
+        expected_hash = hashlib.sha1(expected_content).hexdigest()
+        downloaded_hash = hashlib.sha1(downloaded_content).hexdigest()
         os.remove(temp_file)
         if expected_hash != downloaded_hash:
-          raise Exception('Hash mismatch:\n  {} != {}\n  {}'.format(expected_hash, downloaded_hash, expected_download_url))
+          print('Hash mismatch:')
+          print(
+              '  expected {} (content: {})'.format(
+                  expected_hash, expected_content
+              )
+          )
+          print(
+              '  downloaded {} (content: {})'.format(
+                  downloaded_hash, downloaded_content
+              )
+          )
+          print('GitHub link: {}'.format(github_url))
+          raise Exception('Hash mismatch')
 
 class Cache:
   def __init__(self, cache_dir, temp_dir):
