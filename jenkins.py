@@ -5,6 +5,7 @@
 
 # https://github.com/ruslo/polly/wiki/Jenkins
 
+import argparse
 import hashlib
 import os
 import shutil
@@ -12,7 +13,7 @@ import subprocess
 import sys
 import tarfile
 import tempfile
-import argparse
+import time
 
 def clear_except_download(hunter_root):
   base_dir = os.path.join(hunter_root, '_Base')
@@ -233,7 +234,14 @@ def run():
         os.path.join(hunter_root, '__TEMP')
     ])
 
+    seconds = 60
+    print(
+        'Wait for GitHub changes became visible ({} seconds)...'.format(seconds)
+    )
+    time.sleep(seconds)
+
     print('Run sanity build')
+
     clear_except_download(hunter_root)
 
     # Sanity check - run build again with disabled building from sources
