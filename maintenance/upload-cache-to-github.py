@@ -12,7 +12,7 @@ import sys
 def download_file(url, local_file, chunk_size=1024):
   r = requests.get(url, stream=True)
   if not r.ok:
-    raise Exception('Downloading failed: {}'.format(url))
+    raise Exception('Downloading failed')
   with open(local_file, 'wb') as f:
     for chunk in r.iter_content(chunk_size=chunk_size):
       if chunk:
@@ -51,7 +51,7 @@ class Github:
 
     r = requests.get(url)
     if not r.ok:
-      raise Exception('Get tag id failed. URL request: {}'.format(url))
+      raise Exception('Get tag id failed')
 
     return r.json()['id']
 
