@@ -55,7 +55,6 @@ def upload_bzip(url, local_path, auth):
 class Github:
   def __init__(self, username, password, repo_owner, repo):
     self.repo_owner = repo_owner
-    self.username = username
     self.repo = repo
     self.auth = requests.auth.HTTPBasicAuth(username, password)
 
@@ -117,14 +116,8 @@ class Github:
 
     content = base64.b64encode(open(local_path, 'rb').read()).decode()
 
-    committer = {
-        'name': self.username,
-        'email': '{}@users.noreply.github.com'.format(self.username)
-    }
-
     put_data = {
         'message': message,
-        'committer': committer,
         'content': content
     }
 
