@@ -58,9 +58,10 @@ class Github:
     self.repo = repo
     self.auth = requests.auth.HTTPBasicAuth(username, password)
 
-    r = requests.get(
-        'https://api.github.com/repos/{}'.format(repo_owner), auth=self.auth
-    )
+    r = requests.get('https://api.github.com', auth=self.auth)
+    if not r.ok:
+      sys.exit('Simple requests failed. Check your password.')
+
     limit = int(r.headers['X-RateLimit-Remaining'])
     print('GitHub Limit: {}'.format(limit))
     if limit == 0:
