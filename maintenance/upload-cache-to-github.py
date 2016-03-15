@@ -7,9 +7,10 @@ import json
 import os
 import requests
 import sys
+import time
 
 # http://stackoverflow.com/a/16696317/2288008
-def download_file(url, local_file, chunk_size=1024):
+def download_file_once(url, local_file, chunk_size=1024):
   r = requests.get(url, stream=True)
   if not r.ok:
     raise Exception('Downloading failed')
@@ -17,6 +18,39 @@ def download_file(url, local_file, chunk_size=1024):
     for chunk in r.iter_content(chunk_size=chunk_size):
       if chunk:
         f.write(chunk)
+
+def download_file(url, local_file):
+  print('Downloading file to: {}'.format(local_file))
+  max_retry = 3
+  for i in range(max_retry):
+    try:
+      download_file_once(url, local_file)
+      print('Done')
+      return
+    except Exception as exc:
+      print('Exception catched ({}), retry... ({} of {})'.format(exc, i+1, max_retry))
+      time.sleep(15)
+  sys.exit('Download failed')
+
+def upload_bzip_once(url, local_path):
+  headers = {'Content-Type': 'application/x-bzip2'}
+  file_to_upload = open(local_path, 'rb')
+  r = requests.post(url, data=file_to_upload, headers=headers)
+  if not r.ok:
+    raise Exception('Upload of file failed')
+
+def upload_bzip(url, local_path):
+  print('Uploading file: {}'.format(local_path))
+  max_retry = 3
+  for i in range(max_retry):
+    try:
+      upload_bzip_once(url, local_path)
+      print('Done')
+      return
+    except Exception as exc:
+      print('Exception catched ({}), retry... ({} of {})'.format(exc, i+1, max_retry))
+      time.sleep(15)
+  sys.exit('Upload failed')
 
 class Github:
   def __init__(self, username, password, repo_owner, repo):
@@ -74,15 +108,7 @@ class Github:
         asset_name
     )
 
-    file_to_upload = open(local_path, 'rb')
-    headers = {'Content-Type': 'application/x-bzip2'}
-
-    print('Uploading file: {}'.format(local_path))
-    r = requests.post(url, data=file_to_upload, headers=headers)
-
-    if not r.ok:
-      raise Exception('Upload of file failed: '.format(local_path))
-    print('Done')
+    upload_bzip(url, local_path)
 
   def create_new_file(self, local_path, github_path):
     # https://developer.github.com/v3/repos/contents/#create-a-file
