@@ -10,8 +10,8 @@ import sys
 import time
 
 # http://stackoverflow.com/a/16696317/2288008
-def download_file_once(url, local_file, chunk_size=1024):
-  r = requests.get(url, stream=True)
+def download_file_once(url, local_file, auth, chunk_size=1024):
+  r = requests.get(url, stream=True, auth=auth)
   if not r.ok:
     raise Exception('Downloading failed')
   with open(local_file, 'wb') as f:
@@ -19,12 +19,12 @@ def download_file_once(url, local_file, chunk_size=1024):
       if chunk:
         f.write(chunk)
 
-def download_file(url, local_file):
-  print('Downloading file to: {}'.format(local_file))
+def download_file(url, local_file, auth):
+  print('Downloading:\n  {} ->\n  {}'.format(url, local_file))
   max_retry = 3
   for i in range(max_retry):
     try:
-      download_file_once(url, local_file)
+      download_file_once(url, local_file, auth)
       print('Done')
       return
     except Exception as exc:
@@ -32,19 +32,19 @@ def download_file(url, local_file):
       time.sleep(15)
   sys.exit('Download failed')
 
-def upload_bzip_once(url, local_path):
+def upload_bzip_once(url, local_path, auth):
   headers = {'Content-Type': 'application/x-bzip2'}
   file_to_upload = open(local_path, 'rb')
-  r = requests.post(url, data=file_to_upload, headers=headers)
+  r = requests.post(url, data=file_to_upload, headers=headers, auth=auth)
   if not r.ok:
     raise Exception('Upload of file failed')
 
-def upload_bzip(url, local_path):
-  print('Uploading file: {}'.format(local_path))
+def upload_bzip(url, local_path, auth):
+  print('Uploading:\n  {} ->\n  {}'.format(local_path, url))
   max_retry = 3
   for i in range(max_retry):
     try:
-      upload_bzip_once(url, local_path)
+      upload_bzip_once(url, local_path, auth)
       print('Done')
       return
     except Exception as exc:
@@ -54,17 +54,12 @@ def upload_bzip(url, local_path):
 
 class Github:
   def __init__(self, username, password, repo_owner, repo):
-    self.username = username
-    self.password = password
     self.repo_owner = repo_owner
     self.repo = repo
+    self.auth = requests.auth.HTTPBasicAuth(username, password)
 
     r = requests.get(
-        'https://{}:{}@api.github.com/repos/{}'.format(
-            self.username,
-            self.password,
-            repo_owner,
-        )
+        'https://api.github.com/repos/{}'.format(repo_owner), auth=self.auth
     )
     limit = int(r.headers['X-RateLimit-Remaining'])
     print('GitHub Limit: {}'.format(limit))
@@ -75,17 +70,15 @@ class Github:
     # https://developer.github.com/v3/repos/releases/#get-a-release-by-tag-name
     # GET /repos/:owner/:repo/releases/tags/:tag
 
-    url = 'https://{}:{}@api.github.com/repos/{}/{}/releases/tags/{}'.format(
-        self.username,
-        self.password,
+    url = 'https://api.github.com/repos/{}/{}/releases/tags/{}'.format(
         self.repo_owner,
         self.repo,
         tagname
     )
 
-    r = requests.get(url)
+    r = requests.get(url, auth=self.auth)
     if not r.ok:
-      raise Exception('Get tag id failed')
+      raise Exception('Get tag id failed. Requested url: {}'.format(url))
 
     return r.json()['id']
 
@@ -99,16 +92,14 @@ class Github:
     asset_name = hashlib.sha1(open(local_path, 'rb').read()).hexdigest()
     asset_name = asset_name + '.tar.bz2'
 
-    url = 'https://{}:{}@uploads.github.com/repos/{}/{}/releases/{}/assets?name={}'.format(
-        self.username,
-        self.password,
+    url = 'https://uploads.github.com/repos/{}/{}/releases/{}/assets?name={}'.format(
         self.repo_owner,
         self.repo,
         release_id,
         asset_name
     )
 
-    upload_bzip(url, local_path)
+    upload_bzip(url, local_path, self.auth)
 
   def create_new_file(self, local_path, github_path):
     # https://developer.github.com/v3/repos/contents/#create-a-file
@@ -116,9 +107,7 @@ class Github:
 
     message = 'Create file: {}'.format(github_path)
 
-    url = 'https://{}:{}@api.github.com/repos/{}/{}/contents/{}'.format(
-        self.username,
-        self.password,
+    url = 'https://api.github.com/repos/{}/{}/contents/{}'.format(
         self.repo_owner,
         self.repo,
         github_path
@@ -131,7 +120,7 @@ class Github:
         'content': content
     }
 
-    r = requests.put(url, data = json.dumps(put_data))
+    r = requests.put(url, data = json.dumps(put_data), auth=self.auth)
     return r.ok
 
 class CacheEntry:
@@ -200,9 +189,7 @@ class CacheEntry:
       raise Exception('No files found in directory: {}'.format(dir_path))
     for i in to_upload:
       relative_path = i[len(self.cache_meta)+1:]
-      expected_download_url = 'https://{}:{}@raw.githubusercontent.com/{}/{}/master/{}'.format(
-          github.username,
-          github.password,
+      expected_download_url = 'https://raw.githubusercontent.com/{}/{}/master/{}'.format(
           github.repo_owner,
           github.repo,
           relative_path
@@ -212,7 +199,7 @@ class CacheEntry:
       if not ok:
         print('Already exist')
         temp_file = os.path.join(self.temp_dir, '__TEMP.FILE')
-        download_file(expected_download_url, temp_file)
+        download_file(expected_download_url, temp_file, github.auth)
         expected_hash = hashlib.sha1(open(i, 'rb').read()).hexdigest()
         downloaded_hash = hashlib.sha1(open(temp_file, 'rb').read()).hexdigest()
         os.remove(temp_file)
