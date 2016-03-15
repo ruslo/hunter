@@ -194,15 +194,16 @@ class CacheEntry:
         raise Exception('No files found in directory: {}'.format(dir_path))
     for i in to_upload:
       relative_path = i[len(self.cache_meta)+1:]
+      relative_unix_path = relative_path.replace('\\', '/') # convert windows path
       expected_download_url = 'https://raw.githubusercontent.com/{}/{}/master/{}'.format(
           github.repo_owner,
           github.repo,
-          relative_path
+          relative_unix_path
       )
       github_url = 'https://github.com/{}/{}/blob/master/{}'.format(
           github.repo_owner,
           github.repo,
-          relative_path
+          relative_unix_path
       )
       print('Uploading file: {}'.format(relative_path))
       ok = github.create_new_file(i, relative_path)
