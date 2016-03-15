@@ -29,7 +29,7 @@ def download_file(url, local_file, auth):
       return
     except Exception as exc:
       print('Exception catched ({}), retry... ({} of {})'.format(exc, i+1, max_retry))
-      time.sleep(15)
+      time.sleep(60)
   sys.exit('Download failed')
 
 def upload_bzip_once(url, local_path, auth):
@@ -49,7 +49,7 @@ def upload_bzip(url, local_path, auth):
       return
     except Exception as exc:
       print('Exception catched ({}), retry... ({} of {})'.format(exc, i+1, max_retry))
-      time.sleep(15)
+      time.sleep(60)
   sys.exit('Upload failed')
 
 class Github:
