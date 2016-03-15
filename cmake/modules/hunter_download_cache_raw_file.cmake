@@ -100,6 +100,24 @@ function(hunter_download_cache_raw_file)
         endif()
         hunter_status_debug("File not found")
         break()
+      elseif(error_code EQUAL 6)
+        file(REMOVE "${x_LOCAL}")
+        string(
+            COMPARE
+            EQUAL "${error_message}" "\"Couldn't resolve host name\""
+            is_good
+        )
+        if(NOT is_good)
+          hunter_internal_error("Unexpected message: ${error_message}")
+        endif()
+        string(COMPARE EQUAL "${HUNTER_USE_CACHE_SERVERS}" "ONLY" only_server)
+        if(only_server)
+          hunter_user_error(
+              "HUNTER_USE_CACHE_SERVERS is set to ONLY but network is down."
+          )
+        endif()
+        hunter_status_debug("File not found")
+        break()
       else()
         file(REMOVE "${x_LOCAL}")
         hunter_internal_error(
