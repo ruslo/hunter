@@ -122,6 +122,8 @@ class Github:
     }
 
     r = requests.put(url, data = json.dumps(put_data), auth=self.auth)
+    if not r.ok:
+      print('Put failed. Status code: {}'.format(r.status_code))
     return r.ok
 
 class CacheEntry:
