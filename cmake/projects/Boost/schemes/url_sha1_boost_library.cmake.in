@@ -32,6 +32,8 @@ hunter_test_string_not_empty("@HUNTER_PACKAGE_COMPONENT@")
 hunter_test_string_not_empty("@CMAKE_CXX_COMPILER@")
 hunter_test_string_not_empty("@CMAKE_CXX_COMPILER_ID@")
 hunter_test_string_not_empty("@HUNTER_Boost_VERSION@")
+hunter_test_string_not_empty("@HUNTER_PACKAGE_SCRIPT_DIR@")
+
 if("@MSVC@")
   hunter_test_string_not_empty("@HUNTER_MSVC_ARCH@")
   hunter_test_string_not_empty("@HUNTER_MSVC_VCVARSALL@")
@@ -160,7 +162,7 @@ if(is_mpi)
     get_filename_component(MPI_DIR "${MPI_CXX_INCLUDE_PATH}/.." ABSOLUTE)
     string(REPLACE "/" "\\\\" MPI_DIR "${MPI_DIR}")
     configure_file(
-        "@HUNTER_SELF@/scripts/mpi.jam"
+        "@HUNTER_PACKAGE_SCRIPT_DIR@/mpi.jam"
         "@HUNTER_PACKAGE_BUILD_DIR@/tools/build/v2/tools/mpi.jam"
     )
 

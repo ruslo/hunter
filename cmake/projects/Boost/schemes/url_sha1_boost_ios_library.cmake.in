@@ -29,6 +29,9 @@ hunter_test_string_not_empty("@HUNTER_PACKAGE_SOURCE_DIR@")
 hunter_test_string_not_empty("@HUNTER_PACKAGE_BUILD_DIR@")
 hunter_test_string_not_empty("@HUNTER_PACKAGE_INSTALL_PREFIX@")
 hunter_test_string_not_empty("@HUNTER_PACKAGE_COMPONENT@")
+hunter_test_string_not_empty("@HUNTER_GLOBAL_SCRIPT_DIR@")
+hunter_test_string_not_empty("@HUNTER_PACKAGE_SCRIPT_DIR@")
+
 # Note: support for single architecture/native iOS builds (i.e., arm64)
 hunter_test_string_not_empty("@IPHONESIMULATOR_ARCHS@@IPHONEOS_ARCHS@")
 hunter_test_string_not_empty("@IPHONESIMULATOR_ROOT@")
@@ -189,7 +192,7 @@ set(
 # Clear Xcode environment
 set(
     bootstrap
-    . "@HUNTER_SELF@/scripts/clear-all.sh" &&
+    . "@HUNTER_GLOBAL_SCRIPT_DIR@/clear-all.sh" &&
     ./bootstrap.sh
     "--with-libraries=@HUNTER_PACKAGE_COMPONENT@"
     "--prefix=@HUNTER_PACKAGE_INSTALL_PREFIX@"
@@ -316,7 +319,7 @@ if(log_setup_target)
   set(
       extra_lib_command
       COMMAND
-      "@HUNTER_SELF@/scripts/create-boost-ios-fatlib.sh"
+      "@HUNTER_PACKAGE_SCRIPT_DIR@/create-boost-ios-fatlib.sh"
       "@HUNTER_PACKAGE_SOURCE_DIR@"
       "log_setup"
       "@HUNTER_PACKAGE_COMPONENT@"
@@ -347,7 +350,7 @@ ExternalProject_Add(
     INSTALL_COMMAND
     "${CMAKE_COMMAND}" -E make_directory "@HUNTER_PACKAGE_INSTALL_PREFIX@/lib"
     COMMAND
-    "@HUNTER_SELF@/scripts/create-boost-ios-fatlib.sh"
+    "@HUNTER_PACKAGE_SCRIPT_DIR@/create-boost-ios-fatlib.sh"
     "@HUNTER_PACKAGE_SOURCE_DIR@"
     "${LIBNAME}"
     "@HUNTER_PACKAGE_COMPONENT@"

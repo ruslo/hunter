@@ -27,6 +27,8 @@ hunter_test_string_not_empty("@HUNTER_PACKAGE_SOURCE_DIR@")
 hunter_test_string_not_empty("@HUNTER_PACKAGE_INSTALL_PREFIX@")
 hunter_test_string_not_empty("@HUNTER_Boost_VERSION@")
 hunter_test_string_not_empty("@HUNTER_PACKAGE_LICENSE_FILE@")
+hunter_test_string_not_empty("@HUNTER_GLOBAL_SCRIPT_DIR@")
+
 if("@MSVC@")
   hunter_test_string_not_empty("@HUNTER_MSVC_ARCH@")
   hunter_test_string_not_empty("@HUNTER_MSVC_VCVARSALL@")
@@ -98,7 +100,7 @@ else()
     # Clear Xcode environment
     set(
         bootstrap_cmd
-        . "@HUNTER_SELF@/scripts/clear-all.sh" && ./bootstrap.sh
+        . "@HUNTER_GLOBAL_SCRIPT_DIR@/clear-all.sh" && ./bootstrap.sh
     )
   else()
     set(bootstrap_cmd "./bootstrap.sh")
@@ -146,7 +148,7 @@ ExternalProject_Add(
     "-Dsrcdir=@HUNTER_PACKAGE_SOURCE_DIR@"
     "-Ddstfile=@HUNTER_PACKAGE_LICENSE_FILE@"
     -P
-    "@HUNTER_SELF@/scripts/try-copy-license.cmake"
+    "@HUNTER_GLOBAL_SCRIPT_DIR@/try-copy-license.cmake"
     ${log_opts}
 )
 
