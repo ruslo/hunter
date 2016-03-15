@@ -385,7 +385,16 @@ function(hunter_download)
   endif()
   hunter_status_print("${build_message}")
 
-  if(HUNTER_DISABLE_BUILDS AND HUNTER_PACKAGE_SCHEME_INSTALL)
+  set(allow_builds TRUE)
+  if(HUNTER_DISABLE_BUILDS)
+    set(allow_builds FALSE)
+  endif()
+  string(COMPARE EQUAL "${HUNTER_USE_CACHE_SERVERS}" "ONLY" only_server)
+  if(only_server)
+    set(allow_builds FALSE)
+  endif()
+
+  if(NOT allow_builds AND HUNTER_PACKAGE_SCHEME_INSTALL)
     hunter_fatal_error(
         "Building package from source is disabled (dir: ${HUNTER_PACKAGE_HOME_DIR})"
         WIKI "error.build.disabled"
