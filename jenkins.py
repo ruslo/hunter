@@ -39,6 +39,11 @@ def run():
       help='Do not create Hunter archive (reusing old)'
   )
   parser.add_argument(
+      '--all-release',
+      action='store_true',
+      help='Release build type for all 3rd party packages'
+  )
+  parser.add_argument(
       '--clear',
       action='store_true',
       help='Remove old testing directories'
@@ -201,6 +206,9 @@ def run():
 
   if parsed_args.disable_builds:
     args += ['HUNTER_DISABLE_BUILDS=ON']
+
+  if parsed_args.all_release:
+    args += ['HUNTER_CONFIGURATION_TYPES=Release']
 
   args += ['--verbose']
   if not verbose:
