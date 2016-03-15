@@ -132,7 +132,7 @@ class Github:
     max_retry = 3
     for i in range(max_retry):
       try:
-        return try_create_new_file(local_path, github_path)
+        return self.try_create_new_file(local_path, github_path)
       except Exception as exc:
         print('Exception catched ({}), retry... ({} of {})'.format(exc, i+1, max_retry))
         time.sleep(60)
