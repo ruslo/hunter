@@ -42,6 +42,9 @@ superbuild files. Just change 2 lines of code: input parameters `SHA1`/`URL` of 
  * [Build type][hunter-configuration-types] (e.g. Release/Debug)
 * **Shareable** root directory with build synchronization
  * Any number of projects can use root directory and add new packages simultaneously
+* **Binaries from server**
+ * Binaries can be uploaded to server from such CI like Travis or AppVeyor and downloaded/reused later
+ * [Overview](https://github.com/ruslo/hunter/wiki/Uploading-binaries-to-server)
 * Manage **anything** that can be downloaded by `URL` and checked with `SHA1` hash:
  * C++ packages
  * CMake modules
