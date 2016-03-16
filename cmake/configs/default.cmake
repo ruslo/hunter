@@ -37,7 +37,6 @@ hunter_config(ArrayFire VERSION 3.3.alpha-p0)
 hunter_config(Async++ VERSION 0.0.3-hunter)
 hunter_config(Avahi VERSION 0.6.31)
 hunter_config(BZip2 VERSION 1.0.6-p1)
-hunter_config(Boost VERSION 1.58.0-p1)
 hunter_config(BoostCompute VERSION 0.5-p0)
 hunter_config(BoostProcess VERSION 0.5)
 hunter_config(CLAPACK VERSION 3.2.1)
@@ -111,6 +110,14 @@ hunter_config(szip VERSION 2.1.0-p1)
 hunter_config(wxWidgets VERSION 3.0.2)
 hunter_config(ZeroMQ VERSION 4.1.4-p2)
 hunter_config(Protobuf VERSION 3.0.0-beta-2)
+
+if(MINGW)
+  # 1.60.0 broken:
+  # * https://ci.appveyor.com/project/ingenue/hunter/build/1.0.216/job/twgm1vpxgn6w6dds
+  hunter_config(Boost VERSION 1.58.0-p1)
+else()
+  hunter_config(Boost VERSION 1.60.0)
+endif()
 
 if(MINGW OR MSVC80)
   hunter_config(GTest VERSION 1.7.0-hunter-6)
