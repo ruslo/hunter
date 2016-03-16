@@ -38,19 +38,24 @@ include_directories("${Boost_INCLUDE_DIRS}")
 target_link_libraries(foo ${Boost_LIBRARIES})
 
 if(ANDROID)
-  hunter_add_package(Android-Apk)
-  list(APPEND CMAKE_MODULE_PATH "${ANDROID-APK_ROOT}")
-  include(AndroidApk)
-
-  hunter_add_package(Android-SDK)
-  message("Path to `android`: ${ANDROID-SDK_ROOT}/android-sdk/tools/android")
-  message("Path to `emulator`: ${ANDROID-SDK_ROOT}/android-sdk/tools/emulator")
-  message("Path to `adb`: ${ANDROID-SDK_ROOT}/android-sdk/platform-tools/adb")
-
   target_link_libraries(foo log android)
   target_include_directories(
       foo PUBLIC "${ANDROID_NDK}/sources/android/native_app_glue"
   )
 
-  android_create_apk(NAME foo DIRECTORY "${CMAKE_CURRENT_BINARY_DIR}/apk")
+  if(NOT "$ENV{TRAVIS}")
+    # Travis CI failed builds:
+    # * https://travis-ci.org/ingenue/hunter/jobs/106905844
+    # * https://travis-ci.org/ingenue/hunter/jobs/106905851
+    hunter_add_package(Android-Apk)
+    list(APPEND CMAKE_MODULE_PATH "${ANDROID-APK_ROOT}")
+    include(AndroidApk)
+
+    hunter_add_package(Android-SDK)
+    message("Path to `android`: ${ANDROID-SDK_ROOT}/android-sdk/tools/android")
+    message("Path to `emulator`: ${ANDROID-SDK_ROOT}/android-sdk/tools/emulator")
+    message("Path to `adb`: ${ANDROID-SDK_ROOT}/android-sdk/platform-tools/adb")
+
+    android_create_apk(NAME foo DIRECTORY "${CMAKE_CURRENT_BINARY_DIR}/apk")
+  endif()
 endif()

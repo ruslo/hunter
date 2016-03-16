@@ -116,10 +116,16 @@ function(hunter_download)
   endif()
 
   # Set:
+  #   * HUNTER_PACKAGE_SETUP_DIR
+  #   * HUNTER_GLOBAL_SCRIPT_DIR
+  #   * HUNTER_PACKAGE_SCRIPT_DIR
   #   * HUNTER_PACKAGE_SOURCE_DIR
   #   * HUNTER_PACKAGE_DONE_STAMP
   #   * HUNTER_PACKAGE_BUILD_DIR
   #   * HUNTER_PACKAGE_HOME_DIR
+  set(HUNTER_PACKAGE_SETUP_DIR "${HUNTER_SELF}/cmake/projects/${HUNTER_PACKAGE_NAME}")
+  set(HUNTER_GLOBAL_SCRIPT_DIR "${HUNTER_SELF}/scripts")
+  set(HUNTER_PACKAGE_SCRIPT_DIR "${HUNTER_PACKAGE_SETUP_DIR}/scripts/")
   set(HUNTER_PACKAGE_HOME_DIR "${HUNTER_TOOLCHAIN_ID_PATH}/Build")
   set(
       HUNTER_PACKAGE_HOME_DIR
@@ -201,6 +207,8 @@ function(hunter_download)
   set(HUNTER_ARGS_FILE "${HUNTER_PACKAGE_HOME_DIR}/args.cmake")
 
   # Registering dependency (before return!)
+  # Note: there will be no dependency registration on cache run.
+  # HUNTER_PARENT_PACKAGE set to empty string in 'hunter_cache_run'
   hunter_register_dependency(
       PACKAGE "${HUNTER_PARENT_PACKAGE}"
       DEPENDS_ON_PACKAGE "${HUNTER_PACKAGE_NAME}"
@@ -296,7 +304,21 @@ function(hunter_download)
       "${HUNTER_DOWNLOAD_TOOLCHAIN}"
       "set(HUNTER_ALREADY_LOCKED_DIRECTORIES \"${HUNTER_ALREADY_LOCKED_DIRECTORIES}\" CACHE INTERNAL \"\")\n"
   )
-
+  file(
+      APPEND
+      "${HUNTER_DOWNLOAD_TOOLCHAIN}"
+      "set(HUNTER_DISABLE_BUILDS \"${HUNTER_DISABLE_BUILDS}\" CACHE INTERNAL \"\")\n"
+  )
+  file(
+      APPEND
+      "${HUNTER_DOWNLOAD_TOOLCHAIN}"
+      "set(HUNTER_USE_CACHE_SERVERS \"${HUNTER_USE_CACHE_SERVERS}\" CACHE INTERNAL \"\")\n"
+  )
+  file(
+      APPEND
+      "${HUNTER_DOWNLOAD_TOOLCHAIN}"
+      "list(APPEND HUNTER_CACHE_SERVERS ${HUNTER_CACHE_SERVERS})\n"
+  )
 
   if(hunter_no_url)
     set(avail ${HUNTER_${h_name}_VERSIONS})
@@ -324,14 +346,29 @@ function(hunter_download)
         "Internal dependencies ID: ${HUNTER_PACKAGE_INTERNAL_DEPS_ID}"
     )
   endif()
-
+  
+  set(_hunter_schemes_search_dirs "")
+  
   set(
       download_scheme
-      "${HUNTER_SELF}/cmake/schemes/${HUNTER_DOWNLOAD_SCHEME}.cmake.in"
+      "${HUNTER_PACKAGE_SETUP_DIR}/schemes/${HUNTER_DOWNLOAD_SCHEME}.cmake.in"
   )
+  set(_hunter_schemes_search_dirs "${_hunter_schemes_search_dirs}, ${download_scheme}")
+  
   if(NOT EXISTS "${download_scheme}")
-    hunter_internal_error("Download scheme `${download_scheme}` not found")
+    set(
+      download_scheme
+      "${HUNTER_SELF}/cmake/schemes/${HUNTER_DOWNLOAD_SCHEME}.cmake.in"
+    )
+    set(_hunter_schemes_search_dirs "${_hunter_schemes_search_dirs}, ${download_scheme}")
+    if(NOT EXISTS "${download_scheme}")
+      hunter_internal_error("Download scheme `${download_scheme}` not found. Search locations: ${_hunter_schemes_search_dirs}")
+    endif()
   endif()
+  
+  hunter_status_debug(
+      "Scheme file used: ${download_scheme}"
+  )
 
   configure_file(
       "${download_scheme}"
@@ -347,6 +384,22 @@ function(hunter_download)
     )
   endif()
   hunter_status_print("${build_message}")
+
+  set(allow_builds TRUE)
+  if(HUNTER_DISABLE_BUILDS)
+    set(allow_builds FALSE)
+  endif()
+  string(COMPARE EQUAL "${HUNTER_USE_CACHE_SERVERS}" "ONLY" only_server)
+  if(only_server)
+    set(allow_builds FALSE)
+  endif()
+
+  if(NOT allow_builds AND HUNTER_PACKAGE_SCHEME_INSTALL)
+    hunter_fatal_error(
+        "Building package from source is disabled (dir: ${HUNTER_PACKAGE_HOME_DIR})"
+        WIKI "error.build.disabled"
+    )
+  endif()
 
   if(HUNTER_STATUS_DEBUG)
     set(logging_params "")
@@ -436,6 +489,8 @@ function(hunter_download)
   if(HUNTER_PACKAGE_CACHEABLE)
     file(REMOVE_RECURSE "${HUNTER_PACKAGE_INSTALL_PREFIX}")
   endif()
+
+  hunter_status_debug("Clean up done")
 
   file(WRITE "${HUNTER_PACKAGE_DONE_STAMP}" "")
 endfunction()

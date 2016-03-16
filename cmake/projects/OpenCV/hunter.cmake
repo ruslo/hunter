@@ -183,6 +183,10 @@ hunter_cmake_args(
         BUILD_ZLIB=OFF
         BUILD_TIFF=OFF
         BUILD_PNG=OFF
+        # This stuff will build shared libraries. Build with PIC required for dependencies.
+        BUILD_opencv_java=OFF
+        BUILD_opencv_python2=OFF
+        BUILD_opencv_python3=OFF
 )
 
 # Pick a download scheme
