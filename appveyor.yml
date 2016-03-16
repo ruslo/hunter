@@ -1,6 +1,11 @@
 # Windows (https://github.com/travis-ci-tester/toolchain-table)
 
 environment:
+  global:
+    # This variable used only if '--upload' added to 'jenkins.py'
+    GITHUB_USER_PASSWORD:
+      secure: uW6WWlvCt7CRvvdO9ePjbymPcPNuV1C6HGF8u7Ey6EI=
+
   matrix:
     - TOOLCHAIN: "default"
       PROJECT_DIR: examples\Foo
