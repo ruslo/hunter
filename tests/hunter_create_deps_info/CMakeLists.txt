@@ -4,32 +4,30 @@
 cmake_minimum_required(VERSION 3.0)
 
 include("../../examples/common.cmake")
-project(TestModuleHunterGetDependencyList)
+project(TestModuleHunterCreateDepsInfo)
 
-include(hunter_get_dependency_list)
-include(hunter_process_dependency_node)
+include(hunter_create_deps_info)
 include(hunter_register_dependency)
 
-function(expected_empty x)
-  string(COMPARE EQUAL "${x}" "" is_empty)
-  if(NOT is_empty)
-    message(FATAL_ERROR "Expected empty, bug got: ${x}")
+function(run_check file1)
+  string(COMPARE EQUAL "${temp_deps_info}" "" is_empty)
+  if(is_empty)
+    message(FATAL_ERROR "Variable is empty")
   endif()
-endfunction()
 
-function(expected_equal x y)
-  if(NOT ${ARGC} EQUAL 2)
-    message(FATAL_ERROR "")
-  endif()
-  string(COMPARE EQUAL "${x}" "${y}" is_equal)
-  if(NOT is_equal)
-    message(FATAL_ERROR "x:\n  ${x}\nis not equal:\n  ${y}")
+  file(DIFFERENT diff FILES "${file1}" "${temp_deps_info}")
+
+  if(diff)
+    message(FATAL_ERROR "Files differ: ${file1} ${temp_deps_info}")
+  else()
+    message("Files same: ${file1} ${temp_deps_info}")
   endif()
 endfunction()
 
 ### Test empty
 set(toolchain_id "${CMAKE_CURRENT_BINARY_DIR}/toolchain-id")
 set(package_name "Foo")
+set(temp_deps_info "${CMAKE_CURRENT_BINARY_DIR}/deps.info-TEMP")
 
 set(HUNTER_TOOLCHAIN_ID_PATH "${toolchain_id}")
 set(HUNTER_PACKAGE_NAME "${package_name}")
@@ -37,8 +35,8 @@ set(HUNTER_PACKAGE_NAME "${package_name}")
 set(home "${toolchain_id}/Build/${package_name}")
 file(WRITE "${home}/cache.sha1" "abc")
 
-hunter_get_dependency_list(dep_list)
-expected_empty("${dep_list}")
+hunter_create_deps_info("${temp_deps_info}")
+run_check("${CMAKE_CURRENT_LIST_DIR}/empty.txt")
 
 ### Complex
 
@@ -91,22 +89,5 @@ hunter_register_dependency(
     DEPENDS_ON_COMPONENT "E"
 )
 
-hunter_get_dependency_list(dep_list)
-
-set(
-    level_0
-    "B B-SHA1"
-    "D E D-E-SHA1"
-    "H H-SHA1"
-    "I I-SHA1"
-)
-
-set(
-    level_1
-    "A A-SHA1"
-    "F G F-G-SHA1"
-)
-
-set(level_2 "C C-SHA1")
-
-expected_equal("${dep_list}" "${level_0};${level_1};${level_2}")
+hunter_create_deps_info("${temp_deps_info}")
+run_check("${CMAKE_CURRENT_LIST_DIR}/complex.txt")
