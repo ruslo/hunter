@@ -113,4 +113,4 @@ install:
   - export ANDROID_NDK_r10e="`pwd`/_ci/android-ndk-r10e"
 
 script:
-  - python3 ./jenkins.py
+  - python3 ./jenkins.py --upload

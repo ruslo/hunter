@@ -74,4 +74,4 @@ install:
   - git submodule update --init --recursive
 
 build_script:
-  - cmd: python .\jenkins.py
+  - cmd: python .\jenkins.py --upload
