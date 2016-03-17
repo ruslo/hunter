@@ -1,9 +1,4 @@
-# This is a header-like file, so include guards needed
-if(DEFINED HUNTER_CMAKE_PROJECTS_WTL_HUNTER_CMAKE_)
-  return()
-else()
-  set(HUNTER_CMAKE_PROJECTS_WTL_HUNTER_CMAKE_ 1)
-endif()
+# !!! DO NOT PLACE HEADER GUARDS HERE !!!
 
 # Load used modules
 include(hunter_add_version)

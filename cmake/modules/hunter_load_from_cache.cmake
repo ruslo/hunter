@@ -97,6 +97,7 @@ function(hunter_load_from_cache)
       "${HUNTER_PACKAGE_NAME};${HUNTER_PACKAGE_COMPONENT}"
   )
 
+  hunter_status_debug("HUNTER_PARENT_PACKAGE: ${HUNTER_PARENT_PACKAGE}")
   hunter_status_debug("Loading basic dependencies: ${basic_deps_info}")
 
   file(STRINGS "${basic_deps_info}" basic_deps_list)
@@ -139,6 +140,10 @@ function(hunter_load_from_cache)
   endif()
 
   file(SHA1 "${temp_deps_info}" deps_sha1)
+
+  file(READ "${temp_deps_info}" expected_deps_info)
+  hunter_status_debug("Expected deps (${deps_sha1}):\n${expected_deps_info}")
+
   hunter_make_directory("${cache_meta_dir}" "${deps_sha1}" cache_meta_dir)
 
   set(from_server_file "${cache_meta_dir}/from.server")

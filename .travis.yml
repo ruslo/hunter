@@ -40,7 +40,6 @@ env:
     - PROJECT_DIR=examples/Eigen TOOLCHAIN=default
     - PROJECT_DIR=examples/Eigen TOOLCHAIN=libcxx
     - PROJECT_DIR=examples/Eigen TOOLCHAIN=clang-libstdcxx
-    - PROJECT_DIR=examples/Eigen TOOLCHAIN=xcode
     - PROJECT_DIR=examples/Eigen TOOLCHAIN=osx-10-9
     - PROJECT_DIR=examples/Eigen TOOLCHAIN=gcc
     - PROJECT_DIR=examples/Eigen TOOLCHAIN=gcc-4-8
@@ -59,8 +58,6 @@ matrix:
       env: PROJECT_DIR=examples/Eigen TOOLCHAIN=libcxx
 
     # Xcode is for OSX only
-    - os: linux
-      env: PROJECT_DIR=examples/Eigen TOOLCHAIN=xcode
     - os: linux
       env: PROJECT_DIR=examples/Eigen TOOLCHAIN=osx-10-9
     - os: linux

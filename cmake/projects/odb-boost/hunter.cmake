@@ -1,11 +1,7 @@
 # Copyright (c) 2016, Ruslan Baratov, Alexandre Pretyman
 # All rights reserved.
 
-if(DEFINED HUNTER_CMAKE_PROJECTS_ODB-BOOST_HUNTER_CMAKE)
-  return()
-else()
-  set(HUNTER_CMAKE_PROJECTS_ODB-BOOST_HUNTER_CMAKE 1)
-endif()
+# !!! DO NOT PLACE HEADER GUARDS HERE !!!
 
 include(hunter_add_version)
 include(hunter_pick_scheme)
