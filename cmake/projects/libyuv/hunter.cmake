@@ -2,11 +2,7 @@
 # Copyright (c) 2015, David Hirvonen
 # All rights reserved.
 
-if(DEFINED HUNTER_CMAKE_PROJECTS_LIBYUV_HUNTER_CMAKE_)
-  return()
-else()
-  set(HUNTER_CMAKE_PROJECTS_LIBYUV_HUNTER_CMAKE_ 1)
-endif()
+# !!! DO NOT PLACE HEADER GUARDS HERE !!!
 
 include(hunter_add_version)
 include(hunter_cacheable)
