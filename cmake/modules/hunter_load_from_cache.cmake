@@ -139,6 +139,10 @@ function(hunter_load_from_cache)
   endif()
 
   file(SHA1 "${temp_deps_info}" deps_sha1)
+
+  file(READ "${temp_deps_info}" expected_deps_info)
+  hunter_status_debug("Expected deps (${deps_sha1}):\n${expected_deps_info}")
+
   hunter_make_directory("${cache_meta_dir}" "${deps_sha1}" cache_meta_dir)
 
   set(from_server_file "${cache_meta_dir}/from.server")
