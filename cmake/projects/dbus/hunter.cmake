@@ -1,8 +1,4 @@
-if(DEFINED HUNTER_CMAKE_PROJECTS_DBUS_HUNTER_CMAKE_)
-  return()
-else()
-  set(HUNTER_CMAKE_PROJECTS_DBUS_HUNTER_CMAKE_ 1)
-endif()
+# !!! DO NOT PLACE HEADER GUARDS HERE !!!
 
 include(hunter_add_version)
 include(hunter_cmake_args)
