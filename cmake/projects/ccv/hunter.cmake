@@ -1,7 +1,6 @@
 # Copyright (c) 2015, David Hirvonen
 # All rights reserved.
 
-# This is a header-like file, so include guards needed
 if(DEFINED HUNTER_CMAKE_PROJECTS_CCV_HUNTER_CMAKE_)
   return()
 else()
