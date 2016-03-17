@@ -1,7 +1,6 @@
 # Copyright (c) 2015, David Hirvonen
 # All rights reserved.
 
-# This is a header-like file, so include guards needed
 # !!! DO NOT PLACE HEADER GUARDS HERE !!!
 
 # Load used modules
