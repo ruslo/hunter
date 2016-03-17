@@ -97,6 +97,7 @@ function(hunter_load_from_cache)
       "${HUNTER_PACKAGE_NAME};${HUNTER_PACKAGE_COMPONENT}"
   )
 
+  hunter_status_debug("HUNTER_PARENT_PACKAGE: ${HUNTER_PARENT_PACKAGE}")
   hunter_status_debug("Loading basic dependencies: ${basic_deps_info}")
 
   file(STRINGS "${basic_deps_info}" basic_deps_list)
