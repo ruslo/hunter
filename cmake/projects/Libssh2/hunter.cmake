@@ -18,9 +18,9 @@ hunter_add_version(
     VERSION
     "1.7.0"
     URL
-    "https://github.com/hunter-packages/libssh2/archive/libssh2-1.7.0-hunter-1.tar.gz"
+    "https://github.com/hunter-packages/libssh2/archive/libssh2-1.7.0-hunter-2.tar.gz"
     SHA1
-    d286289d2bb9aa8ef5365d06113e3f1c1f64e92f
+    284191652e208daf34018e7938e6ee6db9f99931
 )
 
 hunter_add_version(
