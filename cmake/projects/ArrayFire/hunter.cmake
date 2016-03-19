@@ -13,6 +13,17 @@ hunter_add_version(
     PACKAGE_NAME
     ArrayFire
     VERSION
+    3.3.1-p0
+    URL
+    "https://github.com/hunter-packages/arrayfire/archive/v3.3.1-p0.tar.gz"
+    SHA1
+    f219af6a83eec2743d21f7cfc74b9d9a63c9058e
+)
+
+hunter_add_version(
+    PACKAGE_NAME
+    ArrayFire
+    VERSION
     3.3.alpha-p0
     URL
     "https://github.com/hunter-packages/arrayfire/archive/v3.3.alpha-p0.tar.gz"
