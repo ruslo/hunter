@@ -34,6 +34,9 @@ hunter_add_version(
 hunter_cmake_args(
     ArrayFire
     CMAKE_ARGS BUILD_TEST=OFF BUILD_EXAMPLES=OFF BUILD_GRAPHICS=OFF
+    # segmentation fault for static libraries
+    # * https://github.com/headupinclouds/gatherer/issues/85#issuecomment-186376763
+    BUILD_SHARED_LIBS=ON
 )
 
 hunter_pick_scheme(DEFAULT url_sha1_cmake)
