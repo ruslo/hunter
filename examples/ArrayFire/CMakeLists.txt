@@ -15,5 +15,8 @@ hunter_add_package(ArrayFire)
 # now arrayfire can be used
 find_package(ArrayFire CONFIG REQUIRED)
 
-add_executable(foo foo.cpp)
-target_link_libraries(foo ArrayFire::af)
+add_executable(foo-cpu foo.cpp)
+target_link_libraries(foo-cpu ArrayFire::afcpu)
+
+add_executable(foo-unified foo.cpp)
+target_link_libraries(foo-unified ArrayFire::af)
