@@ -106,7 +106,42 @@ class Github:
     # https://developer.github.com/v3/repos/contents/#create-a-file
     # PUT /repos/:owner/:repo/contents/:path
 
-    message = 'Create file: {}'.format(github_path)
+    message = 'Uploading cache info\n\n'
+    message += 'Create file: {}\n'.format(github_path)
+
+    env_list = []
+
+    if os.getenv('TRAVIS') == 'true':
+      # * https://docs.travis-ci.com/user/environment-variables/#Default-Environment-Variables
+      message += 'Travis:\n'
+      env_list += [
+          'TRAVIS_BRANCH',
+          'TRAVIS_BUILD_ID',
+          'TRAVIS_BUILD_NUMBER',
+          'TRAVIS_JOB_ID',
+          'TRAVIS_JOB_NUMBER',
+          'TRAVIS_OS_NAME'
+      ]
+
+    if os.getenv('APPVEYOR') == 'True':
+      # * http://www.appveyor.com/docs/environment-variables
+      message += 'AppVeyor:\n'
+      env_list += [
+          'APPVEYOR_API_URL',
+          'APPVEYOR_PROJECT_ID',
+          'APPVEYOR_BUILD_ID',
+          'APPVEYOR_BUILD_NUMBER',
+          'APPVEYOR_BUILD_VERSION',
+          'APPVEYOR_JOB_ID',
+          'APPVEYOR_JOB_NAME',
+          'APPVEYOR_REPO_BRANCH'
+      ]
+
+    # Store some info about build
+    for env_name in env_list:
+      env_value = os.getenv(env_name)
+      if env_value:
+        message += '  {}: {}\n'.format(env_name, env_value)
 
     url = 'https://api.github.com/repos/{}/{}/contents/{}'.format(
         self.repo_owner,

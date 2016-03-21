@@ -122,8 +122,20 @@ function(hunter_download_cache_raw_file)
               "HUNTER_USE_CACHE_SERVERS is set to ONLY but network is down."
           )
         endif()
-        hunter_status_debug("File not found")
-        break()
+        hunter_status_debug("Downloading error, retry...")
+        continue()
+      elseif(error_code EQUAL 56)
+        file(REMOVE "${x_LOCAL}")
+        string(
+            COMPARE
+            EQUAL "${error_message}" "\"Failure when receiving data from the peer\""
+            is_good
+        )
+        if(NOT is_good)
+          hunter_internal_error("Unexpected message: ${error_message}")
+        endif()
+        hunter_status_debug("Downloading error, retry...")
+        continue()
       else()
         file(REMOVE "${x_LOCAL}")
         hunter_internal_error(
