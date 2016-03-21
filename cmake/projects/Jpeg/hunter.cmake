@@ -12,6 +12,17 @@ hunter_add_version(
     PACKAGE_NAME
     Jpeg
     VERSION
+    "9b-p1"
+    URL
+    "https://github.com/hunter-packages/jpeg/archive/v9b-p1.tar.gz"
+    SHA1
+    81f4b7a189a12b7b5354232f133760e6840262b9
+)
+
+hunter_add_version(
+    PACKAGE_NAME
+    Jpeg
+    VERSION
     "9b-p0"
     URL
     "https://github.com/hunter-packages/jpeg/archive/v9b-p0.tar.gz"
