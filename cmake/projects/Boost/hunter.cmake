@@ -1,11 +1,7 @@
 # Copyright (c) 2013, Ruslan Baratov
 # All rights reserved.
 
-if(DEFINED HUNTER_CMAKE_PROJECTS_BOOST_HUNTER_CMAKE)
-  return()
-else()
-  set(HUNTER_CMAKE_PROJECTS_BOOST_HUNTER_CMAKE 1)
-endif()
+# !!! DO NOT PLACE HEADER GUARDS HERE !!!
 
 include(hunter_add_version)
 include(hunter_cacheable)
@@ -15,6 +11,30 @@ include(hunter_pick_scheme)
 
 # Disable searching in locations not specified by these hint variables.
 set(Boost_NO_SYSTEM_PATHS ON)
+
+# Version without tests and docs
+hunter_add_version(
+    PACKAGE_NAME
+    Boost
+    VERSION
+    "1.60.0"
+    URL
+    "https://github.com/hunter-packages/boost/archive/v1.60.0.tar.gz"
+    SHA1
+    28a5b0f739114fde5d4ed1d7f52e5b6cf13fe54a
+)
+
+# Version without tests and docs
+hunter_add_version(
+    PACKAGE_NAME
+    Boost
+    VERSION
+    "1.59.0"
+    URL
+    "https://github.com/hunter-packages/boost/archive/v1.59.0.tar.gz"
+    SHA1
+    28db0e54f9e55ff1230903704836e035f7227fd5
+)
 
 # Version without tests and docs
 hunter_add_version(

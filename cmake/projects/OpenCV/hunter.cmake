@@ -1,11 +1,7 @@
 # Copyright (c) 2015, David Hirvonen
 # All rights reserved.
 
-if(DEFINED HUNTER_CMAKE_PROJECTS_OPENCV_HUNTER_CMAKE_)
-  return()
-else()
-  set(HUNTER_CMAKE_PROJECTS_OPENCV_HUNTER_CMAKE_ 1)
-endif()
+# !!! DO NOT PLACE HEADER GUARDS HERE !!!
 
 # Load used modules
 include(hunter_add_package)
@@ -16,6 +12,29 @@ include(hunter_download)
 include(hunter_pick_scheme)
 
 # List of versions here...
+
+hunter_add_version(
+    PACKAGE_NAME
+    OpenCV
+    VERSION
+    "3.1.0-p1"
+    URL
+    "https://github.com/hunter-packages/opencv/archive/3.1.0-p1.tar.gz"
+    SHA1
+    8b9ef7a227f1840fd7254302199170947f12097f
+)
+
+hunter_add_version(
+    PACKAGE_NAME
+    OpenCV
+    VERSION
+    "3.1.0-p0"
+    URL
+    "https://github.com/hunter-packages/opencv/archive/3.1.0-p0.tar.gz"
+    SHA1
+    ab503105ce7e5415fc77cf44de0b276008be624f
+)
+
 hunter_add_version(
     PACKAGE_NAME
     OpenCV
@@ -183,6 +202,11 @@ hunter_cmake_args(
         BUILD_ZLIB=OFF
         BUILD_TIFF=OFF
         BUILD_PNG=OFF
+        BUILD_JPEG=OFF
+        # This stuff will build shared libraries. Build with PIC required for dependencies.
+        BUILD_opencv_java=OFF
+        BUILD_opencv_python2=OFF
+        BUILD_opencv_python3=OFF
 )
 
 # Pick a download scheme

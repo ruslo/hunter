@@ -4,6 +4,7 @@
 include(CMakeParseArguments) # cmake_parse_arguments
 
 include(hunter_internal_error)
+include(hunter_status_debug)
 include(hunter_test_string_not_empty)
 
 function(hunter_create_dependency_entry)
@@ -32,6 +33,7 @@ function(hunter_create_dependency_entry)
   set(cache_file "${dep_dir}/cache.sha1")
 
   if(NOT EXISTS "${cache_file}")
+    hunter_status_debug("Cache file not found: ${cache_file}")
     set("${x_RESULT}" "" PARENT_SCOPE)
     return()
   endif()

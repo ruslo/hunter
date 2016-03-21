@@ -5,6 +5,7 @@
 
 # https://github.com/ruslo/polly/wiki/Jenkins
 
+import argparse
 import hashlib
 import os
 import shutil
@@ -12,7 +13,23 @@ import subprocess
 import sys
 import tarfile
 import tempfile
-import argparse
+import time
+
+def clear_except_download(hunter_root):
+  base_dir = os.path.join(hunter_root, '_Base')
+  if os.path.exists(base_dir):
+    print('Clearing directory: {}'.format(base_dir))
+    hunter_download_dir = os.path.join(base_dir, 'Download', 'Hunter')
+    if os.path.exists(hunter_download_dir):
+      shutil.rmtree(hunter_download_dir)
+    for filename in os.listdir(base_dir):
+      if filename != 'Download':
+        to_remove = os.path.join(base_dir, filename)
+        if os.name == 'nt':
+          # Fix "path too long" error
+          subprocess.check_call(['cmd', '/c', 'rmdir', to_remove, '/S', '/Q'])
+        else:
+          shutil.rmtree(to_remove)
 
 def run():
   parser = argparse.ArgumentParser("Testing script")
@@ -20,6 +37,11 @@ def run():
       '--nocreate',
       action='store_true',
       help='Do not create Hunter archive (reusing old)'
+  )
+  parser.add_argument(
+      '--all-release',
+      action='store_true',
+      help='Release build type for all 3rd party packages'
   )
   parser.add_argument(
       '--clear',
@@ -36,8 +58,23 @@ def run():
       action='store_true',
       help='Verbose output'
   )
+  parser.add_argument(
+      '--disable-builds',
+      action='store_true',
+      help='Disable building of package (useful for checking package can be loaded from cache)'
+  )
+  parser.add_argument(
+      '--upload',
+      action='store_true',
+      help='Upload cache to server and run checks (clean up will be triggered, same as --clear-except-download)'
+  )
 
   parsed_args = parser.parse_args()
+
+  if parsed_args.upload:
+    password = os.getenv('GITHUB_USER_PASSWORD')
+    if password is None:
+      sys.exit('Expected environment variable GITHUB_USER_PASSWORD on uploading')
 
   cdir = os.getcwd()
   hunter_root = cdir
@@ -127,20 +164,7 @@ def run():
   hunter_root = os.path.join(testing_dir, 'Hunter')
 
   if parsed_args.clear_except_download:
-    base_dir = os.path.join(hunter_root, '_Base')
-    if os.path.exists(base_dir):
-      print('Clearing directory: {}'.format(base_dir))
-      hunter_download_dir = os.path.join(base_dir, 'Download', 'Hunter')
-      if os.path.exists(hunter_download_dir):
-        shutil.rmtree(hunter_download_dir)
-      for filename in os.listdir(base_dir):
-        if filename != 'Download':
-          to_remove = os.path.join(base_dir, filename)
-          if os.name == 'nt':
-            # Fix "path too long" error
-            subprocess.check_call(['cmd', '/c', 'rmdir', to_remove, '/S', '/Q'])
-          else:
-            shutil.rmtree(to_remove)
+    clear_except_download(hunter_root)
 
   if os.name == 'nt':
     which = 'where'
@@ -181,6 +205,12 @@ def run():
   if not parsed_args.nocreate:
     args += ['HUNTER_RUN_INSTALL=ON']
 
+  if parsed_args.disable_builds:
+    args += ['HUNTER_DISABLE_BUILDS=ON']
+
+  if parsed_args.all_release:
+    args += ['HUNTER_CONFIGURATION_TYPES=Release']
+
   args += ['--verbose']
   if not verbose:
     args += ['--discard', '10']
@@ -192,6 +222,61 @@ def run():
   print(']')
 
   subprocess.check_call(args)
+
+  if parsed_args.upload:
+    upload_script = os.path.join(cdir, 'maintenance', 'upload-cache-to-github.py')
+
+    print('Uploading cache')
+    subprocess.check_call([
+        sys.executable,
+        upload_script,
+        '--username',
+        'ingenue',
+        '--repo-owner',
+        'ingenue',
+        '--repo',
+        'hunter-cache',
+        '--cache-dir',
+        os.path.join(hunter_root, '_Base', 'Cache'),
+        '--temp-dir',
+        os.path.join(hunter_root, '__TEMP')
+    ])
+
+    seconds = 60
+    print(
+        'Wait for GitHub changes became visible ({} seconds)...'.format(seconds)
+    )
+    time.sleep(seconds)
+
+    print('Run sanity build')
+
+    clear_except_download(hunter_root)
+
+    # Sanity check - run build again with disabled building from sources
+    args = [
+        sys.executable,
+        build_script,
+        '--clear',
+        '--verbose',
+        '--config',
+        'Release',
+        '--toolchain',
+        toolchain,
+        '--home',
+        project_dir,
+        '--fwd',
+        'HUNTER_DISABLE_BUILDS=ON',
+        'HUNTER_ROOT={}'.format(hunter_root),
+        'TESTING_URL={}'.format(hunter_url),
+        'TESTING_SHA1={}'.format(hunter_sha1)
+    ]
+
+    print('Execute command: [')
+    for i in args:
+      print('  `{}`'.format(i))
+    print(']')
+
+    subprocess.check_call(args)
 
 if __name__ == "__main__":
   run()
