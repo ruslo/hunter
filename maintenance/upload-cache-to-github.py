@@ -107,13 +107,20 @@ class Github:
     # PUT /repos/:owner/:repo/contents/:path
 
     message = 'Uploading cache info\n\n'
-    message += 'Create file: {}\n'.format(github_path)
+    message += 'Create file: {}\n\n'.format(github_path)
 
     env_list = []
+    job_url = ''
 
     if os.getenv('TRAVIS') == 'true':
       # * https://docs.travis-ci.com/user/environment-variables/#Default-Environment-Variables
       message += 'Travis:\n'
+      job_url = 'https://travis-ci.org/{}/{}/jobs/{}'.format(
+          self.repo_owner,
+          self.repo,
+          os.getenv('TRAVIS_JOB_ID')
+      )
+
       env_list += [
           'TRAVIS_BRANCH',
           'TRAVIS_BUILD_ID',
@@ -126,6 +133,12 @@ class Github:
     if os.getenv('APPVEYOR') == 'True':
       # * http://www.appveyor.com/docs/environment-variables
       message += 'AppVeyor:\n'
+      job_url = 'https://ci.appveyor.com/project/{}/{}/build/{}/job/{}'.format(
+          self.repo_owner,
+          self.repo,
+          os.getenv('APPVEYOR_BUILD_VERSION'),
+          os.getenv('APPVEYOR_JOB_ID')
+      )
       env_list += [
           'APPVEYOR_API_URL',
           'APPVEYOR_PROJECT_ID',
@@ -142,6 +155,9 @@ class Github:
       env_value = os.getenv(env_name)
       if env_value:
         message += '  {}: {}\n'.format(env_name, env_value)
+
+    if job_url:
+      message += '\n  Job URL: {}\n'.format(job_url)
 
     url = 'https://api.github.com/repos/{}/{}/contents/{}'.format(
         self.repo_owner,
