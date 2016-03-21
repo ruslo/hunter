@@ -113,6 +113,18 @@ function(hunter_download_cache_meta_file)
         endif()
         hunter_status_debug("File not found")
         break()
+      elseif(error_code EQUAL 56)
+        file(REMOVE "${x_LOCAL}")
+        string(
+            COMPARE
+            EQUAL "${error_message}" "\"Failure when receiving data from the peer\""
+            is_good
+        )
+        if(NOT is_good)
+          hunter_internal_error("Unexpected message: ${error_message}")
+        endif()
+        hunter_status_debug("File not found")
+        break()
       else()
         file(REMOVE "${x_LOCAL}")
         hunter_internal_error(
