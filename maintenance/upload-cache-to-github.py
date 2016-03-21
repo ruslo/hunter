@@ -127,7 +127,8 @@ class Github:
           'TRAVIS_BUILD_NUMBER',
           'TRAVIS_JOB_ID',
           'TRAVIS_JOB_NUMBER',
-          'TRAVIS_OS_NAME'
+          'TRAVIS_OS_NAME',
+          'TRAVIS_REPO_SLUG'
       ]
 
     if os.getenv('APPVEYOR') == 'True':
@@ -142,6 +143,7 @@ class Github:
       env_list += [
           'APPVEYOR_API_URL',
           'APPVEYOR_PROJECT_ID',
+          'APPVEYOR_PROJECT_SLUG',
           'APPVEYOR_BUILD_ID',
           'APPVEYOR_BUILD_NUMBER',
           'APPVEYOR_BUILD_VERSION',
