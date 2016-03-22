@@ -134,8 +134,8 @@ class Github:
       # * http://www.appveyor.com/docs/environment-variables
       message += 'AppVeyor:\n'
       job_url = 'https://ci.appveyor.com/project/{}/{}/build/{}/job/{}'.format(
-          self.repo_owner,
-          self.repo,
+          os.getenv('APPVEYOR_ACCOUNT_NAME'),
+          os.getenv('APPVEYOR_PROJECT_SLUG'),
           os.getenv('APPVEYOR_BUILD_VERSION'),
           os.getenv('APPVEYOR_JOB_ID')
       )
