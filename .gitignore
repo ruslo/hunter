@@ -19,10 +19,6 @@ _Base
 */.DS_Store
 */*/.DS_Store
 
-# archives
-*.tar.gz
-*.tar.bz2
-
 # emacs junk
 *.*~
 *~
