@@ -35,7 +35,8 @@ function(hunter_download_cache_meta_file)
   set(cache_directory "${HUNTER_CACHED_ROOT}/_Base/Cache")
   hunter_lock_directory("${cache_directory}" "")
 
-  string(REPLACE "${cache_directory}/meta/" "" suffix "${x_LOCAL}")
+  string(REPLACE "${cache_directory}/meta/" "" local_suffix "${x_LOCAL}")
+  string(REPLACE "${cache_directory}/meta/" "" done_suffix "${x_DONE}")
 
   if(EXISTS "${x_DONE}")
     return()
@@ -63,15 +64,48 @@ function(hunter_download_cache_meta_file)
         "${server}"
     )
 
-    set(url "${url}/master/${suffix}")
+    set(local_url "${url}/master/${local_suffix}")
+    set(done_url "${url}/master/${done_suffix}")
 
     set(total_retry 3)
     foreach(x RANGE ${total_retry})
       hunter_status_debug("Downloading file (try #${x} of ${total_retry}):")
-      hunter_status_debug("  ${url}")
+      hunter_status_debug("  ${done_url}")
+      hunter_status_debug("  -> ${x_DONE}")
+
+      file(DOWNLOAD "${done_url}" "${x_DONE}" STATUS status)
+
+      list(GET status 0 error_code)
+      list(GET status 1 error_message)
+
+      hunter_check_download_error_message(
+          ERROR_CODE "${error_code}"
+          ERROR_MESSAGE "${error_message}"
+          REMOVE_ON_ERROR "${x_DONE}"
+      )
+
+      if(error_code EQUAL 0)
+        break()
+      elseif(error_code EQUAL 22)
+        hunter_status_debug("File not found")
+        break()
+      else()
+        hunter_status_debug("Downloading error, retry...")
+      endif()
+    endforeach()
+
+    if(NOT EXISTS "${x_DONE}")
+      # DONE stamp not found on this server, try next
+      continue()
+    endif()
+
+    set(total_retry 3)
+    foreach(x RANGE ${total_retry})
+      hunter_status_debug("Downloading file (try #${x} of ${total_retry}):")
+      hunter_status_debug("  ${local_url}")
       hunter_status_debug("  -> ${x_LOCAL}")
 
-      file(DOWNLOAD "${url}" "${x_LOCAL}" STATUS status)
+      file(DOWNLOAD "${local_url}" "${x_LOCAL}" STATUS status)
 
       list(GET status 0 error_code)
       list(GET status 1 error_message)
@@ -83,14 +117,22 @@ function(hunter_download_cache_meta_file)
       )
 
       if(error_code EQUAL 0)
-        file(WRITE "${x_DONE}" "")
         return()
       elseif(error_code EQUAL 22)
-        hunter_status_debug("File not found")
-        break()
+        file(REMOVE "${x_DONE}")
+        hunter_internal_error(
+            "Server error. File not exists but DONE stamp found.\n"
+            "  file: ${local_url}"
+            "  done: ${done_url}"
+        )
       else()
         hunter_status_debug("Downloading error, retry...")
       endif()
     endforeach()
+
+    if(NOT EXISTS "${x_LOCAL}")
+      # some errors, remove DONE stamp and try next server
+      file(REMOVE "${x_DONE}")
+    endif()
   endforeach()
 endfunction()
