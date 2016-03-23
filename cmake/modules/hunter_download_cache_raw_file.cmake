@@ -3,6 +3,7 @@
 
 include(CMakeParseArguments) # cmake_parse_arguments
 
+include(hunter_check_download_error_message)
 include(hunter_internal_error)
 include(hunter_status_debug)
 include(hunter_test_string_not_empty)
@@ -79,12 +80,9 @@ function(hunter_download_cache_raw_file)
       list(GET status 0 error_code)
       list(GET status 1 error_message)
 
+      hunter_check_download_error_message("${error_code}" "${error_message}")
+
       if(error_code EQUAL 0)
-        string(COMPARE EQUAL "${error_message}" "\"No error\"" is_good)
-        if(NOT is_good)
-          file(REMOVE "${x_LOCAL}")
-          hunter_internal_error("Unexpected message: ${error_message}")
-        endif()
         if(sha1_is_good)
           file(WRITE "${x_FROMSERVER}" "")
           return()
@@ -96,26 +94,10 @@ function(hunter_download_cache_raw_file)
         endif()
       elseif(error_code EQUAL 22)
         file(REMOVE "${x_LOCAL}")
-        string(
-            COMPARE
-            EQUAL "${error_message}" "\"HTTP response code said error\""
-            is_good
-        )
-        if(NOT is_good)
-          hunter_internal_error("Unexpected message: ${error_message}")
-        endif()
         hunter_status_debug("File not found")
         break()
       elseif(error_code EQUAL 6)
         file(REMOVE "${x_LOCAL}")
-        string(
-            COMPARE
-            EQUAL "${error_message}" "\"Couldn't resolve host name\""
-            is_good
-        )
-        if(NOT is_good)
-          hunter_internal_error("Unexpected message: ${error_message}")
-        endif()
         string(COMPARE EQUAL "${HUNTER_USE_CACHE_SERVERS}" "ONLY" only_server)
         if(only_server)
           hunter_user_error(
@@ -126,23 +108,11 @@ function(hunter_download_cache_raw_file)
         continue()
       elseif(error_code EQUAL 56)
         file(REMOVE "${x_LOCAL}")
-        string(
-            COMPARE
-            EQUAL "${error_message}" "\"Failure when receiving data from the peer\""
-            is_good
-        )
-        if(NOT is_good)
-          hunter_internal_error("Unexpected message: ${error_message}")
-        endif()
         hunter_status_debug("Downloading error, retry...")
         continue()
       else()
         file(REMOVE "${x_LOCAL}")
-        hunter_internal_error(
-            "Unknown error"
-            "  code: ${error_code}"
-            "  message: ${error_message}"
-        )
+        hunter_internal_error("Should be parsed earlier")
       endif()
     endforeach()
   endforeach()
