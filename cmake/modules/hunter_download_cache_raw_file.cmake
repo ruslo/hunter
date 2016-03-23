@@ -80,7 +80,11 @@ function(hunter_download_cache_raw_file)
       list(GET status 0 error_code)
       list(GET status 1 error_message)
 
-      hunter_check_download_error_message("${error_code}" "${error_message}")
+      hunter_check_download_error_message(
+          ERROR_CODE "${error_code}"
+          ERROR_MESSAGE "${error_message}"
+          REMOVE_ON_ERROR "${x_LOCAL}"
+      )
 
       if(error_code EQUAL 0)
         if(sha1_is_good)
@@ -93,25 +97,15 @@ function(hunter_download_cache_raw_file)
           file(REMOVE "${x_LOCAL}")
         endif()
       elseif(error_code EQUAL 22)
-        file(REMOVE "${x_LOCAL}")
         hunter_status_debug("File not found")
         break()
       elseif(error_code EQUAL 6)
-        file(REMOVE "${x_LOCAL}")
-        string(COMPARE EQUAL "${HUNTER_USE_CACHE_SERVERS}" "ONLY" only_server)
-        if(only_server)
-          hunter_user_error(
-              "HUNTER_USE_CACHE_SERVERS is set to ONLY but network is down."
-          )
-        endif()
         hunter_status_debug("Downloading error, retry...")
         continue()
       elseif(error_code EQUAL 56)
-        file(REMOVE "${x_LOCAL}")
         hunter_status_debug("Downloading error, retry...")
         continue()
       else()
-        file(REMOVE "${x_LOCAL}")
         hunter_internal_error("Should be parsed earlier")
       endif()
     endforeach()
