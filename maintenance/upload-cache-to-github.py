@@ -32,26 +32,6 @@ def download_file(url, local_file, auth):
       time.sleep(60)
   sys.exit('Download failed')
 
-def upload_bzip_once(url, local_path, auth):
-  headers = {'Content-Type': 'application/x-bzip2'}
-  file_to_upload = open(local_path, 'rb')
-  r = requests.post(url, data=file_to_upload, headers=headers, auth=auth)
-  if not r.ok:
-    raise Exception('Upload of file failed')
-
-def upload_bzip(url, local_path, auth):
-  print('Uploading:\n  {} ->\n  {}'.format(local_path, url))
-  max_retry = 3
-  for i in range(max_retry):
-    try:
-      upload_bzip_once(url, local_path, auth)
-      print('Done')
-      return
-    except Exception as exc:
-      print('Exception catched ({}), retry... ({} of {})'.format(exc, i+1, max_retry))
-      time.sleep(60)
-  sys.exit('Upload failed')
-
 class Github:
   def __init__(self, username, password, repo_owner, repo):
     self.repo_owner = repo_owner
@@ -83,6 +63,26 @@ class Github:
 
     return r.json()['id']
 
+  def upload_bzip_once(self, url, local_path):
+    headers = {'Content-Type': 'application/x-bzip2'}
+    file_to_upload = open(local_path, 'rb')
+    r = requests.post(url, data=file_to_upload, headers=headers, auth=self.auth)
+    if not r.ok:
+      raise Exception('Upload of file failed')
+
+  def upload_bzip(self, url, local_path):
+    print('Uploading:\n  {} ->\n  {}'.format(local_path, url))
+    max_retry = 3
+    for i in range(max_retry):
+      try:
+        self.upload_bzip_once(url, local_path)
+        print('Done')
+        return
+      except Exception as exc:
+        print('Exception catched ({}), retry... ({} of {})'.format(exc, i+1, max_retry))
+        time.sleep(60)
+    sys.exit('Upload failed')
+
   def upload_raw_file(self, local_path):
     tagname = 'cache'
     release_id = self.get_release_by_tag(tagname)
@@ -100,7 +100,7 @@ class Github:
         asset_name
     )
 
-    upload_bzip(url, local_path, self.auth)
+    self.upload_bzip(url, local_path)
 
   def try_create_new_file(self, local_path, github_path):
     # https://developer.github.com/v3/repos/contents/#create-a-file
