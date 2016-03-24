@@ -456,6 +456,7 @@ github = Github(
 
 if args.skip_raw:
   print('*** WARNING *** Skip uploading of raw files')
+else:
   cache.upload_raw(github)
 
 cache.upload_meta(github, cache_done=False)
