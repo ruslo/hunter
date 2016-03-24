@@ -369,6 +369,10 @@ parser.add_argument(
     help='Temporary directory where files will be downloaded for verification'
 )
 
+parser.add_argument(
+    '--skip-raw', action='store_true', help="Skip uploading of raw files"
+)
+
 args = parser.parse_args()
 
 cache_dir = os.path.normpath(args.cache_dir)
@@ -393,7 +397,10 @@ github = Github(
     repo = args.repo
 )
 
-cache.upload_raw(github)
+if args.skip_raw:
+  print('*** WARNING *** Skip uploading of raw files')
+  cache.upload_raw(github)
+
 cache.upload_meta(github, cache_done=False)
 print('Uploading DONE files')
 cache.upload_meta(github, cache_done=True) # Should be last
