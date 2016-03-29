@@ -111,9 +111,7 @@ hunter_config(sparsehash VERSION 2.0.2)
 hunter_config(spdlog VERSION 1.0.0-p0)
 hunter_config(szip VERSION 2.1.0-p1)
 hunter_config(wxWidgets VERSION 3.0.2)
-hunter_config(ZeroMQ VERSION 4.1.4-p2)
 hunter_config(ZMQPP VERSION 4.1.2)
-hunter_config(Protobuf VERSION 3.0.0-beta-2)
 
 if(MINGW)
   # 1.60.0 broken:
