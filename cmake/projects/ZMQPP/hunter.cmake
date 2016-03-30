@@ -15,9 +15,9 @@ hunter_add_version(
   VERSION
   "4.1.2"
   URL
-  "https://github.com/hunter-packages/zmqpp/archive/4.1.2-hunter.tar.gz"
+  "https://github.com/hunter-packages/zmqpp/archive/4.1.2-hunter-p2.tar.gz"
   SHA1
-  f7fb7ffda0d34fcc61b562e73f3e548490076ea9
+  549d2d0078ed636d90ed0febe687a058bdd0d64d
   )
 
 hunter_pick_scheme(DEFAULT url_sha1_cmake)
