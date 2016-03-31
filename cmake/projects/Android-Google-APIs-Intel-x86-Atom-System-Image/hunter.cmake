@@ -9,11 +9,14 @@ include(hunter_pick_scheme)
 
 # From: https://dl.google.com/android/repository/sys-img/google_apis/sys-img.xml
 
+# Version should match regex '[0-9]+_r[0-9]+'
+# Used by https://github.com/hunter-packages/android-sdk
+
 hunter_add_version(
     PACKAGE_NAME
     Android-Google-APIs-Intel-x86-Atom-System-Image
     VERSION
-    "22" # version affect layout: <sdk>/system-images/android-22/google_apis/
+    "22_r01"
     URL
     "https://dl.google.com/android/repository/sys-img/google_apis/sysimg_x86-22_r01.zip"
     SHA1
@@ -25,7 +28,7 @@ hunter_add_version(
     PACKAGE_NAME
     Android-Google-APIs-Intel-x86-Atom-System-Image
     VERSION
-    "21" # version affect layout: <sdk>/system-images/android-21/google_apis/
+    "21_r09"
     URL
     "https://dl.google.com/android/repository/sys-img/google_apis/sysimg_x86-21_r09.zip"
     SHA1
