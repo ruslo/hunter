@@ -6,10 +6,13 @@ cmake_install.cmake
 install_manifest.txt
 
 # CMake temp build directories
+_builds
 */_builds
 */*/_builds
 */*/*/_builds
 */*/*/*/_builds
+
+_testing
 
 # EP_BASE (install, download, build, ...)
 _Base
@@ -18,10 +21,6 @@ _Base
 .DS_Store
 */.DS_Store
 */*/.DS_Store
-
-# archives
-*.tar.gz
-*.tar.bz2
 
 # emacs junk
 *.*~

@@ -7,13 +7,13 @@ int main(int argc, char *argv[])
 {
     try {
 
-        printf("Start main");
+        printf("Start main\n");
         // Select a device and display arrayfire info
         int device = argc > 1 ? atoi(argv[1]) : 0;
-        printf("Setting device");
+        printf("Setting device\n");
         af::setDevice(device);
 
-        printf("Printing info");
+        printf("Printing info\n");
         af::info();
 
         printf("Create a 5-by-3 matrix of random floats on the GPU\n");

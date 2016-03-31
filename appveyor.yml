@@ -4,6 +4,11 @@
 # * https://ci.appveyor.com/project/ingenue/hunter/build/1.0.178
 
 environment:
+  global:
+    # This variable used only if '--upload' added to 'jenkins.py'
+    GITHUB_USER_PASSWORD:
+      secure: uW6WWlvCt7CRvvdO9ePjbymPcPNuV1C6HGF8u7Ey6EI=
+
   matrix:
     - TOOLCHAIN: "dummy"
       PROJECT_DIR: examples\qt-widgets
@@ -45,15 +50,23 @@ environment:
 #      PROJECT_DIR: examples\qt-widgets
 
 install:
-  - git submodule update --init --recursive
+  # Python 3
+  - cmd: set PATH=C:\Python34-x64;C:\Python34-x64\Scripts;%PATH%
 
-  # Install ninja
-  - cmd: set NINJA_VERSION="1.6.0"
-  - cmd: appveyor DownloadFile "https://github.com/ninja-build/ninja/releases/download/v%NINJA_VERSION%/ninja-win.zip"
-  - cmd: cmake -E tar xf "ninja-win.zip"
-  - cmd: cmake -E make_directory "ninja"
-  - cmd: cmake -E rename "ninja.exe" "ninja/ninja.exe"
-  - cmd: set PATH=%cd%\ninja;%PATH%
+  # Install Python package 'requests'
+  - cmd: pip install requests
+
+  # Install latest Polly toolchains and scripts
+  - cmd: appveyor DownloadFile https://github.com/ruslo/polly/archive/master.zip
+  - cmd: 7z x master.zip
+  - cmd: set POLLY_ROOT=%cd%\polly-master
+
+  # Install dependencies (CMake, Ninja)
+  - cmd: python %POLLY_ROOT%\bin\install-ci-dependencies.py
+
+  # Tune locations
+  - cmd: set PATH=%cd%\_ci\cmake\bin;%PATH%
+  - cmd: set PATH=%cd%\_ci\ninja;%PATH%
 
   # Remove entry with sh.exe from PATH to fix error with MinGW toolchain
   # (For MinGW make to work correctly sh.exe must NOT be in your path)
@@ -64,20 +77,13 @@ install:
   # * http://www.appveyor.com/docs/installed-software#qt
   - cmd: set MINGW_PATH=C:\Qt\Tools\mingw492_32\bin
 
-  # Install Polly toolchains
-  - cmd: set POLLY_VERSION=0.9.0
-  - cmd: appveyor DownloadFile "https://github.com/ruslo/polly/archive/v%POLLY_VERSION%.tar.gz"
-  - cmd: cmake -E tar xf "v%POLLY_VERSION%.tar.gz"
-  - cmd: set POLLY_ROOT=%cd%\polly-%POLLY_VERSION%
-
-  # Python 3 for Polly
-  - cmd: set PATH=C:\Python34-x64;%PATH%
-
-  # Check versions of tools
-  - cmd: where cmake
-  - cmd: cmake --version
-  - cmd: where python
-  - cmd: python --version
+  - git submodule update --init --recursive
 
 build_script:
   - cmd: python .\jenkins.py
+
+# http://www.appveyor.com/docs/branches#white-and-blacklisting
+# Exclude branch 'pkg.template'. Nothing to build there.
+branches:
+  except:
+    - pkg.template

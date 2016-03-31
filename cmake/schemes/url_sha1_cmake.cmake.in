@@ -42,11 +42,11 @@ if(IOS)
   if(CMAKE_VERSION VERSION_LESS 3.5)
     hunter_user_error("CMake 3.5+ version should be used for iOS toolchains")
   endif()
-  set(
-      ios_opts
-      "-DCMAKE_IOS_INSTALL_COMBINED=YES"
-      "-DCMAKE_XCODE_ATTRIBUTE_ONLY_ACTIVE_ARCH=NO"
-  )
+  string(COMPARE NOTEQUAL "${IPHONESIMULATOR_ARCHS}" "" has_simulator)
+  set(ios_opts "-DCMAKE_XCODE_ATTRIBUTE_ONLY_ACTIVE_ARCH=NO")
+  if(has_simulator)
+    list(APPEND ios_opts "-DCMAKE_IOS_INSTALL_COMBINED=YES")
+  endif()
 else()
   set(ios_opts "")
 endif()
