@@ -115,9 +115,8 @@ class Github:
     if os.getenv('TRAVIS') == 'true':
       # * https://docs.travis-ci.com/user/environment-variables/#Default-Environment-Variables
       message += 'Travis:\n'
-      job_url = 'https://travis-ci.org/{}/{}/jobs/{}'.format(
-          self.repo_owner,
-          self.repo,
+      job_url = 'https://travis-ci.org/{}/jobs/{}'.format(
+          os.getenv('TRAVIS_REPO_SLUG'),
           os.getenv('TRAVIS_JOB_ID')
       )
 
@@ -135,14 +134,15 @@ class Github:
       # * http://www.appveyor.com/docs/environment-variables
       message += 'AppVeyor:\n'
       job_url = 'https://ci.appveyor.com/project/{}/{}/build/{}/job/{}'.format(
-          self.repo_owner,
-          self.repo,
+          os.getenv('APPVEYOR_ACCOUNT_NAME'),
+          os.getenv('APPVEYOR_PROJECT_SLUG'),
           os.getenv('APPVEYOR_BUILD_VERSION'),
           os.getenv('APPVEYOR_JOB_ID')
       )
       env_list += [
-          'APPVEYOR_API_URL',
+          'APPVEYOR_ACCOUNT_NAME',
           'APPVEYOR_PROJECT_ID',
+          'APPVEYOR_PROJECT_NAME',
           'APPVEYOR_PROJECT_SLUG',
           'APPVEYOR_BUILD_ID',
           'APPVEYOR_BUILD_NUMBER',
