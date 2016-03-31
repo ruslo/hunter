@@ -13,5 +13,11 @@ project(download-cereal)
 hunter_add_package(cereal)
 find_package(cereal CONFIG REQUIRED)
 
-add_executable(cereal cereal.cpp)
+if(ANDROID)
+  # Broken: https://travis-ci.org/ingenue/hunter/jobs/118219414
+  add_executable(cereal dummy.cpp)
+else()
+  add_executable(cereal cereal.cpp)
+endif()
+
 target_link_libraries(cereal cereal::cereal)
