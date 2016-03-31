@@ -68,6 +68,9 @@ def run():
       action='store_true',
       help='Upload cache to server and run checks (clean up will be triggered, same as --clear-except-download)'
   )
+  parser.add_argument(
+      '--skip-raw', action='store_true', help="Skip uploading of raw files"
+  )
 
   parsed_args = parser.parse_args()
 
@@ -227,7 +230,7 @@ def run():
     upload_script = os.path.join(cdir, 'maintenance', 'upload-cache-to-github.py')
 
     print('Uploading cache')
-    subprocess.check_call([
+    call_args = [
         sys.executable,
         upload_script,
         '--username',
@@ -240,7 +243,12 @@ def run():
         os.path.join(hunter_root, '_Base', 'Cache'),
         '--temp-dir',
         os.path.join(hunter_root, '__TEMP')
-    ])
+    ]
+
+    if parsed_args.skip_raw:
+      call_args.append('--skip-raw')
+
+    subprocess.check_call(call_args)
 
     seconds = 60
     print(

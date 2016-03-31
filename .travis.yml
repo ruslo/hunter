@@ -41,7 +41,6 @@ env:
     - PROJECT_DIR=examples/Foo TOOLCHAIN=libcxx
     - PROJECT_DIR=examples/Foo TOOLCHAIN=clang-libstdcxx
     - PROJECT_DIR=examples/Foo TOOLCHAIN=osx-10-9
-    - PROJECT_DIR=examples/Foo TOOLCHAIN=gcc
     - PROJECT_DIR=examples/Foo TOOLCHAIN=gcc-4-8
     - PROJECT_DIR=examples/Foo TOOLCHAIN=ios-nocodesign
     - PROJECT_DIR=examples/Foo TOOLCHAIN=android-ndk-r10e-api-19-armeabi-v7a-neon
@@ -63,12 +62,8 @@ matrix:
     - os: linux
       env: PROJECT_DIR=examples/Foo TOOLCHAIN=ios-nocodesign
 
-    # https://github.com/travis-ci-tester/travis-test-gcc-cxx-11
-    - os: linux
-      env: PROJECT_DIR=examples/Foo TOOLCHAIN=gcc
-
     ### OSX excludes ###
-    # TOOLCHAIN=gcc works fine on OSX
+    # TOOLCHAIN=gcc works fine on OSX (and 'gcc' same as 'libcxx')
     - os: osx
       env: PROJECT_DIR=examples/Foo TOOLCHAIN=gcc-4-8
 

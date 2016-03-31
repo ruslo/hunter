@@ -37,9 +37,9 @@ hunter_add_version(
     VERSION
     "19" # version affects layout: <sdk>/add-ons/addon-google_apis-google-19
     URL
-    "https://dl.google.com/android/repository/google_apis-19_r14.zip"
+    "https://dl.google.com/android/repository/google_apis-19_r18.zip"
     SHA1
-    cb053798e862c0f674ef909aa58218f07d277d18
+    701595b0d9985cca00be29b3c606e64731c3e1f7
 )
 
 hunter_add_version(
