@@ -127,10 +127,10 @@ class Github:
       raise Exception('Upload of file failed')
 
   def upload_bzip(self, url, local_path, release_id, asset_name):
+    print('Uploading:\n  {} ->\n  {}'.format(local_path, url))
     max_retry = 3
     for i in range(max_retry):
       try:
-        print('Uploading:\n  {} ->\n  {}'.format(local_path, url))
         self.upload_bzip_once(url, local_path)
         print('Done')
         return
