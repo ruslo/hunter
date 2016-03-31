@@ -32,26 +32,6 @@ def download_file(url, local_file, auth):
       time.sleep(60)
   sys.exit('Download failed')
 
-def upload_bzip_once(url, local_path, auth):
-  headers = {'Content-Type': 'application/x-bzip2'}
-  file_to_upload = open(local_path, 'rb')
-  r = requests.post(url, data=file_to_upload, headers=headers, auth=auth)
-  if not r.ok:
-    raise Exception('Upload of file failed')
-
-def upload_bzip(url, local_path, auth):
-  print('Uploading:\n  {} ->\n  {}'.format(local_path, url))
-  max_retry = 3
-  for i in range(max_retry):
-    try:
-      upload_bzip_once(url, local_path, auth)
-      print('Done')
-      return
-    except Exception as exc:
-      print('Exception catched ({}), retry... ({} of {})'.format(exc, i+1, max_retry))
-      time.sleep(60)
-  sys.exit('Upload failed')
-
 class Github:
   def __init__(self, username, password, repo_owner, repo):
     self.repo_owner = repo_owner
@@ -83,6 +63,83 @@ class Github:
 
     return r.json()['id']
 
+  def find_asset_id_by_name(self, release_id, name):
+    # https://developer.github.com/v3/repos/releases/#list-assets-for-a-release
+    # GET /repos/:owner/:repo/releases/:id/assets
+
+    page_number = 1
+    keep_searching = True
+
+    while keep_searching:
+      url = 'https://api.github.com/repos/{}/{}/releases/{}/assets?page={}'.format(
+          self.repo_owner,
+          self.repo,
+          release_id,
+          page_number
+      )
+
+      print('Requesting URL: {}'.format(url))
+      r = requests.get(url, auth=self.auth)
+      if not r.ok:
+        raise Exception('Getting list of assets failed. Requested url: {}'.format(url))
+
+      json = r.json()
+
+      for x in json:
+        if name == x['name']:
+          return x['id']
+
+      if not json:
+        keep_searching = False
+
+      page_number = page_number + 1
+
+    return None
+
+  def delete_asset_by_id(self, asset_id, asset_name):
+    # https://developer.github.com/v3/repos/releases/#delete-a-release-asset
+    # DELETE /repos/:owner/:repo/releases/assets/:id
+
+    url = 'https://api.github.com/repos/{}/{}/releases/assets/{}'.format(
+        self.repo_owner,
+        self.repo,
+        asset_id
+    )
+
+    r = requests.delete(url, auth=self.auth)
+    if r.status_code == 204:
+      print('Asset removed: {}'.format(asset_name))
+    else:
+      raise Exception('Deletion of asset failed: {}'.format(asset_name))
+
+  def delete_asset_if_exists(self, release_id, asset_name):
+    asset_id = self.find_asset_id_by_name(release_id, asset_name)
+    if not asset_id:
+      print('Asset not exists: {}'.format(asset_name))
+      return
+    self.delete_asset_by_id(asset_id, asset_name)
+
+  def upload_bzip_once(self, url, local_path):
+    headers = {'Content-Type': 'application/x-bzip2'}
+    file_to_upload = open(local_path, 'rb')
+    r = requests.post(url, data=file_to_upload, headers=headers, auth=self.auth)
+    if not r.ok:
+      raise Exception('Upload of file failed')
+
+  def upload_bzip(self, url, local_path, release_id, asset_name):
+    max_retry = 3
+    for i in range(max_retry):
+      try:
+        print('Uploading:\n  {} ->\n  {}'.format(local_path, url))
+        self.upload_bzip_once(url, local_path)
+        print('Done')
+        return
+      except Exception as exc:
+        print('Exception catched ({}), retry... ({} of {})'.format(exc, i+1, max_retry))
+        time.sleep(60)
+        self.delete_asset_if_exists(release_id, asset_name)
+    sys.exit('Upload failed')
+
   def upload_raw_file(self, local_path):
     tagname = 'cache'
     release_id = self.get_release_by_tag(tagname)
@@ -100,7 +157,7 @@ class Github:
         asset_name
     )
 
-    upload_bzip(url, local_path, self.auth)
+    self.upload_bzip(url, local_path, release_id, asset_name)
 
   def try_create_new_file(self, local_path, github_path):
     # https://developer.github.com/v3/repos/contents/#create-a-file
@@ -369,6 +426,10 @@ parser.add_argument(
     help='Temporary directory where files will be downloaded for verification'
 )
 
+parser.add_argument(
+    '--skip-raw', action='store_true', help="Skip uploading of raw files"
+)
+
 args = parser.parse_args()
 
 cache_dir = os.path.normpath(args.cache_dir)
@@ -393,7 +454,11 @@ github = Github(
     repo = args.repo
 )
 
-cache.upload_raw(github)
+if args.skip_raw:
+  print('*** WARNING *** Skip uploading of raw files')
+else:
+  cache.upload_raw(github)
+
 cache.upload_meta(github, cache_done=False)
 print('Uploading DONE files')
 cache.upload_meta(github, cache_done=True) # Should be last
