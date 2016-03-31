@@ -23,6 +23,16 @@ hunter_add_version(
     4d18a23357af30a7df9a8f5f31b7dc3f4d1f74b2
 )
 
+hunter_add_version(
+    PACKAGE_NAME
+    Android-Google-APIs-Intel-x86-Atom-System-Image
+    VERSION
+    "21_r10"
+    URL
+    "https://dl.google.com/android/repository/sys-img/google_apis/sysimg_x86-21_r10.zip"
+    SHA1
+    c218fba49110dcc811d24bc170af8863c6253f8f
+)
 
 hunter_add_version(
     PACKAGE_NAME
