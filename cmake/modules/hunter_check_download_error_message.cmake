@@ -40,6 +40,8 @@ function(hunter_check_download_error_message)
     endif()
   elseif(x_ERROR_CODE EQUAL 56)
     set(expected_message "\"Failure when receiving data from the peer\"")
+  elseif(x_ERROR_CODE EQUAL 18)
+    set(expected_message "\"Transferred a partial file\"")
   else()
     file(REMOVE "${x_REMOVE_ON_ERROR}")
     hunter_internal_error(
