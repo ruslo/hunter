@@ -32,3 +32,9 @@ add_executable(
 
 # Use the Widgets module from Qt 5.
 target_link_libraries(helloworld Qt5::Widgets)
+
+if(APPLE)
+  # Have to link it manually because of cyclic dependencies in Qt
+  find_package(Qt5PrintSupport REQUIRED)
+  target_link_libraries(helloworld Qt5::PrintSupport)
+endif()
