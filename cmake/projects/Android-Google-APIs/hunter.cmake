@@ -9,11 +9,14 @@ include(hunter_pick_scheme)
 
 # From: https://dl.google.com/android/repository/addon.xml
 
+# Version should match regex '[0-9]+_r[0-9]+'
+# Used by https://github.com/hunter-packages/android-sdk
+
 hunter_add_version(
     PACKAGE_NAME
     Android-Google-APIs
     VERSION
-    "22" # version affects layout: <sdk>/add-ons/addon-google_apis-google-22
+    "22_r01"
     URL
     "https://dl.google.com/android/repository/google_apis-22_r01.zip"
     SHA1
@@ -24,7 +27,7 @@ hunter_add_version(
     PACKAGE_NAME
     Android-Google-APIs
     VERSION
-    "21" # version affects layout: <sdk>/add-ons/addon-google_apis-google-21
+    "21_r01"
     URL
     "https://dl.google.com/android/repository/google_apis-21_r01.zip"
     SHA1
@@ -35,7 +38,7 @@ hunter_add_version(
     PACKAGE_NAME
     Android-Google-APIs
     VERSION
-    "19" # version affects layout: <sdk>/add-ons/addon-google_apis-google-19
+    "19_r18"
     URL
     "https://dl.google.com/android/repository/google_apis-19_r18.zip"
     SHA1
@@ -46,7 +49,7 @@ hunter_add_version(
     PACKAGE_NAME
     Android-Google-APIs
     VERSION
-    "16" # version affects layout: <sdk>/add-ons/addon-google_apis-google-16
+    "16_r04"
     URL
     "https://dl.google.com/android/repository/google_apis-16_r04.zip"
     SHA1
