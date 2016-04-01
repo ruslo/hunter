@@ -76,6 +76,8 @@ else() # is standard opensource
   )
 endif()
 
+set(HUNTER_PATCH_QT_MACX_CLANG FALSE)
+
 string(COMPARE EQUAL "@CMAKE_OSX_SYSROOT@" "iphoneos" _is_iphoneos)
 string(COMPARE NOTEQUAL "@ANDROID@" "" _is_android)
 string(COMPARE EQUAL "@CMAKE_SYSTEM_NAME@" "Linux" _is_linux)
@@ -129,7 +131,11 @@ elseif(_is_darwin)
     configure_opts
       -no-framework
       -no-dbus
+      # Do not forget to update qt-configure if other platform support needed
+      # (follow HUNTER_PATCH_QT_MACX_CLANG)
+      -platform macx-clang
   )
+  set(HUNTER_PATCH_QT_MACX_CLANG TRUE)
 elseif(_is_linux)
   list(APPEND
     configure_opts
@@ -153,6 +159,24 @@ else()
 endif()
 
 list(APPEND configure_opts "-prefix" "@HUNTER_PACKAGE_INSTALL_PREFIX@")
+
+### Disable SQL {
+# Configuration should be predictable on different machines. It must not
+# depends on what SQL packages installed on building machine and what not.
+# This will simplify building errors analyzing and allow to use cache from
+# CI slave.
+# Right way to turn this features ON is to add this packages to Hunter and
+# pass location of libraries to Qt.
+list(APPEND configure_opts "-no-sql-db2")
+list(APPEND configure_opts "-no-sql-ibase")
+list(APPEND configure_opts "-no-sql-mysql")
+list(APPEND configure_opts "-no-sql-oci")
+list(APPEND configure_opts "-no-sql-odbc")
+list(APPEND configure_opts "-no-sql-psql")
+list(APPEND configure_opts "-no-sql-sqlite2")
+# list(APPEND configure_opts "-no-sql-sqlite") # (okay, bundled copy)
+list(APPEND configure_opts "-no-sql-tds")
+### }
 
 ### Configuration type --
 
@@ -229,6 +253,7 @@ set(
 #   * ANDROID
 #   * IOS
 #   * HUNTER_Qt_VERSION
+#   * HUNTER_PATCH_QT_MACX_CLANG
 configure_file(
     "@HUNTER_PACKAGE_SETUP_DIR@/ep-stages/qt-configure.cmake.in"
     "@HUNTER_PACKAGE_BUILD_DIR@/qt-configure.cmake"

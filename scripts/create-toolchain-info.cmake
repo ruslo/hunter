@@ -44,6 +44,15 @@ file(
     "    HUNTER_TOOLCHAIN_UNDETECTABLE_ID: ${HUNTER_TOOLCHAIN_UNDETECTABLE_ID}\n"
 )
 
+string(COMPARE EQUAL "${OSX_SDK_VERSION}" "" is_empty)
+if(NOT is_empty)
+  file(
+      APPEND
+      "${TOOLCHAIN_INFO_FILE}"
+      "    OSX_SDK_VERSION: ${OSX_SDK_VERSION}\n"
+  )
+endif()
+
 foreach(configuration ${HUNTER_CONFIGURATION_TYPES})
   string(TOUPPER "${configuration}" configuration_upper)
   file(APPEND "${TOOLCHAIN_INFO_FILE}" "    CMAKE_${configuration_upper}_POSTFIX: ")
