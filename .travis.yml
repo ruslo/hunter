@@ -42,7 +42,7 @@ env:
     - PROJECT_DIR=examples/qt-widgets TOOLCHAIN=clang-libstdcxx
     - PROJECT_DIR=examples/qt-widgets TOOLCHAIN=osx-10-9
     - PROJECT_DIR=examples/qt-widgets TOOLCHAIN=gcc-4-8
-    - PROJECT_DIR=examples/qt-widgets TOOLCHAIN=ios-nocodesign
+    - PROJECT_DIR=examples/qt-widgets TOOLCHAIN=ios-nocodesign-wo-armv7s
     - PROJECT_DIR=examples/qt-widgets TOOLCHAIN=android-ndk-r10e-api-19-armeabi-v7a-neon
     - PROJECT_DIR=examples/qt-widgets TOOLCHAIN=analyze
     - PROJECT_DIR=examples/qt-widgets TOOLCHAIN=sanitize-address
@@ -60,7 +60,7 @@ matrix:
     - os: linux
       env: PROJECT_DIR=examples/qt-widgets TOOLCHAIN=osx-10-9
     - os: linux
-      env: PROJECT_DIR=examples/qt-widgets TOOLCHAIN=ios-nocodesign
+      env: PROJECT_DIR=examples/qt-widgets TOOLCHAIN=ios-nocodesign-wo-armv7s
 
     ### OSX excludes ###
     # TOOLCHAIN=gcc works fine on OSX (and 'gcc' same as 'libcxx')
