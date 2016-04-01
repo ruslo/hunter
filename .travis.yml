@@ -77,6 +77,11 @@ matrix:
     - os: osx
       env: PROJECT_DIR=examples/qt-widgets TOOLCHAIN=sanitize-thread
 
+    # default can't be used since it doesn't set SDK (by design)
+    # * https://travis-ci.org/ingenue/hunter/jobs/117738040
+    - os: osx
+      env: PROJECT_DIR=examples/qt-widgets TOOLCHAIN=default
+
 install:
   # Info about OS
   - uname -a
