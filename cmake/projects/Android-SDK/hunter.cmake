@@ -1,4 +1,4 @@
-# Copyright (c) 2015, Ruslan Baratov
+# Copyright (c) 2015-2016, Ruslan Baratov
 # All rights reserved.
 
 # !!! DO NOT PLACE HEADER GUARDS HERE !!!
@@ -8,6 +8,17 @@ include(hunter_cacheable)
 include(hunter_configuration_types)
 include(hunter_download)
 include(hunter_pick_scheme)
+
+hunter_add_version(
+    PACKAGE_NAME
+    Android-SDK
+    VERSION
+    "0.0.3"
+    URL
+    "https://github.com/hunter-packages/android-sdk/archive/v0.0.3.tar.gz"
+    SHA1
+    d2abf69595500ab8612df903120dffa81e173c93
+)
 
 hunter_add_version(
     PACKAGE_NAME
