@@ -8,6 +8,7 @@ include(hunter_create_dependency_entry)
 include(hunter_download_cache_meta_file)
 include(hunter_download_cache_raw_file)
 include(hunter_internal_error)
+include(hunter_patch_unrelocatable_text_files)
 include(hunter_status_debug)
 include(hunter_test_string_not_empty)
 include(hunter_unpack_directory)
@@ -206,5 +207,12 @@ function(hunter_load_from_cache)
     hunter_internal_error("archive file not found: ${archive_file}")
   endif()
   hunter_unpack_directory("${archive_file}" "${HUNTER_INSTALL_PREFIX}")
+
+  hunter_patch_unrelocatable_text_files(
+      FROM "__HUNTER_PACKAGE_INSTALL_PREFIX__"
+      TO "${HUNTER_INSTALL_PREFIX}"
+      INSTALL_PREFIX "${HUNTER_INSTALL_PREFIX}"
+  )
+
   file(WRITE "${HUNTER_PACKAGE_DONE_STAMP}" "")
 endfunction()
