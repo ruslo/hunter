@@ -115,6 +115,7 @@ hunter_config(szip VERSION 2.1.0-p1)
 hunter_config(wxWidgets VERSION 3.0.2)
 hunter_config(xcb-proto VERSION 1.7.1)
 hunter_config(xorg-macros VERSION 1.17)
+hunter_config(xproto VERSION 7.0.23)
 
 if(MINGW)
   # 1.60.0 broken:
