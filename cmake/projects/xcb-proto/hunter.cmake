@@ -8,6 +8,18 @@ include(hunter_cacheable)
 include(hunter_download)
 include(hunter_pick_scheme)
 
+# https://xcb.freedesktop.org/dist/
+hunter_add_version(
+    PACKAGE_NAME
+    xcb-proto
+    VERSION
+    "1.11"
+    URL
+    "https://xcb.freedesktop.org/dist/xcb-proto-1.11.tar.bz2"
+    SHA1
+    608bd60663e223464d38acec0183ddb827776401
+)
+
 # http://www.x.org/releases/X11R7.7/src/xcb/
 hunter_add_version(
     PACKAGE_NAME
