@@ -12,6 +12,13 @@ include(hunter_status_print)
 #   * calculate toolchain-id
 #   * calculate config-id
 macro(hunter_finalize)
+  list(APPEND HUNTER_CACHE_SERVERS "https://github.com/ingenue/hunter-cache")
+  list(REMOVE_DUPLICATES HUNTER_CACHE_SERVERS)
+  hunter_status_debug("List of cache servers:")
+  foreach(_server ${HUNTER_CACHE_SERVERS})
+    hunter_status_debug("  * ${_server}")
+  endforeach()
+
   get_property(_enabled_languages GLOBAL PROPERTY ENABLED_LANGUAGES)
 
   list(FIND _enabled_languages "C" _c_enabled_result)

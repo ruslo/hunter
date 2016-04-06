@@ -1,0 +1,357 @@
+# Copyright (c) 2013, 2015 Ruslan Baratov, Alexandre Pretyman
+# All rights reserved.
+
+cmake_minimum_required(VERSION 3.0)
+project(Hunter)
+
+include(ExternalProject) # ExternalProject_Add
+
+include("@HUNTER_SELF@/cmake/Hunter")
+
+include(hunter_internal_error)
+include(hunter_report_broken_package)
+include(hunter_status_debug)
+include(hunter_test_string_not_empty)
+
+hunter_status_debug("Scheme: url_sha1_qt")
+
+# Check preconditions
+hunter_test_string_not_empty("@HUNTER_SELF@")
+hunter_test_string_not_empty("@HUNTER_EP_NAME@")
+hunter_test_string_not_empty("@HUNTER_PACKAGE_URL@")
+hunter_test_string_not_empty("@HUNTER_PACKAGE_SHA1@")
+hunter_test_string_not_empty("@HUNTER_PACKAGE_COMPONENT@")
+hunter_test_string_not_empty("@HUNTER_PACKAGE_DOWNLOAD_DIR@")
+hunter_test_string_not_empty("@HUNTER_PACKAGE_BUILD_DIR@")
+hunter_test_string_not_empty("@HUNTER_PACKAGE_CONFIGURATION_TYPES@")
+hunter_test_string_not_empty("@HUNTER_TOOLCHAIN_ID_PATH@")
+hunter_test_string_not_empty("@HUNTER_INSTALL_PREFIX@")
+hunter_test_string_not_empty("@HUNTER_PACKAGE_INSTALL_PREFIX@")
+hunter_test_string_not_empty("@HUNTER_PACKAGE_LICENSE_FILE@")
+hunter_test_string_not_empty("@HUNTER_Qt_VERSION@")
+hunter_test_string_not_empty("@HUNTER_PACKAGE_SETUP_DIR@")
+hunter_test_string_not_empty("@HUNTER_GLOBAL_SCRIPT_DIR@")
+
+set(HUNTER_Qt_VERSION "@HUNTER_Qt_VERSION@")
+
+if("@MSVC@")
+  hunter_test_string_not_empty("@HUNTER_MSVC_ARCH@")
+  hunter_test_string_not_empty("@HUNTER_MSVC_VCVARSALL@")
+  hunter_test_string_not_empty("@HUNTER_MSVC_YEAR@")
+endif()
+
+if("@MSVC@")
+  set(env_cmd "@HUNTER_MSVC_VCVARSALL@" "@HUNTER_MSVC_ARCH@")
+  hunter_status_debug("Environment command: ${env_cmd}")
+else()
+  # Workaround for: http://public.kitware.com/Bug/view.php?id=15567
+  set(env_cmd "@CMAKE_COMMAND@" -E echo "configure")
+endif()
+
+if(WIN32)
+  set(configure_command "configure.bat")
+else()
+  set(configure_command "./configure")
+endif()
+
+set(configure_opts)
+
+list(APPEND
+    configure_opts
+      -confirm-license
+      -nomake examples
+      -nomake tests
+)
+
+string(COMPARE NOTEQUAL "@QT_COMMERCIAL@" "" _is_qt_commercial)
+if(_is_qt_commercial)
+  list(APPEND
+      configure_opts
+        -commercial
+  )
+else() # is standard opensource
+  list(APPEND
+      configure_opts
+        -opensource
+  )
+endif()
+
+string(COMPARE EQUAL "@CMAKE_OSX_SYSROOT@" "iphoneos" _is_iphoneos)
+string(COMPARE NOTEQUAL "@ANDROID@" "" _is_android)
+string(COMPARE EQUAL "@CMAKE_SYSTEM_NAME@" "Linux" _is_linux)
+string(COMPARE EQUAL "@CMAKE_SYSTEM_NAME@" "Darwin" _is_darwin)
+#insert windows test here
+if(_is_iphoneos)
+  list(APPEND
+      configure_opts
+        -xplatform macx-ios-clang
+  )
+
+  string(COMPARE NOTEQUAL "@IPHONESIMULATOR_ARCHS@" "" has_sim)
+  string(COMPARE NOTEQUAL "@IPHONEOS_ARCHS@" "" has_dev)
+
+  if(has_sim AND NOT has_dev)
+    list(APPEND configure_opts -sdk iphonesimulator)
+  elseif(has_dev AND NOT has_sim)
+    list(APPEND configure_opts -sdk iphoneos)
+  else()
+    # build both, no extra options
+  endif()
+elseif(_is_android)
+  if(NOT BUILD_SHARED_LIBS)
+    hunter_user_error("Static variant of Qt is not supported")
+  endif()
+  #setup the android ndk options
+  hunter_add_package(Android-SDK)
+  list(APPEND
+    configure_opts
+      -xplatform android-g++
+      -android-sdk "${ANDROID-SDK_ROOT}/android-sdk"
+      -android-ndk "${ANDROID_NDK}"
+      -android-ndk-platform "android-${ANDROID_NATIVE_API_LEVEL}"
+      -android-arch "${ANDROID_NDK_ABI_NAME}"
+      # -android-toolchain-version # ???
+      -no-warnings-are-errors
+  )
+
+  # Hint: directory ${ANDROID_NDK}/prebuilt
+  if(CMAKE_HOST_APPLE)
+    list(APPEND configure_opts -android-ndk-host "darwin-x86_64")
+  elseif(CMAKE_HOST_UNIX)
+    list(APPEND configure_opts -android-ndk-host "linux-x86_64")
+  elseif(CMAKE_HOST_WIN32)
+    list(APPEND configure_opts -android-ndk-host "windows-x86_64")
+  else()
+    hunter_internal_error("Can't detect host")
+  endif()
+elseif(_is_darwin)
+  list(APPEND
+    configure_opts
+      -no-framework
+      -no-dbus
+  )
+elseif(_is_linux)
+  list(APPEND
+    configure_opts
+      -qt-xcb
+  )
+elseif("@MSVC@")
+  list(APPEND configure_opts -platform "win32-msvc@HUNTER_MSVC_YEAR@")
+elseif("@MINGW@")
+  list(APPEND configure_opts -platform "win32-g++")
+  list(APPEND configure_opts -opengl "desktop")
+endif()
+
+if(HUNTER_STATUS_DEBUG AND NOT WIN32)
+  list(APPEND configure_opts "-verbose")
+endif()
+
+if(BUILD_SHARED_LIBS)
+  list(APPEND configure_opts "-shared")
+else()
+  list(APPEND configure_opts "-static")
+endif()
+
+list(APPEND configure_opts "-prefix" "@HUNTER_PACKAGE_INSTALL_PREFIX@")
+
+### Configuration type --
+
+set(cfg "@HUNTER_PACKAGE_CONFIGURATION_TYPES@")
+
+string(COMPARE EQUAL "${cfg}" "Release" is_release)
+string(COMPARE EQUAL "${cfg}" "Debug" is_debug)
+string(COMPARE EQUAL "${cfg}" "Release;Debug" is_str_release_debug)
+string(COMPARE EQUAL "${cfg}" "Debug;Release" is_str_debug_release)
+
+if(is_str_release_debug OR is_str_debug_release)
+  set(is_release_debug TRUE)
+else()
+  set(is_release_debug FALSE)
+endif()
+
+if(is_release)
+  list(APPEND configure_opts "-release")
+elseif(is_debug)
+  list(APPEND configure_opts "-debug")
+elseif(is_release_debug)
+  if(NOT APPLE AND NOT WIN32)
+    hunter_user_error(
+        "Qt debug+release is available only on Mac/Win32 platforms"
+    )
+  endif()
+  list(APPEND configure_opts "-debug-and-release")
+else()
+  hunter_user_error("Qt configuration type `${cfg}` is not supported")
+endif()
+
+### -- end
+
+hunter_status_debug("Qt configure options (without -skip): ${configure_opts}")
+
+list(APPEND configure_command ${configure_opts})
+
+set(ANDROID_API_VERSION "${HUNTER_Android-SDK-Platform_VERSION}")
+
+set(qt_component "@HUNTER_PACKAGE_COMPONENT@")
+set(hunter_self "@HUNTER_SELF@")
+set(global_install_dir "@HUNTER_INSTALL_PREFIX@")
+set(local_install_dir "@HUNTER_PACKAGE_INSTALL_PREFIX@")
+
+set(build_opts)
+string(COMPARE NOTEQUAL "@HUNTER_JOBS_OPTION@" "" have_jobs)
+if(have_jobs AND NOT "@MSVC_IDE@")
+  list(APPEND build_opts "-j" "@HUNTER_JOBS_OPTION@")
+endif()
+
+# We can't use HUNTER_PACKAGE_SOURCE_DIR since it will be removed after
+# successful installation of component (we always need to have 'qtbase'
+# component, no other components will be built without it).
+# We optimize build time by not rebuilding qtbase every time (~ 30 min) but
+# lose some extra HDD space. Example: Qt base + 2 components + sources ~ 4.4G
+set(
+    qt_source_dir
+    "@HUNTER_TOOLCHAIN_ID_PATH@/QtBuild/@HUNTER_PACKAGE_INTERNAL_DEPS_ID@"
+)
+
+# We are building only one component "qt_component". To skip all other
+# components we need to add extra '-skip' options. To get the list of components
+# we need to find all directories in top of sources that starts with the 'qt*'.
+# Since we have no sources at this moment we need to use a script on
+# CONFIGURE_COMMAND stage. Also note that this script must not be located in
+# 'qt_source_dir' since this directory will be removed while unpacking
+# the archive. First create script in 'HUNTER_PACKAGE_BUILD_DIR' then copy
+# it to 'qt_source_dir' on CONFIGURE_COMMAND stage.
+
+# Used variables:
+#   * configure_command
+#   * qt_component
+#   * hunter_self
+#   * ANDROID
+#   * IOS
+#   * HUNTER_Qt_VERSION
+configure_file(
+    "@HUNTER_PACKAGE_SETUP_DIR@/ep-stages/qt-configure.cmake.in"
+    "@HUNTER_PACKAGE_BUILD_DIR@/qt-configure.cmake"
+    @ONLY
+)
+
+# We are always building 'qtbase' component (alone or + one component), hence
+# libraries from 'qtbase' will always be saved to cache archive. For space
+# optimization reason files from 'qtbase' will be saved to file:
+#   * <root-id>/Install/qtbase_installed_files.cmake
+# Other components will exclude files from this list and install only
+# necessary components (note that Qt is cacheable => we install libs to
+# local HUNTER_PACKAGE_INSTALL_PREFIX before HUNTER_INSTALL_PREFIX).
+
+# Used variables:
+#   * global_install_dir
+#   * local_install_dir
+#   * qt_component
+#   * hunter_self
+#   * ANDROID_API_VERSION
+#   * qt_source_dir
+#   * ANDROID
+#   * IOS
+#   * HUNTER_Qt_VERSION
+configure_file(
+    "@HUNTER_PACKAGE_SETUP_DIR@/ep-stages/qt-install.cmake.in"
+    "@HUNTER_PACKAGE_BUILD_DIR@/qt-install.cmake"
+    @ONLY
+)
+
+# Used variables:
+#  * ANDROID
+#  * ANDROID_API_VERSION
+#  * build_opts
+#  * hunter_self
+#  * is_release_debug
+#  * is_release
+#  * is_debug
+configure_file(
+    "@HUNTER_PACKAGE_SETUP_DIR@/ep-stages/qt-build.cmake.in"
+    "@HUNTER_PACKAGE_BUILD_DIR@/qt-build.cmake"
+    @ONLY
+)
+
+# This file created after archive with sources successfully
+# downloaded and unpacked
+if(EXISTS "${qt_source_dir}/qt-configure.cmake")
+  set(download_done TRUE)
+else()
+  set(download_done FALSE)
+endif()
+
+string(COMPARE EQUAL "${qt_component}" "qtbase" is_qtbase)
+
+if(is_qtbase AND download_done)
+  hunter_internal_error("qtbase is not the first component")
+elseif(download_done)
+  set(download_step DOWNLOAD_COMMAND "@CMAKE_COMMAND@" -E echo "skip download")
+else()
+  set(download_step)
+endif()
+
+if("@HUNTER_PACKAGE_LOG_BUILD@")
+  set(log_build 1)
+else()
+  set(log_build 0)
+endif()
+
+if("@HUNTER_PACKAGE_LOG_INSTALL@")
+  set(log_install 1)
+else()
+  set(log_install 0)
+endif()
+
+ExternalProject_Add(
+    "@HUNTER_EP_NAME@"
+    URL
+    @HUNTER_PACKAGE_URL@
+    URL_HASH
+    SHA1=@HUNTER_PACKAGE_SHA1@
+    DOWNLOAD_DIR
+    "@HUNTER_PACKAGE_DOWNLOAD_DIR@"
+    SOURCE_DIR
+    "${qt_source_dir}"
+    INSTALL_DIR
+    "@HUNTER_PACKAGE_INSTALL_PREFIX@"
+        # not used, just avoid creating Install/<name> empty directory
+    ${download_step}
+    CONFIGURE_COMMAND
+    ${env_cmd}
+    COMMAND
+        "@CMAKE_COMMAND@"
+        -E copy
+        "@HUNTER_PACKAGE_BUILD_DIR@/qt-configure.cmake"
+        "${qt_source_dir}/qt-configure.cmake"
+    COMMAND
+        "@CMAKE_COMMAND@" -P "${qt_source_dir}/qt-configure.cmake"
+    BUILD_COMMAND
+    ${env_cmd}
+    COMMAND
+        "@CMAKE_COMMAND@"
+        -E copy
+        "@HUNTER_PACKAGE_BUILD_DIR@/qt-build.cmake"
+        "${qt_source_dir}/qt-build.cmake"
+    COMMAND
+        "@CMAKE_COMMAND@" -P "${qt_source_dir}/qt-build.cmake"
+    BUILD_IN_SOURCE
+    1
+    INSTALL_COMMAND
+    ${env_cmd}
+    COMMAND
+        "@CMAKE_COMMAND@"
+        -E copy
+        "@HUNTER_PACKAGE_BUILD_DIR@/qt-install.cmake"
+        "${qt_source_dir}/qt-install.cmake"
+    COMMAND
+        "@CMAKE_COMMAND@" -P "${qt_source_dir}/qt-install.cmake"
+    COMMAND # Copy license files
+      "@CMAKE_COMMAND@"
+      "-Dsrcdir=@HUNTER_PACKAGE_SOURCE_DIR@"
+      "-Ddstfile=@HUNTER_PACKAGE_LICENSE_FILE@"
+      -P
+      "@HUNTER_GLOBAL_SCRIPT_DIR@/try-copy-license.cmake"
+    LOG_BUILD ${log_build}
+    LOG_INSTALL ${log_install}
+)

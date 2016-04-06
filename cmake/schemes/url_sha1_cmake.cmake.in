@@ -39,15 +39,16 @@ hunter_test_string_not_empty("@CMAKE_GENERATOR@")
 hunter_test_string_not_empty("${CMAKE_TOOLCHAIN_FILE}")
 
 if(IOS)
-  # Need to check that we are using patched version. Non-patched version will
-  # not install libraries but build package without errors. It means that
-  # "broken" iOS libraries will be saved to cache.
-  if(NOT EXISTS "${CMAKE_ROOT}/Modules/install_universal_ios_library.cmake")
-    hunter_fatal_error(
-        "Using non-patched CMake version for iOS build"
-        WIKI error.cmake.version.for.ios
-    )
+  if(CMAKE_VERSION VERSION_LESS 3.5)
+    hunter_user_error("CMake 3.5+ version should be used for iOS toolchains")
   endif()
+  string(COMPARE NOTEQUAL "${IPHONESIMULATOR_ARCHS}" "" has_simulator)
+  set(ios_opts "-DCMAKE_XCODE_ATTRIBUTE_ONLY_ACTIVE_ARCH=NO")
+  if(has_simulator)
+    list(APPEND ios_opts "-DCMAKE_IOS_INSTALL_COMBINED=YES")
+  endif()
+else()
+  set(ios_opts "")
 endif()
 
 string(COMPARE NOTEQUAL "@HUNTER_JOBS_OPTION@" "" have_jobs)
@@ -118,6 +119,7 @@ foreach(configuration @HUNTER_PACKAGE_CONFIGURATION_TYPES@)
       "-DCMAKE_CONFIGURATION_TYPES=${configuration}"
       "-DCMAKE_INSTALL_PREFIX=@HUNTER_PACKAGE_INSTALL_PREFIX@"
       "-DCMAKE_TOOLCHAIN_FILE=${CMAKE_TOOLCHAIN_FILE}"
+      ${ios_opts}
       INSTALL_COMMAND
           "@CMAKE_COMMAND@"
           --build .

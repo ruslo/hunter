@@ -1,11 +1,8 @@
 
-if(DEFINED HUNTER_CMAKE_PROJECTS_COMET_HUNTER_CMAKE_)
-  return()
-else()
-  set(HUNTER_CMAKE_PROJECTS_COMET_HUNTER_CMAKE_ 1)
-endif()
+# !!! DO NOT PLACE HEADER GUARDS HERE !!!
 
 include(hunter_add_version)
+include(hunter_cacheable)
 include(hunter_cmake_args)
 include(hunter_download)
 include(hunter_pick_scheme)
@@ -32,6 +29,17 @@ hunter_add_version(
     18aca7e870fea6b9e732bf1fb50b2294430730e7
 )
 
+hunter_add_version(
+    PACKAGE_NAME
+    Comet
+    VERSION
+    "4.0.2"
+    URL
+    "https://github.com/alamaison/comet/archive/4.0.2.tar.gz"
+    SHA1
+    5f5ba94acfcbe4ee0b2a3242bf82f949beb30064
+)
+
 hunter_cmake_args(
     Comet
     CMAKE_ARGS
@@ -40,4 +48,5 @@ hunter_cmake_args(
 )
 
 hunter_pick_scheme(DEFAULT url_sha1_cmake)
+hunter_cacheable(Comet)
 hunter_download(PACKAGE_NAME Comet)
