@@ -291,3 +291,20 @@ unset variant
 
 # Problems with Xcode and boost
 export PATH=/usr/bin:/bin:/usr/sbin:/sbin:/usr/local/bin
+
+# Unset environment variables used by pkg-config {
+# * http://linux.die.net/man/1/pkg-config
+unset PKG_CONFIG_PATH
+unset PKG_CONFIG_DEBUG_SPEW
+unset PKG_CONFIG_TOP_BUILD_DIR
+unset PKG_CONFIG_DISABLE_UNINSTALLED
+unset PKG_CONFIG_ALLOW_SYSTEM_CFLAGS
+unset PKG_CONFIG_ALLOW_SYSTEM_LIBS
+unset PKG_CONFIG_SYSROOT_DIR
+
+# This variable should be set to empty.
+# Example from Ubuntu:
+# > (unset PKG_CONFIG_LIBDIR && pkg-config --cflags xorg-wacom) # return default path!
+# > (export PKG_CONFIG_LIBDIR="" && pkg-config --cflags xorg-wacom) # nothing found
+export PKG_CONFIG_LIBDIR=""
+# }
