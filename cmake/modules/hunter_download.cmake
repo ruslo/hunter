@@ -18,13 +18,14 @@ include(hunter_user_error)
 
 function(hunter_download)
   set(one PACKAGE_NAME PACKAGE_COMPONENT PACKAGE_INTERNAL_DEPS_ID)
-  set(multiple PACKAGE_DEPENDS_ON)
+  set(multiple PACKAGE_DEPENDS_ON PACKAGE_UNRELOCATABLE_TEXT_FILES)
 
   cmake_parse_arguments(HUNTER "" "${one}" "${multiple}" ${ARGV})
   # -> HUNTER_PACKAGE_NAME
   # -> HUNTER_PACKAGE_COMPONENT
   # -> HUNTER_PACKAGE_DEPENDS_ON
   # -> HUNTER_PACKAGE_INTERNAL_DEPS_ID
+  # -> HUNTER_PACKAGE_UNRELOCATABLE_TEXT_FILES
 
   if(HUNTER_UNPARSED_ARGUMENTS)
     hunter_internal_error("Unparsed: ${HUNTER_UNPARSED_ARGUMENTS}")
@@ -53,6 +54,13 @@ function(hunter_download)
       ""
       has_internal_deps_id
   )
+  string(
+      COMPARE
+      NOTEQUAL
+      "${HUNTER_PACKAGE_UNRELOCATABLE_TEXT_FILES}"
+      ""
+      has_unrelocatable_text_files
+  )
 
   if(hunter_has_component)
     set(HUNTER_EP_NAME "${HUNTER_PACKAGE_NAME}-${HUNTER_PACKAGE_COMPONENT}")
@@ -79,6 +87,13 @@ function(hunter_download)
   endif()
 
   set(HUNTER_PACKAGE_CACHEABLE "${HUNTER_${h_name}_CACHEABLE}")
+
+  if(has_unrelocatable_text_files AND NOT HUNTER_PACKAGE_CACHEABLE)
+    hunter_user_error(
+        "PACKAGE_UNRELOCATABLE_TEXT_FILES for uncacheable package:"
+        "  please add hunter_cacheable to hunter.cmake"
+    )
+  endif()
 
   hunter_test_string_not_empty("${HUNTER_PACKAGE_CONFIGURATION_TYPES}")
 
