@@ -46,4 +46,3 @@ hunter_download(
     PACKAGE_NAME xcb
     PACKAGE_UNRELOCATABLE_TEXT_FILES "${_xcb_text_files}"
 )
-
