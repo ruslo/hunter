@@ -139,9 +139,12 @@ elseif(_is_darwin)
   set(HUNTER_PATCH_QT_MACX_CLANG TRUE)
 elseif(_is_linux)
   set(HUNTER_QT_OS_IS_LINUX TRUE)
+  hunter_add_package(xcb)
   list(APPEND
     configure_opts
       -qt-xcb
+      -L "${XCB_ROOT}/lib"
+      -I "${XCB_ROOT}/include"
   )
 elseif("@MSVC@")
   list(APPEND configure_opts -platform "win32-msvc@HUNTER_MSVC_YEAR@")
