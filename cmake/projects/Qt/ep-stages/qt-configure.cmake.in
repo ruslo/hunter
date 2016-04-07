@@ -316,7 +316,7 @@ else()
 endif()
 
 if(is_qtbase AND original_exists)
-  message(FATAL_ERROR "qtbase is not the first component")
+  message(FATAL_ERROR "qtbase is not the first component (original-list.cmake exists)")
 elseif(original_exists)
   # Do clean-up before configure
   set(original_list "")

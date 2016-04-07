@@ -312,7 +312,9 @@ endif()
 string(COMPARE EQUAL "${qt_component}" "qtbase" is_qtbase)
 
 if(is_qtbase AND download_done)
-  hunter_internal_error("qtbase is not the first component")
+  hunter_internal_error(
+      "qtbase is not the first component (qt-configure.cmake exists)"
+  )
 elseif(download_done)
   set(download_step DOWNLOAD_COMMAND "@CMAKE_COMMAND@" -E echo "skip download")
 else()
