@@ -301,6 +301,8 @@ configure_file(
     @ONLY
 )
 
+string(COMPARE EQUAL "${qt_component}" "qtbase" is_qtbase)
+
 # This file created after archive with sources successfully
 # downloaded and unpacked
 if(EXISTS "${qt_source_dir}/qt-configure.cmake")
@@ -308,8 +310,6 @@ if(EXISTS "${qt_source_dir}/qt-configure.cmake")
 else()
   set(download_done FALSE)
 endif()
-
-string(COMPARE EQUAL "${qt_component}" "qtbase" is_qtbase)
 
 if(is_qtbase AND download_done)
   hunter_internal_error(
