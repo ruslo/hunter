@@ -19,7 +19,7 @@ your local CMake code. Separate root directory will be created for each variant
 so all variants can be used simultaneously on one machine without conflicts
 (just like `virtualenv`_ but automatically). Going further: each such root
 directory can be shared between several local projects if configuration of
-externals matches. So when you are staring project from scratch and use same
+externals matches. So when you are starting project from scratch and use same
 external packages there will be no additional copying or builds triggered, the
 only overhead is checking existence of one ``DONE`` stamp file for each
 package. In case your local environment is similar enough to continious
