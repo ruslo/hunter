@@ -140,6 +140,13 @@ elseif(_is_darwin)
 elseif(_is_linux)
   set(HUNTER_QT_OS_IS_LINUX TRUE)
   hunter_add_package(xcb)
+  hunter_add_package(x11)
+
+  string(COMPARE EQUAL "${X11_ROOT}" "${XCB_ROOT}" is_good)
+  if(NOT is_good)
+    hunter_internal_error("Roots not the same")
+  endif()
+
   list(APPEND
     configure_opts
       -qt-xcb
