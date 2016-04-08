@@ -8,7 +8,7 @@ include(hunter_cacheable)
 include(hunter_download)
 include(hunter_pick_scheme)
 
-# http://www.x.org/releases/X11R7.7/src/x11/
+# http://www.x.org/releases/X11R7.7/src/lib
 hunter_add_version(
     PACKAGE_NAME
     x11
