@@ -124,6 +124,7 @@ hunter_config(xext VERSION 1.3.1)
 hunter_config(xextproto VERSION 7.2.1)
 hunter_config(xorg-macros VERSION 1.17)
 hunter_config(xproto VERSION 7.0.23)
+hunter_config(xrender VERSION 0.9.7)
 hunter_config(xtrans VERSION 1.2.7)
 
 if(MINGW)
