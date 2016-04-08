@@ -76,6 +76,17 @@ hunter_add_version(
     PACKAGE_NAME
     Qt
     VERSION
+    "5.5.1-hunter-p2"
+    URL
+    "https://github.com/hunter-packages/Qt/releases/download/v5.5.1-p2/hunter-5.5.1.7z"
+    SHA1
+    5e4dbc4e453f4fa8a43188c9d2dfd461adc0e26d
+)
+
+hunter_add_version(
+    PACKAGE_NAME
+    Qt
+    VERSION
     "5.5.1-cvpixelbuffer-p0"
     URL
     "https://github.com/hunter-packages/Qt/releases/download/v5.5.1-cvpixelbuffer-p0/v5.5.1-cvpixelbuffer-p0.7z"

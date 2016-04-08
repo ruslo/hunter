@@ -307,17 +307,9 @@ endfunction()
 
 string(COMPARE EQUAL "@qt_component@" "qtbase" is_qtbase)
 set(original_list_path "${CMAKE_CURRENT_LIST_DIR}/original-list.cmake")
+set(original_list_temp "${CMAKE_CURRENT_LIST_DIR}/original-list.temp")
 if(EXISTS "${original_list_path}")
   # Not the first component that is built in this directory
-  set(original_exists TRUE)
-else()
-  # First component that is building in this directory
-  set(original_exists FALSE)
-endif()
-
-if(is_qtbase AND original_exists)
-  message(FATAL_ERROR "qtbase is not the first component")
-elseif(original_exists)
   # Do clean-up before configure
   set(original_list "")
   include(${original_list_path})
@@ -334,13 +326,15 @@ elseif(original_exists)
     file(REMOVE ${x})
   endforeach()
 else()
+  # First component that is building in this directory
   # Save all original file list
   calculate_list(original_list)
-  file(WRITE "${original_list_path}" "set(original_list \"\")\n")
+  file(WRITE "${original_list_temp}" "set(original_list \"\")\n")
   foreach(x ${original_list})
-    file(APPEND "${original_list_path}" "list(APPEND original_list \"${x}\")\n")
+    file(APPEND "${original_list_temp}" "list(APPEND original_list \"${x}\")\n")
   endforeach()
-else()
+  # atomic rename
+  file(RENAME "${original_list_temp}" "${original_list_path}")
 endif()
 
 message("Qt configure command: ${configure_command}")

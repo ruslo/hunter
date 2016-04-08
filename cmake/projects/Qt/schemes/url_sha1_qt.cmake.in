@@ -139,9 +139,12 @@ elseif(_is_darwin)
   set(HUNTER_PATCH_QT_MACX_CLANG TRUE)
 elseif(_is_linux)
   set(HUNTER_QT_OS_IS_LINUX TRUE)
+  hunter_add_package(xcb)
   list(APPEND
     configure_opts
       -qt-xcb
+      -L "${XCB_ROOT}/lib"
+      -I "${XCB_ROOT}/include"
   )
 elseif("@MSVC@")
   list(APPEND configure_opts -platform "win32-msvc@HUNTER_MSVC_YEAR@")
@@ -304,16 +307,6 @@ configure_file(
 # This file created after archive with sources successfully
 # downloaded and unpacked
 if(EXISTS "${qt_source_dir}/qt-configure.cmake")
-  set(download_done TRUE)
-else()
-  set(download_done FALSE)
-endif()
-
-string(COMPARE EQUAL "${qt_component}" "qtbase" is_qtbase)
-
-if(is_qtbase AND download_done)
-  hunter_internal_error("qtbase is not the first component")
-elseif(download_done)
   set(download_step DOWNLOAD_COMMAND "@CMAKE_COMMAND@" -E echo "skip download")
 else()
   set(download_step)
