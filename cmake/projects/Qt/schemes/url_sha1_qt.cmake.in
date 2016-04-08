@@ -311,6 +311,7 @@ set(
 #   * HUNTER_Qt_VERSION
 #   * HUNTER_PATCH_QT_MACX_CLANG
 #   * HUNTER_QT_OS_IS_LINUX
+#   * global_install_dir
 configure_file(
     "@HUNTER_PACKAGE_SETUP_DIR@/ep-stages/qt-configure.cmake.in"
     "@HUNTER_PACKAGE_BUILD_DIR@/qt-configure.cmake"

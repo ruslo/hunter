@@ -36,9 +36,20 @@ if(is_empty)
   message(FATAL_ERROR "HUNTER_Qt_VERSION is empty")
 endif()
 
+string(COMPARE EQUAL "@global_install_dir@" "" is_empty)
+if(is_empty)
+  message(FATAL_ERROR "global_install_dir is empty")
+endif()
+
 ### -- end
 
 include("@hunter_self@/scripts/clear-all.cmake")
+
+if("@HUNTER_QT_OS_IS_LINUX@")
+  set(x "@global_install_dir@/share/pkgconfig")
+  set(y "@global_install_dir@/lib/pkgconfig")
+  set(ENV{PKG_CONFIG_PATH} "${x}:${y}")
+endif()
 
 list(APPEND CMAKE_MODULE_PATH "@hunter_self@/cmake/modules")
 
