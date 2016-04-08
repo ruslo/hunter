@@ -116,6 +116,7 @@ hunter_config(wxWidgets VERSION 3.0.2)
 hunter_config(xau VERSION 1.0.7)
 hunter_config(xcb VERSION 1.11.1)
 hunter_config(xcb-proto VERSION 1.11)
+hunter_config(xextproto VERSION 7.2.1)
 hunter_config(xorg-macros VERSION 1.17)
 hunter_config(xproto VERSION 7.0.23)
 
