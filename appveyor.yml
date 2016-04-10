@@ -1,53 +1,66 @@
 # Windows (https://github.com/travis-ci-tester/toolchain-table)
 
-# All windows builds failed by timeout:
-# * https://ci.appveyor.com/project/ingenue/hunter/build/1.0.178
-
 environment:
-  global:
-    # This variable used only if '--upload' added to 'jenkins.py'
-    GITHUB_USER_PASSWORD:
-      secure: uW6WWlvCt7CRvvdO9ePjbymPcPNuV1C6HGF8u7Ey6EI=
-
   matrix:
-    - TOOLCHAIN: "dummy"
-      PROJECT_DIR: examples\qt-widgets
+  - PROJECT_DIR: tests\simple
+    TOOLCHAIN: default
 
-#    - TOOLCHAIN: "default"
-#      PROJECT_DIR: examples\qt-widgets
-#
-#    - TOOLCHAIN: "ninja-vs-12-2013-win64"
-#      PROJECT_DIR: examples\qt-widgets
-#
-#    - TOOLCHAIN: "nmake-vs-12-2013-win64"
-#      PROJECT_DIR: examples\qt-widgets
-#
-#    - TOOLCHAIN: "nmake-vs-12-2013"
-#      PROJECT_DIR: examples\qt-widgets
-#
-#    - TOOLCHAIN: "vs-10-2010"
-#      PROJECT_DIR: examples\qt-widgets
-#
-#    - TOOLCHAIN: "vs-11-2012"
-#      PROJECT_DIR: examples\qt-widgets
-#
-#    - TOOLCHAIN: "vs-12-2013-win64"
-#      PROJECT_DIR: examples\qt-widgets
-#
-#    - TOOLCHAIN: "vs-12-2013-xp"
-#      PROJECT_DIR: examples\qt-widgets
-#
-#    - TOOLCHAIN: "vs-12-2013"
-#      PROJECT_DIR: examples\qt-widgets
-#
-#    - TOOLCHAIN: "vs-14-2015"
-#      PROJECT_DIR: examples\qt-widgets
-#
-#    - TOOLCHAIN: "vs-9-2008"
-#      PROJECT_DIR: examples\qt-widgets
-#
-#    - TOOLCHAIN: "mingw"
-#      PROJECT_DIR: examples\qt-widgets
+  - PROJECT_DIR: tests\issue\22
+    TOOLCHAIN: default
+
+  - PROJECT_DIR: tests\issue\24\unit
+    TOOLCHAIN: default
+
+  - PROJECT_DIR: tests\issue\107
+    TOOLCHAIN: default
+
+  - PROJECT_DIR: tests\issue\109\unit
+    TOOLCHAIN: default
+
+  # Leave this test for Linux
+  # (need to create separate etalon files with Windows EOL)
+  # * https://ci.appveyor.com/project/ruslo/hunter/build/1.0.12/job/a1yuqt10k5cssmiq
+  # - PROJECT_DIR: tests\hunter_create_args_file
+  #   TOOLCHAIN: default
+
+  - PROJECT_DIR: tests\hunter_create_dependency_entry
+    TOOLCHAIN: default
+
+  # Leave this test for Linux
+  # (need to create separate etalon files with Windows EOL)
+  # * https://ci.appveyor.com/project/ruslo/hunter/build/1.0.102/job/w06ih7x8gkcugw49
+  # - PROJECT_DIR: tests\hunter_create_deps_info
+  #   TOOLCHAIN: default
+
+  - PROJECT_DIR: tests\hunter_generate_qt_info
+    TOOLCHAIN: default
+
+  - PROJECT_DIR: tests\hunter_get_package_deps
+    TOOLCHAIN: default
+
+  - PROJECT_DIR: tests\hunter_get_package_deps_recurse
+    TOOLCHAIN: default
+
+  - PROJECT_DIR: tests\hunter_pack_directory
+    TOOLCHAIN: default
+
+  - PROJECT_DIR: tests\hunter_register_dependency
+    TOOLCHAIN: default
+
+  - PROJECT_DIR: tests\hunter_setup_msvc
+    TOOLCHAIN: default
+
+  - PROJECT_DIR: tests\hunter_unpack_directory
+    TOOLCHAIN: default
+
+  - PROJECT_DIR: tests\hunter_download_cache_raw_file
+    TOOLCHAIN: default
+
+  - PROJECT_DIR: tests\hunter_download_cache_meta_file
+    TOOLCHAIN: default
+
+  - PROJECT_DIR: tests\autotools-merge-lipo
+    TOOLCHAIN: default
 
 install:
   # Python 3
@@ -81,9 +94,3 @@ install:
 
 build_script:
   - cmd: python .\jenkins.py
-
-# http://www.appveyor.com/docs/branches#white-and-blacklisting
-# Exclude branch 'pkg.template'. Nothing to build there.
-branches:
-  except:
-    - pkg.template
