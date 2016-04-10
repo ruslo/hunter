@@ -231,7 +231,6 @@ if(NOT WIN32)
   list(APPEND configure_opts "-no-xinput2")
 endif()
 list(APPEND configure_opts "-no-icu")
-list(APPEND configure_opts "-no-opengl")
 list(APPEND configure_opts "-no-openssl")
 ### }
 
