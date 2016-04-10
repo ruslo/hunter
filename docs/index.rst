@@ -11,7 +11,7 @@ Hunter: organize freedom
 Welcome to the Hunter package manager documentation!
 
 Hunter is CMake-driven cross-platform package manager for C++ [1]_ projects.
-Using Hunter you can organize builds for **Linux**, **OS X**, **Windows**,
+With the help of Hunter you can organize builds for **Linux**, **OS X**, **Windows**,
 **iOS**, **Android**, **Raspberry Pi**. Third party external projects are highly
 customizable (versions, CMake ``-D`` build options, Release/Debug,
 static/shared). Variants can be picked from global defaults or controlled by
@@ -19,7 +19,7 @@ your local CMake code. Separate root directory will be created for each variant
 so all variants can be used simultaneously on one machine without conflicts
 (just like `virtualenv`_ but automatically). Going further: each such root
 directory can be shared between several local projects if configuration of
-externals matches. So when you are staring project from scratch and use same
+externals matches. So when you are starting project from scratch and use same
 external packages there will be no additional copying or builds triggered, the
 only overhead is checking existence of one ``DONE`` stamp file for each
 package. In case your local environment is similar enough to continious
