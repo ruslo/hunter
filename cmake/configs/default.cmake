@@ -70,7 +70,7 @@ hunter_config(PostgreSQL VERSION 9.5.0)
 hunter_config(Protobuf VERSION 3.0.0-beta-2-p1)
 hunter_config(Qt VERSION 5.5.1-hunter-p2)
 hunter_config(QtAndroidCMake VERSION 1.0.6)
-hunter_config(QtCMakeExtra VERSION 1.0.10)
+hunter_config(QtCMakeExtra VERSION 1.0.11)
 hunter_config(QtQmlManager VERSION 1.0.0)
 hunter_config(RapidJSON VERSION 0.11-hunter)
 hunter_config(SQLite3 VERSION autoconf-3080803) #R-Tree enabled
