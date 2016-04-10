@@ -33,54 +33,24 @@ addons:
       - g++-4.8
 
 env:
-  global:
-    - secure: "IpVQQ3WaLQdSYtZTJFB+/1zJw1Jhli+AuKUfzikeO/EMv1QVD8sOAlsfGkrs/0V/uzLnq3yo8I8VjakGySZW7RquT7JlTF8jIrbvPGltMCL2AGlpmA9fsohXJ3jddWLD1jI9/GP53SZFpA3WHN8PSufbbtVx9snATiYH/c7nebuHz4xZ7uOV6zAIAfeCaqTjxC6NXAjp18bwOcMoSBGy94KmOQK7TqC0+bIFV62V0YXsp/0sC12n80X7mrV3d1K5GXH18akzOyl5/J2UtCsOt47591uu1VG8lfRiq3Hd1Q5zyfc0C74nVuYHUCT0ykT+3eWSO5LA3crY4NXzCXNxJ7tRX6rIT61V56YwSSMm8HgrtMkCplXMLHEtrZlmIVumgn20YUnSUP40Giaib/tv3cyaKPeF1Wv99nqJvd7qnmKl+TcrAiMtM1gGtyih2NgdUoc2ukJv8/Gx3pXQNlzZ2Wg4AEDZW6wHugxtUjFllwM8wmKKdARyLozudB6cfFjw4VBp2EH8xGnRG7RhjuC+XeFl3Z8iKs7TzRxZTosTRSC9SzxVBiPevi4CdVD48CzYpdReoxjhHqX+ZTDlpx0WZ1mmpYQz+dD4vHKl5iUX+SwEItqOIZiDpIw5jVbiiCtEUOI7UBMZHDoPAgHDx63HAKdvIkr5HC3yMoWeDQgy90c="
-
-  matrix:
-    - PROJECT_DIR=examples/qt-widgets TOOLCHAIN=default
-    - PROJECT_DIR=examples/qt-widgets TOOLCHAIN=libcxx
-    - PROJECT_DIR=examples/qt-widgets TOOLCHAIN=clang-libstdcxx
-    - PROJECT_DIR=examples/qt-widgets TOOLCHAIN=osx-10-9
-    - PROJECT_DIR=examples/qt-widgets TOOLCHAIN=gcc-4-8
-    - PROJECT_DIR=examples/qt-widgets TOOLCHAIN=ios-nocodesign-wo-armv7s
-    - PROJECT_DIR=examples/qt-widgets TOOLCHAIN=android-ndk-r10e-api-19-armeabi-v7a-neon
-    - PROJECT_DIR=examples/qt-widgets TOOLCHAIN=analyze
-    - PROJECT_DIR=examples/qt-widgets TOOLCHAIN=sanitize-address
-    - PROJECT_DIR=examples/qt-widgets TOOLCHAIN=sanitize-leak
-    - PROJECT_DIR=examples/qt-widgets TOOLCHAIN=sanitize-thread
-
-matrix:
-  exclude:
-    ### Linux excludes ###
-    # https://github.com/travis-ci-tester/travis-test-clang-with-libcxx
-    - os: linux
-      env: PROJECT_DIR=examples/qt-widgets TOOLCHAIN=libcxx
-
-    # Xcode is for OSX only
-    - os: linux
-      env: PROJECT_DIR=examples/qt-widgets TOOLCHAIN=osx-10-9
-    - os: linux
-      env: PROJECT_DIR=examples/qt-widgets TOOLCHAIN=ios-nocodesign-wo-armv7s
-
-    ### OSX excludes ###
-    # TOOLCHAIN=gcc works fine on OSX (and 'gcc' same as 'libcxx')
-    - os: osx
-      env: PROJECT_DIR=examples/qt-widgets TOOLCHAIN=gcc-4-8
-
-    # https://github.com/travis-ci-tester/travis-test-mac-clang-address-sanitizer
-    - os: osx
-      env: PROJECT_DIR=examples/qt-widgets TOOLCHAIN=sanitize-address
-
-    # Linux only
-    - os: osx
-      env: PROJECT_DIR=examples/qt-widgets TOOLCHAIN=sanitize-leak
-    - os: osx
-      env: PROJECT_DIR=examples/qt-widgets TOOLCHAIN=sanitize-thread
-
-    # default can't be used since it doesn't set SDK (by design)
-    # * https://travis-ci.org/ingenue/hunter/jobs/117738040
-    - os: osx
-      env: PROJECT_DIR=examples/qt-widgets TOOLCHAIN=default
+  - PROJECT_DIR=tests/simple TOOLCHAIN=default
+  - PROJECT_DIR=tests/issue/22 TOOLCHAIN=default
+  - PROJECT_DIR=tests/issue/24/unit TOOLCHAIN=default
+  - PROJECT_DIR=tests/issue/107 TOOLCHAIN=default
+  - PROJECT_DIR=tests/issue/109/unit TOOLCHAIN=default
+  - PROJECT_DIR=tests/hunter_create_args_file TOOLCHAIN=default
+  - PROJECT_DIR=tests/hunter_create_dependency_entry TOOLCHAIN=default
+  - PROJECT_DIR=tests/hunter_create_deps_info TOOLCHAIN=default
+  - PROJECT_DIR=tests/hunter_generate_qt_info TOOLCHAIN=default
+  - PROJECT_DIR=tests/hunter_get_package_deps TOOLCHAIN=default
+  - PROJECT_DIR=tests/hunter_get_package_deps_recurse TOOLCHAIN=default
+  - PROJECT_DIR=tests/hunter_pack_directory TOOLCHAIN=default
+  - PROJECT_DIR=tests/hunter_register_dependency TOOLCHAIN=default
+  - PROJECT_DIR=tests/hunter_setup_msvc TOOLCHAIN=default
+  - PROJECT_DIR=tests/hunter_unpack_directory TOOLCHAIN=default
+  - PROJECT_DIR=tests/hunter_download_cache_raw_file TOOLCHAIN=default
+  - PROJECT_DIR=tests/hunter_download_cache_meta_file TOOLCHAIN=default
+  - PROJECT_DIR=tests/autotools-merge-lipo TOOLCHAIN=default
 
 install:
   # Info about OS
@@ -111,9 +81,3 @@ install:
 
 script:
   - python3 ./jenkins.py
-
-# https://docs.travis-ci.com/user/customizing-the-build/#Whitelisting-or-blacklisting-branches
-# Exclude branch 'pkg.template'. Nothing to build there.
-branches:
-  except:
-    - pkg.template
