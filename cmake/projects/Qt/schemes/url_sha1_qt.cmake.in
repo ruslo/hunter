@@ -216,16 +216,23 @@ list(APPEND configure_opts "-no-sql-tds")
 
 ### Predictable configuration {
 # Disable components that may or may not present in system (TODO: add to Hunter)
-list(APPEND configure_opts "-no-egl")
-list(APPEND configure_opts "-no-eglfs")
+if(NOT _is_android AND NOT _is_iphoneos)
+  if(NOT WIN32)
+    list(APPEND configure_opts "-no-egl")
+    list(APPEND configure_opts "-no-eglfs")
+  endif()
+  list(APPEND configure_opts "-no-opengl")
+endif()
 list(APPEND configure_opts "-no-fontconfig")
 list(APPEND configure_opts "-no-gif")
-list(APPEND configure_opts "-no-glib")
-list(APPEND configure_opts "-no-gtkstyle")
+if(NOT WIN32)
+  list(APPEND configure_opts "-no-glib")
+  list(APPEND configure_opts "-no-gtkstyle")
+  list(APPEND configure_opts "-no-xinput2")
+endif()
 list(APPEND configure_opts "-no-icu")
 list(APPEND configure_opts "-no-opengl")
 list(APPEND configure_opts "-no-openssl")
-list(APPEND configure_opts "-no-xinput2")
 ### }
 
 ### Predictable configuration {
