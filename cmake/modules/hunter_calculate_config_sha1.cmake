@@ -42,7 +42,7 @@ function(hunter_calculate_config_sha1 hunter_self hunter_base user_config)
   set(HUNTER_ALLOW_CONFIG_LOADING NO)
 
   # Create list of the projects
-  foreach(repo "${hunter_self}/cmake" ${HUNTER_RECIPE_DIRS})
+  foreach(repo ${HUNTER_RECIPE_DIRS} "${hunter_self}/cmake")
     if(NOT EXISTS "${repo}/projects")
       hunter_internal_error("Directory `${repo}/projects` not exists")
     endif()
@@ -52,13 +52,10 @@ function(hunter_calculate_config_sha1 hunter_self hunter_base user_config)
     file(GLOB subdirectories RELATIVE "${repo}/projects" "${repo}/projects/*/")
     foreach(projectname ${subdirectories})
       if(EXISTS "${repo}/projects/${projectname}/hunter.cmake")
-        # Warn if project found in two different repositories
-        if(HUNTER_${projectname}_REPOSITORY)
-          hunter_status_print("${projectname} already in ${repo}. Ignoring ${HUNTER_${projectname}_REPOSITORY}.")
-        else()
+        if(NOT HUNTER_${projectname}_REPOSITORY)
           set(HUNTER_${projectname}_REPOSITORY "${repo}")
-          list(APPEND projects ${projectname})
         endif()
+        list(APPEND projects ${projectname})
       endif()
     endforeach()
   endforeach()
@@ -68,6 +65,7 @@ function(hunter_calculate_config_sha1 hunter_self hunter_base user_config)
   endif()
 
   list(SORT projects)
+  list(REMOVE_DUPLICATES projects)
 
   # Create unified version
   set(work_dir "${CMAKE_BINARY_DIR}/_3rdParty/Hunter/config-id")
