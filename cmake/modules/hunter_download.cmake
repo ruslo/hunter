@@ -142,9 +142,11 @@ function(hunter_download)
   set(HUNTER_GLOBAL_SCRIPT_DIR "${HUNTER_SELF}/scripts")
   set(HUNTER_PACKAGE_SCRIPT_DIR "${HUNTER_PACKAGE_SETUP_DIR}/scripts/")
   set(HUNTER_PACKAGE_HOME_DIR "${HUNTER_TOOLCHAIN_ID_PATH}/Build")
+  set(recipe_hash "${HUNTER_${HUNTER_PACKAGE_NAME}_RECIPE_HASH}")
+  hunter_test_string_not_empty("${recipe_hash}")
   set(
       HUNTER_PACKAGE_HOME_DIR
-      "${HUNTER_PACKAGE_HOME_DIR}/${HUNTER_PACKAGE_NAME}"
+      "${HUNTER_PACKAGE_HOME_DIR}/${HUNTER_PACKAGE_NAME}/${recipe_hash}"
   )
   if(hunter_has_component)
     set(
