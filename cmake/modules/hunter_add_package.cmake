@@ -10,31 +10,12 @@ include(hunter_status_debug)
 include(hunter_test_string_not_empty)
 
 function(_hunter_find_project_dir projectname output)
-  hunter_test_string_not_empty("${HUNTER_SELF}")
-  if(HUNTER_${projectname}_REPOSITORY)
-    set(directory "${HUNTER_${projectname}_REPOSITORY}/projects/${projectname}")
-    if(NOT EXISTS "${directory}/hunter.cmake")
-      hunter_internal_error("Repository set for package, but ${directory}/hunter.cmake does not exist")
-    endif()
-    set(${output} "${directory}" PARENT_SCOPE)
-    return()
+  hunter_test_string_not_empty("${HUNTER_${projectname}_REPOSITORY}")
+  set(directory "${HUNTER_${projectname}_REPOSITORY}/projects/${projectname}")
+  if(NOT EXISTS "${directory}/hunter.cmake")
+    hunter_internal_error("Repository set for package, but ${directory}/hunter.cmake does not exist")
   endif()
-
-  # 'system' directory comes last. It's always possible to add it to hunter
-  # recipe dirs if different order is required
-  unset(project_file)
-  foreach(prospective ${HUNTER_RECIPE_DIRS} "${HUNTER_SELF}/cmake")
-    set(directory "${prospective}/projects/${projectname}")
-    if(EXISTS "${directory}/hunter.cmake")
-      set(project_file "${directory}")
-      break()
-    endif()
-  endforeach()
-  if(NOT project_file)
-    hunter_internal_error("Project '${projectname}' not found")
-  endif()
-
-  set(${output} "${project_file}" PARENT_SCOPE)
+  set(${output} "${directory}" PARENT_SCOPE)
 endfunction()
 
 # internal variables: _hunter_ap_*
