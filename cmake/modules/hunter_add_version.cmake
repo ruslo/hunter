@@ -31,6 +31,11 @@ function(hunter_add_version)
   set(h_versions "HUNTER_${h_PACKAGE_NAME}_VERSIONS")
   list(APPEND ${h_versions} ${h_VERSION})
   set(${h_versions} ${${h_versions}} PARENT_SCOPE)
+  # Hash of recipe filename so we can identify different recipes for the same
+  # package
+  string(SHA256 recipe_hash "${CMAKE_CURRENT_LIST_FILE}")
+  string(SUBSTRING "${recipe_hash}" 0 7 recipe_hash)
+  set(HUNTER_${h_PACKAGE_NAME}_RECIPE_HASH ${recipe_hash} PARENT_SCOPE)
 
   set(expected_version "HUNTER_${h_PACKAGE_NAME}_VERSION")
   string(COMPARE EQUAL "${${expected_version}}" "" version_is_empty)
@@ -52,6 +57,7 @@ function(hunter_add_version)
   # HUNTER_<name>_VERSION found
   set(h_url_name "HUNTER_${h_PACKAGE_NAME}_URL")
   set(h_sha1_name "HUNTER_${h_PACKAGE_NAME}_SHA1")
+  set(h_recipe_name "HUNTER_${h_PACKAGE_NAME}_RECIPE")
 
   set(${h_url_name} "${h_URL}" PARENT_SCOPE)
   set(${h_sha1_name} "${h_SHA1}" PARENT_SCOPE)
