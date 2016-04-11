@@ -52,7 +52,13 @@ function(hunter_calculate_config_sha1 hunter_self hunter_base user_config)
     file(GLOB subdirectories RELATIVE "${repo}/projects" "${repo}/projects/*/")
     foreach(projectname ${subdirectories})
       if(EXISTS "${repo}/projects/${projectname}/hunter.cmake")
-        list(APPEND projects ${projectname})
+        # Warn if project found in two different repositories
+        if(HUNTER_${projectname}_REPOSITORY)
+          hunter_status_print("${projectname} already in ${repo}. Ignoring ${HUNTER_${projectname}_REPOSITORY}.")
+        else()
+          set(HUNTER_${projectname}_REPOSITORY "${repo}")
+          list(APPEND projects ${projectname})
+        endif()
       endif()
     endforeach()
   endforeach()
@@ -77,7 +83,8 @@ function(hunter_calculate_config_sha1 hunter_self hunter_base user_config)
           APPEND
           "${input_file}"
           "hunter_config(${x} "
-          "VERSION ${version}"
+          "VERSION ${version} "
+          "REPOSITORY ${HUNTER_${x}_REPOSITORY}"
       )
       string(COMPARE NOTEQUAL "${HUNTER_${x}_CMAKE_ARGS}" "" have_args)
       if(have_args)

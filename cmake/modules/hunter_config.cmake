@@ -16,7 +16,7 @@ macro(hunter_config)
         "error.unexpected.hunter_config"
     )
   endif()
-  set(_hunter_one_value VERSION)
+  set(_hunter_one_value VERSION REPOSITORY)
   set(_hunter_multiple_values CMAKE_ARGS CONFIGURATION_TYPES)
   cmake_parse_arguments(
       _hunter
@@ -48,6 +48,9 @@ macro(hunter_config)
         HUNTER_${_hunter_current_project}_CONFIGURATION_TYPES
         ${_hunter_CONFIGURATION_TYPES}
     )
+    if(_hunter_REPOSITORY)
+      set(HUNTER_${_hunter_current_project}_REPOSITORY ${_hunter_REPOSITORY})
+    endif()
   else()
     hunter_user_error("Expected VERSION option for 'hunter_config' command")
   endif()
