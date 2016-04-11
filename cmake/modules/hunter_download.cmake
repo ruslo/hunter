@@ -372,8 +372,10 @@ function(hunter_download)
   if(NOT EXISTS "${download_scheme}")
     # then in different repos: repos must be orthogonal
     unset(download_scheme)
-    set(_hunter_schemes_search_dirs "${CMAKE_CURRENT_LIST_DIR}" "${HUNTER_SELF}/cmake/" ${HUNTER_RECIPE_DIRS})
-    foreach(repo ${_hunter_scheme_search_dirs})
+    set(_hunter_schemes_search_dirs
+      "${HUNTER_SELF}/cmake" "${HUNTER_PACKAGE_SETUP_DIR}" ${HUNTER_RECIPE_DIRS})
+    hunter_status_debug("Scheme prefixes: ${_hunter_schemes_search_dirs}")
+    foreach(repo ${_hunter_schemes_search_dirs})
       set(scheme_file "${repo}/schemes/${HUNTER_DOWNLOAD_SCHEME}.cmake.in")
       if(EXISTS "${scheme_file}")
         if(download_scheme)
