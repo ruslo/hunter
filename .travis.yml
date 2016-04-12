@@ -106,3 +106,9 @@ install:
 
 script:
   - python3 ./jenkins.py
+
+# https://docs.travis-ci.com/user/customizing-the-build/#Whitelisting-or-blacklisting-branches
+# Exclude branch 'pkg.template'. Nothing to build there.
+branches:
+  except:
+    - pkg.template

@@ -44,8 +44,6 @@ environment:
       PROJECT_DIR: examples\Foo
 
 install:
-  - git submodule update --init --recursive
-
   # Python 3
   - cmd: set PATH=C:\Python34-x64;C:\Python34-x64\Scripts;%PATH%
 
@@ -77,3 +75,9 @@ install:
 
 build_script:
   - cmd: python .\jenkins.py
+
+# http://www.appveyor.com/docs/branches#white-and-blacklisting
+# Exclude branch 'pkg.template'. Nothing to build there.
+branches:
+  except:
+    - pkg.template
