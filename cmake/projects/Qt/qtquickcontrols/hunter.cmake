@@ -82,5 +82,5 @@ hunter_pick_scheme(DEFAULT url_sha1_qt)
 hunter_download(
     PACKAGE_NAME Qt
     PACKAGE_COMPONENT "qtquickcontrols"
-    PACKAGE_INTERNAL_DEPS_ID "5"
+    PACKAGE_INTERNAL_DEPS_ID "7"
 )
