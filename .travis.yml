@@ -38,9 +38,12 @@ env:
   - PROJECT_DIR=tests/issue/24/unit TOOLCHAIN=default
   - PROJECT_DIR=tests/issue/107 TOOLCHAIN=default
   - PROJECT_DIR=tests/issue/109/unit TOOLCHAIN=default
+  - PROJECT_DIR=tests/autotools-merge-lipo TOOLCHAIN=default
   - PROJECT_DIR=tests/hunter_create_args_file TOOLCHAIN=default
   - PROJECT_DIR=tests/hunter_create_dependency_entry TOOLCHAIN=default
   - PROJECT_DIR=tests/hunter_create_deps_info TOOLCHAIN=default
+  - PROJECT_DIR=tests/hunter_download_cache_meta_file TOOLCHAIN=default
+  - PROJECT_DIR=tests/hunter_download_cache_raw_file TOOLCHAIN=default
   - PROJECT_DIR=tests/hunter_generate_qt_info TOOLCHAIN=default
   - PROJECT_DIR=tests/hunter_get_package_deps TOOLCHAIN=default
   - PROJECT_DIR=tests/hunter_get_package_deps_recurse TOOLCHAIN=default
@@ -48,16 +51,13 @@ env:
   - PROJECT_DIR=tests/hunter_register_dependency TOOLCHAIN=default
   - PROJECT_DIR=tests/hunter_setup_msvc TOOLCHAIN=default
   - PROJECT_DIR=tests/hunter_unpack_directory TOOLCHAIN=default
-  - PROJECT_DIR=tests/hunter_download_cache_raw_file TOOLCHAIN=default
-  - PROJECT_DIR=tests/hunter_download_cache_meta_file TOOLCHAIN=default
-  - PROJECT_DIR=tests/autotools-merge-lipo TOOLCHAIN=default
 
 install:
   # Info about OS
   - uname -a
 
   # Install Python 3
-  - if [[ "`uname`" == "Darwin" ]]; then brew install python3; fi
+  - if [[ "`uname`" == "Darwin" ]]; then travis_retry brew install python3; fi
 
   # Install Python package 'requests'
   # 'easy_install3' is not installed by 'brew install python3' on OS X 10.9 Maverick
