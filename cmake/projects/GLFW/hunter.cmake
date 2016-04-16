@@ -16,11 +16,11 @@ hunter_add_version(
     PACKAGE_NAME
     GLFW
     VERSION
-    "3.1.2"
+    "3.2.x"
     URL
-    "https://github.com/glfw/glfw/archive/3.1.2.tar.gz"
+    "https://github.com/pretyman/glfw/archive/master.tar.gz"
     SHA1
-    3033c604e3109c59cf04918bc473268fe18c828b
+    f43fdf47f9280733138fea69ad5146acfa12de28
 )
 
 hunter_pick_scheme(DEFAULT url_sha1_cmake)
