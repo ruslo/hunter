@@ -20,7 +20,7 @@ hunter_add_version(
     URL
     "https://github.com/pretyman/glfw/archive/master.tar.gz"
     SHA1
-    73ca2b8628d6bd63e1fc7a891e50620ee07c64fa
+    8c77e15354587fe3af2e65431f0808c91b6ee6b9
 )
 
 hunter_pick_scheme(DEFAULT url_sha1_cmake)
