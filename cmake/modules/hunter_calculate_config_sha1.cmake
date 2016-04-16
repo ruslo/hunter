@@ -82,7 +82,7 @@ function(hunter_calculate_config_sha1 hunter_self hunter_base user_config)
           "${input_file}"
           "hunter_config(${x} "
           "VERSION ${version} "
-          "REPOSITORY ${HUNTER_${x}_REPOSITORY}"
+          "REPOSITORY_DIR ${HUNTER_${x}_REPOSITORY}"
       )
       string(COMPARE NOTEQUAL "${HUNTER_${x}_CMAKE_ARGS}" "" have_args)
       if(have_args)

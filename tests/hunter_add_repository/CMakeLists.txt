@@ -1,4 +1,5 @@
 cmake_minimum_required(VERSION 3.0)
+set(TESTING_CONFIG_OPT FILEPATH "${CMAKE_SOURCE_DIR}/cmake/Hunter/config.cmake")
 include("${CMAKE_SOURCE_DIR}/../../examples/common.cmake")
 # Creates a fake release from a local repository
 # This is really just to make testing easier at this point
