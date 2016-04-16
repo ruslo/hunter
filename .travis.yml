@@ -1,211 +1,83 @@
-# Mac OS X (https://github.com/travis-ci-tester/toolchain-table)
+# OSX/Linux (https://github.com/travis-ci-tester/toolchain-table)
 
 language:
-    - objective-c
+  - cpp
 
-install:
-    - brew install cmake
-    - brew install python3
-    # install cmake toolchains and script
-    - POLLY_VERSION="0.8.0"
-    - wget "https://github.com/ruslo/polly/archive/v${POLLY_VERSION}.tar.gz"
-    - tar xf "v${POLLY_VERSION}.tar.gz"
-    - export PATH="`pwd`/polly-${POLLY_VERSION}/bin:${PATH}"
-    # -- end
-    # install cmake
-    - CMAKE_TAG="3.3.2-p0"
-    - CMAKE_VERSION="3.3.2"
-    - wget "https://github.com/ruslo/CMake/releases/download/v${CMAKE_TAG}/cmake-${CMAKE_VERSION}-Darwin-x86_64.tar.gz"
-    - tar xf "cmake-${CMAKE_VERSION}-Darwin-x86_64.tar.gz"
-    - export PATH="`pwd`/cmake-${CMAKE_VERSION}-Darwin-x86_64/bin:${PATH}"
-    # -- end
-    # verify installed cmake
-    - which cmake
-    - cmake --version
-    # -- end
+os:
+  - linux
+  - osx
+
+# Container-based infrastructure (Linux)
+# * https://docs.travis-ci.com/user/migrating-from-legacy/#How-can-I-use-container-based-infrastructure%3F
+sudo:
+  - false
+
+# Install packages differs for container-based infrastructure
+# * https://docs.travis-ci.com/user/migrating-from-legacy/#How-do-I-install-APT-sources-and-packages%3F
+# * http://stackoverflow.com/a/30925448/2288008
+addons:
+  apt:
+    sources:
+      - ubuntu-toolchain-r-test
+    packages:
+      - python3
+
+      # python3-pip package is not available, use 'easy_install3':
+      # * https://github.com/travis-ci/apt-package-whitelist/issues/768
+      - python3-setuptools # easy_install3
+
+      # https://github.com/travis-ci-tester/travis-test-clang-cxx-11
+      - libstdc++-4.8-dev
+
+      # https://github.com/travis-ci-tester/travis-test-gcc-cxx-11
+      - g++-4.8
 
 env:
-    #
-    - PROJECT_DIR=examples/Boost TOOLCHAIN=default
-    - PROJECT_DIR=examples/Boost TOOLCHAIN=libcxx
-    - PROJECT_DIR=examples/Boost TOOLCHAIN=clang-libstdcxx
-    - PROJECT_DIR=examples/Boost TOOLCHAIN=xcode
-    - PROJECT_DIR=examples/Boost TOOLCHAIN=gcc
-    - PROJECT_DIR=examples/Boost TOOLCHAIN=ios-nocodesign
-    - PROJECT_DIR=examples/Boost TOOLCHAIN=analyze
-    #
-    - PROJECT_DIR=examples/Boost-filesystem TOOLCHAIN=default
-    - PROJECT_DIR=examples/Boost-filesystem TOOLCHAIN=libcxx
-    - PROJECT_DIR=examples/Boost-filesystem TOOLCHAIN=clang-libstdcxx
-    - PROJECT_DIR=examples/Boost-filesystem TOOLCHAIN=xcode
-    - PROJECT_DIR=examples/Boost-filesystem TOOLCHAIN=gcc
-    - PROJECT_DIR=examples/Boost-filesystem TOOLCHAIN=ios-nocodesign
-    - PROJECT_DIR=examples/Boost-filesystem TOOLCHAIN=analyze
-    #
-    - PROJECT_DIR=examples/Boost-system TOOLCHAIN=default
-    - PROJECT_DIR=examples/Boost-system TOOLCHAIN=libcxx
-    - PROJECT_DIR=examples/Boost-system TOOLCHAIN=clang-libstdcxx
-    - PROJECT_DIR=examples/Boost-system TOOLCHAIN=xcode
-    - PROJECT_DIR=examples/Boost-system TOOLCHAIN=gcc
-    - PROJECT_DIR=examples/Boost-system TOOLCHAIN=ios-nocodesign
-    - PROJECT_DIR=examples/Boost-system TOOLCHAIN=analyze
-    #
-    - PROJECT_DIR=examples/Boost-iostreams TOOLCHAIN=default
-    - PROJECT_DIR=examples/Boost-iostreams TOOLCHAIN=libcxx
-    - PROJECT_DIR=examples/Boost-iostreams TOOLCHAIN=xcode
-    - PROJECT_DIR=examples/Boost-iostreams TOOLCHAIN=gcc
-    #
-    - PROJECT_DIR=examples/Expat TOOLCHAIN=default
-    - PROJECT_DIR=examples/Expat TOOLCHAIN=libcxx
-    - PROJECT_DIR=examples/Expat TOOLCHAIN=clang-libstdcxx
-    - PROJECT_DIR=examples/Expat TOOLCHAIN=xcode
-    - PROJECT_DIR=examples/Expat TOOLCHAIN=gcc
-    - PROJECT_DIR=examples/Expat TOOLCHAIN=ios-nocodesign
-    #
-    - PROJECT_DIR=examples/GTest TOOLCHAIN=default
-    - PROJECT_DIR=examples/GTest TOOLCHAIN=libcxx
-    - PROJECT_DIR=examples/GTest TOOLCHAIN=clang-libstdcxx
-    - PROJECT_DIR=examples/GTest TOOLCHAIN=xcode
-    - PROJECT_DIR=examples/GTest TOOLCHAIN=gcc
-    - PROJECT_DIR=examples/GTest TOOLCHAIN=ios-nocodesign
-    - PROJECT_DIR=examples/GTest TOOLCHAIN=analyze
-    #
-    - PROJECT_DIR=examples/Libssh2 TOOLCHAIN=default
-    - PROJECT_DIR=examples/Libssh2 TOOLCHAIN=libcxx
-    - PROJECT_DIR=examples/Libssh2 TOOLCHAIN=clang-libstdcxx
-    - PROJECT_DIR=examples/Libssh2 TOOLCHAIN=xcode
-    - PROJECT_DIR=examples/Libssh2 TOOLCHAIN=gcc
-    - PROJECT_DIR=examples/Libssh2 TOOLCHAIN=ios-nocodesign
-    #
-    - PROJECT_DIR=examples/OpenSSL TOOLCHAIN=default
-    - PROJECT_DIR=examples/OpenSSL TOOLCHAIN=libcxx
-    - PROJECT_DIR=examples/OpenSSL TOOLCHAIN=clang-libstdcxx
-    - PROJECT_DIR=examples/OpenSSL TOOLCHAIN=xcode
-    - PROJECT_DIR=examples/OpenSSL TOOLCHAIN=gcc
-    - PROJECT_DIR=examples/OpenSSL TOOLCHAIN=ios-nocodesign
-    - PROJECT_DIR=examples/OpenSSL TOOLCHAIN=analyze
-    #
-    - PROJECT_DIR=examples/PNG TOOLCHAIN=default
-    - PROJECT_DIR=examples/PNG TOOLCHAIN=libcxx
-    - PROJECT_DIR=examples/PNG TOOLCHAIN=clang-libstdcxx
-    - PROJECT_DIR=examples/PNG TOOLCHAIN=xcode
-    - PROJECT_DIR=examples/PNG TOOLCHAIN=gcc
-    - PROJECT_DIR=examples/PNG TOOLCHAIN=ios-nocodesign
-    - PROJECT_DIR=examples/PNG TOOLCHAIN=analyze
-    #
-    - PROJECT_DIR=examples/Sugar TOOLCHAIN=default
-    - PROJECT_DIR=examples/Sugar TOOLCHAIN=libcxx
-    - PROJECT_DIR=examples/Sugar TOOLCHAIN=clang-libstdcxx
-    - PROJECT_DIR=examples/Sugar TOOLCHAIN=xcode
-    - PROJECT_DIR=examples/Sugar TOOLCHAIN=gcc
-    - PROJECT_DIR=examples/Sugar TOOLCHAIN=ios-nocodesign
-    - PROJECT_DIR=examples/Sugar TOOLCHAIN=analyze
-    #
-    - PROJECT_DIR=examples/ZLIB TOOLCHAIN=default
-    - PROJECT_DIR=examples/ZLIB TOOLCHAIN=libcxx
-    - PROJECT_DIR=examples/ZLIB TOOLCHAIN=clang-libstdcxx
-    - PROJECT_DIR=examples/ZLIB TOOLCHAIN=xcode
-    - PROJECT_DIR=examples/ZLIB TOOLCHAIN=gcc
-    - PROJECT_DIR=examples/ZLIB TOOLCHAIN=ios-nocodesign
-    - PROJECT_DIR=examples/ZLIB TOOLCHAIN=analyze
-    #
-    - PROJECT_DIR=examples/GSL TOOLCHAIN=default
-    - PROJECT_DIR=examples/GSL TOOLCHAIN=libcxx
-    - PROJECT_DIR=examples/GSL TOOLCHAIN=clang-libstdcxx
-    - PROJECT_DIR=examples/GSL TOOLCHAIN=xcode
-    - PROJECT_DIR=examples/GSL TOOLCHAIN=gcc
-    #
-    - PROJECT_DIR=examples/CLAPACK TOOLCHAIN=default
-    - PROJECT_DIR=examples/CLAPACK TOOLCHAIN=libcxx
-    - PROJECT_DIR=examples/CLAPACK TOOLCHAIN=clang-libstdcxx
-    - PROJECT_DIR=examples/CLAPACK TOOLCHAIN=xcode
-    - PROJECT_DIR=examples/CLAPACK TOOLCHAIN=gcc
-    #
-    - PROJECT_DIR=examples/TIFF TOOLCHAIN=default
-    - PROJECT_DIR=examples/TIFF TOOLCHAIN=libcxx
-    - PROJECT_DIR=examples/TIFF TOOLCHAIN=clang-libstdcxx
-    - PROJECT_DIR=examples/TIFF TOOLCHAIN=xcode
-    - PROJECT_DIR=examples/TIFF TOOLCHAIN=gcc
-    - PROJECT_DIR=examples/TIFF TOOLCHAIN=ios-nocodesign
-    #
-    - PROJECT_DIR=examples/glog TOOLCHAIN=default
-    - PROJECT_DIR=examples/glog TOOLCHAIN=libcxx
-    - PROJECT_DIR=examples/glog TOOLCHAIN=clang-libstdcxx
-    - PROJECT_DIR=examples/glog TOOLCHAIN=xcode
-    - PROJECT_DIR=examples/glog TOOLCHAIN=gcc
-    - PROJECT_DIR=examples/glog TOOLCHAIN=ios-nocodesign
-    #
-    - PROJECT_DIR=examples/spdlog TOOLCHAIN=libcxx
-    - PROJECT_DIR=examples/spdlog TOOLCHAIN=xcode
-    - PROJECT_DIR=examples/spdlog TOOLCHAIN=gcc
-    - PROJECT_DIR=examples/spdlog TOOLCHAIN=ios-nocodesign
-    - PROJECT_DIR=examples/spdlog TOOLCHAIN=analyze
-    #
-    - PROJECT_DIR=examples/Async++ TOOLCHAIN=default
-    - PROJECT_DIR=examples/Async++ TOOLCHAIN=libcxx
-    - PROJECT_DIR=examples/Async++ TOOLCHAIN=xcode
-    - PROJECT_DIR=examples/Async++ TOOLCHAIN=gcc
-    #
-    - PROJECT_DIR=examples/Eigen TOOLCHAIN=default
-    #
-    - PROJECT_DIR=examples/freetype TOOLCHAIN=default
-    - PROJECT_DIR=examples/freetype TOOLCHAIN=libcxx
-    - PROJECT_DIR=examples/freetype TOOLCHAIN=clang-libstdcxx
-    - PROJECT_DIR=examples/freetype TOOLCHAIN=xcode
-    - PROJECT_DIR=examples/freetype TOOLCHAIN=gcc
-    #
-    - PROJECT_DIR=examples/half TOOLCHAIN=default
-    - PROJECT_DIR=examples/half TOOLCHAIN=libcxx
-    - PROJECT_DIR=examples/half TOOLCHAIN=clang-libstdcxx
-    - PROJECT_DIR=examples/half TOOLCHAIN=xcode
-    - PROJECT_DIR=examples/half TOOLCHAIN=gcc
-    - PROJECT_DIR=examples/half TOOLCHAIN=ios-nocodesign
-    - PROJECT_DIR=examples/half TOOLCHAIN=analyze
-    #
-    - PROJECT_DIR=examples/ippicv TOOLCHAIN=default
-    - PROJECT_DIR=examples/Android-Build-Tools TOOLCHAIN=default
-    - PROJECT_DIR=examples/Android-SDK-Platform TOOLCHAIN=default
-    - PROJECT_DIR=examples/Android-SDK-Platform-tools TOOLCHAIN=default
-    - PROJECT_DIR=examples/Android-SDK-Tools TOOLCHAIN=default
-    - PROJECT_DIR=examples/Sources-for-Android-SDK TOOLCHAIN=default
-    #
-    - PROJECT_DIR=examples/odb TOOLCHAIN=default
-    - PROJECT_DIR=examples/SQLite3 TOOLCHAIN=default
-    - PROJECT_DIR=examples/odb-compiler TOOLCHAIN=default
-    - PROJECT_DIR=examples/odb-sqlite TOOLCHAIN=default
-    - PROJECT_DIR=examples/QtCMakeExtra TOOLCHAIN=default
-    #
-    - PROJECT_DIR=examples/Lua TOOLCHAIN=default
-    - PROJECT_DIR=examples/Lua TOOLCHAIN=libcxx
-    - PROJECT_DIR=examples/Lua TOOLCHAIN=clang-libstdcxx
-    - PROJECT_DIR=examples/Lua TOOLCHAIN=xcode
-    - PROJECT_DIR=examples/Lua TOOLCHAIN=gcc
-    #
-    - PROJECT_DIR=examples/PostgreSQL TOOLCHAIN=default
-    - PROJECT_DIR=examples/PostgreSQL TOOLCHAIN=libcxx
-    - PROJECT_DIR=examples/PostgreSQL TOOLCHAIN=clang-libstdcxx
-    - PROJECT_DIR=examples/PostgreSQL TOOLCHAIN=xcode
-    - PROJECT_DIR=examples/PostgreSQL TOOLCHAIN=gcc
-    - PROJECT_DIR=examples/PostgreSQL TOOLCHAIN=ios-nocodesign
-    - PROJECT_DIR=examples/PostgreSQL TOOLCHAIN=analyze
+  - PROJECT_DIR=tests/simple TOOLCHAIN=default
+  - PROJECT_DIR=tests/issue/22 TOOLCHAIN=default
+  - PROJECT_DIR=tests/issue/24/unit TOOLCHAIN=default
+  - PROJECT_DIR=tests/issue/107 TOOLCHAIN=default
+  - PROJECT_DIR=tests/issue/109/unit TOOLCHAIN=default
+  - PROJECT_DIR=tests/autotools-merge-lipo TOOLCHAIN=default
+  - PROJECT_DIR=tests/hunter_create_args_file TOOLCHAIN=default
+  - PROJECT_DIR=tests/hunter_create_dependency_entry TOOLCHAIN=default
+  - PROJECT_DIR=tests/hunter_create_deps_info TOOLCHAIN=default
+  - PROJECT_DIR=tests/hunter_download_cache_meta_file TOOLCHAIN=default
+  - PROJECT_DIR=tests/hunter_download_cache_raw_file TOOLCHAIN=default
+  - PROJECT_DIR=tests/hunter_generate_qt_info TOOLCHAIN=default
+  - PROJECT_DIR=tests/hunter_get_package_deps TOOLCHAIN=default
+  - PROJECT_DIR=tests/hunter_get_package_deps_recurse TOOLCHAIN=default
+  - PROJECT_DIR=tests/hunter_pack_directory TOOLCHAIN=default
+  - PROJECT_DIR=tests/hunter_register_dependency TOOLCHAIN=default
+  - PROJECT_DIR=tests/hunter_setup_msvc TOOLCHAIN=default
+  - PROJECT_DIR=tests/hunter_unpack_directory TOOLCHAIN=default
 
-    ### TESTS --
-    - PROJECT_DIR=tests/simple TOOLCHAIN=default
-    - PROJECT_DIR=tests/issue/22 TOOLCHAIN=default
-    - PROJECT_DIR=tests/issue/24/unit TOOLCHAIN=default
-    - PROJECT_DIR=tests/issue/107 TOOLCHAIN=default
-    - PROJECT_DIR=tests/issue/109/unit TOOLCHAIN=default
-    - PROJECT_DIR=tests/hunter_create_args_file TOOLCHAIN=default
-    - PROJECT_DIR=tests/hunter_create_dependency_entry TOOLCHAIN=default
-    - PROJECT_DIR=tests/hunter_generate_qt_info TOOLCHAIN=default
-    - PROJECT_DIR=tests/hunter_get_dependency_list TOOLCHAIN=default
-    - PROJECT_DIR=tests/hunter_pack_directory TOOLCHAIN=default
-    - PROJECT_DIR=tests/hunter_process_dependency_node TOOLCHAIN=default
-    - PROJECT_DIR=tests/hunter_register_dependency TOOLCHAIN=default
-    - PROJECT_DIR=tests/hunter_setup_msvc TOOLCHAIN=default
-    - PROJECT_DIR=tests/hunter_unpack_directory TOOLCHAIN=default
-    - PROJECT_DIR=tests/autotools-merge-lipo TOOLCHAIN=default
-    ### -- end
+install:
+  # Info about OS
+  - uname -a
+
+  # Install Python 3
+  - if [[ "`uname`" == "Darwin" ]]; then travis_retry brew install python3; fi
+
+  # Install Python package 'requests'
+  # 'easy_install3' is not installed by 'brew install python3' on OS X 10.9 Maverick
+  - if [[ "`uname`" == "Darwin" ]]; then pip3 install requests; fi
+  - if [[ "`uname`" == "Linux" ]]; then easy_install3 --user requests; fi
+
+  # Install latest Polly toolchains and scripts
+  - wget https://github.com/ruslo/polly/archive/master.zip
+  - unzip master.zip
+  - POLLY_ROOT="`pwd`/polly-master"
+  - export PATH="${POLLY_ROOT}/bin:${PATH}"
+
+  # Install dependencies (CMake, Android NDK)
+  - install-ci-dependencies.py
+
+  # Tune locations
+  - export PATH="`pwd`/_ci/cmake/bin:${PATH}"
+
+  # Installed if toolchain is Android (otherwise directory doesn't exist)
+  - export ANDROID_NDK_r10e="`pwd`/_ci/android-ndk-r10e"
 
 script:
-    - python3 ./jenkins.py
+  - python3 ./jenkins.py

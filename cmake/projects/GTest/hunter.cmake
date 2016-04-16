@@ -1,11 +1,7 @@
 # Copyright (c) 2013, Ruslan Baratov
 # All rights reserved.
 
-if(DEFINED HUNTER_CMAKE_PROJECTS_GTEST_HUNTER_CMAKE)
-  return()
-else()
-  set(HUNTER_CMAKE_PROJECTS_GTEST_HUNTER_CMAKE 1)
-endif()
+# !!! DO NOT PLACE HEADER GUARDS HERE !!!
 
 include(hunter_add_version)
 include(hunter_cacheable)
@@ -142,6 +138,17 @@ hunter_add_version(
     "https://github.com/hunter-packages/gtest/archive/v1.7.0-hunter-11.tar.gz"
     SHA1
     c6ae948ca2bea1d734af01b1069491b00933ed31
+)
+
+hunter_add_version(
+    PACKAGE_NAME
+    GTest
+    VERSION
+    1.8.0-hunter-p2
+    URL 
+    "https://github.com/hunter-packages/googletest/archive/1.8.0-hunter-p2.tar.gz"
+    SHA1
+    93148cb8850abe78b76ed87158fdb6b9c48e38c4
 )
 
 hunter_pick_scheme(DEFAULT url_sha1_cmake)

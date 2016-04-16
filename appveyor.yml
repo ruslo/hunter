@@ -1,0 +1,96 @@
+# Windows (https://github.com/travis-ci-tester/toolchain-table)
+
+environment:
+  matrix:
+  - PROJECT_DIR: tests\simple
+    TOOLCHAIN: default
+
+  - PROJECT_DIR: tests\issue\22
+    TOOLCHAIN: default
+
+  - PROJECT_DIR: tests\issue\24\unit
+    TOOLCHAIN: default
+
+  - PROJECT_DIR: tests\issue\107
+    TOOLCHAIN: default
+
+  - PROJECT_DIR: tests\issue\109\unit
+    TOOLCHAIN: default
+
+  # Leave this test for Linux
+  # (need to create separate etalon files with Windows EOL)
+  # * https://ci.appveyor.com/project/ruslo/hunter/build/1.0.12/job/a1yuqt10k5cssmiq
+  # - PROJECT_DIR: tests\hunter_create_args_file
+  #   TOOLCHAIN: default
+
+  - PROJECT_DIR: tests\hunter_create_dependency_entry
+    TOOLCHAIN: default
+
+  # Leave this test for Linux
+  # (need to create separate etalon files with Windows EOL)
+  # * https://ci.appveyor.com/project/ruslo/hunter/build/1.0.102/job/w06ih7x8gkcugw49
+  # - PROJECT_DIR: tests\hunter_create_deps_info
+  #   TOOLCHAIN: default
+
+  - PROJECT_DIR: tests\hunter_generate_qt_info
+    TOOLCHAIN: default
+
+  - PROJECT_DIR: tests\hunter_get_package_deps
+    TOOLCHAIN: default
+
+  - PROJECT_DIR: tests\hunter_get_package_deps_recurse
+    TOOLCHAIN: default
+
+  - PROJECT_DIR: tests\hunter_pack_directory
+    TOOLCHAIN: default
+
+  - PROJECT_DIR: tests\hunter_register_dependency
+    TOOLCHAIN: default
+
+  - PROJECT_DIR: tests\hunter_setup_msvc
+    TOOLCHAIN: default
+
+  - PROJECT_DIR: tests\hunter_unpack_directory
+    TOOLCHAIN: default
+
+  - PROJECT_DIR: tests\hunter_download_cache_raw_file
+    TOOLCHAIN: default
+
+  - PROJECT_DIR: tests\hunter_download_cache_meta_file
+    TOOLCHAIN: default
+
+  - PROJECT_DIR: tests\autotools-merge-lipo
+    TOOLCHAIN: default
+
+install:
+  # Python 3
+  - cmd: set PATH=C:\Python34-x64;C:\Python34-x64\Scripts;%PATH%
+
+  # Install Python package 'requests'
+  - cmd: pip install requests
+
+  # Install latest Polly toolchains and scripts
+  - cmd: appveyor DownloadFile https://github.com/ruslo/polly/archive/master.zip
+  - cmd: 7z x master.zip
+  - cmd: set POLLY_ROOT=%cd%\polly-master
+
+  # Install dependencies (CMake, Ninja)
+  - cmd: python %POLLY_ROOT%\bin\install-ci-dependencies.py
+
+  # Tune locations
+  - cmd: set PATH=%cd%\_ci\cmake\bin;%PATH%
+  - cmd: set PATH=%cd%\_ci\ninja;%PATH%
+
+  # Remove entry with sh.exe from PATH to fix error with MinGW toolchain
+  # (For MinGW make to work correctly sh.exe must NOT be in your path)
+  # * http://stackoverflow.com/a/3870338/2288008
+  - cmd: set PATH=%PATH:C:\Program Files\Git\usr\bin;=%
+
+  # Use MinGW from Qt tools because version is higher
+  # * http://www.appveyor.com/docs/installed-software#qt
+  - cmd: set MINGW_PATH=C:\Qt\Tools\mingw492_32\bin
+
+  - git submodule update --init --recursive
+
+build_script:
+  - cmd: python .\jenkins.py

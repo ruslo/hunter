@@ -1,11 +1,7 @@
 # Copyright (c) 2015, Ruslan Baratov
 # All rights reserved.
 
-if(DEFINED HUNTER_CMAKE_PROJECTS_QT_QTDOC_HUNTER_CMAKE_)
-  return()
-else()
-  set(HUNTER_CMAKE_PROJECTS_QT_QTDOC_HUNTER_CMAKE_ 1)
-endif()
+# !!! DO NOT PLACE HEADER GUARDS HERE !!!
 
 include(hunter_add_package)
 include(hunter_download)
@@ -86,5 +82,5 @@ hunter_pick_scheme(DEFAULT url_sha1_qt)
 hunter_download(
     PACKAGE_NAME Qt
     PACKAGE_COMPONENT "qtdoc"
-    PACKAGE_INTERNAL_DEPS_ID "5"
+    PACKAGE_INTERNAL_DEPS_ID "7"
 )

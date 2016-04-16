@@ -1,11 +1,7 @@
 # Copyright (c) 2015, Ruslan Baratov
 # All rights reserved.
 
-if(DEFINED HUNTER_CMAKE_PROJECTS_QTCMAKEEXTRA_HUNTER_CMAKE_)
-  return()
-else()
-  set(HUNTER_CMAKE_PROJECTS_QTCMAKEEXTRA_HUNTER_CMAKE_ 1)
-endif()
+# !!! DO NOT PLACE HEADER GUARDS HERE !!!
 
 include(hunter_add_version)
 include(hunter_cacheable)
@@ -87,6 +83,61 @@ hunter_add_version(
     "https://github.com/hunter-packages/QtCMakeExtra/archive/v1.0.6.tar.gz"
     SHA1
     c1b2e289b952525ff4162e1570527bebe131aa7f
+)
+
+hunter_add_version(
+    PACKAGE_NAME
+    QtCMakeExtra
+    VERSION
+    "1.0.7"
+    URL
+    "https://github.com/hunter-packages/QtCMakeExtra/archive/v1.0.7.tar.gz"
+    SHA1
+    4c112972b0b609dbd27555f2dfe5ca2ce23f1d24
+)
+
+hunter_add_version(
+    PACKAGE_NAME
+    QtCMakeExtra
+    VERSION
+    "1.0.8"
+    URL
+    "https://github.com/hunter-packages/QtCMakeExtra/archive/v1.0.8.tar.gz"
+    SHA1
+    398ad520975b3e5e16d8aa38bafd2155f27403c0
+)
+
+hunter_add_version(
+    PACKAGE_NAME
+    QtCMakeExtra
+    VERSION
+    "1.0.9"
+    URL
+    "https://github.com/hunter-packages/QtCMakeExtra/archive/v1.0.9.tar.gz"
+    SHA1
+    1876e6862808beaed4b2c43ac8179f8cf239a886
+)
+
+hunter_add_version(
+    PACKAGE_NAME
+    QtCMakeExtra
+    VERSION
+    "1.0.10"
+    URL
+    "https://github.com/hunter-packages/QtCMakeExtra/archive/v1.0.10.tar.gz"
+    SHA1
+    dc9bcc8e83c86c88b8e908285665af1f7852a43e
+)
+
+hunter_add_version(
+    PACKAGE_NAME
+    QtCMakeExtra
+    VERSION
+    "1.0.11"
+    URL
+    "https://github.com/hunter-packages/QtCMakeExtra/archive/v1.0.11.tar.gz"
+    SHA1
+    c745bce83aecc5d58063b979a5d5d312ae61ad82
 )
 
 hunter_pick_scheme(DEFAULT url_sha1_cmake)

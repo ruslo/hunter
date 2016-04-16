@@ -51,6 +51,8 @@
 #         prefix
 #       STANDARD                  # --std
 #         c++11
+#       PROFILE                   # --profile
+#         boost
 #       SLOC_LIMIT                # --sloc-limit
 #         99999
 #       ODB_PROLOGUE              # --odb-prologue

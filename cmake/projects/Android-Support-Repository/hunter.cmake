@@ -1,17 +1,24 @@
 # Copyright (c) 2015, Ruslan Baratov
 # All rights reserved.
 
-if(DEFINED HUNTER_CMAKE_PROJECTS_ANDROID_SUPPORT_REPOSITORY_HUNTER_CMAKE_)
-  return()
-else()
-  set(HUNTER_CMAKE_PROJECTS_ANDROID_SUPPORT_REPOSITORY_HUNTER_CMAKE_ 1)
-endif()
+# !!! DO NOT PLACE HEADER GUARDS HERE !!!
 
 include(hunter_add_version)
 include(hunter_download)
 include(hunter_pick_scheme)
 
 # https://dl.google.com/android/repository/addon.xml
+
+hunter_add_version(
+    PACKAGE_NAME
+    Android-Support-Repository
+    VERSION
+    "28"
+    URL
+    "http://dl-ssl.google.com/android/repository/android_m2repository_r28.zip"
+    SHA1
+    e4d0ad49df085a8d0322cfc4cfaa5e74a7b0569b
+)
 
 hunter_add_version(
     PACKAGE_NAME

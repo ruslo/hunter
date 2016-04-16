@@ -1,0 +1,66 @@
+# Copyright (c) 2016 Ruslan Baratov, Alexandre Pretyman
+# All rights reserved.
+
+cmake_minimum_required(VERSION 3.0)
+project(Hunter)
+
+include("@HUNTER_SELF@/cmake/Hunter")
+
+include(hunter_autotools_project)
+include(hunter_fatal_error)
+include(hunter_status_debug)
+include(hunter_test_string_not_empty)
+
+hunter_status_debug("Scheme: url_sha1_odb-pgsql_autotools")
+
+if("@MSVC@")
+  hunter_fatal_error("Autotools scheme not supported with Visual Studio")
+endif()
+
+hunter_add_package(odb)
+find_package(odb REQUIRED)
+
+hunter_add_package(PostgreSQL)
+find_package(PostgreSQL REQUIRED)
+
+# Check preconditions
+hunter_test_string_not_empty("@HUNTER_SELF@")
+hunter_test_string_not_empty("@HUNTER_EP_NAME@")
+hunter_test_string_not_empty("@HUNTER_PACKAGE_URL@")
+hunter_test_string_not_empty("@HUNTER_PACKAGE_SHA1@")
+hunter_test_string_not_empty("@HUNTER_PACKAGE_DOWNLOAD_DIR@")
+hunter_test_string_not_empty("@HUNTER_PACKAGE_SOURCE_DIR@")
+hunter_test_string_not_empty("@HUNTER_PACKAGE_BUILD_DIR@")
+hunter_test_string_not_empty("@HUNTER_PACKAGE_INSTALL_PREFIX@")
+hunter_test_string_not_empty("@HUNTER_INSTALL_PREFIX@")
+
+set(pgsql_include_flags "")
+foreach(_pgsql_include_dir PostgreSQL_INCLUDE_DIRS)
+  set(pgsql_include_flags "${pgsql_include_flags} -I${_pgsql_include_dir}")
+endforeach()
+
+hunter_autotools_project("@HUNTER_EP_NAME@"
+    HUNTER_SELF
+      "@HUNTER_SELF@"
+    URL
+      @HUNTER_PACKAGE_URL@
+    URL_HASH
+      SHA1=@HUNTER_PACKAGE_SHA1@
+    DOWNLOAD_DIR
+      "@HUNTER_PACKAGE_DOWNLOAD_DIR@"
+    SOURCE_DIR
+      "@HUNTER_PACKAGE_SOURCE_DIR@"
+    BUILD_DIR
+      "@HUNTER_PACKAGE_BUILD_DIR@"
+    INSTALL_DIR
+      "@HUNTER_PACKAGE_INSTALL_PREFIX@"
+    GLOBAL_INSTALL_DIR
+      "@HUNTER_INSTALL_PREFIX@"
+    PARALLEL_JOBS
+      "@HUNTER_JOBS_OPTION@"
+    CPPFLAGS
+      "-I${ODB_INCLUDE_DIR} ${pgsql_include_flags}"
+    LDFLAGS
+      "-L${ODB_LIB_DIR} -lodb -L${PostgreSQL_LIBRARY_DIRS} -lpq"
+)
+
