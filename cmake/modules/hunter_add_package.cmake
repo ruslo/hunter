@@ -8,17 +8,7 @@ include(hunter_finalize)
 include(hunter_internal_error)
 include(hunter_status_debug)
 include(hunter_test_string_not_empty)
-
-function(_hunter_find_project_dir projectname output)
-  if(NOT HUNTER_${projectname}_REPOSITORY)
-    message(FATAL_ERROR "No ${projectname} package defined")
-  endif()
-  set(directory "${HUNTER_${projectname}_REPOSITORY}/projects/${projectname}")
-  if(NOT EXISTS "${directory}/hunter.cmake")
-    hunter_internal_error("Repository set for package, but ${directory}/hunter.cmake does not exist")
-  endif()
-  set(${output} "${directory}" PARENT_SCOPE)
-endfunction()
+include(hunter_find_project_dir)
 
 # internal variables: _hunter_ap_*
 macro(hunter_add_package)
@@ -47,7 +37,7 @@ macro(hunter_add_package)
   endif()
   list(GET _hunter_ap_arg_UNPARSED_ARGUMENTS 0 _hunter_ap_project)
 
-  _hunter_find_project_dir(${_hunter_ap_project} _hunter_ap_project_dir)
+  hunter_find_project_dir(${_hunter_ap_project} _hunter_ap_project_dir)
 
   # Check components
   foreach(_hunter_ap_component ${_hunter_ap_arg_COMPONENTS})
