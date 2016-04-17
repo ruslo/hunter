@@ -9,8 +9,43 @@ import requests
 import sys
 import time
 
+def sleep_time(attempt):
+  if attempt <= 0:
+    raise Exception('Unexpected')
+  if attempt == 1:
+    return 0
+  if attempt == 2:
+    return 15
+  if attempt == 3:
+    return 60
+  if attempt == 4:
+    return 90
+  if attempt == 5:
+    return 300
+  return 1200
+
+def retry(func_in):
+  def func_out(*args, **kwargs):
+    retry_max = 10
+    i = 0
+    while True:
+      i = i + 1
+      try:
+        return func_in(*args, **kwargs)
+      except Exception as exc:
+        if i > retry_max:
+          raise exc
+        print('Operation failed. Exception:\n  {}'.format(exc))
+        sec = sleep_time(i)
+        print('Retry #{} (of {}) after {} seconds'.format(i, retry_max, sec))
+        time.sleep(sec)
+    raise Exception('Unreachable')
+  return func_out
+
 # http://stackoverflow.com/a/16696317/2288008
-def download_file_once(url, local_file, auth, chunk_size=1024):
+@retry
+def download_file(url, local_file, auth, chunk_size=1024):
+  print('Downloading:\n  {}\n  -> {}'.format(url, local_file))
   r = requests.get(url, stream=True, auth=auth)
   if not r.ok:
     raise Exception('Downloading failed')
@@ -19,35 +54,27 @@ def download_file_once(url, local_file, auth, chunk_size=1024):
       if chunk:
         f.write(chunk)
 
-def download_file(url, local_file, auth):
-  print('Downloading:\n  {} ->\n  {}'.format(url, local_file))
-  max_retry = 3
-  for i in range(max_retry):
-    try:
-      download_file_once(url, local_file, auth)
-      print('Done')
-      return
-    except Exception as exc:
-      print('Exception catched ({}), retry... ({} of {})'.format(exc, i+1, max_retry))
-      time.sleep(60)
-  sys.exit('Download failed')
-
 class Github:
   def __init__(self, username, password, repo_owner, repo):
     self.repo_owner = repo_owner
     self.repo = repo
     self.auth = requests.auth.HTTPBasicAuth(username, password)
+    self.simple_request()
 
+  @retry
+  def simple_request(self):
     r = requests.get('https://api.github.com', auth=self.auth)
     if not r.ok:
-      sys.exit('Simple requests failed. Check your password.')
+      sys.exit('Simple request fails. Check your password.')
 
     limit = int(r.headers['X-RateLimit-Remaining'])
     print('GitHub Limit: {}'.format(limit))
     if limit == 0:
-      sys.exit('GitHub limit is 0, have to wait some time...')
+      raise Exception('GitHub limit is 0')
 
+  @retry
   def get_release_by_tag(self, tagname):
+    print('Get release-id by tag `{}`'.format(tagname))
     # https://developer.github.com/v3/repos/releases/#get-a-release-by-tag-name
     # GET /repos/:owner/:repo/releases/tags/:tag
 
@@ -63,6 +90,7 @@ class Github:
 
     return r.json()['id']
 
+  @retry
   def find_asset_id_by_name(self, release_id, name):
     # https://developer.github.com/v3/repos/releases/#list-assets-for-a-release
     # GET /repos/:owner/:repo/releases/:id/assets
@@ -96,6 +124,7 @@ class Github:
 
     return None
 
+  @retry
   def delete_asset_by_id(self, asset_id, asset_name):
     # https://developer.github.com/v3/repos/releases/#delete-a-release-asset
     # DELETE /repos/:owner/:repo/releases/assets/:id
@@ -126,19 +155,14 @@ class Github:
     if not r.ok:
       raise Exception('Upload of file failed')
 
+  @retry
   def upload_bzip(self, url, local_path, release_id, asset_name):
-    print('Uploading:\n  {} ->\n  {}'.format(local_path, url))
-    max_retry = 3
-    for i in range(max_retry):
-      try:
-        self.upload_bzip_once(url, local_path)
-        print('Done')
-        return
-      except Exception as exc:
-        print('Exception catched ({}), retry... ({} of {})'.format(exc, i+1, max_retry))
-        time.sleep(60)
-        self.delete_asset_if_exists(release_id, asset_name)
-    sys.exit('Upload failed')
+    print('Uploading:\n  {}\n  -> {}'.format(local_path, url))
+    try:
+      self.upload_bzip_once(url, local_path)
+    except Exception as exc:
+      self.delete_asset_if_exists(release_id, asset_name)
+      raise exc
 
   def upload_raw_file(self, local_path):
     tagname = 'cache'
@@ -159,7 +183,8 @@ class Github:
 
     self.upload_bzip(url, local_path, release_id, asset_name)
 
-  def try_create_new_file(self, local_path, github_path):
+  @retry
+  def create_new_file(self, local_path, github_path):
     # https://developer.github.com/v3/repos/contents/#create-a-file
     # PUT /repos/:owner/:repo/contents/:path
 
@@ -237,16 +262,6 @@ class Github:
       if r.status_code == 409:
         raise Exception('Unavailable repository')
     return r.ok
-
-  def create_new_file(self, local_path, github_path):
-    max_retry = 3
-    for i in range(max_retry):
-      try:
-        return self.try_create_new_file(local_path, github_path)
-      except Exception as exc:
-        print('Exception catched ({}), retry... ({} of {})'.format(exc, i+1, max_retry))
-        time.sleep(60)
-    sys.exit('Upload failed')
 
 class CacheEntry:
   def __init__(self, cache_done_path, cache_dir, temp_dir):
