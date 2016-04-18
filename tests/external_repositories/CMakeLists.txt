@@ -10,7 +10,7 @@ foreach(project Foo Bar)
       "-G${CMAKE_GENERATOR}"
     RESULT_VARIABLE ${project}_result
   )
-  if(NOT${project}_result EQUAL 0)
+  if(NOT ${project}_result EQUAL 0)
     message(FATAL_ERROR "Could not configure Project ${project} - ${${project}_result}")
   endif()
   if(NOT EXISTS "${build_dir}/root")
