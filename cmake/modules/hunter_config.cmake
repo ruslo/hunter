@@ -35,26 +35,26 @@ macro(hunter_config)
 
   if(_hunter_REPOSITORY_DIR)
     if(_hunter_REPOSITORY_NAME OR _hunter_REPOSITORY_VERSION)
-      hunter_fatal_error(
+      hunter_internal_error(
           "Repository can be specified by directory or name+version, not both"
       )
     endif()
   elseif(_hunter_REPOSITORY_NAME AND NOT _hunter_REPOSITORY_VERSION)
-    hunter_fatal_error(
+    hunter_internal_error(
         "Repository name requires repository version as well"
     )
   elseif(_hunter_REPOSITORY_VERSION AND NOT _hunter_REPOSITORY_NAME)
-    hunter_fatal_error(
+    hunter_internal_error(
         "Repository version requires repository name as well"
     )
   elseif(_hunter_REPOSITORY_VERSION AND _hunter_REPOSITORY_NAME)
     set(reponame "${_hunter_REPOSITORY_NAME}-${_hunter_REPOSITORY_VERSION}")
     string(REGEX REPLACE "\\." "_" reponame "${reponame}")
     if(NOT "${reponame}" MATCHES "[-a-zA-Z0-9._]*")
-      hunter_fatal_error("Repository name not specified correctly")
+      hunter_internal_error("Repository name not specified correctly")
     endif()
     if(NOT HUNTER_REPOSITORY_${reponame}_DIRECTORY)
-      hunter_fatal_error("Could not find repository ${reponame}")
+      hunter_internal_error("Could not find repository ${reponame}")
     endif()
     set(_hunter_REPOSITORY_DIR "${HUNTER_REPOSITORY_${reponame}_DIRECTORY}")
   endif()

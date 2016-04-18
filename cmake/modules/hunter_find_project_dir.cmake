@@ -1,5 +1,4 @@
 include(hunter_internal_error)
-include(hunter_fatal_error)
 
 # Figures out direct with project recipe
 function(hunter_find_project_dir projectname output)
@@ -8,7 +7,7 @@ function(hunter_find_project_dir projectname output)
   endif()
   set(directory "${HUNTER_${projectname}_REPOSITORY}/projects/${projectname}")
   if(NOT EXISTS "${directory}/hunter.cmake")
-    hunter_fatal_error(
+    hunter_internal_error(
         "Repository set for package, "
         "but ${directory}/hunter.cmake does not exist")
   endif()

@@ -1,6 +1,5 @@
 include(CMakeParseArguments) # cmake_parse_arguments
 include(hunter_internal_error)
-include(hunter_fatal_error)
 include(hunter_test_string_not_empty)
 include(hunter_status_debug)
 include(hunter_status_print)
@@ -8,7 +7,7 @@ include(hunter_install_repository)
 
 function(hunter_add_repository)
   if(PROJECT_NAME OR NOT HUNTER_GATE_ROOT)
-    hunter_fatal_error(
+    hunter_internal_error(
         "hunter_add_repository must be called *after* HunterGate"
         "and *before* project(...)"
     )
