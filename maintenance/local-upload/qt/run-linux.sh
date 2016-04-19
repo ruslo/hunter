@@ -20,4 +20,22 @@ TOOLCHAIN=clang-libstdcxx ./jenkins.py --verbose --upload --nocreate
 TOOLCHAIN=gcc-4-8 ./jenkins.py --verbose --upload --nocreate
 TOOLCHAIN=android-ndk-r10e-api-19-armeabi-v7a-neon ./jenkins.py --verbose --upload --nocreate
 
+export PROJECT_DIR=examples/qt-camera
+
+TOOLCHAIN=clang-libstdcxx ./jenkins.py --verbose --upload --nocreate
+TOOLCHAIN=gcc-4-8 ./jenkins.py --verbose --upload --nocreate
+TOOLCHAIN=android-ndk-r10e-api-19-armeabi-v7a-neon ./jenkins.py --verbose --upload --nocreate
+
+export PROJECT_DIR=examples/qt-location
+
+TOOLCHAIN=clang-libstdcxx ./jenkins.py --verbose --upload --nocreate
+TOOLCHAIN=gcc-4-8 ./jenkins.py --verbose --upload --nocreate
+TOOLCHAIN=android-ndk-r10e-api-19-armeabi-v7a-neon ./jenkins.py --verbose --upload --nocreate
+
+export PROJECT_DIR=examples/qt-qml
+
+TOOLCHAIN=clang-libstdcxx ./jenkins.py --verbose --upload --nocreate
+TOOLCHAIN=gcc-4-8 ./jenkins.py --verbose --upload --nocreate
+TOOLCHAIN=android-ndk-r10e-api-19-armeabi-v7a-neon ./jenkins.py --verbose --upload --nocreate
+
 echo "Done"
