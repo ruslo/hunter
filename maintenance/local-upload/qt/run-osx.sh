@@ -24,9 +24,30 @@ PROJECT_DIR=examples/GTest TOOLCHAIN=default ./jenkins.py --verbose --clear-exce
 
 export PROJECT_DIR=examples/qt-widgets
 
-TOOLCHAIN=osx-10-10-dep-10-9-make ./jenkins.py --verbose --upload # same as 'libcxx' on Travis
-TOOLCHAIN=osx-10-9 ./jenkins.py --verbose --upload
-TOOLCHAIN=ios-nocodesign-wo-armv7s ./jenkins.py --verbose --upload
-TOOLCHAIN=android-ndk-r10e-api-19-armeabi-v7a-neon ./jenkins.py --verbose --upload
+TOOLCHAIN=osx-10-10-dep-10-9-make ./jenkins.py --verbose --upload --nocreate # same as 'libcxx' on Travis
+TOOLCHAIN=osx-10-9 ./jenkins.py --verbose --upload --nocreate
+TOOLCHAIN=ios-nocodesign-wo-armv7s ./jenkins.py --verbose --upload --nocreate
+TOOLCHAIN=android-ndk-r10e-api-19-armeabi-v7a-neon ./jenkins.py --verbose --upload --nocreate
+
+export PROJECT_DIR=examples/qt-camera
+
+TOOLCHAIN=osx-10-10-dep-10-9-make ./jenkins.py --verbose --upload --nocreate # same as 'libcxx' on Travis
+TOOLCHAIN=osx-10-9 ./jenkins.py --verbose --upload --nocreate
+TOOLCHAIN=ios-nocodesign-wo-armv7s ./jenkins.py --verbose --upload --nocreate
+TOOLCHAIN=android-ndk-r10e-api-19-armeabi-v7a-neon ./jenkins.py --verbose --upload --nocreate
+
+export PROJECT_DIR=examples/qt-location
+
+TOOLCHAIN=osx-10-10-dep-10-9-make ./jenkins.py --verbose --upload --nocreate # same as 'libcxx' on Travis
+TOOLCHAIN=osx-10-9 ./jenkins.py --verbose --upload --nocreate
+TOOLCHAIN=ios-nocodesign-wo-armv7s ./jenkins.py --verbose --upload --nocreate
+TOOLCHAIN=android-ndk-r10e-api-19-armeabi-v7a-neon ./jenkins.py --verbose --upload --nocreate
+
+export PROJECT_DIR=examples/qt-qml
+
+TOOLCHAIN=osx-10-10-dep-10-9-make ./jenkins.py --verbose --upload --nocreate # same as 'libcxx' on Travis
+TOOLCHAIN=osx-10-9 ./jenkins.py --verbose --upload --nocreate
+TOOLCHAIN=ios-nocodesign-wo-armv7s ./jenkins.py --verbose --upload --nocreate
+TOOLCHAIN=android-ndk-r10e-api-19-armeabi-v7a-neon ./jenkins.py --verbose --upload --nocreate
 
 echo "Done"
