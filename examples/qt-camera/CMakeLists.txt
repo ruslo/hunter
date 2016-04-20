@@ -12,7 +12,7 @@ project(qt-camera)
 hunter_add_package(Qt COMPONENTS qtmultimedia) # Qt5MultimediaWidgets
 
 find_package(Qt5MultimediaWidgets REQUIRED) # Qt5::MultimediaWidgets
-find_package(Qt5OpenGL REQUIRED) # Qt5::OpenGL
+find_package(Qt5PrintSupport REQUIRED) # Qt5::PrintSupport
 
 set(CMAKE_AUTOMOC ON)
 set(CMAKE_AUTOUIC ON)
@@ -75,7 +75,7 @@ target_link_libraries(
   qt-camera
   PUBLIC
   Qt5::MultimediaWidgets
-  Qt5::OpenGL
+  Qt5::PrintSupport
   ${plugins}
 )
 
