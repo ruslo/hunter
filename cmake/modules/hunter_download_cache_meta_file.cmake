@@ -90,7 +90,7 @@ function(hunter_download_cache_meta_file)
         hunter_status_debug("File not found")
         break()
       else()
-        hunter_status_debug("Downloading error, retry...")
+        hunter_status_debug("Download error (${error_message})")
       endif()
     endforeach()
 
@@ -126,7 +126,7 @@ function(hunter_download_cache_meta_file)
             "  done: ${done_url}"
         )
       else()
-        hunter_status_debug("Downloading error, retry...")
+        hunter_status_debug("Download error (${error_message})")
       endif()
     endforeach()
 
