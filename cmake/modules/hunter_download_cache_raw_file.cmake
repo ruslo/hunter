@@ -5,6 +5,7 @@ include(CMakeParseArguments) # cmake_parse_arguments
 
 include(hunter_check_download_error_message)
 include(hunter_internal_error)
+include(hunter_sleep_before_download)
 include(hunter_status_debug)
 include(hunter_test_string_not_empty)
 include(hunter_user_error)
@@ -73,6 +74,7 @@ function(hunter_download_cache_raw_file)
       hunter_status_debug("  ${url}")
       hunter_status_debug("  -> ${x_LOCAL}")
 
+      hunter_sleep_before_download("${x}")
       file(DOWNLOAD "${url}" "${x_LOCAL}" STATUS status)
       file(SHA1 "${x_LOCAL}" local_sha1)
       string(COMPARE EQUAL "${local_sha1}" "${x_SHA1}" sha1_is_good)
