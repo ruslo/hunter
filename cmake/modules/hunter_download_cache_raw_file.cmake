@@ -67,7 +67,7 @@ function(hunter_download_cache_raw_file)
 
     set(url "${server}/releases/download/cache/${suffix}")
 
-    set(total_retry 3)
+    set(total_retry 10)
     foreach(x RANGE ${total_retry})
       hunter_status_debug("Downloading file (try #${x} of ${total_retry}):")
       hunter_status_debug("  ${url}")
