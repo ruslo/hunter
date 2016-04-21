@@ -5,6 +5,7 @@ include(CMakeParseArguments) # cmake_parse_arguments
 
 include(hunter_check_download_error_message)
 include(hunter_internal_error)
+include(hunter_sleep_before_download)
 include(hunter_status_debug)
 include(hunter_test_string_not_empty)
 include(hunter_user_error)
@@ -67,12 +68,13 @@ function(hunter_download_cache_meta_file)
     set(local_url "${url}/master/${local_suffix}")
     set(done_url "${url}/master/${done_suffix}")
 
-    set(total_retry 3)
+    set(total_retry 10)
     foreach(x RANGE ${total_retry})
       hunter_status_debug("Downloading file (try #${x} of ${total_retry}):")
       hunter_status_debug("  ${done_url}")
       hunter_status_debug("  -> ${x_DONE}")
 
+      hunter_sleep_before_download("${x}")
       file(DOWNLOAD "${done_url}" "${x_DONE}" STATUS status)
 
       list(GET status 0 error_code)
@@ -90,7 +92,7 @@ function(hunter_download_cache_meta_file)
         hunter_status_debug("File not found")
         break()
       else()
-        hunter_status_debug("Downloading error, retry...")
+        hunter_status_debug("Download error (${error_message})")
       endif()
     endforeach()
 
@@ -99,12 +101,13 @@ function(hunter_download_cache_meta_file)
       continue()
     endif()
 
-    set(total_retry 3)
+    set(total_retry 10)
     foreach(x RANGE ${total_retry})
       hunter_status_debug("Downloading file (try #${x} of ${total_retry}):")
       hunter_status_debug("  ${local_url}")
       hunter_status_debug("  -> ${x_LOCAL}")
 
+      hunter_sleep_before_download("${x}")
       file(DOWNLOAD "${local_url}" "${x_LOCAL}" STATUS status)
 
       list(GET status 0 error_code)
@@ -126,7 +129,7 @@ function(hunter_download_cache_meta_file)
             "  done: ${done_url}"
         )
       else()
-        hunter_status_debug("Downloading error, retry...")
+        hunter_status_debug("Download error (${error_message})")
       endif()
     endforeach()
 
