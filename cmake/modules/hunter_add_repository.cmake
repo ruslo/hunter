@@ -6,11 +6,13 @@ include(hunter_status_print)
 include(hunter_install_repository)
 
 function(hunter_add_repository)
-  if(PROJECT_NAME OR NOT HUNTER_GATE_ROOT)
+  if(NOT HUNTER_GATE_ROOT)
     hunter_internal_error(
         "hunter_add_repository must be called *after* HunterGate"
         "and *before* project(...)"
     )
+  elseif(PROJECT_NAME)
+    return()
   endif()
   cmake_parse_arguments(har "" "URL;SHA1" "" "${ARGV}")
   hunter_test_string_not_empty("${har_URL}")
