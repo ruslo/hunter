@@ -138,6 +138,7 @@ hunter_config(xfixes VERSION 5.0.1)
 hunter_config(xorg-macros VERSION 1.17)
 hunter_config(xproto VERSION 7.0.23)
 hunter_config(xrender VERSION 0.9.7)
+hunter_config(xshmfence VERSION 1.2)
 hunter_config(xtrans VERSION 1.2.7)
 
 if(MINGW)
