@@ -237,8 +237,11 @@ list(APPEND configure_opts "-no-openssl")
 ### Predictable configuration {
 # Force bundled copy (TODO: add to Hunter)
 list(APPEND configure_opts "-qt-freetype")
+list(APPEND configure_opts "-qt-harfbuzz")
 list(APPEND configure_opts "-qt-libjpeg")
 list(APPEND configure_opts "-qt-libpng")
+list(APPEND configure_opts "-qt-pcre")
+list(APPEND configure_opts "-qt-xkbcommon")
 list(APPEND configure_opts "-qt-zlib")
 ### }
 
