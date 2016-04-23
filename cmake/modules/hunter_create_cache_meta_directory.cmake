@@ -30,7 +30,9 @@ function(hunter_create_cache_meta_directory cache_directory result)
   file(COPY "${toolchain_info}" DESTINATION "${cache_meta_dir}")
 
   # Save package name and version
-  set(cache_meta_dir "${cache_meta_dir}/${HUNTER_PACKAGE_NAME}/${HUNTER_${HUNTER_PACKAGE_NAME}_RECIPE_HASH}")
+  set(cache_meta_dir "${cache_meta_dir}/${HUNTER_PACKAGE_NAME}")
+  set(cache_meta_dir
+    "${cache_meta_dir}/${HUNTER_${HUNTER_PACKAGE_NAME}_REPOSITORY_HASH}")
   if(has_component)
     set(cache_meta_dir "${cache_meta_dir}/__${HUNTER_PACKAGE_COMPONENT}")
   endif()

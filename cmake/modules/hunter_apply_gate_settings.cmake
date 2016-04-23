@@ -63,7 +63,7 @@ function(hunter_apply_gate_settings)
   hunter_status_debug("  HUNTER_GATE_ROOT: ${HUNTER_GATE_ROOT}")
   hunter_status_debug("  HUNTER_GATE_VERSION: ${HUNTER_GATE_VERSION}")
   hunter_status_debug("  HUNTER_GATE_SHA1: ${HUNTER_GATE_SHA1}")
-  hunter_status_debug("  HUNTER_RECIPE_DIRS: ${HUNTER_RECIPE_DIRS}")
+  hunter_status_debug("  HUNTER_REPOSITORY_DIRS: ${HUNTER_REPOSITORY_DIRS}")
 
   hunter_calculate_self(
       "${HUNTER_GATE_ROOT}"

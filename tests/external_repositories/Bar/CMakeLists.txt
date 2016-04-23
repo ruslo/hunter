@@ -5,7 +5,7 @@ cmake_minimum_required(VERSION 3.0)
 
 # Emulate HunterGate:
 # * https://github.com/hunter-packages/gate
-set(HUNTER_RECIPE_DIRS "${CMAKE_SOURCE_DIR}/recipes")
+set(HUNTER_REPOSITORY_DIRS "${CMAKE_SOURCE_DIR}/recipes")
 set(HUNTER_CONFIGURATION_TYPES Debug)
 include("${CMAKE_SOURCE_DIR}/../../../examples/common.cmake")
 project(external-foo)

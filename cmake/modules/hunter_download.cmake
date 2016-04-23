@@ -142,11 +142,11 @@ function(hunter_download)
   set(HUNTER_GLOBAL_SCRIPT_DIR "${HUNTER_SELF}/scripts")
   set(HUNTER_PACKAGE_SCRIPT_DIR "${HUNTER_PACKAGE_SETUP_DIR}/scripts/")
   set(HUNTER_PACKAGE_HOME_DIR "${HUNTER_TOOLCHAIN_ID_PATH}/Build")
-  set(recipe_hash "${HUNTER_${HUNTER_PACKAGE_NAME}_RECIPE_HASH}")
-  hunter_test_string_not_empty("${recipe_hash}")
+  set(repository_hash "${HUNTER_${HUNTER_PACKAGE_NAME}_REPOSITORY_HASH}")
+  hunter_test_string_not_empty("${repository_hash}")
   set(
       HUNTER_PACKAGE_HOME_DIR
-      "${HUNTER_PACKAGE_HOME_DIR}/${HUNTER_PACKAGE_NAME}/${recipe_hash}"
+      "${HUNTER_PACKAGE_HOME_DIR}/${HUNTER_PACKAGE_NAME}/${repository_hash}"
   )
   if(hunter_has_component)
     set(
@@ -373,7 +373,7 @@ function(hunter_download)
     # then in different repos: repos must be orthogonal
     unset(download_scheme)
     set(_hunter_schemes_search_dirs
-      "${HUNTER_SELF}/cmake" "${HUNTER_PACKAGE_SETUP_DIR}" ${HUNTER_RECIPE_DIRS})
+      "${HUNTER_SELF}/cmake" "${HUNTER_PACKAGE_SETUP_DIR}" ${HUNTER_REPOSITORY_DIRS})
     hunter_status_debug("Scheme prefixes: ${_hunter_schemes_search_dirs}")
     foreach(repo ${_hunter_schemes_search_dirs})
       set(scheme_file "${repo}/schemes/${HUNTER_DOWNLOAD_SCHEME}.cmake.in")

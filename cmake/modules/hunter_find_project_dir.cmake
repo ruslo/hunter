@@ -1,6 +1,6 @@
 include(hunter_internal_error)
 
-# Figures out direct with project recipe
+# Figures out directory of requested project
 function(hunter_find_project_dir projectname output)
   if(NOT HUNTER_${projectname}_REPOSITORY)
     hunter_internal_error("No ${projectname} package defined")

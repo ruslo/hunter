@@ -21,7 +21,7 @@ function(hunter_calculate_config_sha1 hunter_self hunter_base user_config)
   hunter_status_print("Calculating Config-SHA1")
 
   # Include config from alternate repos
-  foreach(repo "${hunter_self}/cmake" ${HUNTER_RECIPE_DIRS})
+  foreach(repo "${hunter_self}/cmake" ${HUNTER_REPOSITORY_DIRS})
     if(EXISTS "${repo}/configs/default.cmake")
       set(configname "${repo}/configs/default.cmake")
     else()
@@ -42,7 +42,7 @@ function(hunter_calculate_config_sha1 hunter_self hunter_base user_config)
   set(HUNTER_ALLOW_CONFIG_LOADING NO)
 
   # Create list of the projects
-  foreach(repo ${HUNTER_RECIPE_DIRS} "${hunter_self}/cmake")
+  foreach(repo ${HUNTER_REPOSITORY_DIRS} "${hunter_self}/cmake")
     if(NOT EXISTS "${repo}/projects")
       hunter_internal_error("Directory `${repo}/projects` not exists")
     endif()
