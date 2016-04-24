@@ -30,6 +30,10 @@ function(hunter_add_version)
   # update HUNTER_<name>_VERSIONS (list of available versions)
   set(h_versions "HUNTER_${h_PACKAGE_NAME}_VERSIONS")
   list(APPEND ${h_versions} ${h_VERSION})
+
+  # 'hunter.cmake' may be loaded several times
+  list(REMOVE_DUPLICATES "${h_versions}")
+
   set(${h_versions} ${${h_versions}} PARENT_SCOPE)
 
   set(expected_version "HUNTER_${h_PACKAGE_NAME}_VERSION")
