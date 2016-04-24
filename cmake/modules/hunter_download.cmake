@@ -208,6 +208,11 @@ function(hunter_download)
   set(ENV{${root_name}} "${${root_name}}")
   hunter_status_print("${root_name}: ${${root_name}} (ver.: ${ver})")
 
+  hunter_status_debug(
+      "Default arguments: ${HUNTER_${h_name}_DEFAULT_CMAKE_ARGS}"
+  )
+  hunter_status_debug("User arguments: ${HUNTER_${h_name}_CMAKE_ARGS}")
+
   # Same for the "snake case"
   string(REPLACE "-" "_" snake_case_root_name "${root_name}")
   set(${snake_case_root_name} "${${root_name}}" PARENT_SCOPE)
@@ -273,7 +278,8 @@ function(hunter_download)
   # load from cache using SHA1 of args.cmake file
   file(REMOVE "${HUNTER_ARGS_FILE}")
   hunter_create_args_file(
-      "${HUNTER_${h_name}_CMAKE_ARGS}" "${HUNTER_ARGS_FILE}"
+      "${HUNTER_${h_name}_DEFAULT_CMAKE_ARGS};${HUNTER_${h_name}_CMAKE_ARGS}"
+      "${HUNTER_ARGS_FILE}"
   )
 
   # Check if package can be loaded from cache

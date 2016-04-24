@@ -151,6 +151,17 @@ hunter_add_version(
     de64ba697ed927a3da457ad819fa18f00dcdf4e1
 )
 
+hunter_add_version(
+    PACKAGE_NAME
+    QtCMakeExtra
+    VERSION
+    "1.0.13"
+    URL
+    "https://github.com/hunter-packages/QtCMakeExtra/archive/v1.0.13.tar.gz"
+    SHA1
+    75d39b7f7cc4757da719d1203a869e70f3456f53
+)
+
 hunter_pick_scheme(DEFAULT url_sha1_cmake)
 hunter_cacheable(QtCMakeExtra)
 hunter_download(PACKAGE_NAME QtCMakeExtra)
