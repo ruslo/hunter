@@ -34,7 +34,7 @@ Client is a collection of CMake only modules (i.e. it's **not a binary** like
 platforms/generators/IDEs which CMake can handle like Visual Studio, Xcode,
 QtCreator, NMake, Ninja, Cygwin or MinGW.  Works fine with CMake-GUI too.
 
-Prime directive used to add package to the current root is
+Prime directive used for adding package to the current root is
 ``hunter_add_package`` which companioning CMake's ``find_package``. For
 example:
 
