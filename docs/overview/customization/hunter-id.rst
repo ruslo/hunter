@@ -5,7 +5,7 @@ First level of customization. Hunter archive.
 
 ``Hunter-ID`` is the first 7 digits of ``SHA1``
 of Hunter archive.  This level defines list of available packages and mapping
-``version -> URL/SHA1``. Several ``Hunter-ID`` can coexists in same
+``version -> URL/SHA1``. Several ``Hunter-ID`` can coexist in the same
 ``HUNTER_ROOT`` directory.  ``HunterGate`` command will control your choice:
 
 +-------------+----------------------------------------------------------------------------------------+
