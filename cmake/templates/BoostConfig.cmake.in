@@ -39,18 +39,6 @@ if(NOT TARGET "Boost::boost")
         INTERFACE_COMPILE_DEFINITIONS "BOOST_ALL_NO_LIB=1"
     )
   endif()
-
-  if(BOOST_CONFIG_LINK_OPENSSL)
-    hunter_add_package(OpenSSL)
-
-    find_package(OpenSSL REQUIRED)
-    set_target_properties(
-      "Boost::boost"
-      PROPERTIES
-      INTERFACE_LINK_LIBRARIES "${OPENSSL_LIBRARIES}"
-      )
-
-  endif()
 endif()
 
 foreach(_boost_component ${Boost_FIND_COMPONENTS})
