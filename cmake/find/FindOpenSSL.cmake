@@ -54,6 +54,10 @@
 # (To distribute this file outside of CMake, substitute the full
 #  License text for the above reference.)
 
+if(HUNTER_STATUS_DEBUG)
+  message("[hunter] Custom FindOpenSSL module")
+endif()
+
 if (UNIX)
   find_package(PkgConfig QUIET)
   pkg_check_modules(_OPENSSL QUIET openssl)
@@ -102,9 +106,8 @@ set(_OPENSSL_ROOT_HINTS_AND_PATHS
 find_path(OPENSSL_INCLUDE_DIR
   NAMES
     openssl/ssl.h
-  ${_OPENSSL_ROOT_HINTS_AND_PATHS}
   HINTS
-    ${_OPENSSL_INCLUDEDIR}
+    "${OPENSSL_ROOT}"
   PATH_SUFFIXES
     include
 )
