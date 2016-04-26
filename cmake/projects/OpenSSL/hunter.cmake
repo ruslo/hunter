@@ -4,6 +4,7 @@
 # !!! DO NOT PLACE HEADER GUARDS HERE !!!
 
 include(hunter_add_version)
+include(hunter_cacheable)
 include(hunter_download)
 include(hunter_pick_scheme)
 
@@ -170,4 +171,5 @@ hunter_pick_scheme(
     url_sha1_openssl_windows
 )
 
+hunter_cacheable(OpenSSL)
 hunter_download(PACKAGE_NAME OpenSSL)
