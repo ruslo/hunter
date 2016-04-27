@@ -30,34 +30,6 @@ function(hunter_create_cache_meta_directory cache_directory result)
   file(COPY "${toolchain_info}" DESTINATION "${cache_meta_dir}")
 
   set(cache_meta_dir "${cache_meta_dir}/${HUNTER_PACKAGE_NAME}")
-  # Figures out name of repo where this package resides
-  if(HUNTER_${HUNTER_PACKAGE_NAME}_REPOSITORY)
-    # Finds index of directory in global list of repo directories
-    # This index is the same in global list of repo name-version
-    # name-version can be used to recover the name
-    get_filename_component(
-        repodir
-        "${HUNTER_${HUNTER_PACKAGE_NAME}_REPOSITORY}"
-        ABSOLUTE
-    )
-    set(i 0)
-    unset(reponame)
-    foreach(dir ${HUNTER_REPOSITORY_DIRS})
-      get_filename_component(dir "${dir}" ABSOLUTE)
-      if(dir STREQUAL "${repodir}")
-        list(GET HUNTER_REPOSITORIES ${i} reponame)
-        break()
-      endif()
-      math(EXPR i "${i} + 1")
-    endforeach()
-    if(NOT HUNTER_REPOSITORY_${reponame}_NAME)
-      hunter_internal_error("Could not figure out repository")
-    endif()
-    set(reponame "${HUNTER_REPOSITORY_${reponame}_NAME}")
-    set(cache_meta_dir "${cache_meta_dir}/${reponame}")
-  else()
-    set(cache_meta_dir "${cache_meta_dir}/builin")
-  endif()
   if(has_component)
     set(cache_meta_dir "${cache_meta_dir}/__${HUNTER_PACKAGE_COMPONENT}")
   endif()
