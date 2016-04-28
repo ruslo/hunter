@@ -1,7 +1,7 @@
 Backward compatibility
 ----------------------
 
-Turn Hunter off by adding one option `HUNTER_ENABLED=OFF`_ to use your old
+Turn Hunter off by adding one option `HUNTER_ENABLED=NO`_ to use your old
 settings. For example:
 
 .. code-block:: cmake
@@ -19,7 +19,7 @@ by default this code will trigger download and build of OpenSSL:
 .. code-block:: bash
 
   > rm -rf _builds
-  > cmake -H. -B_builds -DCMAKE_VERBOSE_MAKEFILE=ON
+  > cmake -H. -B_builds -DCMAKE_VERBOSE_MAKEFILE=YES
   > cmake --build _builds
 
   /usr/bin/c++
@@ -30,13 +30,13 @@ by default this code will trigger download and build of OpenSSL:
       /.../_Base/a9bd96a/e8394c3/dd69ac4/Install/lib/libcrypto.a
       -ldl
 
-but adding ``HUNTER_ENABLED=OFF`` make it will skip all Hunter instructions and
+but adding ``HUNTER_ENABLED=NO`` make it skip all Hunter instructions and
 system library will be used instead:
 
 .. code-block:: bash
 
   > rm -rf _builds
-  > cmake -H. -B_builds -DCMAKE_VERBOSE_MAKEFILE=ON -DHUNTER_ENABLED=OFF
+  > cmake -H. -B_builds -DCMAKE_VERBOSE_MAKEFILE=YES -DHUNTER_ENABLED=NO
   > cmake --build _builds
 
   /usr/bin/c++
@@ -46,7 +46,7 @@ system library will be used instead:
       -lssl
       -lcrypto
 
-``HUNTER_ENABLED=OFF`` can be set by default using CMake ``option``:
+``HUNTER_ENABLED=NO`` can be set by default using CMake ``option``:
 
 .. code-block:: bash
 
@@ -62,4 +62,4 @@ Note that Hunter itself add ``HUNTER_ENABLED=YES`` while building third party
 package. It means that if package released with ``HUNTER_ENABLED=NO`` by default
 it still can be used in Hunter, no extra modifications needed.
 
-.. _HUNTER_ENABLED=OFF: https://github.com/ruslo/hunter/wiki/usr.variables#hunter_enabled
+.. _HUNTER_ENABLED=NO: https://github.com/ruslo/hunter/wiki/usr.variables#hunter_enabled
