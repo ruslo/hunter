@@ -1,26 +1,7 @@
-Hunter
-======
+Hunter CI testing
+=================
 
-Cross-platform package manager for C++ (based on CMake ``ExternalProject``).
-Supported platforms: **Linux**, **Mac**, **Windows**, **iOS**, **Android**, **Raspberry Pi**.
+This repository is for deep per-package testing.
+The only pull requests accepting here is about continuous integration testing on Travis/AppVeyor, i.e. should only affect ``.travis.yml`` or ``appveyor.yml`` (in some rare cases ``jenkins.py``). Please contribute other stuff to https://github.com/ruslo/hunter.
 
-
-* Documentation: https://docs.hunter.sh
-* Sources: https://github.com/ruslo/hunter
-* Reporting issues: https://github.com/ruslo/hunter/issues/new
-* Contributing guide: https://docs.hunter.sh/en/latest/contributing.html
-* License: `BSD 2-Clause <https://raw.githubusercontent.com/ruslo/hunter/master/LICENSE>`_
-* Contacts: https://docs.hunter.sh/en/latest/contacts.html
-
-CI
---
-
-* Travis CI OSX/Linux: |TravisCI|
-* AppVeyor CI Windows: |AppVeyor|
-* `Per package deep testing table <https://github.com/ingenue/hunter/branches/all>`_
-
-.. |TravisCI| image:: https://travis-ci.org/ruslo/hunter.svg?branch=master
-  :target: https://travis-ci.org/ruslo/hunter/builds
-  
-.. |AppVeyor| image:: https://ci.appveyor.com/api/projects/status/ubo6jse3lh5ciyvv/branch/master?svg=true
-  :target: https://ci.appveyor.com/project/ruslo/hunter/history
+Thanks.
