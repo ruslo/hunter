@@ -13,7 +13,7 @@ hunter_add_version(
   URL
   "https://github.com/hunter-packages/msgpack-c/archive/cpp-1.4.1-hunter-p1.tar.gz"
   SHA1
-  55e5ea871ca5fcbf1be204219cd77da237662360
+  5074d28857661693b71c4bda3f8fc662e4c73990
   )
 
 hunter_pick_scheme(DEFAULT url_sha1_cmake)
