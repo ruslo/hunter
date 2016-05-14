@@ -17,6 +17,18 @@ hunter_add_version(
     PACKAGE_NAME
     Boost
     VERSION
+    "1.61.0"
+    URL
+    "https://github.com/hunter-packages/boost/archive/v1.61.0.tar.gz"
+    SHA1
+    f84b1a1ce764108ec3c2b7bd7704cf8dfd3c9d01
+)
+
+# Version without tests and docs
+hunter_add_version(
+    PACKAGE_NAME
+    Boost
+    VERSION
     "1.60.0"
     URL
     "https://github.com/hunter-packages/boost/archive/v1.60.0.tar.gz"
