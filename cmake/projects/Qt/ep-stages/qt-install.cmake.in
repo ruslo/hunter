@@ -75,7 +75,8 @@ function(patch_broken_android_makefile makefile_path_relative)
   if(EXISTS "${makefile_path}")
     message("Patching: ${makefile_path}")
   else()
-    message(FATAL_ERROR "File not exists: ${makefile_path}")
+    # Some files may be missing
+    return()
   endif()
 
   file(READ "${makefile_path}" makefile_content)
@@ -113,8 +114,8 @@ if(run_patches AND "@ANDROID@")
     patch_broken_android_makefile("qtbase/config.tests/unix/ptrsize/Makefile")
     patch_broken_android_makefile("qtmultimedia/config.tests/openal/Makefile")
     patch_broken_android_makefile("qttools/src/qtplugininfo/Makefile")
-    patch_broken_android_makefile("qtwebkit/Source/JavaScriptCore/Makefile.LLIntOffsetsExtractor")
-    patch_broken_android_makefile("qtwebkit/Source/JavaScriptCore/Makefile.jsc")
+    patch_broken_android_makefile("qtwebkit/Source/JavaScriptCore/Makefile.LLIntOffsetsExtractor") # optional ? OSX only?
+    patch_broken_android_makefile("qtwebkit/Source/JavaScriptCore/Makefile.jsc") # optional ? OSX only?
     patch_broken_android_makefile("qtwebkit/Source/WebKit2/Makefile.WebProcess")
     patch_broken_android_makefile("qtwebkit/Tools/qmake/config.tests/glx/Makefile")
     patch_broken_android_makefile("qtwebkit/Tools/qmake/config.tests/gnuld/Makefile")
