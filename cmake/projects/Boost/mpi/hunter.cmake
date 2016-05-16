@@ -5,6 +5,14 @@
 
 include(hunter_download)
 include(hunter_pick_scheme)
+include(hunter_report_broken_package)
+
+if(NOT HUNTER_Boost_VERSION VERSION_LESS 1.56.0 AND MSVC)
+  hunter_report_broken_package(
+      "boost.mpi library failed to install even if b2 build exit with 0."
+      "Use boost 1.55.0-patched-3"
+  )
+endif()
 
 hunter_pick_scheme(
     DEFAULT
