@@ -218,8 +218,9 @@ list(APPEND configure_opts "-no-sql-tds")
 ### Predictable configuration {
 # Disable components that may or may not present in system (TODO: add to Hunter)
 if(NOT _is_android AND NOT _is_iphoneos)
-  if(NOT WIN32)
+  if(_is_linux)
     # EGL needed for QML/qtdeclarative (Linux)
+    # Not needed for OSX, error for Windows
     list(APPEND configure_opts "-egl")
     list(APPEND configure_opts "-eglfs")
   endif()
