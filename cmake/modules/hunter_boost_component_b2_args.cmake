@@ -1,4 +1,5 @@
 # Copyright (c) 2015, Aaditya Kalsi
+# Copyright (c) 2016, Ruslan Baratov
 # All rights reserved.
 
 cmake_minimum_required(VERSION 3.0)
