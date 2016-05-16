@@ -12,14 +12,13 @@ include(hunter_pick_scheme)
 # Disable searching in locations not specified by these hint variables.
 set(Boost_NO_SYSTEM_PATHS ON)
 
-# Version without tests and docs
 hunter_add_version(
     PACKAGE_NAME
     Boost
     VERSION
     "1.61.0"
     URL
-    "https://github.com/hunter-packages/boost/archive/v1.61.0.tar.gz"
+    "https://downloads.sourceforge.net/project/boost/boost/1.61.0/boost_1_61_0.tar.bz2"
     SHA1
     f84b1a1ce764108ec3c2b7bd7704cf8dfd3c9d01
 )
