@@ -245,7 +245,9 @@ list(APPEND configure_opts "-qt-harfbuzz")
 list(APPEND configure_opts "-qt-libjpeg")
 list(APPEND configure_opts "-qt-libpng")
 list(APPEND configure_opts "-qt-pcre")
-list(APPEND configure_opts "-qt-xkbcommon")
+if(NOT WIN32)
+  list(APPEND configure_opts "-qt-xkbcommon")
+endif()
 list(APPEND configure_opts "-qt-zlib")
 ### }
 
