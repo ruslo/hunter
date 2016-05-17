@@ -29,7 +29,7 @@ function(hunter_create_cache_meta_directory cache_directory result)
   endif()
   file(COPY "${toolchain_info}" DESTINATION "${cache_meta_dir}")
 
-  # Save package name and version
+  # Save package name and version
   set(cache_meta_dir "${cache_meta_dir}/${HUNTER_PACKAGE_NAME}")
   if(has_component)
     set(cache_meta_dir "${cache_meta_dir}/__${HUNTER_PACKAGE_COMPONENT}")
