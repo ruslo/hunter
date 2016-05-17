@@ -73,6 +73,22 @@ elseif(UNIX) # Linux
 elseif(WIN32)
   find_package(Qt5OpenGL REQUIRED)
   set(plugins Qt5::DSServicePlugin Qt5::OpenGL)
+  if(MINGW)
+    list(APPEND plugins strmiids)
+
+    # defined: '_imp__glDepthRange'
+    list(APPEND plugins opengl32)
+
+    # defined `hb_ot_tags_from_script'
+    # should be set before Qt5::Gui
+    list(APPEND plugins "${QT_ROOT}/lib/libqtharfbuzzng.a")
+
+    # defined: 'pcre16_exec'
+    list(APPEND plugins "${QT_ROOT}/lib/libqtpcre.a")
+
+    # defined: '_WSAAsyncSelect'
+    list(APPEND plugins ws2_32)
+  endif()
 else()
   message(FATAL_ERROR "Not supported")
 endif()
