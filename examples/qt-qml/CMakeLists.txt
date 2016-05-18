@@ -39,6 +39,12 @@ set(fix_cyclic FALSE)
 if(APPLE)
   set(fix_cyclic FALSE)
 elseif(CMAKE_COMPILER_IS_GNUCXX)
+  # MinGW included
+  set(fix_cyclic TRUE)
+elseif(NOT UNIX)
+  set(fix_cyclic FALSE)
+elseif("${CMAKE_CXX_COMPILER_ID}" STREQUAL "Clang")
+  # Linux Clang
   set(fix_cyclic TRUE)
 endif()
 
