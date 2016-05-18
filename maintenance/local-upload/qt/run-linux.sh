@@ -28,7 +28,7 @@ TOOLCHAIN=android-ndk-r10e-api-19-armeabi-v7a-neon ./jenkins.py --verbose --uplo
 
 export PROJECT_DIR=examples/qt-location
 
-TOOLCHAIN=clang-libstdcxx ./jenkins.py --verbose --upload --nocreate
+# TOOLCHAIN=clang-libstdcxx ./jenkins.py --verbose --upload --nocreate # Broken (see .travis.yml)
 TOOLCHAIN=gcc-4-8 ./jenkins.py --verbose --upload --nocreate
 TOOLCHAIN=android-ndk-r10e-api-19-armeabi-v7a-neon ./jenkins.py --verbose --upload --nocreate
 
