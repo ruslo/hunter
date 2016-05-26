@@ -935,6 +935,10 @@
 # pragma message(HUNTER_INFO(__GCCXML__))
 #endif
 
+#if defined(__GCC_ASM_FLAG_OUTPUTS__)
+# pragma message(HUNTER_INFO(__GCC_ASM_FLAG_OUTPUTS__))
+#endif
+
 #if defined(__GCC_ATOMIC_BOOL_LOCK_FREE)
 # pragma message(HUNTER_INFO(__GCC_ATOMIC_BOOL_LOCK_FREE))
 #endif
@@ -1047,6 +1051,10 @@
 # pragma message(HUNTER_INFO(__GNUC_PATCHLEVEL__))
 #endif
 
+#if defined(__GNUC_STDC_INLINE__)
+# pragma message(HUNTER_INFO(__GNUC_STDC_INLINE__))
+#endif
+
 #if defined(__GNUC__)
 # pragma message(HUNTER_INFO(__GNUC__))
 #endif
@@ -1061,6 +1069,10 @@
 
 #if defined(__GXX_ABI_VERSION)
 # pragma message(HUNTER_INFO(__GXX_ABI_VERSION))
+#endif
+
+#if defined(__GXX_EXPERIMENTAL_CXX0X__)
+# pragma message(HUNTER_INFO(__GXX_EXPERIMENTAL_CXX0X__))
 #endif
 
 #if defined(__GXX_RTTI)
@@ -1581,6 +1593,14 @@
 
 #if defined(__SCHAR_MAX__)
 # pragma message(HUNTER_INFO(__SCHAR_MAX__))
+#endif
+
+#if defined(__SEG_FS)
+# pragma message(HUNTER_INFO(__SEG_FS))
+#endif
+
+#if defined(__SEG_GS)
+# pragma message(HUNTER_INFO(__SEG_GS))
 #endif
 
 #if defined(__SGI_STL)
@@ -2207,12 +2227,88 @@
 # pragma message(HUNTER_INFO(__cplusplus_winrt))
 #endif
 
+#if defined(__cpp_aggregate_nsdmi)
+# pragma message(HUNTER_INFO(__cpp_aggregate_nsdmi))
+#endif
+
+#if defined(__cpp_alias_templates)
+# pragma message(HUNTER_INFO(__cpp_alias_templates))
+#endif
+
+#if defined(__cpp_attributes)
+# pragma message(HUNTER_INFO(__cpp_attributes))
+#endif
+
 #if defined(__cpp_binary_literals)
 # pragma message(HUNTER_INFO(__cpp_binary_literals))
 #endif
 
+#if defined(__cpp_constexpr)
+# pragma message(HUNTER_INFO(__cpp_constexpr))
+#endif
+
+#if defined(__cpp_decltype)
+# pragma message(HUNTER_INFO(__cpp_decltype))
+#endif
+
+#if defined(__cpp_decltype_auto)
+# pragma message(HUNTER_INFO(__cpp_decltype_auto))
+#endif
+
+#if defined(__cpp_delegating_constructors)
+# pragma message(HUNTER_INFO(__cpp_delegating_constructors))
+#endif
+
+#if defined(__cpp_digit_separators)
+# pragma message(HUNTER_INFO(__cpp_digit_separators))
+#endif
+
 #if defined(__cpp_exceptions)
 # pragma message(HUNTER_INFO(__cpp_exceptions))
+#endif
+
+#if defined(__cpp_generic_lambdas)
+# pragma message(HUNTER_INFO(__cpp_generic_lambdas))
+#endif
+
+#if defined(__cpp_hex_float)
+# pragma message(HUNTER_INFO(__cpp_hex_float))
+#endif
+
+#if defined(__cpp_inheriting_constructors)
+# pragma message(HUNTER_INFO(__cpp_inheriting_constructors))
+#endif
+
+#if defined(__cpp_init_captures)
+# pragma message(HUNTER_INFO(__cpp_init_captures))
+#endif
+
+#if defined(__cpp_initializer_lists)
+# pragma message(HUNTER_INFO(__cpp_initializer_lists))
+#endif
+
+#if defined(__cpp_lambdas)
+# pragma message(HUNTER_INFO(__cpp_lambdas))
+#endif
+
+#if defined(__cpp_nsdmi)
+# pragma message(HUNTER_INFO(__cpp_nsdmi))
+#endif
+
+#if defined(__cpp_range_based_for)
+# pragma message(HUNTER_INFO(__cpp_range_based_for))
+#endif
+
+#if defined(__cpp_raw_strings)
+# pragma message(HUNTER_INFO(__cpp_raw_strings))
+#endif
+
+#if defined(__cpp_ref_qualifiers)
+# pragma message(HUNTER_INFO(__cpp_ref_qualifiers))
+#endif
+
+#if defined(__cpp_return_type_deduction)
+# pragma message(HUNTER_INFO(__cpp_return_type_deduction))
 #endif
 
 #if defined(__cpp_rtti)
@@ -2221,6 +2317,38 @@
 
 #if defined(__cpp_runtime_arrays)
 # pragma message(HUNTER_INFO(__cpp_runtime_arrays))
+#endif
+
+#if defined(__cpp_rvalue_reference)
+# pragma message(HUNTER_INFO(__cpp_rvalue_reference))
+#endif
+
+#if defined(__cpp_sized_deallocation)
+# pragma message(HUNTER_INFO(__cpp_sized_deallocation))
+#endif
+
+#if defined(__cpp_static_assert)
+# pragma message(HUNTER_INFO(__cpp_static_assert))
+#endif
+
+#if defined(__cpp_unicode_characters)
+# pragma message(HUNTER_INFO(__cpp_unicode_characters))
+#endif
+
+#if defined(__cpp_unicode_literals)
+# pragma message(HUNTER_INFO(__cpp_unicode_literals))
+#endif
+
+#if defined(__cpp_user_defined_literals)
+# pragma message(HUNTER_INFO(__cpp_user_defined_literals))
+#endif
+
+#if defined(__cpp_variable_templates)
+# pragma message(HUNTER_INFO(__cpp_variable_templates))
+#endif
+
+#if defined(__cpp_variadic_templates)
+# pragma message(HUNTER_INFO(__cpp_variadic_templates))
 #endif
 
 #if defined(__embedded_cplusplus)
