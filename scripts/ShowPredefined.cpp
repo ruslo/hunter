@@ -91,6 +91,14 @@
 # pragma message(HUNTER_INFO(_DLL))
 #endif
 
+#if defined(_GLIBCXX_USE_CXX11_ABI)
+# pragma message(HUNTER_INFO(_GLIBCXX_USE_CXX11_ABI))
+#endif
+
+#if defined(_GNU_SOURCE)
+# pragma message(HUNTER_INFO(_GNU_SOURCE))
+#endif
+
 #if defined(_IA64)
 # pragma message(HUNTER_INFO(_IA64))
 #endif
@@ -273,6 +281,10 @@
 
 #if defined(_SGI_COMPILER_VERSION)
 # pragma message(HUNTER_INFO(_SGI_COMPILER_VERSION))
+#endif
+
+#if defined(_STDC_PREDEF_H)
+# pragma message(HUNTER_INFO(_STDC_PREDEF_H))
 #endif
 
 #if defined(_STLPORT_MAJOR)
@@ -767,6 +779,10 @@
 # pragma message(HUNTER_INFO(__DECC_VER))
 #endif
 
+#if defined(__DECIMAL_BID_FORMAT__)
+# pragma message(HUNTER_INFO(__DECIMAL_BID_FORMAT__))
+#endif
+
 #if defined(__DECIMAL_DIG__)
 # pragma message(HUNTER_INFO(__DECIMAL_DIG__))
 #endif
@@ -797,6 +813,10 @@
 
 #if defined(__EDG__)
 # pragma message(HUNTER_INFO(__EDG__))
+#endif
+
+#if defined(__ELF__)
+# pragma message(HUNTER_INFO(__ELF__))
 #endif
 
 #if defined(__ENVIRONMENT_IPHONE_OS_VERSION_MIN_REQUIRED__)
@@ -959,6 +979,10 @@
 # pragma message(HUNTER_INFO(__GCC_ATOMIC_WCHAR_T_LOCK_FREE))
 #endif
 
+#if defined(__GCC_HAVE_DWARF2_CFI_ASM)
+# pragma message(HUNTER_INFO(__GCC_HAVE_DWARF2_CFI_ASM))
+#endif
+
 #if defined(__GCC_HAVE_SYNC_COMPARE_AND_SWAP_1)
 # pragma message(HUNTER_INFO(__GCC_HAVE_SYNC_COMPARE_AND_SWAP_1))
 #endif
@@ -993,6 +1017,14 @@
 
 #if defined(__GLIBCPP__)
 # pragma message(HUNTER_INFO(__GLIBCPP__))
+#endif
+
+#if defined(__GLIBCXX_BITSIZE_INT_N_0)
+# pragma message(HUNTER_INFO(__GLIBCXX_BITSIZE_INT_N_0))
+#endif
+
+#if defined(__GLIBCXX_TYPE_INT_N_0)
+# pragma message(HUNTER_INFO(__GLIBCXX_TYPE_INT_N_0))
 #endif
 
 #if defined(__GLIBCXX__)
@@ -1595,6 +1627,14 @@
 # pragma message(HUNTER_INFO(__SIZEOF_DOUBLE__))
 #endif
 
+#if defined(__SIZEOF_FLOAT128__)
+# pragma message(HUNTER_INFO(__SIZEOF_FLOAT128__))
+#endif
+
+#if defined(__SIZEOF_FLOAT80__)
+# pragma message(HUNTER_INFO(__SIZEOF_FLOAT80__))
+#endif
+
 #if defined(__SIZEOF_FLOAT__)
 # pragma message(HUNTER_INFO(__SIZEOF_FLOAT__))
 #endif
@@ -1687,6 +1727,10 @@
 # pragma message(HUNTER_INFO(__SSE__))
 #endif
 
+#if defined(__SSP_STRONG__)
+# pragma message(HUNTER_INFO(__SSP_STRONG__))
+#endif
+
 #if defined(__SSP__)
 # pragma message(HUNTER_INFO(__SSP__))
 #endif
@@ -1697,6 +1741,22 @@
 
 #if defined(__STDC_HOSTED__)
 # pragma message(HUNTER_INFO(__STDC_HOSTED__))
+#endif
+
+#if defined(__STDC_IEC_559_COMPLEX__)
+# pragma message(HUNTER_INFO(__STDC_IEC_559_COMPLEX__))
+#endif
+
+#if defined(__STDC_IEC_559__)
+# pragma message(HUNTER_INFO(__STDC_IEC_559__))
+#endif
+
+#if defined(__STDC_ISO_10646__)
+# pragma message(HUNTER_INFO(__STDC_ISO_10646__))
+#endif
+
+#if defined(__STDC_NO_THREADS__)
+# pragma message(HUNTER_INFO(__STDC_NO_THREADS__))
 #endif
 
 #if defined(__STDC_UTF_16__)
@@ -2147,6 +2207,22 @@
 # pragma message(HUNTER_INFO(__cplusplus_winrt))
 #endif
 
+#if defined(__cpp_binary_literals)
+# pragma message(HUNTER_INFO(__cpp_binary_literals))
+#endif
+
+#if defined(__cpp_exceptions)
+# pragma message(HUNTER_INFO(__cpp_exceptions))
+#endif
+
+#if defined(__cpp_rtti)
+# pragma message(HUNTER_INFO(__cpp_rtti))
+#endif
+
+#if defined(__cpp_runtime_arrays)
+# pragma message(HUNTER_INFO(__cpp_runtime_arrays))
+#endif
+
 #if defined(__embedded_cplusplus)
 # pragma message(HUNTER_INFO(__embedded_cplusplus))
 #endif
@@ -2157,6 +2233,18 @@
 
 #if defined(__ghs__)
 # pragma message(HUNTER_INFO(__ghs__))
+#endif
+
+#if defined(__gnu_linux__)
+# pragma message(HUNTER_INFO(__gnu_linux__))
+#endif
+
+#if defined(__has_include)
+# pragma message(HUNTER_INFO(__has_include))
+#endif
+
+#if defined(__has_include_next)
+# pragma message(HUNTER_INFO(__has_include_next))
 #endif
 
 #if defined(__hppa)
@@ -2213,6 +2301,10 @@
 
 #if defined(__linux)
 # pragma message(HUNTER_INFO(__linux))
+#endif
+
+#if defined(__linux__)
+# pragma message(HUNTER_INFO(__linux__))
 #endif
 
 #if defined(__llvm__)
@@ -2397,6 +2489,10 @@
 
 #if defined(__unix)
 # pragma message(HUNTER_INFO(__unix))
+#endif
+
+#if defined(__unix__)
+# pragma message(HUNTER_INFO(__unix__))
 #endif
 
 #if defined(__unsafe_unretained)
