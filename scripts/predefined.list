@@ -586,8 +586,6 @@ __embedded_cplusplus
 __ghs
 __ghs__
 __gnu_linux__
-__has_include
-__has_include_next
 __hppa
 __hppa__
 __hpux

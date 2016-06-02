@@ -2367,14 +2367,6 @@
 # pragma message(HUNTER_INFO(__gnu_linux__))
 #endif
 
-#if defined(__has_include)
-# pragma message(HUNTER_INFO(__has_include))
-#endif
-
-#if defined(__has_include_next)
-# pragma message(HUNTER_INFO(__has_include_next))
-#endif
-
 #if defined(__hppa)
 # pragma message(HUNTER_INFO(__hppa))
 #endif
