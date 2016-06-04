@@ -1,8 +1,4 @@
-if(DEFINED HUNTER_CMAKE_PROJECTS_SDL2_HUNTER_CMAKE_)
-  return()
-else()
-  set(HUNTER_CMAKE_PROJECTS_SDL2_HUNTER_CMAKE_ 1)
-endif()
+# !!! DO NOT PLACE HEADER GUARDS HERE !!!
 
 # Load used modules
 include(hunter_add_version)
@@ -21,4 +17,5 @@ hunter_add_version(
 )
 
 hunter_pick_scheme(DEFAULT url_sha1_cmake)
+hunter_cacheable(SDL2)
 hunter_download(PACKAGE_NAME SDL2)
