@@ -10,11 +10,11 @@ hunter_add_version(
     PACKAGE_NAME
     SDL2
     VERSION
-    "2.0.4-p0"
+    "2.0.4-p1"
     URL
-    "https://github.com/hunter-packages/SDL2/archive/2.0.4-p0.tar.gz"
+    "https://github.com/hunter-packages/SDL2/archive/2.0.4-p1.tar.gz"
     SHA1
-    fcd56bd843432325fd7716d6ce8fdb4a049d521b
+    daebe20807e166f62f3671f742e81e8d2959388b
 )
 
 hunter_pick_scheme(DEFAULT url_sha1_cmake)
