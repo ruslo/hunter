@@ -1,5 +1,5 @@
 /**
- * @file   main.cpp  
+ * @file   main.cpp
  * @author Dennis Sitelew
  * @date   Jun 07, 2016
  *
