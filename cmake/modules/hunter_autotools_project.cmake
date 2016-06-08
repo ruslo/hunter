@@ -271,7 +271,8 @@ function(hunter_autotools_project target_name)
     list(APPEND configure_command "PKG_CONFIG_PATH=${d1}:${d2}")
   endif()
 
-  if(NOT ("${PARAM_BOOTSTRAP}" STREQUAL ""))
+  string(COMPARE NOTEQUAL "${PARAM_BOOTSTRAP}" "" have_bootstrap)
+  if(have_bootstrap)
     list(APPEND configure_command "${PARAM_BOOTSTRAP}" &&)
   endif()
 
