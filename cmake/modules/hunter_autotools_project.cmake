@@ -43,6 +43,9 @@
 #     MODIFY_PKG_CONFIG                       # add <root-id>/{lib,share}/pkgconfig
 #                                             # folders to the PKG_CONFIG_PATH
 #                                             # environment variable
+#     BOOTSTRAP                               # add a bootstrap command to be run
+#       "./autogen.sh"                        # before ./configure such as 
+#                                             # ./autogen.sh or ./bootstrap
 # )
 
 include(ExternalProject) # ExternalProject_Add
@@ -69,6 +72,7 @@ function(hunter_autotools_project target_name)
       CFLAGS
       CXXFLAGS
       LDFLAGS
+      BOOTSTRAP
   )
   set(multi_value_params EXTRA_FLAGS)
   cmake_parse_arguments(
@@ -265,6 +269,11 @@ function(hunter_autotools_project target_name)
     set(d1 "${PARAM_GLOBAL_INSTALL_DIR}/lib/pkgconfig")
     set(d2 "${PARAM_GLOBAL_INSTALL_DIR}/share/pkgconfig")
     list(APPEND configure_command "PKG_CONFIG_PATH=${d1}:${d2}")
+  endif()
+
+  string(COMPARE NOTEQUAL "${PARAM_BOOTSTRAP}" "" have_bootstrap)
+  if(have_bootstrap)
+    list(APPEND configure_command "${PARAM_BOOTSTRAP}" &&)
   endif()
 
   list(APPEND configure_command "./configure")
