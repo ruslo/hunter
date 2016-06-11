@@ -4,7 +4,6 @@ project(Hunter)
 
 # Inludes
 list(APPEND CMAKE_MODULE_PATH "@HUNTER_SELF@/cmake/modules")
-list(APPEND CMAKE_MODULE_PATH "@HUNTER_SELF@/cmake/projects/libsodium/config")
 include(ExternalProject)
 include(hunter_install_libsodium_config)
 include(hunter_user_error)
