@@ -17,8 +17,10 @@ hunter_add_version(
     00a999629f1f8f500cef29818135f8f889f44e41
 )
 
-
-hunter_pick_scheme(DEFAULT url_sha1_libsodium_msbuild
-                   WINDOWS url_sha1_libsodium_autogen_autotools)
+if(MSVC)
+    hunter_pick_scheme(DEFAULT url_sha1_libsodium_msbuild)
+else()
+    hunter_pick_scheme(DEFAULT url_sha1_libsodium_autogen_autotools)
+endif()
 hunter_cacheable(libsodium)
 hunter_download(PACKAGE_NAME libsodium)
