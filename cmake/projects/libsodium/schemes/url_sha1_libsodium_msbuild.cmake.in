@@ -91,7 +91,7 @@ endif()
 
 
 # ExternalProject
-ExternalProjectAdd("@HUNTER_EP_NAME@"
+ExternalProject_Add("@HUNTER_EP_NAME@"
     URL
         @HUNTER_PACKAGE_URL@
     URL_HASH
