@@ -107,7 +107,7 @@ ExternalProject_Add("@HUNTER_EP_NAME@"
     CONFIGURE_COMMAND
         ""
     BUILD_COMMAND
-        msbuild ${proj_file_path} /p:PlatformToolset:${msvc_platform_toolset} /p:Configuration:${configuration_type} /p:PostBuildEventUseInBuild=false
+        msbuild ${proj_file_path} /p:PlatformToolset=${msvc_platform_toolset} /p:Configuration=${configuration_type} /p:PostBuildEventUseInBuild=false
     BUILD_IN_SOURCE
         1
     INSTALL_COMMAND
