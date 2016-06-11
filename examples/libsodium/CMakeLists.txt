@@ -1,6 +1,7 @@
 cmake_minimum_required(VERSION 3.0)
 project(libsodium-example)
 
+set(HUNTER_CONFIGURATION_TYPES Release) #Release or Debug
 # Emulate HunterGate:
 # * https://github.com/hunter-packages/gate
 include("../common.cmake")
