@@ -5,6 +5,7 @@ function(hunter_install_libsodium_config)
 
     hunter_test_string_not_empty("${HUNTER_libsodium_VERSION}")
     hunter_test_string_not_empty("${HUNTER_PACKAGE_INSTALL_PREFIX}")
+    hunter_test_string_not_empty("${HUNTER_SELF}")
 
     set(templates "${HUNTER_SELF}/cmake/templates")
     set(configs "${HUNTER_PACKAGE_INSTALL_PREFIX}/lib/cmake/libsodium")

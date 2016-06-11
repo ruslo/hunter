@@ -59,5 +59,6 @@ if(BUILD_SHARED_LIBS)
 endif()
 set(HUNTER_libsodium_VERSION "@HUNTER_libsodium_VERSION@")
 set(HUNTER_PACKAGE_INSTALL_PREFIX @HUNTER_PACKAGE_INSTALL_PREFIX@)
+set(HUNTER_SELF @HUNTER_SELF@)
 
 hunter_install_libsodium_config()
