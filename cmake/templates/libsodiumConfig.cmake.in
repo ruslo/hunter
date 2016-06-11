@@ -28,7 +28,9 @@ endif()
 
 if(NOT TARGET "libsodium::libsodium")
     add_library("libsodium::libsodium" INTERFACE IMPORTED)
-    target_link_libraries("libsodium::libsodium" INTERFACE ${_lib_file})
+    set_target_properties("libsodium::libsodium"
+        PROPERTIES
+        INTERFACE_LINK_LIBRARIES ${_lib_file})
     set_target_properties("libsodium::libsodium"
         PROPERTIES
         INTERFACE_INCLUDE_DIRECTORIES
