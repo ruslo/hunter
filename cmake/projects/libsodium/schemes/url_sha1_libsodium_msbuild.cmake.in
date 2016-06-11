@@ -70,7 +70,7 @@ if(_is_release)
 elseif(_is_debug)
     set(configuration_type "Debug")
 else()
-    hunter_user_error("Invalid build configuration type provided. Valid configuration types are: Release or Debug")
+    hunter_user_error("Invalid build configuration type provided (HUNTER_PACKAGE_CONFIGURATION_TYPES). Valid configuration types are: Release or Debug")
 endif()
 
 
@@ -89,6 +89,7 @@ if(HUNTER_STATUS_DEBUG)
     hunter_status_debug("MSBuild Build Configuration: ${configuration_type}")
 endif()
 
+file(TO_NATIVE_PATH "@HUNTER_PACKAGE_SOURCE_DIR@\\libsodium.vcxproj" proj_file_path)
 
 # ExternalProject
 ExternalProject_Add("@HUNTER_EP_NAME@"
@@ -106,15 +107,14 @@ ExternalProject_Add("@HUNTER_EP_NAME@"
     CONFIGURE_COMMAND
         ""
     BUILD_COMMAND
-        "msbuild /p:PlatformToolset:${msvc_platform_toolset} /p:Configuration:${configuration_type} /p:PostBuildEventUseInBuild=false"
+        msbuild ${proj_file_path} /p:PlatformToolset:${msvc_platform_toolset} /p:Configuration:${configuration_type} /p:PostBuildEventUseInBuild=false
     BUILD_IN_SOURCE
         1
     INSTALL_COMMAND
-        #"${CMAKE_COMMAND} -E make_directory @HUNTER_PACKAGE_INSTALL_PREFIX@" &&
-        "${CMAKE_COMMAND} -E copy_directory Build\\${configuration_type}\\${msvc_arch} @HUNTER_PACKAGE_INSTALL_PREFIX@\\lib" &&
-        "${CMAKE_COMMAND} -E copy_directory src\\libsodium\\include @HUNTER_PACKAGE_INSTALL_PREFIX@\\include" &&
-        "${CMAKE_COMMAND} -E remove_directory @HUNTER_PACKAGE_INSTALL_PREFIX@\\lib\\Intermediate" &&
-        "${CMAKE_COMMAND} -E remove @HUNTER_PACKAGE_INSTALL_PREFIX@\\include\\Makefile.am"
+        ${CMAKE_COMMAND} -E copy_directory Build\\${configuration_type}\\${msvc_arch} @HUNTER_PACKAGE_INSTALL_PREFIX@\\lib &&
+        ${CMAKE_COMMAND} -E copy_directory src\\libsodium\\include @HUNTER_PACKAGE_INSTALL_PREFIX@\\include &&
+        ${CMAKE_COMMAND} -E remove_directory @HUNTER_PACKAGE_INSTALL_PREFIX@\\lib\\Intermediate &&
+        ${CMAKE_COMMAND} -E remove @HUNTER_PACKAGE_INSTALL_PREFIX@\\include\\Makefile.am
 )
 
 
@@ -123,7 +123,7 @@ if(BUILD_SHARED_LIBS)
     set(BUILD_SHARED_LIBS TRUE)
 endif()
 set(HUNTER_libsodium_VERSION "@HUNTER_libsodium_VERSION@")
-set(HUNTER_PACKAGE_INSTALL_PREFIX @HUNTER_PACKAGE_INSTALL_PREFIX@)
-set(HUNTER_SELF @HUNTER_SELF@)
+set(HUNTER_PACKAGE_INSTALL_PREFIX "@HUNTER_PACKAGE_INSTALL_PREFIX@")
+set(HUNTER_SELF "@HUNTER_SELF@")
 
 hunter_install_libsodium_config()
