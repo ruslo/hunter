@@ -4,7 +4,9 @@ project(Hunter)
 
 # Inludes
 list(APPEND CMAKE_MODULE_PATH "@HUNTER_SELF@/cmake/modules")
+list(APPEND CMAKE_MODULE_PATH "@HUNTER_SELF@/cmake/projects/libsodium/config")
 include(ExternalProject)
+include(hunter_install_libsodium_config)
 include(hunter_user_error)
 include(hunter_status_debug)
 include(hunter_test_string_not_empty)
@@ -13,6 +15,7 @@ include(hunter_test_string_not_empty)
 # Check preconditions
 hunter_test_string_not_empty("@HUNTER_SELF@")
 hunter_test_string_not_empty("@HUNTER_EP_NAME@")
+hunter_test_string_not_empty("@HUNTER_libsodium_VERSION@")
 hunter_test_string_not_empty("@HUNTER_PACKAGE_URL@")
 hunter_test_string_not_empty("@HUNTER_PACKAGE_SHA1@")
 hunter_test_string_not_empty("@HUNTER_PACKAGE_DOWNLOAD_DIR@")
@@ -116,8 +119,10 @@ ExternalProjectAdd("@HUNTER_EP_NAME@"
 )
 
 
+# Forward some variables
+if(BUILD_SHARED_LIBS)
+    set(BUILD_SHARED_LIBS TRUE)
+endif()
+set(HUNTER_libsodium_VERSION "@HUNTER_libsodium_VERSION@")
 
-
-
-
-
+hunter_install_libsodium_config()
