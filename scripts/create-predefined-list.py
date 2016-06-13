@@ -66,6 +66,11 @@ exclude_list = [
     '__NO_INLINE__',
     '_DEBUG',
     '__FUNCTION__',
+
+    # gcc & clang preprocessor extensions
+    # see https://github.com/ruslo/hunter/pull/425
+    '__has_include',
+    '__has_include_next',
 ]
 
 macros_list = []
