@@ -62,7 +62,7 @@ endif()
 
 
 #Check Configuration Types
-string(TOUPPER @HUNTER_PACKAGE_CONFIGURATION_TYPES@ configuration_type_upper)
+string(TOUPPER "@HUNTER_PACKAGE_CONFIGURATION_TYPES@" configuration_type_upper)
 string(COMPARE EQUAL ${configuration_type_upper} "RELEASE" _is_release)
 string(COMPARE EQUAL ${configuration_type_upper} "DEBUG"   _is_debug)
 if(_is_release)
