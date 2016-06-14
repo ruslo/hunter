@@ -73,7 +73,10 @@ try_compile(
 )
 
 if(NOT try_compile_result)
-  hunter_internal_error("Compilation of ${predefined} failed")
+  hunter_internal_error(
+      "Compilation of ${predefined} failed. Result: ${try_compile_result}\n"
+      "Output:\n${outresult}"
+  )
 endif()
 
 function(split_string string_in result)
