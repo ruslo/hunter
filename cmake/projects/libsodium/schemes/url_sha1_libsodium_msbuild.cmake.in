@@ -12,16 +12,18 @@ include(hunter_test_string_not_empty)
 
 
 # Check preconditions
-hunter_test_string_not_empty("@HUNTER_SELF@")
 hunter_test_string_not_empty("@HUNTER_EP_NAME@")
+hunter_test_string_not_empty("@HUNTER_INSTALL_PREFIX@")
 hunter_test_string_not_empty("@HUNTER_libsodium_VERSION@")
+hunter_test_string_not_empty("@HUNTER_MSVC_ARCH@")
+hunter_test_string_not_empty("@HUNTER_MSVC_VCVARSALL@")
 hunter_test_string_not_empty("@HUNTER_PACKAGE_URL@")
 hunter_test_string_not_empty("@HUNTER_PACKAGE_SHA1@")
 hunter_test_string_not_empty("@HUNTER_PACKAGE_DOWNLOAD_DIR@")
 hunter_test_string_not_empty("@HUNTER_PACKAGE_SOURCE_DIR@")
 hunter_test_string_not_empty("@HUNTER_PACKAGE_INSTALL_PREFIX@")
 hunter_test_string_not_empty("@HUNTER_PACKAGE_CONFIGURATION_TYPES@")
-hunter_test_string_not_empty("@HUNTER_INSTALL_PREFIX@")
+hunter_test_string_not_empty("@HUNTER_SELF@")
 
 
 if(NOT "@MSVC@")
@@ -105,7 +107,7 @@ ExternalProject_Add("@HUNTER_EP_NAME@"
         "@HUNTER_PACKAGE_INSTALL_PREFIX@"
         # not used, just avoid creating Install/<name> empty directory
     CONFIGURE_COMMAND
-        ""
+        "@HUNTER_MSVC_VCVARSALL@ @HUNTER_MSVC_ARCH@"
     BUILD_COMMAND
         msbuild ${proj_file_path} /p:PlatformToolset=${msvc_platform_toolset} /p:Configuration=${configuration_type} /p:PostBuildEventUseInBuild=false
     BUILD_IN_SOURCE
