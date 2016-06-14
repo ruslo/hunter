@@ -12,7 +12,7 @@ include(hunter_status_debug)
 include(hunter_test_string_not_empty)
 include(hunter_autotools_project)
 
-hunter_status_debug("Scheme: url_sha1_autogen_autotools")
+hunter_status_debug("Scheme: url_sha1_libsodium_autogen_autotools")
 
 if("@MSVC@")
     hunter_user_error("Autotools scheme not supported with Visual Studio")
