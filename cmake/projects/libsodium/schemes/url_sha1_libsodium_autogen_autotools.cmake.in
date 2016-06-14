@@ -54,9 +54,7 @@ hunter_autotools_project("@HUNTER_EP_NAME@"
 
 
 # Forward some variables
-if(BUILD_SHARED_LIBS)
-    set(BUILD_SHARED_LIBS TRUE)
-endif()
+set(BUILD_SHARED_LIBS "@BUILD_SHARED_LIBS@")
 set(HUNTER_libsodium_VERSION "@HUNTER_libsodium_VERSION@")
 set(HUNTER_PACKAGE_INSTALL_PREFIX "@HUNTER_PACKAGE_INSTALL_PREFIX@")
 set(HUNTER_SELF "@HUNTER_SELF@")
