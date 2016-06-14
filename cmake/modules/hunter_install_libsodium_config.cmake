@@ -10,9 +10,6 @@ function(hunter_install_libsodium_config)
     set(templates "${HUNTER_SELF}/cmake/templates")
     set(configs "${HUNTER_PACKAGE_INSTALL_PREFIX}/lib/cmake/libsodium")
 
-    # Forward some variables
-    set(BUILD_SHARED_LIBS "${BUILD_SHARED_LIBS}")
-
     write_basic_package_version_file("${configs}/libsodiumConfig.cmake" VERSION "${HUNTER_libsodium_VERSION}" COMPATIBILITY ExactVersion)
 
     configure_file(
