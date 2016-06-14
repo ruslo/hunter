@@ -35,4 +35,10 @@ if(NOT TARGET "libsodium::libsodium")
         PROPERTIES
         INTERFACE_INCLUDE_DIRECTORIES
         "${_install_dir}/include")
+    if(NOT @BUILD_SHARED_LIBS@)
+        set_target_properties("libsodium::libsodium"
+            PROPERTIES
+            INTERFACE_COMPILE_DEFINITIONS
+            "SODIUM_STATIC")
+    endif()
 endif()
