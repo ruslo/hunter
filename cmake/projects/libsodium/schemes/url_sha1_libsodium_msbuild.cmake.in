@@ -59,7 +59,7 @@ foreach(build_config_type IN @HUNTER_PACKAGE_CONFIGURATION_TYPES@)
     string(COMPARE EQUAL "${build_config_type}" "Release" is_release)
     string(COMPARE EQUAL "${build_config_type}" "Debug"   is_debug)
     if(NOT (is_release OR is_debug))
-        hunter_user_error("libsodium: Invalid build configuration type provided. Valid values are: Release, Debug, Release;Debug (HUNTER_PACKAGE_CONFIGURATION_TYPES)")
+        hunter_user_error("libsodium: Invalid build configuration type provided. Valid values are: \"Release\", \"Debug\", \"Release\;Debug\" (HUNTER_PACKAGE_CONFIGURATION_TYPES)")
     endif()
 
     # Append DLL to build_config_type if shared lib mode
