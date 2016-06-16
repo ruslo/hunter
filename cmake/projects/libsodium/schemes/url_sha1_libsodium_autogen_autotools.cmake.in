@@ -31,7 +31,7 @@ hunter_test_string_not_empty("@HUNTER_PACKAGE_INSTALL_PREFIX@")
 hunter_test_string_not_empty("@HUNTER_INSTALL_PREFIX@")
 
 # Autotools Project
-foreach(build_config_type IN @HUNTER_PACKAGE_CONFIGURATION_TYPES@)
+foreach(build_config_type IN "@HUNTER_PACKAGE_CONFIGURATION_TYPES@")
 
     # Check for valid configuration
     string(COMPARE EQUAL "${build_config_type}" "Release" is_release)

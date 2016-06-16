@@ -53,7 +53,7 @@ endif()
 file(TO_NATIVE_PATH "@HUNTER_PACKAGE_SOURCE_DIR@\\libsodium.vcxproj" proj_file_path)
 
 # ExternalProject
-foreach(build_config_type IN @HUNTER_PACKAGE_CONFIGURATION_TYPES@)
+foreach(build_config_type IN "@HUNTER_PACKAGE_CONFIGURATION_TYPES@")
 
     # Check for valid configuration (exact capitalization required)
     string(COMPARE EQUAL "${build_config_type}" "Release" is_release)
