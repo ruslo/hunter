@@ -117,10 +117,11 @@ foreach(build_config_type HUNTER_PACKAGE_CONFIGURATION_TYPES@)
 
 
     # Install target file
-    # Required: lib file name, BUILD_SHARED_LIBS, install prefix
+    # Required: lib file name, BUILD_SHARED_LIBS, install prefix, hunter_self
     string(TOUPPER ${build_config_type} TARGET_CONFIGURATION)
     set(HUNTER_PACKAGE_INSTALL_PREFIX "@HUNTER_PACKAGE_INSTALL_PREFIX@")
     set(TARGET_LIB_FILE               "libsodium${lib_suffix}.${lib_extension}")
+    set(HUNTER_SELF                   "@HUNTER_SELF@")
 
     hunter_install_libsodium_targets()
 
@@ -132,6 +133,5 @@ set(BUILD_SHARED_LIBS                  "@BUILD_SHARED_LIBS@")
 set(HUNTER_libsodium_VERSION           "@HUNTER_libsodium_VERSION@")
 set(HUNTER_PACKAGE_CONFIGURATION_TYPES "@HUNTER_PACKAGE_CONFIGURATION_TYPES@")
 set(HUNTER_PACKAGE_INSTALL_PREFIX      "@HUNTER_PACKAGE_INSTALL_PREFIX@")
-set(HUNTER_SELF                        "@HUNTER_SELF@")
 
 hunter_install_libsodium_config()
