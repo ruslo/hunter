@@ -90,7 +90,7 @@ foreach(build_config_type @HUNTER_PACKAGE_CONFIGURATION_TYPES@)
         hunter_status_debug("MSBuild Build Configuration: ${build_config_type}")
     endif()
 
-    ExternalProject_Add("@HUNTER_EP_NAME@"
+    ExternalProject_Add("@HUNTER_EP_NAME@${build_config_type}"
         URL
             @HUNTER_PACKAGE_URL@
         URL_HASH
