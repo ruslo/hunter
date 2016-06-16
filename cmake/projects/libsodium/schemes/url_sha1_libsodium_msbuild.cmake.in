@@ -50,6 +50,18 @@ else()
         "If there is a new version please open an issue at https://github.com/ruslo/hunter and mention @Cyberunner23")
 endif()
 
+# Check MSVC Architechture
+string(COMPARE EQUAL "@HUNTER_MSVC_ARCH@" "x86"   _is_arch_x86)
+string(COMPARE EQUAL "@HUNTER_MSVC_ARCH@" "amd64" _is_arch_x64)
+
+if(_is_arch_x86)
+    set(msvc_arch "Win32")
+elseif(_is_arch_x64)
+    set(msvc_arch "x64")
+else()
+    hunter_user_error("Architechture supplied is not supported.")
+endif()
+
 file(TO_NATIVE_PATH "@HUNTER_PACKAGE_SOURCE_DIR@\\libsodium.vcxproj" proj_file_path)
 
 # ExternalProject
@@ -120,7 +132,7 @@ foreach(build_config_type @HUNTER_PACKAGE_CONFIGURATION_TYPES@)
     # Required: lib file name, BUILD_SHARED_LIBS, install prefix, hunter_self
     string(TOUPPER ${build_config_type} TARGET_CONFIGURATION)
     set(HUNTER_PACKAGE_INSTALL_PREFIX "@HUNTER_PACKAGE_INSTALL_PREFIX@")
-    set(TARGET_LIB_FILE               "libsodium${lib_suffix}.${lib_extension}")
+    set(TARGET_LIB_FILE               "libsodium${lib_suffix}.lib")
     set(HUNTER_SELF                   "@HUNTER_SELF@")
 
     hunter_install_libsodium_targets()
