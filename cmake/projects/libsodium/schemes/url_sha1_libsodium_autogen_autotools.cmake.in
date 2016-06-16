@@ -85,12 +85,11 @@ foreach(build_config_type @HUNTER_PACKAGE_CONFIGURATION_TYPES@)
         set(lib_suffix "r")
     endif()
 
-    execute_process(
-        COMMAND
-        ${CMAKE_COMMAND} -E rename ${lib_file} @HUNTER_PACKAGE_INSTALL_PREFIX@/lib/libsodium${lib_suffix}.${lib_extension}
-        DEPENDS
-        @HUNTER_EP_NAME@
+    ExternalProject_Add_Step("@HUNTER_EP_NAME@"
+        DEPENDEES install
+        COMMAND ${CMAKE_COMMAND} -E rename ${lib_file} @HUNTER_PACKAGE_INSTALL_PREFIX@/lib/libsodium${lib_suffix}.${lib_extension}
     )
+
 
     # Install target file
     # Required: Build configuration, lib file name, BUILD_SHARED_LIBS
