@@ -88,6 +88,8 @@ foreach(build_config_type @HUNTER_PACKAGE_CONFIGURATION_TYPES@)
     execute_process(
         COMMAND
         ${CMAKE_COMMAND} -E rename ${lib_file} @HUNTER_PACKAGE_INSTALL_PREFIX@/lib/libsodium${lib_suffix}.${lib_extension}
+        DEPENDS
+        @HUNTER_EP_NAME@
     )
 
     # Install target file
