@@ -5,7 +5,7 @@ project(Hunter)
 # Inludes
 list(APPEND CMAKE_MODULE_PATH "@HUNTER_SELF@/cmake/modules")
 include(ExternalProject)
-include(hunter_install_libsodium_config)
+include(hunter_libsodium_install_tools)
 include(hunter_user_error)
 include(hunter_status_debug)
 include(hunter_test_string_not_empty)
@@ -67,10 +67,19 @@ foreach(build_config_type IN @HUNTER_PACKAGE_CONFIGURATION_TYPES@)
         string(CONCAT build_config_type ${build_config_type} "DLL")
     endif()
 
-    # Set different output name for debug builds
+    # Rename the libraries, needed in the case we have
+    # debug and release builds at the same. We don't want
+    # to overwrite the library files when building the
+    # second build config.
     if(is_debug)
-        set(lib_output_name_option "/p:TargetName=libsodiumd")
+        set(lib_output_name "libsodiumd")
     endif()
+
+    if(is_release)
+        set(lib_output_name "libsodiumr")
+    endif()
+
+    set(lib_output_name_option "/p:TargetName=${lib_output_name}")
 
     # Print MSVC Values
     if(HUNTER_STATUS_DEBUG)
@@ -106,13 +115,22 @@ foreach(build_config_type IN @HUNTER_PACKAGE_CONFIGURATION_TYPES@)
             ${CMAKE_COMMAND} -E remove @HUNTER_PACKAGE_INSTALL_PREFIX@\\include\\Makefile.am
     )
 
-    # Forward some variables
-    set(IS_DEBUG                      "${is_debug}")
-    set(BUILD_SHARED_LIBS             "@BUILD_SHARED_LIBS@")
-    set(HUNTER_libsodium_VERSION      "@HUNTER_libsodium_VERSION@")
-    set(HUNTER_PACKAGE_INSTALL_PREFIX "@HUNTER_PACKAGE_INSTALL_PREFIX@")
-    set(HUNTER_SELF                   "@HUNTER_SELF@")
 
-    hunter_install_libsodium_config()
+    # Install target file
+    # Required: Build configuration, lib file name
+    string(TOUPPER ${build_config_type} TARGET_CONFIGURATION)
+    set(TARGET_LIB_FILE   "${lib_output_name}.lib")
+
+    hunter_install_libsodium_targets()
 
 endforeach()
+
+
+# Forward some variables
+set(BUILD_SHARED_LIBS                  "@BUILD_SHARED_LIBS@")
+set(HUNTER_libsodium_VERSION           "@HUNTER_libsodium_VERSION@")
+set(HUNTER_PACKAGE_CONFIGURATION_TYPES "@HUNTER_PACKAGE_CONFIGURATION_TYPES@")
+set(HUNTER_PACKAGE_INSTALL_PREFIX      "@HUNTER_PACKAGE_INSTALL_PREFIX@")
+set(HUNTER_SELF                        "@HUNTER_SELF@")
+
+hunter_install_libsodium_config()

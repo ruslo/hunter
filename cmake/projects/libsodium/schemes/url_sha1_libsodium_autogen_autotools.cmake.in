@@ -6,7 +6,7 @@ project(Hunter)
 
 list(APPEND CMAKE_MODULE_PATH "@HUNTER_SELF@/cmake/modules")
 
-include(hunter_install_libsodium_config)
+include(hunter_libsodium_install_tools)
 include(hunter_user_error)
 include(hunter_status_debug)
 include(hunter_test_string_not_empty)
@@ -26,10 +26,21 @@ hunter_test_string_not_empty("@HUNTER_PACKAGE_SHA1@")
 hunter_test_string_not_empty("@HUNTER_PACKAGE_DOWNLOAD_DIR@")
 hunter_test_string_not_empty("@HUNTER_PACKAGE_SOURCE_DIR@")
 hunter_test_string_not_empty("@HUNTER_PACKAGE_BUILD_DIR@")
+hunter_test_string_not_empty("@HUNTER_PACKAGE_CONFIGURATION_TYPES@")
 hunter_test_string_not_empty("@HUNTER_PACKAGE_INSTALL_PREFIX@")
 hunter_test_string_not_empty("@HUNTER_INSTALL_PREFIX@")
 
-hunter_autotools_project("@HUNTER_EP_NAME@"
+# Autotools Project
+foreach(build_config_type IN @HUNTER_PACKAGE_CONFIGURATION_TYPES@)
+
+    # Check for valid configuration
+    string(COMPARE EQUAL "${build_config_type}" "Release" is_release)
+    string(COMPARE EQUAL "${build_config_type}" "Debug"   is_debug)
+    if(NOT (is_release OR is_debug))
+        hunter_user_error("libsodium: Invalid build configuration type provided. Valid values are: \"Release\", \"Debug\", \"Release\;Debug\" (HUNTER_PACKAGE_CONFIGURATION_TYPES)")
+    endif()
+
+    hunter_autotools_project("@HUNTER_EP_NAME@"
         HUNTER_SELF
         "@HUNTER_SELF@"
         URL
@@ -50,13 +61,50 @@ hunter_autotools_project("@HUNTER_EP_NAME@"
         "@HUNTER_JOBS_OPTION@"
         BOOTSTRAP
         "./autogen.sh"
-        )
+        EXTRA_FLAGS
+        --disable-soname-versions
+    )
+
+    # Rename the libraries, needed in the case we have
+    # debug and release builds at the same. We don't want
+    # to overwrite the library files when building the
+    # second build config.
+    if(BUILD_SHARED_LIBS)
+        set(lib_file      "@HUNTER_PACKAGE_INSTALL_PREFIX@/lib/libsodium.so")
+        set(lib_extension "so")
+    else()
+        set(lib_file      "@HUNTER_PACKAGE_INSTALL_PREFIX@/lib/libsodium.a")
+        set(lib_extension "a")
+    endif()
+
+    if(is_debug)
+        set(lib_suffix "d")
+    endif()
+
+    if(is_release)
+        set(lib_suffix "r")
+    endif()
+
+    execute_process(
+        COMMAND
+        ${CMAKE_COMMAND} -E rename ${lib_file} @HUNTER_PACKAGE_INSTALL_PREFIX@/lib/libsodium${lib_suffix}.${lib_extension}
+    )
+
+    # Install target file
+    # Required: Build configuration, lib file name, BUILD_SHARED_LIBS
+    string(TOUPPER ${build_config_type} TARGET_CONFIGURATION)
+    set(TARGET_LIB_FILE   "libsodium${lib_suffix}.${lib_extension}")
+
+    hunter_install_libsodium_targets()
+
+endforeach()
 
 
 # Forward some variables
-set(BUILD_SHARED_LIBS "@BUILD_SHARED_LIBS@")
-set(HUNTER_libsodium_VERSION "@HUNTER_libsodium_VERSION@")
-set(HUNTER_PACKAGE_INSTALL_PREFIX "@HUNTER_PACKAGE_INSTALL_PREFIX@")
-set(HUNTER_SELF "@HUNTER_SELF@")
+set(BUILD_SHARED_LIBS                  "@BUILD_SHARED_LIBS@")
+set(HUNTER_libsodium_VERSION           "@HUNTER_libsodium_VERSION@")
+set(HUNTER_PACKAGE_CONFIGURATION_TYPES "@HUNTER_PACKAGE_CONFIGURATION_TYPES@")
+set(HUNTER_PACKAGE_INSTALL_PREFIX      "@HUNTER_PACKAGE_INSTALL_PREFIX@")
+set(HUNTER_SELF                        "@HUNTER_SELF@")
 
 hunter_install_libsodium_config()

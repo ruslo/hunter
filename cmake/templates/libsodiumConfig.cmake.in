@@ -13,36 +13,16 @@ endif()
 
 get_filename_component(_install_dir "${CMAKE_CURRENT_LIST_DIR}/../../../" ABSOLUTE)
 
+add_library("libsodium::libsodium" INTERFACE IMPORTED)
+set_target_properties(libsodium::libsodium PROPERTIES
+    IMPORTED_LINK_INTERFACE_LANGUAGES_DEBUG "C"
+    INTERFACE_INCLUDE_DIRECTORIES "${_install_dir}/include"
+    @TARGET_INTERFACE_COMPILE_DEFINITIONS@
+)
 
-# Get lib file
-if(MSVC)
-    if(@IS_DEBUG@)
-        set(_lib_file ${_install_dir}/lib/libsodiumd.lib)
-    else()
-        set(_lib_file ${_install_dir}/lib/libsodium.lib)
-    endif()
-else()
-    if(@BUILD_SHARED_LIBS@)
-        set(_lib_file ${_install_dir}/lib/libsodium.so)
-    else()
-        set(_lib_file ${_install_dir}/lib/libsodium.a)
-    endif()
-endif()
-
-
-if(NOT TARGET "libsodium::libsodium")
-    add_library("libsodium::libsodium" INTERFACE IMPORTED)
-    set_target_properties("libsodium::libsodium"
-        PROPERTIES
-        INTERFACE_LINK_LIBRARIES ${_lib_file})
-    set_target_properties("libsodium::libsodium"
-        PROPERTIES
-        INTERFACE_INCLUDE_DIRECTORIES
-        "${_install_dir}/include")
-    if(NOT @BUILD_SHARED_LIBS@)
-        set_target_properties("libsodium::libsodium"
-            PROPERTIES
-            INTERFACE_COMPILE_DEFINITIONS
-            "SODIUM_STATIC")
-    endif()
-endif()
+# Get all libsodiumTargets-*.cmake files
+get_filename_component(_DIR "${CMAKE_CURRENT_LIST_FILE}" PATH)
+file(GLOB TARGET_FILES "${_DIR}/libsodiumTargets-*.cmake")
+foreach(file ${TARGET_FILES})
+    include(${file})
+endforeach()
