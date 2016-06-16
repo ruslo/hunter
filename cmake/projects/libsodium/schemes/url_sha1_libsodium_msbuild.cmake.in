@@ -31,10 +31,10 @@ if(NOT "@MSVC@")
 endif()
 
 # Check MSVC Platform Toolset
-string(COMPARE EQUAL "@HUNTER_MSVC_VERSION@" "10" _is_platform_toolset_v100)
-string(COMPARE EQUAL "@HUNTER_MSVC_VERSION@" "11" _is_platform_toolset_v110)
-string(COMPARE EQUAL "@HUNTER_MSVC_VERSION@" "12" _is_platform_toolset_v120)
-string(COMPARE EQUAL "@HUNTER_MSVC_VERSION@" "14" _is_platform_toolset_v140)
+string(COMPARE EQUAL "@HUNTER_MSVC_VERSION@" "10" _is_platform_toolset_v100) # VS2010
+string(COMPARE EQUAL "@HUNTER_MSVC_VERSION@" "11" _is_platform_toolset_v110) # VC2012
+string(COMPARE EQUAL "@HUNTER_MSVC_VERSION@" "12" _is_platform_toolset_v120) # VC2013
+string(COMPARE EQUAL "@HUNTER_MSVC_VERSION@" "14" _is_platform_toolset_v140) # VC2015
 
 if(_is_platform_toolset_v100)
     set(msvc_platform_toolset "v100")
@@ -46,7 +46,7 @@ elseif(_is_platform_toolset_v140)
     set(msvc_platform_toolset "v140")
 else()
     hunter_user_error(
-        "Visual studio version not supported. Supported versions are: Visual studio 2010, 2011, 2012 and 2014."
+        "Visual studio version not supported. Supported versions are: Visual studio 2010, 2012, 2013 and 2015."
         "If there is a new version please open an issue at https://github.com/ruslo/hunter and mention @Cyberunner23")
 endif()
 
