@@ -117,9 +117,10 @@ foreach(build_config_type HUNTER_PACKAGE_CONFIGURATION_TYPES@)
 
 
     # Install target file
-    # Required: Build configuration, lib file name
+    # Required: lib file name, BUILD_SHARED_LIBS, install prefix
     string(TOUPPER ${build_config_type} TARGET_CONFIGURATION)
-    set(TARGET_LIB_FILE   "${lib_output_name}.lib")
+    set(HUNTER_PACKAGE_INSTALL_PREFIX "@HUNTER_PACKAGE_INSTALL_PREFIX@")
+    set(TARGET_LIB_FILE               "libsodium${lib_suffix}.${lib_extension}")
 
     hunter_install_libsodium_targets()
 
