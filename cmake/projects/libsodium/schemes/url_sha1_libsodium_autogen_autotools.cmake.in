@@ -86,8 +86,8 @@ foreach(build_config_type @HUNTER_PACKAGE_CONFIGURATION_TYPES@)
     endif()
 
     ExternalProject_Add_Step("@HUNTER_EP_NAME@"
-        DEPENDEES install
         COMMAND ${CMAKE_COMMAND} -E rename ${lib_file} @HUNTER_PACKAGE_INSTALL_PREFIX@/lib/libsodium${lib_suffix}.${lib_extension}
+        DEPENDEES install
     )
 
 
