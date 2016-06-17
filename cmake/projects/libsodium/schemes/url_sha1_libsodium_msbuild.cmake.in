@@ -115,9 +115,9 @@ foreach(build_config_type @HUNTER_PACKAGE_CONFIGURATION_TYPES@)
             "@HUNTER_PACKAGE_INSTALL_PREFIX@"
             # not used, just avoid creating Install/<name> empty directory
         CONFIGURE_COMMAND
-            "@HUNTER_MSVC_VCVARSALL@" @HUNTER_MSVC_ARCH@
+            ""
         BUILD_COMMAND
-            msbuild ${proj_file_path} /p:Platform=${msvc_arch} /p:PlatformToolset=${msvc_platform_toolset} /p:Configuration=${build_config_type} /p:PostBuildEventUseInBuild=false ${lib_output_name_option}
+            "@HUNTER_MSVC_VCVARSALL@" @HUNTER_MSVC_ARCH@ && msbuild ${proj_file_path} /p:Platform=${msvc_arch} /p:PlatformToolset=${msvc_platform_toolset} /p:Configuration=${build_config_type} /p:PostBuildEventUseInBuild=false ${lib_output_name_option}
         BUILD_IN_SOURCE
             1
         INSTALL_COMMAND
