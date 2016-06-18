@@ -1,0 +1,149 @@
+cmake_minimum_required(VERSION 3.0)
+project(Hunter)
+
+
+# Inludes
+list(APPEND CMAKE_MODULE_PATH "@HUNTER_SELF@/cmake/modules")
+include(ExternalProject)
+include(hunter_libsodium_install_tools)
+include(hunter_user_error)
+include(hunter_status_debug)
+include(hunter_test_string_not_empty)
+
+
+# Check preconditions
+hunter_test_string_not_empty("@HUNTER_EP_NAME@")
+hunter_test_string_not_empty("@HUNTER_INSTALL_PREFIX@")
+hunter_test_string_not_empty("@HUNTER_libsodium_VERSION@")
+hunter_test_string_not_empty("@HUNTER_MSVC_ARCH@")
+hunter_test_string_not_empty("@HUNTER_MSVC_VCVARSALL@")
+hunter_test_string_not_empty("@HUNTER_PACKAGE_URL@")
+hunter_test_string_not_empty("@HUNTER_PACKAGE_SHA1@")
+hunter_test_string_not_empty("@HUNTER_PACKAGE_DOWNLOAD_DIR@")
+hunter_test_string_not_empty("@HUNTER_PACKAGE_SOURCE_DIR@")
+hunter_test_string_not_empty("@HUNTER_PACKAGE_INSTALL_PREFIX@")
+hunter_test_string_not_empty("@HUNTER_PACKAGE_CONFIGURATION_TYPES@")
+hunter_test_string_not_empty("@HUNTER_SELF@")
+
+
+if(NOT "@MSVC@")
+    hunter_user_error("MSBuild scheme only supported with Visual Studio")
+endif()
+
+# Check MSVC Platform Toolset
+string(COMPARE EQUAL "@HUNTER_MSVC_VERSION@" "10" _is_platform_toolset_v100) # VS2010
+string(COMPARE EQUAL "@HUNTER_MSVC_VERSION@" "11" _is_platform_toolset_v110) # VC2012
+string(COMPARE EQUAL "@HUNTER_MSVC_VERSION@" "12" _is_platform_toolset_v120) # VC2013
+string(COMPARE EQUAL "@HUNTER_MSVC_VERSION@" "14" _is_platform_toolset_v140) # VC2015
+
+if(_is_platform_toolset_v100)
+    set(msvc_platform_toolset "v100")
+elseif(_is_platform_toolset_v110)
+    set(msvc_platform_toolset "v110")
+elseif(_is_platform_toolset_v120)
+    set(msvc_platform_toolset "v120")
+elseif(_is_platform_toolset_v140)
+    set(msvc_platform_toolset "v140")
+else()
+    hunter_user_error(
+        "Visual studio version not supported. Supported versions are: Visual studio 2010, 2012, 2013 and 2015."
+        "If there is a new version please open an issue at https://github.com/ruslo/hunter and mention @Cyberunner23")
+endif()
+
+# Check MSVC Architechture
+string(COMPARE EQUAL "@HUNTER_MSVC_ARCH@" "x86"   _is_arch_x86)
+string(COMPARE EQUAL "@HUNTER_MSVC_ARCH@" "amd64" _is_arch_x64)
+
+if(_is_arch_x86)
+    set(msvc_arch "Win32")
+elseif(_is_arch_x64)
+    set(msvc_arch "x64")
+else()
+    hunter_user_error("Architechture supplied is not supported.")
+endif()
+
+file(TO_NATIVE_PATH "@HUNTER_PACKAGE_SOURCE_DIR@\\libsodium.vcxproj" proj_file_path)
+
+# ExternalProject
+foreach(build_config_type @HUNTER_PACKAGE_CONFIGURATION_TYPES@)
+
+    # Check for valid configuration (exact capitalization required)
+    string(COMPARE EQUAL "${build_config_type}" "Release" is_release)
+    string(COMPARE EQUAL "${build_config_type}" "Debug"   is_debug)
+    if(NOT (is_release OR is_debug))
+        hunter_user_error("libsodium: Invalid build configuration type provided. Valid values are: \"Release\", \"Debug\", \"Release\;Debug\" (HUNTER_PACKAGE_CONFIGURATION_TYPES)")
+    endif()
+
+    # Append DLL to build_config_type if shared lib mode
+    if(BUILD_SHARED_LIBS)
+        string(CONCAT build_config_type ${build_config_type} "DLL")
+    endif()
+
+    # Rename the libraries, needed in the case we have
+    # debug and release builds at the same. We don't want
+    # to overwrite the library files when building the
+    # second build config.
+    if(is_debug)
+        set(lib_output_name "libsodiumd")
+    endif()
+
+    if(is_release)
+        set(lib_output_name "libsodiumr")
+    endif()
+
+    set(lib_output_name_option "/p:TargetName=${lib_output_name}")
+
+    # Print MSVC Values
+    if(HUNTER_STATUS_DEBUG)
+        hunter_status_debug("------- libsodium MSBuild values -------")
+        hunter_status_debug("Platform Toolset:            ${msvc_platform_toolset}")
+        hunter_status_debug("Architechture:               ${msvc_arch}")
+        hunter_status_debug("Build Configuration(s):      @HUNTER_PACKAGE_CONFIGURATION_TYPES@")
+        hunter_status_debug("MSBuild Build Configuration: ${build_config_type}")
+    endif()
+
+    ExternalProject_Add("@HUNTER_EP_NAME@${build_config_type}"
+        URL
+            @HUNTER_PACKAGE_URL@
+        URL_HASH
+            SHA1=@HUNTER_PACKAGE_SHA1@
+        DOWNLOAD_DIR
+            "@HUNTER_PACKAGE_DOWNLOAD_DIR@"
+        SOURCE_DIR
+            "@HUNTER_PACKAGE_SOURCE_DIR@"
+        INSTALL_DIR
+            "@HUNTER_PACKAGE_INSTALL_PREFIX@"
+            # not used, just avoid creating Install/<name> empty directory
+        CONFIGURE_COMMAND
+            ""
+        BUILD_COMMAND
+            "@HUNTER_MSVC_VCVARSALL@" @HUNTER_MSVC_ARCH@ && msbuild ${proj_file_path} /p:Platform=${msvc_arch} /p:PlatformToolset=${msvc_platform_toolset} /p:Configuration=${build_config_type} /p:PostBuildEventUseInBuild=false ${lib_output_name_option}
+        BUILD_IN_SOURCE
+            1
+        INSTALL_COMMAND
+            ${CMAKE_COMMAND} -E copy_directory Build\\${build_config_type}\\${msvc_arch} @HUNTER_PACKAGE_INSTALL_PREFIX@\\lib &&
+            ${CMAKE_COMMAND} -E copy_directory src\\libsodium\\include @HUNTER_PACKAGE_INSTALL_PREFIX@\\include &&
+            ${CMAKE_COMMAND} -E remove_directory @HUNTER_PACKAGE_INSTALL_PREFIX@\\lib\\Intermediate &&
+            ${CMAKE_COMMAND} -E remove @HUNTER_PACKAGE_INSTALL_PREFIX@\\include\\Makefile.am
+    )
+
+
+    # Install target file
+    # Required: lib file name, BUILD_SHARED_LIBS, install prefix, hunter_self
+    string(TOUPPER ${build_config_type} TARGET_CONFIGURATION)
+    set(HUNTER_PACKAGE_INSTALL_PREFIX "@HUNTER_PACKAGE_INSTALL_PREFIX@")
+    set(TARGET_LIB_FILE               "${lib_output_name}.lib")
+    set(HUNTER_SELF                   "@HUNTER_SELF@")
+
+    hunter_install_libsodium_targets()
+
+endforeach()
+
+
+# Forward some variables
+set(BUILD_SHARED_LIBS                  "@BUILD_SHARED_LIBS@")
+set(HUNTER_libsodium_VERSION           "@HUNTER_libsodium_VERSION@")
+set(HUNTER_PACKAGE_CONFIGURATION_TYPES "@HUNTER_PACKAGE_CONFIGURATION_TYPES@")
+set(HUNTER_PACKAGE_INSTALL_PREFIX      "@HUNTER_PACKAGE_INSTALL_PREFIX@")
+
+hunter_install_libsodium_config()
