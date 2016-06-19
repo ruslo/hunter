@@ -64,6 +64,8 @@ endif()
 
 file(TO_NATIVE_PATH "@HUNTER_PACKAGE_SOURCE_DIR@\\libsodium.vcxproj" proj_file_path)
 
+set(previous_project "")
+
 # ExternalProject
 foreach(build_config_type @HUNTER_PACKAGE_CONFIGURATION_TYPES@)
 
@@ -102,7 +104,9 @@ foreach(build_config_type @HUNTER_PACKAGE_CONFIGURATION_TYPES@)
         hunter_status_debug("MSBuild Build Configuration: ${build_config_type}")
     endif()
 
-    ExternalProject_Add("@HUNTER_EP_NAME@${build_config_type}"
+    set(current_project "@HUNTER_EP_NAME@${build_config_type}")
+
+    ExternalProject_Add("${current_project}"
         URL
             @HUNTER_PACKAGE_URL@
         URL_HASH
@@ -127,6 +131,16 @@ foreach(build_config_type @HUNTER_PACKAGE_CONFIGURATION_TYPES@)
             ${CMAKE_COMMAND} -E remove @HUNTER_PACKAGE_INSTALL_PREFIX@\\include\\Makefile.am
     )
 
+    # Each external project must depends on previous one since they all use
+    # the same building directory
+    string(COMPARE EQUAL "${previous_project}" "" is_empty)
+    if(NOT is_empty)
+        add_dependencies(
+                "${current_project}"
+                "${previous_project}"
+        )
+    endif()
+    set(previous_project "${current_project}")
 
     # Install target file
     # Required: lib file name, BUILD_SHARED_LIBS, install prefix, hunter_self
