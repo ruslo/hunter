@@ -30,6 +30,8 @@ hunter_test_string_not_empty("@HUNTER_PACKAGE_CONFIGURATION_TYPES@")
 hunter_test_string_not_empty("@HUNTER_PACKAGE_INSTALL_PREFIX@")
 hunter_test_string_not_empty("@HUNTER_INSTALL_PREFIX@")
 
+set(previous_project "")
+
 # Autotools Project
 foreach(build_config_type @HUNTER_PACKAGE_CONFIGURATION_TYPES@)
 
@@ -40,7 +42,9 @@ foreach(build_config_type @HUNTER_PACKAGE_CONFIGURATION_TYPES@)
         hunter_user_error("libsodium: Invalid build configuration type provided. Valid values are: \"Release\", \"Debug\", \"Release\;Debug\" (HUNTER_PACKAGE_CONFIGURATION_TYPES)")
     endif()
 
-    hunter_autotools_project(@HUNTER_EP_NAME@${build_config_type}
+    set(current_project "@HUNTER_EP_NAME@${build_config_type}")
+
+    hunter_autotools_project("${current_project}"
         HUNTER_SELF
         "@HUNTER_SELF@"
         URL
@@ -97,6 +101,17 @@ foreach(build_config_type @HUNTER_PACKAGE_CONFIGURATION_TYPES@)
     set(HUNTER_PACKAGE_INSTALL_PREFIX "@HUNTER_PACKAGE_INSTALL_PREFIX@")
     set(TARGET_LIB_FILE               "libsodium${lib_suffix}.${lib_extension}")
     set(HUNTER_SELF                   "@HUNTER_SELF@")
+
+    # Each external project must depends on previous one since they all use
+    # the same building directory
+    string(COMPARE EQUAL "${previous_project}" "" is_empty)
+    if(NOT is_empty)
+        add_dependencies(
+                "${current_project}"
+                "${previous_project}"
+        )
+    endif()
+    set(previous_project "${current_project}")
 
     hunter_install_libsodium_targets()
 
