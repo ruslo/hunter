@@ -75,6 +75,7 @@ hunter_config(QtAndroidCMake VERSION 1.0.6)
 hunter_config(QtCMakeExtra VERSION 1.0.17)
 hunter_config(QtQmlManager VERSION 1.0.0)
 hunter_config(RapidJSON VERSION 0.11-hunter)
+hunter_config(SDL2 VERSION 2.0.4-p1)
 hunter_config(SQLite3 VERSION autoconf-3080803) #R-Tree enabled
 hunter_config(Sober VERSION 0.1.3)
 hunter_config(Sugar VERSION 1.2.2)
