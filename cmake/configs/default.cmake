@@ -128,7 +128,7 @@ hunter_config(odb-sqlite VERSION 2.4.0)
 hunter_config(openddlparser VERSION 0.1.0-p1)
 hunter_config(pciaccess VERSION 0.13.4)
 hunter_config(poly2tri VERSION 1.0.0)
-hunter_config(polyclipping VERSION 6.2.1-p0)
+hunter_config(polyclipping VERSION 4.8.8-p0) # for Assimp
 hunter_config(presentproto VERSION 1.0)
 hunter_config(pthread-stubs VERSION 0.3)
 hunter_config(rabbitmq-c VERSION 0.7.0-p1)
