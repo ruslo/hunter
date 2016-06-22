@@ -13,7 +13,7 @@ project(download-rapidjson)
 hunter_add_package(RapidJSON)
 
 # now rapidjson can be used
-find_package(rapidjson CONFIG REQUIRED)
+find_package(RapidJSON CONFIG REQUIRED)
 
 add_executable(condense condense.cpp)
-target_link_libraries(condense rapidjson::rapidjson)
+target_link_libraries(condense RapidJSON::rapidjson)
