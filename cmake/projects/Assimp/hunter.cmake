@@ -24,8 +24,8 @@ hunter_cmake_args(
     Assimp
     CMAKE_ARGS
     ASSIMP_BUILD_ASSIMP_TOOLS=OFF
-    ASSIMP_BUILD_SAMPLES=ON
-    ASSIMP_BUILD_TESTS=ON
+    ASSIMP_BUILD_SAMPLES=OFF
+    ASSIMP_BUILD_TESTS=OFF
 )
 
 hunter_pick_scheme(DEFAULT url_sha1_cmake)
