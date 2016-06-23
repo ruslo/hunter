@@ -13,6 +13,17 @@ hunter_add_version(
     PACKAGE_NAME
     Assimp
     VERSION
+    3.2-p1
+    URL
+    "https://github.com/hunter-packages/assimp/archive/v3.2-p1.tar.gz"
+    SHA1
+    018ce1cc19f0cf89dd5157cfbfa1c2925eab6926
+)
+
+hunter_add_version(
+    PACKAGE_NAME
+    Assimp
+    VERSION
     3.2-p0
     URL
     "https://github.com/hunter-packages/assimp/archive/v3.2-p0.tar.gz"
@@ -26,6 +37,7 @@ hunter_cmake_args(
     ASSIMP_BUILD_ASSIMP_TOOLS=OFF
     ASSIMP_BUILD_SAMPLES=OFF
     ASSIMP_BUILD_TESTS=OFF
+    ASSIMP_ENABLE_BOOST_WORKAROUND=OFF
 )
 
 hunter_pick_scheme(DEFAULT url_sha1_cmake)
