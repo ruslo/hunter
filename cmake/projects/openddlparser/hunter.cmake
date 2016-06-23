@@ -41,6 +41,17 @@ hunter_add_version(
     1d181741c6db44f36719c9f8193e818287f096b6
 )
 
+hunter_add_version(
+    PACKAGE_NAME
+    openddlparser
+    VERSION
+    "0.1.0-p2"
+    URL
+    "https://github.com/hunter-packages/openddl-parser/archive/v0.1.0-p2.tar.gz"
+    SHA1
+    7aaca11a4347d7e9f933da3bdf99264624d9fa6f
+)
+
 hunter_pick_scheme(DEFAULT url_sha1_cmake)
 hunter_cacheable(openddlparser)
 hunter_download(PACKAGE_NAME openddlparser)
