@@ -18,7 +18,10 @@ hunter_add_version(
     VERSION
     "1.61.0"
     URL
-    "https://downloads.sourceforge.net/project/boost/boost/1.61.0/boost_1_61_0.tar.bz2"
+    # Use same archive but from GitHub releases for better reachability. This is a same archive with same SHA1.
+    # Example, download stuck 4 times at one build: https://ci.appveyor.com/project/ingenue/hunter/build/1.0.633
+    # "https://downloads.sourceforge.net/project/boost/boost/1.61.0/boost_1_61_0.tar.bz2"
+    "https://github.com/hunter-packages/boost/releases/download/v1.61.0/boost_1_61_0.tar.bz2"
     SHA1
     f84b1a1ce764108ec3c2b7bd7704cf8dfd3c9d01
 )
