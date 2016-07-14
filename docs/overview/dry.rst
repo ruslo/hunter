@@ -7,13 +7,13 @@ solution with toolchains, build types, build options, parallel jobs,
 forwarding of compiler flags and making it works correctly for all generators
 is not a trivial task.
 
-Hunter store `ExternalProject_Add`_ recipies as a collection of templates. Once
+Hunter store `ExternalProject_Add`_ recipies as a set of templates. Once
 written formula (`build scheme`_) can be reused by other projects without
 copying of collection of superbuild files (`DRY principle`_).
 When new package with new scheme introduced all you need to do is just update
 ``SHA1``/``URL`` of ``HunterGate`` command.
 
-.. seealso::
+.. admonition:: Stackoverflow
 
   * `How to use CMake ExternalProject_Add or alternatives in a cross platform way? <http://stackoverflow.com/questions/16842218>`_
 

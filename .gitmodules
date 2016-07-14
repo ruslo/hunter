@@ -1,3 +1,6 @@
 [submodule "gate"]
   path = gate
   url = https://github.com/hunter-packages/gate
+[submodule "docs/rtfd-css"]
+  path = docs/rtfd-css
+  url = https://github.com/ruslo/rtfd-css

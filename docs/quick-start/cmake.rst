@@ -28,6 +28,10 @@ Notes about version of CMake
   * New variable `CMAKE_IOS_INSTALL_COMBINED`_ (`change <https://github.com/Kitware/CMake/commit/565d080a9a1e133bda868e905226181b60e90356>`__)
   * `iOS toolchains`_
 
+.. tip::
+
+  * `CMake change log <https://cmake.org/Bug/changelog_page.php>`__
+
 .. _3.0.0: https://www.cmake.org/cmake/help/v3.0/release/3.0.0.html#commands
 .. _3.1.0: https://www.cmake.org/cmake/help/v3.1/release/3.1.0.html#syntax
 .. _3.2.0: https://www.cmake.org/cmake/help/v3.2/release/3.2.html#commands
