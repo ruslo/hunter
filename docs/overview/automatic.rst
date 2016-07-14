@@ -102,6 +102,6 @@ In case this part change you must not to forget to modify ``requirements``
 accordingly too. And real world libraries can have nontrivial chain of conditions, e.g.
 `OpenCV components <https://github.com/Itseez/opencv/blob/ec63343f34658d9b0ec94dc15e1b71e8f7d1d553/CMakeLists.txt#L170>`__.
 
-.. seealso::
+.. admonition:: Stackoverflow
 
   * `Pip: optional dependencies <http://stackoverflow.com/questions/3664478>`__

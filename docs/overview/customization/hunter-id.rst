@@ -52,6 +52,6 @@ Message in logs:
   -- [hunter] [ Hunter-ID: 1eae623 | Config-ID: ... | Toolchain-ID: ... ]
   -- [hunter] [ Hunter-ID: e07a124 | Config-ID: ... | Toolchain-ID: ... ]
 
-.. seealso::
+.. admonition:: GitHub
 
   * `Releases <https://github.com/ruslo/hunter/releases>`_

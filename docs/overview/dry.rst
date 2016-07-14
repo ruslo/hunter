@@ -13,7 +13,7 @@ copying of collection of superbuild files (`DRY principle`_).
 When new package with new scheme introduced all you need to do is just update
 ``SHA1``/``URL`` of ``HunterGate`` command.
 
-.. seealso::
+.. admonition:: Stackoverflow
 
   * `How to use CMake ExternalProject_Add or alternatives in a cross platform way? <http://stackoverflow.com/questions/16842218>`_
 
