@@ -85,7 +85,7 @@ language = None
 
 # List of patterns, relative to source directory, that match files and
 # directories to ignore when looking for source files.
-exclude_patterns = ['_build']
+exclude_patterns = ['_build', 'rtfd-css']
 
 # The reST default role (used for this markup: `text`) to use for all
 # documents.
@@ -158,7 +158,13 @@ if not on_rtd:  # only import and set the theme if we're building docs locally
 # Add any paths that contain custom static files (such as style sheets) here,
 # relative to this directory. They are copied after the builtin static files,
 # so a file named "default.css" will overwrite the builtin "default.css".
-html_static_path = ['_static']
+html_static_path = ['_static', 'rtfd-css/docs/rtfd-css']
+
+# Add custom .css files
+# https://github.com/snide/sphinx_rtd_theme/issues/117#issuecomment-41571653
+def setup(app):
+   app.add_stylesheet("custom.css")
+   app.add_stylesheet("rtfd-css.css")
 
 # Add any extra paths that contain custom files (such as robots.txt or
 # .htaccess) here, relative to this directory. These files are copied
