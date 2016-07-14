@@ -4,6 +4,7 @@
 include(CMakeParseArguments) # cmake_parse_arguments
 
 include(hunter_check_download_error_message)
+include(hunter_init_not_found_counter)
 include(hunter_internal_error)
 include(hunter_sleep_before_download)
 include(hunter_status_debug)
@@ -68,6 +69,8 @@ function(hunter_download_cache_meta_file)
     set(local_url "${url}/master/${local_suffix}")
     set(done_url "${url}/master/${done_suffix}")
 
+    hunter_init_not_found_counter(NOT_FOUND_NEEDED not_found_counter)
+
     set(total_retry 10)
     foreach(x RANGE ${total_retry})
       hunter_status_debug("Downloading file (try #${x} of ${total_retry}):")
@@ -84,13 +87,16 @@ function(hunter_download_cache_meta_file)
           ERROR_CODE "${error_code}"
           ERROR_MESSAGE "${error_message}"
           REMOVE_ON_ERROR "${x_DONE}"
+          NOT_FOUND_COUNTER not_found_counter
       )
 
       if(error_code EQUAL 0)
         break()
       elseif(error_code EQUAL 22)
         hunter_status_debug("File not found")
-        break()
+        if(NOT_FOUND_NEEDED EQUAL not_found_counter)
+          break()
+        endif()
       else()
         hunter_status_debug("Download error (${error_message})")
       endif()
@@ -100,6 +106,8 @@ function(hunter_download_cache_meta_file)
       # DONE stamp not found on this server, try next
       continue()
     endif()
+
+    hunter_init_not_found_counter(NOT_FOUND_NEEDED not_found_counter)
 
     set(total_retry 10)
     foreach(x RANGE ${total_retry})
@@ -117,17 +125,21 @@ function(hunter_download_cache_meta_file)
           ERROR_CODE "${error_code}"
           ERROR_MESSAGE "${error_message}"
           REMOVE_ON_ERROR "${x_LOCAL}"
+          NOT_FOUND_COUNTER not_found_counter
       )
 
       if(error_code EQUAL 0)
         return()
       elseif(error_code EQUAL 22)
-        file(REMOVE "${x_DONE}")
-        hunter_internal_error(
-            "Server error. File not exists but DONE stamp found.\n"
-            "  file: ${local_url}"
-            "  done: ${done_url}"
-        )
+        hunter_status_debug("File not found")
+        if(NOT_FOUND_NEEDED EQUAL not_found_counter)
+          file(REMOVE "${x_DONE}")
+          hunter_internal_error(
+              "Server error. File not exists but DONE stamp found.\n"
+              "  file: ${local_url}"
+              "  done: ${done_url}"
+          )
+        endif()
       else()
         hunter_status_debug("Download error (${error_message})")
       endif()

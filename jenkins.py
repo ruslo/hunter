@@ -274,6 +274,7 @@ def run():
         project_dir,
         '--fwd',
         'HUNTER_DISABLE_BUILDS=ON',
+        'HUNTER_USE_CACHE_SERVERS=ONLY',
         'HUNTER_ROOT={}'.format(hunter_root),
         'TESTING_URL={}'.format(hunter_url),
         'TESTING_SHA1={}'.format(hunter_sha1)
