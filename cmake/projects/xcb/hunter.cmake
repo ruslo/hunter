@@ -5,6 +5,7 @@
 
 include(hunter_add_version)
 include(hunter_cacheable)
+include(hunter_configuration_types)
 include(hunter_download)
 include(hunter_pick_scheme)
 
@@ -40,9 +41,11 @@ endforeach()
 
 list(APPEND _xcb_text_files "lib/libxcb.la" "lib/pkgconfig/xcb.pc")
 
+hunter_configuration_types(xcb CONFIGURATION_TYPES Release)
 hunter_pick_scheme(DEFAULT xcb)
 hunter_cacheable(xcb)
 hunter_download(
     PACKAGE_NAME xcb
+    PACKAGE_INTERNAL_DEPS_ID "1"
     PACKAGE_UNRELOCATABLE_TEXT_FILES "${_xcb_text_files}"
 )

@@ -5,6 +5,7 @@
 
 include(hunter_add_version)
 include(hunter_cacheable)
+include(hunter_configuration_types)
 include(hunter_download)
 include(hunter_pick_scheme)
 
@@ -20,9 +21,11 @@ hunter_add_version(
     b6ed421edf577816f6e641e1846dc0bff337676c
 )
 
+hunter_configuration_types(xtrans CONFIGURATION_TYPES Release)
 hunter_pick_scheme(DEFAULT url_sha1_autotools)
 hunter_cacheable(xtrans)
 hunter_download(
     PACKAGE_NAME xtrans
+    PACKAGE_INTERNAL_DEPS_ID "1"
     PACKAGE_UNRELOCATABLE_TEXT_FILES "share/pkgconfig/xtrans.pc"
 )

@@ -63,6 +63,8 @@ foreach(build_config_type @HUNTER_PACKAGE_CONFIGURATION_TYPES@)
         "@HUNTER_INSTALL_PREFIX@"
         PARALLEL_JOBS
         "@HUNTER_JOBS_OPTION@"
+        PACKAGE_CONFIGURATION_TYPES
+        "@HUNTER_PACKAGE_CONFIGURATION_TYPES@"
         BOOTSTRAP
         "./autogen.sh"
         EXTRA_FLAGS

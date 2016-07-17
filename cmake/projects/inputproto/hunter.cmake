@@ -5,6 +5,7 @@
 
 include(hunter_add_version)
 include(hunter_cacheable)
+include(hunter_configuration_types)
 include(hunter_download)
 include(hunter_pick_scheme)
 
@@ -20,9 +21,11 @@ hunter_add_version(
     500e0a6dac3523887c0b82753fe5e9d4bb982137
 )
 
+hunter_configuration_types(inputproto CONFIGURATION_TYPES Release)
 hunter_pick_scheme(DEFAULT url_sha1_autotools)
 hunter_cacheable(inputproto)
 hunter_download(
     PACKAGE_NAME inputproto
+    PACKAGE_INTERNAL_DEPS_ID "1"
     PACKAGE_UNRELOCATABLE_TEXT_FILES "lib/pkgconfig/inputproto.pc"
 )

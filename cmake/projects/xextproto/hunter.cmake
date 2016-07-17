@@ -5,6 +5,7 @@
 
 include(hunter_add_version)
 include(hunter_cacheable)
+include(hunter_configuration_types)
 include(hunter_download)
 include(hunter_pick_scheme)
 
@@ -20,9 +21,11 @@ hunter_add_version(
     f969e02009adf2d51fd1ba4583a859984728a461
 )
 
+hunter_configuration_types(xextproto CONFIGURATION_TYPES Release)
 hunter_pick_scheme(DEFAULT url_sha1_autotools)
 hunter_cacheable(xextproto)
 hunter_download(
     PACKAGE_NAME xextproto
+    PACKAGE_INTERNAL_DEPS_ID "1"
     PACKAGE_UNRELOCATABLE_TEXT_FILES "lib/pkgconfig/xextproto.pc"
 )

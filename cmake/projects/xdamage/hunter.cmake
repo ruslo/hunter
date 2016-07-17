@@ -5,6 +5,7 @@
 
 include(hunter_add_version)
 include(hunter_cacheable)
+include(hunter_configuration_types)
 include(hunter_download)
 include(hunter_pick_scheme)
 
@@ -20,10 +21,12 @@ hunter_add_version(
     c3fc0f4b02dce2239bf46c82a5f06b06585720ae
 )
 
+hunter_configuration_types(xdamage CONFIGURATION_TYPES Release)
 hunter_pick_scheme(DEFAULT xdamage)
 hunter_cacheable(xdamage)
 hunter_download(
     PACKAGE_NAME xdamage
+    PACKAGE_INTERNAL_DEPS_ID "1"
     PACKAGE_UNRELOCATABLE_TEXT_FILES
     "lib/pkgconfig/xdamage.pc"
     "lib/libXdamage.la"

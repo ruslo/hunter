@@ -5,6 +5,7 @@
 
 include(hunter_add_version)
 include(hunter_cacheable)
+include(hunter_configuration_types)
 include(hunter_download)
 include(hunter_pick_scheme)
 
@@ -20,10 +21,12 @@ hunter_add_version(
     764ac472ae19a0faade193717a9e0938d3430aaa
 )
 
+hunter_configuration_types(xext CONFIGURATION_TYPES Release)
 hunter_pick_scheme(DEFAULT xext)
 hunter_cacheable(xext)
 hunter_download(
     PACKAGE_NAME xext
+    PACKAGE_INTERNAL_DEPS_ID "1"
     PACKAGE_UNRELOCATABLE_TEXT_FILES
     "lib/libXext.la"
     "lib/pkgconfig/xext.pc"
