@@ -5,6 +5,7 @@
 
 include(hunter_add_version)
 include(hunter_cacheable)
+include(hunter_configuration_types)
 include(hunter_download)
 include(hunter_pick_scheme)
 
@@ -20,10 +21,12 @@ hunter_add_version(
     ddb14df8bbc43df7322978f5f9f802936e2a7324
 )
 
+hunter_configuration_types(ice CONFIGURATION_TYPES Release)
 hunter_pick_scheme(DEFAULT ice)
 hunter_cacheable(ice)
 hunter_download(
     PACKAGE_NAME ice
+    PACKAGE_INTERNAL_DEPS_ID "1"
     PACKAGE_UNRELOCATABLE_TEXT_FILES
     "lib/libICE.la"
     "lib/pkgconfig/ice.pc"

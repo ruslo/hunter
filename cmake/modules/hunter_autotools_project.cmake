@@ -26,6 +26,8 @@
 #       "@HUNTER_INSTALL_PREFIX@"
 #     PARALLEL_JOBS                           # number of parallel jobs for make
 #       "@HUNTER_JOBS_OPTION@"
+#     PACKAGE_CONFIGURATION_TYPES             # build configuration (Release|Debug)
+#       "@HUNTER_PACKAGE_CONFIGURATION_TYPES@"
 #     CPPFLAGS                                # C pre-processor flags
 #       "-DEXAMPLE -I/usr/local/include/library"
 #     CFLAGS                                  # C Compiler flags
@@ -74,7 +76,10 @@ function(hunter_autotools_project target_name)
       LDFLAGS
       BOOTSTRAP
   )
-  set(multi_value_params EXTRA_FLAGS)
+  set(multi_value_params
+      PACKAGE_CONFIGURATION_TYPES
+      EXTRA_FLAGS
+  )
   cmake_parse_arguments(
       PARAM
       "${optional_params}"
@@ -98,7 +103,17 @@ function(hunter_autotools_project target_name)
   hunter_test_string_not_empty("${PARAM_BUILD_DIR}")
   hunter_test_string_not_empty("${PARAM_GLOBAL_INSTALL_DIR}")
   hunter_test_string_not_empty("${PARAM_INSTALL_DIR}")
+  hunter_test_string_not_empty("${PARAM_PACKAGE_CONFIGURATION_TYPES}")
 
+  list(LENGTH PARAM_PACKAGE_CONFIGURATION_TYPES len)
+  if(NOT "${len}" EQUAL "1")
+    hunter_fatal_error(
+        "Autotools PACKAGE_CONFIGURATION_TYPES has ${len} elements: ${PARAM_PACKAGE_CONFIGURATION_TYPES}. Only 1 is allowed"
+        WIKI "autools.package.configuration.types"
+    )
+  endif()
+
+  string(TOUPPER ${PARAM_PACKAGE_CONFIGURATION_TYPES} config_type)
   # Sets the toolchain binaries
   #   AR=${CMAKE_AR}
   #   AS=${CMAKE_ASM_COMPILER}
@@ -163,6 +178,14 @@ function(hunter_autotools_project target_name)
   #
   # C Preprocessor flags
   set(cppflags)
+  # build config type definitions
+  get_directory_property(defs
+      COMPILE_DEFINITIONS_${config_type}
+  )
+  foreach(def ${defs})
+    set(cppflags "${cppflags} -D${def}")
+  endforeach()
+  # non-build config specific definitions
   get_directory_property(defs COMPILE_DEFINITIONS)
   foreach(def ${defs})
     set(cppflags "${cppflags} -D${def}")
@@ -182,21 +205,21 @@ function(hunter_autotools_project target_name)
   # CFLAGS=${cflags} ${CMAKE_C_FLAGS}
   #
   # C Compiler Flags (defines or include directories should not be needed here)
-  set(cflags "${CMAKE_C_FLAGS} ${PARAM_CFLAGS}")
+  set(cflags "${CMAKE_C_FLAGS_${config_type}} ${CMAKE_C_FLAGS} ${PARAM_CFLAGS}")
   string(STRIP "${cflags}" cflags)
   hunter_status_debug("CFLAGS=${cflags}")
 
   # CXXFLAGS=${cxxflags} ${CMAKE_CXX_FLAGS}
   #
   # C++ Compiler flags (defines or include directories should not be needed here)
-  set(cxxflags "${CMAKE_CXX_FLAGS} ${PARAM_CXXFLAGS}")
+  set(cxxflags "${CMAKE_CXX_FLAGS_${config_type}} ${CMAKE_CXX_FLAGS} ${PARAM_CXXFLAGS}")
   string(STRIP "${cxxflags}" cxxflags)
   hunter_status_debug("CXXFLAGS=${cxxflags}")
 
   # LDFLAGS=${ldflags}
   #
   # Linker flags
-  set(ldflags "${CMAKE_EXE_LINKER_FLAGS} ${PARAM_LDFLAGS}")
+  set(ldflags "${CMAKE_EXE_LINKER_FLAGS_${config_type}} ${CMAKE_EXE_LINKER_FLAGS} ${PARAM_LDFLAGS}")
   string(STRIP "${ldflags}" ldflags)
   hunter_status_debug("LDFLAGS=${ldflags}")
 

@@ -5,6 +5,7 @@
 
 include(hunter_add_version)
 include(hunter_cacheable)
+include(hunter_configuration_types)
 include(hunter_download)
 include(hunter_pick_scheme)
 
@@ -20,10 +21,12 @@ hunter_add_version(
     6e4d75d8316d5217324258f555eba3a5d383feb2
 )
 
+hunter_configuration_types(xrender CONFIGURATION_TYPES Release)
 hunter_pick_scheme(DEFAULT xrender)
 hunter_cacheable(xrender)
 hunter_download(
     PACKAGE_NAME xrender
+    PACKAGE_INTERNAL_DEPS_ID "1"
     PACKAGE_UNRELOCATABLE_TEXT_FILES
     "lib/libXrender.la"
     "lib/pkgconfig/xrender.pc"

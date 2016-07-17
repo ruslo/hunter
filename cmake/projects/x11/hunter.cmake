@@ -5,6 +5,7 @@
 
 include(hunter_add_version)
 include(hunter_cacheable)
+include(hunter_configuration_types)
 include(hunter_download)
 include(hunter_pick_scheme)
 
@@ -20,10 +21,12 @@ hunter_add_version(
     8177535c9c59d8c3ab98d55ce53520b5737ccd1a
 )
 
+hunter_configuration_types(x11 CONFIGURATION_TYPES Release)
 hunter_pick_scheme(DEFAULT x11)
 hunter_cacheable(x11)
 hunter_download(
     PACKAGE_NAME x11
+    PACKAGE_INTERNAL_DEPS_ID "1"
     PACKAGE_UNRELOCATABLE_TEXT_FILES
     "lib/libX11-xcb.la"
     "lib/libX11.la"

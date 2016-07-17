@@ -5,6 +5,7 @@
 
 include(hunter_add_version)
 include(hunter_cacheable)
+include(hunter_configuration_types)
 include(hunter_download)
 include(hunter_pick_scheme)
 
@@ -20,10 +21,12 @@ hunter_add_version(
     8d354a165e330022ffd3606aba562b8c8154213d
 )
 
+hunter_configuration_types(sm CONFIGURATION_TYPES Release)
 hunter_pick_scheme(DEFAULT sm)
 hunter_cacheable(sm)
 hunter_download(
     PACKAGE_NAME sm
+    PACKAGE_INTERNAL_DEPS_ID "1"
     PACKAGE_UNRELOCATABLE_TEXT_FILES
     "lib/libSM.la"
     "lib/pkgconfig/sm.pc"

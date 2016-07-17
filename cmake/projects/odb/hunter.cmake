@@ -4,6 +4,7 @@
 # !!! DO NOT PLACE HEADER GUARDS HERE !!!
 
 include(hunter_add_version)
+include(hunter_configuration_types)
 include(hunter_download)
 include(hunter_pick_scheme)
 
@@ -18,5 +19,6 @@ hunter_add_version(
     42bd2a8023e338e004711e755eb30bd122b844a6
 )
 
+hunter_configuration_types(odb CONFIGURATION_TYPES Release)
 hunter_pick_scheme(DEFAULT url_sha1_autotools)
 hunter_download(PACKAGE_NAME odb)

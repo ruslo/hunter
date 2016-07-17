@@ -5,6 +5,7 @@
 
 include(hunter_add_version)
 include(hunter_cacheable)
+include(hunter_configuration_types)
 include(hunter_download)
 include(hunter_pick_scheme)
 
@@ -20,9 +21,11 @@ hunter_add_version(
     ab605af5da8c98c0c2f8b2c578fed7c864ee996a
 )
 
+hunter_configuration_types(fixesproto CONFIGURATION_TYPES Release)
 hunter_pick_scheme(DEFAULT url_sha1_autotools)
 hunter_cacheable(fixesproto)
 hunter_download(
     PACKAGE_NAME fixesproto
+    PACKAGE_INTERNAL_DEPS_ID "1"
     PACKAGE_UNRELOCATABLE_TEXT_FILES "lib/pkgconfig/fixesproto.pc"
 )

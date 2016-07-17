@@ -5,6 +5,7 @@
 
 include(hunter_add_version)
 include(hunter_cacheable)
+include(hunter_configuration_types)
 include(hunter_download)
 include(hunter_pick_scheme)
 
@@ -20,10 +21,12 @@ hunter_add_version(
     a2ebe90e5595afca4db93a4359732af43b2b8c69
 )
 
+hunter_configuration_types(xshmfence CONFIGURATION_TYPES Release)
 hunter_pick_scheme(DEFAULT xshmfence)
 hunter_cacheable(xshmfence)
 hunter_download(
     PACKAGE_NAME xshmfence
+    PACKAGE_INTERNAL_DEPS_ID "1"
     PACKAGE_UNRELOCATABLE_TEXT_FILES
     "lib/libxshmfence.la"
     "lib/pkgconfig/xshmfence.pc"

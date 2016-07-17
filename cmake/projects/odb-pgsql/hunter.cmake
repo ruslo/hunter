@@ -4,6 +4,7 @@
 # !!! DO NOT PLACE HEADER GUARDS HERE !!!
 
 include(hunter_add_version)
+include(hunter_configuration_types)
 include(hunter_pick_scheme)
 include(hunter_download)
 
@@ -18,6 +19,7 @@ hunter_add_version(
     4628d5e296da01dbaf8658fd402b4f709f30ea2d
 )
 
+hunter_configuration_types(odb-pgsql CONFIGURATION_TYPES Release)
 hunter_pick_scheme(DEFAULT url_sha1_odb-pgsql_autotools)
 hunter_download(PACKAGE_NAME odb-pgsql)
 
