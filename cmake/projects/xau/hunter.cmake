@@ -5,6 +5,7 @@
 
 include(hunter_add_version)
 include(hunter_cacheable)
+include(hunter_configuration_types)
 include(hunter_download)
 include(hunter_pick_scheme)
 
@@ -20,9 +21,11 @@ hunter_add_version(
     29c47207fd246425b906f525b2220235ce4cd0f6
 )
 
+hunter_configuration_types(xau CONFIGURATION_TYPES Release)
 hunter_pick_scheme(DEFAULT xau)
 hunter_cacheable(xau)
 hunter_download(
     PACKAGE_NAME xau
+    PACKAGE_INTERNAL_DEPS_ID "1"
     PACKAGE_UNRELOCATABLE_TEXT_FILES "lib/libXau.la;lib/pkgconfig/xau.pc"
 )

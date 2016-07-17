@@ -5,6 +5,7 @@
 
 include(hunter_add_version)
 include(hunter_cacheable)
+include(hunter_configuration_types)
 include(hunter_download)
 include(hunter_pick_scheme)
 
@@ -32,9 +33,11 @@ hunter_add_version(
     82a568559235fc6e26d0a38911c5ea18f8e8455c
 )
 
+hunter_configuration_types(xcb-proto CONFIGURATION_TYPES Release)
 hunter_pick_scheme(DEFAULT url_sha1_autotools)
 hunter_cacheable(xcb-proto)
 hunter_download(
     PACKAGE_NAME xcb-proto
+    PACKAGE_INTERNAL_DEPS_ID "1"
     PACKAGE_UNRELOCATABLE_TEXT_FILES "lib/pkgconfig/xcb-proto.pc"
 )

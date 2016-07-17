@@ -5,6 +5,7 @@
 
 include(hunter_add_version)
 include(hunter_cacheable)
+include(hunter_configuration_types)
 include(hunter_download)
 include(hunter_pick_scheme)
 
@@ -20,10 +21,12 @@ hunter_add_version(
     21d43437219ddd1e409fb4b7d77254cd129e8075
 )
 
+hunter_configuration_types(drm CONFIGURATION_TYPES Release)
 hunter_pick_scheme(DEFAULT drm)
 hunter_cacheable(drm)
 hunter_download(
     PACKAGE_NAME drm
+    PACKAGE_INTERNAL_DEPS_ID "1"
     PACKAGE_UNRELOCATABLE_TEXT_FILES
     "lib/libdrm.la"
     "lib/libdrm_amdgpu.la"
