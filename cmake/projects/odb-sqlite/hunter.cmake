@@ -26,5 +26,4 @@ hunter_configuration_types(odb-sqlite CONFIGURATION_TYPES Release)
 hunter_pick_scheme(DEFAULT url_sha1_odb-sqlite_autotools)
 hunter_download(
     PACKAGE_NAME odb-sqlite
-    PACKAGE_DEPENDS_ON odb SQLite3
 )
