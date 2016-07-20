@@ -55,10 +55,6 @@ hunter_autotools_project("@HUNTER_EP_NAME@"
       "@HUNTER_JOBS_OPTION@"
     PACKAGE_CONFIGURATION_TYPES
       "@HUNTER_PACKAGE_CONFIGURATION_TYPES@"
-    CPPFLAGS
-      "-I@HUNTER_INSTALL_PREFIX@/include" # find Expat
-    LDFLAGS
-      "-L@HUNTER_INSTALL_PREFIX@/lib" # find Expat
     EXTRA_FLAGS
       --disable-glib
       --disable-gobject
@@ -72,6 +68,4 @@ hunter_autotools_project("@HUNTER_EP_NAME@"
       --disable-monodoc
       --with-xml=expat
       --enable-compat-libdns_sd
-      MODIFY_PATH # find intltool-update executable (intltool package)
-      MODIFY_PKG_CONFIG # find libdaemon
-    )
+)
