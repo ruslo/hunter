@@ -5,6 +5,7 @@
 
 include(hunter_add_version)
 include(hunter_cacheable)
+include(hunter_cmake_args)
 include(hunter_configuration_types)
 include(hunter_download)
 include(hunter_pick_scheme)
@@ -22,7 +23,16 @@ hunter_add_version(
 )
 
 hunter_configuration_types(xrender CONFIGURATION_TYPES Release)
-hunter_pick_scheme(DEFAULT xrender)
+hunter_pick_scheme(DEFAULT url_sha1_autotools)
+set(xrender_dependencies
+    x11
+    renderproto
+)
+hunter_cmake_args(
+    xrender
+    CMAKE_ARGS         # do not use double quotes on CMAKE_ARGS
+      DEPENDS_ON_PACKAGES=${xrender_dependencies}
+)
 hunter_cacheable(xrender)
 hunter_download(
     PACKAGE_NAME xrender
