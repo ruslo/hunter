@@ -57,5 +57,4 @@ hunter_autotools_project(
     EXTRA_FLAGS
        --without-doxygen
        --disable-devel-docs
-    MODIFY_PKG_CONFIG
 )
