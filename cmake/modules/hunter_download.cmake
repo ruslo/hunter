@@ -18,13 +18,14 @@ include(hunter_user_error)
 
 function(hunter_download)
   set(one PACKAGE_NAME PACKAGE_COMPONENT PACKAGE_INTERNAL_DEPS_ID)
-  set(multiple PACKAGE_DEPENDS_ON)
+  set(multiple PACKAGE_DEPENDS_ON PACKAGE_UNRELOCATABLE_TEXT_FILES)
 
   cmake_parse_arguments(HUNTER "" "${one}" "${multiple}" ${ARGV})
   # -> HUNTER_PACKAGE_NAME
   # -> HUNTER_PACKAGE_COMPONENT
   # -> HUNTER_PACKAGE_DEPENDS_ON
   # -> HUNTER_PACKAGE_INTERNAL_DEPS_ID
+  # -> HUNTER_PACKAGE_UNRELOCATABLE_TEXT_FILES
 
   if(HUNTER_UNPARSED_ARGUMENTS)
     hunter_internal_error("Unparsed: ${HUNTER_UNPARSED_ARGUMENTS}")
@@ -53,6 +54,13 @@ function(hunter_download)
       ""
       has_internal_deps_id
   )
+  string(
+      COMPARE
+      NOTEQUAL
+      "${HUNTER_PACKAGE_UNRELOCATABLE_TEXT_FILES}"
+      ""
+      has_unrelocatable_text_files
+  )
 
   if(hunter_has_component)
     set(HUNTER_EP_NAME "${HUNTER_PACKAGE_NAME}-${HUNTER_PACKAGE_COMPONENT}")
@@ -79,6 +87,13 @@ function(hunter_download)
   endif()
 
   set(HUNTER_PACKAGE_CACHEABLE "${HUNTER_${h_name}_CACHEABLE}")
+
+  if(has_unrelocatable_text_files AND NOT HUNTER_PACKAGE_CACHEABLE)
+    hunter_user_error(
+        "PACKAGE_UNRELOCATABLE_TEXT_FILES for uncacheable package:"
+        "  please add hunter_cacheable to hunter.cmake"
+    )
+  endif()
 
   hunter_test_string_not_empty("${HUNTER_PACKAGE_CONFIGURATION_TYPES}")
 
@@ -193,6 +208,11 @@ function(hunter_download)
   set(ENV{${root_name}} "${${root_name}}")
   hunter_status_print("${root_name}: ${${root_name}} (ver.: ${ver})")
 
+  hunter_status_debug(
+      "Default arguments: ${HUNTER_${h_name}_DEFAULT_CMAKE_ARGS}"
+  )
+  hunter_status_debug("User arguments: ${HUNTER_${h_name}_CMAKE_ARGS}")
+
   # Same for the "snake case"
   string(REPLACE "-" "_" snake_case_root_name "${root_name}")
   set(${snake_case_root_name} "${${root_name}}" PARENT_SCOPE)
@@ -258,7 +278,8 @@ function(hunter_download)
   # load from cache using SHA1 of args.cmake file
   file(REMOVE "${HUNTER_ARGS_FILE}")
   hunter_create_args_file(
-      "${HUNTER_${h_name}_CMAKE_ARGS}" "${HUNTER_ARGS_FILE}"
+      "${HUNTER_${h_name}_DEFAULT_CMAKE_ARGS};${HUNTER_${h_name}_CMAKE_ARGS}"
+      "${HUNTER_ARGS_FILE}"
   )
 
   # Check if package can be loaded from cache

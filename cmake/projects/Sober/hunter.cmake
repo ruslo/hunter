@@ -11,6 +11,17 @@ hunter_add_version(
     PACKAGE_NAME
     Sober
     VERSION
+    "0.1.3"
+    URL
+    "https://github.com/ruslo/sober/archive/v0.1.3.tar.gz"
+    SHA1
+    de9b3b48d13aca211dbb66ce7b97fb597198657f
+)
+
+hunter_add_version(
+    PACKAGE_NAME
+    Sober
+    VERSION
     "0.1.2"
     URL
     "https://github.com/ruslo/sober/archive/v0.1.2.tar.gz"

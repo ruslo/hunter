@@ -4,6 +4,7 @@
 # !!! DO NOT PLACE HEADER GUARDS HERE !!!
 
 include(hunter_add_version)
+include(hunter_configuration_types)
 include(hunter_pick_scheme)
 include(hunter_download)
 
@@ -18,6 +19,7 @@ hunter_add_version(
     f813702b2856732e199ae34e3393b8cecff878ef
 )
 
+hunter_configuration_types(odb-boost CONFIGURATION_TYPES Release)
 hunter_pick_scheme(DEFAULT url_sha1_odb-boost_autotools)
 hunter_download(PACKAGE_NAME odb-boost)
 

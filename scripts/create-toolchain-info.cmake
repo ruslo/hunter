@@ -44,6 +44,15 @@ file(
     "    HUNTER_TOOLCHAIN_UNDETECTABLE_ID: ${HUNTER_TOOLCHAIN_UNDETECTABLE_ID}\n"
 )
 
+string(COMPARE EQUAL "${OSX_SDK_VERSION}" "" is_empty)
+if(NOT is_empty)
+  file(
+      APPEND
+      "${TOOLCHAIN_INFO_FILE}"
+      "    OSX_SDK_VERSION: ${OSX_SDK_VERSION}\n"
+  )
+endif()
+
 foreach(configuration ${HUNTER_CONFIGURATION_TYPES})
   string(TOUPPER "${configuration}" configuration_upper)
   file(APPEND "${TOOLCHAIN_INFO_FILE}" "    CMAKE_${configuration_upper}_POSTFIX: ")
@@ -64,7 +73,10 @@ try_compile(
 )
 
 if(NOT try_compile_result)
-  hunter_internal_error("Compilation of ${predefined} failed")
+  hunter_internal_error(
+      "Compilation of ${predefined} failed. Result: ${try_compile_result}\n"
+      "Output:\n${outresult}"
+  )
 endif()
 
 function(split_string string_in result)

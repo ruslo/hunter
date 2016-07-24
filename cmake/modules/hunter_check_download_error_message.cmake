@@ -7,16 +7,18 @@ include(hunter_internal_error)
 include(hunter_user_error)
 
 function(hunter_check_download_error_message)
-  set(one ERROR_CODE ERROR_MESSAGE REMOVE_ON_ERROR)
+  set(one ERROR_CODE ERROR_MESSAGE REMOVE_ON_ERROR NOT_FOUND_COUNTER)
   cmake_parse_arguments(x "" "${one}" "" "${ARGV}")
   # x_ERROR_CODE
   # x_ERROR_MESSAGE
   # x_REMOVE_ON_ERROR
+  # x_NOT_FOUND_COUNTER
   # x_UNPARSED_ARGUMENTS
 
   hunter_test_string_not_empty("${x_ERROR_CODE}")
   hunter_test_string_not_empty("${x_ERROR_MESSAGE}")
   hunter_test_string_not_empty("${x_REMOVE_ON_ERROR}")
+  hunter_test_string_not_empty("${x_NOT_FOUND_COUNTER}")
 
   string(COMPARE NOTEQUAL "${x_UNPARSED_ARGUMENTS}" "" has_unparsed)
   if(has_unparsed)
@@ -42,10 +44,14 @@ function(hunter_check_download_error_message)
     set(expected_message "\"Failure when receiving data from the peer\"")
   elseif(x_ERROR_CODE EQUAL 18)
     set(expected_message "\"Transferred a partial file\"")
+  elseif(x_ERROR_CODE EQUAL 35)
+    set(expected_message "\"SSL connect error\"")
   elseif(x_ERROR_CODE EQUAL 7)
     set(expected_message "\"Couldn't connect to server\"")
   elseif(x_ERROR_CODE EQUAL 28)
     set(expected_message "\"Timeout was reached\"")
+  elseif(x_ERROR_CODE EQUAL 1)
+    set(expected_message "\"Unsupported protocol\"")
   else()
     file(REMOVE "${x_REMOVE_ON_ERROR}")
     hunter_internal_error(
@@ -65,4 +71,15 @@ function(hunter_check_download_error_message)
         "Unexpected error message for code ${x_ERROR_CODE}: ${x_ERROR_MESSAGE}"
     )
   endif()
+
+  # iterate NOT_FOUND_COUNTER:
+  # we expect series of N errors with 22 code; in case error is not 22, start
+  # again - zero counter
+  if(x_ERROR_CODE EQUAL 22)
+    set(i "${${x_NOT_FOUND_COUNTER}}")
+    math(EXPR i "${i} + 1")
+  else()
+    set(i 0)
+  endif()
+  set("${x_NOT_FOUND_COUNTER}" "${i}" PARENT_SCOPE)
 endfunction()

@@ -19,20 +19,30 @@ Notes about version of CMake
   * New synchronization command ``file(LOCK ...)`` (`change <https://github.com/Kitware/CMake/commit/e6db4c5a4ede8039ed525e3facebd7e0eb7ec1b7>`__)
   * `HUNTER_SKIP_LOCK`_
 
+* `3.4.1`_
+
+  * **Buggy**, see `issue #405`_
+
 * `3.5.0`_ **Minimum for iOS projects**
 
   * New variable `CMAKE_IOS_INSTALL_COMBINED`_ (`change <https://github.com/Kitware/CMake/commit/565d080a9a1e133bda868e905226181b60e90356>`__)
   * `iOS toolchains`_
 
-.. _3.0.0: http://www.cmake.org/cmake/help/v3.0/release/3.0.0.html#commands
-.. _3.1.0: http://www.cmake.org/cmake/help/v3.1/release/3.1.0.html#syntax
-.. _3.2.0: http://www.cmake.org/cmake/help/v3.2/release/3.2.html#commands
-.. _3.5.0: https://cmake.org/cmake/help/v3.5/release/3.5.html#platforms
+.. tip::
+
+  * `CMake change log <https://cmake.org/Bug/changelog_page.php>`__
+
+.. _3.0.0: https://www.cmake.org/cmake/help/v3.0/release/3.0.0.html#commands
+.. _3.1.0: https://www.cmake.org/cmake/help/v3.1/release/3.1.0.html#syntax
+.. _3.2.0: https://www.cmake.org/cmake/help/v3.2/release/3.2.html#commands
+.. _3.4.1: https://www.cmake.org/cmake/help/v3.4/release/3.4.html
+.. _3.5.0: https://www.cmake.org/cmake/help/v3.5/release/3.5.html#platforms
 
 .. _CMP0054: http://www.cmake.org/cmake/help/v3.1/policy/CMP0054.html
 
 .. _PR #198: https://github.com/ruslo/hunter/pull/198#issuecomment-120630877
 .. _issue #105: https://github.com/ruslo/hunter/issues/105
+.. _issue #405: https://github.com/ruslo/hunter/issues/405
 
 .. _this SO question: http://stackoverflow.com/questions/19982340
 

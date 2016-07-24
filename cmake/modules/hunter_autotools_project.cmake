@@ -6,6 +6,14 @@
 # It forwards to ExternalProject_Add the following parameters:
 #   URL, URL_HASH, DOWNLOAD_DIR, SOURCE_DIR and INSTALL_DIR
 #
+# Adds to the environment variables:
+#   PATH=<root-id>/bin
+#   PKG_CONFIG_PATH=<root-id>/{lib,share}/pkgconfig
+#
+# Adds to autotools flags:
+#   CPPFLAGS=-I<root-id>/include
+#   LDFLAGS=-L<root-id>/lib
+
 # Usage example:
 # hunter_autotools_project("@HUNTER_EP_NAME@" # target name
 #     HUNTER_SELF                             # hunter home
@@ -26,6 +34,8 @@
 #       "@HUNTER_INSTALL_PREFIX@"
 #     PARALLEL_JOBS                           # number of parallel jobs for make
 #       "@HUNTER_JOBS_OPTION@"
+#     PACKAGE_CONFIGURATION_TYPES             # build configuration (Release|Debug)
+#       "@HUNTER_PACKAGE_CONFIGURATION_TYPES@"
 #     CPPFLAGS                                # C pre-processor flags
 #       "-DEXAMPLE -I/usr/local/include/library"
 #     CFLAGS                                  # C Compiler flags
@@ -38,11 +48,9 @@
 #       --enable-feature
 #       --disable-other
 #       --with-library
-#     MODIFY_PATH                             # add <root-id>/bin folder to the
-#                                             # PATH environment variable
-#     MODIFY_PKG_CONFIG                       # add <root-id>/{lib,share}/pkgconfig
-#                                             # folders to the PKG_CONFIG_PATH
-#                                             # environment variable
+#     BOOTSTRAP                               # add a bootstrap command to be run
+#       "./autogen.sh"                        # before ./configure such as 
+#                                             # ./autogen.sh or ./bootstrap
 # )
 
 include(ExternalProject) # ExternalProject_Add
@@ -54,7 +62,7 @@ include(hunter_test_string_not_empty)
 
 function(hunter_autotools_project target_name)
 
-  set(optional_params MODIFY_PATH MODIFY_PKG_CONFIG)
+  set(optional_params)
   set(one_value_params
       HUNTER_SELF
       URL
@@ -69,8 +77,12 @@ function(hunter_autotools_project target_name)
       CFLAGS
       CXXFLAGS
       LDFLAGS
+      BOOTSTRAP
   )
-  set(multi_value_params EXTRA_FLAGS)
+  set(multi_value_params
+      PACKAGE_CONFIGURATION_TYPES
+      EXTRA_FLAGS
+  )
   cmake_parse_arguments(
       PARAM
       "${optional_params}"
@@ -81,8 +93,6 @@ function(hunter_autotools_project target_name)
   # -> PARAM_BUILD_DIR
   # -> PARAM_GLOBAL_INSTALL_DIR
   # -> PARAM_INSTALL_DIR
-  # -> PARAM_MODIFY_PATH
-  # -> PARAM_MODIFY_PKG_CONFIG
 
   if(PARAM_UNPARSED_ARGUMENTS)
     hunter_internal_error(
@@ -94,7 +104,17 @@ function(hunter_autotools_project target_name)
   hunter_test_string_not_empty("${PARAM_BUILD_DIR}")
   hunter_test_string_not_empty("${PARAM_GLOBAL_INSTALL_DIR}")
   hunter_test_string_not_empty("${PARAM_INSTALL_DIR}")
+  hunter_test_string_not_empty("${PARAM_PACKAGE_CONFIGURATION_TYPES}")
 
+  list(LENGTH PARAM_PACKAGE_CONFIGURATION_TYPES len)
+  if(NOT "${len}" EQUAL "1")
+    hunter_fatal_error(
+        "Autotools PACKAGE_CONFIGURATION_TYPES has ${len} elements: ${PARAM_PACKAGE_CONFIGURATION_TYPES}. Only 1 is allowed"
+        WIKI "autools.package.configuration.types"
+    )
+  endif()
+
+  string(TOUPPER ${PARAM_PACKAGE_CONFIGURATION_TYPES} config_type)
   # Sets the toolchain binaries
   #   AR=${CMAKE_AR}
   #   AS=${CMAKE_ASM_COMPILER}
@@ -158,7 +178,15 @@ function(hunter_autotools_project target_name)
   #          [-I${INCLUDE_DIRECTORIES}]
   #
   # C Preprocessor flags
-  set(cppflags)
+  set(cppflags "-I${PARAM_GLOBAL_INSTALL_DIR}/include")
+  # build config type definitions
+  get_directory_property(defs
+      COMPILE_DEFINITIONS_${config_type}
+  )
+  foreach(def ${defs})
+    set(cppflags "${cppflags} -D${def}")
+  endforeach()
+  # non-build config specific definitions
   get_directory_property(defs COMPILE_DEFINITIONS)
   foreach(def ${defs})
     set(cppflags "${cppflags} -D${def}")
@@ -178,21 +206,26 @@ function(hunter_autotools_project target_name)
   # CFLAGS=${cflags} ${CMAKE_C_FLAGS}
   #
   # C Compiler Flags (defines or include directories should not be needed here)
-  set(cflags "${CMAKE_C_FLAGS} ${PARAM_CFLAGS}")
+  set(cflags "${CMAKE_C_FLAGS_${config_type}} ${CMAKE_C_FLAGS} ${PARAM_CFLAGS}")
   string(STRIP "${cflags}" cflags)
   hunter_status_debug("CFLAGS=${cflags}")
 
   # CXXFLAGS=${cxxflags} ${CMAKE_CXX_FLAGS}
   #
   # C++ Compiler flags (defines or include directories should not be needed here)
-  set(cxxflags "${CMAKE_CXX_FLAGS} ${PARAM_CXXFLAGS}")
+  set(cxxflags "${CMAKE_CXX_FLAGS_${config_type}} ${CMAKE_CXX_FLAGS} ${PARAM_CXXFLAGS}")
   string(STRIP "${cxxflags}" cxxflags)
   hunter_status_debug("CXXFLAGS=${cxxflags}")
 
   # LDFLAGS=${ldflags}
   #
   # Linker flags
-  set(ldflags "${CMAKE_EXE_LINKER_FLAGS} ${PARAM_LDFLAGS}")
+  set(ldflags "-L${PARAM_GLOBAL_INSTALL_DIR}/lib")
+  set(ldflags "${ldflags} ${CMAKE_EXE_LINKER_FLAGS_${config_type}}")
+  string(STRIP "${ldflags}" ldflags)
+  set(ldflags "${ldflags} ${CMAKE_EXE_LINKER_FLAGS}")
+  string(STRIP "${ldflags}" ldflags)
+  set(ldflags "${ldflags} ${PARAM_LDFLAGS}")
   string(STRIP "${ldflags}" ldflags)
   hunter_status_debug("LDFLAGS=${ldflags}")
 
@@ -252,19 +285,24 @@ function(hunter_autotools_project target_name)
 
   set(configure_command . "${PARAM_HUNTER_SELF}/scripts/clear-all.sh" &&)
   list(APPEND configure_command AR=${CMAKE_AR})
-  if(PARAM_MODIFY_PATH)
-    # see clear-all.sh
-    set(default_path "/usr/bin:/bin:/usr/sbin:/sbin:/usr/local/bin")
-    list(
-        APPEND
-        configure_command
-        "PATH=${PARAM_GLOBAL_INSTALL_DIR}/bin:${default_path}"
-    )
-  endif()
-  if(PARAM_MODIFY_PKG_CONFIG)
-    set(d1 "${PARAM_GLOBAL_INSTALL_DIR}/lib/pkgconfig")
-    set(d2 "${PARAM_GLOBAL_INSTALL_DIR}/share/pkgconfig")
-    list(APPEND configure_command "PKG_CONFIG_PATH=${d1}:${d2}")
+
+  # see clear-all.sh
+  # PATH environment variable
+  set(default_path "/usr/bin:/bin:/usr/sbin:/sbin:/usr/local/bin")
+  list(
+      APPEND
+      configure_command
+      "PATH=${PARAM_GLOBAL_INSTALL_DIR}/bin:${default_path}"
+  )
+
+  # PKG_CONFIG_PATH environment variable
+  set(d1 "${PARAM_GLOBAL_INSTALL_DIR}/lib/pkgconfig")
+  set(d2 "${PARAM_GLOBAL_INSTALL_DIR}/share/pkgconfig")
+  list(APPEND configure_command "PKG_CONFIG_PATH=${d1}:${d2}")
+
+  string(COMPARE NOTEQUAL "${PARAM_BOOTSTRAP}" "" have_bootstrap)
+  if(have_bootstrap)
+    list(APPEND configure_command "${PARAM_BOOTSTRAP}" &&)
   endif()
 
   list(APPEND configure_command "./configure")
