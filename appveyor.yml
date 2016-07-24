@@ -46,8 +46,8 @@ environment:
     # - TOOLCHAIN: "mingw"
     #   PROJECT_DIR: examples\PostgreSQL
 
-    - TOOLCHAIN: "msys"
-      PROJECT_DIR: examples\Foo
+    # - TOOLCHAIN: "msys"
+    #   PROJECT_DIR: examples\PostgreSQL
 
 install:
   # Python 3
