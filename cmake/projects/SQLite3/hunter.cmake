@@ -25,5 +25,8 @@ hunter_pick_scheme(DEFAULT url_sha1_sqlite3_autotools)
 hunter_cacheable(SQLite3)
 hunter_download(
     PACKAGE_NAME SQLite3
-    PACKAGE_INTERNAL_DEPS_ID "1"
+    PACKAGE_INTERNAL_DEPS_ID "2"
+    PACKAGE_UNRELOCATABLE_TEXT_FILES
+    "lib/libsqlite3.la"
+    "lib/pkgconfig/sqlite3.pc"
 )
