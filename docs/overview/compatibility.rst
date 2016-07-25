@@ -5,6 +5,7 @@ Turn Hunter off by adding one option `HUNTER_ENABLED=NO`_ to use your old
 settings. For example:
 
 .. code-block:: cmake
+  :emphasize-lines: 1
 
     hunter_add_package(OpenSSL)
 
@@ -17,6 +18,7 @@ settings. For example:
 by default this code will trigger download and build of OpenSSL:
 
 .. code-block:: bash
+  :emphasize-lines: 9-10
 
   > rm -rf _builds
   > cmake -H. -B_builds -DCMAKE_VERBOSE_MAKEFILE=YES
@@ -34,6 +36,7 @@ but adding ``HUNTER_ENABLED=NO`` make it skip all Hunter instructions and
 system library will be used instead:
 
 .. code-block:: bash
+  :emphasize-lines: 2, 9-10
 
   > rm -rf _builds
   > cmake -H. -B_builds -DCMAKE_VERBOSE_MAKEFILE=YES -DHUNTER_ENABLED=NO
@@ -48,7 +51,8 @@ system library will be used instead:
 
 ``HUNTER_ENABLED=NO`` can be set by default using CMake ``option``:
 
-.. code-block:: bash
+.. code-block:: cmake
+  :emphasize-lines: 2
 
   # before HunterGate
   option(HUNTER_ENABLED "Enable Hunter package manager" NO)
@@ -63,3 +67,9 @@ package. It means that if package released with ``HUNTER_ENABLED=NO`` by default
 it still can be used in Hunter, no extra modifications needed.
 
 .. _HUNTER_ENABLED=NO: https://github.com/ruslo/hunter/wiki/usr.variables#hunter_enabled
+
+.. warning::
+
+  Using old-style ``FOO_LIBRARIES`` variable instead of imported ``Foo::foo``
+  targets will make your project nonrelocatable because of full paths, so
+  probably you have to change this code to ``Foo::foo`` anyway.

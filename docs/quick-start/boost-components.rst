@@ -23,6 +23,7 @@ to the ``HUNTER_ROOT`` directory (it means that there is **no need to clone
 this repository** in general, see `notes`_):
 
 .. code-block:: cmake
+  :emphasize-lines: 2, 3
 
   HunterGate(
       URL "https://github.com/ruslo/hunter/archive/v0.10.9.tar.gz"
@@ -53,6 +54,7 @@ Hunter part is done, now well known CMake-style kung-fu (see `pkg.boost`_):
 Summarize:
 
 .. code-block:: cmake
+  :emphasize-lines: 5-6, 11
 
   cmake_minimum_required(VERSION 3.0)
 
