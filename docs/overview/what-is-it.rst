@@ -7,6 +7,7 @@ unpacked automatically by ``HunterGate`` CMake module. You only need to set
 ``URL`` and ``SHA1``:
 
 .. code-block:: cmake
+  :emphasize-lines: 2-3
 
   HunterGate(
       URL "https://github.com/ruslo/hunter/archive/v0.14.5.tar.gz"
