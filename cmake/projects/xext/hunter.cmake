@@ -5,6 +5,7 @@
 
 include(hunter_add_version)
 include(hunter_cacheable)
+include(hunter_cmake_args)
 include(hunter_configuration_types)
 include(hunter_download)
 include(hunter_pick_scheme)
@@ -22,7 +23,17 @@ hunter_add_version(
 )
 
 hunter_configuration_types(xext CONFIGURATION_TYPES Release)
-hunter_pick_scheme(DEFAULT xext)
+hunter_pick_scheme(DEFAULT url_sha1_autotools)
+set(xext_dependencies
+    xproto
+    xextproto
+    x11
+)
+hunter_cmake_args(
+    xext
+    CMAKE_ARGS         # do not use double quotes on CMAKE_ARGS
+      DEPENDS_ON_PACKAGES=${xext_dependencies}
+)
 hunter_cacheable(xext)
 hunter_download(
     PACKAGE_NAME xext

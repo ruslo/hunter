@@ -5,6 +5,7 @@
 
 include(hunter_add_version)
 include(hunter_cacheable)
+include(hunter_cmake_args)
 include(hunter_configuration_types)
 include(hunter_download)
 include(hunter_pick_scheme)
@@ -22,8 +23,20 @@ hunter_add_version(
 )
 
 hunter_configuration_types(xdamage CONFIGURATION_TYPES Release)
-hunter_pick_scheme(DEFAULT xdamage)
+hunter_pick_scheme(DEFAULT url_sha1_autotools)
 hunter_cacheable(xdamage)
+set(xdamage_dependencies
+    damageproto
+    xfixes
+    fixesproto
+    xextproto
+    x11
+)
+hunter_cmake_args(
+    xdamage
+    CMAKE_ARGS         # do not use double quotes on CMAKE_ARGS
+      DEPENDS_ON_PACKAGES=${xdamage_dependencies}
+)
 hunter_download(
     PACKAGE_NAME xdamage
     PACKAGE_INTERNAL_DEPS_ID "1"

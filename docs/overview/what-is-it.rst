@@ -7,13 +7,14 @@ unpacked automatically by ``HunterGate`` CMake module. You only need to set
 ``URL`` and ``SHA1``:
 
 .. code-block:: cmake
+  :emphasize-lines: 2-3
 
   HunterGate(
       URL "https://github.com/ruslo/hunter/archive/v0.14.5.tar.gz"
       SHA1 "f2c3de6d13baf8c5d2aa77bdc47c516e668c677e"
   )
 
-Here is content of the archive in simplified form: 
+Here is content of the archive in simplified form:
 
 .. code-block:: none
 
@@ -56,7 +57,7 @@ package properties:
       "1.0.2e"
       URL
       "https://github.com/openssl/openssl/archive/OpenSSL_1_0_2e.tar.gz"
-  
+
 Install instructions from build scheme `url_sha1_openssl.cmake.in`_:
 
 .. literalinclude:: what-is-it.sh

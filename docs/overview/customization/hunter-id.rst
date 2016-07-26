@@ -52,6 +52,7 @@ Message in logs:
   -- [hunter] [ Hunter-ID: 1eae623 | Config-ID: ... | Toolchain-ID: ... ]
   -- [hunter] [ Hunter-ID: e07a124 | Config-ID: ... | Toolchain-ID: ... ]
 
-.. admonition:: GitHub
+.. admonition:: Hunter
 
-  * `Releases <https://github.com/ruslo/hunter/releases>`_
+  * `Releases <https://github.com/ruslo/hunter/releases>`__
+  * `Atom feed <https://github.com/ruslo/hunter/releases.atom>`__
