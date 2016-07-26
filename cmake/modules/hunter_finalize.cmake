@@ -5,6 +5,7 @@ include(hunter_apply_gate_settings)
 include(hunter_calculate_self)
 include(hunter_create_cache_file)
 include(hunter_fatal_error)
+include(hunter_sanity_checks)
 include(hunter_status_debug)
 include(hunter_status_print)
 
@@ -12,6 +13,9 @@ include(hunter_status_print)
 #   * calculate toolchain-id
 #   * calculate config-id
 macro(hunter_finalize)
+  # Check preconditions
+  hunter_sanity_checks()
+
   list(APPEND HUNTER_CACHE_SERVERS "https://github.com/ingenue/hunter-cache")
   list(REMOVE_DUPLICATES HUNTER_CACHE_SERVERS)
   hunter_status_debug("List of cache servers:")
