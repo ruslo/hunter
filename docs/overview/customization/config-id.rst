@@ -1,6 +1,10 @@
 Config-ID
 ---------
 
+.. spelling::
+
+  eae
+
 .. _config-id:
 
 Second level of customization. Set version of package to build and build

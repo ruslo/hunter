@@ -43,7 +43,7 @@ of Hunter archive.  This level defines list of available packages and mapping
 +-------------+-------------------+--------------+----------+------------------------------------------+
 
 
-.. [1] Yep, same version but different URL/SHA1. No conficts.
+.. [1] Yep, same version but different URL/SHA1. No conflicts.
 
 Message in logs:
 

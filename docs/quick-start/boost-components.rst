@@ -1,6 +1,10 @@
 First step
 ----------
 
+.. spelling::
+
+  kung fu
+
 Set `HUNTER_ROOT`_ environment variable to **an empty directory**. This
 directory will be used by ``HunterGate`` module for storing packages and
 utility files.  Using environment variable is recommended but not mandatory,
@@ -42,7 +46,7 @@ Let's download and install ``boost.{regex,system,filesystem}``:
 
   hunter_add_package(Boost COMPONENTS regex system filesystem)
 
-Hunter part is done, now well known CMake-style kung-fu (see `pkg.boost`_):
+Hunter part is done, now well known CMake-style kung fu (see `pkg.boost`_):
 
 .. code-block:: cmake
 

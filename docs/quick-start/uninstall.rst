@@ -9,7 +9,7 @@ by command:
 
   rm -rf "${HUNTER_ROOT}/_Base"
 
-or remove particular ``Hunter-ID`` by command:
+Or remove particular ``Hunter-ID`` by command:
 
 .. code-block:: shell
 
