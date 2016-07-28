@@ -77,6 +77,15 @@ function(hunter_save_to_cache)
       INSTALL_PREFIX "${HUNTER_PACKAGE_INSTALL_PREFIX}"
   )
 
+  # HUNTER_INSTALL_PREFIX could be present on the text file and must be replaced
+  # The cached package can be uncompressed in a different HUNTER_INSTALL_PREFIX
+  # see https://github.com/ruslo/hunter/issues/472
+  hunter_patch_unrelocatable_text_files(
+      FROM "${HUNTER_INSTALL_PREFIX}"
+      TO "__HUNTER_PACKAGE_INSTALL_PREFIX__"
+      INSTALL_PREFIX "${HUNTER_PACKAGE_INSTALL_PREFIX}"
+  )
+
   ### Lock cache directory
   set(cache_directory "${HUNTER_CACHED_ROOT}/_Base/Cache")
   hunter_lock_directory("${cache_directory}" "")
