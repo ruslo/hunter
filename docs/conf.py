@@ -16,17 +16,6 @@
 import sys
 import os
 
-### http://stackoverflow.com/a/28778969/2288008 {
-import sphinx.environment
-from docutils.utils import get_source_line
-
-def _warn_node(self, msg, node):
-  if not msg.startswith('nonlocal image URI found:'):
-    self._warnfunc(msg, '%s:%s' % get_source_line(node))
-
-sphinx.environment.BuildEnvironment.warn_node = _warn_node
-### }
-
 # If extensions (or modules to document with autodoc) are in another directory,
 # add these directories to sys.path here. If the directory is relative to the
 # documentation root, use os.path.abspath to make it absolute, like shown here.
@@ -141,6 +130,18 @@ if not on_rtd:  # only import and set the theme if we're building docs locally
     import sphinx_rtd_theme
     html_theme = 'sphinx_rtd_theme'
     html_theme_path = [sphinx_rtd_theme.get_html_theme_path()]
+
+### Suppress warnings: http://stackoverflow.com/a/28778969/2288008 {
+if not on_rtd:
+  import sphinx.environment
+  from docutils.utils import get_source_line
+
+  def _warn_node(self, msg, node, **kwargs):
+    if not msg.startswith('nonlocal image URI found:'):
+      self._warnfunc(msg, '%s:%s' % get_source_line(node), **kwargs)
+
+  sphinx.environment.BuildEnvironment.warn_node = _warn_node
+### }
 
 # Add any paths that contain custom themes here, relative to this directory.
 #html_theme_path = []
