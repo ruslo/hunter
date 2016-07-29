@@ -8,11 +8,11 @@ hunter_add_version(
     PACKAGE_NAME
     PocoCpp
     VERSION
-    1.7.3
+    1.7.4
     URL
-    "https://github.com/pocoproject/poco/archive/poco-1.7.3-release.zip"
+    "https://github.com/pocoproject/poco/archive/poco-1.7.4-release.zip"
     SHA1
-    22dcb34d85d2cbf2ce71fd84b28489c99ed112d0
+    f392b87edb5bbc2b44aa08cfd72d87da8cc8661f
 )
 
 hunter_cmake_args(
