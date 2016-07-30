@@ -1,3 +1,10 @@
+.. Copyright (c) 2016, Ruslan Baratov
+.. All rights reserved.
+
+.. spelling::
+
+  eae
+
 Toolchain-ID
 ------------
 
@@ -5,7 +12,7 @@ Third level of customization. Compiler and flags.
 
 Each build can be run with different toolchains.  In general the result is
 completely different root ``lib``/``include`` directories.  For example on
-Windows you can simultaniously build Visual Studio (32/64), NMake, Cygwin and
+Windows you can simultaneously build Visual Studio (32/64), NMake, Cygwin and
 MinGW projects, on Linux GCC/Clang, on Mac Xcode, Makefile, iOS. Or choose
 various clang tools like static analyzer/sanitizers and other platforms like
 Android/Raspberry Pi. Each toolchain file will be forwarded to external project
