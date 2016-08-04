@@ -64,6 +64,16 @@ function(hunter_calculate_toolchain_sha1 hunter_self hunter_base)
       "-B${temp_build_dir}"
   )
 
+  string(COMPARE NOTEQUAL "${CMAKE_GENERATOR_TOOLSET}" "" has_toolset)
+  if(has_toolset)
+    list(APPEND cmd "-T" "${CMAKE_GENERATOR_TOOLSET}")
+  endif()
+
+  string(COMPARE NOTEQUAL "${CMAKE_GENERATOR_PLATFORM}" "" has_gen_platform)
+  if(has_gen_platform)
+    list(APPEND cmd "-A" "${CMAKE_GENERATOR_PLATFORM}")
+  endif()
+
   foreach(configuration ${HUNTER_CONFIGURATION_TYPES})
     string(TOUPPER "${configuration}" configuration_upper)
     list(
