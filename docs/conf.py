@@ -16,17 +16,6 @@
 import sys
 import os
 
-### http://stackoverflow.com/a/28778969/2288008 {
-import sphinx.environment
-from docutils.utils import get_source_line
-
-def _warn_node(self, msg, node):
-  if not msg.startswith('nonlocal image URI found:'):
-    self._warnfunc(msg, '%s:%s' % get_source_line(node))
-
-sphinx.environment.BuildEnvironment.warn_node = _warn_node
-### }
-
 # If extensions (or modules to document with autodoc) are in another directory,
 # add these directories to sys.path here. If the directory is relative to the
 # documentation root, use os.path.abspath to make it absolute, like shown here.
@@ -37,10 +26,18 @@ sphinx.environment.BuildEnvironment.warn_node = _warn_node
 # If your documentation needs a minimal Sphinx version, state it here.
 #needs_sphinx = '1.0'
 
+# on_rtd is whether we are on readthedocs.org, this line of code grabbed from docs.readthedocs.org
+on_rtd = os.environ.get('READTHEDOCS', None) == 'True'
+
 # Add any Sphinx extension module names here, as strings. They can be
 # extensions coming with Sphinx (named 'sphinx.ext.*') or your custom
 # ones.
 extensions = []
+
+if not on_rtd:
+  extensions.append('sphinxcontrib.spelling')
+  spelling_show_suggestions = True
+  spelling_word_list_filename = 'spelling.txt'
 
 # Add any paths that contain templates here, relative to this directory.
 templates_path = ['_templates']
@@ -128,13 +125,23 @@ html_theme = 'default'
 
 # From:
 # * https://github.com/snide/sphinx_rtd_theme#using-this-theme-locally-then-building-on-read-the-docs
-# on_rtd is whether we are on readthedocs.org, this line of code grabbed from docs.readthedocs.org
-on_rtd = os.environ.get('READTHEDOCS', None) == 'True'
 
 if not on_rtd:  # only import and set the theme if we're building docs locally
     import sphinx_rtd_theme
     html_theme = 'sphinx_rtd_theme'
     html_theme_path = [sphinx_rtd_theme.get_html_theme_path()]
+
+### Suppress warnings: http://stackoverflow.com/a/28778969/2288008 {
+if not on_rtd:
+  import sphinx.environment
+  from docutils.utils import get_source_line
+
+  def _warn_node(self, msg, node, **kwargs):
+    if not msg.startswith('nonlocal image URI found:'):
+      self._warnfunc(msg, '%s:%s' % get_source_line(node), **kwargs)
+
+  sphinx.environment.BuildEnvironment.warn_node = _warn_node
+### }
 
 # Add any paths that contain custom themes here, relative to this directory.
 #html_theme_path = []

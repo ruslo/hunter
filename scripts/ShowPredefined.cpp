@@ -15,6 +15,10 @@
 # include <android/api-level.h> // Header with __ANDROID_API__
 #endif
 
+#if defined(_MSC_VER)
+# include <SdkDdkVer.h> // Header with _WIN32_WINNT
+#endif
+
 #if defined(_AIX)
 # pragma message(HUNTER_INFO(_AIX))
 #endif
@@ -313,6 +317,10 @@
 
 #if defined(_WIN32)
 # pragma message(HUNTER_INFO(_WIN32))
+#endif
+
+#if defined(_WIN32_WINNT)
+# pragma message(HUNTER_INFO(_WIN32_WINNT))
 #endif
 
 #if defined(_WIN64)

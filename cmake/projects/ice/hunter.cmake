@@ -36,7 +36,7 @@ hunter_cmake_args(
 hunter_cacheable(ice)
 hunter_download(
     PACKAGE_NAME ice
-    PACKAGE_INTERNAL_DEPS_ID "1"
+    PACKAGE_INTERNAL_DEPS_ID "2"
     PACKAGE_UNRELOCATABLE_TEXT_FILES
     "lib/libICE.la"
     "lib/pkgconfig/ice.pc"

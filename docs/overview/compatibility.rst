@@ -71,5 +71,5 @@ it still can be used in Hunter, no extra modifications needed.
 .. warning::
 
   Using old-style ``FOO_LIBRARIES`` variable instead of imported ``Foo::foo``
-  targets will make your project nonrelocatable because of full paths, so
+  targets will make your project non-relocatable because of full paths, so
   probably you have to change this code to ``Foo::foo`` anyway.

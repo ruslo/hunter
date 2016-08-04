@@ -1,3 +1,10 @@
+.. Copyright (c) 2016, Ruslan Baratov
+.. All rights reserved.
+
+.. spelling::
+
+  armv
+
 Binaries from server
 --------------------
 

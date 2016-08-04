@@ -23,7 +23,7 @@ several local projects if configuration of externals matches. So when you are
 starting project from scratch and use same external packages there will be no
 additional copy or build triggered, the only overhead is checking existence of
 one ``DONE`` stamp file for each package. In case your local environment is
-similar enough to continious integration environment of Travis/AppVeyor
+similar enough to continuous integration environment of Travis/AppVeyor
 services then build will not be triggered at all - cached binaries will be
 downloaded from GitHub server instead. Mainly Hunter designed to manage
 packages with CMake build system under the hood and existing CMake package can
