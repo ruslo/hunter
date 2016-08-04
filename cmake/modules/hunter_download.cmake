@@ -445,6 +445,11 @@ function(hunter_download)
     list(APPEND cmd "-T" "${CMAKE_GENERATOR_TOOLSET}")
   endif()
 
+  string(COMPARE NOTEQUAL "${CMAKE_GENERATOR_PLATFORM}" "" has_gen_platform)
+  if(has_gen_platform)
+    list(APPEND cmd "-A" "${CMAKE_GENERATOR_PLATFORM}")
+  endif()
+
   hunter_print_cmd("${HUNTER_PACKAGE_HOME_DIR}" "${cmd}")
 
   # Configure and build downloaded project
