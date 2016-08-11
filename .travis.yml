@@ -80,7 +80,7 @@ install:
   # Install Python package 'requests'
   # 'easy_install3' is not installed by 'brew install python3' on OS X 10.9 Maverick
   - if [[ "`uname`" == "Darwin" ]]; then pip3 install requests; fi
-  - if [[ "`uname`" == "Linux" ]]; then easy_install3 --user requests; fi
+  - if [[ "`uname`" == "Linux" ]]; then travis_retry easy_install3 --user requests==2.10.0; fi
 
   # Install latest Polly toolchains and scripts
   - wget https://github.com/ruslo/polly/archive/master.zip
@@ -96,6 +96,7 @@ install:
 
   # Installed if toolchain is Android (otherwise directory doesn't exist)
   - export ANDROID_NDK_r10e="`pwd`/_ci/android-ndk-r10e"
+  - export ANDROID_NDK_r11c="`pwd`/_ci/android-ndk-r11c"
 
 script:
   - python3 ./jenkins.py
