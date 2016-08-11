@@ -12,6 +12,9 @@ the tool that will not extend final behaviour of application directly.
 However just like with unit-testing users will probably notice result effect
 such as stability/quality in overall.
 
+Hunter in CMake environment
+===========================
+
 Here is an `activity diagram`_ showing the location of Hunter in regular
 `CMake tools environment`_:
 
