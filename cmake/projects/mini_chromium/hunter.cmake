@@ -12,6 +12,17 @@ hunter_add_version(
     PACKAGE_NAME
     mini_chromium
     VERSION
+    0.0.1-p2
+    URL
+    "https://github.com/hunter-packages/mini_chromium/archive/v0.0.1-p2.tar.gz"
+    SHA1
+    1c587622e03e4da8a6bce02a2f6f062eb7f5a26c
+)
+
+hunter_add_version(
+    PACKAGE_NAME
+    mini_chromium
+    VERSION
     0.0.1-p1
     URL
     "https://github.com/hunter-packages/mini_chromium/archive/v0.0.1-p1.tar.gz"
