@@ -65,7 +65,7 @@ Install instructions from build scheme `url_sha1_openssl.cmake.in`_:
   :start-after: # doc: install-start
   :end-before: # doc: install-end
 
-.. code-block:: cmake
+.. code-block:: none
 
   INSTALL_COMMAND
   make install_sw
