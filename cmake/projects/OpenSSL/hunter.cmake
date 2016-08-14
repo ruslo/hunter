@@ -194,4 +194,4 @@ hunter_pick_scheme(
 )
 
 hunter_cacheable(OpenSSL)
-hunter_download(PACKAGE_NAME OpenSSL)
+hunter_download(PACKAGE_NAME OpenSSL PACKAGE_INTERNAL_DEPS_ID 1)
