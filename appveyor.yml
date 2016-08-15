@@ -78,6 +78,7 @@ install:
 
   # MSYS2 location
   - cmd: set MSYS_PATH=C:\msys64\usr\bin
+
 build_script:
   - cmd: python .\jenkins.py
 
