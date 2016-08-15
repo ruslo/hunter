@@ -43,8 +43,11 @@ matrix:
       env: PROJECT_DIR=examples/dlib TOOLCHAIN=gcc-4-8
     - os: linux
       env: PROJECT_DIR=examples/dlib TOOLCHAIN=android-ndk-r10e-api-19-armeabi-v7a-neon
-    - os: linux
-      env: PROJECT_DIR=examples/dlib TOOLCHAIN=analyze
+
+    # FIXME: https://travis-ci.org/ingenue/hunter/jobs/152423598
+    # - os: linux
+    #   env: PROJECT_DIR=examples/dlib TOOLCHAIN=analyze
+
     - os: linux
       env: PROJECT_DIR=examples/dlib TOOLCHAIN=sanitize-address
     - os: linux
