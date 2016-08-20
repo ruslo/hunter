@@ -1,4 +1,4 @@
-# Copyright (c) 2013, 2015 Ruslan Baratov
+# Copyright (c) 2016 Fabian Winnen
 # All rights reserved.
 
 # Adds a subdirectory with CMakeList.txt as seperate build with default (host) toolchain
@@ -19,6 +19,8 @@
 include(CMakeParseArguments) # cmake_parse_arguments
 
 include(hunter_internal_error)
+include(hunter_status_print)
+include(hunter_status_debug)
 
 # internal variables: _hunter_ahs_*
 macro(hunter_add_host_subdirectory)
@@ -39,13 +41,13 @@ macro(hunter_add_host_subdirectory)
       set (_hunter_ahs_arg_BINARY_DIRECTORY "${CMAKE_CURRENT_BINARY_DIR}/host-build")
   endif ()
 
-  message(STATUS "[hunter] invoke cmake subdirectory '${_hunter_ahs_HOME_DIRECTORY}' build for host...\n\n")
-  message(STATUS ">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>")
+  hunter_status_print("invoke cmake subdirectory '${_hunter_ahs_HOME_DIRECTORY}' build for host...\n\n")
+  hunter_status_print(">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>")
 
   # TODO: Check why this is needed only for Android
   # save and unset specified ENV variables
   foreach(var ${_hunter_ahs_arg_ENV_VARS})
-      #message(STATUS "save ${var}: $ENV{${var}}")
+      hunter_status_debug("save ${var}: $ENV{${var}}")
       set(_hunter_ahs_saved_${var} $ENV{${var}})
       unset(ENV{${var}})
   endforeach()
@@ -58,10 +60,10 @@ macro(hunter_add_host_subdirectory)
   # restore specified ENV variables
   foreach(var ${_hunter_ahs_arg_ENV_VARS})
     set(ENV{${var}} ${_hunter_ahs_saved_${var}})
-    # message(STATUS "restored ${var}: $ENV{${var}}")
+    hunter_status_debug("restored ${var}: $ENV{${var}}")
     unset(_hunter_ahs_saved_${var})
   endforeach()
 
-  message(STATUS "<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<\n\n")
-  message(STATUS "[hunter] finished build host subdirectory in '${_hunter_ahs_arg_BINARY_DIRECTORY}'")
+  hunter_status_print("<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<\n\n")
+  hunter_status_print("finished build host subdirectory in '${_hunter_ahs_arg_BINARY_DIRECTORY}'")
 endmacro()
