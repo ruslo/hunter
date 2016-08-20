@@ -21,6 +21,7 @@ addons:
       - ubuntu-toolchain-r-test
     packages:
       - python3
+      - python-enchant # for documentation
 
       # python3-pip package is not available, use 'easy_install3':
       # * https://github.com/travis-ci/apt-package-whitelist/issues/768
