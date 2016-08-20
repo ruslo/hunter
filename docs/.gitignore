@@ -1,5 +1,3 @@
-activate.sh
-build.sh
-clean.sh
-make.sh
-spell.sh
+_build/
+_spelling/
+_venv/
