@@ -30,5 +30,12 @@ if(NOT url_is_empty AND NOT sha1_is_empty AND NOT hunter_root_is_empty)
   HunterGate(URL "${TESTING_URL}" SHA1 "${TESTING_SHA1}" ${TESTING_CONFIG_OPT})
 else()
   get_filename_component(HUNTER_ROOT "${CMAKE_CURRENT_LIST_DIR}/.." ABSOLUTE)
-  HunterGate(URL "x" SHA1 "xxxxxxxx" ${TESTING_CONFIG_OPT})
+
+  # allow examples to have custom config.cmake files
+  string(COMPARE EQUAL "${HUNTER_TESTING_CONFIG_FILE}" "" has_no_custom_config)
+  if (has_no_custom_config)
+    HunterGate(URL "x" SHA1 "xxxxxxxx" ${TESTING_CONFIG_OPT})
+  else(has_no_custom_config)
+    HunterGate(URL "x" SHA1 "xxxxxxxx" ${TESTING_CONFIG_OPT} FILEPATH ${HUNTER_TESTING_CONFIG_FILE})
+  endif()
 endif()
