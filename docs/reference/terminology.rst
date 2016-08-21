@@ -4,6 +4,8 @@
 Terminology
 -----------
 
-* CMake cache
-* Hunter cache
-* Binary cache server
+.. toctree::
+  :maxdepth: 1
+  :glob:
+
+  terminology/*
