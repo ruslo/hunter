@@ -1,3 +1,6 @@
+.. Copyright (c) 2016, Ruslan Baratov
+.. All rights reserved.
+
 Regular user
 ------------
 
@@ -8,7 +11,7 @@ projects.  There will be no new functionality introduced by package - it will
 be installed in the same way as system package manager or custom build script do.
 But giving you much more control and allow you experimenting seamlessly. From
 some point of view Hunter is like adding unit-testing to your project. It's
-the tool that will not extend final behaviour of application directly.
+the tool that will not extend final behavior of application directly.
 However just like with unit-testing users will probably notice result effect
 such as stability/quality in overall.
 
