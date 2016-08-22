@@ -50,8 +50,20 @@ hunter_add_version(
     dbae4995254f351918d0462b308b561dbab71b3f
 )
 
-
-hunter_cmake_args(Protobuf CMAKE_ARGS CMAKE_ARGS protobuf_BUILD_TESTS=OFF)
+if(ANDROID OR IOS)
+  hunter_cmake_args(
+      Protobuf
+      CMAKE_ARGS
+        protobuf_BUILD_TESTS=OFF
+        protobuf_BUILD_PROTOC=OFF
+  )
+else()
+  hunter_cmake_args(
+      Protobuf
+      CMAKE_ARGS
+        protobuf_BUILD_TESTS=OFF
+  )
+endif()
 hunter_pick_scheme(DEFAULT url_sha1_cmake)
 hunter_cacheable(Protobuf)
 hunter_download(PACKAGE_NAME Protobuf)

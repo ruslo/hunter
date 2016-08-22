@@ -1,8 +1,7 @@
-cmake_minimum_required(VERSION 3.2)
+cmake_minimum_required(VERSION 3.0)
 
 # Emulate HunterGate:
 # * https://github.com/hunter-packages/gate
-set(TESTING_CONFIG_OPT FILEPATH ${CMAKE_CURRENT_SOURCE_DIR}/cmake/Hunter/config.cmake)
 include("../common.cmake")
 
 project(download-Protobuf)
@@ -12,9 +11,8 @@ project(download-Protobuf)
 option(protobuf_MODULE_COMPATIBLE "use protobuf in module compatible mode" ON)
 
 # If we cross compile for Android or iOS build a separate protoc executable on host to compile .proto files in CMake
-# TODO is there some better case to distinguish building separate protoc?
 if(IOS OR ANDROID)
-  # add host subdiretcory as seperate project [and reset CC and CXX for Android]
+  # add cmake/host subdiretcory as host project to install protoc
   include(hunter_experimental_add_host_project)
   hunter_experimental_add_host_project(cmake/host)
 
@@ -26,7 +24,6 @@ if(IOS OR ANDROID)
   message(STATUS "Using imported protoc from host: ${HUNTER_HOST_ROOT}/bin/protoc")
 endif(IOS OR ANDROID)
 
-# Normal behaviour from here on
 hunter_add_package(Protobuf)
 
 find_package(Protobuf CONFIG REQUIRED)
