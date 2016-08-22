@@ -39,12 +39,3 @@ else()
     target_link_libraries(messages protobuf::libprotobuf)
     target_include_directories(messages PUBLIC ${CMAKE_CURRENT_BINARY_DIR}/..)
 endif()
-
-#install(FILES "${MESSAGES_HDRS}"
-#        DESTINATION "include/messages"
-#        COMPONENT messages-headers)
-#install(TARGETS messages
-#        LIBRARY DESTINATION lib COMPONENT libmessages
-#        ARCHIVE DESTINATION lib COMPONENT libmessages)
-
-
