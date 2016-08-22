@@ -12,4 +12,5 @@ project(download-Protobuf-host)
 # only build protoc
 hunter_add_package(Protobuf)
 
-file(WRITE "${CMAKE_BINARY_DIR}/path.to.protoc" "${PROTOBUF_ROOT}/bin/protoc")
+# write the install-root-dir into file for target project
+file(WRITE "${CMAKE_BINARY_DIR}/_3rdParty/Hunter/install-root-dir" "${PROTOBUF_ROOT}")

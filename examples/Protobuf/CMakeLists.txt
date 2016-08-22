@@ -4,6 +4,7 @@ cmake_minimum_required(VERSION 3.2)
 # * https://github.com/hunter-packages/gate
 set(TESTING_CONFIG_OPT FILEPATH ${CMAKE_CURRENT_SOURCE_DIR}/cmake/Hunter/config.cmake)
 include("../common.cmake")
+
 project(download-Protobuf)
 
 # Compatibility Mode introduced by protobuf
@@ -14,14 +15,14 @@ option(protobuf_MODULE_COMPATIBLE "use protobuf in module compatible mode" OFF)
 # TODO is there some better case to distinguish building separate protoc?
 if (IOS OR ANDROID)
     # add host subdiretcory as seperate project [and reset CC and CXX for Android]
-    include(hunter_experimental_add_host_subdirectory)
-    hunter_experimental_add_host_subdirectory(host ENV_VARS CC CXX)
+    include(hunter_experimental_add_host_project)
+    hunter_experimental_add_host_project(host)
 
-    file(READ "${CMAKE_CURRENT_BINARY_DIR}/host-build/path.to.protoc" host_protoc)
     add_executable(protobuf::protoc IMPORTED)
     set_property(TARGET protobuf::protoc APPEND PROPERTY IMPORTED_CONFIGURATIONS RELEASE)
-    set_target_properties(protobuf::protoc PROPERTIES IMPORTED_LOCATION_RELEASE "${host_protoc}")
-    message(STATUS "Using imported protoc from host: ${host_protoc}")
+    set_target_properties(protobuf::protoc PROPERTIES IMPORTED_LOCATION_RELEASE "${HUNTER_HOST_ROOT}/bin/protoc")
+
+    message(STATUS "Using imported protoc from host: ${HUNTER_HOST_ROOT}/bin/protoc")
 endif (IOS OR ANDROID)
 
 # Normal behaviour from here on
