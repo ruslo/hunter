@@ -8,6 +8,7 @@ include(hunter_fatal_error)
 include(hunter_sanity_checks)
 include(hunter_status_debug)
 include(hunter_status_print)
+include(hunter_test_string_not_empty)
 
 # Continue initialization of key variables (also see 'hunter_initialize')
 #   * calculate toolchain-id
@@ -120,4 +121,13 @@ macro(hunter_finalize)
   set(HUNTER_ALLOW_CONFIG_LOADING YES)
   include("${HUNTER_CONFIG_ID_PATH}/config.cmake")
   set(HUNTER_ALLOW_CONFIG_LOADING NO)
+
+  hunter_test_string_not_empty("${HUNTER_INSTALL_PREFIX}")
+  hunter_test_string_not_empty("${CMAKE_BINARY_DIR}")
+
+  file(
+      WRITE
+      "${CMAKE_BINARY_DIR}/_3rdParty/Hunter/install-root-dir"
+      "${HUNTER_INSTALL_PREFIX}"
+  )
 endmacro()
