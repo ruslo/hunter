@@ -21,6 +21,7 @@ addons:
       - ubuntu-toolchain-r-test
     packages:
       - python3
+      - python-enchant # for documentation
 
       # python3-pip package is not available, use 'easy_install3':
       # * https://github.com/travis-ci/apt-package-whitelist/issues/768
@@ -53,6 +54,8 @@ env:
   - PROJECT_DIR=tests/hunter_sleep_before_download TOOLCHAIN=default
   - PROJECT_DIR=tests/hunter_unpack_directory TOOLCHAIN=default
 
+  - TOOLCHAIN=generate-documentation-test
+
 install:
   # Info about OS
   - uname -a
@@ -82,4 +85,15 @@ install:
   - export ANDROID_NDK_r11c="`pwd`/_ci/android-ndk-r11c"
 
 script:
-  - python3 ./jenkins.py
+  - >
+    if [[ "${TOOLCHAIN}" == "generate-documentation-test" && "`uname`" == "Linux" ]];
+    then
+      cd docs
+      ./jenkins.sh
+    fi
+
+  - >
+    if [[ "${TOOLCHAIN}" != "generate-documentation-test" ]];
+    then
+      python3 ./jenkins.py
+    fi

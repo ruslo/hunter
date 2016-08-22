@@ -62,13 +62,6 @@ macro(hunter_finalize)
   # * Update cache if needed
   hunter_apply_gate_settings()
 
-  hunter_calculate_self(
-      "${HUNTER_CACHED_ROOT}"
-      "${HUNTER_VERSION}"
-      "${HUNTER_SHA1}"
-      HUNTER_SELF
-  )
-
   string(SUBSTRING "${HUNTER_SHA1}" 0 7 HUNTER_ID)
   string(SUBSTRING "${HUNTER_CONFIG_SHA1}" 0 7 HUNTER_CONFIG_ID)
   string(SUBSTRING "${HUNTER_TOOLCHAIN_SHA1}" 0 7 HUNTER_TOOLCHAIN_ID)
