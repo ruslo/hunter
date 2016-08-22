@@ -133,7 +133,7 @@ function(hunter_load_from_cache)
   hunter_status_debug("Loading basic dependencies finished")
 
   # Note: we can't use cache directory since it need to be locked in this case
-  set(temp_deps_info "${CMAKE_BINARY_DIR}/_3rdParty/hunter/deps.info")
+  set(temp_deps_info "${CMAKE_BINARY_DIR}/_3rdParty/Hunter/deps.info")
   file(REMOVE "${temp_deps_info}")
   hunter_create_deps_info("${temp_deps_info}")
   if(NOT EXISTS "${temp_deps_info}")
