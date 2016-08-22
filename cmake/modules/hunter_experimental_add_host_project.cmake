@@ -68,8 +68,7 @@ https://github.com/ruslo/hunter/issues/495
   if(NOT EXISTS "${binary_directory}/_3rdParty/Hunter/install-root-dir")
     hunter_user_error(
         "Could not read file 'install-root-dir'."
-        "Create this file at the end of your host project's CMakeList.txt with:"
-        "  'file(WRITE \"\${CMAKE_BINARY_DIR}/_3rdParty/Hunter/install-root-dir\" \"\${<Package>_ROOT}\")'"
+        "The host project must add dependencies with hunter."
     )
   endif()
   file(READ "${binary_directory}/_3rdParty/Hunter/install-root-dir" HUNTER_HOST_ROOT)
