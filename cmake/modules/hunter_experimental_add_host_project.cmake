@@ -49,7 +49,16 @@ https://github.com/ruslo/hunter/issues/495
   endif()
   list(GET arg_UNPARSED_ARGUMENTS 0 home_directory)
 
-  set(binary_directory "${CMAKE_BINARY_DIR}/_3rdParty/Hunter/host-build-binary-tree")
+  # check if home is out-of-source
+  get_filename_component(home_directory_real "${home_directory}" REALPATH BASE_DIR "${CMAKE_CURRENT_LIST_DIR}")
+  file(RELATIVE_PATH home_directory_relative "${CMAKE_CURRENT_LIST_DIR}" "${home_directory_real}")
+  if ("${home_directory_relative}" MATCHES "[..].*")
+    hunter_user_error("Out-of-tree host projects are not allowed.")
+  endif()
+  # Interpret a relative path with respect to the current source directory (of caller)
+  set(home_directory "${CMAKE_CURRENT_LIST_DIR}/${home_directory_relative}")
+
+  set(binary_directory "${CMAKE_CURRENT_BINARY_DIR}/_3rdParty/Hunter/host-build-binary-tree/${home_directory_relative}")
 
   hunter_status_print("Building host project: ${home_directory}")
 
