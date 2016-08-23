@@ -13,6 +13,7 @@ list(APPEND CMAKE_MODULE_PATH "@HUNTER_SELF@/cmake/modules")
 include(hunter_install_boost_config)
 include(hunter_report_broken_package)
 include(hunter_status_debug)
+include(hunter_status_print)
 include(hunter_test_string_not_empty)
 
 hunter_status_debug("Scheme: url_sha1_boost")
@@ -111,7 +112,11 @@ endif()
 if("@MSVC@")
   # Logging as Workaround for VS_UNICODE_OUTPUT issue:
   # https://public.kitware.com/Bug/view.php?id=14266
-  set(log_opts LOG_CONFIGURE 1 LOG_BUILD 1 LOG_INSTALL 1)
+  set(log_opts LOG_CONFIGURE 1 LOG_BUILD 1 LOG_INSTALL 1 LOG_DOWNLOAD 1)
+  get_filename_component(x "@HUNTER_PACKAGE_SOURCE_DIR@/.." ABSOLUTE)
+  hunter_status_print(
+      "For progress check log files in directory: ${x}"
+  )
 else()
   set(log_opts "")
 endif()
