@@ -57,6 +57,13 @@ if(ANDROID OR IOS)
         protobuf_BUILD_TESTS=OFF
         protobuf_BUILD_PROTOC=OFF
   )
+elseif(MSVC)
+  hunter_cmake_args(
+      Protobuf
+      CMAKE_ARGS
+        protobuf_BUILD_TESTS=OFF
+        protobuf_MSVC_STATIC_RUNTIME=OFF # Do not forece static runtime
+  )
 else()
   hunter_cmake_args(
       Protobuf
