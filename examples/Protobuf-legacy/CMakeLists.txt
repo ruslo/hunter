@@ -7,8 +7,8 @@ include("../common.cmake")
 project(download-Protobuf)
 
 # Compatibility Mode introduced by protobuf
-# * see examples/Protobuf-legacy for usage of protobuf_MODULE_COMPATIBLE=ON
-option(protobuf_MODULE_COMPATIBLE "use protobuf in module compatible mode" OFF)
+# * see examples/Protobuf for usage of protobuf_MODULE_COMPATIBLE=OFF
+option(protobuf_MODULE_COMPATIBLE "use protobuf in module compatible mode" ON)
 
 # If we cross compile for Android or iOS build a separate protoc executable on host to compile .proto files in CMake
 if(IOS OR ANDROID)
@@ -16,9 +16,10 @@ if(IOS OR ANDROID)
   include(hunter_experimental_add_host_project)
   hunter_experimental_add_host_project(cmake/host)
 
-  add_executable(protobuf::protoc IMPORTED)
-  set_property(TARGET protobuf::protoc APPEND PROPERTY IMPORTED_CONFIGURATIONS RELEASE)
-  set_target_properties(protobuf::protoc PROPERTIES IMPORTED_LOCATION_RELEASE "${HUNTER_HOST_ROOT}/bin/protoc")
+  add_executable(host-protoc IMPORTED)
+  set_property(TARGET host-protoc APPEND PROPERTY IMPORTED_CONFIGURATIONS RELEASE)
+  set_target_properties(host-protoc PROPERTIES IMPORTED_LOCATION_RELEASE "${HUNTER_HOST_ROOT}/bin/protoc")
+  set(Protobuf_PROTOC_EXECUTABLE host-protoc)
 
   message(STATUS "Using imported protoc from host: ${HUNTER_HOST_ROOT}/bin/protoc")
 endif(IOS OR ANDROID)
