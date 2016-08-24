@@ -66,6 +66,7 @@ https://github.com/ruslo/hunter/issues/495
   include(${HUNTER_SELF}/scripts/clear-all.cmake)
   execute_process(
       COMMAND "${CMAKE_COMMAND}" "-H${home_directory}" "-B${binary_directory}"
+        "-DHUNTER_HOST_URL=${HUNTER_GATE_URL}" "-DHUNTER_HOST_SHA1=${HUNTER_GATE_SHA1}" "-DHUNTER_ROOT=${HUNTER_ROOT}"
       RESULT_VARIABLE exit_code
   )
   string(COMPARE EQUAL "${exit_code}" "0" success)

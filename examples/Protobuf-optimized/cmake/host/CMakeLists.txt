@@ -3,8 +3,11 @@ cmake_minimum_required(VERSION 3.0)
 
 # Emulate HunterGate:
 # * https://github.com/hunter-packages/gate
-set(TESTING_CONFIG_OPT FILEPATH ${CMAKE_CURRENT_SOURCE_DIR}/cmake/Hunter/config.cmake) # skip debug and lite version
-include("../../../common.cmake")
+HunterGate(
+    URL "${HUNTER_HOST_URL}"
+    SHA1 "${HUNTER_HOST_SHA1}"
+    FILEPATH ${CMAKE_CURRENT_SOURCE_DIR}/cmake/Hunter/config.cmake # skip debug and lite version
+)
 
 project(download-Protobuf-host)
 
