@@ -1,0 +1,105 @@
+# Copyright (c) 2016, Ruslan Baratov
+# All rights reserved.
+
+cmake_minimum_required(VERSION 3.0)
+project(Hunter)
+
+include(ExternalProject) # ExternalProject_Add
+
+# Scheme for download and install OpenSSL library for Windows
+
+list(APPEND CMAKE_MODULE_PATH "@HUNTER_SELF@/cmake/modules")
+
+include(hunter_fatal_error)
+include(hunter_internal_error)
+include(hunter_status_debug)
+include(hunter_test_string_not_empty)
+
+hunter_status_debug("Scheme: url_sha1_openssl_windows_1_1_plus")
+
+# Check preconditions
+hunter_test_string_not_empty("@HUNTER_SELF@")
+hunter_test_string_not_empty("@HUNTER_EP_NAME@")
+hunter_test_string_not_empty("@HUNTER_PACKAGE_URL@")
+hunter_test_string_not_empty("@HUNTER_PACKAGE_SHA1@")
+hunter_test_string_not_empty("@HUNTER_PACKAGE_DOWNLOAD_DIR@")
+hunter_test_string_not_empty("@HUNTER_PACKAGE_SOURCE_DIR@")
+hunter_test_string_not_empty("@HUNTER_PACKAGE_INSTALL_PREFIX@")
+hunter_test_string_not_empty("@HUNTER_MSVC_ARCH@")
+hunter_test_string_not_empty("@HUNTER_MSVC_VCVARSALL@")
+hunter_test_string_not_empty("@HUNTER_PACKAGE_LICENSE_FILE@")
+hunter_test_string_not_empty("@HUNTER_GLOBAL_SCRIPT_DIR@")
+
+# `find_package(Perl)` is not suitable because `perl` from
+# cygwin directory can be found
+execute_process(
+    COMMAND
+    "perl"
+    "--version"
+    RESULT_VARIABLE
+    PERL_VERSION
+)
+
+if(NOT "${PERL_VERSION}" EQUAL 0)
+  message("Current PATH directories:")
+  message(">>>")
+  foreach(x $ENV{PATH})
+    foreach(y ${x})
+      message("    ${y}")
+    endforeach()
+  endforeach()
+  message("\n<<<")
+
+  hunter_fatal_error(
+      "OpenSSL: perl not found"
+      WIKI "error.openssl.perl.not.found"
+  )
+endif()
+
+string(COMPARE EQUAL "@HUNTER_MSVC_ARCH@" "amd64" is_amd64)
+if(is_amd64)
+  set(opt "VC-WIN64A")
+else()
+  set(opt "VC-WIN32")
+endif()
+
+if("@MSVC@")
+  # Logging as Workaround for VS_UNICODE_OUTPUT issue:
+  # https://public.kitware.com/Bug/view.php?id=14266
+  set(log_opts LOG_CONFIGURE 1)
+else()
+  set(log_opts "")
+endif()
+
+ExternalProject_Add(
+    "@HUNTER_EP_NAME@"
+    URL
+    "@HUNTER_PACKAGE_URL@"
+    URL_HASH
+    SHA1=@HUNTER_PACKAGE_SHA1@
+    DOWNLOAD_DIR
+    "@HUNTER_PACKAGE_DOWNLOAD_DIR@"
+    SOURCE_DIR
+    "@HUNTER_PACKAGE_SOURCE_DIR@"
+    INSTALL_DIR
+    "@HUNTER_PACKAGE_INSTALL_PREFIX@"
+        # not used, just avoid creating Install/<name> empty directory
+    CONFIGURE_COMMAND
+    "@HUNTER_MSVC_VCVARSALL@" "@HUNTER_MSVC_ARCH@"
+    COMMAND
+    perl Configure "${opt}" "--prefix=@HUNTER_PACKAGE_INSTALL_PREFIX@"
+    COMMAND
+    nmake
+    BUILD_IN_SOURCE
+    1
+    INSTALL_COMMAND
+    COMMAND
+    nmake install
+    COMMAND # Copy license files
+    "@CMAKE_COMMAND@"
+    "-Dsrcdir=@HUNTER_PACKAGE_SOURCE_DIR@"
+    "-Ddstfile=@HUNTER_PACKAGE_LICENSE_FILE@"
+    -P
+    "@HUNTER_GLOBAL_SCRIPT_DIR@/try-copy-license.cmake"
+    ${log_opts}
+)
