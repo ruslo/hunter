@@ -11,13 +11,10 @@ Supported platforms: **Linux**, **Mac**, **Windows**, **iOS**, **Android**, **Ra
 * Contributing guide: https://docs.hunter.sh/en/latest/contributing.html
 * License: `BSD 2-Clause <https://raw.githubusercontent.com/ruslo/hunter/master/LICENSE>`_
 * Contacts: https://docs.hunter.sh/en/latest/contacts.html
-* |gitter| |codewake|
+* |gitter|
 
 .. |gitter| image:: https://badges.gitter.im/ruslo/hunter.svg
   :target: https://gitter.im/ruslo/hunter
-
-.. |codewake| image:: https://www.codewake.com/badges/codewake2.svg
-  :target: https://www.codewake.com/p/hunter-8f41449c-ceab-4c45-ba5f-e7c3221e9700
 
 CI
 --
