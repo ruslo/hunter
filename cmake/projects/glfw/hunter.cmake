@@ -1,6 +1,10 @@
 # Copyright (c) 2016, Alexandre Pretyman
 # All rights reserved.
 
+if(EMSCRIPTEN)
+  return()
+endif()
+
 include(hunter_add_version)
 include(hunter_pick_scheme)
 include(hunter_cacheable)
