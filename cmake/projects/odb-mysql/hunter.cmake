@@ -4,6 +4,7 @@
 # !!! DO NOT PLACE HEADER GUARDS HERE !!!
 
 include(hunter_add_version)
+include(hunter_cacheable)
 include(hunter_configuration_types)
 include(hunter_pick_scheme)
 include(hunter_download)
@@ -21,5 +22,10 @@ hunter_add_version(
 
 hunter_configuration_types(odb-mysql CONFIGURATION_TYPES Release)
 hunter_pick_scheme(DEFAULT url_sha1_odb-mysql_autotools)
-hunter_download(PACKAGE_NAME odb-mysql)
+hunter_cacheable(odb-mysql)
+hunter_download(PACKAGE_NAME odb-mysql
+    PACKAGE_UNRELOCATABLE_TEXT_FILES
+    "lib/libodb-mysql.la"
+    "lib/pkgconfig/libodb-mysql.pc"
+)
 
