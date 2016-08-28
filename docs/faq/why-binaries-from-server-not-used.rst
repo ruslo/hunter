@@ -175,6 +175,8 @@ Compare both files to figure out what's wrong:
 
 It means that local GCC version is ``5.4.0`` and server version is ``4.8.1``.
 
+.. _uploading to server:
+
 Uploading to server
 -------------------
 

@@ -16,9 +16,10 @@ it does affect ``Config-ID`` so new root will be created. But it will not affect
 how ``GTest`` builds (if it's not a dependency) so ``GTest`` archive can be
 unpacked from cache. Such cache can be used locally or uploaded to server.
 
+
 .. seealso::
 
-  * `Uploading binaries to server <https://github.com/ruslo/hunter/wiki/Uploading-binaries-to-server>`_
+  * :ref:`Uploading to server <uploading to server>`
 
 Details
 =======
