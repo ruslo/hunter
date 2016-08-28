@@ -14,6 +14,8 @@ directory instead of standard one:
   hunter_add_package(Foo)
   find_package(Foo)
 
+.. _dependencies conflict:
+
 Conflict
 ========
 
