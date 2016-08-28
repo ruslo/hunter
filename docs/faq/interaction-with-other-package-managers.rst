@@ -10,7 +10,7 @@ may lead to :ref:`conflicts <dependencies conflict>`, violates
 :doc:`automatic downloads principle </overview/automatic>` and make impossible
 the usage of central server with binaries because information about dependency
 will not be saved. Also it does break reproducibility feature of Hunter since
-version of system package may differs for different OSes, e.g. default version
+version of system package may differs for different OS, e.g. default version
 of Boost on ``Ubuntu 14.04`` is ``1.54.0`` and for ``Ubuntu 16.04``
 it's ``1.58.0``.
 
