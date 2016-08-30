@@ -1,6 +1,11 @@
 .. Copyright (c) 2016, Ruslan Baratov
 .. All rights reserved.
 
+.. spelling::
+
+  url
+  sha
+
 HUNTER_PACKAGE_SCHEME_<TYPE>
 ----------------------------
 
