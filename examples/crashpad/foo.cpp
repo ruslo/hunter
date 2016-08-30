@@ -1,4 +1,4 @@
-#include <crashpad/client/crashpad_client.h>
+#include <client/crashpad_client.h>
 
 int main() {
   crashpad::CrashpadClient* client = new crashpad::CrashpadClient();
