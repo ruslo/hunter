@@ -1,8 +1,8 @@
 .. Copyright (c) 2016, Ruslan Baratov
 .. All rights reserved.
 
-Why binaries from server not used
-=================================
+Why binaries from server not used?
+==================================
 
 If settings and environment of your local project doesn't match environment
 of Travis/AppVeyor services (this is where binaries usually uploaded from)
