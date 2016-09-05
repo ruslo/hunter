@@ -12,10 +12,8 @@ project(download-boost)
 # download boost
 hunter_add_package(Boost COMPONENTS system thread)
 
-find_package( Threads )
-
 # now boost can be used
 find_package(Boost CONFIG REQUIRED system thread)
 add_executable(foo foo.cpp)
-target_link_libraries(foo Boost::system Boost::thread ${CMAKE_THREAD_LIBS_INIT})
+target_link_libraries(foo Boost::system Boost::thread)
 
