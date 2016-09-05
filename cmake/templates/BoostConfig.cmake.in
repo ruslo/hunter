@@ -104,7 +104,7 @@ if(TARGET Boost::iostreams)
 endif()
 
 if(TARGET Boost::thread)
-  find_package(Threads)
+  find_package(Threads REQUIRED)
   set_property(
     TARGET "Boost::thread"
     APPEND PROPERTY INTERFACE_LINK_LIBRARIES Threads::Threads
