@@ -105,9 +105,8 @@ endif()
 
 if(TARGET Boost::thread)
   find_package(Threads)
-  set_target_properties(
-    Boost::thread
-    PROPERTIES
-    INTERFACE_LINK_LIBRARIES "${CMAKE_THREAD_LIBS_INIT}"
+  set_property(
+    TARGET "Boost::thread"
+    APPEND PROPERTY INTERFACE_LINK_LIBRARIES Threads::Threads
   )
 endif()
