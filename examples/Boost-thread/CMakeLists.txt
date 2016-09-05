@@ -12,16 +12,10 @@ project(download-boost)
 # download boost
 hunter_add_package(Boost COMPONENTS system thread)
 
+find_package( Threads )
+
 # now boost can be used
 find_package(Boost CONFIG REQUIRED system thread)
 add_executable(foo foo.cpp)
-target_link_libraries(foo Boost::system Boost::thread)
+target_link_libraries(foo Boost::system Boost::thread ${CMAKE_THREAD_LIBS_INIT})
 
-# Compatibility mode
-set(Boost_USE_STATIC_LIBS ON)
-if(MSVC)
-  add_definitions(-DBOOST_ALL_NO_LIB=1)
-endif()
-find_package(Boost REQUIRED system thread)
-include_directories(${Boost_INCLUDE_DIRS})
-target_link_libraries(foo ${Boost_LIBRARIES})
