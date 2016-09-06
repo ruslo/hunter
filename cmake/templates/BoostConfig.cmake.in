@@ -102,3 +102,11 @@ if(TARGET Boost::iostreams)
   include("${CMAKE_CURRENT_LIST_DIR}/BoostZLIBDependency.cmake" OPTIONAL)
   include("${CMAKE_CURRENT_LIST_DIR}/BoostBZip2Dependency.cmake" OPTIONAL)
 endif()
+
+if(TARGET Boost::thread)
+  find_package(Threads REQUIRED)
+  set_property(
+    TARGET "Boost::thread"
+    APPEND PROPERTY INTERFACE_LINK_LIBRARIES Threads::Threads
+  )
+endif()
