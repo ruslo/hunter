@@ -19,11 +19,11 @@ hunter_add_version(
     PACKAGE_NAME
     CURL
     VERSION
-    "7.49.1-DEV-v3"
+    "7.49.1-DEV-v4"
     URL
-    "https://github.com/hunter-packages/curl/archive/hunter-7.49.1-v3.tar.gz"
+    "https://github.com/hunter-packages/curl/archive/hunter-7.49.1-v4.tar.gz"
     SHA1
-    9905952494867076fd136a7ee9fce482d80c451c
+    1b17954403db625d5422faf8c7fd68b5dde093f9
 )
 
 
