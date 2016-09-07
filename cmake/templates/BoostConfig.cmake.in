@@ -108,5 +108,17 @@ if(TARGET Boost::thread)
   set_property(
     TARGET "Boost::thread"
     APPEND PROPERTY INTERFACE_LINK_LIBRARIES Threads::Threads
-  )
+    )
+endif()
+
+if(TARGET Boost::chrono)
+  include(CheckLibraryExists) # check_library_exists
+  check_library_exists(rt clock_gettime "" _boost_check_rt_library)
+
+  if(_boost_check_rt_library)
+      set_property(
+          TARGET "Boost::chrono"
+          APPEND PROPERTY INTERFACE_LINK_LIBRARIES rt
+          )
+  endif()
 endif()
