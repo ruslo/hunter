@@ -11,9 +11,9 @@ hunter_add_version(
   VERSION
   "0.2.0"
   URL
-  "https://github.com/tatraian/autobahn-cpp/archive/0.2.0-hunter-p1.tar.gz"
+  "https://github.com/tatraian/autobahn-cpp/archive/0.2.0-hunter-p3.tar.gz"
   SHA1
-  5937117ceeb3cdfc6e6ad636beefee1055a10cc5
+  660dcd964f5afe3d8fd469f21e87d55529019190
   )
 
 hunter_pick_scheme(DEFAULT url_sha1_cmake)
