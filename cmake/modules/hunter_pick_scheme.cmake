@@ -38,6 +38,7 @@ function(hunter_pick_scheme)
 
   set(HUNTER_PACKAGE_SCHEME_DOWNLOAD "")
   set(HUNTER_PACKAGE_SCHEME_UNPACK "")
+  set(HUNTER_PACKAGE_SCHEME_UNPACK_INSTALL "")
   set(HUNTER_PACKAGE_SCHEME_INSTALL "")
 
   # set HUNTER_PACKAGE_SCHEME_*
@@ -57,10 +58,20 @@ function(hunter_pick_scheme)
       is_download
   )
 
+  string(
+      COMPARE
+      EQUAL
+      "${HUNTER_DOWNLOAD_SCHEME}"
+      "url_sha1_unpack_install"
+      is_unpack_install
+  )
+
   if(is_unpack)
     set(HUNTER_PACKAGE_SCHEME_UNPACK "1")
   elseif(is_download)
     set(HUNTER_PACKAGE_SCHEME_DOWNLOAD "1")
+  elseif(is_unpack_install)
+    set(HUNTER_PACKAGE_SCHEME_UNPACK_INSTALL "1")
   else()
     set(HUNTER_PACKAGE_SCHEME_INSTALL "1")
   endif()
@@ -76,6 +87,11 @@ function(hunter_pick_scheme)
   set(
       HUNTER_PACKAGE_SCHEME_UNPACK
       "${HUNTER_PACKAGE_SCHEME_UNPACK}"
+      PARENT_SCOPE
+  )
+  set(
+      HUNTER_PACKAGE_SCHEME_UNPACK_INSTALL
+      "${HUNTER_PACKAGE_SCHEME_UNPACK_INSTALL}"
       PARENT_SCOPE
   )
   set(

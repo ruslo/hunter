@@ -1,3 +1,6 @@
+.. Copyright (c) 2016, Ruslan Baratov
+.. All rights reserved.
+
 Contacts
 --------
 
@@ -7,11 +10,6 @@ Public
 Feel free to open new `issue`_ if you want to ask any questions.
 
 Public chat room: |gitter|
-
-Questions and discussions: |codewake|
-
-.. |codewake| image:: https://www.codewake.com/badges/codewake2.svg
-  :target: https://www.codewake.com/p/hunter-8f41449c-ceab-4c45-ba5f-e7c3221e9700
 
 Private
 =======

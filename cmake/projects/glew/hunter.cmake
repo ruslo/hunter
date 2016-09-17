@@ -1,6 +1,10 @@
 # Copyright (c) 2016, Ruslan Baratov, Alexandre Pretyman
 # All rights reserved.
 
+if(EMSCRIPTEN)
+  return()
+endif()
+
 include(hunter_add_version)
 include(hunter_cacheable)
 include(hunter_pick_scheme)
