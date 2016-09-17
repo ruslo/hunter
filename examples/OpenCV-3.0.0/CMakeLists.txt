@@ -11,6 +11,11 @@ include("../common.cmake")
 
 project(download-opencv)
 
+### Workaround for OpenCV 3.0.0 {
+hunter_add_package(Jpeg)
+find_package(JPEG CONFIG REQUIRED)
+### }
+
 hunter_add_package(OpenCV)
 find_package(OpenCV REQUIRED)
 
