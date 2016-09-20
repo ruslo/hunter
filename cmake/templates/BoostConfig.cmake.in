@@ -14,7 +14,7 @@ else()
   endfunction()
 endif()
 
-function(add_rt_library target_name)
+function(hunter_add_rt_library target_name)
   include(CheckLibraryExists) # check_library_exists
   check_library_exists(rt clock_gettime "" _boost_check_rt_library)
 
@@ -24,7 +24,7 @@ function(add_rt_library target_name)
           APPEND PROPERTY INTERFACE_LINK_LIBRARIES rt
           )
   endif()
-endfunction(add_rt_library)
+endfunction(hunter_add_rt_library)
 
 hunter_status_debug("Boost find config")
 
@@ -122,9 +122,9 @@ if(TARGET Boost::thread)
     APPEND PROPERTY INTERFACE_LINK_LIBRARIES Threads::Threads
     )
 
-  add_rt_library(Boost::thread)
+  hunter_add_rt_library(Boost::thread)
 endif()
 
 if(TARGET Boost::chrono)
-    add_rt_library(Boost::chrono)
+  hunter_add_rt_library(Boost::chrono)
 endif()
