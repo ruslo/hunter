@@ -122,7 +122,7 @@ if(TARGET Boost::thread)
     APPEND PROPERTY INTERFACE_LINK_LIBRARIES Threads::Threads
     )
 
-  hunter_add_rt_library(Boost::thread)
+#  hunter_add_rt_library(Boost::thread)
 endif()
 
 if(TARGET Boost::chrono)
