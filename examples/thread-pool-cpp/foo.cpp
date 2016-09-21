@@ -1,4 +1,4 @@
-#include <thread-pool-cpp/thread_pool.hpp>
+#include <thread_pool/thread_pool.hpp>
 
 int main() {
 }
