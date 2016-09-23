@@ -16,15 +16,15 @@ endif()
 
 function(hunter_add_rt_library target_name)
   include(CheckCXXSymbolExists)
-  check_cxx_symbol_exists("clock_gettime" "time.h" HUNTER_HAVE_CLOCK_GETTIME)
-  if(HUNTER_HAVE_CLOCK_GETTIME)
+  check_cxx_symbol_exists("clock_gettime" "time.h" _hunter_boost_have_clock_gettime)
+  if(_hunter_boost_have_clock_gettime)
       return()
   endif()
 
   include(CheckLibraryExists) # check_library_exists
-  check_library_exists(rt clock_gettime "" _boost_check_rt_library)
+  check_library_exists(rt clock_gettime "" _hunter_boost_check_rt_library)
 
-  if(_boost_check_rt_library)
+  if(_hunter_boost_check_rt_library)
       set_property(
           TARGET ${target_name}
           APPEND PROPERTY INTERFACE_LINK_LIBRARIES rt
