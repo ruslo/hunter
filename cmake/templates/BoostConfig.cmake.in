@@ -16,8 +16,8 @@ endif()
 
 function(hunter_add_rt_library target_name)
   include(CheckCXXSymbolExists)
-  check_cxx_symbol_exists("clock_gettime" "time.h" HAVE_CLOCK_GETTIME)
-  if(HAVE_CLOCK_GETTIME)
+  check_cxx_symbol_exists("clock_gettime" "time.h" HUNTER_HAVE_CLOCK_GETTIME)
+  if(HUNTER_HAVE_CLOCK_GETTIME)
       return()
   endif()
 
