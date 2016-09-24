@@ -12,6 +12,17 @@ hunter_add_version(
     PACKAGE_NAME
     crashup
     VERSION
+    0.0.2
+    URL
+    "https://github.com/qedsoftware/crashup/archive/v0.0.2.tar.gz"
+    SHA1
+    cc826c9fb28301e67a8fee6459779b2de5b024f5
+)
+
+hunter_add_version(
+    PACKAGE_NAME
+    crashup
+    VERSION
     0.0.1
     URL
     "https://github.com/qedsoftware/crashup/archive/v0.0.1.tar.gz"
