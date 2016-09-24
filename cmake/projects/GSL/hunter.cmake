@@ -4,6 +4,7 @@
 # !!! DO NOT PLACE HEADER GUARDS HERE !!!
 
 include(hunter_add_version)
+include(hunter_cacheable)
 include(hunter_download)
 include(hunter_pick_scheme)
 include(hunter_report_broken_package)
@@ -17,12 +18,13 @@ hunter_add_version(
     PACKAGE_NAME
     GSL
     VERSION
-    "1.16"
+    "2.1.0-p0"
     URL
-    "https://github.com/ruslo/gsl/archive/v1.16.tar.gz"
+    "https://github.com/hunter-packages/gsl/archive/v2.1.0-p0.tar.gz"
     SHA1
-    ce16e45c82191e351359ab30a2a77fcd21cbdb4c
+    9a1163362a0a82fd2ffa4f25b0bbd8d3e456f546
 )
 
 hunter_pick_scheme(DEFAULT url_sha1_cmake)
+hunter_cacheable(GSL)
 hunter_download(PACKAGE_NAME GSL)
