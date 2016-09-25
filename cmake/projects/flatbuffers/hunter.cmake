@@ -13,7 +13,7 @@ hunter_add_version(
     PACKAGE_NAME
     flatbuffers
     VERSION
-    1.4.0-p3
+    1.4.0-p1
     URL
     "https://github.com/hunter-packages/flatbuffers/archive/v1.4.0-p1.tar.gz"
     SHA1
