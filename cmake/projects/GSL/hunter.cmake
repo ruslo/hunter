@@ -18,6 +18,17 @@ hunter_add_version(
     PACKAGE_NAME
     GSL
     VERSION
+    "2.1.0-p1"
+    URL
+    "https://github.com/hunter-packages/gsl/archive/v2.1.0-p1.tar.gz"
+    SHA1
+    113574a44eb276dd8ec7c8342400f01f29105299
+)
+
+hunter_add_version(
+    PACKAGE_NAME
+    GSL
+    VERSION
     "2.1.0-p0"
     URL
     "https://github.com/hunter-packages/gsl/archive/v2.1.0-p0.tar.gz"
