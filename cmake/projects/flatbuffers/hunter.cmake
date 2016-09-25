@@ -20,6 +20,17 @@ hunter_add_version(
     dd97013e6aa60c2626b33091d4523fb6402bf922
 )
 
+hunter_add_version(
+    PACKAGE_NAME
+    flatbuffers
+    VERSION
+    1.3.0-p3
+    URL
+    "https://github.com/hunter-packages/flatbuffers/archive/v1.3.0-p3.tar.gz"
+    SHA1
+    b031689b876c2abac28c8e22fea68ca6d572d1f5
+)
+
 hunter_cmake_args(
     flatbuffers
     CMAKE_ARGS
