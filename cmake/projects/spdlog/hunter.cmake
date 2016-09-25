@@ -19,6 +19,17 @@ hunter_add_version(
     4d9967d165fc7ea2d561210bec2f50e60547daa6
 )
 
+hunter_add_version(
+    PACKAGE_NAME
+    spdlog
+    VERSION
+    "0.11.0-p0"
+    URL
+    "https://github.com/hunter-packages/spdlog/archive/v0.11.0-p0.tar.gz"
+    SHA1
+    199c1a19bcdd6fc75faa61263a267805c05e4060
+)
+
 hunter_pick_scheme(DEFAULT url_sha1_cmake)
 hunter_cacheable(spdlog)
 hunter_download(PACKAGE_NAME spdlog)
