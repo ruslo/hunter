@@ -1,7 +1,7 @@
 # Copyright (c) 2015, Ruslan Baratov
 # All rights reserved.
 
-hunter_add_package(ZLIB)
+# Do not call 'hunter_add_package(ZLIB)' because ZLIB it not a basic dependency
 find_package(ZLIB CONFIG REQUIRED)
 
 get_target_property(

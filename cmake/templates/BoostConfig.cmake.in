@@ -14,6 +14,24 @@ else()
   endfunction()
 endif()
 
+function(hunter_add_rt_library target_name)
+  include(CheckCXXSymbolExists)
+  check_cxx_symbol_exists("clock_gettime" "time.h" _hunter_boost_have_clock_gettime)
+  if(_hunter_boost_have_clock_gettime)
+      return()
+  endif()
+
+  include(CheckLibraryExists) # check_library_exists
+  check_library_exists(rt clock_gettime "" _hunter_boost_check_rt_library)
+
+  if(_hunter_boost_check_rt_library)
+      set_property(
+          TARGET ${target_name}
+          APPEND PROPERTY INTERFACE_LINK_LIBRARIES rt
+          )
+  endif()
+endfunction(hunter_add_rt_library)
+
 hunter_status_debug("Boost find config")
 
 set(Boost_USE_STATIC_LIBS ON)
@@ -101,4 +119,18 @@ endforeach()
 if(TARGET Boost::iostreams)
   include("${CMAKE_CURRENT_LIST_DIR}/BoostZLIBDependency.cmake" OPTIONAL)
   include("${CMAKE_CURRENT_LIST_DIR}/BoostBZip2Dependency.cmake" OPTIONAL)
+endif()
+
+if(TARGET Boost::thread)
+  find_package(Threads REQUIRED)
+  set_property(
+    TARGET "Boost::thread"
+    APPEND PROPERTY INTERFACE_LINK_LIBRARIES Threads::Threads
+    )
+
+  hunter_add_rt_library(Boost::thread)
+endif()
+
+if(TARGET Boost::chrono)
+  hunter_add_rt_library(Boost::chrono)
 endif()
