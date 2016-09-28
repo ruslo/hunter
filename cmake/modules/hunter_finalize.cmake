@@ -1,6 +1,7 @@
-# Copyright (c) 2015, Ruslan Baratov
+# Copyright (c) 2015-2016, Ruslan Baratov
 # All rights reserved.
 
+include(hunter_apply_copy_rules)
 include(hunter_apply_gate_settings)
 include(hunter_calculate_self)
 include(hunter_create_cache_file)
@@ -130,4 +131,6 @@ macro(hunter_finalize)
       "${CMAKE_BINARY_DIR}/_3rdParty/Hunter/install-root-dir"
       "${HUNTER_INSTALL_PREFIX}"
   )
+
+  hunter_apply_copy_rules()
 endmacro()

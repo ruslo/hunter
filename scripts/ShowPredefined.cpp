@@ -19,6 +19,14 @@
 # include <SdkDdkVer.h> // Header with _WIN32_WINNT
 #endif
 
+#if defined(_ABI64)
+# pragma message(HUNTER_INFO(_ABI64))
+#endif
+
+#if defined(_ABIO32)
+# pragma message(HUNTER_INFO(_ABIO32))
+#endif
+
 #if defined(_AIX)
 # pragma message(HUNTER_INFO(_AIX))
 #endif
@@ -113,6 +121,10 @@
 
 #if defined(_INTEGRAL_MAX_BITS)
 # pragma message(HUNTER_INFO(_INTEGRAL_MAX_BITS))
+#endif
+
+#if defined(_LIBCPP_HAS_NO_ASAN)
+# pragma message(HUNTER_INFO(_LIBCPP_HAS_NO_ASAN))
 #endif
 
 #if defined(_LIBCPP_VERSION)
@@ -433,6 +445,10 @@
 
 #if defined(__ARM_ARCH_PROFILE)
 # pragma message(HUNTER_INFO(__ARM_ARCH_PROFILE))
+#endif
+
+#if defined(__ARM_EABI__)
+# pragma message(HUNTER_INFO(__ARM_EABI__))
 #endif
 
 #if defined(__ARM_FEATURE_CLZ)
