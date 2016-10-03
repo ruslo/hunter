@@ -13,7 +13,7 @@ project(download-gflags)
 hunter_add_package(gflags)
 
 # now gflags can be used
-find_package(gflags REQUIRED)
+find_package(gflags CONFIG REQUIRED)
 
 add_executable(foo foo.cpp)
-target_link_libraries(foo gflags)
+target_link_libraries(foo gflags-static)
