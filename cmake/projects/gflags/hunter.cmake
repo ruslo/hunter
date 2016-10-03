@@ -12,11 +12,11 @@ hunter_add_version(
     PACKAGE_NAME
     gflags
     VERSION
-    2.1.2
+    2.1.2-p0
     URL
-    "https://github.com/gflags/gflags/archive/v2.1.2.tar.gz"
+    "https://github.com/hunter-packages/gflags/archive/v2.1.2-p0.tar.gz"
     SHA1
-    8bdbade9d041339dc14b4ab426e2354a5af38478
+    113255cba87b6af61663014f446e2d69d0d2bc3a
 )
 
 hunter_pick_scheme(DEFAULT url_sha1_cmake)
