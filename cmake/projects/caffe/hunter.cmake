@@ -13,6 +13,17 @@ hunter_add_version(
     PACKAGE_NAME
     caffe
     VERSION
+    rc3-p1
+    URL
+    "https://github.com/hunter-packages/caffe/archive/rc3-p1.tar.gz"
+    SHA1
+    d83c48d6d11d7d7b2b723b17963d205b53ed0efc
+)
+
+hunter_add_version(
+    PACKAGE_NAME
+    caffe
+    VERSION
     rc3-p0
     URL
     "https://github.com/hunter-packages/caffe/archive/rc3-p0.tar.gz"
@@ -33,7 +44,6 @@ hunter_cmake_args(
     CPU_ONLY=YES
     USE_LEVELDB=NO
     USE_LMDB=NO
-    USE_OPENCV=NO
 )
 
 hunter_download(PACKAGE_NAME caffe)
