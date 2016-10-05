@@ -26,17 +26,3 @@ PROJECT_DIR=examples/OpenCV ./jenkins.py --verbose --upload --clear-except-downl
 export TOOLCHAIN=ios-nocodesign-9-3
 PROJECT_DIR=examples/OpenCV ./jenkins.py --verbose --upload --clear-except-download
 # }
-
-# Xcode 6.1 for iOS 8.1
-export DEVELOPER_DIR=${IOS_8_1_DEVELOPER_DIR}
-export PATH=${DEVELOPER_DIR}/Toolchains/XcodeDefault.xctoolchain/usr/bin:$PATH
-
-which clang
-which clang++
-
-# {
-export TOOLCHAIN=ios-nocodesign
-PROJECT_DIR=examples/OpenCV ./jenkins.py --verbose --upload --clear-except-download
-# }
-
-echo "Done"
