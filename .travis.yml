@@ -61,9 +61,9 @@ matrix:
     - os: osx
       env: PROJECT_DIR=examples/Foo TOOLCHAIN=clang-libstdcxx
     - os: osx
-      env: PROJECT_DIR=examples/Foo TOOLCHAIN=osx-10-9
+      env: PROJECT_DIR=examples/Foo TOOLCHAIN=osx-10-11
     - os: osx
-      env: PROJECT_DIR=examples/Foo TOOLCHAIN=ios-nocodesign
+      env: PROJECT_DIR=examples/Foo TOOLCHAIN=ios-nocodesign-9-3
     - os: osx
       env: PROJECT_DIR=examples/Foo TOOLCHAIN=android-ndk-r10e-api-19-armeabi-v7a-neon
     - os: osx
