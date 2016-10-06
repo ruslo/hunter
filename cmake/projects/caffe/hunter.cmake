@@ -13,6 +13,17 @@ hunter_add_version(
     PACKAGE_NAME
     caffe
     VERSION
+    rc3-p2
+    URL
+    "https://github.com/hunter-packages/caffe/archive/rc3-p2.tar.gz"
+    SHA1
+    b084ed037b2f0e14de9a4cfddad303edeebcba7c
+)
+
+hunter_add_version(
+    PACKAGE_NAME
+    caffe
+    VERSION
     rc3-p1
     URL
     "https://github.com/hunter-packages/caffe/archive/rc3-p1.tar.gz"
