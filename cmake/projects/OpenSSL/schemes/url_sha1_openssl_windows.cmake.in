@@ -73,6 +73,12 @@ else()
   set(log_opts "")
 endif()
 
+if(BUILD_SHARED_LIBS)
+    set(nt_makefile "ms\\ntdll.mak")
+else()
+    set(nt_makefile "ms\\nt.mak")
+endif()
+
 ExternalProject_Add(
     "@HUNTER_EP_NAME@"
     URL
@@ -93,12 +99,12 @@ ExternalProject_Add(
     COMMAND
     "ms\\${do_ms}"
     BUILD_COMMAND
-    nmake -f "ms\\nt.mak"
+    nmake -f "${nt_makefile}"
     BUILD_IN_SOURCE
     1
     INSTALL_COMMAND
     COMMAND
-    nmake -f "ms\\nt.mak" install
+    nmake -f "${nt_makefile}" install
     COMMAND # Copy license files
     "@CMAKE_COMMAND@"
     "-Dsrcdir=@HUNTER_PACKAGE_SOURCE_DIR@"
