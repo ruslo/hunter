@@ -33,6 +33,10 @@ else()
   set(configure_command "./config")
 endif()
 
+if(ANDROID)
+  set(configure_command MACHINE=${CMAKE_SYSTEM_PROCESSOR} RELEASE=2.6.37 SYSTEM=android ARCH=${ANDROID_ARCH_NAME} ${configure_command})
+endif()
+
 # Pass C compiler through
 set(configure_command CC=${CMAKE_C_COMPILER} ${configure_command})
 
