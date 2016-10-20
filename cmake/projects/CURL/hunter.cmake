@@ -27,6 +27,17 @@ hunter_add_version(
 )
 
 
+if (ANDROID OR IOS)
+  set(_curl_cmake_args
+      HAVE_GLIBC_STRERROR_R=1
+      HAVE_GLIBC_STRERROR_R__TRYRUN_OUTPUT=""
+      HAVE_POSIX_STRERROR_R=0
+      HAVE_POSIX_STRERROR_R__TRYRUN_OUTPUT=""
+      HAVE_POLL_FINE_EXITCODE=0
+  )
+else()
+  set(_curl_cmake_args "")
+endif()
 
 hunter_cmake_args(
     CURL
@@ -35,7 +46,8 @@ hunter_cmake_args(
         BUILD_CURL_EXE=OFF
         CMAKE_USE_OPENSSL=ON
         CMAKE_USE_LIBSSH2=OFF
- )
+        ${_curl_cmake_args}
+)
 
 
 
