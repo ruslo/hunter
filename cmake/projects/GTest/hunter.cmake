@@ -151,6 +151,15 @@ hunter_add_version(
     93148cb8850abe78b76ed87158fdb6b9c48e38c4
 )
 
+hunter_add_version(
+    PACKAGE_NAME
+    GTest
+    VERSION
+    1.8.0-hunter-p4
+    URL https://github.com/hunter-packages/googletest/archive/1.8.0-hunter-p4.tar.gz
+    SHA1 dafd7c28c387c39fb2821484da8a1c60d1ce6470
+)
+
 hunter_pick_scheme(DEFAULT url_sha1_cmake)
 hunter_cacheable(GTest)
 hunter_download(PACKAGE_NAME GTest PACKAGE_INTERNAL_DEPS_ID 1)
