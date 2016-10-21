@@ -155,9 +155,9 @@ hunter_add_version(
     PACKAGE_NAME
     GTest
     VERSION
-    1.8.0-hunter-p4
-    URL https://github.com/hunter-packages/googletest/archive/1.8.0-hunter-p4.tar.gz
-    SHA1 dafd7c28c387c39fb2821484da8a1c60d1ce6470
+    1.8.0-hunter-p5
+    URL https://github.com/hunter-packages/googletest/archive/1.8.0-hunter-p5.tar.gz
+    SHA1 3325aa4fc8b30e665c9f73a60f19387b7db36f85
 )
 
 hunter_pick_scheme(DEFAULT url_sha1_cmake)
