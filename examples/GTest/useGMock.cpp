@@ -15,7 +15,7 @@ public:
     MOCK_METHOD0(doSomething, void());  // MOCK_METHOD is from gmock.h
 };
 
-TEST(MyTest, demonstrate_clang_tidy_warning)    // TEST is from gtest.h
+TEST(MyTest, UseMockClassFromGMock)    // TEST is from gtest.h
 {
     MockClass myMockClass;
 
