@@ -63,6 +63,7 @@ class Github:
 
   @retry
   def simple_request(self):
+    print('Processing simple request')
     r = requests.get('https://api.github.com', auth=self.auth)
     if not r.ok:
       sys.exit('Simple request fails. Check your password.')
@@ -71,6 +72,7 @@ class Github:
     print('GitHub Limit: {}'.format(limit))
     if limit == 0:
       raise Exception('GitHub limit is 0')
+    print('Simple request pass')
 
   @retry
   def get_release_by_tag(self, tagname):
@@ -88,7 +90,9 @@ class Github:
     if not r.ok:
       raise Exception('Get tag id failed. Requested url: {}'.format(url))
 
-    return r.json()['id']
+    tag_id = r.json()['id']
+    print('Tag id is {}'.format(tag_id))
+    return tag_id
 
   @retry
   def find_asset_id_by_name(self, release_id, name):
@@ -161,6 +165,7 @@ class Github:
     try:
       self.upload_bzip_once(url, local_path)
     except Exception as exc:
+      print('Exception catched while uploading, removing asset...')
       self.delete_asset_if_exists(release_id, asset_name)
       raise exc
 
