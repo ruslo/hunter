@@ -1,14 +1,6 @@
 #include <gtest/gtest.h>
 
-using namespace testing;
-
-TEST(MyTest, MyTest)    
+TEST(Foo, Boo)    
 {
-    EXPECT_EQ(1,1);
-}
-
-int main(int argc, char **argv)
-{
-    ::testing::InitGoogleTest(&argc, argv);
-    return RUN_ALL_TESTS();
+    ASSERT_EQ(3,3);
 }

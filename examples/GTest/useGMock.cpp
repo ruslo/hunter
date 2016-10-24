@@ -24,6 +24,7 @@ TEST(MyTest, UseMockClassFromGMock)    // TEST is from gtest.h
     myMockClass.doSomething();
 }
 
+// we write our own main because we did link to GMock::gmock and not GMock::main
 int main(int argc, char **argv)
 {
     ::testing::InitGoogleTest(&argc, argv);
