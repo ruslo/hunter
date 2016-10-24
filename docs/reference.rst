@@ -1,3 +1,6 @@
+.. Copyright (c) 2016, Ruslan Baratov
+.. All rights reserved.
+
 Reference
 ---------
 
@@ -10,3 +13,4 @@ Reference
    /reference/user-modules
    /reference/internal-variables
    /reference/internal-modules
+   /reference/layouts

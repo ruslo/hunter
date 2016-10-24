@@ -134,6 +134,8 @@ if args.raw:
   for macro in macros_list:
     result_fl.write('{}\n'.format(macro))
 
+# https://msdn.microsoft.com/en-us/library/windows/desktop/aa383745(v=vs.85).aspx
+
 cpp_head = """
 // This file generated automatically by `create-predefined-list.py` script.
 // * https://github.com/ruslo/hunter
@@ -149,6 +151,10 @@ cpp_head = """
 
 #if defined(__ANDROID__)
 # include <android/api-level.h> // Header with __ANDROID_API__
+#endif
+
+#if defined(_MSC_VER)
+# include <SdkDdkVer.h> // Header with _WIN32_WINNT
 #endif
 """
 

@@ -1,3 +1,6 @@
+.. Copyright (c) 2016, Ruslan Baratov
+.. All rights reserved.
+
 Manage anything
 ---------------
 
@@ -9,6 +12,7 @@ You can manage anything that can be downloaded by ``URL`` and checked with
 * C/C++ packages
 
 .. code-block:: cmake
+  :emphasize-lines: 2, 5
 
   hunter_add_package(Boost)
   find_package(Boost CONFIG REQUIRED)
@@ -19,6 +23,7 @@ You can manage anything that can be downloaded by ``URL`` and checked with
 * CMake modules
 
 .. code-block:: cmake
+  :emphasize-lines: 2
 
   hunter_add_package(Sugar)
   include("${SUGAR_ROOT}/cmake/Sugar")
@@ -29,6 +34,7 @@ You can manage anything that can be downloaded by ``URL`` and checked with
 * Additional sources (`OpenCV example <https://github.com/hunter-packages/opencv/blob/e91796b4c52994fcec5a8eafeacc618d54d31d8d/CMakeLists.txt#L449>`__):
 
 .. code-block:: cmake
+  :emphasize-lines: 4
 
   set(OPENCV_EXTRA_MODULES_PATH "" CACHE PATH "Where to look for additional OpenCV modules")
   if(OPENCV_WITH_EXTRA_MODULES)
@@ -39,6 +45,7 @@ You can manage anything that can be downloaded by ``URL`` and checked with
 * Resources (pictures, data for testing, ...)
 
 .. code-block:: cmake
+  :emphasize-lines: 3-4
 
   hunter_add_package(MyData)
 

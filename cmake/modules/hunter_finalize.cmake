@@ -1,17 +1,23 @@
-# Copyright (c) 2015, Ruslan Baratov
+# Copyright (c) 2015-2016, Ruslan Baratov
 # All rights reserved.
 
+include(hunter_apply_copy_rules)
 include(hunter_apply_gate_settings)
 include(hunter_calculate_self)
 include(hunter_create_cache_file)
 include(hunter_fatal_error)
+include(hunter_sanity_checks)
 include(hunter_status_debug)
 include(hunter_status_print)
+include(hunter_test_string_not_empty)
 
 # Continue initialization of key variables (also see 'hunter_initialize')
 #   * calculate toolchain-id
 #   * calculate config-id
 macro(hunter_finalize)
+  # Check preconditions
+  hunter_sanity_checks()
+
   list(APPEND HUNTER_CACHE_SERVERS "https://github.com/ingenue/hunter-cache")
   list(REMOVE_DUPLICATES HUNTER_CACHE_SERVERS)
   hunter_status_debug("List of cache servers:")
@@ -57,13 +63,6 @@ macro(hunter_finalize)
   # * Check cache HUNTER_* variables is up-to-date
   # * Update cache if needed
   hunter_apply_gate_settings()
-
-  hunter_calculate_self(
-      "${HUNTER_CACHED_ROOT}"
-      "${HUNTER_VERSION}"
-      "${HUNTER_SHA1}"
-      HUNTER_SELF
-  )
 
   string(SUBSTRING "${HUNTER_SHA1}" 0 7 HUNTER_ID)
   string(SUBSTRING "${HUNTER_CONFIG_SHA1}" 0 7 HUNTER_CONFIG_ID)
@@ -123,4 +122,15 @@ macro(hunter_finalize)
   set(HUNTER_ALLOW_CONFIG_LOADING YES)
   include("${HUNTER_CONFIG_ID_PATH}/config.cmake")
   set(HUNTER_ALLOW_CONFIG_LOADING NO)
+
+  hunter_test_string_not_empty("${HUNTER_INSTALL_PREFIX}")
+  hunter_test_string_not_empty("${CMAKE_BINARY_DIR}")
+
+  file(
+      WRITE
+      "${CMAKE_BINARY_DIR}/_3rdParty/Hunter/install-root-dir"
+      "${HUNTER_INSTALL_PREFIX}"
+  )
+
+  hunter_apply_copy_rules()
 endmacro()

@@ -35,7 +35,7 @@ hunter_cmake_args(
 hunter_cacheable(xshmfence)
 hunter_download(
     PACKAGE_NAME xshmfence
-    PACKAGE_INTERNAL_DEPS_ID "1"
+    PACKAGE_INTERNAL_DEPS_ID "2"
     PACKAGE_UNRELOCATABLE_TEXT_FILES
     "lib/libxshmfence.la"
     "lib/pkgconfig/xshmfence.pc"

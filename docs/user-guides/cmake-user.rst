@@ -1,9 +1,12 @@
+.. Copyright (c) 2016, Ruslan Baratov
+.. All rights reserved.
+
 CMake user
 ----------
 
 This kind of developer can **read** CMake code that was written by more
 experienced CMake developer. He understand some simple features like that
-executable added by ``add_executable`` command and this command constains list
+executable added by ``add_executable`` command and this command contains list
 of sources files.  But probably will not be able to tell why in some cases
 ``include_directories`` command called but ``target_include_directories`` in
 other cases. The main target of modifications is C++ code.

@@ -1,5 +1,12 @@
+.. Copyright (c) 2016, Ruslan Baratov
+.. All rights reserved.
+
 Config-ID
 ---------
+
+.. spelling::
+
+  eae
 
 .. _config-id:
 

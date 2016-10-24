@@ -75,7 +75,7 @@ try_compile(
 if(NOT try_compile_result)
   hunter_internal_error(
       "Compilation of ${predefined} failed. Result: ${try_compile_result}\n"
-      "Output:\n${outresult}"
+      "Output:\n--- OUTPUT BEGIN ---\n${outresult}\n--- OUTPUT END ---"
   )
 endif()
 

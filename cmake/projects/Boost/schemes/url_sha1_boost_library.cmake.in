@@ -17,6 +17,7 @@ include(hunter_fatal_error)
 include(hunter_install_boost_config)
 include(hunter_internal_error)
 include(hunter_status_debug)
+include(hunter_status_print)
 include(hunter_test_string_not_empty)
 
 hunter_status_debug("Scheme: url_sha1_boost_library")
@@ -187,6 +188,16 @@ else()
   set(copy_mpi_command "")
 endif()
 
+set(BOOST_ALL_DYN_LINK "")
+if(BUILD_SHARED_LIBS) #if using shared libs overide boost config
+  set(BOOST_BUILD_STATIC OFF)
+  if("@MSVC@")
+    set(BOOST_ALL_DYN_LINK ON)
+  endif()
+else()
+  set(BOOST_BUILD_STATIC ON)
+endif()
+
 if("@MSVC@")
   # Disable auto-linking
   set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} /DBOOST_ALL_NO_LIB=1")
@@ -204,7 +215,11 @@ if(have_osx_sysroot)
   set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -isysroot @CMAKE_OSX_SYSROOT@")
 endif()
 
-set(link_opts link=static)
+if(BOOST_BUILD_STATIC)
+  set(link_opts link=static)
+else()
+  set(link_opts link=shared)
+endif()
 
 set(toolset_full_name ${toolset_name})
 string(COMPARE NOTEQUAL "${toolset_version}" "" has_toolset_version)
@@ -324,7 +339,11 @@ endif()
 if("@MSVC@")
   # Logging as Workaround for VS_UNICODE_OUTPUT issue:
   # https://public.kitware.com/Bug/view.php?id=14266
-  set(log_opts LOG_CONFIGURE 1 LOG_BUILD 1 LOG_INSTALL 1)
+  set(log_opts LOG_CONFIGURE 1 LOG_BUILD 1 LOG_INSTALL 1 LOG_DOWNLOAD 1)
+  get_filename_component(x "@HUNTER_PACKAGE_SOURCE_DIR@/.." ABSOLUTE)
+  hunter_status_print(
+      "For progress check log files in directory: ${x}"
+  )
 else()
   set(log_opts "")
 endif()

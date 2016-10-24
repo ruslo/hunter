@@ -118,6 +118,7 @@ function(hunter_download)
   set(all_schemes "")
   set(all_schemes "${all_schemes}${HUNTER_PACKAGE_SCHEME_DOWNLOAD}")
   set(all_schemes "${all_schemes}${HUNTER_PACKAGE_SCHEME_UNPACK}")
+  set(all_schemes "${all_schemes}${HUNTER_PACKAGE_SCHEME_UNPACK_INSTALL}")
   set(all_schemes "${all_schemes}${HUNTER_PACKAGE_SCHEME_INSTALL}")
 
   string(COMPARE EQUAL "${all_schemes}" "1" is_good)
@@ -126,6 +127,7 @@ function(hunter_download)
         "Incorrect schemes:"
         "  HUNTER_PACKAGE_SCHEME_DOWNLOAD = ${HUNTER_PACKAGE_SCHEME_DOWNLOAD}"
         "  HUNTER_PACKAGE_SCHEME_UNPACK = ${HUNTER_PACKAGE_SCHEME_UNPACK}"
+        "  HUNTER_PACKAGE_SCHEME_UNPACK_INSTALL = ${HUNTER_PACKAGE_SCHEME_UNPACK_INSTALL}"
         "  HUNTER_PACKAGE_SCHEME_INSTALL = ${HUNTER_PACKAGE_SCHEME_INSTALL}"
     )
   endif()
@@ -194,6 +196,9 @@ function(hunter_download)
     elseif(HUNTER_PACKAGE_SCHEME_UNPACK)
       set(${root_name} "${HUNTER_PACKAGE_SOURCE_DIR}")
       hunter_status_debug("Unpack to: ${HUNTER_PACKAGE_SOURCE_DIR}")
+    elseif(HUNTER_PACKAGE_SCHEME_UNPACK_INSTALL)
+      set(${root_name} "${HUNTER_INSTALL_PREFIX}")
+      hunter_status_debug("Install to: ${HUNTER_PACKAGE_SOURCE_DIR}")
     else()
       hunter_internal_error("Invalid scheme")
     endif()
@@ -440,6 +445,16 @@ function(hunter_download)
       "-DCMAKE_TOOLCHAIN_FILE=${HUNTER_DOWNLOAD_TOOLCHAIN}"
       "-G${CMAKE_GENERATOR}"
   )
+  string(COMPARE NOTEQUAL "${CMAKE_GENERATOR_TOOLSET}" "" has_toolset)
+  if(has_toolset)
+    list(APPEND cmd "-T" "${CMAKE_GENERATOR_TOOLSET}")
+  endif()
+
+  string(COMPARE NOTEQUAL "${CMAKE_GENERATOR_PLATFORM}" "" has_gen_platform)
+  if(has_gen_platform)
+    list(APPEND cmd "-A" "${CMAKE_GENERATOR_PLATFORM}")
+  endif()
+
   hunter_print_cmd("${HUNTER_PACKAGE_HOME_DIR}" "${cmd}")
 
   # Configure and build downloaded project

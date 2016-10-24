@@ -1,3 +1,6 @@
+.. Copyright (c) 2016, Ruslan Baratov
+.. All rights reserved.
+
 Shareable
 ---------
 
@@ -12,5 +15,5 @@ e.g.  triggering build of ``OpenSSL`` for ``iOS`` will not pause building of
 command (available since ``3.2``).
 
 Same synchronization done for the initializing Hunter by ``HunterGate`` command.
-This is very handy feature for the CI systems with envoronment which is shared
+This is very handy feature for the CI systems with environment which is shared
 between several jobs, e.g. Jenkins.
