@@ -11,11 +11,11 @@ hunter_add_version(
     PACKAGE_NAME
     ceres-solver
     VERSION
-    "1.12.0"
+    "1.12.0rc1"
     URL
-    "https://github.com/hunter-packages/ceres-solver/archive/hunter.zip"
+    "https://github.com/hunter-packages/ceres-solver/archive/v1.12.0rc1-hunter.zip"
     SHA1
-    8554129d92cdddaead42274a47322709f82943e0
+    0cc8a58e1830f386ecd04e95d6e129a85b808511
 )
 
 # Probably more versions for real packages...
