@@ -53,6 +53,7 @@ env:
   - PROJECT_DIR=tests/hunter_setup_msvc TOOLCHAIN=default
   - PROJECT_DIR=tests/hunter_sleep_before_download TOOLCHAIN=default
   - PROJECT_DIR=tests/hunter_unpack_directory TOOLCHAIN=default
+  - PROJECT_DIR=tests/hunter_init_not_found_counter TOOLCHAIN=default
 
   - TOOLCHAIN=generate-documentation-test
 

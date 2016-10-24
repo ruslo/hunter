@@ -69,7 +69,7 @@ function(hunter_download_cache_meta_file)
     set(local_url "${url}/master/${local_suffix}")
     set(done_url "${url}/master/${done_suffix}")
 
-    hunter_init_not_found_counter(NOT_FOUND_NEEDED not_found_counter)
+    hunter_init_not_found_counter(NOT_FOUND_NEEDED not_found_counter 1)
 
     set(total_retry 10)
     foreach(x RANGE ${total_retry})
@@ -107,7 +107,7 @@ function(hunter_download_cache_meta_file)
       continue()
     endif()
 
-    hunter_init_not_found_counter(NOT_FOUND_NEEDED not_found_counter)
+    hunter_init_not_found_counter(NOT_FOUND_NEEDED not_found_counter 1)
 
     set(total_retry 10)
     foreach(x RANGE ${total_retry})

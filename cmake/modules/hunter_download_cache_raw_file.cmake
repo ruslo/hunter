@@ -61,7 +61,7 @@ function(hunter_download_cache_raw_file)
     return()
   endif()
 
-  hunter_init_not_found_counter(NOT_FOUND_NEEDED not_found_counter)
+  hunter_init_not_found_counter(NOT_FOUND_NEEDED not_found_counter 1)
 
   foreach(server ${HUNTER_CACHE_SERVERS})
     string(REGEX MATCH "^https://github.com/" is_github "${server}")
