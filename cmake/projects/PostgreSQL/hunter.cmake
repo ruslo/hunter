@@ -20,6 +20,14 @@ hunter_add_version(
     b82ddcee4644ef42f3a69ee93916afa448d178c4
 )
 
+if (ANDROID OR IOS)
+  hunter_cmake_args(
+      PostgreSQL
+      CMAKE_ARGS
+          EXTRA_FLAGS=--without-readline
+  )
+endif()
+
 hunter_configuration_types(PostgreSQL CONFIGURATION_TYPES Release)
 hunter_pick_scheme(DEFAULT url_sha1_autotools)
 hunter_cacheable(PostgreSQL)
