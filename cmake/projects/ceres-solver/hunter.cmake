@@ -18,8 +18,6 @@ hunter_add_version(
     0cc8a58e1830f386ecd04e95d6e129a85b808511
 )
 
-# Probably more versions for real packages...
-
 # Pick a download scheme
 hunter_pick_scheme(DEFAULT url_sha1_cmake) # use scheme for cmake projects
 
