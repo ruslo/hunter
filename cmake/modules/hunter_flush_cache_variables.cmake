@@ -25,6 +25,20 @@ function(hunter_flush_cache_variables hunter_self)
       set(cleanup TRUE)
     endif()
 
+    # Issue https://github.com/ruslo/hunter/issues/569 {
+    if(x MATCHES "^Boost_.*_LIBRARY_.*$")
+      set(cleanup TRUE)
+    endif()
+
+    if(x MATCHES "^Boost_LIBRARY_DIR_.*$")
+      set(cleanup TRUE)
+    endif()
+
+    if(x MATCHES "^_Boost_LIBRARY_DIR_.*_LAST$")
+      set(cleanup TRUE)
+    endif()
+    # }
+
     # Exclude standard variables {
     set(
         std_variables_list
