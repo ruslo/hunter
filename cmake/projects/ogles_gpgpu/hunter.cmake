@@ -13,6 +13,17 @@ hunter_add_version(
     PACKAGE_NAME
     ogles_gpgpu
     VERSION
+    0.1.2
+    URL
+    "https://github.com/hunter-packages/ogles_gpgpu/archive/v0.1.2.tar.gz"
+    SHA1
+    a007c80de2d92147d6172ed52820e0c1268ed429
+)
+
+hunter_add_version(
+    PACKAGE_NAME
+    ogles_gpgpu
+    VERSION
     0.1.1
     URL
     "https://github.com/hunter-packages/ogles_gpgpu/archive/v0.1.1.tar.gz"
