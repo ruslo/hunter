@@ -188,7 +188,7 @@ hunter_config(xxf86vm VERSION 1.1.2)
 if(MINGW OR MSVC80)
   hunter_config(GTest VERSION 1.7.0-hunter-6)
 else()
-  hunter_config(GTest VERSION 1.8.0-hunter-p2)
+  hunter_config(GTest VERSION 1.8.0-hunter-p5)
 endif()
 
 if(ANDROID)
