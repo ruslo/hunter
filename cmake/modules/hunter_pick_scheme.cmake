@@ -37,6 +37,7 @@ function(hunter_pick_scheme)
   endif()
 
   set(HUNTER_PACKAGE_SCHEME_DOWNLOAD "")
+  set(HUNTER_PACKAGE_SCHEME_LOCAL_CMAKE "")
   set(HUNTER_PACKAGE_SCHEME_UNPACK "")
   set(HUNTER_PACKAGE_SCHEME_UNPACK_INSTALL "")
   set(HUNTER_PACKAGE_SCHEME_INSTALL "")
@@ -62,6 +63,14 @@ function(hunter_pick_scheme)
       COMPARE
       EQUAL
       "${HUNTER_DOWNLOAD_SCHEME}"
+      "url_local_cmake"
+      is_local
+  )
+
+  string(
+      COMPARE
+      EQUAL
+      "${HUNTER_DOWNLOAD_SCHEME}"
       "url_sha1_unpack_install"
       is_unpack_install
   )
@@ -70,6 +79,8 @@ function(hunter_pick_scheme)
     set(HUNTER_PACKAGE_SCHEME_UNPACK "1")
   elseif(is_download)
     set(HUNTER_PACKAGE_SCHEME_DOWNLOAD "1")
+  elseif(is_local)
+    set(HUNTER_PACKAGE_SCHEME_LOCAL_CMAKE "1")
   elseif(is_unpack_install)
     set(HUNTER_PACKAGE_SCHEME_UNPACK_INSTALL "1")
   else()
@@ -82,6 +93,11 @@ function(hunter_pick_scheme)
   set(
       HUNTER_PACKAGE_SCHEME_DOWNLOAD
       "${HUNTER_PACKAGE_SCHEME_DOWNLOAD}"
+      PARENT_SCOPE
+  )
+  set(
+      HUNTER_PACKAGE_SCHEME_LOCAL_CMAKE
+      "${HUNTER_PACKAGE_SCHEME_LOCAL_CMAKE}"
       PARENT_SCOPE
   )
   set(

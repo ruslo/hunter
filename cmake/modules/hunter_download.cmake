@@ -117,6 +117,7 @@ function(hunter_download)
   # Check that only one scheme is set to 1
   set(all_schemes "")
   set(all_schemes "${all_schemes}${HUNTER_PACKAGE_SCHEME_DOWNLOAD}")
+  set(all_schemes "${all_schemes}${HUNTER_PACKAGE_SCHEME_LOCAL_CMAKE}")
   set(all_schemes "${all_schemes}${HUNTER_PACKAGE_SCHEME_UNPACK}")
   set(all_schemes "${all_schemes}${HUNTER_PACKAGE_SCHEME_UNPACK_INSTALL}")
   set(all_schemes "${all_schemes}${HUNTER_PACKAGE_SCHEME_INSTALL}")
@@ -126,6 +127,7 @@ function(hunter_download)
     hunter_internal_error(
         "Incorrect schemes:"
         "  HUNTER_PACKAGE_SCHEME_DOWNLOAD = ${HUNTER_PACKAGE_SCHEME_DOWNLOAD}"
+        "  HUNTER_PACKAGE_SCHEME_LOCAL_CMAKE = ${HUNTER_PACKAGE_SCHEME_LOCAL_CMAKE}"
         "  HUNTER_PACKAGE_SCHEME_UNPACK = ${HUNTER_PACKAGE_SCHEME_UNPACK}"
         "  HUNTER_PACKAGE_SCHEME_UNPACK_INSTALL = ${HUNTER_PACKAGE_SCHEME_UNPACK_INSTALL}"
         "  HUNTER_PACKAGE_SCHEME_INSTALL = ${HUNTER_PACKAGE_SCHEME_INSTALL}"
@@ -193,6 +195,9 @@ function(hunter_download)
     if(HUNTER_PACKAGE_SCHEME_DOWNLOAD)
       set(${root_name} "${HUNTER_PACKAGE_SOURCE_DIR}")
       hunter_status_debug("Download to: ${HUNTER_PACKAGE_SOURCE_DIR}")
+    elseif(HUNTER_PACKAGE_SCHEME_LOCAL_CMAKE)
+      set(${root_name} "${HUNTER_PACKAGE_SOURCE_DIR}")
+      hunter_status_debug("Copy to: ${HUNTER_PACKAGE_SOURCE_DIR}")
     elseif(HUNTER_PACKAGE_SCHEME_UNPACK)
       set(${root_name} "${HUNTER_PACKAGE_SOURCE_DIR}")
       hunter_status_debug("Unpack to: ${HUNTER_PACKAGE_SOURCE_DIR}")
@@ -502,7 +507,7 @@ function(hunter_download)
     )
   endif()
 
-  if(HUNTER_PACKAGE_SCHEME_DOWNLOAD)
+  if(HUNTER_PACKAGE_SCHEME_DOWNLOAD OR HUNTER_PACKAGE_SCHEME_LOCAL_CMAKE)
     # This scheme not using ExternalProject_Add so there will be no stamps
   else()
     hunter_find_stamps("${HUNTER_PACKAGE_BUILD_DIR}")
@@ -513,7 +518,7 @@ function(hunter_download)
   hunter_status_debug("Cleaning up build directories...")
 
   file(REMOVE_RECURSE "${HUNTER_PACKAGE_BUILD_DIR}")
-  if(HUNTER_PACKAGE_SCHEME_INSTALL)
+  if(HUNTER_PACKAGE_SCHEME_INSTALL OR HUNTER_PACKAGE_SCHEME_LOCAL_CMAKE)
     # Unpacked directory not needed (save some disk space)
     file(REMOVE_RECURSE "${HUNTER_PACKAGE_SOURCE_DIR}")
   endif()
@@ -528,5 +533,8 @@ function(hunter_download)
 
   hunter_status_debug("Clean up done")
 
-  file(WRITE "${HUNTER_PACKAGE_DONE_STAMP}" "")
+  #using local source, force new copy each time in case there is a change
+  if(NOT HUNTER_PACKAGE_SCHEME_LOCAL_CMAKE)
+    file(WRITE "${HUNTER_PACKAGE_DONE_STAMP}" "")
+  endif()
 endfunction()
