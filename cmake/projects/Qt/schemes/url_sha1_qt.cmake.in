@@ -111,7 +111,7 @@ elseif(_is_android)
       -xplatform android-g++
       -android-sdk "${ANDROID-SDK_ROOT}/android-sdk"
       -android-ndk "${ANDROID_NDK}"
-      -android-ndk-platform "android-${ANDROID_NATIVE_API_LEVEL}"
+      -android-ndk-platform "android-${CMAKE_SYSTEM_VERSION}"
       -android-arch "${ANDROID_NDK_ABI_NAME}"
       # -android-toolchain-version # ???
       -no-warnings-are-errors
