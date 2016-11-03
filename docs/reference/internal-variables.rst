@@ -3,3 +3,9 @@
 
 Internal variables
 ------------------
+
+.. toctree::
+  :glob:
+  :maxdepth: 1
+
+  /reference/internal-variables/*

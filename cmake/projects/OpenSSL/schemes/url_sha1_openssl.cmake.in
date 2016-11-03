@@ -33,6 +33,12 @@ else()
   set(configure_command "./config")
 endif()
 
+# Pass C compiler through
+set(configure_command CC=${CMAKE_C_COMPILER} ${configure_command})
+
+# Pass C flags through
+set(configure_opts ${configure_opts} ${CMAKE_C_FLAGS})
+
 set(
     configure_command
     . "@HUNTER_GLOBAL_SCRIPT_DIR@/clear-all.sh" && "${configure_command}"

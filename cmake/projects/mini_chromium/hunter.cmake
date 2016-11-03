@@ -1,3 +1,4 @@
+# Copyright (c) 2016, Quantitative Engineering Design Inc.
 # Copyright (c) 2016, Ruslan Baratov
 # All rights reserved.
 
@@ -14,7 +15,7 @@ hunter_add_version(
     VERSION
     0.0.1-p2
     URL
-    "https://github.com/hunter-packages/mini_chromium/archive/v0.0.1-p2.tar.gz"
+    "https://github.com/qedsoftware/mini_chromium/archive/v0.0.1-p2.tar.gz"
     SHA1
     1c587622e03e4da8a6bce02a2f6f062eb7f5a26c
 )
@@ -25,7 +26,7 @@ hunter_add_version(
     VERSION
     0.0.1-p1
     URL
-    "https://github.com/hunter-packages/mini_chromium/archive/v0.0.1-p1.tar.gz"
+    "https://github.com/qedsoftware/mini_chromium/archive/v0.0.1-p1.tar.gz"
     SHA1
     ea942bdcda9d1f32e928ef07a65f4b02e7a6ff6c
 )
@@ -36,7 +37,7 @@ hunter_add_version(
     VERSION
     0.0.1-p0
     URL
-    "https://github.com/hunter-packages/mini_chromium/archive/v0.0.1-p0.tar.gz"
+    "https://github.com/qedsoftware/mini_chromium/archive/v0.0.1-p0.tar.gz"
     SHA1
     aba3db46ea8a94a1254d4464db2352e60d0e7705
 )
