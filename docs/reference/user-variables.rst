@@ -136,6 +136,14 @@ HUNTER_USE_CACHE_SERVERS
 
 * Default is empty string. Effectively equivalent to **YES**.
 
+.. _hunter passwords path:
+
+HUNTER_PASSWORDS_PATH
+=====================
+
+Path to file with passwords for packages with
+:doc:`protected sources </user-guides/cmake-user/protected-sources>`.
+
 Environment
 ~~~~~~~~~~~
 
@@ -166,3 +174,11 @@ module. This will give you more control in some advanced usage situations, see
 Set :ref:`HUNTER_RUN_INSTALL=ON <hunter run install>` CMake variable each time
 you want to run auto-install procedure. Note that there is no need to set any
 variables if Hunter root is already installed.
+
+.. _hunter passwords path env:
+
+HUNTER_PASSWORDS_PATH
+=====================
+
+Environment variable with functionality similar to CMake variable with
+:ref:`the same name <hunter passwords path>`.

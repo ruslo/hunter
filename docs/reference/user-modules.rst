@@ -3,3 +3,9 @@
 
 User modules
 ------------
+
+.. toctree::
+   :maxdepth: 1
+   :glob:
+
+   /reference/user-modules/*
