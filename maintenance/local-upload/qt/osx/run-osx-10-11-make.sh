@@ -8,7 +8,7 @@ export GITHUB_USER_PASSWORD
 
 THIS_SCRIPT_DIR=`dirname "${BASH_SOURCE[0]}"`
 
-cd "${THIS_SCRIPT_DIR}/../../.."
+cd "${THIS_SCRIPT_DIR}/../../../.."
 
 # {
 export TOOLCHAIN=osx-10-11-make # same as 'libcxx' on Travis
