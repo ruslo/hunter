@@ -14,4 +14,3 @@ add_executable(cryptopp-test main.cpp)
 
 
 target_link_libraries(cryptopp-test PRIVATE cryptopp-static)
-# target_link_libraries(cryptopp-test PRIVATE cryptopp-shared)
