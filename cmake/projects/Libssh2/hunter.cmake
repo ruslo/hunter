@@ -4,6 +4,7 @@
 # !!! DO NOT PLACE HEADER GUARDS HERE !!!
 
 include(hunter_add_version)
+include(hunter_cacheable)
 include(hunter_cmake_args)
 include(hunter_download)
 include(hunter_pick_scheme)
@@ -14,9 +15,9 @@ hunter_add_version(
     VERSION
     "1.7.0"
     URL
-    "https://github.com/hunter-packages/libssh2/archive/libssh2-1.7.0-hunter-2.tar.gz"
+    "https://github.com/hunter-packages/libssh2/archive/libssh2-1.7.0-hunter-4.tar.gz"
     SHA1
-    284191652e208daf34018e7938e6ee6db9f99931
+    7e69321f9d09d53ecb367fc571ef303d0986147e
 )
 
 hunter_add_version(
@@ -50,4 +51,5 @@ hunter_cmake_args(
 )
 
 hunter_pick_scheme(DEFAULT url_sha1_cmake)
+hunter_cacheable(Libssh2)
 hunter_download(PACKAGE_NAME Libssh2)
