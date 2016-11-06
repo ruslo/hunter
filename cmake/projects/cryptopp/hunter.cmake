@@ -29,4 +29,5 @@ hunter_add_version(
 )
 
 hunter_pick_scheme(DEFAULT url_sha1_cmake) # use scheme for cmake projects
+hunter_cacheable(cryptopp)
 hunter_download(PACKAGE_NAME cryptopp)

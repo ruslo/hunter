@@ -10,7 +10,8 @@ hunter_add_package(cryptopp)
 find_package(cryptopp CONFIG REQUIRED)
 
 
-add_executable(test main.cpp)
+add_executable(cryptopp-test main.cpp)
 
 
-target_link_libraries(test PRIVATE cryptopp-static)
+target_link_libraries(cryptopp-test PRIVATE cryptopp-static)
+# target_link_libraries(cryptopp-test PRIVATE cryptopp-shared)
