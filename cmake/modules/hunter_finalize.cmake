@@ -6,6 +6,7 @@ include(hunter_apply_gate_settings)
 include(hunter_calculate_self)
 include(hunter_create_cache_file)
 include(hunter_fatal_error)
+include(hunter_internal_error)
 include(hunter_sanity_checks)
 include(hunter_status_debug)
 include(hunter_status_print)
@@ -139,5 +140,49 @@ macro(hunter_finalize)
         "CMake version 3.7+ required for Android platforms, see"
         " https://docs.hunter.sh/en/latest/quick-start/cmake.html"
     )
+  endif()
+
+  if(ANDROID)
+    # Extra Android variables that can't be set in toolchain
+    # (some variables available only after toolchain processed).
+    # Needed in 'hunter_autotools_project'.
+    set(
+        CMAKE_C_PREPROCESSOR
+        "${CMAKE_CXX_ANDROID_TOOLCHAIN_PREFIX}cpp${CMAKE_CXX_ANDROID_TOOLCHAIN_SUFFIX}"
+        CACHE
+        FILEPATH
+        "Path to preprocessor"
+    )
+    if(NOT EXISTS "${CMAKE_C_PREPROCESSOR}")
+      hunter_internal_error("File not found: ${CMAKE_C_PREPROCESSOR}")
+    endif()
+
+    # Needed in 'hunter_autotool_project'
+    get_filename_component(
+        ANDROID_TOOLCHAIN_MACHINE_NAME
+        "${CMAKE_CXX_ANDROID_TOOLCHAIN_PREFIX}"
+        NAME
+    )
+    string(
+        REGEX
+        REPLACE
+        "-$"
+        ""
+        ANDROID_TOOLCHAIN_MACHINE_NAME
+        "${ANDROID_TOOLCHAIN_MACHINE_NAME}"
+    )
+
+    # Rejected: https://gitlab.kitware.com/cmake/cmake/merge_requests/74
+    set(
+        ANDROID_GDBSERVER
+        "${CMAKE_ANDROID_NDK}/prebuilt/android-${CMAKE_ANDROID_ARCH}/gdbserver/gdbserver"
+        CACHE
+        FILEPATH
+        "Path to gdbserver"
+    )
+
+    if(NOT EXISTS "${ANDROID_GDBSERVER}")
+      hunter_internal_error("gdbserver not found: ${ANDROID_GDBSERVER}")
+    endif()
   endif()
 endmacro()
