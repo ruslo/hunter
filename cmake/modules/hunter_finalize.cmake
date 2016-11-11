@@ -196,5 +196,41 @@ macro(hunter_finalize)
     if(NOT EXISTS "${ANDROID_GDBSERVER}")
       hunter_internal_error("gdbserver not found: ${ANDROID_GDBSERVER}")
     endif()
+
+    if(CMAKE_HOST_SYSTEM_NAME STREQUAL "Darwin")
+      if(CMAKE_HOST_SYSTEM_PROCESSOR STREQUAL "x86_64")
+        set(ANDROID_NDK_HOST_SYSTEM_NAME "darwin-x86_64")
+      else()
+        set(ANDROID_NDK_HOST_SYSTEM_NAME "darwin-x86")
+      endif()
+    elseif(CMAKE_HOST_SYSTEM_NAME STREQUAL "Linux")
+      if(CMAKE_HOST_SYSTEM_PROCESSOR STREQUAL "x86_64")
+        set(ANDROID_NDK_HOST_SYSTEM_NAME "linux-x86_64")
+      else()
+        set(ANDROID_NDK_HOST_SYSTEM_NAME "linux-x86")
+      endif()
+    elseif(CMAKE_HOST_SYSTEM_NAME STREQUAL "Windows")
+      if(CMAKE_HOST_SYSTEM_PROCESSOR STREQUAL "AMD64")
+        set(ANDROID_NDK_HOST_SYSTEM_NAME "windows-x86_64")
+      else()
+        set(ANDROID_NDK_HOST_SYSTEM_NAME "windows")
+      endif()
+    else()
+      hunter_internal_error("Unknown host for Android")
+    endif()
+
+    set(ANDROID_COMPILER_VERSION "")
+    string(
+        REGEX
+        REPLACE
+        "^${CMAKE_ANDROID_NDK}/toolchains/${ANDROID_TOOLCHAIN_MACHINE_NAME}-(.*)/prebuilt/.*/bin/${ANDROID_TOOLCHAIN_MACHINE_NAME}-$"
+        "\\1"
+        ANDROID_COMPILER_VERSION
+        "${CMAKE_CXX_ANDROID_TOOLCHAIN_PREFIX}"
+    )
+    string(COMPARE EQUAL "${ANDROID_COMPILER_VERSION}" "" is_empty)
+    if(is_empty)
+      hunter_internal_error("Parse failed")
+    endif()
   endif()
 endmacro()
