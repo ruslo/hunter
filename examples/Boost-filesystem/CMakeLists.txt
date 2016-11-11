@@ -60,6 +60,10 @@ if(ANDROID)
     message("Path to `emulator`: ${ANDROID-SDK_ROOT}/android-sdk/tools/emulator")
     message("Path to `adb`: ${ANDROID-SDK_ROOT}/android-sdk/platform-tools/adb")
 
-    android_create_apk(NAME foo DIRECTORY "${CMAKE_CURRENT_BINARY_DIR}/apk")
+    android_create_apk(
+        BASE_TARGET foo
+        LAUNCH_TARGET foo-launch
+        DIRECTORY "${CMAKE_CURRENT_BINARY_DIR}/apk"
+    )
   endif()
 endif()
