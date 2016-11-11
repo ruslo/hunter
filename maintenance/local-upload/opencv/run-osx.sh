@@ -22,4 +22,7 @@ export TOOLCHAIN=ios-nocodesign-9-3-wo-armv7s
 PROJECT_DIR=examples/OpenCV ./jenkins.py --verbose --upload --clear-except-download
 # }
 
-echo "Done"
+# {
+export TOOLCHAIN=ios-nocodesign-9-3
+PROJECT_DIR=examples/OpenCV ./jenkins.py --verbose --upload --clear-except-download
+# }

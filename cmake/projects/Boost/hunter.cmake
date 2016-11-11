@@ -16,6 +16,18 @@ hunter_add_version(
     PACKAGE_NAME
     Boost
     VERSION
+    "1.62.0"
+    URL
+    "https://downloads.sourceforge.net/project/boost/boost/1.62.0/boost_1_62_0.tar.bz2"
+    SHA1
+    5fd97433c3f859d8cbab1eaed4156d3068ae3648
+)
+
+
+hunter_add_version(
+    PACKAGE_NAME
+    Boost
+    VERSION
     "1.61.0"
     URL
     "https://downloads.sourceforge.net/project/boost/boost/1.61.0/boost_1_61_0.tar.bz2"
@@ -219,4 +231,4 @@ hunter_add_version(
 
 hunter_pick_scheme(DEFAULT url_sha1_boost)
 hunter_cacheable(Boost)
-hunter_download(PACKAGE_NAME Boost PACKAGE_INTERNAL_DEPS_ID "2")
+hunter_download(PACKAGE_NAME Boost PACKAGE_INTERNAL_DEPS_ID "6")

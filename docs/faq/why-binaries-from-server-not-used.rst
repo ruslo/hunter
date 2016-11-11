@@ -231,7 +231,8 @@ for OS X  (see also `this repo <https://github.com/forexample/github-binary-rele
       # note that this is repository where password **will be used** in .travis.yml
       # this repository is a fork of https://github.com/ruslo/hunter
   > cd hunter
-  > gem install travis
+  > gem install travis # for Ubuntu it will be 'sudo gem install travis'
+  > travis login --pro # in case repository is private
   > travis encrypt GITHUB_USER_PASSWORD=very-secured-password
   ...
   Please add the following to your .travis file:
@@ -260,6 +261,18 @@ Now you can add secure variable to ``.travis.yml`` matrix:
 
   * `.travis.yml example <https://github.com/ingenue/hunter/blob/4f3b76832d2404c90af98c2557ec06ec7da9eb06/.travis.yml>`__
 
+.. note::
+
+  Instead of a password you can use GitHub token. Follow
+  `those instructions <https://help.github.com/articles/creating-an-access-token-for-command-line-use/>`__
+  and under the ``Select scopes`` choose ``public_repo``
+  (``Access public repositories``).
+
+.. warning::
+
+  If you're planning to use "bot" account, login to GitHub with **bot**
+  credentials.
+
 AppVeyor
 ~~~~~~~~
 
@@ -284,4 +297,3 @@ as an **owner** of repository):
 .. seealso::
 
   * `appveyor.yml example <https://github.com/ingenue/hunter/blob/4f3b76832d2404c90af98c2557ec06ec7da9eb06/appveyor.yml>`__
-

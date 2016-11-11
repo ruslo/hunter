@@ -137,6 +137,16 @@ if("@IOS@")
     set(output_content "${output_content}\n${output}")
   endforeach()
 
+  string(COMPARE EQUAL "@CMAKE_XCODE_ATTRIBUTE_DEVELOPMENT_TEAM@" "" is_empty)
+  if(NOT is_empty)
+    # https://bugreports.qt.io/browse/QTCREATORBUG-16968?focusedCommentId=333849&page=com.atlassian.jira.plugin.system.issuetabpanels:comment-tabpanel#comment-333849
+    set(team "HUNTER_DEVELOPMENT_TEAM.value = @CMAKE_XCODE_ATTRIBUTE_DEVELOPMENT_TEAM@")
+    set(team "${team}\nHUNTER_DEVELOPMENT_TEAM.name = DEVELOPMENT_TEAM")
+    set(team "${team}\nQMAKE_MAC_XCODE_SETTINGS += HUNTER_DEVELOPMENT_TEAM")
+
+    set(output_content "${output_content}\n${team}")
+  endif()
+
   file(WRITE "${conf_path}" "${output_content}\n")
 endif()
 

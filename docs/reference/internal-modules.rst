@@ -3,3 +3,9 @@
 
 Internal modules
 ----------------
+
+.. toctree::
+   :maxdepth: 1
+   :glob:
+
+   /reference/internal-modules/*

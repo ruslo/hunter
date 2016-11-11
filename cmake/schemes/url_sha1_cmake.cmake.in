@@ -79,6 +79,17 @@ else()
   set(log_install 0)
 endif()
 
+string(COMPARE EQUAL "@HUNTER_PACKAGE_PROTECTED_SOURCES@" "" is_empty)
+if(is_empty)
+  set(http_credentials "")
+else()
+  set(
+      http_credentials
+      HTTP_USERNAME "@HUNTER_PACKAGE_HTTP_USERNAME@"
+      HTTP_PASSWORD "@HUNTER_PACKAGE_HTTP_PASSWORD@"
+  )
+endif()
+
 foreach(configuration @HUNTER_PACKAGE_CONFIGURATION_TYPES@)
   # All configurations use the same URL which will be downloaded only once
   # i.e. overhead only for unpacking archive + no files from the previous
@@ -100,6 +111,7 @@ foreach(configuration @HUNTER_PACKAGE_CONFIGURATION_TYPES@)
       @HUNTER_PACKAGE_URL@
       URL_HASH
       SHA1=@HUNTER_PACKAGE_SHA1@
+      ${http_credentials}
       DOWNLOAD_DIR
       "@HUNTER_PACKAGE_DOWNLOAD_DIR@"
       SOURCE_DIR
