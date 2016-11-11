@@ -143,12 +143,24 @@ macro(hunter_finalize)
   endif()
 
   if(ANDROID)
+    string(COMPARE EQUAL "${CMAKE_C_ANDROID_TOOLCHAIN_PREFIX}" "" is_c_empty)
+    string(COMPARE EQUAL "${CMAKE_CXX_ANDROID_TOOLCHAIN_PREFIX}" "" is_cxx_empty)
+    if(is_c_empty AND is_cxx_empty)
+      hunter_internal_error("CMAKE_{C,CXX}_ANDROID_TOOLCHAIN_PREFIX is empty")
+    elseif(is_c_empty)
+      set(prefix "${CMAKE_CXX_ANDROID_TOOLCHAIN_PREFIX}")
+      set(suffix "${CMAKE_CXX_ANDROID_TOOLCHAIN_SUFFIX}")
+    else()
+      set(prefix "${CMAKE_C_ANDROID_TOOLCHAIN_PREFIX}")
+      set(suffix "${CMAKE_C_ANDROID_TOOLCHAIN_SUFFIX}")
+    endif()
+
     # Extra Android variables that can't be set in toolchain
     # (some variables available only after toolchain processed).
     # Needed in 'hunter_autotools_project'.
     set(
         CMAKE_C_PREPROCESSOR
-        "${CMAKE_CXX_ANDROID_TOOLCHAIN_PREFIX}cpp${CMAKE_CXX_ANDROID_TOOLCHAIN_SUFFIX}"
+        "${prefix}cpp${suffix}"
         CACHE
         FILEPATH
         "Path to preprocessor"
