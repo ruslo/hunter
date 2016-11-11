@@ -56,11 +56,15 @@
 include(ExternalProject) # ExternalProject_Add
 include(CMakeParseArguments) # cmake_parse_arguments
 
+include(hunter_dump_cmake_flags)
 include(hunter_fatal_error)
+include(hunter_finalize)
 include(hunter_status_debug)
 include(hunter_test_string_not_empty)
 
 function(hunter_autotools_project target_name)
+  hunter_finalize()
+  # -> ANDROID_TOOLCHAIN_MACHINE_NAME
 
   set(optional_params)
   set(one_value_params
@@ -198,6 +202,10 @@ function(hunter_autotools_project target_name)
         "${cppflags} ${CMAKE_INCLUDE_SYSTEM_FLAG_CXX} ${include_dir}"
     )
   endforeach()
+
+  hunter_dump_cmake_flags(CPPFLAGS cppflags)
+  # -> CMAKE_C_FLAGS
+  # -> CMAKE_CXX_FLAGS
 
   set(cppflags "${cppflags} ${PARAM_CPPFLAGS}")
   string(STRIP "${cppflags}" cppflags)
