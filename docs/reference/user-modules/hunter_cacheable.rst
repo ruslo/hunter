@@ -12,9 +12,19 @@ cache between several ``<hunter-id>/<config-id>/<toolchain-id>`` roots. Note
 that all dependencies of this package and the package itself must be
 `relocatable <https://github.com/ruslo/hunter/wiki/usr.adding.new.package#important>`__.
 
+Example of ``hunter.cmake`` file:
+
 .. code-block:: cmake
+  :emphasize-lines: 4, 9
 
   # cmake/project/TIFF/hunter.cmake
+
+  include(hunter_add_version)
+  include(hunter_cacheable)
+  include(hunter_download)
+
+  hunter_add_version(...)
+
   hunter_cacheable(TIFF)
   hunter_download(PACKAGE_NAME TIFF)
 

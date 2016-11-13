@@ -18,13 +18,25 @@ instructions. Name of package and component set by ``PACKAGE_NAME`` and
 ``PACKAGE_COMPONENT``.
 
 Option ``PACKAGE_DEPENDS_ON`` used to register dependency explicitly (this is a
-workaround for non-hunterized packages). Note that dependencies tracked
-automatically in Hunter. Also note that this will only register dependency
-without downloading it and in fact used only for unpacking archives of ``Cache``
-directory.
+**workaround** for non-hunterized packages and **should not be used**).
+Note that dependencies tracked automatically in Hunter. Also note that this will
+only register dependency without downloading it and in fact used only for
+unpacking archives of ``Cache`` directory.
 
 Option ``PACKAGE_INTERNAL_DEPS_ID`` is an identifier of internal files that build
-the package (like build scheme or additional scripts). Usually there is no need
-to set this variable, take a look at this issues if you want to understand the
-meaning of it: `binaries cache <https://github.com/ruslo/hunter/issues/74>`__ and
-`correct reusing of cache directory <https://github.com/ruslo/hunter/issues/194>`__.
+the package (like build scheme or additional scripts). This variable used by
+cache system to detect the necessity of update the binary cache of
+package when non of the following changed: package sources, build types,
+CMake arguments, toolchain-id or dependencies. The rule of thumb is to increase
+the value of ``PACKAGE_INTERNAL_DEPS_ID`` each time you're applying change of
+build scheme and making it public (e.g. sending pull request). This should be
+done for every affected package. If you want to understand the meaning of it
+better and why such approach used, you can read:
+
+* `Issue #74 (Binaries cache) <https://github.com/ruslo/hunter/issues/74>`__
+* `Issue #194 (Correct reusing of cache directory) <https://github.com/ruslo/hunter/issues/194>`__
+
+.. note::
+
+  This variable used only by non-CMake packages since CMake-based packages
+  build in a standard way by ``url_sha1_cmake`` scheme.
