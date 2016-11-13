@@ -45,7 +45,6 @@ if(ANDROID)
     hunter_user_error("Could not find android architecture. Please set ANDROID_ARCH_NAME in your toolchain or use CMake 3.7+")
   endif()
   set(configure_command
-      MACHINE=${CMAKE_SYSTEM_PROCESSOR}
       # Ignored. Prevents script from checking host uname
       RELEASE=2.6.37
       SYSTEM=android
@@ -54,7 +53,10 @@ if(ANDROID)
 endif()
 
 # Pass C compiler through
-set(configure_command CC=${CMAKE_C_COMPILER} ${configure_command})
+set(configure_command 
+    MACHINE=${CMAKE_SYSTEM_PROCESSOR}
+    CC=${CMAKE_C_COMPILER}
+    ${configure_command})
 
 # Pass C flags through
 set(configure_opts ${configure_opts} ${CMAKE_C_FLAGS})
