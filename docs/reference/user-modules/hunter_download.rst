@@ -27,7 +27,7 @@ Option ``PACKAGE_INTERNAL_DEPS_ID`` is an identifier of internal files that buil
 the package (like build scheme or additional scripts). This variable used by
 cache system to detect the necessity of update the binary cache of
 package when non of the following changed: package sources, build types,
-cmake arguments, toolchain-id or dependencies. The rule of thumb is to increase
+CMake arguments, toolchain-id or dependencies. The rule of thumb is to increase
 the value of ``PACKAGE_INTERNAL_DEPS_ID`` each time you're applying change of
 build scheme and making it public (e.g. sending pull request). This should be
 done for every affected package. If you want to understand the meaning of it
