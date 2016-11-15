@@ -1067,6 +1067,14 @@
 # pragma message(HUNTER_INFO(__GNUC_GNU_INLINE__))
 #endif
 
+#if defined(__GNUC_LIBSTD_MINOR__)
+# pragma message(HUNTER_INFO(__GNUC_LIBSTD_MINOR__))
+#endif
+
+#if defined(__GNUC_LIBSTD__)
+# pragma message(HUNTER_INFO(__GNUC_LIBSTD__))
+#endif
+
 #if defined(__GNUC_MINOR__)
 # pragma message(HUNTER_INFO(__GNUC_MINOR__))
 #endif
@@ -1783,6 +1791,18 @@
 # pragma message(HUNTER_INFO(__SSSE3__))
 #endif
 
+#if defined(__STDCPP_DEFAULT_NEW_ALIGNMENT__)
+# pragma message(HUNTER_INFO(__STDCPP_DEFAULT_NEW_ALIGNMENT__))
+#endif
+
+#if defined(__STDCPP_STRICT_POINTER_SAFETY__)
+# pragma message(HUNTER_INFO(__STDCPP_STRICT_POINTER_SAFETY__))
+#endif
+
+#if defined(__STDCPP_THREADS__)
+# pragma message(HUNTER_INFO(__STDCPP_THREADS__))
+#endif
+
 #if defined(__STDC_HOSTED__)
 # pragma message(HUNTER_INFO(__STDC_HOSTED__))
 #endif
@@ -1797,6 +1817,10 @@
 
 #if defined(__STDC_ISO_10646__)
 # pragma message(HUNTER_INFO(__STDC_ISO_10646__))
+#endif
+
+#if defined(__STDC_MB_MIGHT_NEQ_WC__)
+# pragma message(HUNTER_INFO(__STDC_MB_MIGHT_NEQ_WC__))
 #endif
 
 #if defined(__STDC_NO_THREADS__)
