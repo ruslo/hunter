@@ -118,6 +118,21 @@ function(hunter_autotools_project target_name)
     )
   endif()
 
+  if(ANDROID)
+    hunter_test_string_not_empty("${CMAKE_C_ANDROID_TOOLCHAIN_PREFIX}")
+    hunter_test_string_not_empty("${CMAKE_C_ANDROID_TOOLCHAIN_SUFFIX}")
+
+    # Extra Android variables that can't be set in toolchain
+    # (some variables available only after toolchain processed).
+    set(
+        CMAKE_C_PREPROCESSOR
+        "${CMAKE_C_ANDROID_TOOLCHAIN_PREFIX}cpp${CMAKE_C_ANDROID_TOOLCHAIN_SUFFIX}"
+    )
+    if(NOT EXISTS "${CMAKE_C_PREPROCESSOR}")
+      hunter_internal_error("File not found: ${CMAKE_C_PREPROCESSOR}")
+    endif()
+  endif()
+
   string(TOUPPER ${PARAM_PACKAGE_CONFIGURATION_TYPES} config_type)
   # Sets the toolchain binaries
   #   AR=${CMAKE_AR}
