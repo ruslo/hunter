@@ -142,12 +142,6 @@ macro(hunter_finalize)
     )
   endif()
 
-  if(ANDROID)
-    # GDBSERVER moved to https://github.com/hunter-packages/android-apk/commit/32531adeb287d3e3b20498ff1a0f76336cbe0551
-    set(ANDROID_COMPILER_VERSION "")
-    string(COMPARE EQUAL "${ANDROID_COMPILER_VERSION}" "" is_empty)
-    if(is_empty)
-      hunter_internal_error("Parse failed")
-    endif()
-  endif()
+  # Android GDBSERVER moved to
+  # https://github.com/hunter-packages/android-apk/commit/32531adeb287d3e3b20498ff1a0f76336cbe0551
 endmacro()
