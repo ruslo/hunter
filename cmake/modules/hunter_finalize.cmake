@@ -184,18 +184,7 @@ macro(hunter_finalize)
         "${ANDROID_TOOLCHAIN_MACHINE_NAME}"
     )
 
-    # Rejected: https://gitlab.kitware.com/cmake/cmake/merge_requests/74
-    set(
-        ANDROID_GDBSERVER
-        "${CMAKE_ANDROID_NDK}/prebuilt/android-${CMAKE_ANDROID_ARCH}/gdbserver/gdbserver"
-        CACHE
-        FILEPATH
-        "Path to gdbserver"
-    )
-
-    if(NOT EXISTS "${ANDROID_GDBSERVER}")
-      hunter_internal_error("gdbserver not found: ${ANDROID_GDBSERVER}")
-    endif()
+    # GDBSERVER moved to https://github.com/hunter-packages/android-apk/commit/32531adeb287d3e3b20498ff1a0f76336cbe0551
 
     if(CMAKE_HOST_SYSTEM_NAME STREQUAL "Darwin")
       if(CMAKE_HOST_SYSTEM_PROCESSOR STREQUAL "x86_64")
