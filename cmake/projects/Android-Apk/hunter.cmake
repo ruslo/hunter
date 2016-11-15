@@ -11,6 +11,17 @@ hunter_add_version(
     PACKAGE_NAME
     Android-Apk
     VERSION
+    "1.1.11"
+    URL
+    "https://github.com/hunter-packages/android-apk/archive/v1.1.11.tar.gz"
+    SHA1
+    d152a1a23b2852b61023538f8d3dc93a745cf654
+)
+
+hunter_add_version(
+    PACKAGE_NAME
+    Android-Apk
+    VERSION
     "1.1.10"
     URL
     "https://github.com/hunter-packages/android-apk/archive/v1.1.10.tar.gz"
