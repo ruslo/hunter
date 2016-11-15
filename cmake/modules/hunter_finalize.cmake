@@ -143,21 +143,6 @@ macro(hunter_finalize)
   endif()
 
   if(ANDROID)
-    # Needed in 'hunter_autotool_project'
-    get_filename_component(
-        ANDROID_TOOLCHAIN_MACHINE_NAME
-        "${CMAKE_CXX_ANDROID_TOOLCHAIN_PREFIX}"
-        NAME
-    )
-    string(
-        REGEX
-        REPLACE
-        "-$"
-        ""
-        ANDROID_TOOLCHAIN_MACHINE_NAME
-        "${ANDROID_TOOLCHAIN_MACHINE_NAME}"
-    )
-
     # GDBSERVER moved to https://github.com/hunter-packages/android-apk/commit/32531adeb287d3e3b20498ff1a0f76336cbe0551
 
     if(CMAKE_HOST_SYSTEM_NAME STREQUAL "Darwin")
@@ -183,14 +168,6 @@ macro(hunter_finalize)
     endif()
 
     set(ANDROID_COMPILER_VERSION "")
-    string(
-        REGEX
-        REPLACE
-        "^${CMAKE_ANDROID_NDK}/toolchains/${ANDROID_TOOLCHAIN_MACHINE_NAME}-(.*)/prebuilt/.*/bin/${ANDROID_TOOLCHAIN_MACHINE_NAME}-$"
-        "\\1"
-        ANDROID_COMPILER_VERSION
-        "${CMAKE_CXX_ANDROID_TOOLCHAIN_PREFIX}"
-    )
     string(COMPARE EQUAL "${ANDROID_COMPILER_VERSION}" "" is_empty)
     if(is_empty)
       hunter_internal_error("Parse failed")

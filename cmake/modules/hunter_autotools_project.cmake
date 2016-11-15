@@ -63,9 +63,6 @@ include(hunter_status_debug)
 include(hunter_test_string_not_empty)
 
 function(hunter_autotools_project target_name)
-  hunter_finalize()
-  # -> ANDROID_TOOLCHAIN_MACHINE_NAME
-
   set(optional_params)
   set(one_value_params
       HUNTER_SELF
@@ -272,8 +269,8 @@ function(hunter_autotools_project target_name)
     hunter_test_string_not_empty("${CMAKE_RANLIB}")
     hunter_test_string_not_empty("${CMAKE_STRIP}")
 
-    hunter_test_string_not_empty("${ANDROID_TOOLCHAIN_MACHINE_NAME}")
-    set(configure_host --host=${ANDROID_TOOLCHAIN_MACHINE_NAME})
+    hunter_test_string_not_empty("${CMAKE_CXX_ANDROID_TOOLCHAIN_NAME}")
+    set(configure_host --host=${CMAKE_CXX_ANDROID_TOOLCHAIN_NAME})
     set(ldflags "${ldflags} ${__libstl}")
   elseif(is_ios)
     hunter_status_debug("Autotools iOS IPHONEOS_ARCHS: ${IPHONEOS_ARCHS} IPHONESIMULATOR_ARCHS: ${IPHONESIMULATOR_ARCHS}")
