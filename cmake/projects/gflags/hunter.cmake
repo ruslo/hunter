@@ -12,6 +12,17 @@ hunter_add_version(
     PACKAGE_NAME
     gflags
     VERSION
+    2.1.2-p1
+    URL
+    "https://github.com/hunter-packages/gflags/archive/v2.1.2-p1.tar.gz"
+    SHA1
+    24cfd7c456193fda187db993075b3c2b15b4f2c9
+)
+
+hunter_add_version(
+    PACKAGE_NAME
+    gflags
+    VERSION
     2.1.2-p0
     URL
     "https://github.com/hunter-packages/gflags/archive/v2.1.2-p0.tar.gz"
