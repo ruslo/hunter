@@ -117,7 +117,7 @@ function(hunter_autotools_project target_name)
 
   if(ANDROID)
     hunter_test_string_not_empty("${CMAKE_C_ANDROID_TOOLCHAIN_PREFIX}")
-    hunter_test_string_not_empty("${CMAKE_C_ANDROID_TOOLCHAIN_SUFFIX}")
+    # CMAKE_C_ANDROID_TOOLCHAIN_SUFFIX can be empty
 
     # Extra Android variables that can't be set in toolchain
     # (some variables available only after toolchain processed).
@@ -269,8 +269,8 @@ function(hunter_autotools_project target_name)
     hunter_test_string_not_empty("${CMAKE_RANLIB}")
     hunter_test_string_not_empty("${CMAKE_STRIP}")
 
-    hunter_test_string_not_empty("${CMAKE_CXX_ANDROID_TOOLCHAIN_NAME}")
-    set(configure_host --host=${CMAKE_CXX_ANDROID_TOOLCHAIN_NAME})
+    hunter_test_string_not_empty("${CMAKE_CXX_ANDROID_TOOLCHAIN_MACHINE}")
+    set(configure_host --host=${CMAKE_CXX_ANDROID_TOOLCHAIN_MACHINE})
     set(ldflags "${ldflags} ${__libstl}")
   elseif(is_ios)
     hunter_status_debug("Autotools iOS IPHONEOS_ARCHS: ${IPHONEOS_ARCHS} IPHONESIMULATOR_ARCHS: ${IPHONESIMULATOR_ARCHS}")
