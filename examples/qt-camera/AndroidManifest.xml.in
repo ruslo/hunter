@@ -1,19 +1,19 @@
 <?xml version="1.0"?>
 <manifest
-     android:versionName="1.0"
-     package="camera.qt"
+     android:versionName="@QT_ANDROID_APP_VERSION@"
+     package="@QT_ANDROID_APP_PACKAGE_NAME@"
      android:installLocation="auto"
      xmlns:android="http://schemas.android.com/apk/res/android"
-     android:versionCode="1"
+     android:versionCode="@QT_ANDROID_APP_VERSION_CODE@"
 >
     <application
-        android:label="camera-qt"
+        android:label="@QT_ANDROID_APP_NAME@"
         android:name="org.qtproject.qt5.android.bindings.QtApplication"
         android:debuggable="true"
         android:hardwareAccelerated="true"
     >
     <activity
-        android:label="camera-qt"
+        android:label="@QT_ANDROID_APP_NAME@"
         android:name="org.qtproject.qt5.android.bindings.QtActivity"
         android:screenOrientation="unspecified"
         android:configChanges="orientation|uiMode|screenLayout|screenSize|smallestScreenSize|locale|fontScale|keyboard|keyboardHidden|navigation"
