@@ -70,8 +70,11 @@ In terms of CMake code it means adding ``HunterGate`` and ``hunter_add_package``
   :align: center
 
 Note that the SHA1 of the Hunter archive in ``HunterGate`` commands of ``Bar`` and
-``Roo`` can be different. Same location will be set automatically internally
-you don't have to manage it manually.
+``Roo`` can be different. The main project may contain subprojects also using the
+``HunterGate`` command. The subprojects may be introduced as hunter dependencies,
+git submodules, or just the whole project added as subfolder.
+For all these submodules the URL and SHA1 of the main project are used. The user
+doesn't need to manage them manually.
 
 Maintenance
 ===========
