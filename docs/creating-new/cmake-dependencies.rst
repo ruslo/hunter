@@ -73,7 +73,7 @@ Note that now the main project ``Bar`` and the hunter dependency ``Roo`` contain
 a ``HunterGate`` command. The URL and SHA1 of the ``HunterGate`` command my not match.
 In this case the URL and SHA1 of the main project ``Bar`` are used for both 
 ``HunterGate`` commands. The user doesn't need to manage them manually.
-The same is true for sub-projects added by `add_subdirectory` calls.
+The same is true for sub-projects added by ``add_subdirectory`` calls.
 
 Maintenance
 ===========
