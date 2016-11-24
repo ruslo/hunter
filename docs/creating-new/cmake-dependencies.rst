@@ -69,9 +69,11 @@ In terms of CMake code it means adding ``HunterGate`` and ``hunter_add_package``
 .. image:: /images/package-conflict-resolved.png
   :align: center
 
-Note that the SHA1 of the Hunter archive in ``HunterGate`` commands of ``Bar`` and
-``Roo`` can be different. Same location will be set automatically internally
-you don't have to manage it manually.
+Note that now the main project ``Bar`` and the hunter dependency ``Roo`` contain
+a ``HunterGate`` command. The URL and SHA1 of the ``HunterGate`` command my not match.
+In this case the URL and SHA1 of the main project ``Bar`` are used for both 
+``HunterGate`` commands. The user doesn't need to manage them manually.
+The same is true for sub-projects added by ``add_subdirectory`` calls.
 
 Maintenance
 ===========
