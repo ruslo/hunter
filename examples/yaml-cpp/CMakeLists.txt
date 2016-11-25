@@ -4,12 +4,12 @@ cmake_minimum_required(VERSION 3.2)
 # * https://github.com/hunter-packages/gate
 include("../common.cmake")
 
-project(download-YAML_CPP)
+project(download-yaml-cpp)
 
-hunter_add_package(YAML_CPP)
+hunter_add_package(yaml-cpp)
 
-find_package(YAML_CPP CONFIG REQUIRED)
+find_package(yaml-cpp CONFIG REQUIRED)
 
 
 add_executable(parse parse.cpp)
-target_link_libraries(parse YAML_CPP::yaml-cpp)
+target_link_libraries(parse yaml-cpp::yaml-cpp)
