@@ -18,10 +18,10 @@ hunter_add_version(
     VERSION
     "1.2.1-p1"
     URL
-    "https://github.com/headupinclouds/cereal/archive/v1.2.1.tar.gz"    
+    "https://github.com/headupinclouds/cereal/archive/v1.2.1-p1.tar.gz"
     SHA1
-    3b1188758515ed645e9ca073f7077828bdffa41d
-)
+    8d8179d71a12bafae3d90b6a5a7fc09cb2e69474
+    )
 
 # List of versions here...
 hunter_add_version(
