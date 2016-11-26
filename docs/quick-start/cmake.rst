@@ -40,7 +40,7 @@ Notes about version of CMake
 
 .. tip::
 
-  * `CMake change log <https://cmake.org/Bug/changelog_page.php>`__
+  * `CMake milestones <https://gitlab.kitware.com/cmake/cmake/milestones?state=all>`__ (`old version <https://cmake.org/Bug/changelog_page.php>`__)
 
 .. _3.0.0: https://www.cmake.org/cmake/help/v3.0/release/3.0.0.html#commands
 .. _3.1.0: https://www.cmake.org/cmake/help/v3.1/release/3.1.0.html#syntax
