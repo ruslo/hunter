@@ -81,7 +81,14 @@ function(hunter_download_cache_raw_file)
       hunter_status_debug("  -> ${x_LOCAL}")
 
       hunter_sleep_before_download("${x}")
-      file(DOWNLOAD "${url}" "${x_LOCAL}" STATUS status)
+
+      if(HUNTER_STATUS_DEBUG)
+        set(showprogress SHOW_PROGRESS)
+      else()
+        set(showprogress "")
+      endif()
+
+      file(DOWNLOAD "${url}" "${x_LOCAL}" STATUS status ${showprogress})
       file(SHA1 "${x_LOCAL}" local_sha1)
       string(COMPARE EQUAL "${local_sha1}" "${x_SHA1}" sha1_is_good)
 
