@@ -8,6 +8,10 @@ include(hunter_user_error)
 
 # See cmake/projects/Qt/generate.sh
 
+# Notes:
+# * We need full list of dependencies on configuration step (see `qt-configure`)
+#   hence the `depends_on` should contains implicit dependencies too
+#   (dependencies of dependencies).
 function(
     hunter_generate_qt_info
     component_name
