@@ -32,19 +32,25 @@ if(_is_qtquickcontrols2 OR _is_qtwebview)
 endif()
 ## -- end
 
-hunter_generate_qt_info(
-    "qtquickcontrols"
-    _unused_toskip
-    _depends_on
-    _unused_nobuild
-    "${HUNTER_Qt_VERSION}"
-    "${ANDROID}"
-    "${WIN32}"
-)
+if(NOT _HUNTER_INTERNAL_LOADING_QT_DEPENDENCIES)
+  # '_depends_on' will return **all** dependencies of the component so there is
+  # no need to traverse them recursively (optimization)
+  hunter_generate_qt_info(
+      "qtquickcontrols"
+      _unused_toskip
+      _depends_on
+      _unused_nobuild
+      "${HUNTER_Qt_VERSION}"
+      "${ANDROID}"
+      "${WIN32}"
+  )
 
-foreach(_x ${_depends_on})
-  hunter_add_package(Qt COMPONENTS ${_x})
-endforeach()
+  set(_HUNTER_INTERNAL_LOADING_QT_DEPENDENCIES TRUE)
+  foreach(_x ${_depends_on})
+    hunter_add_package(Qt COMPONENTS ${_x})
+  endforeach()
+  set(_HUNTER_INTERNAL_LOADING_QT_DEPENDENCIES FALSE)
+endif()
 
 # We should call this function again since hunter_add_package is include-like
 # instruction, i.e. will overwrite variable values (foreach's _x will survive)
