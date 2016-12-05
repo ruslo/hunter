@@ -135,9 +135,9 @@ macro(hunter_finalize)
 
   hunter_apply_copy_rules()
 
-  if(ANDROID AND CMAKE_VERSION VERSION_LESS "3.7")
+  if(ANDROID AND CMAKE_VERSION VERSION_LESS "3.7.1")
     hunter_user_error(
-        "CMake version 3.7+ required for Android platforms, see"
+        "CMake version 3.7.1+ required for Android platforms, see"
         " https://docs.hunter.sh/en/latest/quick-start/cmake.html"
     )
   endif()
