@@ -1,6 +1,3 @@
-# Copyright (c) 2015, Ruslan Baratov
-# All rights reserved.
-
 # !!! DO NOT PLACE HEADER GUARDS HERE !!!
 
 include(hunter_add_version)
@@ -10,15 +7,15 @@ include(hunter_pick_scheme)
 
 hunter_add_version(
     PACKAGE_NAME
-    glog
+    RapidXML
     VERSION
-    "0.3.4-p1"
+    "1.13"
     URL
-    "https://github.com/hunter-packages/glog/archive/v0.3.4-p1.tar.gz"
+    "https://github.com/hunter-packages/rapidxml/archive/v1.13-hunter.tar.gz"
     SHA1
-    512b8ad6d9aae9499cca2e4c4530b9386cb05440
+    d7f9b263a4c1e90dca488d3cf040364339ff09e2
 )
 
 hunter_pick_scheme(DEFAULT url_sha1_cmake)
-hunter_cacheable(glog)
-hunter_download(PACKAGE_NAME glog)
+hunter_cacheable(RapidXML)
+hunter_download(PACKAGE_NAME RapidXML)
