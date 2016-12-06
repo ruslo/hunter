@@ -6,6 +6,7 @@ include(hunter_apply_gate_settings)
 include(hunter_calculate_self)
 include(hunter_create_cache_file)
 include(hunter_fatal_error)
+include(hunter_internal_error)
 include(hunter_sanity_checks)
 include(hunter_status_debug)
 include(hunter_status_print)
@@ -133,4 +134,14 @@ macro(hunter_finalize)
   )
 
   hunter_apply_copy_rules()
+
+  if(ANDROID AND CMAKE_VERSION VERSION_LESS "3.7.1")
+    hunter_user_error(
+        "CMake version 3.7.1+ required for Android platforms, see"
+        " https://docs.hunter.sh/en/latest/quick-start/cmake.html"
+    )
+  endif()
+
+  # Android GDBSERVER moved to
+  # https://github.com/hunter-packages/android-apk/commit/32531adeb287d3e3b20498ff1a0f76336cbe0551
 endmacro()

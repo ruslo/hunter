@@ -13,6 +13,7 @@ list(APPEND CMAKE_MODULE_PATH "@HUNTER_SELF@/cmake/modules")
 include(CheckSymbolExists) # check_symbol_exists
 
 include(hunter_boost_component_b2_args)
+include(hunter_dump_cmake_flags)
 include(hunter_fatal_error)
 include(hunter_install_boost_config)
 include(hunter_internal_error)
@@ -115,6 +116,10 @@ elseif("@MSVC@")
 else()
   hunter_fatal_error("TODO: set toolset for boost" WIKI "error.boost.toolset")
 endif()
+
+hunter_dump_cmake_flags()
+# -> CMAKE_C_FLAGS
+# -> CMAKE_CXX_FLAGS
 
 if("@ANDROID@")
   get_directory_property(defs COMPILE_DEFINITIONS)

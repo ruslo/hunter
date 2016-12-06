@@ -104,20 +104,25 @@ elseif(_is_android)
   if(NOT BUILD_SHARED_LIBS)
     hunter_user_error("Static variant of Qt is not supported")
   endif()
+
+  hunter_test_string_not_empty("${CMAKE_ANDROID_NDK}")
+  hunter_test_string_not_empty("${CMAKE_ANDROID_ARCH_ABI}")
+  hunter_test_string_not_empty("${CMAKE_SYSTEM_VERSION}")
+
   #setup the android ndk options
   hunter_add_package(Android-SDK)
   list(APPEND
     configure_opts
       -xplatform android-g++
       -android-sdk "${ANDROID-SDK_ROOT}/android-sdk"
-      -android-ndk "${ANDROID_NDK}"
-      -android-ndk-platform "android-${ANDROID_NATIVE_API_LEVEL}"
-      -android-arch "${ANDROID_NDK_ABI_NAME}"
+      -android-ndk "${CMAKE_ANDROID_NDK}"
+      -android-ndk-platform "android-${CMAKE_SYSTEM_VERSION}"
+      -android-arch "${CMAKE_ANDROID_ARCH_ABI}"
       # -android-toolchain-version # ???
       -no-warnings-are-errors
   )
 
-  # Hint: directory ${ANDROID_NDK}/prebuilt
+  # Hint: directory ${CMAKE_ANDROID_NDK}/prebuilt
   if(CMAKE_HOST_APPLE)
     list(APPEND configure_opts -android-ndk-host "darwin-x86_64")
   elseif(CMAKE_HOST_UNIX)
