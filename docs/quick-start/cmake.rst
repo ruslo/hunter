@@ -38,6 +38,11 @@ Notes about version of CMake
   * ``USERPWD`` sub-option for ``file(DOWNLOAD|UPLOAD ...)`` (`change <https://github.com/Kitware/CMake/commit/e5ba1041be862212a3ad66bd51930fc7beeb8140>`__)
   * ``HTTP_{USERNAME|PASSWORD}`` sub-options for ``ExternalProject_Add`` (`change <https://github.com/Kitware/CMake/commit/e1ca117332fbf6adf3a467a420804e9cb1891582>`__)
 
+* `3.7.1`_ **Minimum for Android projects**
+
+  * Latest Hunter release with support of old Android toolchains is `0.16.36 <https://github.com/ruslo/hunter/releases/tag/v0.16.36>`__
+  * `Polly Android toolchains <http://polly.readthedocs.io/en/latest/toolchains/android.html#android-ndk-x-api-y>`__
+
 .. tip::
 
   * `CMake milestones <https://gitlab.kitware.com/cmake/cmake/milestones?state=all>`__ (`old version <https://cmake.org/Bug/changelog_page.php>`__)
@@ -48,6 +53,7 @@ Notes about version of CMake
 .. _3.4.1: https://www.cmake.org/cmake/help/v3.4/release/3.4.html
 .. _3.5.0: https://www.cmake.org/cmake/help/v3.5/release/3.5.html#platforms
 .. _3.7.0: https://cmake.org/cmake/help/latest/release/3.7.html#commands
+.. _3.7.1: https://cmake.org/cmake/help/latest/release/3.7.html#platforms
 
 .. _CMP0054: http://www.cmake.org/cmake/help/v3.1/policy/CMP0054.html
 
