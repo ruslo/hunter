@@ -1,0 +1,46 @@
+# Copyright (c) 2016 Alexey Ulyanov
+# All rights reserved.
+
+cmake_minimum_required(VERSION 3.0)
+
+include(ExternalProject)
+
+list(APPEND CMAKE_MODULE_PATH "@HUNTER_SELF@/cmake/modules")
+
+include(hunter_status_debug)
+include(hunter_test_string_not_empty)
+
+hunter_status_debug("Scheme: url_sha1_catch")
+
+hunter_test_string_not_empty("@HUNTER_SELF@")
+hunter_test_string_not_empty("@HUNTER_EP_NAME@")
+hunter_test_string_not_empty("@HUNTER_PACKAGE_URL@")
+hunter_test_string_not_empty("@HUNTER_PACKAGE_SHA1@")
+hunter_test_string_not_empty("@HUNTER_PACKAGE_DOWNLOAD_DIR@")
+hunter_test_string_not_empty("@HUNTER_PACKAGE_SOURCE_DIR@")
+hunter_test_string_not_empty("@HUNTER_INSTALL_PREFIX@")
+
+ExternalProject_Add(
+    @HUNTER_EP_NAME@
+    URL
+    @HUNTER_PACKAGE_URL@
+    URL_HASH
+    SHA1=@HUNTER_PACKAGE_SHA1@
+    DOWNLOAD_DIR
+    "@HUNTER_PACKAGE_DOWNLOAD_DIR@"
+    SOURCE_DIR
+    "@HUNTER_PACKAGE_SOURCE_DIR@"
+    INSTALL_DIR
+    "@HUNTER_INSTALL_PREFIX@"
+    CONFIGURE_COMMAND
+    ""
+    BUILD_COMMAND
+    ""
+    INSTALL_COMMAND
+    "@CMAKE_COMMAND@" 
+        -E make_directory "@HUNTER_INSTALL_PREFIX@/include"
+    COMMAND
+    "@CMAKE_COMMAND@" 
+        -E copy "@HUNTER_PACKAGE_SOURCE_DIR@/single_include/catch.hpp"
+                "@HUNTER_INSTALL_PREFIX@/include"
+)
