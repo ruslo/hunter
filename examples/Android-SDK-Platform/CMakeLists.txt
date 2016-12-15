@@ -11,7 +11,7 @@ project(Foo)
 
 # -- Emulate toolchain
 set(ANDROID TRUE)
-set(ANDROID_NATIVE_API_LEVEL 21)
+set(CMAKE_SYSTEM_VERSION 21)
 # -- end
 
 hunter_add_package(Android-SDK-Platform)

@@ -25,7 +25,7 @@ include(hunter_user_error)
 # NOTE: no names with spaces!
 
 hunter_config(AllTheFlopsThreads VERSION 0.1-p0)
-hunter_config(Android-Apk VERSION 1.1.7)
+hunter_config(Android-Apk VERSION 1.1.12)
 hunter_config(Android-Build-Tools VERSION 22.0.1)
 hunter_config(Android-Google-Repository VERSION 25)
 hunter_config(Android-Modules VERSION 1.0.0)
@@ -66,6 +66,7 @@ hunter_config(Libssh2 VERSION 1.7.0)
 hunter_config(Lua VERSION 5.3.2)
 hunter_config(MySQL-client VERSION 6.1.6)
 hunter_config(OpenBLAS VERSION 0.2.19-p0)
+hunter_config(OpenCL VERSION 2.1-p0)
 hunter_config(OpenCV VERSION 3.1.0-p2)
 hunter_config(OpenCV-Extra VERSION 3.0.0)
 hunter_config(OpenSSL VERSION 1.0.2j)
@@ -74,7 +75,7 @@ hunter_config(PocoCpp VERSION 1.7.6-p0)
 hunter_config(PostgreSQL VERSION 9.5.0)
 hunter_config(Protobuf VERSION 3.0.0-p1)
 hunter_config(Qt VERSION 5.5.1-cvpixelbuffer-2-p9)
-hunter_config(QtAndroidCMake VERSION 1.0.6)
+hunter_config(QtAndroidCMake VERSION 1.0.8)
 hunter_config(QtCMakeExtra VERSION 1.0.22)
 hunter_config(QtQmlManager VERSION 1.0.0)
 hunter_config(RapidJSON VERSION 1.0.2-p2)
@@ -194,14 +195,14 @@ else()
 endif()
 
 if(ANDROID)
-  string(COMPARE EQUAL "${ANDROID_NATIVE_API_LEVEL}" "" _is_empty)
+  string(COMPARE EQUAL "${CMAKE_SYSTEM_VERSION}" "" _is_empty)
   if(_is_empty)
-    hunter_user_error("ANDROID_NATIVE_API_LEVEL is empty")
+    hunter_user_error("CMAKE_SYSTEM_VERSION is empty")
   endif()
 
-  string(COMPARE EQUAL "${ANDROID_NATIVE_API_LEVEL}" "21" _is_api_21)
-  string(COMPARE EQUAL "${ANDROID_NATIVE_API_LEVEL}" "19" _is_api_19)
-  string(COMPARE EQUAL "${ANDROID_NATIVE_API_LEVEL}" "16" _is_api_16)
+  string(COMPARE EQUAL "${CMAKE_SYSTEM_VERSION}" "21" _is_api_21)
+  string(COMPARE EQUAL "${CMAKE_SYSTEM_VERSION}" "19" _is_api_19)
+  string(COMPARE EQUAL "${CMAKE_SYSTEM_VERSION}" "16" _is_api_16)
 
   if(_is_api_21)
     hunter_config(Android-Google-APIs VERSION 21_r01)
@@ -221,9 +222,9 @@ if(ANDROID)
     hunter_config(Sources-for-Android-SDK VERSION 16)
   else()
     hunter_user_error(
-        "Android API (ANDROID_NATIVE_API_LEVEL)"
+        "Android API (CMAKE_SYSTEM_VERSION)"
         " Expected: `21`, `19`, `16`"
-        " Got: `${ANDROID_NATIVE_API_LEVEL}`"
+        " Got: `${CMAKE_SYSTEM_VERSION}`"
     )
   endif()
 endif()
