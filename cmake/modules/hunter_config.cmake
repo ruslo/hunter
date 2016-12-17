@@ -16,7 +16,7 @@ macro(hunter_config)
         "error.unexpected.hunter_config"
     )
   endif()
-  set(_hunter_one_value VERSION)
+  set(_hunter_one_value VERSION REPOSITORY_DIR REPOSITORY_NAME REPOSITORY_VERSION)
   set(_hunter_multiple_values CMAKE_ARGS CONFIGURATION_TYPES)
   cmake_parse_arguments(
       _hunter
@@ -31,6 +31,32 @@ macro(hunter_config)
         "Unparsed arguments for 'hunter_config' command: "
         "${_hunter_UNPARSED_ARGUMENTS}"
     )
+  endif()
+
+  if(_hunter_REPOSITORY_DIR)
+    if(_hunter_REPOSITORY_NAME OR _hunter_REPOSITORY_VERSION)
+      hunter_internal_error(
+          "Repository can be specified by directory or name+version, not both"
+      )
+    endif()
+  elseif(_hunter_REPOSITORY_NAME AND NOT _hunter_REPOSITORY_VERSION)
+    hunter_internal_error(
+        "Repository name requires repository version as well"
+    )
+  elseif(_hunter_REPOSITORY_VERSION AND NOT _hunter_REPOSITORY_NAME)
+    hunter_internal_error(
+        "Repository version requires repository name as well"
+    )
+  elseif(_hunter_REPOSITORY_VERSION AND _hunter_REPOSITORY_NAME)
+    set(reponame "${_hunter_REPOSITORY_NAME}-${_hunter_REPOSITORY_VERSION}")
+    string(REGEX REPLACE "\\." "_" reponame "${reponame}")
+    if(NOT "${reponame}" MATCHES "[-a-zA-Z0-9._]*")
+      hunter_internal_error("Repository name not specified correctly")
+    endif()
+    if(NOT HUNTER_REPOSITORY_${reponame}_DIRECTORY)
+      hunter_internal_error("Could not find repository ${reponame}")
+    endif()
+    set(_hunter_REPOSITORY_DIR "${HUNTER_REPOSITORY_${reponame}_DIRECTORY}")
   endif()
 
   # calc <NAME>_ROOT
@@ -48,6 +74,14 @@ macro(hunter_config)
         HUNTER_${_hunter_current_project}_CONFIGURATION_TYPES
         ${_hunter_CONFIGURATION_TYPES}
     )
+    if(_hunter_REPOSITORY_DIR)
+      set(
+          HUNTER_${_hunter_current_project}_REPOSITORY
+          ${_hunter_REPOSITORY_DIR}
+      )
+    else()
+      unset(HUNTER_${_hunter_current_project}_REPOSITORY)
+    endif()
   else()
     hunter_user_error("Expected VERSION option for 'hunter_config' command")
   endif()

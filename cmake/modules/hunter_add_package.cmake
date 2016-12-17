@@ -8,6 +8,7 @@ include(hunter_finalize)
 include(hunter_internal_error)
 include(hunter_status_debug)
 include(hunter_test_string_not_empty)
+include(hunter_find_project_dir)
 
 # internal variables: _hunter_ap_*
 macro(hunter_add_package)
@@ -36,17 +37,7 @@ macro(hunter_add_package)
   endif()
   list(GET _hunter_ap_arg_UNPARSED_ARGUMENTS 0 _hunter_ap_project)
 
-  hunter_test_string_not_empty("${HUNTER_SELF}")
-  set(
-      _hunter_ap_project_dir
-      "${HUNTER_SELF}/cmake/projects/${_hunter_ap_project}"
-  )
-  if(NOT EXISTS "${_hunter_ap_project_dir}")
-    hunter_internal_error("Project '${_hunter_ap_project}' not found")
-  endif()
-  if(NOT IS_DIRECTORY "${_hunter_ap_project_dir}")
-    hunter_internal_error("Project '${_hunter_ap_project}' not found")
-  endif()
+  hunter_find_project_dir(${_hunter_ap_project} _hunter_ap_project_dir)
 
   # Check components
   foreach(_hunter_ap_component ${_hunter_ap_arg_COMPONENTS})
