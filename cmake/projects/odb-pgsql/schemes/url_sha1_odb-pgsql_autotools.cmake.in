@@ -58,6 +58,8 @@ hunter_autotools_project("@HUNTER_EP_NAME@"
       "@HUNTER_INSTALL_PREFIX@"
     PARALLEL_JOBS
       "@HUNTER_JOBS_OPTION@"
+    PACKAGE_CONFIGURATION_TYPES
+      "@HUNTER_PACKAGE_CONFIGURATION_TYPES@"
     CPPFLAGS
       "-I${ODB_INCLUDE_DIR} ${pgsql_include_flags}"
     LDFLAGS

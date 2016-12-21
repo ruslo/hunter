@@ -10,8 +10,10 @@ include(ExternalProject) # ExternalProject_Add
 
 list(APPEND CMAKE_MODULE_PATH "@HUNTER_SELF@/cmake/modules")
 
+include(hunter_dump_cmake_flags)
 include(hunter_status_debug)
 include(hunter_test_string_not_empty)
+include(hunter_user_error)
 
 hunter_status_debug("Scheme: url_sha1_openssl")
 
@@ -32,6 +34,37 @@ if(APPLE)
 else()
   set(configure_command "./config")
 endif()
+
+hunter_dump_cmake_flags(SKIP_INCLUDES)
+# -> CMAKE_CXX_FLAGS
+# -> CMAKE_C_FLAGS
+
+if(ANDROID)
+  string(COMPARE EQUAL "${CMAKE_ANDROID_ARCH}" "" _has_old_cmake)
+  string(COMPARE EQUAL "${ANDROID_ARCH_NAME}" "" _has_unexpected_toolchain)
+  if (NOT _has_old_cmake)
+    set(ANDROID_SSL_ARCH "${CMAKE_ANDROID_ARCH}")
+  elseif(NOT _has_unexpected_toolchain)
+    set(ANDROID_SSL_ARCH "${ANDROID_ARCH_NAME}")
+  else()
+    hunter_user_error("Could not find android architecture. Please set ANDROID_ARCH_NAME in your toolchain or use CMake 3.7+")
+  endif()
+  set(configure_command
+      # Ignored. Prevents script from checking host uname
+      RELEASE=2.6.37
+      SYSTEM=android
+      ARCH=${ANDROID_SSL_ARCH}
+      ${configure_command})
+endif()
+
+# Pass C compiler through
+set(configure_command 
+    MACHINE=${CMAKE_SYSTEM_PROCESSOR}
+    CC=${CMAKE_C_COMPILER}
+    ${configure_command})
+
+# Pass C flags through
+set(configure_opts ${configure_opts} ${CMAKE_C_FLAGS})
 
 set(
     configure_command

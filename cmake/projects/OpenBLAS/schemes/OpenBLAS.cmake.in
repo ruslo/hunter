@@ -1,0 +1,78 @@
+# Copyright (c) 2016 Ruslan Baratov
+# All rights reserved.
+
+cmake_minimum_required(VERSION 3.0)
+project(Hunter)
+
+include(ExternalProject) # ExternalProject_Add
+
+include("@HUNTER_SELF@/cmake/Hunter")
+
+include(hunter_status_debug)
+include(hunter_test_string_not_empty)
+include(hunter_user_error)
+
+hunter_status_debug("Scheme: OpenBLAS")
+
+if("@MSVC@")
+  hunter_user_error("Not supported with Visual Studio")
+endif()
+
+# Check preconditions
+hunter_test_string_not_empty("@HUNTER_SELF@")
+hunter_test_string_not_empty("@HUNTER_EP_NAME@")
+hunter_test_string_not_empty("@HUNTER_PACKAGE_URL@")
+hunter_test_string_not_empty("@HUNTER_PACKAGE_SHA1@")
+hunter_test_string_not_empty("@HUNTER_PACKAGE_DOWNLOAD_DIR@")
+hunter_test_string_not_empty("@HUNTER_PACKAGE_SOURCE_DIR@")
+hunter_test_string_not_empty("@HUNTER_PACKAGE_INSTALL_PREFIX@")
+hunter_test_string_not_empty("@HUNTER_PACKAGE_CONFIGURATION_TYPES@")
+
+set(cfg_types "@HUNTER_PACKAGE_CONFIGURATION_TYPES@")
+
+list(LENGTH cfg_types len)
+if(NOT len EQUAL 1)
+  hunter_user_error(
+      "Only one configuration type allowed for this scheme"
+      " (${cfg_types})"
+  )
+endif()
+
+string(TOUPPER "${cfg_types}" config_type)
+
+set(cflags "${CMAKE_C_FLAGS} ${CMAKE_C_FLAGS_${config_type}}")
+
+if(NOT BUILD_SHARED_LIBS)
+  set(lib_type NO_SHARED=1)
+else()
+  set(lib_type "")
+endif()
+
+ExternalProject_Add(
+    "@HUNTER_EP_NAME@"
+    URL
+    @HUNTER_PACKAGE_URL@
+    URL_HASH
+    SHA1=@HUNTER_PACKAGE_SHA1@
+    DOWNLOAD_DIR
+    "@HUNTER_PACKAGE_DOWNLOAD_DIR@"
+    SOURCE_DIR
+    "@HUNTER_PACKAGE_SOURCE_DIR@"
+    INSTALL_DIR
+    "@HUNTER_PACKAGE_INSTALL_PREFIX@"
+        # not used, just avoid creating Install/<name> empty directory
+    CONFIGURE_COMMAND
+    ""
+    BUILD_COMMAND
+    make ${lib_type} "CC=@CMAKE_C_COMPILER@" "CFLAGS=${cflags}"
+    BUILD_IN_SOURCE
+    1
+    INSTALL_COMMAND
+    make ${lib_type} "PREFIX=@HUNTER_PACKAGE_INSTALL_PREFIX@" install
+    COMMAND # Copy license files
+    "@CMAKE_COMMAND@"
+    "-Dsrcdir=@HUNTER_PACKAGE_SOURCE_DIR@"
+    "-Ddstfile=@HUNTER_PACKAGE_LICENSE_FILE@"
+    -P
+    "@HUNTER_GLOBAL_SCRIPT_DIR@/try-copy-license.cmake"
+)

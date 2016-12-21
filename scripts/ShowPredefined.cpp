@@ -15,6 +15,18 @@
 # include <android/api-level.h> // Header with __ANDROID_API__
 #endif
 
+#if defined(_MSC_VER)
+# include <SdkDdkVer.h> // Header with _WIN32_WINNT
+#endif
+
+#if defined(_ABI64)
+# pragma message(HUNTER_INFO(_ABI64))
+#endif
+
+#if defined(_ABIO32)
+# pragma message(HUNTER_INFO(_ABIO32))
+#endif
+
 #if defined(_AIX)
 # pragma message(HUNTER_INFO(_AIX))
 #endif
@@ -91,6 +103,14 @@
 # pragma message(HUNTER_INFO(_DLL))
 #endif
 
+#if defined(_GLIBCXX_USE_CXX11_ABI)
+# pragma message(HUNTER_INFO(_GLIBCXX_USE_CXX11_ABI))
+#endif
+
+#if defined(_GNU_SOURCE)
+# pragma message(HUNTER_INFO(_GNU_SOURCE))
+#endif
+
 #if defined(_IA64)
 # pragma message(HUNTER_INFO(_IA64))
 #endif
@@ -101,6 +121,10 @@
 
 #if defined(_INTEGRAL_MAX_BITS)
 # pragma message(HUNTER_INFO(_INTEGRAL_MAX_BITS))
+#endif
+
+#if defined(_LIBCPP_HAS_NO_ASAN)
+# pragma message(HUNTER_INFO(_LIBCPP_HAS_NO_ASAN))
 #endif
 
 #if defined(_LIBCPP_VERSION)
@@ -275,6 +299,10 @@
 # pragma message(HUNTER_INFO(_SGI_COMPILER_VERSION))
 #endif
 
+#if defined(_STDC_PREDEF_H)
+# pragma message(HUNTER_INFO(_STDC_PREDEF_H))
+#endif
+
 #if defined(_STLPORT_MAJOR)
 # pragma message(HUNTER_INFO(_STLPORT_MAJOR))
 #endif
@@ -301,6 +329,10 @@
 
 #if defined(_WIN32)
 # pragma message(HUNTER_INFO(_WIN32))
+#endif
+
+#if defined(_WIN32_WINNT)
+# pragma message(HUNTER_INFO(_WIN32_WINNT))
 #endif
 
 #if defined(_WIN64)
@@ -413,6 +445,10 @@
 
 #if defined(__ARM_ARCH_PROFILE)
 # pragma message(HUNTER_INFO(__ARM_ARCH_PROFILE))
+#endif
+
+#if defined(__ARM_EABI__)
+# pragma message(HUNTER_INFO(__ARM_EABI__))
 #endif
 
 #if defined(__ARM_FEATURE_CLZ)
@@ -767,6 +803,10 @@
 # pragma message(HUNTER_INFO(__DECC_VER))
 #endif
 
+#if defined(__DECIMAL_BID_FORMAT__)
+# pragma message(HUNTER_INFO(__DECIMAL_BID_FORMAT__))
+#endif
+
 #if defined(__DECIMAL_DIG__)
 # pragma message(HUNTER_INFO(__DECIMAL_DIG__))
 #endif
@@ -797,6 +837,10 @@
 
 #if defined(__EDG__)
 # pragma message(HUNTER_INFO(__EDG__))
+#endif
+
+#if defined(__ELF__)
+# pragma message(HUNTER_INFO(__ELF__))
 #endif
 
 #if defined(__ENVIRONMENT_IPHONE_OS_VERSION_MIN_REQUIRED__)
@@ -915,6 +959,10 @@
 # pragma message(HUNTER_INFO(__GCCXML__))
 #endif
 
+#if defined(__GCC_ASM_FLAG_OUTPUTS__)
+# pragma message(HUNTER_INFO(__GCC_ASM_FLAG_OUTPUTS__))
+#endif
+
 #if defined(__GCC_ATOMIC_BOOL_LOCK_FREE)
 # pragma message(HUNTER_INFO(__GCC_ATOMIC_BOOL_LOCK_FREE))
 #endif
@@ -959,6 +1007,10 @@
 # pragma message(HUNTER_INFO(__GCC_ATOMIC_WCHAR_T_LOCK_FREE))
 #endif
 
+#if defined(__GCC_HAVE_DWARF2_CFI_ASM)
+# pragma message(HUNTER_INFO(__GCC_HAVE_DWARF2_CFI_ASM))
+#endif
+
 #if defined(__GCC_HAVE_SYNC_COMPARE_AND_SWAP_1)
 # pragma message(HUNTER_INFO(__GCC_HAVE_SYNC_COMPARE_AND_SWAP_1))
 #endif
@@ -995,6 +1047,14 @@
 # pragma message(HUNTER_INFO(__GLIBCPP__))
 #endif
 
+#if defined(__GLIBCXX_BITSIZE_INT_N_0)
+# pragma message(HUNTER_INFO(__GLIBCXX_BITSIZE_INT_N_0))
+#endif
+
+#if defined(__GLIBCXX_TYPE_INT_N_0)
+# pragma message(HUNTER_INFO(__GLIBCXX_TYPE_INT_N_0))
+#endif
+
 #if defined(__GLIBCXX__)
 # pragma message(HUNTER_INFO(__GLIBCXX__))
 #endif
@@ -1015,6 +1075,10 @@
 # pragma message(HUNTER_INFO(__GNUC_PATCHLEVEL__))
 #endif
 
+#if defined(__GNUC_STDC_INLINE__)
+# pragma message(HUNTER_INFO(__GNUC_STDC_INLINE__))
+#endif
+
 #if defined(__GNUC__)
 # pragma message(HUNTER_INFO(__GNUC__))
 #endif
@@ -1029,6 +1093,10 @@
 
 #if defined(__GXX_ABI_VERSION)
 # pragma message(HUNTER_INFO(__GXX_ABI_VERSION))
+#endif
+
+#if defined(__GXX_EXPERIMENTAL_CXX0X__)
+# pragma message(HUNTER_INFO(__GXX_EXPERIMENTAL_CXX0X__))
 #endif
 
 #if defined(__GXX_RTTI)
@@ -1551,6 +1619,14 @@
 # pragma message(HUNTER_INFO(__SCHAR_MAX__))
 #endif
 
+#if defined(__SEG_FS)
+# pragma message(HUNTER_INFO(__SEG_FS))
+#endif
+
+#if defined(__SEG_GS)
+# pragma message(HUNTER_INFO(__SEG_GS))
+#endif
+
 #if defined(__SGI_STL)
 # pragma message(HUNTER_INFO(__SGI_STL))
 #endif
@@ -1593,6 +1669,14 @@
 
 #if defined(__SIZEOF_DOUBLE__)
 # pragma message(HUNTER_INFO(__SIZEOF_DOUBLE__))
+#endif
+
+#if defined(__SIZEOF_FLOAT128__)
+# pragma message(HUNTER_INFO(__SIZEOF_FLOAT128__))
+#endif
+
+#if defined(__SIZEOF_FLOAT80__)
+# pragma message(HUNTER_INFO(__SIZEOF_FLOAT80__))
 #endif
 
 #if defined(__SIZEOF_FLOAT__)
@@ -1687,6 +1771,10 @@
 # pragma message(HUNTER_INFO(__SSE__))
 #endif
 
+#if defined(__SSP_STRONG__)
+# pragma message(HUNTER_INFO(__SSP_STRONG__))
+#endif
+
 #if defined(__SSP__)
 # pragma message(HUNTER_INFO(__SSP__))
 #endif
@@ -1697,6 +1785,22 @@
 
 #if defined(__STDC_HOSTED__)
 # pragma message(HUNTER_INFO(__STDC_HOSTED__))
+#endif
+
+#if defined(__STDC_IEC_559_COMPLEX__)
+# pragma message(HUNTER_INFO(__STDC_IEC_559_COMPLEX__))
+#endif
+
+#if defined(__STDC_IEC_559__)
+# pragma message(HUNTER_INFO(__STDC_IEC_559__))
+#endif
+
+#if defined(__STDC_ISO_10646__)
+# pragma message(HUNTER_INFO(__STDC_ISO_10646__))
+#endif
+
+#if defined(__STDC_NO_THREADS__)
+# pragma message(HUNTER_INFO(__STDC_NO_THREADS__))
 #endif
 
 #if defined(__STDC_UTF_16__)
@@ -2147,6 +2251,130 @@
 # pragma message(HUNTER_INFO(__cplusplus_winrt))
 #endif
 
+#if defined(__cpp_aggregate_nsdmi)
+# pragma message(HUNTER_INFO(__cpp_aggregate_nsdmi))
+#endif
+
+#if defined(__cpp_alias_templates)
+# pragma message(HUNTER_INFO(__cpp_alias_templates))
+#endif
+
+#if defined(__cpp_attributes)
+# pragma message(HUNTER_INFO(__cpp_attributes))
+#endif
+
+#if defined(__cpp_binary_literals)
+# pragma message(HUNTER_INFO(__cpp_binary_literals))
+#endif
+
+#if defined(__cpp_constexpr)
+# pragma message(HUNTER_INFO(__cpp_constexpr))
+#endif
+
+#if defined(__cpp_decltype)
+# pragma message(HUNTER_INFO(__cpp_decltype))
+#endif
+
+#if defined(__cpp_decltype_auto)
+# pragma message(HUNTER_INFO(__cpp_decltype_auto))
+#endif
+
+#if defined(__cpp_delegating_constructors)
+# pragma message(HUNTER_INFO(__cpp_delegating_constructors))
+#endif
+
+#if defined(__cpp_digit_separators)
+# pragma message(HUNTER_INFO(__cpp_digit_separators))
+#endif
+
+#if defined(__cpp_exceptions)
+# pragma message(HUNTER_INFO(__cpp_exceptions))
+#endif
+
+#if defined(__cpp_generic_lambdas)
+# pragma message(HUNTER_INFO(__cpp_generic_lambdas))
+#endif
+
+#if defined(__cpp_hex_float)
+# pragma message(HUNTER_INFO(__cpp_hex_float))
+#endif
+
+#if defined(__cpp_inheriting_constructors)
+# pragma message(HUNTER_INFO(__cpp_inheriting_constructors))
+#endif
+
+#if defined(__cpp_init_captures)
+# pragma message(HUNTER_INFO(__cpp_init_captures))
+#endif
+
+#if defined(__cpp_initializer_lists)
+# pragma message(HUNTER_INFO(__cpp_initializer_lists))
+#endif
+
+#if defined(__cpp_lambdas)
+# pragma message(HUNTER_INFO(__cpp_lambdas))
+#endif
+
+#if defined(__cpp_nsdmi)
+# pragma message(HUNTER_INFO(__cpp_nsdmi))
+#endif
+
+#if defined(__cpp_range_based_for)
+# pragma message(HUNTER_INFO(__cpp_range_based_for))
+#endif
+
+#if defined(__cpp_raw_strings)
+# pragma message(HUNTER_INFO(__cpp_raw_strings))
+#endif
+
+#if defined(__cpp_ref_qualifiers)
+# pragma message(HUNTER_INFO(__cpp_ref_qualifiers))
+#endif
+
+#if defined(__cpp_return_type_deduction)
+# pragma message(HUNTER_INFO(__cpp_return_type_deduction))
+#endif
+
+#if defined(__cpp_rtti)
+# pragma message(HUNTER_INFO(__cpp_rtti))
+#endif
+
+#if defined(__cpp_runtime_arrays)
+# pragma message(HUNTER_INFO(__cpp_runtime_arrays))
+#endif
+
+#if defined(__cpp_rvalue_reference)
+# pragma message(HUNTER_INFO(__cpp_rvalue_reference))
+#endif
+
+#if defined(__cpp_sized_deallocation)
+# pragma message(HUNTER_INFO(__cpp_sized_deallocation))
+#endif
+
+#if defined(__cpp_static_assert)
+# pragma message(HUNTER_INFO(__cpp_static_assert))
+#endif
+
+#if defined(__cpp_unicode_characters)
+# pragma message(HUNTER_INFO(__cpp_unicode_characters))
+#endif
+
+#if defined(__cpp_unicode_literals)
+# pragma message(HUNTER_INFO(__cpp_unicode_literals))
+#endif
+
+#if defined(__cpp_user_defined_literals)
+# pragma message(HUNTER_INFO(__cpp_user_defined_literals))
+#endif
+
+#if defined(__cpp_variable_templates)
+# pragma message(HUNTER_INFO(__cpp_variable_templates))
+#endif
+
+#if defined(__cpp_variadic_templates)
+# pragma message(HUNTER_INFO(__cpp_variadic_templates))
+#endif
+
 #if defined(__embedded_cplusplus)
 # pragma message(HUNTER_INFO(__embedded_cplusplus))
 #endif
@@ -2157,6 +2385,10 @@
 
 #if defined(__ghs__)
 # pragma message(HUNTER_INFO(__ghs__))
+#endif
+
+#if defined(__gnu_linux__)
+# pragma message(HUNTER_INFO(__gnu_linux__))
 #endif
 
 #if defined(__hppa)
@@ -2213,6 +2445,10 @@
 
 #if defined(__linux)
 # pragma message(HUNTER_INFO(__linux))
+#endif
+
+#if defined(__linux__)
+# pragma message(HUNTER_INFO(__linux__))
 #endif
 
 #if defined(__llvm__)
@@ -2397,6 +2633,10 @@
 
 #if defined(__unix)
 # pragma message(HUNTER_INFO(__unix))
+#endif
+
+#if defined(__unix__)
+# pragma message(HUNTER_INFO(__unix__))
 #endif
 
 #if defined(__unsafe_unretained)

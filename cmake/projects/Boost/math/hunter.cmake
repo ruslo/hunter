@@ -18,5 +18,5 @@ hunter_download(
     Boost
     PACKAGE_COMPONENT
     math
-    PACKAGE_INTERNAL_DEPS_ID "1"
+    PACKAGE_INTERNAL_DEPS_ID "6"
 )

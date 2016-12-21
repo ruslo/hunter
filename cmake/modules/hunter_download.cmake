@@ -9,6 +9,7 @@ include(hunter_internal_error)
 include(hunter_jobs_number)
 include(hunter_load_from_cache)
 include(hunter_print_cmd)
+include(hunter_read_http_credentials)
 include(hunter_register_dependency)
 include(hunter_save_to_cache)
 include(hunter_status_debug)
@@ -18,13 +19,14 @@ include(hunter_user_error)
 
 function(hunter_download)
   set(one PACKAGE_NAME PACKAGE_COMPONENT PACKAGE_INTERNAL_DEPS_ID)
-  set(multiple PACKAGE_DEPENDS_ON)
+  set(multiple PACKAGE_DEPENDS_ON PACKAGE_UNRELOCATABLE_TEXT_FILES)
 
   cmake_parse_arguments(HUNTER "" "${one}" "${multiple}" ${ARGV})
   # -> HUNTER_PACKAGE_NAME
   # -> HUNTER_PACKAGE_COMPONENT
   # -> HUNTER_PACKAGE_DEPENDS_ON
   # -> HUNTER_PACKAGE_INTERNAL_DEPS_ID
+  # -> HUNTER_PACKAGE_UNRELOCATABLE_TEXT_FILES
 
   if(HUNTER_UNPARSED_ARGUMENTS)
     hunter_internal_error("Unparsed: ${HUNTER_UNPARSED_ARGUMENTS}")
@@ -53,6 +55,13 @@ function(hunter_download)
       ""
       has_internal_deps_id
   )
+  string(
+      COMPARE
+      NOTEQUAL
+      "${HUNTER_PACKAGE_UNRELOCATABLE_TEXT_FILES}"
+      ""
+      has_unrelocatable_text_files
+  )
 
   if(hunter_has_component)
     set(HUNTER_EP_NAME "${HUNTER_PACKAGE_NAME}-${HUNTER_PACKAGE_COMPONENT}")
@@ -79,6 +88,14 @@ function(hunter_download)
   endif()
 
   set(HUNTER_PACKAGE_CACHEABLE "${HUNTER_${h_name}_CACHEABLE}")
+  set(HUNTER_PACKAGE_PROTECTED_SOURCES "${HUNTER_${h_name}_PROTECTED_SOURCES}")
+
+  if(has_unrelocatable_text_files AND NOT HUNTER_PACKAGE_CACHEABLE)
+    hunter_user_error(
+        "PACKAGE_UNRELOCATABLE_TEXT_FILES for uncacheable package:"
+        "  please add hunter_cacheable to hunter.cmake"
+    )
+  endif()
 
   hunter_test_string_not_empty("${HUNTER_PACKAGE_CONFIGURATION_TYPES}")
 
@@ -103,6 +120,7 @@ function(hunter_download)
   set(all_schemes "")
   set(all_schemes "${all_schemes}${HUNTER_PACKAGE_SCHEME_DOWNLOAD}")
   set(all_schemes "${all_schemes}${HUNTER_PACKAGE_SCHEME_UNPACK}")
+  set(all_schemes "${all_schemes}${HUNTER_PACKAGE_SCHEME_UNPACK_INSTALL}")
   set(all_schemes "${all_schemes}${HUNTER_PACKAGE_SCHEME_INSTALL}")
 
   string(COMPARE EQUAL "${all_schemes}" "1" is_good)
@@ -111,6 +129,7 @@ function(hunter_download)
         "Incorrect schemes:"
         "  HUNTER_PACKAGE_SCHEME_DOWNLOAD = ${HUNTER_PACKAGE_SCHEME_DOWNLOAD}"
         "  HUNTER_PACKAGE_SCHEME_UNPACK = ${HUNTER_PACKAGE_SCHEME_UNPACK}"
+        "  HUNTER_PACKAGE_SCHEME_UNPACK_INSTALL = ${HUNTER_PACKAGE_SCHEME_UNPACK_INSTALL}"
         "  HUNTER_PACKAGE_SCHEME_INSTALL = ${HUNTER_PACKAGE_SCHEME_INSTALL}"
     )
   endif()
@@ -179,6 +198,9 @@ function(hunter_download)
     elseif(HUNTER_PACKAGE_SCHEME_UNPACK)
       set(${root_name} "${HUNTER_PACKAGE_SOURCE_DIR}")
       hunter_status_debug("Unpack to: ${HUNTER_PACKAGE_SOURCE_DIR}")
+    elseif(HUNTER_PACKAGE_SCHEME_UNPACK_INSTALL)
+      set(${root_name} "${HUNTER_INSTALL_PREFIX}")
+      hunter_status_debug("Install to: ${HUNTER_PACKAGE_SOURCE_DIR}")
     else()
       hunter_internal_error("Invalid scheme")
     endif()
@@ -192,6 +214,11 @@ function(hunter_download)
   set(${root_name} "${${root_name}}" PARENT_SCOPE)
   set(ENV{${root_name}} "${${root_name}}")
   hunter_status_print("${root_name}: ${${root_name}} (ver.: ${ver})")
+
+  hunter_status_debug(
+      "Default arguments: ${HUNTER_${h_name}_DEFAULT_CMAKE_ARGS}"
+  )
+  hunter_status_debug("User arguments: ${HUNTER_${h_name}_CMAKE_ARGS}")
 
   # Same for the "snake case"
   string(REPLACE "-" "_" snake_case_root_name "${root_name}")
@@ -258,7 +285,8 @@ function(hunter_download)
   # load from cache using SHA1 of args.cmake file
   file(REMOVE "${HUNTER_ARGS_FILE}")
   hunter_create_args_file(
-      "${HUNTER_${h_name}_CMAKE_ARGS}" "${HUNTER_ARGS_FILE}"
+      "${HUNTER_${h_name}_DEFAULT_CMAKE_ARGS};${HUNTER_${h_name}_CMAKE_ARGS}"
+      "${HUNTER_ARGS_FILE}"
   )
 
   # Check if package can be loaded from cache
@@ -274,6 +302,21 @@ function(hunter_download)
       hunter_status_debug("Component: ${HUNTER_PACKAGE_COMPONENT}")
     endif()
     return()
+  endif()
+
+  if(HUNTER_PACKAGE_PROTECTED_SOURCES)
+    # -> HUNTER_PACKAGE_HTTP_USERNAME
+    # -> HUNTER_PACKAGE_HTTP_PASSWORD
+    hunter_read_http_credentials()
+
+    string(COMPARE EQUAL "${HUNTER_PACKAGE_HTTP_USERNAME}" "" name_is_empty)
+    string(COMPARE EQUAL "${HUNTER_PACKAGE_HTTP_PASSWORD}" "" pass_is_empty)
+
+    if(name_is_empty OR pass_is_empty)
+      hunter_user_error(
+          "Credentials for '${HUNTER_PACKAGE_NAME}' are not defined"
+      )
+    endif()
   endif()
 
   file(REMOVE_RECURSE "${HUNTER_PACKAGE_BUILD_DIR}")
@@ -318,6 +361,11 @@ function(hunter_download)
       APPEND
       "${HUNTER_DOWNLOAD_TOOLCHAIN}"
       "list(APPEND HUNTER_CACHE_SERVERS ${HUNTER_CACHE_SERVERS})\n"
+  )
+  file(
+      APPEND
+      "${HUNTER_DOWNLOAD_TOOLCHAIN}"
+      "set(HUNTER_PASSWORDS_PATH \"${HUNTER_PASSWORDS_PATH}\" CACHE INTERNAL \"\")\n"
   )
 
   if(hunter_no_url)
@@ -419,6 +467,16 @@ function(hunter_download)
       "-DCMAKE_TOOLCHAIN_FILE=${HUNTER_DOWNLOAD_TOOLCHAIN}"
       "-G${CMAKE_GENERATOR}"
   )
+  string(COMPARE NOTEQUAL "${CMAKE_GENERATOR_TOOLSET}" "" has_toolset)
+  if(has_toolset)
+    list(APPEND cmd "-T" "${CMAKE_GENERATOR_TOOLSET}")
+  endif()
+
+  string(COMPARE NOTEQUAL "${CMAKE_GENERATOR_PLATFORM}" "" has_gen_platform)
+  if(has_gen_platform)
+    list(APPEND cmd "-A" "${CMAKE_GENERATOR_PLATFORM}")
+  endif()
+
   hunter_print_cmd("${HUNTER_PACKAGE_HOME_DIR}" "${cmd}")
 
   # Configure and build downloaded project

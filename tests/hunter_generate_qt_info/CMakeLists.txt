@@ -88,16 +88,16 @@ endif()
 
 ### Test
 hunter_generate_qt_info("qtenginio" toskip depends_on nobuild "5.5.0" "NO" "") # empty string should work fine too
-string(COMPARE EQUAL "${depends_on}" "qtbase;qtdeclarative;qtsvg;qtxmlpatterns" is_good)
+string(COMPARE EQUAL "${depends_on}" "qtbase;qtsvg;qtxmlpatterns;qtdeclarative" is_good)
 if(NOT is_good)
   message(FATAL_ERROR "Not good")
 endif()
 
 ### Test
 hunter_generate_qt_info("qtwebchannel" toskip depends_on nobuild "5.5.0" "NO" "NO")
-string(COMPARE EQUAL "${depends_on}" "qtbase;qtdeclarative;qtsvg;qtwebsockets;qtxmlpatterns" is_good)
+string(COMPARE EQUAL "${depends_on}" "qtbase;qtsvg;qtxmlpatterns;qtdeclarative;qtwebsockets" is_good)
 if(NOT is_good)
-  message(FATAL_ERROR "Not good")
+  message(FATAL_ERROR "Not good: ${depends_on}")
 endif()
 
 ### Test
@@ -106,7 +106,7 @@ string(
     COMPARE
     EQUAL
     "${depends_on}"
-    "qtbase;qtdeclarative;qtlocation;qtmultimedia;qtsensors;qtsvg;qtwebchannel;qtwebsockets;qtxmlpatterns"
+    "qtbase;qtsvg;qtxmlpatterns;qtdeclarative;qtwebsockets;qtlocation;qtmultimedia;qtsensors;qtwebchannel"
     is_good
 )
 if(NOT is_good)
@@ -119,7 +119,7 @@ string(
     COMPARE
     EQUAL
     "${depends_on}"
-    "qtbase;qtdeclarative;qtgraphicaleffects;qtlocation;qtmultimedia;qtquickcontrols;qtsensors;qtsvg;qtwebchannel;qtwebkit;qtwebsockets;qtxmlpatterns"
+    "qtbase;qtsvg;qtxmlpatterns;qtdeclarative;qtgraphicaleffects;qtwebsockets;qtlocation;qtmultimedia;qtsensors;qtwebchannel;qtquickcontrols;qtwebkit"
     is_good
 )
 if(NOT is_good)

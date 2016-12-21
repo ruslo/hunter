@@ -100,4 +100,14 @@ macro(hunter_initialize)
   hunter_test_string_not_empty("${HUNTER_CACHED_ROOT}")
   hunter_test_string_not_empty("${HUNTER_VERSION}")
   hunter_test_string_not_empty("${HUNTER_SHA1}")
+
+  # All variables are ready so let's set HUNTER_SELF here. Usually it's not
+  # needed before 'hunter_finalize' but it some cases may be useful
+  # (see https://github.com/ruslo/hunter/pull/496#discussion_r75679671)
+  hunter_calculate_self(
+      "${HUNTER_CACHED_ROOT}"
+      "${HUNTER_VERSION}"
+      "${HUNTER_SHA1}"
+      HUNTER_SELF
+  )
 endmacro()

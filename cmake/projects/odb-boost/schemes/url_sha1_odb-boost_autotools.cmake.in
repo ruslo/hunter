@@ -1,0 +1,63 @@
+# Copyright (c) 2016 Ruslan Baratov, Alexandre Pretyman
+# All rights reserved.
+
+cmake_minimum_required(VERSION 3.0)
+project(Hunter)
+
+include("@HUNTER_SELF@/cmake/Hunter")
+
+include(hunter_autotools_project)
+include(hunter_fatal_error)
+include(hunter_status_debug)
+include(hunter_test_string_not_empty)
+
+hunter_status_debug("Scheme: url_sha1_odb-boost_autotools")
+
+if("@MSVC@")
+  hunter_fatal_error("Autotools scheme not supported with Visual Studio")
+endif()
+
+hunter_add_package(odb)
+find_package(odb REQUIRED)
+
+hunter_add_package(Boost COMPONENTS date_time)
+find_package(Boost CONFIG REQUIRED COMPONENTS date_time)
+
+# Check preconditions
+hunter_test_string_not_empty("@HUNTER_SELF@")
+hunter_test_string_not_empty("@HUNTER_EP_NAME@")
+hunter_test_string_not_empty("@HUNTER_PACKAGE_URL@")
+hunter_test_string_not_empty("@HUNTER_PACKAGE_SHA1@")
+hunter_test_string_not_empty("@HUNTER_PACKAGE_DOWNLOAD_DIR@")
+hunter_test_string_not_empty("@HUNTER_PACKAGE_SOURCE_DIR@")
+hunter_test_string_not_empty("@HUNTER_PACKAGE_BUILD_DIR@")
+hunter_test_string_not_empty("@HUNTER_PACKAGE_INSTALL_PREFIX@")
+hunter_test_string_not_empty("@HUNTER_INSTALL_PREFIX@")
+
+hunter_autotools_project("@HUNTER_EP_NAME@"
+    HUNTER_SELF
+      "@HUNTER_SELF@"
+    URL
+      @HUNTER_PACKAGE_URL@
+    URL_HASH
+      SHA1=@HUNTER_PACKAGE_SHA1@
+    DOWNLOAD_DIR
+      "@HUNTER_PACKAGE_DOWNLOAD_DIR@"
+    SOURCE_DIR
+      "@HUNTER_PACKAGE_SOURCE_DIR@"
+    BUILD_DIR
+      "@HUNTER_PACKAGE_BUILD_DIR@"
+    INSTALL_DIR
+      "@HUNTER_PACKAGE_INSTALL_PREFIX@"
+    GLOBAL_INSTALL_DIR
+      "@HUNTER_INSTALL_PREFIX@"
+    PARALLEL_JOBS
+      "@HUNTER_JOBS_OPTION@"
+    PACKAGE_CONFIGURATION_TYPES
+      "@HUNTER_PACKAGE_CONFIGURATION_TYPES@"
+    CPPFLAGS
+      "-I${ODB_INCLUDE_DIR} -I${BOOST_ROOT}/include"
+    LDFLAGS
+      "-L${ODB_LIB_DIR} -lodb"
+)
+
