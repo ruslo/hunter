@@ -58,8 +58,11 @@ matrix:
       env: PROJECT_DIR=examples/Eigen TOOLCHAIN=default
     - os: osx
       env: PROJECT_DIR=examples/Eigen TOOLCHAIN=libcxx
-    - os: osx
-      env: PROJECT_DIR=examples/Eigen TOOLCHAIN=clang-libstdcxx
+
+    # Lack of C++11 support: https://travis-ci.org/ingenue/hunter/jobs/185806589
+    # - os: osx
+    #   env: PROJECT_DIR=examples/Eigen TOOLCHAIN=clang-libstdcxx
+
     - os: osx
       env: PROJECT_DIR=examples/Eigen TOOLCHAIN=osx-10-11
     - os: osx
