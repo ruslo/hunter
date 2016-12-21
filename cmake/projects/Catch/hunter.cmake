@@ -13,10 +13,10 @@ hunter_add_version(
     VERSION
     "1.5.9"
     URL
-    "https://github.com/philsquared/Catch/archive/v1.5.9.tar.gz"
+    "https://github.com/hunter-packages/Catch/archive/v1.5.9-hunter.tar.gz"
     SHA1
-    8bc32146a5a2789cd3d3ce2893772e32f412f1b1
+    76b2793989314a75ec50c4e4aa4df27daae912a0
 )
 
-hunter_pick_scheme(DEFAULT url_sha1_catch)
+hunter_pick_scheme(DEFAULT url_sha1_cmake)
 hunter_download(PACKAGE_NAME Catch)

@@ -9,7 +9,8 @@ set(CMAKE_CXX_STANDARD 11)
 
 hunter_add_package(Catch)
 
-include_directories(${CATCH_ROOT}/include)
+find_package(Catch CONFIG REQUIRED)
+include_directories(${CATCH_INCLUDE_DIR})
 
 file(GLOB SOURCES *.cpp)
 add_executable(foo_test ${SOURCES})
