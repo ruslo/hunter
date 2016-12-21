@@ -44,7 +44,7 @@ environment:
       PROJECT_DIR: examples\Eigen
 
     - TOOLCHAIN: "msys"
-      PROJECT_DIR: examples\Foo
+      PROJECT_DIR: examples\Eigen
 
 install:
   # Python 3
