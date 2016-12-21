@@ -35,7 +35,20 @@ target_link_libraries(
 )
 
 # Workaround for Linux's linker problems (*_MULTIPLICITY doesn't help, TODO) --
-if(UNIX AND NOT APPLE AND CMAKE_COMPILER_IS_GNUCXX)
+set(fix_cyclic FALSE)
+if(APPLE)
+  set(fix_cyclic FALSE)
+elseif(CMAKE_COMPILER_IS_GNUCXX)
+  # MinGW included
+  set(fix_cyclic TRUE)
+elseif(NOT UNIX)
+  set(fix_cyclic FALSE)
+elseif("${CMAKE_CXX_COMPILER_ID}" STREQUAL "Clang")
+  # Linux Clang
+  set(fix_cyclic TRUE)
+endif()
+
+if(fix_cyclic)
   string(
       REPLACE
       "<LINK_LIBRARIES>"

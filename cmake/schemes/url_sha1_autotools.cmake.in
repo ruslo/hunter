@@ -4,7 +4,7 @@
 cmake_minimum_required(VERSION 3.0)
 project(Hunter)
 
-list(APPEND CMAKE_MODULE_PATH "@HUNTER_SELF@/cmake/modules")
+include("@HUNTER_SELF@/cmake/Hunter")
 
 include(hunter_user_error)
 include(hunter_status_debug)
@@ -16,6 +16,10 @@ hunter_status_debug("Scheme: url_sha1_autotools")
 if("@MSVC@")
   hunter_user_error("Autotools scheme not supported with Visual Studio")
 endif()
+
+foreach(dependency ${DEPENDS_ON_PACKAGES})
+  hunter_add_package(${dependency})
+endforeach()
 
 # Check preconditions
 hunter_test_string_not_empty("@HUNTER_SELF@")
@@ -47,4 +51,10 @@ hunter_autotools_project("@HUNTER_EP_NAME@"
       "@HUNTER_INSTALL_PREFIX@"
     PARALLEL_JOBS
       "@HUNTER_JOBS_OPTION@"
+    PACKAGE_CONFIGURATION_TYPES
+      "@HUNTER_PACKAGE_CONFIGURATION_TYPES@"
+    EXTRA_FLAGS
+      "${EXTRA_FLAGS}"
+    BOOTSTRAP
+      "${BOOTSTRAP}"
 )

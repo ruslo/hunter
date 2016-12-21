@@ -5,6 +5,7 @@
 
 include(hunter_add_version)
 include(hunter_cmake_args)
+include(hunter_configuration_types)
 include(hunter_pick_scheme)
 include(hunter_download)
 
@@ -20,10 +21,11 @@ hunter_add_version(
 )
 
 hunter_cmake_args(
-    Avahi 
+    Avahi
     CMAKE_ARGS
-      BUILD_SHARED_LIBS=ON  
+      BUILD_SHARED_LIBS=ON
 )
 
+hunter_configuration_types(Avahi CONFIGURATION_TYPES Release)
 hunter_pick_scheme(DEFAULT url_sha1_avahi_autotools)
 hunter_download(PACKAGE_NAME Avahi)

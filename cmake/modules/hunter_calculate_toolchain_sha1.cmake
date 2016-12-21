@@ -23,7 +23,7 @@ function(hunter_calculate_toolchain_sha1 hunter_self hunter_base)
 
   hunter_status_print("Calculating Toolchain-SHA1")
 
-  set(temp_project_dir "${CMAKE_BINARY_DIR}/_3rdParty/hunter/toolchain")
+  set(temp_project_dir "${CMAKE_BINARY_DIR}/_3rdParty/Hunter/toolchain")
   set(create_script "${hunter_self}/scripts/create-toolchain-info.cmake")
   set(local_toolchain_info "${temp_project_dir}/toolchain.info")
 
@@ -63,6 +63,16 @@ function(hunter_calculate_toolchain_sha1 hunter_self hunter_base)
       "-H${temp_project_dir}"
       "-B${temp_build_dir}"
   )
+
+  string(COMPARE NOTEQUAL "${CMAKE_GENERATOR_TOOLSET}" "" has_toolset)
+  if(has_toolset)
+    list(APPEND cmd "-T" "${CMAKE_GENERATOR_TOOLSET}")
+  endif()
+
+  string(COMPARE NOTEQUAL "${CMAKE_GENERATOR_PLATFORM}" "" has_gen_platform)
+  if(has_gen_platform)
+    list(APPEND cmd "-A" "${CMAKE_GENERATOR_PLATFORM}")
+  endif()
 
   foreach(configuration ${HUNTER_CONFIGURATION_TYPES})
     string(TOUPPER "${configuration}" configuration_upper)

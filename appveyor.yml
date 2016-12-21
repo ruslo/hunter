@@ -43,6 +43,9 @@ environment:
     - TOOLCHAIN: "mingw"
       PROJECT_DIR: examples\Eigen
 
+    - TOOLCHAIN: "msys"
+      PROJECT_DIR: examples\Foo
+
 install:
   # Python 3
   - cmd: set PATH=C:\Python34-x64;C:\Python34-x64\Scripts;%PATH%
@@ -62,6 +65,8 @@ install:
   - cmd: set PATH=%cd%\_ci\cmake\bin;%PATH%
   - cmd: set PATH=%cd%\_ci\ninja;%PATH%
 
+  - cmd: git submodule update --init --recursive
+
   # Remove entry with sh.exe from PATH to fix error with MinGW toolchain
   # (For MinGW make to work correctly sh.exe must NOT be in your path)
   # * http://stackoverflow.com/a/3870338/2288008
@@ -71,7 +76,14 @@ install:
   # * http://www.appveyor.com/docs/installed-software#qt
   - cmd: set MINGW_PATH=C:\Qt\Tools\mingw492_32\bin
 
-  - git submodule update --init --recursive
+  # MSYS2 location
+  - cmd: set MSYS_PATH=C:\msys64\usr\bin
 
 build_script:
   - cmd: python .\jenkins.py
+
+# http://www.appveyor.com/docs/branches#white-and-blacklisting
+# Exclude branch 'pkg.template'. Nothing to build there.
+branches:
+  except:
+    - pkg.template

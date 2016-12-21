@@ -12,6 +12,17 @@ hunter_add_version(
     PACKAGE_NAME
     half
     VERSION
+    "1.1.0-p1"
+    URL
+    "https://github.com/hunter-packages/half/archive/v1.1.0-p1.tar.gz"
+    SHA1
+    bc445fc2b91c7a2c4ea0025012068ecab18ef36d
+)
+
+hunter_add_version(
+    PACKAGE_NAME
+    half
+    VERSION
     "1.1.0-p0"
     URL
     "https://github.com/headupinclouds/half/archive/v1.1.0-p0.tar.gz"

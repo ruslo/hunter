@@ -1,22 +1,21 @@
-<?xml version="1.0"?>
+<?xml version='1.0' encoding='utf-8'?>
 <manifest
-     android:versionName="1.0"
-     package="camera.qt"
-     android:installLocation="auto"
-     xmlns:android="http://schemas.android.com/apk/res/android"
-     android:versionCode="1"
+    package="@QT_ANDROID_APP_PACKAGE_NAME@"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:versionName="@QT_ANDROID_APP_VERSION@"
+    android:versionCode="@QT_ANDROID_APP_VERSION_CODE@"
+    android:installLocation="auto"
 >
-    <application
-        android:label="camera-qt"
-        android:name="org.qtproject.qt5.android.bindings.QtApplication"
-        android:debuggable="true"
-        android:hardwareAccelerated="true"
-    >
+  <application
+      android:hardwareAccelerated="true"
+      android:name="org.qtproject.qt5.android.bindings.QtApplication"
+      android:label="@QT_ANDROID_APP_NAME@"
+  >
     <activity
-        android:label="camera-qt"
-        android:name="org.qtproject.qt5.android.bindings.QtActivity"
-        android:screenOrientation="unspecified"
         android:configChanges="orientation|uiMode|screenLayout|screenSize|smallestScreenSize|locale|fontScale|keyboard|keyboardHidden|navigation"
+        android:name="org.qtproject.qt5.android.bindings.QtActivity"
+        android:label="@QT_ANDROID_APP_NAME@"
+        android:screenOrientation="unspecified"
     >
       <intent-filter>
         <action android:name="android.intent.action.MAIN"/>
@@ -66,15 +65,15 @@
       />
       <meta-data
           android:name="android.app.load_local_libs"
-          android:value="plugins/platforms/android/libqtforandroid.so:plugins/bearer/libqandroidbearer.so:plugins/mediaservice/libqtmedia_android.so"
+          android:value="plugins/platforms/android/libqtforandroid.so:plugins/bearer/libqandroidbearer.so:lib/libQt5QuickParticles.so:plugins/mediaservice/libqtmedia_android.so:lib/libQt5MultimediaQuick_p.so"
       />
       <meta-data
           android:name="android.app.load_local_jars"
-          android:value="jar/QtAndroid.jar:jar/QtAndroidAccessibility.jar:jar/QtAndroid-bundled.jar:jar/QtAndroidAccessibility-bundled.jar"
+          android:value="jar/QtAndroid.jar:jar/QtAndroidAccessibility.jar:jar/QtAndroid-bundled.jar:jar/QtAndroidAccessibility-bundled.jar:jar/QtAndroidBearer.jar:jar/QtAndroidBearer-bundled.jar:jar/QtMultimedia.jar:jar/QtMultimedia-bundled.jar"
       />
       <meta-data
           android:name="android.app.static_init_classes"
-          android:value=""
+          android:value="org.qtproject.qt5.android.multimedia.QtMultimediaUtils:org.qtproject.qt5.android.multimedia.QtMultimediaUtils"
       />
       <!--  Messages maps -->
       <meta-data
@@ -97,8 +96,9 @@
       android:smallScreens="true"
       android:largeScreens="true"
   />
-  <uses-sdk android:minSdkVersion="9" android:targetSdkVersion="@ANDROID_NATIVE_API_LEVEL@"/>
+  <uses-sdk android:minSdkVersion="9" android:targetSdkVersion="@CMAKE_SYSTEM_VERSION@"/>
   <uses-permission android:name="android.permission.CAMERA" />
   <uses-permission android:name="android.permission.INTERNET"/>
-  <uses-feature android:name="android.hardware.camera" />
+  <uses-feature android:name="android.hardware.camera" android:required="false" />
+  <uses-feature android:name="android.hardware.camera.autofocus" android:required="false" />
 </manifest>

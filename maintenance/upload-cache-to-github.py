@@ -9,8 +9,43 @@ import requests
 import sys
 import time
 
+def sleep_time(attempt):
+  if attempt <= 0:
+    raise Exception('Unexpected')
+  if attempt == 1:
+    return 0
+  if attempt == 2:
+    return 15
+  if attempt == 3:
+    return 60
+  if attempt == 4:
+    return 90
+  if attempt == 5:
+    return 300
+  return 1200
+
+def retry(func_in):
+  def func_out(*args, **kwargs):
+    retry_max = 10
+    i = 0
+    while True:
+      i = i + 1
+      try:
+        return func_in(*args, **kwargs)
+      except Exception as exc:
+        if i > retry_max:
+          raise exc
+        print('Operation failed. Exception:\n  {}'.format(exc))
+        sec = sleep_time(i)
+        print('Retry #{} (of {}) after {} seconds'.format(i, retry_max, sec))
+        time.sleep(sec)
+    raise Exception('Unreachable')
+  return func_out
+
 # http://stackoverflow.com/a/16696317/2288008
-def download_file_once(url, local_file, auth, chunk_size=1024):
+@retry
+def download_file(url, local_file, auth, chunk_size=1024):
+  print('Downloading:\n  {}\n  -> {}'.format(url, local_file))
   r = requests.get(url, stream=True, auth=auth)
   if not r.ok:
     raise Exception('Downloading failed')
@@ -19,55 +54,29 @@ def download_file_once(url, local_file, auth, chunk_size=1024):
       if chunk:
         f.write(chunk)
 
-def download_file(url, local_file, auth):
-  print('Downloading:\n  {} ->\n  {}'.format(url, local_file))
-  max_retry = 3
-  for i in range(max_retry):
-    try:
-      download_file_once(url, local_file, auth)
-      print('Done')
-      return
-    except Exception as exc:
-      print('Exception catched ({}), retry... ({} of {})'.format(exc, i+1, max_retry))
-      time.sleep(60)
-  sys.exit('Download failed')
-
-def upload_bzip_once(url, local_path, auth):
-  headers = {'Content-Type': 'application/x-bzip2'}
-  file_to_upload = open(local_path, 'rb')
-  r = requests.post(url, data=file_to_upload, headers=headers, auth=auth)
-  if not r.ok:
-    raise Exception('Upload of file failed')
-
-def upload_bzip(url, local_path, auth):
-  print('Uploading:\n  {} ->\n  {}'.format(local_path, url))
-  max_retry = 3
-  for i in range(max_retry):
-    try:
-      upload_bzip_once(url, local_path, auth)
-      print('Done')
-      return
-    except Exception as exc:
-      print('Exception catched ({}), retry... ({} of {})'.format(exc, i+1, max_retry))
-      time.sleep(60)
-  sys.exit('Upload failed')
-
 class Github:
   def __init__(self, username, password, repo_owner, repo):
     self.repo_owner = repo_owner
     self.repo = repo
     self.auth = requests.auth.HTTPBasicAuth(username, password)
+    self.simple_request()
 
+  @retry
+  def simple_request(self):
+    print('Processing simple request')
     r = requests.get('https://api.github.com', auth=self.auth)
     if not r.ok:
-      sys.exit('Simple requests failed. Check your password.')
+      sys.exit('Simple request fails. Check your password.')
 
     limit = int(r.headers['X-RateLimit-Remaining'])
     print('GitHub Limit: {}'.format(limit))
     if limit == 0:
-      sys.exit('GitHub limit is 0, have to wait some time...')
+      raise Exception('GitHub limit is 0')
+    print('Simple request pass')
 
+  @retry
   def get_release_by_tag(self, tagname):
+    print('Get release-id by tag `{}`'.format(tagname))
     # https://developer.github.com/v3/repos/releases/#get-a-release-by-tag-name
     # GET /repos/:owner/:repo/releases/tags/:tag
 
@@ -81,7 +90,84 @@ class Github:
     if not r.ok:
       raise Exception('Get tag id failed. Requested url: {}'.format(url))
 
-    return r.json()['id']
+    tag_id = r.json()['id']
+    print('Tag id is {}'.format(tag_id))
+    return tag_id
+
+  @retry
+  def find_asset_id_by_name(self, release_id, name):
+    # https://developer.github.com/v3/repos/releases/#list-assets-for-a-release
+    # GET /repos/:owner/:repo/releases/:id/assets
+
+    page_number = 1
+    keep_searching = True
+
+    while keep_searching:
+      url = 'https://api.github.com/repos/{}/{}/releases/{}/assets?page={}'.format(
+          self.repo_owner,
+          self.repo,
+          release_id,
+          page_number
+      )
+
+      print('Requesting URL: {}'.format(url))
+      r = requests.get(url, auth=self.auth)
+      if not r.ok:
+        raise Exception('Getting list of assets failed. Requested url: {}'.format(url))
+
+      json = r.json()
+
+      for x in json:
+        if name == x['name']:
+          return x['id']
+
+      if not json:
+        keep_searching = False
+
+      page_number = page_number + 1
+
+    return None
+
+  @retry
+  def delete_asset_by_id(self, asset_id, asset_name):
+    # https://developer.github.com/v3/repos/releases/#delete-a-release-asset
+    # DELETE /repos/:owner/:repo/releases/assets/:id
+
+    url = 'https://api.github.com/repos/{}/{}/releases/assets/{}'.format(
+        self.repo_owner,
+        self.repo,
+        asset_id
+    )
+
+    r = requests.delete(url, auth=self.auth)
+    if r.status_code == 204:
+      print('Asset removed: {}'.format(asset_name))
+    else:
+      raise Exception('Deletion of asset failed: {}'.format(asset_name))
+
+  def delete_asset_if_exists(self, release_id, asset_name):
+    asset_id = self.find_asset_id_by_name(release_id, asset_name)
+    if not asset_id:
+      print('Asset not exists: {}'.format(asset_name))
+      return
+    self.delete_asset_by_id(asset_id, asset_name)
+
+  def upload_bzip_once(self, url, local_path):
+    headers = {'Content-Type': 'application/x-bzip2'}
+    file_to_upload = open(local_path, 'rb')
+    r = requests.post(url, data=file_to_upload, headers=headers, auth=self.auth)
+    if not r.ok:
+      raise Exception('Upload of file failed')
+
+  @retry
+  def upload_bzip(self, url, local_path, release_id, asset_name):
+    print('Uploading:\n  {}\n  -> {}'.format(local_path, url))
+    try:
+      self.upload_bzip_once(url, local_path)
+    except Exception as exc:
+      print('Exception catched while uploading, removing asset...')
+      self.delete_asset_if_exists(release_id, asset_name)
+      raise exc
 
   def upload_raw_file(self, local_path):
     tagname = 'cache'
@@ -100,13 +186,67 @@ class Github:
         asset_name
     )
 
-    upload_bzip(url, local_path, self.auth)
+    self.upload_bzip(url, local_path, release_id, asset_name)
 
-  def try_create_new_file(self, local_path, github_path):
+  @retry
+  def create_new_file(self, local_path, github_path):
     # https://developer.github.com/v3/repos/contents/#create-a-file
     # PUT /repos/:owner/:repo/contents/:path
 
-    message = 'Create file: {}'.format(github_path)
+    message = 'Uploading cache info\n\n'
+    message += 'Create file: {}\n\n'.format(github_path)
+
+    env_list = []
+    job_url = ''
+
+    if os.getenv('TRAVIS') == 'true':
+      # * https://docs.travis-ci.com/user/environment-variables/#Default-Environment-Variables
+      message += 'Travis:\n'
+      job_url = 'https://travis-ci.org/{}/jobs/{}'.format(
+          os.getenv('TRAVIS_REPO_SLUG'),
+          os.getenv('TRAVIS_JOB_ID')
+      )
+
+      env_list += [
+          'TRAVIS_BRANCH',
+          'TRAVIS_BUILD_ID',
+          'TRAVIS_BUILD_NUMBER',
+          'TRAVIS_JOB_ID',
+          'TRAVIS_JOB_NUMBER',
+          'TRAVIS_OS_NAME',
+          'TRAVIS_REPO_SLUG'
+      ]
+
+    if os.getenv('APPVEYOR') == 'True':
+      # * http://www.appveyor.com/docs/environment-variables
+      message += 'AppVeyor:\n'
+      job_url = 'https://ci.appveyor.com/project/{}/{}/build/{}/job/{}'.format(
+          os.getenv('APPVEYOR_ACCOUNT_NAME'),
+          os.getenv('APPVEYOR_PROJECT_SLUG'),
+          os.getenv('APPVEYOR_BUILD_VERSION'),
+          os.getenv('APPVEYOR_JOB_ID')
+      )
+      env_list += [
+          'APPVEYOR_ACCOUNT_NAME',
+          'APPVEYOR_PROJECT_ID',
+          'APPVEYOR_PROJECT_NAME',
+          'APPVEYOR_PROJECT_SLUG',
+          'APPVEYOR_BUILD_ID',
+          'APPVEYOR_BUILD_NUMBER',
+          'APPVEYOR_BUILD_VERSION',
+          'APPVEYOR_JOB_ID',
+          'APPVEYOR_JOB_NAME',
+          'APPVEYOR_REPO_BRANCH'
+      ]
+
+    # Store some info about build
+    for env_name in env_list:
+      env_value = os.getenv(env_name)
+      if env_value:
+        message += '  {}: {}\n'.format(env_name, env_value)
+
+    if job_url:
+      message += '\n  Job URL: {}\n'.format(job_url)
 
     url = 'https://api.github.com/repos/{}/{}/contents/{}'.format(
         self.repo_owner,
@@ -127,16 +267,6 @@ class Github:
       if r.status_code == 409:
         raise Exception('Unavailable repository')
     return r.ok
-
-  def create_new_file(self, local_path, github_path):
-    max_retry = 3
-    for i in range(max_retry):
-      try:
-        return self.try_create_new_file(local_path, github_path)
-      except Exception as exc:
-        print('Exception catched ({}), retry... ({} of {})'.format(exc, i+1, max_retry))
-        time.sleep(60)
-    sys.exit('Upload failed')
 
 class CacheEntry:
   def __init__(self, cache_done_path, cache_dir, temp_dir):
@@ -316,9 +446,19 @@ parser.add_argument(
     help='Temporary directory where files will be downloaded for verification'
 )
 
+parser.add_argument(
+    '--skip-raw', action='store_true', help="Skip uploading of raw files"
+)
+
 args = parser.parse_args()
 
 cache_dir = os.path.normpath(args.cache_dir)
+
+# Some tests don't produce cache for some toolchains:
+# * https://travis-ci.org/ingenue/hunter/jobs/185550289
+if not os.path.exists(cache_dir):
+  print("*** WARNING *** Cache directory '{}' not found, skipping...".format(cache_dir))
+  sys.exit()
 
 if not os.path.isdir(cache_dir):
   raise Exception('Not a directory: {}'.format(cache_dir))
@@ -340,7 +480,11 @@ github = Github(
     repo = args.repo
 )
 
-cache.upload_raw(github)
+if args.skip_raw:
+  print('*** WARNING *** Skip uploading of raw files')
+else:
+  cache.upload_raw(github)
+
 cache.upload_meta(github, cache_done=False)
 print('Uploading DONE files')
 cache.upload_meta(github, cache_done=True) # Should be last

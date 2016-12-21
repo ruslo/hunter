@@ -4,6 +4,8 @@
 # !!! DO NOT PLACE HEADER GUARDS HERE !!!
 
 include(hunter_add_version)
+include(hunter_cacheable)
+include(hunter_configuration_types)
 include(hunter_pick_scheme)
 include(hunter_download)
 
@@ -18,6 +20,12 @@ hunter_add_version(
     4628d5e296da01dbaf8658fd402b4f709f30ea2d
 )
 
+hunter_configuration_types(odb-pgsql CONFIGURATION_TYPES Release)
 hunter_pick_scheme(DEFAULT url_sha1_odb-pgsql_autotools)
-hunter_download(PACKAGE_NAME odb-pgsql)
+hunter_cacheable(odb-pgsql)
+hunter_download(PACKAGE_NAME odb-pgsql
+    PACKAGE_UNRELOCATABLE_TEXT_FILES
+    "lib/libodb-pgsql.la"
+    "lib/pkgconfig/libodb-pgsql.pc"
+)
 
