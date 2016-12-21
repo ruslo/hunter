@@ -9,7 +9,7 @@ Public
 
 Feel free to open new `issue`_ if you want to ask any questions.
 
-Public chat room: |gitter|
+Public chat room: `gitter`_
 
 Private
 =======
@@ -22,5 +22,8 @@ You can write me to ``ruslan_baratov@yahoo.com`` or contact me using `Tox`_:
 .. _issue: https://github.com/ruslo/hunter/issues/new
 .. _Tox: https://tox.chat
 
-.. |gitter| image:: https://badges.gitter.im/ruslo/hunter.svg
-  :target: https://gitter.im/ruslo/hunter?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge
+.. _gitter: https://gitter.im/ruslo/hunter?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge
+
+.. Stopped working for some reason: https://travis-ci.org/ruslo/hunter/jobs/185557845
+.. .. |gitter| image:: https://badges.gitter.im/ruslo/hunter.svg
+..  :target: https://gitter.im/ruslo/hunter?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge
