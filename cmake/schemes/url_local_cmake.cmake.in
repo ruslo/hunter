@@ -1,0 +1,136 @@
+# Copyright (c) 2015 Ruslan Baratov
+# All rights reserved.
+
+cmake_minimum_required(VERSION 3.0)
+project(Hunter)
+
+include(ExternalProject) # ExternalProject_Add
+
+list(APPEND CMAKE_MODULE_PATH "@HUNTER_SELF@/cmake/modules")
+
+include(hunter_fatal_error)
+include(hunter_status_debug)
+include(hunter_status_print)
+include(hunter_test_string_not_empty)
+
+hunter_status_debug("Scheme: url_local_cmake")
+
+# Check preconditions
+hunter_test_string_not_empty("@HUNTER_EP_NAME@")
+hunter_test_string_not_empty("@HUNTER_PACKAGE_DOWNLOAD_DIR@")
+hunter_test_string_not_empty("@HUNTER_PACKAGE_SOURCE_DIR@")
+hunter_test_string_not_empty("@HUNTER_PACKAGE_URL@")
+hunter_test_string_not_empty("@HUNTER_SELF@")
+
+hunter_status_debug("Project `@HUNTER_EP_NAME@`. Copying:")
+hunter_status_debug("  @HUNTER_PACKAGE_URL@")
+hunter_status_debug("  -> @HUNTER_PACKAGE_SOURCE_DIR@")
+
+#copy files to download directory, allows for filtering of files 
+file(GLOB_RECURSE files RELATIVE "@HUNTER_PACKAGE_URL@" "@HUNTER_PACKAGE_URL@/*")
+#ignore .git folder (causes issues with deleting the folder during build)
+string(REGEX REPLACE "(\\.git/[^;]+)" "" files "${files}")
+
+foreach(file ${files})
+  get_filename_component(dir ${file} DIRECTORY)
+  file(COPY "@HUNTER_PACKAGE_URL@/${file}" DESTINATION "@HUNTER_PACKAGE_DOWNLOAD_DIR@/${dir}")
+endforeach()
+
+#source copied now setup cmake build
+string(COMPARE NOTEQUAL "@HUNTER_JOBS_OPTION@" "" have_jobs)
+if(have_jobs)
+  string(COMPARE NOTEQUAL "@XCODE_VERSION@" "" is_xcode)
+  if(is_xcode)
+    set(jobs_option "-jobs" "@HUNTER_JOBS_OPTION@")
+  elseif("@MSVC_IDE@")
+    set(jobs_option "/maxcpucount:@HUNTER_JOBS_OPTION@")
+  else()
+    set(jobs_option "-j@HUNTER_JOBS_OPTION@")
+  endif()
+else()
+  set(jobs_option "")
+endif()
+
+set(previous_project "")
+
+if("@HUNTER_PACKAGE_LOG_BUILD@")
+  set(log_build 1)
+else()
+  set(log_build 0)
+endif()
+
+if("@HUNTER_PACKAGE_LOG_INSTALL@")
+  set(log_install 1)
+else()
+  set(log_install 0)
+endif()
+
+foreach(configuration @HUNTER_PACKAGE_CONFIGURATION_TYPES@)
+  # All configurations use the same URL which will be downloaded only once
+  # i.e. overhead only for unpacking archive + no files from the previous
+  # build will be left in case package do some insource modification (wrongly)
+  string(TOUPPER "${configuration}" configuration_upper)
+  string(COMPARE EQUAL "${configuration_upper}" "RELEASE" is_release)
+  set(postfix_name "CMAKE_${configuration_upper}_POSTFIX")
+  string(COMPARE EQUAL "${${postfix_name}}" "" is_empty)
+
+  if(NOT is_release AND is_empty)
+    set("${postfix_name}" "-${configuration}")
+  endif()
+
+  set(current_project "@HUNTER_EP_NAME@-${configuration}")
+
+  ExternalProject_Add(
+      "${current_project}"
+      URL
+      @HUNTER_PACKAGE_DOWNLOAD_DIR@
+#      URL_HASH
+#      SHA1=@HUNTER_PACKAGE_SHA1@
+#      DOWNLOAD_DIR
+#      "@HUNTER_PACKAGE_DOWNLOAD_DIR@"
+      SOURCE_DIR
+      "@HUNTER_PACKAGE_SOURCE_DIR@"
+      INSTALL_DIR
+      "@HUNTER_PACKAGE_INSTALL_PREFIX@"
+          # not used, just avoid creating Install/<name> empty directory
+      BUILD_COMMAND ""
+          # this command is empty because all necessary targets will
+          # be built on install stage
+      CMAKE_ARGS
+      "-G@CMAKE_GENERATOR@"
+      "-C@HUNTER_CACHE_FILE@"
+      "-C@HUNTER_ARGS_FILE@"
+      "-D${postfix_name}=${${postfix_name}}"
+      "-DCMAKE_BUILD_TYPE=${configuration}"
+      "-DCMAKE_CONFIGURATION_TYPES=${configuration}"
+      "-DCMAKE_INSTALL_PREFIX=@HUNTER_PACKAGE_INSTALL_PREFIX@"
+      "-DCMAKE_TOOLCHAIN_FILE=${CMAKE_TOOLCHAIN_FILE}"
+      ${ios_opts}
+      INSTALL_COMMAND
+          "@CMAKE_COMMAND@"
+          --build .
+          --target install
+          --config ${configuration}
+          --
+          ${jobs_option}
+        COMMAND # Copy license files
+          "@CMAKE_COMMAND@"
+          "-Dsrcdir=@HUNTER_PACKAGE_SOURCE_DIR@"
+          "-Ddstfile=@HUNTER_PACKAGE_LICENSE_FILE@"
+          -P
+          "@HUNTER_SELF@/scripts/try-copy-license.cmake"
+      LOG_BUILD ${log_build}
+      LOG_INSTALL ${log_install}
+  )
+
+  # Each external project must depends on previous one since they all use
+  # the same building directory
+  string(COMPARE EQUAL "${previous_project}" "" is_empty)
+  if(NOT is_empty)
+    add_dependencies(
+        "${current_project}"
+        "${previous_project}"
+    )
+  endif()
+  set(previous_project "${current_project}")
+endforeach()
