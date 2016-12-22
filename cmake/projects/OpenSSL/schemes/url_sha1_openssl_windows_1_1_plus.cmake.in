@@ -87,7 +87,7 @@ ExternalProject_Add(
     CONFIGURE_COMMAND
     "@HUNTER_MSVC_VCVARSALL@" "@HUNTER_MSVC_ARCH@"
     COMMAND
-    perl Configure "${opt}" "--prefix=@HUNTER_PACKAGE_INSTALL_PREFIX@"
+    perl Configure "${opt}" no-asm "--prefix=@HUNTER_PACKAGE_INSTALL_PREFIX@"
     COMMAND
     nmake
     BUILD_IN_SOURCE
