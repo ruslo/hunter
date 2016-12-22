@@ -10,10 +10,14 @@ set(CMAKE_CXX_STANDARD 11)
 hunter_add_package(Catch)
 
 find_package(Catch CONFIG REQUIRED)
-include_directories(${CATCH_INCLUDE_DIR})
 
-file(GLOB SOURCES *.cpp)
-add_executable(foo_test ${SOURCES})
+set(SOURCES main.cpp
+            foo_test.cpp
+            foo.cpp)
+set(HEADERS foo.hpp)
+
+add_executable(foo_test ${SOURCES} ${HEADERS})
+target_link_libraries(foo_test PUBLIC Catch::Catch)
 
 enable_testing(true)
 add_test(NAME foo_test COMMAND foo_test)

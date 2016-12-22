@@ -16,7 +16,7 @@ hunter_add_version(
     URL
     "https://github.com/hunter-packages/Catch/archive/v1.5.9-hunter.tar.gz"
     SHA1
-    76b2793989314a75ec50c4e4aa4df27daae912a0
+    737cb1c98fedccceb95e7bfd385e5dea0ad5d047
 )
 
 hunter_pick_scheme(DEFAULT url_sha1_cmake)
