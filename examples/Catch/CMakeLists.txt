@@ -5,7 +5,7 @@ cmake_minimum_required(VERSION 3.0.2)
 include("../common.cmake")
 
 project(download-Catch)
-set(CMAKE_CXX_STANDARD 11)
+set(CMAKE_CXX_STANDARD 98)
 
 hunter_add_package(Catch)
 

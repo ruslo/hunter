@@ -3,7 +3,7 @@
 #pragma once
 
 namespace ns_foo {
-    bool return_true() noexcept;
+    bool return_true();
 }
 
 #endif
