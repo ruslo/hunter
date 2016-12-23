@@ -100,3 +100,8 @@ install:
 
 build_script:
   - cmd: python .\jenkins.py
+
+branches:
+  except:
+    - /^pr\..*/
+    - /^v[0-9]+\.[0-9]+\.[0-9]+$/
