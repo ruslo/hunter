@@ -17,6 +17,17 @@ hunter_add_version(
     PACKAGE_NAME
     OpenCV
     VERSION
+    "3.1.0-p3"
+    URL
+    "https://github.com/hunter-packages/opencv/archive/v3.1.0-p3.tar.gz"
+    SHA1
+    d1f235600e454bcc3ce7d746b6b706e89ed81acc
+)
+
+hunter_add_version(
+    PACKAGE_NAME
+    OpenCV
+    VERSION
     "3.1.0-p2"
     URL
     "https://github.com/hunter-packages/opencv/archive/3.1.0-p2.tar.gz"
