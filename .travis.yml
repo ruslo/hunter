@@ -76,6 +76,11 @@ matrix:
       env: PROJECT_DIR=examples/Eigen TOOLCHAIN=analyze
     # }
 
+    # Test issue:
+    # * https://github.com/ruslo/hunter/issues/628
+    - os: linux
+      env: PROJECT_DIR=examples/Eigen-Boost TOOLCHAIN=android-ndk-r10e-api-19-armeabi-v7a-neon
+
 install:
   # Info about OS
   - uname -a
@@ -112,3 +117,5 @@ script:
 branches:
   except:
     - pkg.template
+    - /^pr\..*/
+    - /^v[0-9]+\.[0-9]+\.[0-9]+$/
