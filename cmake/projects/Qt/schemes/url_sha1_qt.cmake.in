@@ -1,4 +1,4 @@
-# Copyright (c) 2013, 2015 Ruslan Baratov, Alexandre Pretyman
+# Copyright (c) 2013, 2015-2016 Ruslan Baratov, Alexandre Pretyman
 # All rights reserved.
 
 cmake_minimum_required(VERSION 3.0)
@@ -292,7 +292,11 @@ hunter_status_debug("Qt configure options (without -skip): ${configure_opts}")
 
 list(APPEND configure_command ${configure_opts})
 
-set(ANDROID_API_VERSION "${HUNTER_Android-SDK-Platform_VERSION}")
+if(ANDROID)
+  set(ANDROID_API_VERSION "android-${CMAKE_SYSTEM_VERSION}")
+else()
+  set(ANDROID_API_VERSION "")
+endif()
 
 set(qt_component "@HUNTER_PACKAGE_COMPONENT@")
 set(hunter_self "@HUNTER_SELF@")
