@@ -112,3 +112,5 @@ script:
 branches:
   except:
     - pkg.template
+    - /^pr\..*/
+    - /^v[0-9]+\.[0-9]+\.[0-9]+$/
