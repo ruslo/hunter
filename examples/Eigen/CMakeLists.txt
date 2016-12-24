@@ -11,10 +11,10 @@ project(download-eigen)
 
 hunter_add_package(Eigen)
 
-find_package(Eigen3 CONFIG REQUIRED)
+find_package(Eigen REQUIRED)
 
 # Test double library creation
-find_package(Eigen3 CONFIG REQUIRED)
+find_package(Eigen REQUIRED)
 
 add_executable(foo foo.cpp)
-target_link_libraries(foo Eigen3::Eigen)
+target_link_libraries(foo Eigen::eigen)
