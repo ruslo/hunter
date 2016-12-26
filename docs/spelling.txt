@@ -14,14 +14,17 @@ NMake
 Stackoverflow
 Toolchain
 Uninstall
+Wget
 Xcode
 cacheable
 companioning
+config
 configs
 hunterization
 hunterized
 iOS
 login
+prebuilt
 reconstructible
 toolchain
 toolchains
