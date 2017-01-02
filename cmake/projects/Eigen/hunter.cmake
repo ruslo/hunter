@@ -17,12 +17,15 @@ hunter_add_version(
     PACKAGE_NAME
     Eigen
     VERSION
-    "3.3.1"
+    "3.3.1-p1"
     URL
-    "http://bitbucket.org/eigen/eigen/get/3.3.1.tar.bz2"
+    "https://github.com/hunter-packages/eigen/archive/v3.3.1-p1.tar.gz"
     SHA1
-    d1a9c2b64db3628956482b4a934cab3b508dc29e
+    71f7da8c5170ea4500531b5c98a3c3cb871feab2
 )
+
+# disable Eigen tests. Testcreation tries to find package 'Boost'
+hunter_cmake_args(Eigen CMAKE_ARGS EIGEN_ENABLE_TESTS=OFF)
 
 # Pick a download scheme
 hunter_pick_scheme(DEFAULT url_sha1_cmake)
