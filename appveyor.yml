@@ -10,35 +10,53 @@ environment:
     - TOOLCHAIN: "default"
       PROJECT_DIR: examples\dlib
 
-    - TOOLCHAIN: "ninja-vs-12-2013-win64"
-      PROJECT_DIR: examples\dlib
+    # VS 2015 required:
+    # * https://ci.appveyor.com/project/ingenue/hunter/build/1.0.1293/job/qx11p4a3eava3yqd
+    # - TOOLCHAIN: "ninja-vs-12-2013-win64"
+    #   PROJECT_DIR: examples\dlib
 
-    - TOOLCHAIN: "nmake-vs-12-2013-win64"
-      PROJECT_DIR: examples\dlib
+    # VS 2015 required:
+    # * https://ci.appveyor.com/project/ingenue/hunter/build/1.0.1293/job/6b0x56uuqc2i32t2
+    # - TOOLCHAIN: "nmake-vs-12-2013-win64"
+    #   PROJECT_DIR: examples\dlib
 
-    - TOOLCHAIN: "nmake-vs-12-2013"
-      PROJECT_DIR: examples\dlib
+    # VS 2015 required:
+    # * https://ci.appveyor.com/project/ingenue/hunter/build/1.0.1293/job/8pbbckf8g2mfq8xa
+    # - TOOLCHAIN: "nmake-vs-12-2013"
+    #   PROJECT_DIR: examples\dlib
 
-    - TOOLCHAIN: "vs-10-2010"
-      PROJECT_DIR: examples\dlib
+    # VS 2015 required:
+    # * https://ci.appveyor.com/project/ingenue/hunter/build/1.0.1293/job/nqii2ovetnq5h768
+    # - TOOLCHAIN: "vs-10-2010"
+    #   PROJECT_DIR: examples\dlib
 
-    - TOOLCHAIN: "vs-11-2012"
-      PROJECT_DIR: examples\dlib
+    # FIXME:
+    # * https://ci.appveyor.com/project/ingenue/hunter/build/1.0.1293/job/on9uf5vbjakuc0h9
+    # - TOOLCHAIN: "vs-11-2012"
+    #   PROJECT_DIR: examples\dlib
 
-    - TOOLCHAIN: "vs-12-2013-win64"
-      PROJECT_DIR: examples\dlib
+    # VS 2015 required:
+    # * https://ci.appveyor.com/project/ingenue/hunter/build/1.0.1293/job/4fd09fop7thiy85y
+    # - TOOLCHAIN: "vs-12-2013-win64"
+    #   PROJECT_DIR: examples\dlib
 
-    - TOOLCHAIN: "vs-12-2013-xp"
-      PROJECT_DIR: examples\dlib
+    # VS 2015 required:
+    # * https://ci.appveyor.com/project/ingenue/hunter/build/1.0.1293/job/5xuaj93s6k4ccv8o
+    # - TOOLCHAIN: "vs-12-2013-xp"
+    #   PROJECT_DIR: examples\dlib
 
-    - TOOLCHAIN: "vs-12-2013"
-      PROJECT_DIR: examples\dlib
+    # VS 2015 required:
+    # * https://ci.appveyor.com/project/ingenue/hunter/build/1.0.1293/job/4u0wdwbfx3vu162a
+    # - TOOLCHAIN: "vs-12-2013"
+    #   PROJECT_DIR: examples\dlib
 
     - TOOLCHAIN: "vs-14-2015"
       PROJECT_DIR: examples\dlib
 
-    - TOOLCHAIN: "vs-9-2008"
-      PROJECT_DIR: examples\dlib
+    # VS 2015 required:
+    # * https://ci.appveyor.com/project/ingenue/hunter/build/1.0.1293/job/wp7u4o6kp48g4yvq
+    # - TOOLCHAIN: "vs-9-2008"
+    #   PROJECT_DIR: examples\dlib
 
     - TOOLCHAIN: "mingw"
       PROJECT_DIR: examples\dlib

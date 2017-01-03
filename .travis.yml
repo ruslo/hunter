@@ -35,8 +35,12 @@ env:
 matrix:
   include:
     # Linux {
-    - os: linux
-      env: PROJECT_DIR=examples/dlib TOOLCHAIN=default
+
+    # c++11 needed:
+    # * https://travis-ci.org/ingenue/hunter/jobs/188517427
+    # - os: linux
+    #   env: PROJECT_DIR=examples/dlib TOOLCHAIN=default
+
     - os: linux
       env: PROJECT_DIR=examples/dlib TOOLCHAIN=clang-libstdcxx
     - os: linux
@@ -57,8 +61,12 @@ matrix:
     # }
 
     # OSX {
-    - os: osx
-      env: PROJECT_DIR=examples/dlib TOOLCHAIN=default
+
+    # c++11 needed:
+    # * https://travis-ci.org/ingenue/hunter/jobs/188517434
+    # - os: osx
+    #   env: PROJECT_DIR=examples/dlib TOOLCHAIN=default
+
     - os: osx
       env: PROJECT_DIR=examples/dlib TOOLCHAIN=libcxx
     - os: osx
