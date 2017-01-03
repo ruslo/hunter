@@ -34,7 +34,7 @@ hunter_test_string_not_empty("${HUNTER_CONFIGURATION_TYPES}")
 file(
     WRITE
     "${TOOLCHAIN_INFO_FILE}"
-    "Cache version: 4\n"
+    "Cache version: 5\n"
     "Polly toolchains:\n"
     "    IPHONEOS_ARCHS: ${IPHONEOS_ARCHS}\n"
     "    IPHONESIMULATOR_ARCHS: ${IPHONESIMULATOR_ARCHS}\n"

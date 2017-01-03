@@ -454,6 +454,12 @@ args = parser.parse_args()
 
 cache_dir = os.path.normpath(args.cache_dir)
 
+# Some tests don't produce cache for some toolchains:
+# * https://travis-ci.org/ingenue/hunter/jobs/185550289
+if not os.path.exists(cache_dir):
+  print("*** WARNING *** Cache directory '{}' not found, skipping...".format(cache_dir))
+  sys.exit()
+
 if not os.path.isdir(cache_dir):
   raise Exception('Not a directory: {}'.format(cache_dir))
 

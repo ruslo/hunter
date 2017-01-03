@@ -17,22 +17,22 @@ hunter_add_version(
     PACKAGE_NAME
     Eigen
     VERSION
-    "3.2.4-p0"
+    "3.3.1"
     URL
-    "https://github.com/hunter-packages/eigen/archive/v3.2.4-p0.tar.gz"
+    "http://bitbucket.org/eigen/eigen/get/3.3.1.tar.bz2"
     SHA1
-    6fd638939dfd3a3be1cf0ea920160591ed60f76d
+    d1a9c2b64db3628956482b4a934cab3b508dc29e
 )
 
 hunter_add_version(
     PACKAGE_NAME
     Eigen
     VERSION
-    "3.2.4"
+    "3.2.4-p0"
     URL
-    "https://bitbucket.org/eigen/eigen/get/3.2.4.tar.gz"
+    "https://github.com/hunter-packages/eigen/archive/v3.2.4-p0.tar.gz"
     SHA1
-    b826f665bdfe31784795eef79c75540db71ab702
+    6fd638939dfd3a3be1cf0ea920160591ed60f76d
 )
 
 hunter_cmake_args(Eigen CMAKE_ARGS EIGEN_ENABLE_TESTING=OFF)

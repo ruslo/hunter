@@ -219,6 +219,13 @@ else()
   set(_ios_args "")
 endif()
 
+if(ANDROID)
+  # This feature doesn't work with new CMake 3.7+ toolchains
+  set(_android_args ENABLE_PRECOMPILED_HEADERS=OFF)
+else()
+  set(_android_args "")
+endif()
+
 hunter_cmake_args(
     OpenCV
     CMAKE_ARGS
@@ -231,6 +238,7 @@ hunter_cmake_args(
         INSTALL_PYTHON_EXAMPLES=OFF
         BUILD_WITH_STATIC_CRT=OFF # Fix https://github.com/ruslo/hunter/issues/177
         ${_ios_args}
+        ${_android_args}
         # Find packages in Hunter (instead of building from OpenCV sources)
         BUILD_ZLIB=OFF
         BUILD_TIFF=OFF

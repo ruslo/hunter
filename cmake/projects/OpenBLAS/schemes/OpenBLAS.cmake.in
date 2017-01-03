@@ -8,7 +8,6 @@ include(ExternalProject) # ExternalProject_Add
 
 include("@HUNTER_SELF@/cmake/Hunter")
 
-include(hunter_fatal_error)
 include(hunter_status_debug)
 include(hunter_test_string_not_empty)
 include(hunter_user_error)
@@ -16,7 +15,7 @@ include(hunter_user_error)
 hunter_status_debug("Scheme: OpenBLAS")
 
 if("@MSVC@")
-  hunter_fatal_error("Not supported with Visual Studio")
+  hunter_user_error("Not supported with Visual Studio")
 endif()
 
 # Check preconditions

@@ -24,15 +24,19 @@ function(hunter_qt_add_module)
     return()
   endif()
 
-  set(dep_list "${x_COMPONENTS}")
+  set(dep_list "")
 
-  foreach(dep ${dep_list})
+  # "Base" components should be build first so adding dependencies of
+  # dependencies for the start.
+  foreach(dep ${x_COMPONENTS})
     list(APPEND dep_list ${component_${dep}_depends_on})
   endforeach()
 
+  # Now we can proceed with explicit dependencies
+  list(APPEND dep_list "${x_COMPONENTS}")
+
   list(REMOVE_ITEM dep_list "") # remove empty elements
   list(REMOVE_DUPLICATES dep_list)
-  list(SORT dep_list)
 
   set(component_${x_NAME}_depends_on "${dep_list}" PARENT_SCOPE)
 endfunction()

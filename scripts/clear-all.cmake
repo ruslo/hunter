@@ -301,6 +301,11 @@ unset(ENV{ANDROID_SDK_ROOT})
 unset(ENV{ANDROID_API_VERSION})
 unset(ENV{ANDROID_HOME})
 
+# https://cmake.org/cmake/help/latest/manual/cmake-toolchains.7.html#cross-compiling-for-android
+unset(ENV{ANDROID_NDK})
+unset(ENV{ANDROID_NDK_ROOT})
+unset(ENV{ANDROID_STANDALONE_TOOLCHAIN})
+
 # See clear-all.sh for more info {
 unset(ENV{PKG_CONFIG_PATH})
 unset(ENV{PKG_CONFIG_DEBUG_SPEW})
