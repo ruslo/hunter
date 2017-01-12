@@ -37,7 +37,7 @@ function(
       qtconnectivity
       qtdeclarative
       qtdoc
-      qtenginio
+      #qtenginio
       qtgraphicaleffects
       qtimageformats
       qtlocation
@@ -107,7 +107,7 @@ function(
   # Depends only on qtbase/qtdeclarative
   hunter_qt_add_module(NAME qtcanvas3d COMPONENTS qtdeclarative)
   hunter_qt_add_module(NAME qtdoc COMPONENTS qtdeclarative)
-  hunter_qt_add_module(NAME qtenginio COMPONENTS qtdeclarative)
+  #hunter_qt_add_module(NAME qtenginio COMPONENTS qtdeclarative)
   hunter_qt_add_module(NAME qtgraphicaleffects COMPONENTS qtdeclarative)
   hunter_qt_add_module(NAME qtmultimedia COMPONENTS qtbase qtdeclarative)
   hunter_qt_add_module(NAME qtsensors COMPONENTS qtbase qtdeclarative)
