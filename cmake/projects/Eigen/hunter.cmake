@@ -25,7 +25,7 @@ hunter_add_version(
 )
 
 # disable Eigen tests. Testcreation tries to find package 'Boost'
-hunter_cmake_args(Eigen CMAKE_ARGS EIGEN_ENABLE_TESTS=OFF)
+hunter_cmake_args(Eigen CMAKE_ARGS BUILD_TESTING=OFF)
 
 # Pick a download scheme
 hunter_pick_scheme(DEFAULT url_sha1_cmake)
