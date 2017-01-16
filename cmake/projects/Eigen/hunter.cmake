@@ -17,11 +17,11 @@ hunter_add_version(
     PACKAGE_NAME
     Eigen
     VERSION
-    "3.3.1-p1"
+    "3.3.1-p2"
     URL
-    "https://github.com/hunter-packages/eigen/archive/v3.3.1-p1.tar.gz"
+    "https://github.com/hunter-packages/eigen/archive/v3.3.1-p2.tar.gz"
     SHA1
-    71f7da8c5170ea4500531b5c98a3c3cb871feab2
+    0a15d912c3002bfb42e739235cfd650ab74bb5a6
 )
 
 # disable Eigen tests. Testcreation tries to find package 'Boost'
