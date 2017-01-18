@@ -24,7 +24,6 @@ hunter_add_version(
 hunter_cmake_args(ceres-solver CMAKE_ARGS
     GFLAGS=OFF
     BUILD_TESTING=OFF
-    CMAKE_BUILD_TYPE=Release
 )
 
 # Pick a download scheme
