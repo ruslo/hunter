@@ -14,7 +14,7 @@ hunter_add_package(glog)
 find_package(glog CONFIG REQUIRED)
 
 add_executable(foo foo.cpp)
-target_link_libraries(foo glog)
+target_link_libraries(foo glog::glog)
 
 if(ANDROID)
   hunter_add_package(Android-Apk)
