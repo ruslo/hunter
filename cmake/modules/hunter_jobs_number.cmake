@@ -11,9 +11,14 @@ function(hunter_jobs_number jobs_options_varname toolchain_path)
   string(COMPARE EQUAL "${HUNTER_JOBS_NUMBER}" "" use_default_jobs)
   if(use_default_jobs)
     cmake_host_system_information(
-        RESULT jobs_number
+        RESULT l_cores
         QUERY NUMBER_OF_LOGICAL_CORES
     )
+	cmake_host_system_information(
+        RESULT p_cores
+        QUERY NUMBER_OF_PHYSICAL_CORES
+    )
+	math(EXPR jobs_number "${l_cores} * ${p_cores}")
     string(COMPARE EQUAL "${jobs_number}" "0" is_zero)
     if(is_zero)
       hunter_status_debug("Number of logical cores is 0 - forcing 1")
