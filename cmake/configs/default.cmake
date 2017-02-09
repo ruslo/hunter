@@ -1,4 +1,4 @@
-# Copyright (c) 2013-2015, Ruslan Baratov
+# Copyright (c) 2013-2017, Ruslan Baratov
 # All rights reserved.
 
 # Do not place header guards here
@@ -112,6 +112,7 @@ hunter_config(convertutf VERSION 1.0.1)
 hunter_config(crashpad VERSION v0.0.1-p0)
 hunter_config(crashup VERSION 0.0.2)
 hunter_config(cvmatio VERSION 1.0.27-p3)
+hunter_config(cxxopts VERSION 1.0.0-p0)
 hunter_config(damageproto VERSION 1.2.1)
 hunter_config(dbus VERSION 1.10.0-hunter-4)
 hunter_config(dest VERSION 0.8.0-p3)
