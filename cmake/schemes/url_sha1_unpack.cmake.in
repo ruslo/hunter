@@ -32,6 +32,7 @@ hunter_test_string_not_empty("@HUNTER_PACKAGE_URL@")
 hunter_test_string_not_empty("@HUNTER_PACKAGE_SHA1@")
 hunter_test_string_not_empty("@HUNTER_PACKAGE_DOWNLOAD_DIR@")
 hunter_test_string_not_empty("@HUNTER_PACKAGE_SOURCE_DIR@")
+hunter_test_string_not_empty("@HUNTER_PACKAGE_LICENSE_DIR@")
 
 string(COMPARE EQUAL "@HUNTER_PACKAGE_PROTECTED_SOURCES@" "" is_empty)
 if(is_empty)
@@ -62,5 +63,11 @@ ExternalProject_Add(
     BUILD_COMMAND
     ""
     INSTALL_COMMAND
-    ""
+    # Copy license files
+    "@CMAKE_COMMAND@"
+    "-C@HUNTER_ARGS_FILE@" # for 'HUNTER_INSTALL_LICENSE_FILES'
+    "-Dsrcdir=@HUNTER_PACKAGE_SOURCE_DIR@"
+    "-Ddstdir=@HUNTER_PACKAGE_LICENSE_DIR@"
+    -P
+    "@HUNTER_SELF@/scripts/try-copy-license.cmake"
 )
