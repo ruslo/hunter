@@ -4,6 +4,8 @@ cmake_minimum_required(VERSION 3.2)
 # * https://github.com/hunter-packages/gate
 include("../common.cmake")
 
+set(CMAKE_CXX_STANDARD 14)
+
 project(download-mpark_variant)
 
 hunter_add_package(mpark_variant)
