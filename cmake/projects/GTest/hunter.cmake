@@ -145,7 +145,7 @@ hunter_add_version(
     GTest
     VERSION
     1.8.0-hunter-p2
-    URL 
+    URL
     "https://github.com/hunter-packages/googletest/archive/1.8.0-hunter-p2.tar.gz"
     SHA1
     93148cb8850abe78b76ed87158fdb6b9c48e38c4
