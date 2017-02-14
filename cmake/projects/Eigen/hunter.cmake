@@ -41,7 +41,13 @@ if(ANDROID)
 endif()
 
 # disable Eigen tests. Testcreation tries to find package 'Boost'
-hunter_cmake_args(Eigen CMAKE_ARGS BUILD_TESTING=OFF ${_android_args})
+hunter_cmake_args(
+    Eigen
+    CMAKE_ARGS
+    BUILD_TESTING=OFF
+    HUNTER_INSTALL_LICENSE_FILES=COPYING.MPL2
+    ${_android_args}
+)
 
 # Pick a download scheme
 hunter_pick_scheme(DEFAULT url_sha1_cmake)
