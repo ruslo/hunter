@@ -16,6 +16,12 @@ find_package(glog CONFIG REQUIRED)
 add_executable(foo foo.cpp)
 target_link_libraries(foo glog::glog)
 
+if(NOT EXISTS "${glog_LICENSES}") # one file expected
+  message(FATAL_ERROR "File not found: '${glog_LICENSES}'")
+endif()
+
+message("License: '${glog_LICENSES}'")
+
 if(ANDROID)
   hunter_add_package(Android-Apk)
   list(APPEND CMAKE_MODULE_PATH "${ANDROID-APK_ROOT}")
