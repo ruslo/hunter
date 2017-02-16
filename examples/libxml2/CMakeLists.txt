@@ -7,7 +7,7 @@ include("../common.cmake")
 project(libxml2-example)
 
 hunter_add_package(libxml2)
-find_package(libxml2 REQUIRED)
+find_package(libxml2 CONFIG REQUIRED)
 
 set(${PROJECT_NAME}_SOURCES
   main.c
