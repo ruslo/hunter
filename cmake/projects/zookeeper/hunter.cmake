@@ -6,6 +6,7 @@
 include(hunter_add_version)
 include(hunter_download)
 include(hunter_pick_scheme)
+include(hunter_cacheable)
 
 # List of versions here...
 hunter_add_version(
@@ -14,16 +15,13 @@ hunter_add_version(
     VERSION
     "3.4.9-p1"
     URL
-    "https://github.com/Artomatix/zookeeper/archive/3.4.9-hunter-5.tar.gz"
+    "https://github.com/hunter-packages/zookeeper/archive/3.4.9-hunter-6.tar.gz"
     SHA1
-    f98aba57b183de9e00a58536c7a47c612e3d51fc
+    fe68462b58a6eff5688a81e9031fbe32f0acfe74
 )
 
 # Pick a download scheme
 hunter_pick_scheme(DEFAULT url_sha1_cmake) # use scheme for cmake projects
 
-# Download package.
-# Two versions of library will be build by default:
-#     * libexample_A.a
-#     * libexample_Ad.a
+hunter_cacheable(zookeeper)
 hunter_download(PACKAGE_NAME zookeeper)
