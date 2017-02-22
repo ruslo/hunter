@@ -28,3 +28,4 @@ See also:
   :maxdepth: 1
 
   Provide credentials to access protected sources <cmake-user/protected-sources>
+  Using license files <cmake-user/using-license-files>
