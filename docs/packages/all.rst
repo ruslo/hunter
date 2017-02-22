@@ -61,6 +61,7 @@ All packages
 * `convertutf <https://github.com/ruslo/hunter/wiki/pkg.convertutf>`__
 * `crashpad <https://github.com/ruslo/hunter/wiki/pkg.crashpad>`__
 * `cvmatio <https://github.com/ruslo/hunter/wiki/pkg.cvmatio>`__
+* `cxxopts <https://github.com/ruslo/hunter/wiki/pkg.cxxopts>`__
 * `dest <https://github.com/ruslo/hunter/wiki/pkg.dest>`__
 * `dlib <https://github.com/ruslo/hunter/wiki/pkg.dlib>`__
 * `eos <https://github.com/ruslo/hunter/wiki/pkg.eos>`__

@@ -1,4 +1,5 @@
 # Copyright (c) 2015 Aaditya Kalsi
+# Copyright (c) 2017 Ruslan Baratov
 # All rights reserved.
 
 cmake_minimum_required(VERSION 3.0)
@@ -8,76 +9,52 @@ if(is_empty)
   message(FATAL_ERROR "'srcdir' should not be empty")
 endif()
 
-string(COMPARE EQUAL "${dstfile}" "" is_empty)
+string(COMPARE EQUAL "${dstdir}" "" is_empty)
 if(is_empty)
-  message(FATAL_ERROR "'dstfile' should not be empty")
+  message(FATAL_ERROR "'dstdir' should not be empty")
 endif()
 
-# macro to copy file to a given file name
-# CMake's file(COPY) works for a directory only
-# so we use configure_file() with absolute paths
-# to achieve this.
-macro(copyfileto in out)
-  # For debugging
-  # message("-- copylicense: License found; ${in} -> ${out}")
-  configure_file(${in} ${out} COPYONLY)
-endmacro()
+set(licenses "${HUNTER_INSTALL_LICENSE_FILES}")
+string(COMPARE NOTEQUAL "${licenses}" "" explicit_licenses)
 
-# find the license file to copy
-if(EXISTS "${srcdir}/LICENSE")
-  copyfileto("${srcdir}/LICENSE" ${dstfile})
-  return()
+file(MAKE_DIRECTORY "${dstdir}")
+if(NOT EXISTS "${dstdir}")
+  message(FATAL_ERROR "Can't create directory: '${dstdir}'")
+endif()
+if(NOT IS_DIRECTORY "${dstdir}")
+  message(FATAL_ERROR "Is not a directory: '${dstdir}'")
 endif()
 
-if(EXISTS "${srcdir}/LICENSE.txt")
-  copyfileto("${srcdir}/LICENSE.txt" ${dstfile})
-  return()
-endif()
-
-if(EXISTS "${srcdir}/COPYING")
-  copyfileto("${srcdir}/COPYING" ${dstfile})
-  return()
-endif()
-
-if(EXISTS "${srcdir}/COPYING.txt")
-  copyfileto("${srcdir}/COPYING.txt" ${dstfile})
-  return()
-endif()
-
-if(EXISTS "${srcdir}/license")
-  copyfileto("${srcdir}/license" ${dstfile})
-  return()
-endif()
-
-if(EXISTS "${srcdir}/license.txt")
-  copyfileto("${srcdir}/license.txt" ${dstfile})
-  return()
-endif()
-
-if(EXISTS "${srcdir}/copying")
-  copyfileto("${srcdir}/copying" ${dstfile})
-  return()
-endif()
-
-if(EXISTS "${srcdir}/copying.txt")
-  copyfileto("${srcdir}/copying.txt" ${dstfile})
-  return()
-endif()
-
-# last effort; glob LICENSE*
-file(GLOB filelist "${srcdir}/LICENSE*")
-if(filelist)
-  set(licfile )
-  foreach(el ${filelist})
-    if(NOT IS_DIRECTORY ${el})
-      if(licfile)# if already set, unset and break; too many results
-        message(FATAL_ERROR "Could not find license unambiguously. Found:\n  ${licfile}\n ${el}")
-      else()# set licfile to the one found
-        set(licfile ${el})
-      endif()
+# Use set explicit license files for the package
+# Testing variants:
+# * Eigen "HUNTER_INSTALL_LICENSE_FILES=COPYING.MPL2" (good)
+# * Eigen "HUNTER_INSTALL_LICENSE_FILES=COPYING.BSD;COPYING.GPL;COPYING.LGPL;COPYING.MINPACK;COPYING.MPL2" (good)
+# * Eigen "HUNTER_INSTALL_LICENSE_FILES=COPYING.BSD;COPYING.GPL;COPYING.LGPL;COPYING.XXX;COPYING.MPL2" (bad)
+# * Eigen no HUNTER_INSTALL_LICENSE_FILES (bad, no default license)
+if(explicit_licenses)
+  foreach(x ${licenses})
+    if(NOT EXISTS "${srcdir}/${x}")
+      message(FATAL_ERROR "File not found: '${srcdir}/${x}'")
     endif()
+    file(COPY "${srcdir}/${x}" DESTINATION "${dstdir}")
   endforeach()
-  if(licfile)
-    copyfileto(${licfile} ${dstfile})
-  endif()
+  return()
 endif()
+
+# Try standard names
+foreach(x "LICENSE" "LICENSE.txt" "COPYING" "COPYING.txt" "license" "license.txt" "copying" "copying.txt")
+  if(EXISTS "${srcdir}/${x}")
+    file(COPY "${srcdir}/${x}" DESTINATION "${dstdir}")
+    return()
+  endif()
+endforeach()
+
+# If no standard name found try to glob LICENSE*
+# Testing variants:
+# * Boost
+file(GLOB filelist "${srcdir}/LICENSE*")
+foreach(x ${filelist})
+  if(NOT IS_DIRECTORY "${x}")
+    file(COPY "${x}" DESTINATION "${dstdir}")
+  endif()
+endforeach()

@@ -81,6 +81,7 @@ hunter_cmake_args(
     CMAKE_ARGS
       DLIB_HEADER_ONLY=ON #all previous builds were header on, so that is the default
       DLIB_ENABLE_ASSERTS=OFF #must be set on/off or debug/release build will differ and config will not match one
+      HUNTER_INSTALL_LICENSE_FILES=dlib/LICENSE.txt
 )
 
 hunter_pick_scheme(DEFAULT url_sha1_cmake)
