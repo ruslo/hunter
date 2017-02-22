@@ -35,6 +35,17 @@ hunter_add_version(
     0a15d912c3002bfb42e739235cfd650ab74bb5a6
 )
 
+hunter_add_version(
+    PACKAGE_NAME
+    Eigen
+    VERSION
+    "3.3.1-p4"
+    URL
+    "https://github.com/hunter-packages/eigen/archive/v3.3.1-p4.tar.gz"
+    SHA1
+    3ea6a95fb3b1b82c9a9c75fb50f5c87f7e0c9b1a
+)
+
 set(_android_args)
 if(ANDROID)
   set(_android_args EIGEN_DISABLE_CXX11_MATH=YES)
