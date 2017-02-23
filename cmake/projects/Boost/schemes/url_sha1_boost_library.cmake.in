@@ -276,10 +276,14 @@ else()
   )
 endif()
 
+# We need custom '<archiver>' and '<ranlib>' for
+# Android LTO ('*-gcc-ar' instead of '*-ar')
+# WARNING: no spaces between '<archiver>' and '${CMAKE_AR}'!
 file(
     APPEND
     ${boost_user_jam}
-    "  : <archiver> \"${CMAKE_AR}\"\n"
+    "  : <archiver>\"${CMAKE_AR}\"\n"
+    " <ranlib>\"${CMAKE_RANLIB}\"\n"
 )
 
 if(MSVC)
