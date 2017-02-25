@@ -15,9 +15,9 @@ hunter_add_version(
     VERSION
     "1.0-p1"
     URL
-    "https://github.com/wheybags/libtommath/archive/v1.0_hunter.tar.gz"
+    "https://github.com/hunter-packages/libtommath/archive/v1.0-hunter.tar.gz"
     SHA1
-    52d0952cb516a67b9f5b66e260a940273cb76e5c
+    c8d8f850ce0d76ba9b1eb295f4842cc94a566d1c
 )
 
 # Pick a download scheme
