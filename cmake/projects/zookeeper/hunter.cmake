@@ -15,9 +15,9 @@ hunter_add_version(
     VERSION
     "3.4.9-p1"
     URL
-    "https://github.com/hunter-packages/zookeeper/archive/3.4.9-hunter-6.tar.gz"
+    "https://github.com/hunter-packages/zookeeper/archive/3.4.9-hunter-7.tar.gz"
     SHA1
-    fe68462b58a6eff5688a81e9031fbe32f0acfe74
+    6d73772207e55d7b614a2aaa3f5ba5203c2df045
 )
 
 # Pick a download scheme
