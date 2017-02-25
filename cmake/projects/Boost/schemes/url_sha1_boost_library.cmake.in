@@ -98,12 +98,17 @@ endif()
 
 string(COMPARE EQUAL "@CMAKE_CXX_COMPILER_ID@" "Clang" compiler_is_clang)
 
+set(use_cmake_archiver TRUE)
 if("@ANDROID@")
   set(toolset_name "gcc")
   set(toolset_version "ndk")
 elseif("@APPLE@")
   set(toolset_name "darwin")
   set(toolset_version "")
+
+  # Using CMAKE_AR on OSX leads to error (b2 use 'libtool'):
+  # * https://travis-ci.org/ingenue/hunter/jobs/204617507
+  set(use_cmake_archiver FALSE)
 elseif("@CMAKE_COMPILER_IS_GNUCXX@")
   set(toolset_name "gcc")
   set(toolset_version "")
@@ -276,11 +281,17 @@ else()
   )
 endif()
 
-file(
-    APPEND
-    ${boost_user_jam}
-    "  : <archiver> \"${CMAKE_AR}\"\n"
-)
+if(use_cmake_archiver)
+  # We need custom '<archiver>' and '<ranlib>' for
+  # Android LTO ('*-gcc-ar' instead of '*-ar')
+  # WARNING: no spaces between '<archiver>' and '${CMAKE_AR}'!
+  file(
+      APPEND
+      ${boost_user_jam}
+      "  : <archiver>\"${CMAKE_AR}\"\n"
+      " <ranlib>\"${CMAKE_RANLIB}\"\n"
+  )
+endif()
 
 if(MSVC)
   # See 'boost_compiler' section
