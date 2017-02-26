@@ -243,3 +243,5 @@ if(ANDROID)
     )
   endif()
 endif()
+
+hunter_config(zookeeper VERSION 3.4.9-p2)
