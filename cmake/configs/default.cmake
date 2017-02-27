@@ -96,6 +96,7 @@ hunter_config(SQLite3 VERSION autoconf-3080803) #R-Tree enabled
 hunter_config(Sober VERSION 0.1.3)
 hunter_config(Sugar VERSION 1.2.2)
 hunter_config(TIFF VERSION 4.0.2-p3)
+hunter_config(tommath VERSION 1.0-p2)
 hunter_config(WTL VERSION 9.1.5321)
 hunter_config(Washer VERSION 0.1.2)
 hunter_config(WinSparkle VERSION 0.4.0)
