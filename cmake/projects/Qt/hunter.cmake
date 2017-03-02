@@ -21,6 +21,17 @@ hunter_add_version(
     PACKAGE_NAME
     Qt
     VERSION
+    "5.7.1"
+    URL
+    "http://download.qt.io/official_releases/qt/5.7/5.7.1/single/qt-everywhere-opensource-src-5.7.1.7z"
+    SHA1
+    72ed6f62f4921d3308e7f237865475f74f943bab
+)
+
+hunter_add_version(
+    PACKAGE_NAME
+    Qt
+    VERSION
     "5.5.0"
     URL
     "http://download.qt.io/official_releases/qt/5.5/5.5.0/single/qt-everywhere-opensource-src-5.5.0.7z"
@@ -214,6 +225,7 @@ hunter_add_version(
     SHA1
     d902b7df94219d2ed2f5c868839c85ce9daa056a
 )
+
 
 hunter_cacheable(Qt)
 
