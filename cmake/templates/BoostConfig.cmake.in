@@ -120,6 +120,15 @@ foreach(_boost_component ${Boost_FIND_COMPONENTS})
         IMPORTED_LINK_INTERFACE_LANGUAGES_RELEASE "CXX"
         IMPORTED_LOCATION_RELEASE "${_lib_release}"
     )
+
+    # Use Release version of library for MinSizeRel/RelWithDebInfo.
+    # TODO: how to deal with other (custom) build types?
+    set_target_properties(
+        "${_boost_lib}"
+        PROPERTIES
+        MAP_IMPORTED_CONFIG_MINSIZEREL Release
+        MAP_IMPORTED_CONFIG_RELWITHDEBINFO Release
+    )
   endif()
 endforeach()
 
