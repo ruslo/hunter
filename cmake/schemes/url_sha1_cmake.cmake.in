@@ -90,6 +90,13 @@ else()
   )
 endif()
 
+string(COMPARE NOTEQUAL "${CMAKE_MAKE_PROGRAM}" "" has_make)
+if(has_make)
+  set(make_args "-DCMAKE_MAKE_PROGRAM=${CMAKE_MAKE_PROGRAM}")
+else()
+  set(make_args "")
+endif()
+
 foreach(configuration @HUNTER_PACKAGE_CONFIGURATION_TYPES@)
   # All configurations use the same URL which will be downloaded only once
   # i.e. overhead only for unpacking archive + no files from the previous
@@ -131,6 +138,7 @@ foreach(configuration @HUNTER_PACKAGE_CONFIGURATION_TYPES@)
       "-DCMAKE_CONFIGURATION_TYPES=${configuration}"
       "-DCMAKE_INSTALL_PREFIX=@HUNTER_PACKAGE_INSTALL_PREFIX@"
       "-DCMAKE_TOOLCHAIN_FILE=${CMAKE_TOOLCHAIN_FILE}"
+      "${make_args}"
       ${ios_opts}
       INSTALL_COMMAND
           "@CMAKE_COMMAND@"
