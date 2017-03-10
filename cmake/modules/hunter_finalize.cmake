@@ -136,7 +136,7 @@ macro(hunter_finalize)
   hunter_apply_copy_rules()
 
   ### In 3.7.1 Kitware introduced built-in toolchain for Android. Require that version
-  ### or higher for Android builds. The exception is if there is a custome toolchain 
+  ### or higher for Android builds. The exception is if there is a custom toolchain 
   ### defined. In this case, it may be the Android Studio toolchain or some other user
   ### toolchain.
   if(ANDROID AND CMAKE_VERSION VERSION_LESS "3.7.1" AND NOT DEFINED CMAKE_TOOLCHAIN_FILE)
