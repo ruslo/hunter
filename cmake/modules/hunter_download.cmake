@@ -391,6 +391,15 @@ function(hunter_download)
       "set(HUNTER_PASSWORDS_PATH \"${HUNTER_PASSWORDS_PATH}\" CACHE INTERNAL \"\")\n"
   )
 
+  string(COMPARE NOTEQUAL "${CMAKE_MAKE_PROGRAM}" "" has_make)
+  if(has_make)
+    file(
+        APPEND
+        "${HUNTER_DOWNLOAD_TOOLCHAIN}"
+        "set(CMAKE_MAKE_PROGRAM \"${CMAKE_MAKE_PROGRAM}\" CACHE INTERNAL \"\")\n"
+    )
+  endif()
+
   if(hunter_no_url)
     set(avail ${HUNTER_${h_name}_VERSIONS})
     hunter_internal_error(
@@ -493,6 +502,10 @@ function(hunter_download)
   string(COMPARE NOTEQUAL "${CMAKE_GENERATOR_TOOLSET}" "" has_toolset)
   if(has_toolset)
     list(APPEND cmd "-T" "${CMAKE_GENERATOR_TOOLSET}")
+  endif()
+
+  if(has_make)
+    list(APPEND cmd "-DCMAKE_MAKE_PROGRAM=${CMAKE_MAKE_PROGRAM}")
   endif()
 
   string(COMPARE NOTEQUAL "${CMAKE_GENERATOR_PLATFORM}" "" has_gen_platform)
