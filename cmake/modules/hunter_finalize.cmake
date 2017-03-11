@@ -144,4 +144,11 @@ macro(hunter_finalize)
 
   # Android GDBSERVER moved to
   # https://github.com/hunter-packages/android-apk/commit/32531adeb287d3e3b20498ff1a0f76336cbe0551
+
+  # Fix backslashed provided by user:
+  # * https://github.com/ruslo/hunter/issues/693
+  # Note: we can't use 'get_filename_component(... ABSOLUTE)' because sometimes
+  # original path expected. E.g. NMake build:
+  # * https://ci.appveyor.com/project/ingenue/hunter/build/1.0.1412/job/o8a21ue85ivt5d0p
+  string(REPLACE "\\" "\\\\" CMAKE_MAKE_PROGRAM "${CMAKE_MAKE_PROGRAM}")
 endmacro()
