@@ -18,5 +18,5 @@ hunter_download(
     Boost
     PACKAGE_COMPONENT
     serialization
-    PACKAGE_INTERNAL_DEPS_ID "8"
+    PACKAGE_INTERNAL_DEPS_ID "9"
 )
