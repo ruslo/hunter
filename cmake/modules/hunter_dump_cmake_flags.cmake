@@ -1,10 +1,14 @@
-# Copyright (c) 2016, Ruslan Baratov
+# Copyright (c) 2016-2017, Ruslan Baratov
 # All rights reserved.
 
 include(CMakeParseArguments) # cmake_parse_arguments
 
 include(hunter_internal_error)
 
+# Packages to test this function:
+# * Boost
+# * OpenSSL
+# * odb-boost
 function(hunter_dump_cmake_flags)
   cmake_parse_arguments(x "SKIP_INCLUDES" "CPPFLAGS" "" "${ARGV}")
   # -> x_SKIP_INCLUDES
@@ -47,6 +51,42 @@ function(hunter_dump_cmake_flags)
         set(CMAKE_EXE_LINKER_FLAGS "${CMAKE_EXE_LINKER_FLAGS} -l${x}")
       endif()
     endforeach()
+  endif()
+
+  string(COMPARE NOTEQUAL "${CMAKE_CXX_COMPILER_TARGET}" "" has_value)
+  string(COMPARE NOTEQUAL "${CMAKE_CXX_COMPILE_OPTIONS_TARGET}" "" has_option)
+  if(has_value AND has_option)
+    set(
+        CMAKE_CXX_FLAGS
+        "${CMAKE_CXX_FLAGS} ${CMAKE_CXX_COMPILE_OPTIONS_TARGET}${CMAKE_CXX_COMPILER_TARGET}"
+    )
+  endif()
+
+  string(COMPARE NOTEQUAL "${CMAKE_C_COMPILER_TARGET}" "" has_value)
+  string(COMPARE NOTEQUAL "${CMAKE_C_COMPILE_OPTIONS_TARGET}" "" has_option)
+  if(has_value AND has_option)
+    set(
+        CMAKE_C_FLAGS
+        "${CMAKE_C_FLAGS} ${CMAKE_C_COMPILE_OPTIONS_TARGET}${CMAKE_C_COMPILER_TARGET}"
+    )
+  endif()
+
+  string(COMPARE NOTEQUAL "${CMAKE_CXX_COMPILER_EXTERNAL_TOOLCHAIN}" "" has_value)
+  string(COMPARE NOTEQUAL "${CMAKE_CXX_COMPILE_OPTIONS_EXTERNAL_TOOLCHAIN}" "" has_option)
+  if(has_value AND has_option)
+    set(
+        CMAKE_CXX_FLAGS
+        "${CMAKE_CXX_FLAGS} ${CMAKE_CXX_COMPILE_OPTIONS_EXTERNAL_TOOLCHAIN}${CMAKE_CXX_COMPILER_EXTERNAL_TOOLCHAIN}"
+    )
+  endif()
+
+  string(COMPARE NOTEQUAL "${CMAKE_C_COMPILER_EXTERNAL_TOOLCHAIN}" "" has_value)
+  string(COMPARE NOTEQUAL "${CMAKE_C_COMPILE_OPTIONS_EXTERNAL_TOOLCHAIN}" "" has_option)
+  if(has_value AND has_option)
+    set(
+        CMAKE_C_FLAGS
+        "${CMAKE_C_FLAGS} ${CMAKE_C_COMPILE_OPTIONS_EXTERNAL_TOOLCHAIN}${CMAKE_C_COMPILER_EXTERNAL_TOOLCHAIN}"
+    )
   endif()
 
   string(COMPARE EQUAL "${x_CPPFLAGS}" "" is_empty)
