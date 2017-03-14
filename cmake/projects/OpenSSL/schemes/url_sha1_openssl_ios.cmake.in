@@ -77,13 +77,6 @@ ExternalProject_Add(
     ${crypto_input_libraries}
     -o
     "@HUNTER_PACKAGE_INSTALL_PREFIX@/lib/libcrypto.a"
-    COMMAND # Copy license files
-    "@CMAKE_COMMAND@"
-    "-C@HUNTER_ARGS_FILE@" # for 'HUNTER_INSTALL_LICENSE_FILES'
-    "-Dsrcdir=@HUNTER_PACKAGE_SOURCE_DIR@"
-    "-Ddstdir=@HUNTER_PACKAGE_LICENSE_DIR@"
-    -P
-    "@HUNTER_SELF@/scripts/try-copy-license.cmake"
 )
 
 foreach(variant @IPHONEOS_ARCHS@ @IPHONESIMULATOR_ARCHS@)
@@ -141,6 +134,13 @@ foreach(variant @IPHONEOS_ARCHS@ @IPHONESIMULATOR_ARCHS@)
       make install_sw
           # installed libraries will be rewrited,
           # other files are equal
+      COMMAND # Copy license files
+      "@CMAKE_COMMAND@"
+      "-C@HUNTER_ARGS_FILE@" # for 'HUNTER_INSTALL_LICENSE_FILES'
+      "-Dsrcdir=@HUNTER_PACKAGE_SOURCE_DIR@/${variant}"
+      "-Ddstdir=@HUNTER_PACKAGE_LICENSE_DIR@"
+      -P
+      "@HUNTER_SELF@/scripts/try-copy-license.cmake"
   )
 
   add_dependencies(
