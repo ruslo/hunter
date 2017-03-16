@@ -54,6 +54,7 @@ env:
   - PROJECT_DIR=tests/hunter_sleep_before_download TOOLCHAIN=default
   - PROJECT_DIR=tests/hunter_unpack_directory TOOLCHAIN=default
   - PROJECT_DIR=tests/hunter_init_not_found_counter TOOLCHAIN=default
+  - PROJECT_DIR=tests/hunter_check_toolchain_definition TOOLCHAIN=default
 
   - TOOLCHAIN=generate-documentation-test
 
@@ -98,3 +99,8 @@ script:
     then
       python3 ./jenkins.py
     fi
+
+branches:
+  except:
+    - /^pr\..*/
+    - /^v[0-9]+\.[0-9]+\.[0-9]+$/

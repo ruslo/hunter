@@ -17,25 +17,48 @@ hunter_add_version(
     PACKAGE_NAME
     Eigen
     VERSION
-    "3.2.4-p0"
+    "3.3.1-p3"
     URL
-    "https://github.com/hunter-packages/eigen/archive/v3.2.4-p0.tar.gz"
+    "https://github.com/hunter-packages/eigen/archive/v3.3.1-p3.tar.gz"
     SHA1
-    6fd638939dfd3a3be1cf0ea920160591ed60f76d
+    874fc1fb141f9fcd8537b4384c04b4e67ab3821f
 )
 
 hunter_add_version(
     PACKAGE_NAME
     Eigen
     VERSION
-    "3.2.4"
+    "3.3.1-p2"
     URL
-    "https://bitbucket.org/eigen/eigen/get/3.2.4.tar.gz"
+    "https://github.com/hunter-packages/eigen/archive/v3.3.1-p2.tar.gz"
     SHA1
-    b826f665bdfe31784795eef79c75540db71ab702
+    0a15d912c3002bfb42e739235cfd650ab74bb5a6
 )
 
-hunter_cmake_args(Eigen CMAKE_ARGS EIGEN_ENABLE_TESTING=OFF)
+hunter_add_version(
+    PACKAGE_NAME
+    Eigen
+    VERSION
+    "3.3.1-p4"
+    URL
+    "https://github.com/hunter-packages/eigen/archive/v3.3.1-p4.tar.gz"
+    SHA1
+    3ea6a95fb3b1b82c9a9c75fb50f5c87f7e0c9b1a
+)
+
+set(_android_args)
+if(ANDROID)
+  set(_android_args EIGEN_DISABLE_CXX11_MATH=YES)
+endif()
+
+# disable Eigen tests. Testcreation tries to find package 'Boost'
+hunter_cmake_args(
+    Eigen
+    CMAKE_ARGS
+    BUILD_TESTING=OFF
+    HUNTER_INSTALL_LICENSE_FILES=COPYING.MPL2
+    ${_android_args}
+)
 
 # Pick a download scheme
 hunter_pick_scheme(DEFAULT url_sha1_cmake)

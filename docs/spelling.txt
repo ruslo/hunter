@@ -1,4 +1,5 @@
 AppVeyor
+Bonjour
 CGold
 CMake
 CPack
@@ -6,6 +7,7 @@ Config
 Cygwin
 GCC
 GTest
+Google
 Hunterize
 IDE
 IDEs
@@ -14,14 +16,18 @@ NMake
 Stackoverflow
 Toolchain
 Uninstall
+Wget
 Xcode
 cacheable
 companioning
+config
 configs
 hunterization
 hunterized
 iOS
+internet
 login
+prebuilt
 reconstructible
 toolchain
 toolchains

@@ -10,6 +10,7 @@ include(ExternalProject) # ExternalProject_Add
 
 list(APPEND CMAKE_MODULE_PATH "@HUNTER_SELF@/cmake/modules")
 
+include(hunter_dump_cmake_flags)
 include(hunter_status_debug)
 include(hunter_test_string_not_empty)
 include(hunter_user_error)
@@ -24,7 +25,7 @@ hunter_test_string_not_empty("@HUNTER_PACKAGE_SHA1@")
 hunter_test_string_not_empty("@HUNTER_PACKAGE_DOWNLOAD_DIR@")
 hunter_test_string_not_empty("@HUNTER_PACKAGE_SOURCE_DIR@")
 hunter_test_string_not_empty("@HUNTER_PACKAGE_INSTALL_PREFIX@")
-hunter_test_string_not_empty("@HUNTER_PACKAGE_LICENSE_FILE@")
+hunter_test_string_not_empty("@HUNTER_PACKAGE_LICENSE_DIR@")
 hunter_test_string_not_empty("@HUNTER_GLOBAL_SCRIPT_DIR@")
 
 if(APPLE)
@@ -33,6 +34,10 @@ if(APPLE)
 else()
   set(configure_command "./config")
 endif()
+
+hunter_dump_cmake_flags(SKIP_INCLUDES)
+# -> CMAKE_CXX_FLAGS
+# -> CMAKE_C_FLAGS
 
 if(ANDROID)
   string(COMPARE EQUAL "${CMAKE_ANDROID_ARCH}" "" _has_old_cmake)
@@ -96,8 +101,9 @@ ExternalProject_Add(
     # * https://github.com/openssl/openssl/issues/57
     COMMAND # Copy license files
     "@CMAKE_COMMAND@"
+    "-C@HUNTER_ARGS_FILE@" # for 'HUNTER_INSTALL_LICENSE_FILES'
     "-Dsrcdir=@HUNTER_PACKAGE_SOURCE_DIR@"
-    "-Ddstfile=@HUNTER_PACKAGE_LICENSE_FILE@"
+    "-Ddstdir=@HUNTER_PACKAGE_LICENSE_DIR@"
     -P
-    "@HUNTER_GLOBAL_SCRIPT_DIR@/try-copy-license.cmake"
+    "@HUNTER_SELF@/scripts/try-copy-license.cmake"
 )

@@ -8,7 +8,6 @@ include(ExternalProject) # ExternalProject_Add
 
 include("@HUNTER_SELF@/cmake/Hunter")
 
-include(hunter_fatal_error)
 include(hunter_status_debug)
 include(hunter_test_string_not_empty)
 include(hunter_user_error)
@@ -16,7 +15,7 @@ include(hunter_user_error)
 hunter_status_debug("Scheme: OpenBLAS")
 
 if("@MSVC@")
-  hunter_fatal_error("Not supported with Visual Studio")
+  hunter_user_error("Not supported with Visual Studio")
 endif()
 
 # Check preconditions
@@ -28,6 +27,7 @@ hunter_test_string_not_empty("@HUNTER_PACKAGE_DOWNLOAD_DIR@")
 hunter_test_string_not_empty("@HUNTER_PACKAGE_SOURCE_DIR@")
 hunter_test_string_not_empty("@HUNTER_PACKAGE_INSTALL_PREFIX@")
 hunter_test_string_not_empty("@HUNTER_PACKAGE_CONFIGURATION_TYPES@")
+hunter_test_string_not_empty("@HUNTER_PACKAGE_LICENSE_DIR@")
 
 set(cfg_types "@HUNTER_PACKAGE_CONFIGURATION_TYPES@")
 
@@ -72,8 +72,9 @@ ExternalProject_Add(
     make ${lib_type} "PREFIX=@HUNTER_PACKAGE_INSTALL_PREFIX@" install
     COMMAND # Copy license files
     "@CMAKE_COMMAND@"
+    "-C@HUNTER_ARGS_FILE@" # for 'HUNTER_INSTALL_LICENSE_FILES'
     "-Dsrcdir=@HUNTER_PACKAGE_SOURCE_DIR@"
-    "-Ddstfile=@HUNTER_PACKAGE_LICENSE_FILE@"
+    "-Ddstdir=@HUNTER_PACKAGE_LICENSE_DIR@"
     -P
-    "@HUNTER_GLOBAL_SCRIPT_DIR@/try-copy-license.cmake"
+    "@HUNTER_SELF@/scripts/try-copy-license.cmake"
 )

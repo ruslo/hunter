@@ -65,6 +65,9 @@ environment:
   - PROJECT_DIR: tests\hunter_sleep_before_download
     TOOLCHAIN: default
 
+  - PROJECT_DIR: tests\hunter_check_toolchain_definition
+    TOOLCHAIN: default
+
 install:
   # Python 3
   - cmd: set PATH=C:\Python34-x64;C:\Python34-x64\Scripts;%PATH%
@@ -97,3 +100,8 @@ install:
 
 build_script:
   - cmd: python .\jenkins.py
+
+branches:
+  except:
+    - /^pr\..*/
+    - /^v[0-9]+\.[0-9]+\.[0-9]+$/

@@ -4,6 +4,7 @@
 include(CMakeParseArguments) # cmake_parse_arguments
 
 include(hunter_create_args_file)
+include(hunter_find_licenses)
 include(hunter_find_stamps)
 include(hunter_internal_error)
 include(hunter_jobs_number)
@@ -17,6 +18,7 @@ include(hunter_status_print)
 include(hunter_test_string_not_empty)
 include(hunter_user_error)
 
+# Note: 'hunter_find_licenses' should be called before each return point
 function(hunter_download)
   set(one PACKAGE_NAME PACKAGE_COMPONENT PACKAGE_INTERNAL_DEPS_ID)
   set(multiple PACKAGE_DEPENDS_ON PACKAGE_UNRELOCATABLE_TEXT_FILES)
@@ -207,9 +209,7 @@ function(hunter_download)
   endif()
 
   # license file variable
-  set(HUNTER_PACKAGE_LICENSE_FILE "${HUNTER_PACKAGE_INSTALL_PREFIX}/licenses/${HUNTER_PACKAGE_NAME}/LICENSE")
-  set(license_var "${HUNTER_PACKAGE_NAME}_LICENSE")
-  set(license_val "${HUNTER_INSTALL_PREFIX}/licenses/${HUNTER_PACKAGE_NAME}/LICENSE")
+  set(HUNTER_PACKAGE_LICENSE_DIR "${HUNTER_PACKAGE_INSTALL_PREFIX}/licenses/${HUNTER_PACKAGE_NAME}")
 
   set(${root_name} "${${root_name}}" PARENT_SCOPE)
   set(ENV{${root_name}} "${${root_name}}")
@@ -224,8 +224,6 @@ function(hunter_download)
   string(REPLACE "-" "_" snake_case_root_name "${root_name}")
   set(${snake_case_root_name} "${${root_name}}" PARENT_SCOPE)
   set(ENV{${snake_case_root_name}} "${${root_name}}")
-
-  set(${license_var} ${license_val} PARENT_SCOPE)
 
   # temp toolchain file to set variables and include real toolchain
   set(HUNTER_DOWNLOAD_TOOLCHAIN "${HUNTER_PACKAGE_HOME_DIR}/toolchain.cmake")
@@ -258,6 +256,14 @@ function(hunter_download)
     if(hunter_has_component)
       hunter_status_debug("Component: ${HUNTER_PACKAGE_COMPONENT}")
     endif()
+
+    # In:
+    # * HUNTER_INSTALL_PREFIX
+    # * HUNTER_PACKAGE_NAME
+    # Out:
+    # * ${HUNTER_PACKAGE_NAME}_LICENSES (parent scope)
+    hunter_find_licenses()
+
     return()
   endif()
 
@@ -279,6 +285,14 @@ function(hunter_download)
     if(hunter_has_component)
       hunter_status_debug("Component: ${HUNTER_PACKAGE_COMPONENT}")
     endif()
+
+    # In:
+    # * HUNTER_INSTALL_PREFIX
+    # * HUNTER_PACKAGE_NAME
+    # Out:
+    # * ${HUNTER_PACKAGE_NAME}_LICENSES (parent scope)
+    hunter_find_licenses()
+
     return()
   endif()
 
@@ -293,6 +307,7 @@ function(hunter_download)
   hunter_load_from_cache()
 
   if(HUNTER_CACHE_RUN)
+    # No need for licenses here (no 'hunter_find_licenses' call)
     return()
   endif()
 
@@ -301,6 +316,14 @@ function(hunter_download)
     if(hunter_has_component)
       hunter_status_debug("Component: ${HUNTER_PACKAGE_COMPONENT}")
     endif()
+
+    # In:
+    # * HUNTER_INSTALL_PREFIX
+    # * HUNTER_PACKAGE_NAME
+    # Out:
+    # * ${HUNTER_PACKAGE_NAME}_LICENSES (parent scope)
+    hunter_find_licenses()
+
     return()
   endif()
 
@@ -367,6 +390,15 @@ function(hunter_download)
       "${HUNTER_DOWNLOAD_TOOLCHAIN}"
       "set(HUNTER_PASSWORDS_PATH \"${HUNTER_PASSWORDS_PATH}\" CACHE INTERNAL \"\")\n"
   )
+
+  string(COMPARE NOTEQUAL "${CMAKE_MAKE_PROGRAM}" "" has_make)
+  if(has_make)
+    file(
+        APPEND
+        "${HUNTER_DOWNLOAD_TOOLCHAIN}"
+        "set(CMAKE_MAKE_PROGRAM \"${CMAKE_MAKE_PROGRAM}\" CACHE INTERNAL \"\")\n"
+    )
+  endif()
 
   if(hunter_no_url)
     set(avail ${HUNTER_${h_name}_VERSIONS})
@@ -472,6 +504,10 @@ function(hunter_download)
     list(APPEND cmd "-T" "${CMAKE_GENERATOR_TOOLSET}")
   endif()
 
+  if(has_make)
+    list(APPEND cmd "-DCMAKE_MAKE_PROGRAM=${CMAKE_MAKE_PROGRAM}")
+  endif()
+
   string(COMPARE NOTEQUAL "${CMAKE_GENERATOR_PLATFORM}" "" has_gen_platform)
   if(has_gen_platform)
     list(APPEND cmd "-A" "${CMAKE_GENERATOR_PLATFORM}")
@@ -551,4 +587,11 @@ function(hunter_download)
   hunter_status_debug("Clean up done")
 
   file(WRITE "${HUNTER_PACKAGE_DONE_STAMP}" "")
+
+  # In:
+  # * HUNTER_INSTALL_PREFIX
+  # * HUNTER_PACKAGE_NAME
+  # Out:
+  # * ${HUNTER_PACKAGE_NAME}_LICENSES (parent scope)
+  hunter_find_licenses()
 endfunction()

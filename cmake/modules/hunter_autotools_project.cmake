@@ -56,12 +56,13 @@
 include(ExternalProject) # ExternalProject_Add
 include(CMakeParseArguments) # cmake_parse_arguments
 
+include(hunter_dump_cmake_flags)
 include(hunter_fatal_error)
+include(hunter_finalize)
 include(hunter_status_debug)
 include(hunter_test_string_not_empty)
 
 function(hunter_autotools_project target_name)
-
   set(optional_params)
   set(one_value_params
       HUNTER_SELF
@@ -112,6 +113,21 @@ function(hunter_autotools_project target_name)
         "Autotools PACKAGE_CONFIGURATION_TYPES has ${len} elements: ${PARAM_PACKAGE_CONFIGURATION_TYPES}. Only 1 is allowed"
         WIKI "autools.package.configuration.types"
     )
+  endif()
+
+  if(ANDROID)
+    hunter_test_string_not_empty("${CMAKE_C_ANDROID_TOOLCHAIN_PREFIX}")
+    # CMAKE_C_ANDROID_TOOLCHAIN_SUFFIX can be empty
+
+    # Extra Android variables that can't be set in toolchain
+    # (some variables available only after toolchain processed).
+    set(
+        CMAKE_C_PREPROCESSOR
+        "${CMAKE_C_ANDROID_TOOLCHAIN_PREFIX}cpp${CMAKE_C_ANDROID_TOOLCHAIN_SUFFIX}"
+    )
+    if(NOT EXISTS "${CMAKE_C_PREPROCESSOR}")
+      hunter_internal_error("File not found: ${CMAKE_C_PREPROCESSOR}")
+    endif()
   endif()
 
   string(TOUPPER ${PARAM_PACKAGE_CONFIGURATION_TYPES} config_type)
@@ -199,6 +215,10 @@ function(hunter_autotools_project target_name)
     )
   endforeach()
 
+  hunter_dump_cmake_flags(CPPFLAGS cppflags)
+  # -> CMAKE_C_FLAGS
+  # -> CMAKE_CXX_FLAGS
+
   set(cppflags "${cppflags} ${PARAM_CPPFLAGS}")
   string(STRIP "${cppflags}" cppflags)
   hunter_status_debug("CPPFLAGS=${cppflags}")
@@ -249,8 +269,8 @@ function(hunter_autotools_project target_name)
     hunter_test_string_not_empty("${CMAKE_RANLIB}")
     hunter_test_string_not_empty("${CMAKE_STRIP}")
 
-    hunter_test_string_not_empty("${ANDROID_TOOLCHAIN_MACHINE_NAME}")
-    set(configure_host --host=${ANDROID_TOOLCHAIN_MACHINE_NAME})
+    hunter_test_string_not_empty("${CMAKE_CXX_ANDROID_TOOLCHAIN_MACHINE}")
+    set(configure_host --host=${CMAKE_CXX_ANDROID_TOOLCHAIN_MACHINE})
     set(ldflags "${ldflags} ${__libstl}")
   elseif(is_ios)
     hunter_status_debug("Autotools iOS IPHONEOS_ARCHS: ${IPHONEOS_ARCHS} IPHONESIMULATOR_ARCHS: ${IPHONESIMULATOR_ARCHS}")

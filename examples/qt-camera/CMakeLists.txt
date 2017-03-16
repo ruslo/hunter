@@ -35,6 +35,8 @@ set(
 )
 
 if(ANDROID)
+  # Doesn't work in fact, working example is here:
+  # * https://github.com/forexample/android-cmake/tree/master/08-declarative-camera
   add_library(qt-camera SHARED ${SOURCES})
   set_target_properties(qt-camera PROPERTIES VERSION 1.0)
 
