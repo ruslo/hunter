@@ -19,6 +19,17 @@ hunter_add_version(
     98de5eb2f3bf361a836ee78509f311db1c54494b
 )
 
+hunter_add_version(
+    PACKAGE_NAME
+    lzma
+    VERSION
+    5.2.3-p1
+    URL
+    "https://github.com/hunter-packages/lzma/archive/v5.2.3-p1.tar.gz"
+    SHA1
+    391ace8ca1ae84d3b4fb9750943749bc6b589e87
+)
+
 hunter_pick_scheme(DEFAULT url_sha1_cmake)
 hunter_cacheable(lzma)
 hunter_download(PACKAGE_NAME lzma)
