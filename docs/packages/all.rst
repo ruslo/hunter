@@ -77,6 +77,7 @@ All packages
 * `irrXML <https://github.com/ruslo/hunter/wiki/pkg.irrXML>`__
 * `libyuv <https://github.com/ruslo/hunter/wiki/pkg.libyuv>`__
 * `log4cplus <https://github.com/ruslo/hunter/wiki/pkg.log4cplus>`__
+* `lzma <https://github.com/ruslo/hunter/wiki/pkg.lzma>`__
 * `minizip <https://github.com/ruslo/hunter/wiki/pkg.minizip>`__
 * `msgpack <https://github.com/ruslo/hunter/wiki/pkg.msgpack>`__
 * `nlohmann::json <https://github.com/ruslo/hunter/wiki/pkg.nlohmann-json>`__
