@@ -387,6 +387,7 @@ __PGIC_MINOR__
 __PGIC_PATCHLEVEL__
 __PGIC__
 __PIC__
+__PIE__
 __POINTER_WIDTH__
 __POWERPC__
 __PPCBROADWAY__
@@ -631,6 +632,7 @@ __mips__
 __nocona
 __nocona__
 __pic__
+__pie__
 __powerpc
 __powerpc__
 __ppc601__
