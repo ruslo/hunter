@@ -22,7 +22,9 @@ hunter_add_version(
 # CONFIGURATION_TYPES is set to Release, because Debug is bugged at the moment
 # see https://github.com/ruslo/hunter/issues/303
 hunter_configuration_types(MySQL-client CONFIGURATION_TYPES Release)
-hunter_cacheable(MySQL-client)
+
+# https://github.com/ruslo/hunter/issues/705
+# hunter_cacheable(MySQL-client)
+
 hunter_pick_scheme(DEFAULT url_sha1_cmake)
 hunter_download(PACKAGE_NAME MySQL-client)
-
