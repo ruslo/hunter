@@ -1575,6 +1575,10 @@
 # pragma message(HUNTER_INFO(__PIC__))
 #endif
 
+#if defined(__PIE__)
+# pragma message(HUNTER_INFO(__PIE__))
+#endif
+
 #if defined(__POINTER_WIDTH__)
 # pragma message(HUNTER_INFO(__POINTER_WIDTH__))
 #endif
@@ -2549,6 +2553,10 @@
 
 #if defined(__pic__)
 # pragma message(HUNTER_INFO(__pic__))
+#endif
+
+#if defined(__pie__)
+# pragma message(HUNTER_INFO(__pie__))
 #endif
 
 #if defined(__powerpc)
