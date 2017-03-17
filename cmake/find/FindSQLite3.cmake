@@ -47,6 +47,20 @@ if(NOT TARGET "SQLite3")
           "${SQLITE3_LIBRARY}"
         DIRECTORY CACHE
     )
+
+    if(UNIX AND NOT APPLE AND NOT ANDROID) # if Linux
+      string(REGEX MATCH "\\.a$" _ends_in_dot_a "${SQLITE3_LIBRARY}")
+      string(COMPARE NOTEQUAL "${_ends_in_dot_a}" "" _sqlite_is_static)
+      if(_sqlite_is_static)
+        # when static linking we need to add pthread and dl libraries
+        find_package(Threads REQUIRED)
+        list(APPEND _sqlite3_static_library_dependencies Threads::Threads ${CMAKE_DL_LIBS})
+        set_target_properties("SQLite3"
+            PROPERTIES
+              INTERFACE_LINK_LIBRARIES "${_sqlite3_static_library_dependencies}"
+        )
+      endif()
+    endif()
   elseif(SQLite3_FIND_REQUIRED)
     message(FATAL_ERROR "Could not find SQLite3")
   endif()

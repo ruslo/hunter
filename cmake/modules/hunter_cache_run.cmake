@@ -23,16 +23,13 @@ function(hunter_cache_run)
     hunter_internal_error("Unparsed: ${x_UNPARSED_ARGUMENTS}")
   endif()
 
-  if(HUNTER_CACHE_RUN)
-    return()
-  endif()
-
   set(HUNTER_CACHE_RUN TRUE)
-  set(HUNTER_PARENT_PACKAGE "") # Avoid dependency registration
 
   if(has_component)
-    hunter_add_package(${x_PACKAGE})
-  else()
+    hunter_status_debug("Try load package ${x_PACKAGE} (comp. ${x_COMPONENT})")
     hunter_add_package(${x_PACKAGE} COMPONENTS ${x_COMPONENT})
+  else()
+    hunter_status_debug("Try load package ${x_PACKAGE}")
+    hunter_add_package(${x_PACKAGE})
   endif()
 endfunction()

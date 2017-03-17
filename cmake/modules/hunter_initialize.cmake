@@ -46,60 +46,68 @@ macro(hunter_initialize)
     if(NOT _cache_init)
       hunter_internal_error("_gate_done AND NOT _cache_init")
     endif()
-  else()
-    if(_cache_init)
-      set(_flush FALSE)
+  elseif(_cache_init)
+    set(_flush FALSE)
 
-      string(COMPARE EQUAL "${HUNTER_CACHED_ROOT}" "${HUNTER_GATE_ROOT}" _is_ok)
-      if(NOT _is_ok)
-        hunter_status_debug("HUNTER_ROOT changed:")
-        hunter_status_debug("  ${HUNTER_CACHED_ROOT}")
-        hunter_status_debug("  ${HUNTER_GATE_ROOT}")
-        set(_flush TRUE)
-      endif()
+    string(COMPARE EQUAL "${HUNTER_CACHED_ROOT}" "${HUNTER_GATE_ROOT}" _is_ok)
+    if(NOT _is_ok)
+      hunter_status_debug("HUNTER_ROOT changed:")
+      hunter_status_debug("  ${HUNTER_CACHED_ROOT}")
+      hunter_status_debug("  ${HUNTER_GATE_ROOT}")
+      set(_flush TRUE)
+    endif()
 
-      string(COMPARE EQUAL "${HUNTER_VERSION}" "${HUNTER_GATE_VERSION}" _is_ok)
-      if(NOT _is_ok)
-        hunter_status_debug("HUNTER_VERSION changed:")
-        hunter_status_debug("  ${HUNTER_VERSION}")
-        hunter_status_debug("  ${HUNTER_GATE_VERSION}")
-        set(_flush TRUE)
-      endif()
+    string(COMPARE EQUAL "${HUNTER_VERSION}" "${HUNTER_GATE_VERSION}" _is_ok)
+    if(NOT _is_ok)
+      hunter_status_debug("HUNTER_VERSION changed:")
+      hunter_status_debug("  ${HUNTER_VERSION}")
+      hunter_status_debug("  ${HUNTER_GATE_VERSION}")
+      set(_flush TRUE)
+    endif()
 
-      string(COMPARE EQUAL "${HUNTER_SHA1}" "${HUNTER_GATE_SHA1}" _is_ok)
-      if(NOT _is_ok)
-        hunter_status_debug("HUNTER_SHA1 changed:")
-        hunter_status_debug("  ${HUNTER_SHA1}")
-        hunter_status_debug("  ${HUNTER_GATE_SHA1}")
-        set(_flush TRUE)
-      endif()
+    string(COMPARE EQUAL "${HUNTER_SHA1}" "${HUNTER_GATE_SHA1}" _is_ok)
+    if(NOT _is_ok)
+      hunter_status_debug("HUNTER_SHA1 changed:")
+      hunter_status_debug("  ${HUNTER_SHA1}")
+      hunter_status_debug("  ${HUNTER_GATE_SHA1}")
+      set(_flush TRUE)
+    endif()
 
-      if(_flush)
-        set(HUNTER_CACHED_ROOT "${HUNTER_GATE_ROOT}" CACHE INTERNAL "")
-        set(HUNTER_VERSION "${HUNTER_GATE_VERSION}" CACHE INTERNAL "")
-        set(HUNTER_SHA1 "${HUNTER_GATE_SHA1}" CACHE INTERNAL "")
-
-        hunter_calculate_self(
-            "${HUNTER_CACHED_ROOT}"
-            "${HUNTER_VERSION}"
-            "${HUNTER_SHA1}"
-            HUNTER_SELF
-        )
-
-        hunter_flush_cache_variables("${HUNTER_SELF}")
-
-        set(HUNTER_CONFIG_SHA1 "" CACHE INTERNAL "")
-        set(HUNTER_TOOLCHAIN_SHA1 "" CACHE INTERNAL "")
-        set(HUNTER_CACHED_CONFIGURATION_TYPES "" CACHE INTERNAL "")
-      endif()
-    else()
+    if(_flush)
       set(HUNTER_CACHED_ROOT "${HUNTER_GATE_ROOT}" CACHE INTERNAL "")
       set(HUNTER_VERSION "${HUNTER_GATE_VERSION}" CACHE INTERNAL "")
       set(HUNTER_SHA1 "${HUNTER_GATE_SHA1}" CACHE INTERNAL "")
+
+      hunter_calculate_self(
+          "${HUNTER_CACHED_ROOT}"
+          "${HUNTER_VERSION}"
+          "${HUNTER_SHA1}"
+          HUNTER_SELF
+      )
+
+      hunter_flush_cache_variables("${HUNTER_SELF}")
+
+      set(HUNTER_CONFIG_SHA1 "" CACHE INTERNAL "")
+      set(HUNTER_TOOLCHAIN_SHA1 "" CACHE INTERNAL "")
+      set(HUNTER_CACHED_CONFIGURATION_TYPES "" CACHE INTERNAL "")
     endif()
+  else()
+    set(HUNTER_CACHED_ROOT "${HUNTER_GATE_ROOT}" CACHE INTERNAL "")
+    set(HUNTER_VERSION "${HUNTER_GATE_VERSION}" CACHE INTERNAL "")
+    set(HUNTER_SHA1 "${HUNTER_GATE_SHA1}" CACHE INTERNAL "")
   endif()
 
   hunter_test_string_not_empty("${HUNTER_CACHED_ROOT}")
   hunter_test_string_not_empty("${HUNTER_VERSION}")
   hunter_test_string_not_empty("${HUNTER_SHA1}")
+
+  # All variables are ready so let's set HUNTER_SELF here. Usually it's not
+  # needed before 'hunter_finalize' but it some cases may be useful
+  # (see https://github.com/ruslo/hunter/pull/496#discussion_r75679671)
+  hunter_calculate_self(
+      "${HUNTER_CACHED_ROOT}"
+      "${HUNTER_VERSION}"
+      "${HUNTER_SHA1}"
+      HUNTER_SELF
+  )
 endmacro()

@@ -34,19 +34,21 @@ hunter_test_string_not_empty("@HUNTER_PACKAGE_INSTALL_PREFIX@")
 hunter_test_string_not_empty("@HUNTER_PACKAGE_CONFIGURATION_TYPES@")
 hunter_test_string_not_empty("@HUNTER_CACHE_FILE@")
 hunter_test_string_not_empty("@HUNTER_ARGS_FILE@")
+hunter_test_string_not_empty("@HUNTER_PACKAGE_LICENSE_DIR@")
 hunter_test_string_not_empty("@CMAKE_GENERATOR@")
 hunter_test_string_not_empty("${CMAKE_TOOLCHAIN_FILE}")
 
 if(IOS)
-  # Need to check that we are using patched version. Non-patched version will
-  # not install libraries but build package without errors. It means that
-  # "broken" iOS libraries will be saved to cache.
-  if(NOT EXISTS "${CMAKE_ROOT}/Modules/install_universal_ios_library.cmake")
-    hunter_fatal_error(
-        "Using non-patched CMake version for iOS build"
-        WIKI error.cmake.version.for.ios
-    )
+  if(CMAKE_VERSION VERSION_LESS 3.5)
+    hunter_user_error("CMake 3.5+ version should be used for iOS toolchains")
   endif()
+  string(COMPARE NOTEQUAL "${IPHONESIMULATOR_ARCHS}" "" has_simulator)
+  set(ios_opts "-DCMAKE_XCODE_ATTRIBUTE_ONLY_ACTIVE_ARCH=NO")
+  if(has_simulator)
+    list(APPEND ios_opts "-DCMAKE_IOS_INSTALL_COMBINED=YES")
+  endif()
+else()
+  set(ios_opts "")
 endif()
 
 string(COMPARE NOTEQUAL "@HUNTER_JOBS_OPTION@" "" have_jobs)
@@ -64,6 +66,36 @@ else()
 endif()
 
 set(previous_project "")
+
+if("@HUNTER_PACKAGE_LOG_BUILD@")
+  set(log_build 1)
+else()
+  set(log_build 0)
+endif()
+
+if("@HUNTER_PACKAGE_LOG_INSTALL@")
+  set(log_install 1)
+else()
+  set(log_install 0)
+endif()
+
+string(COMPARE EQUAL "@HUNTER_PACKAGE_PROTECTED_SOURCES@" "" is_empty)
+if(is_empty)
+  set(http_credentials "")
+else()
+  set(
+      http_credentials
+      HTTP_USERNAME "@HUNTER_PACKAGE_HTTP_USERNAME@"
+      HTTP_PASSWORD "@HUNTER_PACKAGE_HTTP_PASSWORD@"
+  )
+endif()
+
+string(COMPARE NOTEQUAL "${CMAKE_MAKE_PROGRAM}" "" has_make)
+if(has_make)
+  set(make_args "-DCMAKE_MAKE_PROGRAM=${CMAKE_MAKE_PROGRAM}")
+else()
+  set(make_args "")
+endif()
 
 foreach(configuration @HUNTER_PACKAGE_CONFIGURATION_TYPES@)
   # All configurations use the same URL which will be downloaded only once
@@ -86,6 +118,7 @@ foreach(configuration @HUNTER_PACKAGE_CONFIGURATION_TYPES@)
       @HUNTER_PACKAGE_URL@
       URL_HASH
       SHA1=@HUNTER_PACKAGE_SHA1@
+      ${http_credentials}
       DOWNLOAD_DIR
       "@HUNTER_PACKAGE_DOWNLOAD_DIR@"
       SOURCE_DIR
@@ -105,6 +138,8 @@ foreach(configuration @HUNTER_PACKAGE_CONFIGURATION_TYPES@)
       "-DCMAKE_CONFIGURATION_TYPES=${configuration}"
       "-DCMAKE_INSTALL_PREFIX=@HUNTER_PACKAGE_INSTALL_PREFIX@"
       "-DCMAKE_TOOLCHAIN_FILE=${CMAKE_TOOLCHAIN_FILE}"
+      "${make_args}"
+      ${ios_opts}
       INSTALL_COMMAND
           "@CMAKE_COMMAND@"
           --build .
@@ -112,6 +147,15 @@ foreach(configuration @HUNTER_PACKAGE_CONFIGURATION_TYPES@)
           --config ${configuration}
           --
           ${jobs_option}
+        COMMAND # Copy license files
+          "@CMAKE_COMMAND@"
+          "-C@HUNTER_ARGS_FILE@" # for 'HUNTER_INSTALL_LICENSE_FILES'
+          "-Dsrcdir=@HUNTER_PACKAGE_SOURCE_DIR@"
+          "-Ddstdir=@HUNTER_PACKAGE_LICENSE_DIR@"
+          -P
+          "@HUNTER_SELF@/scripts/try-copy-license.cmake"
+      LOG_BUILD ${log_build}
+      LOG_INSTALL ${log_install}
   )
 
   # Each external project must depends on previous one since they all use

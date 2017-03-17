@@ -1,11 +1,7 @@
 # Copyright (c) 2013, Ruslan Baratov
 # All rights reserved.
 
-if(DEFINED HUNTER_CMAKE_PROJECTS_BOOST_ATOMIC_HUNTER_CMAKE)
-  return()
-else()
-  set(HUNTER_CMAKE_PROJECTS_BOOST_ATOMIC_HUNTER_CMAKE 1)
-endif()
+# !!! DO NOT PLACE HEADER GUARDS HERE !!!
 
 include(hunter_download)
 include(hunter_pick_scheme)
@@ -22,4 +18,5 @@ hunter_download(
     Boost
     PACKAGE_COMPONENT
     atomic
+    PACKAGE_INTERNAL_DEPS_ID "9"
 )

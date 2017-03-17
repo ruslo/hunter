@@ -1,12 +1,7 @@
 # Copyright (c) 2015, David Hirvonen
 # All rights reserved.
 
-# This is a header-like file, so include guards needed
-if(DEFINED HUNTER_CMAKE_PROJECTS_CVMATIO_HUNTER_CMAKE_)
-  return()
-else()
-  set(HUNTER_CMAKE_PROJECTS_CVMATIO_HUNTER_CMAKE_ 1)
-endif()
+# !!! DO NOT PLACE HEADER GUARDS HERE !!!
 
 # Load used modules
 include(hunter_add_package)
@@ -14,6 +9,28 @@ include(hunter_add_version)
 include(hunter_cacheable)
 include(hunter_download)
 include(hunter_pick_scheme)
+
+hunter_add_version(
+    PACKAGE_NAME
+    cvmatio
+    VERSION
+    "1.0.27-p3"
+    URL
+    https://github.com/hunter-packages/cvmatio/archive/v1.0.27-p3.tar.gz
+    SHA1
+    553032fac0014cae16a0a97feea88179fd34a1b4
+)
+
+hunter_add_version(
+    PACKAGE_NAME
+    cvmatio
+    VERSION
+    "1.0.27-p2"
+    URL
+    https://github.com/hunter-packages/cvmatio/archive/v1.0.27-p2.tar.gz  
+    SHA1
+    b96e89d2cf17650f3e2f9b86b3396a8cf74c77c7
+)
 
 hunter_add_version(
     PACKAGE_NAME

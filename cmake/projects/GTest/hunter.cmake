@@ -1,16 +1,13 @@
 # Copyright (c) 2013, Ruslan Baratov
 # All rights reserved.
 
-if(DEFINED HUNTER_CMAKE_PROJECTS_GTEST_HUNTER_CMAKE)
-  return()
-else()
-  set(HUNTER_CMAKE_PROJECTS_GTEST_HUNTER_CMAKE 1)
-endif()
+# !!! DO NOT PLACE HEADER GUARDS HERE !!!
 
 include(hunter_add_version)
 include(hunter_cacheable)
 include(hunter_download)
 include(hunter_pick_scheme)
+include(hunter_cmake_args)
 
 hunter_add_version(
     PACKAGE_NAME
@@ -142,6 +139,38 @@ hunter_add_version(
     "https://github.com/hunter-packages/gtest/archive/v1.7.0-hunter-11.tar.gz"
     SHA1
     c6ae948ca2bea1d734af01b1069491b00933ed31
+)
+
+hunter_add_version(
+    PACKAGE_NAME
+    GTest
+    VERSION
+    1.8.0-hunter-p2
+    URL
+    "https://github.com/hunter-packages/googletest/archive/1.8.0-hunter-p2.tar.gz"
+    SHA1
+    93148cb8850abe78b76ed87158fdb6b9c48e38c4
+)
+
+hunter_add_version(
+    PACKAGE_NAME
+    GTest
+    VERSION
+    1.8.0-hunter-p5
+    URL https://github.com/hunter-packages/googletest/archive/1.8.0-hunter-p5.tar.gz
+    SHA1 3325aa4fc8b30e665c9f73a60f19387b7db36f85
+)
+
+if(HUNTER_GTest_VERSION VERSION_LESS 1.8.0)
+  set(_gtest_license "LICENSE")
+else()
+  set(_gtest_license "googletest/LICENSE")
+endif()
+
+hunter_cmake_args(
+    GTest
+    CMAKE_ARGS
+    HUNTER_INSTALL_LICENSE_FILES=${_gtest_license}
 )
 
 hunter_pick_scheme(DEFAULT url_sha1_cmake)

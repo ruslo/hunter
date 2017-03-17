@@ -1,15 +1,22 @@
 # Copyright (c) 2014, Ruslan Baratov
 # All rights reserved.
 
-if(DEFINED HUNTER_CMAKE_PROJECTS_SOBER_HUNTER_CMAKE_)
-  return()
-else()
-  set(HUNTER_CMAKE_PROJECTS_SOBER_HUNTER_CMAKE_ 1)
-endif()
+# !!! DO NOT PLACE HEADER GUARDS HERE !!!
 
 include(hunter_add_version)
 include(hunter_download)
 include(hunter_pick_scheme)
+
+hunter_add_version(
+    PACKAGE_NAME
+    Sober
+    VERSION
+    "0.1.3"
+    URL
+    "https://github.com/ruslo/sober/archive/v0.1.3.tar.gz"
+    SHA1
+    de9b3b48d13aca211dbb66ce7b97fb597198657f
+)
 
 hunter_add_version(
     PACKAGE_NAME

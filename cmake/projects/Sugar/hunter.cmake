@@ -1,13 +1,10 @@
 # Copyright (c) 2013, Ruslan Baratov
 # All rights reserved.
 
-if(DEFINED HUNTER_CMAKE_PROJECTS_SUGAR_HUNTER_CMAKE)
-  return()
-else()
-  set(HUNTER_CMAKE_PROJECTS_SUGAR_HUNTER_CMAKE 1)
-endif()
+# !!! DO NOT PLACE HEADER GUARDS HERE !!!
 
 include(hunter_add_version)
+include(hunter_cmake_args)
 include(hunter_download)
 include(hunter_pick_scheme)
 
@@ -185,6 +182,14 @@ hunter_add_version(
     "https://github.com/ruslo/sugar/archive/v1.2.2.tar.gz"
     SHA1
     f33ac0045d6ee4582d41f5290010802ad72fe2fa
+)
+
+# Usually there is no need to specify 'LICENSE' explicitly (one of the defaults).
+# Here it's used to update Hunter cache.
+hunter_cmake_args(
+    Sugar
+    CMAKE_ARGS
+    "HUNTER_INSTALL_LICENSE_FILES=LICENSE"
 )
 
 hunter_pick_scheme(DEFAULT url_sha1_unpack)

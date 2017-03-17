@@ -2,17 +2,24 @@
 # Copyright (c) 2015, Alexander Lamaison
 # All rights reserved.
 
-if(DEFINED HUNTER_CMAKE_PROJECTS_PNG_HUNTER_CMAKE_)
-  return()
-else()
-  set(HUNTER_CMAKE_PROJECTS_PNG_HUNTER_CMAKE_ 1)
-endif()
+# !!! DO NOT PLACE HEADER GUARDS HERE !!!
 
 include(hunter_add_version)
 include(hunter_cacheable)
 include(hunter_cmake_args)
 include(hunter_download)
 include(hunter_pick_scheme)
+
+hunter_add_version(
+    PACKAGE_NAME
+    PNG
+    VERSION
+    "1.6.26-p1"
+    URL
+    "https://github.com/hunter-packages/libpng/archive/v1.6.26-p1.tar.gz"
+    SHA1
+    10557d64fc577e4013c80c6305d6af2872c60bdb
+)
 
 hunter_add_version(
     PACKAGE_NAME

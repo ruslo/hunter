@@ -1,0 +1,28 @@
+cmake_minimum_required(VERSION 3.0)
+
+### Input params check
+
+string(COMPARE EQUAL "@hunter_self@" "" is_empty)
+if(is_empty)
+  message(FATAL_ERROR "hunter_self is empty")
+endif()
+
+if("@MSVC@")
+  set(build_command nmake)
+elseif("@MINGW@")
+  set(build_command mingw32-make)
+else()
+  include("@hunter_self@/scripts/clear-all.cmake")
+  set(build_command make)
+endif()
+
+if("@ANDROID@")
+  # After 'clear-all.cmake'!
+  set(ENV{ANDROID_API_VERSION} "@ANDROID_API_VERSION@")
+endif()
+
+execute_process(COMMAND ${build_command} @build_opts@ RESULT_VARIABLE result)
+
+if(NOT result EQUAL 0)
+  message(FATAL_ERROR "Qt build failed: ${result}")
+endif()

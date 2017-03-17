@@ -66,6 +66,11 @@ exclude_list = [
     '__NO_INLINE__',
     '_DEBUG',
     '__FUNCTION__',
+
+    # gcc & clang preprocessor extensions
+    # see https://github.com/ruslo/hunter/pull/425
+    '__has_include',
+    '__has_include_next',
 ]
 
 macros_list = []
@@ -129,6 +134,8 @@ if args.raw:
   for macro in macros_list:
     result_fl.write('{}\n'.format(macro))
 
+# https://msdn.microsoft.com/en-us/library/windows/desktop/aa383745(v=vs.85).aspx
+
 cpp_head = """
 // This file generated automatically by `create-predefined-list.py` script.
 // * https://github.com/ruslo/hunter
@@ -145,6 +152,10 @@ cpp_head = """
 #if defined(__ANDROID__)
 # include <android/api-level.h> // Header with __ANDROID_API__
 #endif
+
+#if defined(_MSC_VER)
+# include <SdkDdkVer.h> // Header with _WIN32_WINNT
+#endif
 """
 
 cpp_one_check = """
@@ -152,6 +163,22 @@ cpp_one_check = """
 # pragma message(HUNTER_INFO({}))
 #endif
 """
+
+# http://clang.llvm.org/docs/AddressSanitizer.html#conditional-compilation-with-has-feature-address-sanitizer
+sanitize_detect_check = """
+#if defined(__has_feature)
+# if __has_feature({}_sanitizer)
+#  pragma message(HUNTER_INFO(__HUNTER_DETECT_FEATURE_{}_sanitizer))
+# endif
+#endif
+"""
+
+sanitizers_list = [
+    'address',
+#    'leak', # Not detected!
+    'memory',
+    'thread'
+]
 
 cpp_end = """
 int main() {
@@ -163,4 +190,6 @@ if macros_list:
   cpp_result.write(cpp_head)
   for x in macros_list:
     cpp_result.write(cpp_one_check.format(x, x))
+  for x in sanitizers_list:
+    cpp_result.write(sanitize_detect_check.format(x, x))
   cpp_result.write(cpp_end)

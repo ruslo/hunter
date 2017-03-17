@@ -1,17 +1,31 @@
-# Copyright (c) 2015, Ruslan Baratov
+# Copyright (c) 2015-2016, Ruslan Baratov
 # All rights reserved.
 
+include(hunter_apply_copy_rules)
 include(hunter_apply_gate_settings)
 include(hunter_calculate_self)
 include(hunter_create_cache_file)
 include(hunter_fatal_error)
+include(hunter_internal_error)
+include(hunter_sanity_checks)
 include(hunter_status_debug)
 include(hunter_status_print)
+include(hunter_test_string_not_empty)
 
 # Continue initialization of key variables (also see 'hunter_initialize')
 #   * calculate toolchain-id
 #   * calculate config-id
 macro(hunter_finalize)
+  # Check preconditions
+  hunter_sanity_checks()
+
+  list(APPEND HUNTER_CACHE_SERVERS "https://github.com/ingenue/hunter-cache")
+  list(REMOVE_DUPLICATES HUNTER_CACHE_SERVERS)
+  hunter_status_debug("List of cache servers:")
+  foreach(_server ${HUNTER_CACHE_SERVERS})
+    hunter_status_debug("  * ${_server}")
+  endforeach()
+
   get_property(_enabled_languages GLOBAL PROPERTY ENABLED_LANGUAGES)
 
   list(FIND _enabled_languages "C" _c_enabled_result)
@@ -51,13 +65,6 @@ macro(hunter_finalize)
   # * Update cache if needed
   hunter_apply_gate_settings()
 
-  hunter_calculate_self(
-      "${HUNTER_CACHED_ROOT}"
-      "${HUNTER_VERSION}"
-      "${HUNTER_SHA1}"
-      HUNTER_SELF
-  )
-
   string(SUBSTRING "${HUNTER_SHA1}" 0 7 HUNTER_ID)
   string(SUBSTRING "${HUNTER_CONFIG_SHA1}" 0 7 HUNTER_CONFIG_ID)
   string(SUBSTRING "${HUNTER_TOOLCHAIN_SHA1}" 0 7 HUNTER_TOOLCHAIN_ID)
@@ -93,10 +100,8 @@ macro(hunter_finalize)
   hunter_create_cache_file("${HUNTER_CACHE_FILE}")
 
   if(MSVC)
-    include(hunter_setup_msvc_arch)
-    include(hunter_setup_msvc_vcvarsall)
-    hunter_setup_msvc_arch()
-    hunter_setup_msvc_vcvarsall()
+    include(hunter_setup_msvc)
+    hunter_setup_msvc()
   endif()
 
   ### Disable package registry
@@ -118,4 +123,32 @@ macro(hunter_finalize)
   set(HUNTER_ALLOW_CONFIG_LOADING YES)
   include("${HUNTER_CONFIG_ID_PATH}/config.cmake")
   set(HUNTER_ALLOW_CONFIG_LOADING NO)
+
+  hunter_test_string_not_empty("${HUNTER_INSTALL_PREFIX}")
+  hunter_test_string_not_empty("${CMAKE_BINARY_DIR}")
+
+  file(
+      WRITE
+      "${CMAKE_BINARY_DIR}/_3rdParty/Hunter/install-root-dir"
+      "${HUNTER_INSTALL_PREFIX}"
+  )
+
+  hunter_apply_copy_rules()
+
+  if(ANDROID AND CMAKE_VERSION VERSION_LESS "3.7.1")
+    hunter_user_error(
+        "CMake version 3.7.1+ required for Android platforms, see"
+        " https://docs.hunter.sh/en/latest/quick-start/cmake.html"
+    )
+  endif()
+
+  # Android GDBSERVER moved to
+  # https://github.com/hunter-packages/android-apk/commit/32531adeb287d3e3b20498ff1a0f76336cbe0551
+
+  # Fix backslashed provided by user:
+  # * https://github.com/ruslo/hunter/issues/693
+  # Note: we can't use 'get_filename_component(... ABSOLUTE)' because sometimes
+  # original path expected. E.g. NMake build:
+  # * https://ci.appveyor.com/project/ingenue/hunter/build/1.0.1412/job/o8a21ue85ivt5d0p
+  string(REPLACE "\\" "\\\\" CMAKE_MAKE_PROGRAM "${CMAKE_MAKE_PROGRAM}")
 endmacro()

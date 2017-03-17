@@ -1,11 +1,7 @@
 # Copyright (c) 2015, Ruslan Baratov
 # All rights reserved.
 
-if(DEFINED HUNTER_CMAKE_PROJECTS_SPDLOG_HUNTER_CMAKE_)
-  return()
-else()
-  set(HUNTER_CMAKE_PROJECTS_SPDLOG_HUNTER_CMAKE_ 1)
-endif()
+# !!! DO NOT PLACE HEADER GUARDS HERE !!!
 
 include(hunter_add_version)
 include(hunter_cacheable)
@@ -21,6 +17,17 @@ hunter_add_version(
     "https://github.com/hunter-packages/spdlog/archive/v1.0.0-p0.tar.gz"
     SHA1
     4d9967d165fc7ea2d561210bec2f50e60547daa6
+)
+
+hunter_add_version(
+    PACKAGE_NAME
+    spdlog
+    VERSION
+    "0.11.0-p0"
+    URL
+    "https://github.com/hunter-packages/spdlog/archive/v0.11.0-p0.tar.gz"
+    SHA1
+    199c1a19bcdd6fc75faa61263a267805c05e4060
 )
 
 hunter_pick_scheme(DEFAULT url_sha1_cmake)

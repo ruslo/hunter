@@ -1,11 +1,7 @@
 # Copyright (c) 2013, Ruslan Baratov
 # All rights reserved.
 
-if(DEFINED HUNTER_CMAKE_PROJECTS_BOOST_HUNTER_CMAKE)
-  return()
-else()
-  set(HUNTER_CMAKE_PROJECTS_BOOST_HUNTER_CMAKE 1)
-endif()
+# !!! DO NOT PLACE HEADER GUARDS HERE !!!
 
 include(hunter_add_version)
 include(hunter_cacheable)
@@ -15,6 +11,67 @@ include(hunter_pick_scheme)
 
 # Disable searching in locations not specified by these hint variables.
 set(Boost_NO_SYSTEM_PATHS ON)
+
+# use base url for official boost releases
+set(_hunter_boost_base_url "https://downloads.sourceforge.net/project/boost/boost/")
+
+hunter_add_version(
+    PACKAGE_NAME
+    Boost
+    VERSION
+    "1.63.0"
+    URL
+    "${_hunter_boost_base_url}/1.63.0/boost_1_63_0.tar.bz2"
+    SHA1
+    9f1dd4fa364a3e3156a77dc17aa562ef06404ff6
+)
+
+hunter_add_version(
+    PACKAGE_NAME
+    Boost
+    VERSION
+    "1.62.0"
+    URL
+    "${_hunter_boost_base_url}/1.62.0/boost_1_62_0.tar.bz2"
+    SHA1
+    5fd97433c3f859d8cbab1eaed4156d3068ae3648
+)
+
+
+hunter_add_version(
+    PACKAGE_NAME
+    Boost
+    VERSION
+    "1.61.0"
+    URL
+    "${_hunter_boost_base_url}/1.61.0/boost_1_61_0.tar.bz2"
+    SHA1
+    f84b1a1ce764108ec3c2b7bd7704cf8dfd3c9d01
+)
+
+# Version without tests and docs
+hunter_add_version(
+    PACKAGE_NAME
+    Boost
+    VERSION
+    "1.60.0"
+    URL
+    "https://github.com/hunter-packages/boost/archive/v1.60.0.tar.gz"
+    SHA1
+    28a5b0f739114fde5d4ed1d7f52e5b6cf13fe54a
+)
+
+# Version without tests and docs
+hunter_add_version(
+    PACKAGE_NAME
+    Boost
+    VERSION
+    "1.59.0"
+    URL
+    "https://github.com/hunter-packages/boost/archive/v1.59.0.tar.gz"
+    SHA1
+    28db0e54f9e55ff1230903704836e035f7227fd5
+)
 
 # Version without tests and docs
 hunter_add_version(
@@ -188,4 +245,4 @@ hunter_add_version(
 
 hunter_pick_scheme(DEFAULT url_sha1_boost)
 hunter_cacheable(Boost)
-hunter_download(PACKAGE_NAME Boost)
+hunter_download(PACKAGE_NAME Boost PACKAGE_INTERNAL_DEPS_ID "9")

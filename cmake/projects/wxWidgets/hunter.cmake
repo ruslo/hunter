@@ -1,13 +1,10 @@
 # Copyright (c) 2015, Alexander Lamaison
 # All rights reserved.
 
-if(DEFINED HUNTER_CMAKE_PROJECTS_WXWIDGETS_HUNTER_CMAKE_)
-  return()
-else()
-  set(HUNTER_CMAKE_PROJECTS_WXWIDGETS_HUNTER_CMAKE_ 1)
-endif()
+# !!! DO NOT PLACE HEADER GUARDS HERE !!!
 
 include(hunter_add_version)
+include(hunter_cacheable)
 include(hunter_cmake_args)
 include(hunter_download)
 include(hunter_pick_scheme)
@@ -18,9 +15,9 @@ hunter_add_version(
     VERSION
     "3.0.2"
     URL
-    "https://github.com/alamaison/wxWidgets/archive/3.0.2-hunter-1.tar.gz"
+    "https://github.com/alamaison/wxWidgets/archive/3.0.2-hunter-3.tar.gz"
     SHA1
-    0e6a4d183d8aed5aa3af88d1cd7e514467bf8fb0
+    89abcee23a9957c5309a0848ab6c639cbc93ce1e
 )
 
 hunter_pick_scheme(DEFAULT url_sha1_cmake)
@@ -29,9 +26,12 @@ hunter_cmake_args(
     wxWidgets
     CMAKE_ARGS
         WXBUILD_SYSTEM_ZLIB=ON
+	WXBUILD_SYSTEM_JPEG=ON
 	WXBUILD_SYSTEM_PNG=ON
 	WXBUILD_SYSTEM_TIFF=ON
 	WXBUILD_SYSTEM_EXPAT=ON
 )
+
+hunter_cacheable(wxWidgets)
 
 hunter_download(PACKAGE_NAME wxWidgets)

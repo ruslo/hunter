@@ -1,13 +1,10 @@
 # Copyright (c) 2015, Damien Buhl 
 # All rights reserved.
 
-if(DEFINED HUNTER_CMAKE_PROJECTS_INTLTOOL_HUNTER_CMAKE)
-  return()
-else()
-  set(HUNTER_CMAKE_PROJECTS_INTLTOOL_HUNTER_CMAKE 1)
-endif()
+# !!! DO NOT PLACE HEADER GUARDS HERE !!!
 
 include(hunter_add_version)
+include(hunter_configuration_types)
 include(hunter_download)
 include(hunter_pick_scheme)
 
@@ -22,5 +19,6 @@ hunter_add_version(
     a0c3bcb99d1bcfc5db70f8d848232a47c47da090
 )
 
+hunter_configuration_types(intltool CONFIGURATION_TYPES Release)
 hunter_pick_scheme(DEFAULT url_sha1_autotools)
 hunter_download(PACKAGE_NAME intltool)
