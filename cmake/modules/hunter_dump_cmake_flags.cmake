@@ -89,6 +89,20 @@ function(hunter_dump_cmake_flags)
     )
   endif()
 
+  string(COMPARE NOTEQUAL "${CMAKE_CXX_COMPILE_OPTIONS_PIC}" "" has_pic)
+  if(CMAKE_POSITION_INDEPENDENT_CODE AND has_pic)
+    set(
+        CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} ${CMAKE_CXX_COMPILE_OPTIONS_PIC}"
+    )
+  endif()
+
+  string(COMPARE NOTEQUAL "${CMAKE_C_COMPILE_OPTIONS_PIC}" "" has_pic)
+  if(CMAKE_POSITION_INDEPENDENT_CODE AND has_pic)
+    set(
+        CMAKE_C_FLAGS "${CMAKE_C_FLAGS} ${CMAKE_C_COMPILE_OPTIONS_PIC}"
+    )
+  endif()
+
   string(COMPARE EQUAL "${x_CPPFLAGS}" "" is_empty)
   if(NOT is_empty)
     set("${x_CPPFLAGS}" "${${x_CPPFLAGS}} ${cppflags}" PARENT_SCOPE)
