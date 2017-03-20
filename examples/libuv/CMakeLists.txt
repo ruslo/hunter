@@ -25,4 +25,3 @@ add_executable(example example.c)
 
 target_link_libraries(example uv ${CMAKE_THREAD_LIBS_INIT})
 
-add_test(example example)
