@@ -390,6 +390,11 @@ function(hunter_download)
       "${HUNTER_DOWNLOAD_TOOLCHAIN}"
       "set(HUNTER_PASSWORDS_PATH \"${HUNTER_PASSWORDS_PATH}\" CACHE INTERNAL \"\")\n"
   )
+  file(
+      APPEND
+      "${HUNTER_DOWNLOAD_TOOLCHAIN}"
+      "set(HUNTER_KEEP_PACKAGE_SOURCES \"${HUNTER_KEEP_PACKAGE_SOURCES}\" CACHE INTERNAL \"\")\n"
+  )
 
   string(COMPARE NOTEQUAL "${CMAKE_MAKE_PROGRAM}" "" has_make)
   if(has_make)
@@ -426,15 +431,15 @@ function(hunter_download)
         "Internal dependencies ID: ${HUNTER_PACKAGE_INTERNAL_DEPS_ID}"
     )
   endif()
-  
+
   set(_hunter_schemes_search_dirs "")
-  
+
   set(
       download_scheme
       "${HUNTER_PACKAGE_SETUP_DIR}/schemes/${HUNTER_DOWNLOAD_SCHEME}.cmake.in"
   )
   set(_hunter_schemes_search_dirs "${_hunter_schemes_search_dirs}, ${download_scheme}")
-  
+
   if(NOT EXISTS "${download_scheme}")
     set(
       download_scheme
@@ -445,7 +450,7 @@ function(hunter_download)
       hunter_internal_error("Download scheme `${download_scheme}` not found. Search locations: ${_hunter_schemes_search_dirs}")
     endif()
   endif()
-  
+
   hunter_status_debug(
       "Scheme file used: ${download_scheme}"
   )
@@ -572,8 +577,12 @@ function(hunter_download)
 
   file(REMOVE_RECURSE "${HUNTER_PACKAGE_BUILD_DIR}")
   if(HUNTER_PACKAGE_SCHEME_INSTALL)
-    # Unpacked directory not needed (save some disk space)
-    file(REMOVE_RECURSE "${HUNTER_PACKAGE_SOURCE_DIR}")
+    if(HUNTER_KEEP_PACKAGE_SOURCES)
+      hunter_status_debug("Keep source directory '${HUNTER_PACKAGE_SOURCE_DIR}'")
+    else()
+      # Unpacked directory not needed (save some disk space)
+      file(REMOVE_RECURSE "${HUNTER_PACKAGE_SOURCE_DIR}")
+    endif()
   endif()
 
   file(REMOVE "${HUNTER_PACKAGE_HOME_DIR}/CMakeLists.txt")
