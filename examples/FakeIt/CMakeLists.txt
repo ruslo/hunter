@@ -19,5 +19,5 @@ set(SOURCES fakeit_test.cpp)
 add_executable(fakeit_test ${SOURCES})
 target_link_libraries(fakeit_test PRIVATE FakeIt::FakeIt)
 
-enable_testing(true)
+enable_testing()
 add_test(NAME fakeit_test COMMAND fakeit_test)
