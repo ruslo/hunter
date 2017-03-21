@@ -22,6 +22,5 @@ message("CMAKE_PREFIX_PATH: ${CMAKE_PREFIX_PATH}")
 find_package(libuv CONFIG REQUIRED)
 add_executable(example example.c)
 
-target_include_directories(example BEFORE PRIVATE ${LIBUV_ROOT}/include)
 target_link_libraries(example uv)
 
