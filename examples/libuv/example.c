@@ -1,9 +1,11 @@
+#include <uv.h>
 #include <stdio.h>
 #include <stdlib.h>
-#include <uv.h>
+#include <assert.h>
 
 int main() {
     uv_loop_t *loop = malloc(sizeof(uv_loop_t));
+    assert(loop);
     uv_loop_init(loop);
 
     printf("Now quitting.\n");
