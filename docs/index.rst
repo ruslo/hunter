@@ -9,7 +9,8 @@ Hunter: organize freedom
   Documentation is in process of migrating from
   `GitHub wiki <https://github.com/ruslo/hunter/wiki>`_.
   Some information may be missing: blank pages, broken links, etc.
-  Will be fixed soon...
+  See `issue #667 <https://github.com/ruslo/hunter/issues/677>`__
+  for details.
 
 Welcome to the Hunter package manager documentation!
 
