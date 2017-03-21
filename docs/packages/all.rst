@@ -21,6 +21,7 @@ All packages
 * `CsvParserCPlusPlus <https://github.com/ruslo/hunter/wiki/pkg.csvparsercplusplus>`__
 * `Eigen <https://github.com/ruslo/hunter/wiki/pkg.eigen>`__
 * `Expat <https://github.com/ruslo/hunter/wiki/pkg.expat>`__
+* `FakeIt <https://github.com/ruslo/hunter/wiki/pkg.fakeit>`__
 * `GMock <https://github.com/ruslo/hunter/wiki/pkg.gtest>`__
 * `GPUImage <https://github.com/ruslo/hunter/wiki/pkg.gpuimage>`__
 * `GSL <https://github.com/ruslo/hunter/wiki/pkg.gsl>`__
@@ -77,6 +78,7 @@ All packages
 * `irrXML <https://github.com/ruslo/hunter/wiki/pkg.irrXML>`__
 * `libyuv <https://github.com/ruslo/hunter/wiki/pkg.libyuv>`__
 * `log4cplus <https://github.com/ruslo/hunter/wiki/pkg.log4cplus>`__
+* `lzma <https://github.com/ruslo/hunter/wiki/pkg.lzma>`__
 * `minizip <https://github.com/ruslo/hunter/wiki/pkg.minizip>`__
 * `msgpack <https://github.com/ruslo/hunter/wiki/pkg.msgpack>`__
 * `nlohmann::json <https://github.com/ruslo/hunter/wiki/pkg.nlohmann-json>`__
