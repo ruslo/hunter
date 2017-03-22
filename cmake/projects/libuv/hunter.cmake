@@ -15,9 +15,9 @@ hunter_add_version(
   VERSION
   2.0.0
   URL
-  https://github.com/hunter-packages/libuv/archive/v2.0.0-hunter-main.tar.gz
+  https://github.com/hunter-packages/libuv/archive/v2.0.0-hunter-0.tar.gz
   SHA1
-  024bc2835579cec5bd81e089b1ffde6764efa07b
+  0a3aa2c7715b0ad46c15ab8ddf664a8bdb207fd9
   )
 
 # Pick a download scheme
