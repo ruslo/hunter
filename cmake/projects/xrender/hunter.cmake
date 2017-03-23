@@ -36,7 +36,7 @@ hunter_cmake_args(
 hunter_cacheable(xrender)
 hunter_download(
     PACKAGE_NAME xrender
-    PACKAGE_INTERNAL_DEPS_ID "2"
+    PACKAGE_INTERNAL_DEPS_ID "3"
     PACKAGE_UNRELOCATABLE_TEXT_FILES
     "lib/libXrender.la"
     "lib/pkgconfig/xrender.pc"

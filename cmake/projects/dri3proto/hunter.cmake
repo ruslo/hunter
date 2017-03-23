@@ -26,6 +26,6 @@ hunter_pick_scheme(DEFAULT url_sha1_autotools)
 hunter_cacheable(dri3proto)
 hunter_download(
     PACKAGE_NAME dri3proto
-    PACKAGE_INTERNAL_DEPS_ID "1"
+    PACKAGE_INTERNAL_DEPS_ID "2"
     PACKAGE_UNRELOCATABLE_TEXT_FILES "lib/pkgconfig/dri3proto.pc"
 )

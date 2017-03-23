@@ -26,6 +26,6 @@ hunter_pick_scheme(DEFAULT url_sha1_autotools)
 hunter_cacheable(xtrans)
 hunter_download(
     PACKAGE_NAME xtrans
-    PACKAGE_INTERNAL_DEPS_ID "1"
+    PACKAGE_INTERNAL_DEPS_ID "2"
     PACKAGE_UNRELOCATABLE_TEXT_FILES "share/pkgconfig/xtrans.pc"
 )

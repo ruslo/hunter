@@ -1,4 +1,4 @@
-# Copyright (c) 2015, Damien Buhl 
+# Copyright (c) 2015, Damien Buhl
 # All rights reserved.
 
 # !!! DO NOT PLACE HEADER GUARDS HERE !!!
@@ -21,4 +21,7 @@ hunter_add_version(
 
 hunter_configuration_types(libdaemon CONFIGURATION_TYPES Release)
 hunter_pick_scheme(DEFAULT url_sha1_autotools)
-hunter_download(PACKAGE_NAME libdaemon)
+hunter_download(
+    PACKAGE_NAME libdaemon
+    PACKAGE_INTERNAL_DEPS_ID "1"
+)
