@@ -18,9 +18,9 @@ hunter_add_version(
   VERSION
   "2.0.2"
   URL
-  https://github.com/aadityakalsi/sparsehash/archive/sparsehash-2.0.2-cmake.tar.gz
+  https://github.com/aadityakalsi/sparsehash/archive/v2.0.2-hunter.tar.gz
   SHA1
-  8fa7190fa2ad43218f91717be0bf151667773263
+  24e725a008d065ec84c8f2a2bdbb5708dab162ac
 )
 
 # Default CMake scheme
