@@ -16,9 +16,9 @@ hunter_add_version(
     VERSION
     "1.0.0"
     URL
-    "https://github.com/hunter-packages/imshow/archive/v1.0.0.tar.gz"
+    "https://github.com/hunter-packages/imshow/archive/v1.0.0.tar.gz"    
     SHA1
-    eb2b0a425c6769ff35bc680cc07c1da0ed104df1
+    3b01b2cdd59d8a90da0df45888e96175da009ef5
 )
 
 hunter_pick_scheme(DEFAULT url_sha1_cmake)
