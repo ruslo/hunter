@@ -21,6 +21,7 @@ All packages
 * `CsvParserCPlusPlus <https://github.com/ruslo/hunter/wiki/pkg.csvparsercplusplus>`__
 * `Eigen <https://github.com/ruslo/hunter/wiki/pkg.eigen>`__
 * `Expat <https://github.com/ruslo/hunter/wiki/pkg.expat>`__
+* `FakeIt <https://github.com/ruslo/hunter/wiki/pkg.fakeit>`__
 * `GMock <https://github.com/ruslo/hunter/wiki/pkg.gtest>`__
 * `GPUImage <https://github.com/ruslo/hunter/wiki/pkg.gpuimage>`__
 * `GSL <https://github.com/ruslo/hunter/wiki/pkg.gsl>`__
