@@ -16,9 +16,9 @@ hunter_add_version(
     VERSION
     "1.1.4"
     URL
-    "https://github.com/piribes/doctest/archive/master.tar.gz"
+    "https://github.com/piribes/doctest/archive/hunter.tar.gz"
     SHA1
-    e1184689bed941752f905f6dae9e5b42631ed9a6
+    1b678730f0f36d31e33626d1c7f3130bd709be06
 )
 
 hunter_cmake_args(doctest CMAKE_ARGS
