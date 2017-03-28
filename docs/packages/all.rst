@@ -74,6 +74,7 @@ All packages
 * `glog <https://github.com/ruslo/hunter/wiki/pkg.glog>`__
 * `half <https://github.com/ruslo/hunter/wiki/pkg.half>`__
 * `hdf5 <https://github.com/ruslo/hunter/wiki/pkg.hdf5>`__
+* `imshow <https://github.com/ruslo/hunter/wiki/pkg.imshow>`__
 * `ios_sim <https://github.com/ruslo/hunter/wiki/pkg.ios_sim>`__
 * `irrXML <https://github.com/ruslo/hunter/wiki/pkg.irrXML>`__
 * `libyuv <https://github.com/ruslo/hunter/wiki/pkg.libyuv>`__
