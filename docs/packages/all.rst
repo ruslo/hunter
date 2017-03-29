@@ -66,6 +66,7 @@ All packages
 * `cxxopts <https://github.com/ruslo/hunter/wiki/pkg.cxxopts>`__
 * `dest <https://github.com/ruslo/hunter/wiki/pkg.dest>`__
 * `dlib <https://github.com/ruslo/hunter/wiki/pkg.dlib>`__
+* `doctest <https://github.com/ruslo/hunter/wiki/pkg.doctest>`__
 * `eos <https://github.com/ruslo/hunter/wiki/pkg.eos>`__
 * `flatbuffers <https://github.com/ruslo/hunter/wiki/pkg.flatbuffers>`__
 * `fmt <https://github.com/ruslo/hunter/wiki/pkg.fmt>`__
