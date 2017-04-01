@@ -23,7 +23,7 @@ matrix:
     - os: linux
       env: PROJECT_DIR=examples/Foo TOOLCHAIN=clang-libstdcxx
     - os: linux
-      env: PROJECT_DIR=examples/Foo TOOLCHAIN=gcc-4-8
+      env: PROJECT_DIR=examples/Foo TOOLCHAIN=gcc
     - os: linux
       env: PROJECT_DIR=examples/Foo TOOLCHAIN=android-ndk-r10e-api-19-armeabi-v7a-neon
     - os: linux
@@ -32,8 +32,11 @@ matrix:
       env: PROJECT_DIR=examples/Foo TOOLCHAIN=sanitize-address
     - os: linux
       env: PROJECT_DIR=examples/Foo TOOLCHAIN=sanitize-leak
-    - os: linux
-      env: PROJECT_DIR=examples/Foo TOOLCHAIN=sanitize-thread
+
+    # FIXME: https://github.com/ruslo/hunter/issues/718#issuecomment-290610583
+    # - os: linux
+    #   env: PROJECT_DIR=examples/Foo TOOLCHAIN=sanitize-thread
+
     # }
 
     # OSX {
