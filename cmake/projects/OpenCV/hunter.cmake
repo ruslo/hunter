@@ -303,6 +303,10 @@ hunter_cmake_args(
         BUILD_opencv_java=OFF
         BUILD_opencv_python2=OFF
         BUILD_opencv_python3=OFF
+        # There is not a CUDA package so need to stop OpenCV from searching for it, otherwise
+        #  it might pick up the host version
+        WITH_CUDA=OFF
+        WITH_CUFFT=OFF
 )
 
 # Pick a download scheme
