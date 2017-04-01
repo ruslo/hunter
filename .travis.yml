@@ -15,6 +15,11 @@ sudo:
 dist:
   - trusty
 
+addons:
+  apt:
+    packages:
+      - enchant # for documentation
+
 env:
   - PROJECT_DIR=tests/simple TOOLCHAIN=default
   - PROJECT_DIR=tests/issue/22 TOOLCHAIN=default
