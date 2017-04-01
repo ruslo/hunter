@@ -15,6 +15,8 @@ sudo:
 dist:
   - trusty
 
+# Install packages differs for container-based infrastructure
+# * https://docs.travis-ci.com/user/migrating-from-legacy/#How-do-I-install-APT-sources-and-packages%3F
 addons:
   apt:
     packages:
