@@ -1,6 +1,7 @@
 All packages
 ------------
 
+* `ARM_NEON_2_x86_SSE <https://github.com/ruslo/hunter/wiki/pkg.ARM_NEON_2_x86_SSE>`__
 * `Android-Apk <https://github.com/ruslo/hunter/wiki/pkg.android.apk>`__
 * `Android-Modules <https://github.com/ruslo/hunter/wiki/pkg.android.modules>`__
 * `Android-SDK <https://github.com/ruslo/hunter/wiki/pkg.android.sdk>`__
