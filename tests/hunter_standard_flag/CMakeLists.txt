@@ -153,15 +153,6 @@ if(CMAKE_C99_STANDARD_COMPILE_OPTION AND NOT CMAKE_C11_STANDARD_COMPILE_OPTION)
 endif()
 
 
-# Expect empty output if unknown standard
-set(CMAKE_CXX_STANDARD 1234)
-set(CMAKE_C_STANDARD 1234)
-set(CMAKE_FORTRAN_STANDARD 1234)
-check(CXX "")
-check(C "")
-check(FORTRAN "")
-
-
 # Restricted standard
 set(CMAKE_CXX_STANDARD_REQUIRED True)
 set(CMAKE_C_STANDARD_REQUIRED True)
