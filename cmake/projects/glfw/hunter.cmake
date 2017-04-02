@@ -7,9 +7,10 @@ if(EMSCRIPTEN)
 endif()
 
 include(hunter_add_version)
-include(hunter_pick_scheme)
 include(hunter_cacheable)
+include(hunter_cmake_args)
 include(hunter_download)
+include(hunter_pick_scheme)
 
 hunter_add_version(
     PACKAGE_NAME
@@ -30,8 +31,8 @@ hunter_add_version(
     URL
     "https://github.com/hunter-packages/glfw/archive/3.3.0-p0.tar.gz"
     SHA1
-    3621fc665397f07c57d1c77ac4d85d4634f18d3a    
-    )  
+    3621fc665397f07c57d1c77ac4d85d4634f18d3a
+    )
 
 hunter_cmake_args(
     glfw
@@ -41,7 +42,7 @@ hunter_cmake_args(
     GLFW_BUILD_DOCS=OFF
     GLFW_INSTALL=ON
     )
-  
+
 hunter_pick_scheme(DEFAULT url_sha1_cmake)
 hunter_cacheable(glfw)
 hunter_download(
@@ -55,4 +56,3 @@ hunter_download(
       "lib/pkgconfig/glfw3.pc"
 
 )
-
