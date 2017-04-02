@@ -13,11 +13,11 @@ hunter_add_version(
     PACKAGE_NAME
     sse2neon
     VERSION
-    1.0.0
+    1.0.0-p0
     URL
-    "https://github.com/hunter-packages/sse2neon/archive/v1.0.0.tar.gz"
+    "https://github.com/hunter-packages/sse2neon/archive/v1.0.0-p0.tar.gz"
     SHA1
-    a545774b20b7a2c9f2dea1187a45b81f88280b69
+    1a3104782526ea6aba9e5429dc64414e91b4cf1c
 )
 
 hunter_pick_scheme(DEFAULT url_sha1_cmake)
