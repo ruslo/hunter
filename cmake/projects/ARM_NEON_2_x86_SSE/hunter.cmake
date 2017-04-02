@@ -13,7 +13,7 @@ hunter_add_version(
     PACKAGE_NAME
     ARM_NEON_2_x86_SSE
     VERSION
-    1.2-p0
+    1.0.0
     URL
     "https://github.com/hunter-packages/ARM_NEON_2_x86_SSE/archive/v1.0.0.tar.gz"
     SHA1
