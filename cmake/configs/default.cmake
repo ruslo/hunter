@@ -184,6 +184,7 @@ hunter_config(rabbitmq-c VERSION 0.7.0-p1)
 hunter_config(randrproto VERSION 1.3.2)
 hunter_config(renderproto VERSION 0.11.1)
 hunter_config(sm VERSION 1.2.1)
+hunter_config(sse2neon VERSION 1.0.0-p0)
 hunter_config(sparsehash VERSION 2.0.2)
 if(MSVC_VERSION LESS 1900)
     # for VS12 - version without support C++11
