@@ -9,7 +9,7 @@ export GITHUB_USER_PASSWORD
 
 THIS_SCRIPT_DIR=`dirname "${BASH_SOURCE[0]}"`
 
-cd "${THIS_SCRIPT_DIR}/../../.."
+cd "${THIS_SCRIPT_DIR}/../../../.."
 
 # {
 export TOOLCHAIN=android-ndk-r10e-api-19-armeabi-v7a-neon
