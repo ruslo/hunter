@@ -1,5 +1,5 @@
 #ifndef FOO_H
-#define DOCTEST_H
+#define FOO_H
 #pragma once
 
 namespace foo {
