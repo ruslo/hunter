@@ -79,7 +79,7 @@ hunter_config(MySQL-client VERSION 6.1.6)
 hunter_config(OpenBLAS VERSION 0.2.19-p0)
 hunter_config(OpenCL VERSION 2.1-p0)
 hunter_config(OpenCL-cpp VERSION 2.0.10-p0)
-hunter_config(OpenCV VERSION 3.2.0-p0)
+hunter_config(OpenCV VERSION 3.2.0-p1)
 hunter_config(OpenCV-Extra VERSION 3.0.0)
 if(MSVC OR ANDROID)
   # FIXME: https://travis-ci.org/ingenue/hunter/jobs/215460184
