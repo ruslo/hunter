@@ -15,9 +15,9 @@ hunter_add_version(
     VERSION
     "1.1.0-hunter"
     URL
-    "https://github.com/piribes/benchmark/archive/v1.1.0-hunter.tar.gz"
+    "https://github.com/hunter-packages/benchmark/archive/v1.1.0-hunter.tar.gz"
     SHA1
-    f470a6604186237ce3b177755e8311d4bfd18fef
+    55e4fba4c0d5308e081a0802ab4679996825c2a5
 )
 
 hunter_cmake_args(
