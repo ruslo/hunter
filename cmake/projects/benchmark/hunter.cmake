@@ -28,4 +28,4 @@ hunter_cmake_args(
 
 hunter_pick_scheme(DEFAULT url_sha1_cmake)
 hunter_cacheable(benchmark)
-hunter_download(PACKAGE_NAME benchmark PACKAGE_INTERNAL_DEPS_ID 1)
+hunter_download(PACKAGE_NAME benchmark)
