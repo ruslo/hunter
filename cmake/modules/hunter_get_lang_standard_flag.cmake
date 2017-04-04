@@ -20,6 +20,7 @@ function(hunter_get_lang_standard_flag LANG OUTPUT)
   string(COMPARE EQUAL "${CMAKE_${LANG}_STANDARD_DEFAULT}" "" no_default)
   if(no_default)
     # This compiler has no notion of language standard levels.
+    # https://github.com/Kitware/CMake/blob/3bccdd89c88864839a0c8d4ea56bd069c90fa02b/Source/cmLocalGenerator.cxx#L1427-L1432
     return()
   endif()
 
@@ -27,11 +28,14 @@ function(hunter_get_lang_standard_flag LANG OUTPUT)
   string(COMPARE EQUAL "${standard}" "" no_standard)
   if(no_standard)
     # The standard not defined by user.
+    # https://github.com/Kitware/CMake/blob/3bccdd89c88864839a0c8d4ea56bd069c90fa02b/Source/cmLocalGenerator.cxx#L1433-L1437
     return()
   endif()
 
-  set(flag "")
-  set(ext "EXTENSION")  # By default extensions are assumed On.
+  # Decide on version with extensions or a clean one.
+  # By default extensions are assumed On.
+  # https://github.com/Kitware/CMake/blob/3bccdd89c88864839a0c8d4ea56bd069c90fa02b/Source/cmLocalGenerator.cxx#L1438-L1446
+  set(ext "EXTENSION")
   if(DEFINED CMAKE_${LANG}_EXTENSIONS AND NOT CMAKE_${LANG}_EXTENSIONS)
     set(ext "STANDARD")
   endif()
@@ -42,6 +46,8 @@ function(hunter_get_lang_standard_flag LANG OUTPUT)
     hunter_internal_error("${LANG} standard ${standard} not known")
     return()
   endif()
+
+  set(flag "")
   list(LENGTH standards end)
   math(EXPR end "${end} - 1")
   foreach(idx RANGE ${begin} ${end})
