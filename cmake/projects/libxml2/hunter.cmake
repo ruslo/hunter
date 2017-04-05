@@ -31,8 +31,9 @@ hunter_cmake_args(
 hunter_configuration_types(libxml2 CONFIGURATION_TYPES Release)
 hunter_pick_scheme(DEFAULT url_sha1_autotools)
 hunter_cacheable(libxml2)
-hunter_download(PACKAGE_NAME libxml2
-	PACKAGE_UNRELOCATABLE_TEXT_FILES
-	    lib/pkgconfig/libxml-2.0.pc
+hunter_download(
+    PACKAGE_NAME libxml2
+    PACKAGE_INTERNAL_DEPS_ID "1"
+    PACKAGE_UNRELOCATABLE_TEXT_FILES
+    "lib/pkgconfig/libxml-2.0.pc"
 )
-

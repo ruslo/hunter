@@ -68,6 +68,9 @@ environment:
   - PROJECT_DIR: tests\hunter_check_toolchain_definition
     TOOLCHAIN: default
 
+  - PROJECT_DIR: tests\hunter_standard_flag
+    TOOLCHAIN: default
+
 install:
   # Python 3
   - cmd: set PATH=C:\Python34-x64;C:\Python34-x64\Scripts;%PATH%

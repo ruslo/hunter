@@ -39,6 +39,7 @@ hunter_cmake_args(
 hunter_cacheable(xcursor)
 hunter_download(
     PACKAGE_NAME xcursor
+    PACKAGE_INTERNAL_DEPS_ID "1"
     PACKAGE_UNRELOCATABLE_TEXT_FILES
     "lib/libXcursor.la"
     "lib/pkgconfig/xcursor.pc"

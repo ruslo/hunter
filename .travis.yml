@@ -44,6 +44,7 @@ env:
   - PROJECT_DIR=tests/hunter_unpack_directory TOOLCHAIN=default
   - PROJECT_DIR=tests/hunter_init_not_found_counter TOOLCHAIN=default
   - PROJECT_DIR=tests/hunter_check_toolchain_definition TOOLCHAIN=default
+  - PROJECT_DIR=tests/hunter_standard_flag TOOLCHAIN=default
 
   - TOOLCHAIN=generate-documentation-test
 
