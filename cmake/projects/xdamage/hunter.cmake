@@ -39,7 +39,7 @@ hunter_cmake_args(
 )
 hunter_download(
     PACKAGE_NAME xdamage
-    PACKAGE_INTERNAL_DEPS_ID "2"
+    PACKAGE_INTERNAL_DEPS_ID "3"
     PACKAGE_UNRELOCATABLE_TEXT_FILES
     "lib/pkgconfig/xdamage.pc"
     "lib/libXdamage.la"
