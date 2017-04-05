@@ -104,6 +104,13 @@ macro(hunter_setup_msvc)
     set(_hunter_vcvarsall_env "VS${_hunter_vcvarsall_env}COMNTOOLS")
     set(_hunter_vcvarsall_path "$ENV{${_hunter_vcvarsall_env}}")
 
+    hunter_status_debug(
+        "Environment '${_hunter_vcvarsall_env}': '${_hunter_vcvarsall_path}'"
+    )
+    hunter_status_debug(
+        "CMAKE_VS_DEVENV_COMMAND: '${CMAKE_VS_DEVENV_COMMAND}'"
+    )
+
     string(COMPARE EQUAL "${_hunter_vcvarsall_path}" "" _is_empty)
     if(_is_empty)
       if(HUNTER_TESTING)
