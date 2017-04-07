@@ -17,7 +17,7 @@ hunter_add_version(
     URL
     "https://github.com/hunter-packages/benchmark/archive/v1.1.0-hunter.tar.gz"
     SHA1
-    55e4fba4c0d5308e081a0802ab4679996825c2a5
+    1caeb5603ec46d24a08cc7419200875e090c254b
 )
 
 hunter_cmake_args(
