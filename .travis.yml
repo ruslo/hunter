@@ -23,28 +23,9 @@ addons:
       - enchant # for documentation
 
 env:
+
   - PROJECT_DIR=tests/simple TOOLCHAIN=default
-  - PROJECT_DIR=tests/issue/22 TOOLCHAIN=default
-  - PROJECT_DIR=tests/issue/24/unit TOOLCHAIN=default
-  - PROJECT_DIR=tests/issue/107 TOOLCHAIN=default
-  - PROJECT_DIR=tests/issue/109/unit TOOLCHAIN=default
-  - PROJECT_DIR=tests/autotools-merge-lipo TOOLCHAIN=default
-  - PROJECT_DIR=tests/hunter_create_args_file TOOLCHAIN=default
-  - PROJECT_DIR=tests/hunter_create_dependency_entry TOOLCHAIN=default
-  - PROJECT_DIR=tests/hunter_create_deps_info TOOLCHAIN=default
-  - PROJECT_DIR=tests/hunter_download_cache_meta_file TOOLCHAIN=default
-  - PROJECT_DIR=tests/hunter_download_cache_raw_file TOOLCHAIN=default
-  - PROJECT_DIR=tests/hunter_generate_qt_info TOOLCHAIN=default
-  - PROJECT_DIR=tests/hunter_get_package_deps TOOLCHAIN=default
-  - PROJECT_DIR=tests/hunter_get_package_deps_recurse TOOLCHAIN=default
-  - PROJECT_DIR=tests/hunter_pack_directory TOOLCHAIN=default
-  - PROJECT_DIR=tests/hunter_register_dependency TOOLCHAIN=default
-  - PROJECT_DIR=tests/hunter_setup_msvc TOOLCHAIN=default
-  - PROJECT_DIR=tests/hunter_sleep_before_download TOOLCHAIN=default
-  - PROJECT_DIR=tests/hunter_unpack_directory TOOLCHAIN=default
-  - PROJECT_DIR=tests/hunter_init_not_found_counter TOOLCHAIN=default
-  - PROJECT_DIR=tests/hunter_check_toolchain_definition TOOLCHAIN=default
-  - PROJECT_DIR=tests/hunter_standard_flag TOOLCHAIN=default
+  - PROJECT_DIR=tests/simple TOOLCHAIN=libcxx
 
   - TOOLCHAIN=generate-documentation-test
 
