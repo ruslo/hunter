@@ -20,6 +20,17 @@ hunter_add_version(
     3323b6a97afefa0cc008785caa37b43681c9589e
 )
 
+hunter_add_version(
+    PACKAGE_NAME
+    mtplz
+    VERSION
+    0.1-p2
+    URL
+    "https://github.com/hunter-packages/mtplz/archive/v0.1-p2.tar.gz"
+    SHA1
+    8b3bba448248956d7a254bd2c70f25bcbb9245fb
+)
+
 hunter_cmake_args(mtplz CMAKE_ARGS BUILD_TESTING=OFF)
 
 hunter_pick_scheme(DEFAULT url_sha1_cmake)
