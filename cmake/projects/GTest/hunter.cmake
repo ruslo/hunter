@@ -161,10 +161,16 @@ hunter_add_version(
     SHA1 3325aa4fc8b30e665c9f73a60f19387b7db36f85
 )
 
+if(HUNTER_GTest_VERSION VERSION_LESS 1.8.0)
+  set(_gtest_license "LICENSE")
+else()
+  set(_gtest_license "googletest/LICENSE")
+endif()
+
 hunter_cmake_args(
     GTest
     CMAKE_ARGS
-    HUNTER_INSTALL_LICENSE_FILES=googletest/LICENSE
+    HUNTER_INSTALL_LICENSE_FILES=${_gtest_license}
 )
 
 hunter_pick_scheme(DEFAULT url_sha1_cmake)

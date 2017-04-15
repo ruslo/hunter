@@ -31,7 +31,9 @@ endif()
 hunter_configuration_types(PostgreSQL CONFIGURATION_TYPES Release)
 hunter_pick_scheme(DEFAULT url_sha1_autotools)
 hunter_cacheable(PostgreSQL)
-hunter_download(PACKAGE_NAME PostgreSQL
+hunter_download(
+    PACKAGE_NAME PostgreSQL
+    PACKAGE_INTERNAL_DEPS_ID "1"
     PACKAGE_UNRELOCATABLE_TEXT_FILES
     "lib/pkgconfig/libecpg.pc"
     "lib/pkgconfig/libecpg_compat.pc"
@@ -39,4 +41,3 @@ hunter_download(PACKAGE_NAME PostgreSQL
     "lib/pkgconfig/libpq.pc"
     "lib/postgresql/pgxs/src/Makefile.global"
 )
-
