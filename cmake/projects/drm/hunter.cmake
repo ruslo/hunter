@@ -37,7 +37,7 @@ hunter_cmake_args(
 hunter_cacheable(drm)
 hunter_download(
     PACKAGE_NAME drm
-    PACKAGE_INTERNAL_DEPS_ID "2"
+    PACKAGE_INTERNAL_DEPS_ID "3"
     PACKAGE_UNRELOCATABLE_TEXT_FILES
     "lib/libdrm.la"
     "lib/libdrm_amdgpu.la"

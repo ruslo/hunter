@@ -72,7 +72,13 @@ set(
 )
 set(build_command . "@HUNTER_GLOBAL_SCRIPT_DIR@/clear-all.sh" && make)
 
-set(configure_opts ${configure_opts} threads no-shared)
+if (BUILD_SHARED_LIBS)
+  set(shared_flag shared)
+else()
+  set(shared_flag no-shared)
+endif()
+
+set(configure_opts ${configure_opts} threads ${shared_flag})
 
 ExternalProject_Add(
     "@HUNTER_EP_NAME@"

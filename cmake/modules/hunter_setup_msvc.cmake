@@ -41,6 +41,7 @@ macro(hunter_setup_msvc)
     string(COMPARE EQUAL "${MSVC_VERSION}" "1700" _vs_11_2012)
     string(COMPARE EQUAL "${MSVC_VERSION}" "1800" _vs_12_2013)
     string(COMPARE EQUAL "${MSVC_VERSION}" "1900" _vs_14_2015)
+    string(COMPARE EQUAL "${MSVC_VERSION}" "1910" _vs_15_2017)
 
     if(_vs_8_2005)
       set(HUNTER_MSVC_VERSION "8")
@@ -60,6 +61,9 @@ macro(hunter_setup_msvc)
     elseif(_vs_14_2015)
       set(HUNTER_MSVC_VERSION "14")
       set(HUNTER_MSVC_YEAR "2015")
+    elseif(_vs_15_2017)
+      set(HUNTER_MSVC_VERSION "15")
+      set(HUNTER_MSVC_YEAR "2017")
     else()
       hunter_internal_error("Unexpected MSVC_VERSION: '${MSVC_VERSION}'")
     endif()
@@ -100,18 +104,35 @@ macro(hunter_setup_msvc)
     set(_hunter_vcvarsall_env "VS${_hunter_vcvarsall_env}COMNTOOLS")
     set(_hunter_vcvarsall_path "$ENV{${_hunter_vcvarsall_env}}")
 
+    hunter_status_debug(
+        "Environment '${_hunter_vcvarsall_env}': '${_hunter_vcvarsall_path}'"
+    )
+    hunter_status_debug(
+        "CMAKE_VS_DEVENV_COMMAND: '${CMAKE_VS_DEVENV_COMMAND}'"
+    )
+
     string(COMPARE EQUAL "${_hunter_vcvarsall_path}" "" _is_empty)
     if(_is_empty)
       if(HUNTER_TESTING)
         # ignore error, see 'tests/hunter_setup_msvc/CMakeLists.txt'
       else()
-        hunter_internal_error(
-             "Environment variable ${_hunter_vcvarsall_env} is empty"
+        hunter_status_debug(
+            "Environment variable '${_hunter_vcvarsall_env}' is empty, analyzing CMAKE_VS_DEVENV_COMMAND"
         )
+        string(COMPARE EQUAL "${CMAKE_VS_DEVENV_COMMAND}" "" is_empty)
+        if(is_empty)
+          hunter_internal_error("CMAKE_VS_DEVENV_COMMAND is empty")
+        endif()
+        if(NOT IS_ABSOLUTE "${CMAKE_VS_DEVENV_COMMAND}")
+          hunter_internal_error("CMAKE_VS_DEVENV_COMMAND is not absolute")
+        endif()
+        get_filename_component(_hunter_vcvarsall_path "${CMAKE_VS_DEVENV_COMMAND}" DIRECTORY)
+        set(_hunter_vcvarsall_path "${_hunter_vcvarsall_path}/../../VC/Auxiliary/Build")
       endif()
+    else()
+      set(_hunter_vcvarsall_path "${_hunter_vcvarsall_path}/../../VC")
     endif()
 
-    set(_hunter_vcvarsall_path "${_hunter_vcvarsall_path}/../../VC")
     get_filename_component(
         _hunter_vcvarsall_path "${_hunter_vcvarsall_path}" ABSOLUTE
     )

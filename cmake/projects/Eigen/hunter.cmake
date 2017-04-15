@@ -17,6 +17,28 @@ hunter_add_version(
     PACKAGE_NAME
     Eigen
     VERSION
+    "3.3.3-p0"
+    URL
+    "https://github.com/hunter-packages/eigen/archive/v3.3.3-p0.tar.gz"
+    SHA1
+    ed46aa311d2f6bc9dae06c3ac39cc53677e61400
+)
+
+hunter_add_version(
+    PACKAGE_NAME
+    Eigen
+    VERSION
+    "3.3.2-p0"
+    URL
+    "https://github.com/hunter-packages/eigen/archive/v3.3.2-p0.tar.gz"
+    SHA1
+    b6bc33bb1acb0f853cc2b4e0c26d947bca510e1a
+)
+
+hunter_add_version(
+    PACKAGE_NAME
+    Eigen
+    VERSION
     "3.3.1-p3"
     URL
     "https://github.com/hunter-packages/eigen/archive/v3.3.1-p3.tar.gz"

@@ -245,4 +245,4 @@ hunter_add_version(
 
 hunter_pick_scheme(DEFAULT url_sha1_boost)
 hunter_cacheable(Boost)
-hunter_download(PACKAGE_NAME Boost PACKAGE_INTERNAL_DEPS_ID "6")
+hunter_download(PACKAGE_NAME Boost PACKAGE_INTERNAL_DEPS_ID "12")
