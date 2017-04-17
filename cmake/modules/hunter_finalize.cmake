@@ -78,6 +78,16 @@ macro(hunter_finalize)
 
   set(HUNTER_INSTALL_PREFIX "${HUNTER_TOOLCHAIN_ID_PATH}/Install")
   list(APPEND CMAKE_PREFIX_PATH "${HUNTER_INSTALL_PREFIX}")
+
+  # Override pkg-config default search path
+  # https://github.com/ruslo/hunter/issues/762
+  if(NOT MSVC)
+    set(_pkg_config_dir1 "${HUNTER_INSTALL_PREFIX}/lib/pkgconfig")
+    set(_pkg_config_dir2 "${HUNTER_INSTALL_PREFIX}/share/pkgconfig")
+    # This info is also in hunter_autotools_project.cmake
+    set(ENV{PKG_CONFIG_LIBDIR} "${_pkg_config_dir1}:${_pkg_config_dir2}")
+  endif()
+
   if(ANDROID)
     # OpenCV support: https://github.com/ruslo/hunter/issues/153
     list(APPEND CMAKE_PREFIX_PATH "${HUNTER_INSTALL_PREFIX}/sdk/native/jni")
