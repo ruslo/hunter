@@ -8,6 +8,7 @@ Supported platforms: **Linux**, **Mac**, **Windows**, **iOS**, **Android**, **Ra
 * Documentation: https://docs.hunter.sh
 * Supported Packages: https://docs.hunter.sh/en/latest/packages.html
 * Sources: https://github.com/ruslo/hunter
+* Supported Packages: https://github.com/ruslo/hunter/wiki
 * Reporting issues: https://github.com/ruslo/hunter/issues/new
 * Contributing guide: https://docs.hunter.sh/en/latest/contributing.html
 * License: `BSD 2-Clause <https://raw.githubusercontent.com/ruslo/hunter/master/LICENSE>`_
