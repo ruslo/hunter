@@ -65,7 +65,7 @@ if(MSVC_VERSION LESS 1600)
     # for VS10 - version without support C++11
   hunter_config(jsoncpp VERSION 0.7.0)
 else()
-  hunter_config(jsoncpp VERSION 1.7.7)
+  hunter_config(jsoncpp VERSION 1.8.0)
 endif()
 hunter_config(LLVM VERSION ${HUNTER_Clang_VERSION})
 hunter_config(LLVMCompilerRT VERSION ${HUNTER_Clang_VERSION})
