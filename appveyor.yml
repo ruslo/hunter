@@ -40,11 +40,13 @@ environment:
     - TOOLCHAIN: "vs-9-2008"
       PROJECT_DIR: examples\Foo
 
-    - TOOLCHAIN: "mingw"
-      PROJECT_DIR: examples\Foo
+    # Broken:
+    # - TOOLCHAIN: "mingw"
+    #   PROJECT_DIR: examples\Foo
 
-    - TOOLCHAIN: "msys"
-      PROJECT_DIR: examples\Foo
+    # Broken:
+    # - TOOLCHAIN: "msys"
+    #   PROJECT_DIR: examples\Foo
 
 install:
   # Python 3
