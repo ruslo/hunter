@@ -8,7 +8,7 @@
 #
 # Adds to the environment variables:
 #   PATH=<root-id>/bin
-#   PKG_CONFIG_PATH=<root-id>/{lib,share}/pkgconfig
+#   PKG_CONFIG_LIBDIR=<root-id>/{lib,share}/pkgconfig
 #
 # Adds to autotools flags:
 #   CPPFLAGS=-I<root-id>/include
@@ -315,10 +315,11 @@ function(hunter_autotools_project target_name)
       "PATH=${PARAM_GLOBAL_INSTALL_DIR}/bin:${default_path}"
   )
 
-  # PKG_CONFIG_PATH environment variable
+  # PKG_CONFIG_LIBDIR environment variable
+  # This info is also in hunter_finalize.cmake
   set(d1 "${PARAM_GLOBAL_INSTALL_DIR}/lib/pkgconfig")
   set(d2 "${PARAM_GLOBAL_INSTALL_DIR}/share/pkgconfig")
-  list(APPEND configure_command "PKG_CONFIG_PATH=${d1}:${d2}")
+  list(APPEND configure_command "PKG_CONFIG_LIBDIR=${d1}:${d2}")
 
   string(COMPARE NOTEQUAL "${PARAM_BOOTSTRAP}" "" have_bootstrap)
   if(have_bootstrap)
