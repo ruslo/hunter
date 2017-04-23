@@ -330,4 +330,7 @@ hunter_pick_scheme(DEFAULT url_sha1_cmake)
 #     * libexample_Ad.a
 
 hunter_cacheable(OpenCV)
-hunter_download(PACKAGE_NAME OpenCV)
+hunter_download(
+    PACKAGE_NAME OpenCV
+    PACKAGE_INTERNAL_DEPS_ID "1"
+)
