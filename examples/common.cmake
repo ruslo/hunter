@@ -3,6 +3,9 @@
 
 cmake_minimum_required(VERSION 3.0)
 
+# don't use cache servers
+set(HUNTER_USE_CACHE_SERVERS NO)
+
 ### Include HunterGate module from git submodule
 set(gate_dir "${CMAKE_CURRENT_LIST_DIR}/../gate")
 set(gate_module "${gate_dir}/cmake/HunterGate.cmake")
