@@ -12,6 +12,3 @@ int main()
     clGetPlatformIDs(1, &platform_id, &ret_num_platforms);
     return 0;
 }
-
-
-
