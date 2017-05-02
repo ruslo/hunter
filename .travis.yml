@@ -55,8 +55,11 @@ matrix:
 
     - os: osx
       env: PROJECT_DIR=examples/dlib TOOLCHAIN=libcxx
-    - os: osx
-      env: PROJECT_DIR=examples/dlib TOOLCHAIN=clang-libstdcxx
+
+    # FIXME: https://travis-ci.org/ingenue/hunter/jobs/227839866
+    # - os: osx
+    #   env: PROJECT_DIR=examples/dlib TOOLCHAIN=clang-libstdcxx
+
     - os: osx
       env: PROJECT_DIR=examples/dlib TOOLCHAIN=osx-10-11
     - os: osx
