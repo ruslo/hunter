@@ -61,6 +61,7 @@ is to allow Hunter to be deployed inside
 for development.
 
 .. code-block:: none
+  :emphasize-lines: 2,4,6,8,10,12,14,16,18,20,22,24,26,28,30,32,34,36,38,40,42,44,46,48,50
 
   _Base/
   ├── <Hunter-ID>/
@@ -124,6 +125,7 @@ about ``<Config-ID>/<Toolchain-ID>`` part (we have to calculate them using
 Hunter code).
 
 .. code-block:: none
+  :emphasize-lines: 2,4,6,8,10,12,14,16,18,20,22,24,26,28,30
 
   Download/
   ├── <Package>/
@@ -153,6 +155,7 @@ of ``raw`` directory with ``*.tar.bz2`` files (packed installed binaries) and
 arguments, dependencies, etc.).
 
 .. code-block:: none
+  :emphasize-lines: 2,4,6,8,10,12,14,16,18,20,22,24,26,28,30,32,34,36,38,40,42
 
   Cache/
   ├─ raw/

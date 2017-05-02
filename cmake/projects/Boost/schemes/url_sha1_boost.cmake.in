@@ -27,7 +27,7 @@ hunter_test_string_not_empty("@HUNTER_PACKAGE_DOWNLOAD_DIR@")
 hunter_test_string_not_empty("@HUNTER_PACKAGE_SOURCE_DIR@")
 hunter_test_string_not_empty("@HUNTER_PACKAGE_INSTALL_PREFIX@")
 hunter_test_string_not_empty("@HUNTER_Boost_VERSION@")
-hunter_test_string_not_empty("@HUNTER_PACKAGE_LICENSE_FILE@")
+hunter_test_string_not_empty("@HUNTER_PACKAGE_LICENSE_DIR@")
 hunter_test_string_not_empty("@HUNTER_GLOBAL_SCRIPT_DIR@")
 
 if("@MSVC@")
@@ -94,9 +94,13 @@ else()
   set(env_cmd "")
 endif()
 
-if("@MSVC@" OR "@MINGW@")
+if("@MSVC@")
   set(install_cmd "b2")
   set(bootstrap_cmd "bootstrap.bat")
+elseif("@MINGW@")
+  # Test scenario: MinGW installed in system, Visual Studio - not
+  set(install_cmd "b2")
+  set(bootstrap_cmd "bootstrap.bat" "gcc")
 else()
   set(install_cmd "./b2")
   if(APPLE)
@@ -152,10 +156,11 @@ ExternalProject_Add(
     "--prefix=@HUNTER_PACKAGE_INSTALL_PREFIX@"
     COMMAND # Copy license files
     "@CMAKE_COMMAND@"
+    "-C@HUNTER_ARGS_FILE@" # for 'HUNTER_INSTALL_LICENSE_FILES'
     "-Dsrcdir=@HUNTER_PACKAGE_SOURCE_DIR@"
-    "-Ddstfile=@HUNTER_PACKAGE_LICENSE_FILE@"
+    "-Ddstdir=@HUNTER_PACKAGE_LICENSE_DIR@"
     -P
-    "@HUNTER_GLOBAL_SCRIPT_DIR@/try-copy-license.cmake"
+    "@HUNTER_SELF@/scripts/try-copy-license.cmake"
     ${log_opts}
 )
 

@@ -1,4 +1,4 @@
-# Copyright (c) 2015, Ruslan Baratov
+# Copyright (c) 2015-2017, Ruslan Baratov
 # All rights reserved.
 
 include(hunter_internal_error)
@@ -63,6 +63,11 @@ function(hunter_calculate_toolchain_sha1 hunter_self hunter_base)
       "-H${temp_project_dir}"
       "-B${temp_build_dir}"
   )
+
+  string(COMPARE NOTEQUAL "${CMAKE_MAKE_PROGRAM}" "" has_make)
+  if(has_make)
+    list(APPEND cmd "-DCMAKE_MAKE_PROGRAM=${CMAKE_MAKE_PROGRAM}")
+  endif()
 
   string(COMPARE NOTEQUAL "${CMAKE_GENERATOR_TOOLSET}" "" has_toolset)
   if(has_toolset)

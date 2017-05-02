@@ -17,6 +17,39 @@ hunter_add_version(
     PACKAGE_NAME
     OpenCV
     VERSION
+    "3.2.0-p1"
+    URL
+    "https://github.com/hunter-packages/opencv/archive/v3.2.0-p1.tar.gz"
+    SHA1
+    be088ced81f1b725e1bb76a45806ab044107fba3
+)
+
+hunter_add_version(
+    PACKAGE_NAME
+    OpenCV
+    VERSION
+    "3.2.0-p0"
+    URL
+    "https://github.com/hunter-packages/opencv/archive/v3.2.0-p0.tar.gz"
+    SHA1
+    901f98202eb12dc2e1cc7f008204a9fb98ea0b13
+)
+
+hunter_add_version(
+    PACKAGE_NAME
+    OpenCV
+    VERSION
+    "3.1.0-p3"
+    URL
+    "https://github.com/hunter-packages/opencv/archive/v3.1.0-p3.tar.gz"
+    SHA1
+    d1f235600e454bcc3ce7d746b6b706e89ed81acc
+)
+
+hunter_add_version(
+    PACKAGE_NAME
+    OpenCV
+    VERSION
     "3.1.0-p2"
     URL
     "https://github.com/hunter-packages/opencv/archive/3.1.0-p2.tar.gz"
@@ -45,6 +78,39 @@ hunter_add_version(
     SHA1
     ab503105ce7e5415fc77cf44de0b276008be624f
     )
+
+hunter_add_version(
+    PACKAGE_NAME
+    OpenCV
+    VERSION
+    "3.0.0-p11"
+    URL
+    "https://github.com/hunter-packages/opencv/archive/v3.0.0-p11.tar.gz"
+    SHA1
+    3fa05fadc5c2b5e02ada00ccb7752ede660699ab
+)
+
+hunter_add_version(
+    PACKAGE_NAME
+    OpenCV
+    VERSION
+    "3.0.0-p10"
+    URL
+    "https://github.com/hunter-packages/opencv/archive/v3.0.0-p10.tar.gz"
+    SHA1
+    90bb9721231693b5999619aece8453b0710181d3
+)
+
+hunter_add_version(
+    PACKAGE_NAME
+    OpenCV
+    VERSION
+    "3.0.0-p9"
+    URL
+    "https://github.com/hunter-packages/opencv/archive/v3.0.0-p9.tar.gz"
+    SHA1
+    b41a71206d0963dcdf934ecf8f0d7ff299c4b57c
+)
 
 hunter_add_version(
     PACKAGE_NAME
@@ -248,6 +314,10 @@ hunter_cmake_args(
         BUILD_opencv_java=OFF
         BUILD_opencv_python2=OFF
         BUILD_opencv_python3=OFF
+        # There is not a CUDA package so need to stop OpenCV from searching for it, otherwise
+        #  it might pick up the host version
+        WITH_CUDA=OFF
+        WITH_CUFFT=OFF
 )
 
 # Pick a download scheme
@@ -260,4 +330,7 @@ hunter_pick_scheme(DEFAULT url_sha1_cmake)
 #     * libexample_Ad.a
 
 hunter_cacheable(OpenCV)
-hunter_download(PACKAGE_NAME OpenCV)
+hunter_download(
+    PACKAGE_NAME OpenCV
+    PACKAGE_INTERNAL_DEPS_ID "1"
+)

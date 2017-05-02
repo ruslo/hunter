@@ -40,6 +40,7 @@ hunter_cmake_args(
 hunter_cacheable(xxf86vm)
 hunter_download(
     PACKAGE_NAME xxf86vm
+    PACKAGE_INTERNAL_DEPS_ID "1"
     PACKAGE_UNRELOCATABLE_TEXT_FILES
     "lib/libXxf86vm.la"
     "lib/pkgconfig/xxf86vm.pc"

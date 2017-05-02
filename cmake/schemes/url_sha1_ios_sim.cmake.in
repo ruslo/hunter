@@ -22,7 +22,7 @@ hunter_test_string_not_empty("@HUNTER_PACKAGE_SHA1@")
 hunter_test_string_not_empty("@HUNTER_PACKAGE_DOWNLOAD_DIR@")
 hunter_test_string_not_empty("@HUNTER_PACKAGE_SOURCE_DIR@")
 hunter_test_string_not_empty("@HUNTER_PACKAGE_INSTALL_PREFIX@")
-hunter_test_string_not_empty("@HUNTER_PACKAGE_LICENSE_FILE@")
+hunter_test_string_not_empty("@HUNTER_PACKAGE_LICENSE_DIR@")
 
 string(COMPARE NOTEQUAL "@HUNTER_JOBS_OPTION@" "" have_jobs)
 if(have_jobs)
@@ -69,8 +69,9 @@ ExternalProject_Add(
     "@CMAKE_COMMAND@" -E copy build/Release/ios-sim "@HUNTER_PACKAGE_INSTALL_PREFIX@"
     COMMAND # Copy license files
     "@CMAKE_COMMAND@"
+    "-C@HUNTER_ARGS_FILE@" # for 'HUNTER_INSTALL_LICENSE_FILES'
     "-Dsrcdir=@HUNTER_PACKAGE_SOURCE_DIR@"
-    "-Ddstfile=@HUNTER_PACKAGE_LICENSE_FILE@"
+    "-Ddstdir=@HUNTER_PACKAGE_LICENSE_DIR@"
     -P
     "@HUNTER_SELF@/scripts/try-copy-license.cmake"
 )

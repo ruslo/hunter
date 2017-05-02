@@ -10,6 +10,7 @@
 include(hunter_add_version)
 include(hunter_download)
 include(hunter_pick_scheme)
+include(hunter_report_broken_package)
 
 # Version list
 hunter_add_version(
@@ -25,6 +26,10 @@ hunter_add_version(
 
 # Default CMake scheme
 hunter_pick_scheme(DEFAULT url_sha1_cmake)
+
+hunter_report_broken_package(
+    "'sparsehash' package is destructive (https://github.com/ruslo/hunter/issues/695)"
+)
 
 # This is header-only, so only headers are needed
 hunter_download(PACKAGE_NAME sparsehash)
