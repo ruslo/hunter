@@ -80,6 +80,7 @@ All packages
 * `imshow <https://github.com/ruslo/hunter/wiki/pkg.imshow>`__
 * `ios_sim <https://github.com/ruslo/hunter/wiki/pkg.ios_sim>`__
 * `irrXML <https://github.com/ruslo/hunter/wiki/pkg.irrXML>`__
+* `libuv <https://github.com/ruslo/hunter/wiki/pkg.libuv>`__
 * `libyuv <https://github.com/ruslo/hunter/wiki/pkg.libyuv>`__
 * `log4cplus <https://github.com/ruslo/hunter/wiki/pkg.log4cplus>`__
 * `lzma <https://github.com/ruslo/hunter/wiki/pkg.lzma>`__
