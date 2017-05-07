@@ -161,4 +161,8 @@ macro(hunter_finalize)
   # original path expected. E.g. NMake build:
   # * https://ci.appveyor.com/project/ingenue/hunter/build/1.0.1412/job/o8a21ue85ivt5d0p
   string(REPLACE "\\" "\\\\" CMAKE_MAKE_PROGRAM "${CMAKE_MAKE_PROGRAM}")
+
+  if(CMAKE_INTERPROCEDURAL_OPTIMIZATION AND NOT POLICY CMP0069)
+    hunter_user_error("Unsuitable CMake version")
+  endif()
 endmacro()

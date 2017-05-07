@@ -59,6 +59,7 @@ include(CMakeParseArguments) # cmake_parse_arguments
 include(hunter_dump_cmake_flags)
 include(hunter_fatal_error)
 include(hunter_finalize)
+include(hunter_pick_archiver)
 include(hunter_status_debug)
 include(hunter_test_string_not_empty)
 
@@ -129,6 +130,10 @@ function(hunter_autotools_project target_name)
       hunter_internal_error("File not found: ${CMAKE_C_PREPROCESSOR}")
     endif()
   endif()
+
+  # -> CMAKE_AR
+  # -> CMAKE_RANLIB
+  hunter_pick_archiver()
 
   string(TOUPPER ${PARAM_PACKAGE_CONFIGURATION_TYPES} config_type)
   # Sets the toolchain binaries
