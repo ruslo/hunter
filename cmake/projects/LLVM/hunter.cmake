@@ -84,8 +84,4 @@ if(MSVC_IDE)
   )
 endif()
 
-hunter_download(
-    PACKAGE_NAME LLVM
-    # Explicit dependencies since LLVM is not hunterized
-    PACKAGE_DEPENDS_ON Clang ClangToolsExtra LLVMCompilerRT
-)
+hunter_download(PACKAGE_NAME LLVM)
