@@ -4,6 +4,7 @@
 # !!! DO NOT PLACE HEADER GUARDS HERE !!!
 
 include(hunter_add_version)
+include(hunter_cacheable)
 include(hunter_cmake_args)
 include(hunter_configuration_types)
 include(hunter_download)
@@ -84,4 +85,5 @@ if(MSVC_IDE)
   )
 endif()
 
+hunter_cacheable(LLVM)
 hunter_download(PACKAGE_NAME LLVM)
