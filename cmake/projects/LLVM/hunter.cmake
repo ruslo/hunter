@@ -1,4 +1,4 @@
-# Copyright (c) 2014, Ruslan Baratov
+# Copyright (c) 2014-2017, Ruslan Baratov
 # All rights reserved.
 
 # !!! DO NOT PLACE HEADER GUARDS HERE !!!
@@ -10,9 +10,16 @@ include(hunter_download)
 include(hunter_pick_scheme)
 include(hunter_report_broken_package)
 
-hunter_add_package(Clang) # CLANG_ROOT
-hunter_add_package(ClangToolsExtra) # CLANGTOOLSEXTRA_ROOT
-hunter_add_package(LLVMCompilerRT) # LLVMCOMPILERRT_ROOT
+hunter_add_version(
+    PACKAGE_NAME
+    LLVM
+    VERSION
+    "3.6.2-p0"
+    URL
+    "https://github.com/hunter-packages/llvm/archive/v3.6.2-p0.tar.gz"
+    SHA1
+    81eed993cbbc7243597a4b16d2e371618156396b
+)
 
 hunter_add_version(
     PACKAGE_NAME
@@ -61,9 +68,6 @@ hunter_add_version(
 hunter_cmake_args(
   LLVM
   CMAKE_ARGS
-    "LLVM_EXTERNAL_CLANG_SOURCE_DIR=${CLANG_ROOT}"
-    "LLVM_EXTERNAL_CLANG_TOOLS_EXTRA_SOURCE_DIR=${CLANGTOOLSEXTRA_ROOT}"
-    "LLVM_EXTERNAL_COMPILER_RT_SOURCE_DIR=${LLVMCOMPILERRT_ROOT}"
     LLVM_INCLUDE_EXAMPLES=OFF
     LLVM_INCLUDE_TESTS=OFF
     LLVM_INCLUDE_DOCS=OFF
