@@ -9,7 +9,7 @@ include(hunter_pick_scheme)
 
 hunter_add_version(
     PACKAGE_NAME
-    LLVM
+    Clang
     VERSION
     "3.6.2-p0"
     URL
