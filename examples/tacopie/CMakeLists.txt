@@ -16,4 +16,6 @@ hunter_add_package(tacopie)
 find_package(tacopie CONFIG REQUIRED)
 
 add_executable(foo foo.cpp)
+set_property(TARGET foo PROPERTY CXX_STANDARD 11)
+
 target_link_libraries(foo tacopie::tacopie)
