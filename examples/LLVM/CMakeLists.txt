@@ -28,10 +28,10 @@ execute_process(
 if(NOT result EQUAL 0)
   message(FATAL_ERROR "Command failed (${result}, ${output})")
 endif()
-message("llvm-ar info:\n${output}")
+message("llvm-ar info (${llvm_ar_path}):\n${output}")
 
 unset(clang_path CACHE)
-find_program(clang_path clang++ HITS "${LLVM_ROOT}/bin")
+find_program(clang_path clang++ HINTS "${LLVM_ROOT}/bin")
 execute_process(
     COMMAND ${clang_path} --version
     RESULT_VARIABLE result
@@ -41,4 +41,4 @@ execute_process(
 if(NOT result EQUAL 0)
   message(FATAL_ERROR "Command failed (${result}, ${output})")
 endif()
-message("clang++ info:\n${output}")
+message("clang++ info (${clang_path}):\n${output}")
