@@ -6,6 +6,7 @@
 include(hunter_add_version)
 include(hunter_download)
 include(hunter_pick_scheme)
+include(hunter_cacheable)
 
 # List of versions here...
 hunter_add_version(
@@ -26,4 +27,5 @@ hunter_pick_scheme(DEFAULT url_sha1_cmake) # use scheme for cmake projects
 # Two versions of library will be build by default:
 #     * libtacopie.a
 #     * libtacopied.a
+hunter_cacheable(tacopie)
 hunter_download(PACKAGE_NAME tacopie)
