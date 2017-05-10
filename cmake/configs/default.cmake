@@ -264,3 +264,4 @@ if(ANDROID)
 endif()
 
 hunter_config(zookeeper VERSION 3.4.9-p2)
+hunter_config(tacopie VERSION 2.4.0-h1)
