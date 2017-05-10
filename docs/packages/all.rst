@@ -98,6 +98,7 @@ All packages
 * `spdlog <https://github.com/ruslo/hunter/wiki/pkg.spdlog>`__
 * `sse2neon <https://github.com/ruslo/hunter/wiki/pkg.sse2neon>`__
 * `szip <https://github.com/ruslo/hunter/wiki/pkg.szip>`__
+* `TacoPie <https://github.com/ruslo/hunter/wiki/pkg.tacopie>`__
 * `thread-pool-cpp <https://github.com/ruslo/hunter/wiki/pkg.thread-pool-cpp>`__
 * `tinydir <https://github.com/ruslo/hunter/wiki/pkg.tinydir>`__
 * `websocketpp <https://github.com/ruslo/hunter/wiki/pkg.websocketpp>`__
