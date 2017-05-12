@@ -192,7 +192,7 @@ if(MSVC_VERSION LESS 1900)
     # for VS12 - version without support C++11
   hunter_config(spdlog VERSION 1.0.0-p0)
 else()
-  hunter_config(spdlog VERSION 0.11.0-p0)
+  hunter_config(spdlog VERSION 0.13.0-p0)
 endif()
 hunter_config(szip VERSION 2.1.0-p1)
 hunter_config(thread-pool-cpp VERSION 1.0.0-p3)
