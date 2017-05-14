@@ -7,7 +7,21 @@ include(hunter_add_version)
 include(hunter_download)
 include(hunter_pick_scheme)
 
+# https://dl.google.com/android/repository/repository-10.xml
+# https://dl.google.com/android/repository/repository-11.xml
+
 if(CMAKE_HOST_APPLE)
+  hunter_add_version(
+      PACKAGE_NAME
+      Android-SDK-Platform-tools
+      VERSION
+      "r25.0.5"
+      URL
+      "http://dl-ssl.google.com/android/repository/platform-tools_r25.0.5-darwin.zip"
+      SHA1
+      9bbf65f80b05303a3576682d3350b087c4802283
+  )
+
   hunter_add_version(
       PACKAGE_NAME
       Android-SDK-Platform-tools
@@ -67,6 +81,17 @@ elseif(CMAKE_HOST_UNIX)
       PACKAGE_NAME
       Android-SDK-Platform-tools
       VERSION
+      "r25.0.5"
+      URL
+      "http://dl-ssl.google.com/android/repository/platform-tools_r25.0.5-linux.zip"
+      SHA1
+      4c026e2445e8b898cb0fd5dedf710a666a78aaa7
+  )
+
+  hunter_add_version(
+      PACKAGE_NAME
+      Android-SDK-Platform-tools
+      VERSION
       "r23.1.0"
       URL
       "http://dl-ssl.google.com/android/repository/platform-tools_r23.1.0-linux.zip"
@@ -118,6 +143,17 @@ elseif(CMAKE_HOST_UNIX)
       2502ade68af9f6288c4dd7726796599e8d9a4337
   )
 elseif(CMAKE_HOST_WIN32)
+  hunter_add_version(
+      PACKAGE_NAME
+      Android-SDK-Platform-tools
+      VERSION
+      "r25.0.5"
+      URL
+      "http://dl-ssl.google.com/android/repository/platform-tools_r25.0.5-windows.zip"
+      SHA1
+      a59b3747414e3002e826f84470dc1a7ceeb1c6d4
+  )
+
   hunter_add_version(
       PACKAGE_NAME
       Android-SDK-Platform-tools
