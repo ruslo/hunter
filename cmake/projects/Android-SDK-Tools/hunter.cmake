@@ -8,8 +8,20 @@ include(hunter_download)
 include(hunter_pick_scheme)
 
 # http://dl-ssl.google.com/android/repository/repository-10.xml
+# http://dl-ssl.google.com/android/repository/repository-11.xml
 
 if(CMAKE_HOST_APPLE)
+  hunter_add_version(
+      PACKAGE_NAME
+      Android-SDK-Tools
+      VERSION
+      "25.2.5"
+      URL
+      "http://dl-ssl.google.com/android/repository/tools_r25.2.5-macosx.zip"
+      SHA1
+      d2168d963ac5b616e3d3ddaf21511d084baf3659
+  )
+
   hunter_add_version(
       PACKAGE_NAME
       Android-SDK-Tools
@@ -69,6 +81,17 @@ elseif(CMAKE_HOST_UNIX)
       PACKAGE_NAME
       Android-SDK-Tools
       VERSION
+      "25.2.5"
+      URL
+      "http://dl-ssl.google.com/android/repository/tools_r25.2.5-linux.zip"
+      SHA1
+      72df3aa1988c0a9003ccdfd7a13a7b8bd0f47fc1
+  )
+
+  hunter_add_version(
+      PACKAGE_NAME
+      Android-SDK-Tools
+      VERSION
       "24.4.1"
       URL
       "http://dl-ssl.google.com/android/repository/tools_r24.4.1-linux.zip"
@@ -120,6 +143,17 @@ elseif(CMAKE_HOST_UNIX)
       398c38494d50d98dd9f3ae02899ba32be32c912d
   )
 elseif(CMAKE_HOST_WIN32)
+  hunter_add_version(
+      PACKAGE_NAME
+      Android-SDK-Tools
+      VERSION
+      "25.2.5"
+      URL
+      "http://dl-ssl.google.com/android/repository/tools_r25.2.5-windows.zip"
+      SHA1
+      a7f7ebeae1c8d8f62d3a8466e9c81baee7cc31ca
+  )
+
   hunter_add_version(
       PACKAGE_NAME
       Android-SDK-Tools
