@@ -1,6 +1,7 @@
 # cmake/projects/libjson-rpc-cpp/hunter.cmake
 
 include(hunter_add_version)
+include(hunter_cacheable)
 include(hunter_download)
 include(hunter_pick_scheme)
 include(hunter_cmake_args)
@@ -45,4 +46,5 @@ hunter_cmake_args(
     ${_hunter_unix_cmake_args}
 )
 
+hunter_cacheable(libjson-rpc-cpp)
 hunter_download(PACKAGE_NAME libjson-rpc-cpp)
