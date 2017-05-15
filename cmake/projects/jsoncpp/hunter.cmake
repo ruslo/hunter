@@ -4,6 +4,7 @@
 
 # Load used modules
 include(hunter_add_version)
+include(hunter_cacheable)
 include(hunter_download)
 include(hunter_pick_scheme)
 include(hunter_cmake_args)
@@ -54,4 +55,5 @@ hunter_cmake_args(
         JSONCPP_WITH_CMAKE_PACKAGE=ON
 )
 
+hunter_cacheable(jsoncpp)
 hunter_download(PACKAGE_NAME jsoncpp)
