@@ -467,6 +467,18 @@ function(hunter_download)
     set(allow_builds FALSE)
   endif()
 
+  # Always allow builds of submodules
+  get_property(submodule_projects GLOBAL PROPERTY HUNTER_SUBMODULE_PROJECTS)
+  if(submodule_projects)
+    list(FIND submodule_projects "${HUNTER_PACKAGE_NAME}" submodule_found)
+    if(NOT submodule_found EQUAL -1)
+      set(allow_builds TRUE)
+      if(hunter_has_component)
+        hunter_internal_error("Submodule with components")
+      endif()
+    endif()
+  endif()
+
   if(NOT allow_builds AND HUNTER_PACKAGE_SCHEME_INSTALL)
     hunter_fatal_error(
         "Building package from source is disabled (dir: ${HUNTER_PACKAGE_HOME_DIR})"
