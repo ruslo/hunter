@@ -32,4 +32,11 @@ something like this:
   > cmake -H. -B_builds -DOPTION1=OFF -DOPTION2=ON
   > cmake --build _builds --target install
 
+Instead of using ``VERSION`` you can create source archive by packing
+:doc:`Git submodule </user-guides/hunter-user/git-submodule>`:
+
+.. code-block:: cmake
+
+  hunter_config(<PackageName> GIT_SUBMODULE "3rdparty/<PackageName>")
+
 .. _ExternalProject_Add: http://www.cmake.org/cmake/help/v3.0/module/ExternalProject.html
