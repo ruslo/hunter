@@ -1,0 +1,108 @@
+# Copyright (c) 2016 University College London
+# All rights reserved.
+
+cmake_minimum_required(VERSION 3.0)
+project(Hunter)
+
+include(ExternalProject) # ExternalProject_Add
+
+# Scheme for CMake projects
+
+# This is universal CMake scheme that will work for
+#   * single-configuration (`* Makefiles`)
+#     * cmake -DCMAKE_BUILD_TYPE=${configuration}
+#   * multi-configuration (Visual Studio, Xcode)
+#     * cmake -DCMAKE_CONFIGURATION_TYPES=...
+#     * cmake --build --config ${configuration}
+
+list(APPEND CMAKE_MODULE_PATH "@HUNTER_SELF@/cmake/modules")
+
+include(hunter_status_debug)
+include(hunter_test_string_not_empty)
+include(hunter_user_error)
+
+hunter_status_debug("Scheme: url_sha1_cmake")
+
+# Check preconditions
+hunter_test_string_not_empty("@HUNTER_SELF@")
+hunter_test_string_not_empty("@HUNTER_EP_NAME@")
+hunter_test_string_not_empty("@HUNTER_PACKAGE_URL@")
+hunter_test_string_not_empty("@HUNTER_PACKAGE_SHA1@")
+hunter_test_string_not_empty("@HUNTER_PACKAGE_DOWNLOAD_DIR@")
+hunter_test_string_not_empty("@HUNTER_PACKAGE_SOURCE_DIR@")
+hunter_test_string_not_empty("@HUNTER_PACKAGE_INSTALL_PREFIX@")
+hunter_test_string_not_empty("@HUNTER_PACKAGE_CONFIGURATION_TYPES@")
+hunter_test_string_not_empty("@HUNTER_CACHE_FILE@")
+hunter_test_string_not_empty("@HUNTER_ARGS_FILE@")
+hunter_test_string_not_empty("@HUNTER_PACKAGE_LICENSE_FILE@")
+hunter_test_string_not_empty("@CMAKE_GENERATOR@")
+hunter_test_string_not_empty("${CMAKE_TOOLCHAIN_FILE}")
+
+set(previous_project "")
+
+if("@HUNTER_PACKAGE_LOG_BUILD@")
+  set(log_build 1)
+else()
+  set(log_build 0)
+endif()
+
+if("@HUNTER_PACKAGE_LOG_INSTALL@")
+  set(log_install 1)
+else()
+  set(log_install 0)
+endif()
+
+foreach(configuration @HUNTER_PACKAGE_CONFIGURATION_TYPES@)
+  # All configurations use the same URL which will be downloaded only once
+  # i.e. overhead only for unpacking archive + no files from the previous
+  # build will be left in case package do some insource modification (wrongly)
+  string(TOUPPER "${configuration}" configuration_upper)
+  string(COMPARE EQUAL "${configuration_upper}" "RELEASE" is_release)
+  set(postfix_name "CMAKE_${configuration_upper}_POSTFIX")
+  string(COMPARE EQUAL "${${postfix_name}}" "" is_empty)
+
+  if(NOT is_release AND is_empty)
+    set("${postfix_name}" "-${configuration}")
+  endif()
+
+  set(current_project "@HUNTER_EP_NAME@-${configuration}")
+
+  ExternalProject_Add(
+      "${current_project}"
+      URL
+      @HUNTER_PACKAGE_URL@
+      URL_HASH
+      SHA1=@HUNTER_PACKAGE_SHA1@
+      DOWNLOAD_DIR
+      "@HUNTER_PACKAGE_DOWNLOAD_DIR@"
+      SOURCE_DIR
+      "@HUNTER_PACKAGE_SOURCE_DIR@"
+      INSTALL_DIR
+      "@HUNTER_PACKAGE_INSTALL_PREFIX@"
+      BUILD_IN_SOURCE 1
+      CONFIGURE_COMMAND ""
+      BUILD_COMMAND
+        make -f makefile.u hadd f2c.h signal1.h sysdep1.h all
+      INSTALL_COMMAND
+        "@CMAKE_COMMAND@" -E make_directory "@HUNTER_PACKAGE_INSTALL_PREFIX@/include"
+      COMMAND
+        "@CMAKE_COMMAND@" -E make_directory "@HUNTER_PACKAGE_INSTALL_PREFIX@/lib"
+      COMMAND
+        "@CMAKE_COMMAND@" -E copy f2c.h "@HUNTER_PACKAGE_INSTALL_PREFIX@/include"
+      COMMAND
+        "@CMAKE_COMMAND@" -E copy libf2c.a "@HUNTER_PACKAGE_INSTALL_PREFIX@/lib"
+      LOG_BUILD ${log_build}
+      LOG_INSTALL ${log_install}
+  )
+
+  # Each external project must depends on previous one since they all use
+  # the same building directory
+  string(COMPARE EQUAL "${previous_project}" "" is_empty)
+  if(NOT is_empty)
+    add_dependencies(
+        "${current_project}"
+        "${previous_project}"
+    )
+  endif()
+  set(previous_project "${current_project}")
+endforeach()
