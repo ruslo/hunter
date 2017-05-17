@@ -1,0 +1,12 @@
+include(hunter_add_version)
+
+hunter_add_version(
+    PACKAGE_NAME
+    "@PACKAGE_NAME@"
+    VERSION
+    "@PACKAGE_SHA1@"
+    URL
+    "@PACKAGE_URL@"
+    SHA1
+    "@PACKAGE_SHA1@"
+)
