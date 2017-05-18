@@ -18,3 +18,4 @@ Serialize
  * `RapidJSON <https://github.com/ruslo/hunter/wiki/pkg.rapidjson>`_ - A fast JSON parser/generator for C++ with both SAX/DOM style API
  * `RapidXML <https://github.com/ruslo/hunter/wiki/pkg.rapidxml>`_ - attempt to create the fastest XML parser possible, while retaining usability, portability and reasonable W3C compatibility.
  * `yaml-cpp <https://github.com/ruslo/hunter/wiki/pkg.yaml-cpp>`_ - human friendly data serialization standard for all programming languages.
+ * `jsoncpp <https://github.com/ruslo/hunter/wiki/pkg.jsoncpp>`_ - A library that allows manipulating JSON values, including serialization and deserialization to and from strings. 
