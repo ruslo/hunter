@@ -1,6 +1,7 @@
 .. spelling::
 
   json
+  deserialization
 
 Serialize
 ---------
