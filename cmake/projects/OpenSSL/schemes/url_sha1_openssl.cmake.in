@@ -56,10 +56,6 @@ if(ANDROID)
   # * https://wiki.openssl.org/index.php/Android#Build_the_OpenSSL_Library
   # Set environment variables similar to 'setenv-android.sh' script:
   # * https://wiki.openssl.org/index.php/Android#Adjust_the_Cross-Compile_Script
-  set(configure_command
-      ${configure_command} ${CMAKE_C_FLAGS})
-
-  # Latest OpenSSL (1.1.1) still does not have correct android targets, so set generic with our CFLAGS
   string(COMPARE EQUAL "${ANDROID_SSL_ARCH}" "arm64" _is_arm64)
   string(COMPARE EQUAL "${ANDROID_SSL_ARCH}" "mips64" _is_mips64)
   string(COMPARE EQUAL "${ANDROID_SSL_ARCH}" "x86_64" _is_x8664)
@@ -76,6 +72,8 @@ set(configure_command
     CC=${CMAKE_C_COMPILER}
     ${configure_command})
 
+# Pass C flags through
+set(configure_opts ${configure_opts} ${CMAKE_C_FLAGS})
 
 set(
     configure_command
