@@ -87,9 +87,9 @@ hunter_config(OpenNMTTokenizer VERSION 0.2.0-p0)
 if(MSVC OR ANDROID)
   # FIXME: https://travis-ci.org/ingenue/hunter/jobs/215460184
   # FIXME: https://ci.appveyor.com/project/ingenue/hunter/build/1.0.1470
-  hunter_config(OpenSSL VERSION 1.0.2k)
+  hunter_config(OpenSSL VERSION 1.0.2l)
 else()
-  hunter_config(OpenSSL VERSION 1.1.0e)
+  hunter_config(OpenSSL VERSION 1.1.0f)
 endif()
 hunter_config(PNG VERSION 1.6.26-p1)
 hunter_config(PocoCpp VERSION 1.7.6-p0)
