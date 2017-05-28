@@ -1,4 +1,5 @@
-# Copyright (c) 2013-2015, Ruslan Baratov, Aaditya Kalsi
+# Copyright (c) 2013-2017, Ruslan Baratov
+# Copyright (c) 2015, Aaditya Kalsi
 # All rights reserved.
 
 include(CMakeParseArguments) # cmake_parse_arguments
