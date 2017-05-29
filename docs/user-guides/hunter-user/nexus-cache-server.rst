@@ -9,8 +9,8 @@ directly. As an alternative you can also use ``Nexus Repository Manager``.
 Nexus installation
 ==================
 
-In order to install and configure Nexus Repository Manager, please follow official Sonartype `documentation. <https://books.sonatype.com/nexus-book/reference/install.html>`__
-There is also possibility do download ``docker images`` with preinstalled Nexus Repository Manager:
+In order to install and configure Nexus Repository Manager, please follow official `documentation. <https://books.sonatype.com/nexus-book/reference/install.html>`__
+There is also possibility do download ``docker images`` where ``Nexus Repository Manager`` is already installed:
 
 * Nexus Repository Manager 2: https://github.com/sonatype/docker-nexus
 
