@@ -1,36 +1,41 @@
 Using Nexus Repository manager as binary cache server
 -----------------------------------------------------
 
-Hunter allows to upload binary cache to any server. If you want to use `github <https://github.com>`__
-as a cache server, then you can execute `python script <https://github.com/ruslo/hunter/blob/master/maintenance/upload-cache-to-github.py>`__
-which is uploading cache binaries to `github <https://github.com>`__
+Hunter allows to upload binary cache to any server. If you want to use `GitHub <https://github.com>`__
+as a cache server, then you can execute
+`python script <https://github.com/ruslo/hunter/blob/master/maintenance/upload-cache-to-github.py>`__
+which is uploading cache binaries to `GitHub <https://github.com>`__
 directly. As an alternative you can also use ``Nexus Repository Manager``.
+
+.. seealso::
+
+  :doc:`/faq/why-binaries-from-server-not-used`
 
 Nexus installation
 ==================
 
-In order to install and configure Nexus Repository Manager, please follow official `documentation. <https://books.sonatype.com/nexus-book/reference/install.html>`__
-There is also possibility do download ``docker images`` where ``Nexus Repository Manager`` is already installed:
+In order to install and configure Nexus Repository Manager, please follow
+official `documentation <https://books.sonatype.com/nexus-book/reference/install.html>`__.
+There is also possibility do download ``docker images`` where
+``Nexus Repository Manager`` is already installed:
 
-* Nexus Repository Manager 2: https://github.com/sonatype/docker-nexus
-
-* Nexus Repository Manager 3: https://github.com/sonatype/docker-nexus3
+* `Nexus Repository Manager 2 <https://github.com/sonatype/docker-nexus>`__
+* `Nexus Repository Manager 3 <https://github.com/sonatype/docker-nexus3>`__
 
 Nexus adding, configuring and managing repositories
 ===================================================
 
 To create new or manage existing repository follow this links:
 
-* Adding a new repository: https://books.sonatype.com/nexus-book/reference/config-sect-new-repo.html
-
-* Managing repositories: https://books.sonatype.com/nexus-book/reference/confignx-sect-manage-repo.html
-
-* Configuring repositories: https://books.sonatype.com/nexus-book/reference/confignx-sect-manage-repo.html#_configuring_repositories
+* `Adding a new repository <https://books.sonatype.com/nexus-book/reference/config-sect-new-repo.html>`__
+* `Managing repositories <https://books.sonatype.com/nexus-book/reference/confignx-sect-manage-repo.html>`__
+* `Configuring repositories <https://books.sonatype.com/nexus-book/reference/confignx-sect-manage-repo.html#_configuring_repositories>`__
 
 Uploading cache binaries to Nexus
 =================================
 
-The simplest way to upload local cache binaries to Nexus server is by using ``curl``:
+The simplest way to upload local cache binaries to Nexus server is by using
+``cURL``:
 
 .. code-block:: bash
 
@@ -43,7 +48,8 @@ The simplest way to upload local cache binaries to Nexus server is by using ``cu
 Configuring Hunter to use Nexus
 ===============================
 
-To configure ``Hunter`` to use ``Nexus`` server, you must perform the following step:
+To configure ``Hunter`` to use ``Nexus`` server, you must perform the following
+step:
 
 .. code-block:: cmake
 
