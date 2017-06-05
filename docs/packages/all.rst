@@ -18,6 +18,7 @@ All packages
 * `CURL <https://github.com/ruslo/hunter/wiki/pkg.curl>`__
 * `Catch <https://github.com/ruslo/hunter/wiki/pkg.catch>`__
 * `Comet <https://github.com/ruslo/hunter/wiki/pkg.comet>`__
+* `cpp_redis <https://github.com/ruslo/hunter/wiki/pkg.cpp_redis>`__
 * `CppNetlib.URI <https://github.com/ruslo/hunter/wiki/pkg.cppnetlib.uri>`__
 * `CsvParserCPlusPlus <https://github.com/ruslo/hunter/wiki/pkg.csvparsercplusplus>`__
 * `Eigen <https://github.com/ruslo/hunter/wiki/pkg.eigen>`__
@@ -98,6 +99,7 @@ All packages
 * `spdlog <https://github.com/ruslo/hunter/wiki/pkg.spdlog>`__
 * `sse2neon <https://github.com/ruslo/hunter/wiki/pkg.sse2neon>`__
 * `szip <https://github.com/ruslo/hunter/wiki/pkg.szip>`__
+* `TacoPie <https://github.com/ruslo/hunter/wiki/pkg.tacopie>`__
 * `thread-pool-cpp <https://github.com/ruslo/hunter/wiki/pkg.thread-pool-cpp>`__
 * `tinydir <https://github.com/ruslo/hunter/wiki/pkg.tinydir>`__
 * `websocketpp <https://github.com/ruslo/hunter/wiki/pkg.websocketpp>`__

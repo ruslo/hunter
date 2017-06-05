@@ -178,6 +178,14 @@ function(hunter_create_cache_file cache_path)
       "set(HUNTER_CACHED_CONFIGURATION_TYPES \"${HUNTER_CACHED_CONFIGURATION_TYPES}\" CACHE INTERNAL \"\")\n"
   )
 
+  # CMP0069 should be set to NEW so we can build old projects with LTO
+  # without modifying source code
+  file(
+      APPEND
+      "${temp_path}"
+      "set(CMAKE_POLICY_DEFAULT_CMP0069 NEW CACHE INTERNAL \"\")\n"
+  )
+
   # Atomic operation
   file(RENAME "${temp_path}" "${cache_path}")
 endfunction()

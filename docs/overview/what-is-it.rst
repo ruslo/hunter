@@ -88,6 +88,7 @@ Default version from `default.cmake`_
 .. seealso::
 
   * :doc:`Detailed sources layout </reference/layouts/sources>`
+  * :doc:`Creating version on the fly from Git submodule </user-guides/hunter-user/git-submodule>`
 
 .. _release: https://github.com/ruslo/hunter/releases
 .. _Atom feed: https://github.com/ruslo/hunter/releases.atom

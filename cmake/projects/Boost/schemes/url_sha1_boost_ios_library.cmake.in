@@ -11,6 +11,7 @@ include(ExternalProject) # ExternalProject_Add
 list(APPEND CMAKE_MODULE_PATH "@HUNTER_SELF@/cmake/modules")
 
 include(hunter_boost_component_b2_args)
+include(hunter_dump_cmake_flags)
 include(hunter_install_boost_config)
 include(hunter_internal_error)
 include(hunter_status_debug)
@@ -164,6 +165,9 @@ hunter_boost_component_b2_args(
   )
 
 list(APPEND build_opts ${b2_component_opts})
+
+hunter_dump_cmake_flags()
+# -> CMAKE_CXX_FLAGS
 
 if(CMAKE_CXX_FLAGS)
   list(APPEND build_opts "cxxflags=${CMAKE_CXX_FLAGS}")
