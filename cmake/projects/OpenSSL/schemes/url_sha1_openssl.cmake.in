@@ -31,6 +31,8 @@ hunter_test_string_not_empty("@HUNTER_GLOBAL_SCRIPT_DIR@")
 if(APPLE)
   set(configure_command "./Configure")
   set(configure_opts "darwin64-x86_64-cc")
+elseif(ANDROID)
+  set(configure_command "./Configure")
 else()
   set(configure_command "./config")
 endif()
@@ -54,12 +56,14 @@ if(ANDROID)
   # * https://wiki.openssl.org/index.php/Android#Build_the_OpenSSL_Library
   # Set environment variables similar to 'setenv-android.sh' script:
   # * https://wiki.openssl.org/index.php/Android#Adjust_the_Cross-Compile_Script
-  set(configure_command
-      # Ignored. Prevents script from checking host uname
-      RELEASE=2.6.37
-      SYSTEM=android
-      ARCH=${ANDROID_SSL_ARCH}
-      ${configure_command})
+  string(COMPARE EQUAL "${ANDROID_SSL_ARCH}" "arm64" _is_arm64)
+  string(COMPARE EQUAL "${ANDROID_SSL_ARCH}" "mips64" _is_mips64)
+  string(COMPARE EQUAL "${ANDROID_SSL_ARCH}" "x86_64" _is_x8664)
+  if (_is_arm64 OR _is_mips64 OR _is_x8664)
+    set(configure_opts "linux-generic64")
+  else()
+    set(configure_opts "linux-generic32")
+  endif()
 endif()
 
 # Pass C compiler through
