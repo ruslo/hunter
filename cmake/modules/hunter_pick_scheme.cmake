@@ -66,11 +66,19 @@ function(hunter_pick_scheme)
       is_unpack_install
   )
 
+  string(
+      COMPARE
+      EQUAL
+      "${HUNTER_DOWNLOAD_SCHEME}"
+      "url_sha1_unpack_bin_install"
+      is_unpack_bin_install
+  )
+
   if(is_unpack)
     set(HUNTER_PACKAGE_SCHEME_UNPACK "1")
   elseif(is_download)
     set(HUNTER_PACKAGE_SCHEME_DOWNLOAD "1")
-  elseif(is_unpack_install)
+  elseif(is_unpack_install OR is_unpack_bin_install)
     set(HUNTER_PACKAGE_SCHEME_UNPACK_INSTALL "1")
   else()
     set(HUNTER_PACKAGE_SCHEME_INSTALL "1")

@@ -1,0 +1,47 @@
+# Copyright (c) 2017, Zhuhao Wang
+# All rights reserved.
+
+cmake_minimum_required(VERSION 3.0)
+project(Hunter)
+
+include(ExternalProject) # ExternalProject_Add
+
+list(APPEND CMAKE_MODULE_PATH "@HUNTER_SELF@/cmake/modules")
+
+include(hunter_status_debug)
+include(hunter_test_string_not_empty)
+
+hunter_status_debug("Scheme: url_sha1_unpack_bin_install")
+
+# Check preconditions
+hunter_test_string_not_empty("@HUNTER_SELF@")
+hunter_test_string_not_empty("@HUNTER_EP_NAME@")
+hunter_test_string_not_empty("@HUNTER_PACKAGE_URL@")
+hunter_test_string_not_empty("@HUNTER_PACKAGE_SHA1@")
+hunter_test_string_not_empty("@HUNTER_PACKAGE_DOWNLOAD_DIR@")
+hunter_test_string_not_empty("@HUNTER_PACKAGE_SOURCE_DIR@")
+hunter_test_string_not_empty("@HUNTER_PACKAGE_INSTALL_PREFIX@")
+
+ExternalProject_Add(
+    "@HUNTER_EP_NAME@"
+    URL
+    "@HUNTER_PACKAGE_URL@"
+    URL_HASH
+    SHA1=@HUNTER_PACKAGE_SHA1@
+    DOWNLOAD_DIR
+    "@HUNTER_PACKAGE_DOWNLOAD_DIR@"
+    SOURCE_DIR
+    "@HUNTER_PACKAGE_SOURCE_DIR@"
+    INSTALL_DIR
+    "@HUNTER_PACKAGE_INSTALL_PREFIX@"
+        # not used, just avoid creating Install/<name> empty directory
+    CONFIGURE_COMMAND
+    ""
+    BUILD_COMMAND
+    ""
+    INSTALL_COMMAND
+    "@CMAKE_COMMAND@"
+    "-Dfrom=@HUNTER_PACKAGE_SOURCE_DIR@"
+    "-Dto=@HUNTER_PACKAGE_INSTALL_PREFIX@/bin"
+    -P "@HUNTER_SELF@/scripts/copy-files.cmake"
+)
