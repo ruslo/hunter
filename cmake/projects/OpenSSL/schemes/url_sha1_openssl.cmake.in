@@ -73,7 +73,7 @@ if(ANDROID)
   # * https://github.com/openssl/openssl/pull/2229
   # The ./config script only detects Android x86 and armv7 targets anyway.
   # * https://github.com/openssl/openssl/issues/2490
-  if (CMAKE_ANDROID_ARCH MATCHES "mips64|arm64|x86_64")
+  if (ANDROID_SSL_ARCH MATCHES "mips64|arm64|x86_64")
     set(configure_opts "linux-generic64")
   else()
     set(configure_opts "linux-generic32")
