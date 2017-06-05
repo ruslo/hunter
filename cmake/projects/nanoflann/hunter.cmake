@@ -21,13 +21,13 @@ hunter_add_version(
     72a42a31056aab380eac09b9f00dab18e91235b8
     )
 
-hunter_pick_scheme(DEFAULT url_sha1_cmake)
-hunter_cacheable(nanoflann)
-hunter_download(PACKAGE_NAME nanoflann)
-
 hunter_cmake_args(
   nanoflann
   CMAKE_ARGS
   NANOFLANN_BUILD_EXAMPLES=OFF
   NANOFLANN_BUILD_TESTS=OFF
-  )
+  )  
+
+hunter_pick_scheme(DEFAULT url_sha1_cmake)
+hunter_cacheable(nanoflann)
+hunter_download(PACKAGE_NAME nanoflann)
