@@ -42,6 +42,11 @@ function(hunter_patch_unrelocatable_text_files)
       string(REPLACE "${x_FROM}" "${x_TO}" line "${line}")
       set(output_content "${output_content}\n${line}")
     endforeach()
+
+    # if file is a link we should remove it first, otherwise we will
+    # update original file too
+    file(REMOVE "${text_full_path}")
+
     file(WRITE "${text_full_path}" "${output_content}\n")
   endforeach()
 endfunction()
