@@ -71,6 +71,7 @@ endif()
 hunter_config(LLVM VERSION 3.6.2-p0) # Clang
 hunter_config(LLVMCompilerRT VERSION 3.6.0) # Clang
 hunter_config(Leathers VERSION 0.1.6)
+hunter_config(Leptonica VERSION 1.74.2-p4)
 hunter_config(Libcxx VERSION 3.6.2) # Clang
 hunter_config(Libcxxabi VERSION 3.6.2) # Clang
 hunter_config(librtmp VERSION 2.4.0-p0)
