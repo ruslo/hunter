@@ -18,7 +18,7 @@ hunter_add_version(
     URL
     "https://github.com/hunter-packages/eos/archive/v0.12.1.tar.gz"
     SHA1
-    151444ba987f4f02052534462c6c71e47a338404
+    a3839078423cc81d153db84267e9c2eb14564c88
 )
 
 hunter_add_version(
