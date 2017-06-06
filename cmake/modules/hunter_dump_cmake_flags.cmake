@@ -20,6 +20,25 @@ function(hunter_dump_cmake_flags)
     hunter_internal_error("Unparsed arguments: ${x_UNPARSED_ARGUMENTS}")
   endif()
 
+
+  if(APPLE)
+    if(IOS)
+      string(COMPARE EQUAL "${IOS_DEPLOYMENT_SDK_VERSION}" "" _no_deployment_sdk_version)
+      if(_no_deployment_sdk_version)
+        set(CMAKE_CXX_FLAGS "-miphoneos-version-min=@IOS_SDK_VERSION@")
+        set(CMAKE_C_FLAGS "-miphoneos-version-min=@IOS_SDK_VERSION@")
+      else()
+        set(CMAKE_CXX_FLAGS "-miphoneos-version-min=${IOS_DEPLOYMENT_SDK_VERSION}")
+        set(CMAKE_C_FLAGS "-miphoneos-version-min=${IOS_DEPLOYMENT_SDK_VERSION}")
+      endif()
+    endif()
+  
+    if(CMAKE_XCODE_ATTRIBUTE_ENABLE_BITCODE)
+      set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -fembed-bitcode")
+      set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -fembed-bitcode")
+    endif()  
+  endif()
+  
   set(cppflags "")
 
   if(ANDROID)

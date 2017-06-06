@@ -41,18 +41,9 @@ hunter_dump_cmake_flags(SKIP_INCLUDES)
 hunter_unsetvar(ssl_input_libraries)
 hunter_unsetvar(crypto_input_libraries)
 
-string(COMPARE EQUAL "${CMAKE_XCODE_ATTRIBUTE_ENABLE_BITCODE}" "YES" _embed_bitcode)
-set(bitcode "")
-if(_embed_bitcode)
-  set(bitcode "-fembed-bitcode")
-endif()  
-
-string(COMPARE EQUAL "${IOS_DEPLOYMENT_SDK_VERSION}" "" _no_deployment_sdk_version)
-if(_no_deployment_sdk_version)
-  set(iphone_minversion "-miphoneos-version-min=@IOS_SDK_VERSION@")
-else()
-  set(iphone_minversion "-miphoneos-version-min=${IOS_DEPLOYMENT_SDK_VERSION}")
-endif()  
+set(configure_opts iphoneos-cross threads no-shared)
+# Pass C flags through
+set(configure_opts ${configure_opts} ${CMAKE_C_FLAGS})
 
 foreach(arch @IPHONEOS_ARCHS@ @IPHONESIMULATOR_ARCHS@)
   list(
@@ -99,7 +90,6 @@ ExternalProject_Add(
 
 foreach(variant @IPHONEOS_ARCHS@ @IPHONESIMULATOR_ARCHS@)
   set(iphoneos_archs @IPHONEOS_ARCHS@)
-
   list(FIND iphoneos_archs ${variant} find_index)
   if(find_index EQUAL -1)
     set(CROSS_TOP "@IPHONESIMULATOR_ROOT@")
@@ -133,13 +123,9 @@ foreach(variant @IPHONEOS_ARCHS@ @IPHONESIMULATOR_ARCHS@)
           # not used, just avoid creating Install/<name> empty directory
       CONFIGURE_COMMAND
       ./Configure
-      iphoneos-cross
-      threads
-      no-shared
+      "${configure_opts}"
       "${noasm}"
       "--prefix=@HUNTER_PACKAGE_INSTALL_PREFIX@"
-      "${iphone_minversion}"
-      "${bitcode}"
       "-arch ${variant}"
       BUILD_COMMAND
       . "@HUNTER_GLOBAL_SCRIPT_DIR@/clear-all.sh" &&
