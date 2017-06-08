@@ -33,7 +33,7 @@ function(hunter_dump_cmake_flags)
       set(CMAKE_C_FLAGS "-miphoneos-version-min=${IOS_DEPLOYMENT_SDK_VERSION}")
     endif()
   
-    if(XCODE AND CMAKE_XCODE_ATTRIBUTE_ENABLE_BITCODE)
+    if(CMAKE_XCODE_ATTRIBUTE_ENABLE_BITCODE)
       set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -fembed-bitcode")
       set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -fembed-bitcode")
     endif()  
