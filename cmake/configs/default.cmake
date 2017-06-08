@@ -71,6 +71,7 @@ endif()
 hunter_config(LLVM VERSION 3.6.2-p0) # Clang
 hunter_config(LLVMCompilerRT VERSION 3.6.0) # Clang
 hunter_config(Leathers VERSION 0.1.6)
+hunter_config(Leptonica VERSION 1.74.2-p4)
 hunter_config(Libcxx VERSION 3.6.2) # Clang
 hunter_config(Libcxxabi VERSION 3.6.2) # Clang
 hunter_config(librtmp VERSION 2.4.0-p0)
@@ -81,11 +82,10 @@ hunter_config(NASM VERSION 2.12.02)
 hunter_config(OpenBLAS VERSION 0.2.19-p0)
 hunter_config(OpenCL VERSION 2.1-p3)
 hunter_config(OpenCL-cpp VERSION 2.0.10-p0)
-hunter_config(OpenCV VERSION 3.2.0-p1)
+hunter_config(OpenCV VERSION 3.2.0-p2)
 hunter_config(OpenCV-Extra VERSION 3.0.0)
 hunter_config(OpenNMTTokenizer VERSION 0.2.0-p1)
-if(MSVC OR ANDROID)
-  # FIXME: https://travis-ci.org/ingenue/hunter/jobs/215460184
+if(MSVC)
   # FIXME: https://ci.appveyor.com/project/ingenue/hunter/build/1.0.1470
   hunter_config(OpenSSL VERSION 1.0.2l)
 else()
@@ -136,7 +136,7 @@ hunter_config(dri2proto VERSION 2.8)
 hunter_config(dri3proto VERSION 1.0)
 hunter_config(drm VERSION 2.4.67)
 hunter_config(eigen3-nnls VERSION 1.0.0)
-hunter_config(eos VERSION 0.6.1-p1)
+hunter_config(eos VERSION 0.12.1)
 hunter_config(FakeIt VERSION 2.0.3)
 hunter_config(fixesproto VERSION 5.0)
 hunter_config(flatbuffers VERSION 1.3.0-p3)
