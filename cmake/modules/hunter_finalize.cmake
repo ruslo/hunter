@@ -165,4 +165,11 @@ macro(hunter_finalize)
   if(CMAKE_INTERPROCEDURAL_OPTIMIZATION AND NOT POLICY CMP0069)
     hunter_user_error("Unsuitable CMake version")
   endif()
+
+  if(IOS AND NOT CMAKE_CROSSCOMPILING)
+    hunter_user_error(
+        "CMAKE_CROSSCOMPILING should be set on iOS."
+        " Please update your toolchain."
+    )
+  endif()
 endmacro()
