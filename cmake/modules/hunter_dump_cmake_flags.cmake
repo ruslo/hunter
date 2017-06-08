@@ -5,6 +5,7 @@ include(CMakeParseArguments) # cmake_parse_arguments
 
 include(hunter_internal_error)
 include(hunter_get_lang_standard_flag)
+include(hunter_test_string_not_empty)
 
 # Packages to test this function:
 # * Boost
@@ -21,24 +22,23 @@ function(hunter_dump_cmake_flags)
   endif()
 
 
-  if(APPLE)
-    if(IOS)
-      string(COMPARE EQUAL "${IOS_DEPLOYMENT_SDK_VERSION}" "" _no_deployment_sdk_version)
-      if(_no_deployment_sdk_version)
-        set(CMAKE_CXX_FLAGS "-miphoneos-version-min=@IOS_SDK_VERSION@")
-        set(CMAKE_C_FLAGS "-miphoneos-version-min=@IOS_SDK_VERSION@")
-      else()
-        set(CMAKE_CXX_FLAGS "-miphoneos-version-min=${IOS_DEPLOYMENT_SDK_VERSION}")
-        set(CMAKE_C_FLAGS "-miphoneos-version-min=${IOS_DEPLOYMENT_SDK_VERSION}")
-      endif()
+  if(IOS)
+    hunter_test_string_not_empty("${IOS_SDK_VERSION}")
+    string(COMPARE EQUAL "${IOS_DEPLOYMENT_SDK_VERSION}" "" _no_deployment_sdk_version)
+    if(_no_deployment_sdk_version)
+      set(CMAKE_CXX_FLAGS "-miphoneos-version-min=${IOS_SDK_VERSION}")
+      set(CMAKE_C_FLAGS "-miphoneos-version-min=${IOS_SDK_VERSION}")
+    else()
+      set(CMAKE_CXX_FLAGS "-miphoneos-version-min=${IOS_DEPLOYMENT_SDK_VERSION}")
+      set(CMAKE_C_FLAGS "-miphoneos-version-min=${IOS_DEPLOYMENT_SDK_VERSION}")
     endif()
   
-    if(CMAKE_XCODE_ATTRIBUTE_ENABLE_BITCODE)
+    if(XCODE AND CMAKE_XCODE_ATTRIBUTE_ENABLE_BITCODE)
       set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -fembed-bitcode")
       set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -fembed-bitcode")
     endif()  
   endif()
-  
+
   set(cppflags "")
 
   if(ANDROID)
