@@ -87,6 +87,10 @@
 # pragma message(HUNTER_INFO(_COMPILER_VERSION))
 #endif
 
+#if defined(_CONTROL_FLOW_GUARD)
+# pragma message(HUNTER_INFO(_CONTROL_FLOW_GUARD))
+#endif
+
 #if defined(_CPPLIB_VER)
 # pragma message(HUNTER_INFO(_CPPLIB_VER))
 #endif
@@ -121,6 +125,14 @@
 
 #if defined(_INTEGRAL_MAX_BITS)
 # pragma message(HUNTER_INFO(_INTEGRAL_MAX_BITS))
+#endif
+
+#if defined(_ISO_VOLATILE)
+# pragma message(HUNTER_INFO(_ISO_VOLATILE))
+#endif
+
+#if defined(_KERNEL_MODE)
+# pragma message(HUNTER_INFO(_KERNEL_MODE))
 #endif
 
 #if defined(_LIBCPP_HAS_NO_ASAN)
@@ -191,6 +203,10 @@
 # pragma message(HUNTER_INFO(_MSC_VER))
 #endif
 
+#if defined(_MSVC_LANG)
+# pragma message(HUNTER_INFO(_MSVC_LANG))
+#endif
+
 #if defined(_MT)
 # pragma message(HUNTER_INFO(_MT))
 #endif
@@ -207,6 +223,14 @@
 # pragma message(HUNTER_INFO(_M_ARM))
 #endif
 
+#if defined(_M_ARM64)
+# pragma message(HUNTER_INFO(_M_ARM64))
+#endif
+
+#if defined(_M_ARM_ARMV7VE)
+# pragma message(HUNTER_INFO(_M_ARM_ARMV7VE))
+#endif
+
 #if defined(_M_ARM_FP)
 # pragma message(HUNTER_INFO(_M_ARM_FP))
 #endif
@@ -221,6 +245,22 @@
 
 #if defined(_M_CEE_SAFE)
 # pragma message(HUNTER_INFO(_M_CEE_SAFE))
+#endif
+
+#if defined(_M_FP_EXCEPT)
+# pragma message(HUNTER_INFO(_M_FP_EXCEPT))
+#endif
+
+#if defined(_M_FP_FAST)
+# pragma message(HUNTER_INFO(_M_FP_FAST))
+#endif
+
+#if defined(_M_FP_PRECISE)
+# pragma message(HUNTER_INFO(_M_FP_PRECISE))
+#endif
+
+#if defined(_M_FP_STRICT)
+# pragma message(HUNTER_INFO(_M_FP_STRICT))
 #endif
 
 #if defined(_M_IA64)
@@ -283,6 +323,10 @@
 # pragma message(HUNTER_INFO(_POWER))
 #endif
 
+#if defined(_PREFAST_)
+# pragma message(HUNTER_INFO(_PREFAST_))
+#endif
+
 #if defined(_R3000)
 # pragma message(HUNTER_INFO(_R3000))
 #endif
@@ -337,6 +381,10 @@
 
 #if defined(_WIN64)
 # pragma message(HUNTER_INFO(_WIN64))
+#endif
+
+#if defined(_WINRT_DLL)
+# pragma message(HUNTER_INFO(_WINRT_DLL))
 #endif
 
 #if defined(_Wp64)
@@ -541,6 +589,10 @@
 
 #if defined(__ATOMIC_SEQ_CST)
 # pragma message(HUNTER_INFO(__ATOMIC_SEQ_CST))
+#endif
+
+#if defined(__ATOM__)
+# pragma message(HUNTER_INFO(__ATOM__))
 #endif
 
 #if defined(__AVX2__)
