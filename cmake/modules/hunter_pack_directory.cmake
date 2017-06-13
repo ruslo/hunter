@@ -11,7 +11,7 @@ function(hunter_pack_directory dir_to_pack dest_dir result_sha1)
   set(temp "${dest_dir}/cache.tar.bz2")
 
   set(cmd "${CMAKE_COMMAND}" "-E" "tar")
-  if(HUNTER_STATUS_DEBUG)
+  if(HUNTER_STATUS_DEBUG AND NOT HUNTER_SUPPRESS_LIST_OF_FILES)
     list(APPEND cmd "cvjf")
   else()
     list(APPEND cmd "cjf")
