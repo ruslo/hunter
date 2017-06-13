@@ -16,4 +16,4 @@ hunter_add_package(OpenJPEG)
 find_package(OpenJPEG CONFIG REQUIRED)
 
 add_executable(foo foo.cpp)
-target_link_libraries(foo OpenJPEG::OpenJPEG)
+target_link_libraries(foo OpenJPEG::openjp2)
