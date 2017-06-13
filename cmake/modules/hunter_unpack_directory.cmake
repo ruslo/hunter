@@ -47,7 +47,7 @@ function(hunter_unpack_directory cache_sha1)
   # While waiting for lock other instance can do all the job
   if(NOT EXISTS "${unpack_stamp}")
     set(cmd "${CMAKE_COMMAND}" "-E" "tar")
-    if(HUNTER_STATUS_DEBUG)
+    if(HUNTER_STATUS_DEBUG AND NOT HUNTER_SUPPRESS_LIST_OF_FILES)
       list(APPEND cmd "xvf")
     else()
       list(APPEND cmd "xf")

@@ -201,6 +201,7 @@ def run():
       project_dir,
       '--fwd',
       'CMAKE_POLICY_DEFAULT_CMP0069=NEW',
+      'HUNTER_SUPPRESS_LIST_OF_FILES=ON',
       'HUNTER_ROOT={}'.format(hunter_root),
       'TESTING_URL={}'.format(hunter_url),
       'TESTING_SHA1={}'.format(hunter_sha1)
@@ -277,6 +278,7 @@ def run():
         'HUNTER_DISABLE_BUILDS=ON',
         'HUNTER_USE_CACHE_SERVERS=ONLY',
         'CMAKE_POLICY_DEFAULT_CMP0069=NEW',
+        'HUNTER_SUPPRESS_LIST_OF_FILES=ON',
         'HUNTER_ROOT={}'.format(hunter_root),
         'TESTING_URL={}'.format(hunter_url),
         'TESTING_SHA1={}'.format(hunter_sha1)
