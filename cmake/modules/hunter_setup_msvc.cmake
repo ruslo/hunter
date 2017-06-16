@@ -131,6 +131,11 @@ macro(hunter_setup_msvc)
       endif()
     else()
       set(_hunter_vcvarsall_path "${_hunter_vcvarsall_path}/../../VC")
+      if(NOT HUNTER_MSVC_VERSION VERSION_LESS "15")
+        # Visual Studio 15 2017+
+        # * https://github.com/ruslo/hunter/issues/836#issue-236352343
+        set(_hunter_vcvarsall_path "${_hunter_vcvarsall_path}/Auxiliary/Build")
+      endif()
     endif()
 
     get_filename_component(
