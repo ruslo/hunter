@@ -8,18 +8,6 @@ include(hunter_download)
 include(hunter_pick_scheme)
 
 # List of versions here...
-
-hunter_add_version(
-    PACKAGE_NAME
-    fmt
-    VERSION
-    "3.0.2"
-    URL
-    "https://github.com/fmtlib/fmt/archive/3.0.2.tar.gz"
-    SHA1
-    4726b14f05a1d9a1c8a55be5762215c8a3d53786
-)
-
 hunter_add_version(
     PACKAGE_NAME
     fmt
