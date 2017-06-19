@@ -1,8 +1,6 @@
 # Copyright (c) 2015-2017, Ruslan Baratov
 # All rights reserved.
 
-cmake_minimum_required(VERSION 3.3) # LIST_DIRECTORIES
-
 include(hunter_internal_error)
 include(hunter_print_cmd)
 include(hunter_status_debug)
@@ -81,6 +79,14 @@ function(hunter_unpack_directory cache_sha1)
       hunter_status_debug("Unpacked successfully")
     else()
       hunter_internal_error("Unpack failed")
+    endif()
+
+    # For LIST_DIRECTORIES
+    if(CMAKE_VERSION VERSION_LESS 3.3)
+      hunter_internal_error(
+          "CMake version 3.3 at least needed."
+          "Current version is ${CMAKE_VERSION}."
+      )
     endif()
 
     hunter_status_debug("Creating list of files and directories")
