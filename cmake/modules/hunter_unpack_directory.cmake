@@ -1,6 +1,8 @@
 # Copyright (c) 2015-2017, Ruslan Baratov
 # All rights reserved.
 
+cmake_minimum_required(VERSION 3.3) # LIST_DIRECTORIES
+
 include(hunter_internal_error)
 include(hunter_print_cmd)
 include(hunter_status_debug)
