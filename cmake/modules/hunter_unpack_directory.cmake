@@ -82,7 +82,7 @@ function(hunter_unpack_directory cache_sha1)
     endif()
 
     # For LIST_DIRECTORIES
-    if(CMAKE_VERSION VERSION_LESS 3.3)
+    if(CMAKE_VERSION VERSION_LESS 3.3 AND use_link_script)
       hunter_internal_error(
           "CMake version 3.3 at least needed."
           "Current version is ${CMAKE_VERSION}."
