@@ -81,6 +81,14 @@ function(hunter_unpack_directory cache_sha1)
       hunter_internal_error("Unpack failed")
     endif()
 
+    # For LIST_DIRECTORIES
+    if(CMAKE_VERSION VERSION_LESS 3.3 AND use_link_script)
+      hunter_internal_error(
+          "CMake version 3.3 at least needed."
+          "Current version is ${CMAKE_VERSION}."
+      )
+    endif()
+
     hunter_status_debug("Creating list of files and directories")
     file(
         GLOB_RECURSE
