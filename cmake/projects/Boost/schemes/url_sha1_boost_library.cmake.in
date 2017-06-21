@@ -251,6 +251,10 @@ set(
     "--user-config=${boost_user_jam}"
     --with-@HUNTER_PACKAGE_COMPONENT@
 )
+if("@MINGW@")
+  # cross compile from "linux" to "windows" using mingw
+  set(build_opts target-os=windows ${build_opts})
+endif()
 
 hunter_boost_component_b2_args(
     "@HUNTER_PACKAGE_COMPONENT@"
@@ -337,17 +341,17 @@ if(@HUNTER_STATUS_DEBUG@)
   set(verbose_output "-d+2 --debug-configuration")
 endif()
 
-if("@MSVC@")
+if(CMAKE_HOST_WIN32)
   set(bootstrap_cmd "bootstrap.bat")
-  set(b2_cmd "b2")
-elseif("@MINGW@")
-  set(bootstrap_cmd "bootstrap.bat" "gcc")
   set(b2_cmd "b2")
 else()
   set(bootstrap_cmd "./bootstrap.sh")
   set(b2_cmd "./b2")
 endif()
 
+if("@MINGW@")
+  list(APPEND bootstrap_cmd "gcc")
+endif()
 
 if(HUNTER_STATUS_DEBUG)
   file(READ "${boost_user_jam}" USER_JAM_CONTENT)
