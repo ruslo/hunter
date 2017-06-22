@@ -1,5 +1,6 @@
 AppVeyor
 Bonjour
+Cap'n
 CGold
 CMake
 CPack
@@ -14,6 +15,8 @@ IDEs
 Installable
 Makefile
 NMake
+Proto
+RPC
 Scalable
 Shareable
 Stackoverflow
