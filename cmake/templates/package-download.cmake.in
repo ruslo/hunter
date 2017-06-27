@@ -1,0 +1,7 @@
+include(hunter_cacheable)
+include(hunter_download)
+include(hunter_pick_scheme)
+
+hunter_pick_scheme(DEFAULT url_sha1_cmake)
+hunter_cacheable("@PACKAGE_NAME@")
+hunter_download(PACKAGE_NAME "@PACKAGE_NAME@")
