@@ -21,9 +21,21 @@ hunter_add_version(
     684580f4cf1f40ca7750bea90facc4564a807c2a
 )
 
+hunter_add_version(
+    PACKAGE_NAME
+    doctest
+    VERSION
+    "1.2.0"
+    URL
+    "https://github.com/onqtam/doctest/archive/1.2.0.tar.gz"
+    SHA1
+    53f87a422c7cc842d9b3e06d5a7eb7e35307e6ac
+)
+
 hunter_cmake_args(doctest CMAKE_ARGS
     DOCTEST_SKIP_EXAMPLES=ON
     DOCTEST_SKIP_COVERAGE=ON
+    DOCTEST_WITH_TESTS=OFF
 )
 
 # Pick a download scheme

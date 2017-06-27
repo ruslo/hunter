@@ -10,6 +10,17 @@ hunter_add_version(
     PACKAGE_NAME
     glm
     VERSION
+    "0.9.8.5"
+    URL
+    "https://github.com/hunter-packages/glm/archive/0.9.8.5.tar.gz"
+    SHA1
+    04ff6d037916f85219e53731e08eb8660d14a38d
+    )
+
+hunter_add_version(
+    PACKAGE_NAME
+    glm
+    VERSION
     "0.9.7.6"
     URL
     "https://github.com/hunter-packages/glm/archive/0.9.7.6-p0.tar.gz"

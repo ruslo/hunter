@@ -17,6 +17,17 @@ hunter_add_version(
     PACKAGE_NAME
     OpenCV
     VERSION
+    "3.2.0-p2"
+    URL
+    "https://github.com/hunter-packages/opencv/archive/v3.2.0-p2.tar.gz"
+    SHA1
+    99219206c4fb9b5b6f60e03112746461baf6c9ab
+)
+
+hunter_add_version(
+    PACKAGE_NAME
+    OpenCV
+    VERSION
     "3.2.0-p1"
     URL
     "https://github.com/hunter-packages/opencv/archive/v3.2.0-p1.tar.gz"
@@ -330,4 +341,7 @@ hunter_pick_scheme(DEFAULT url_sha1_cmake)
 #     * libexample_Ad.a
 
 hunter_cacheable(OpenCV)
-hunter_download(PACKAGE_NAME OpenCV)
+hunter_download(
+    PACKAGE_NAME OpenCV
+    PACKAGE_INTERNAL_DEPS_ID "1"
+)

@@ -5,6 +5,7 @@ include(CMakeParseArguments) # cmake_parse_arguments
 
 include(hunter_internal_error)
 include(hunter_get_lang_standard_flag)
+include(hunter_test_string_not_empty)
 
 # Packages to test this function:
 # * Boost
@@ -18,6 +19,24 @@ function(hunter_dump_cmake_flags)
   string(COMPARE NOTEQUAL "${x_UNPARSED_ARGUMENTS}" "" has_unparsed)
   if(has_unparsed)
     hunter_internal_error("Unparsed arguments: ${x_UNPARSED_ARGUMENTS}")
+  endif()
+
+
+  if(IOS)
+    hunter_test_string_not_empty("${IOS_SDK_VERSION}")
+    string(COMPARE EQUAL "${IOS_DEPLOYMENT_SDK_VERSION}" "" _no_deployment_sdk_version)
+    if(_no_deployment_sdk_version)
+      set(CMAKE_CXX_FLAGS "-miphoneos-version-min=${IOS_SDK_VERSION}")
+      set(CMAKE_C_FLAGS "-miphoneos-version-min=${IOS_SDK_VERSION}")
+    else()
+      set(CMAKE_CXX_FLAGS "-miphoneos-version-min=${IOS_DEPLOYMENT_SDK_VERSION}")
+      set(CMAKE_C_FLAGS "-miphoneos-version-min=${IOS_DEPLOYMENT_SDK_VERSION}")
+    endif()
+  
+    if(CMAKE_XCODE_ATTRIBUTE_ENABLE_BITCODE)
+      set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -fembed-bitcode")
+      set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -fembed-bitcode")
+    endif()  
   endif()
 
   set(cppflags "")
@@ -102,6 +121,7 @@ function(hunter_dump_cmake_flags)
     )
   endif()
 
+  # PIC {
   string(COMPARE NOTEQUAL "${CMAKE_CXX_COMPILE_OPTIONS_PIC}" "" has_pic)
   if(CMAKE_POSITION_INDEPENDENT_CODE AND has_pic)
     set(
@@ -115,6 +135,28 @@ function(hunter_dump_cmake_flags)
         CMAKE_C_FLAGS "${CMAKE_C_FLAGS} ${CMAKE_C_COMPILE_OPTIONS_PIC}"
     )
   endif()
+  # }
+
+  # IPO {
+  string(COMPARE NOTEQUAL "${CMAKE_CXX_COMPILE_OPTIONS_IPO}" "" has_ipo)
+  if(CMAKE_INTERPROCEDURAL_OPTIMIZATION AND has_ipo)
+    foreach(x ${CMAKE_CXX_COMPILE_OPTIONS_IPO})
+      set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} ${x}")
+    endforeach()
+  endif()
+
+  string(COMPARE NOTEQUAL "${CMAKE_C_COMPILE_OPTIONS_IPO}" "" has_ipo)
+  if(CMAKE_INTERPROCEDURAL_OPTIMIZATION AND has_ipo)
+    foreach(x ${CMAKE_C_COMPILE_OPTIONS_IPO})
+      set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} ${x}")
+    endforeach()
+  endif()
+
+  string(COMPARE NOTEQUAL "${CMAKE_CXX_LINK_OPTIONS_IPO}" "" has_ipo)
+  if(CMAKE_INTERPROCEDURAL_OPTIMIZATION AND has_ipo)
+    set(CMAKE_EXE_LINKER_FLAGS "${CMAKE_EXE_LINKER_FLAGS} ${CMAKE_CXX_LINK_OPTIONS_IPO}")
+  endif()
+  # }
 
   string(COMPARE EQUAL "${x_CPPFLAGS}" "" is_empty)
   if(NOT is_empty)

@@ -31,6 +31,12 @@ hunter_test_string_not_empty("@HUNTER_GLOBAL_SCRIPT_DIR@")
 if(APPLE)
   set(configure_command "./Configure")
   set(configure_opts "darwin64-x86_64-cc")
+elseif(ANDROID)
+  # Using the ./config script is currently broken with -no* CFLAGS on ALL versions
+  # * https://github.com/openssl/openssl/issues/3493
+  # * https://github.com/openssl/openssl/blob/OpenSSL_1_1_0-stable/Configure#L560
+  # * https://wiki.openssl.org/index.php/Compilation_and_Installation#Configure_.26_Config
+  set(configure_command "./Configure")
 else()
   set(configure_command "./config")
 endif()
@@ -49,16 +55,33 @@ if(ANDROID)
   else()
     hunter_user_error("Could not find android architecture. Please set ANDROID_ARCH_NAME in your toolchain or use CMake 3.7+")
   endif()
-  set(configure_command
-      # Ignored. Prevents script from checking host uname
-      RELEASE=2.6.37
-      SYSTEM=android
-      ARCH=${ANDROID_SSL_ARCH}
-      ${configure_command})
+
+  # Building OpenSSL with Android:
+  # * https://wiki.openssl.org/index.php/Android#Build_the_OpenSSL_Library
+  # Set environment variables similar to 'setenv-android.sh' script:
+  # * https://wiki.openssl.org/index.php/Android#Adjust_the_Cross-Compile_Script
+
+  # Using documented method (./config script):
+  #set(configure_command
+      # Ignored. Prevents ./config from checking host uname
+  #   RELEASE=2.6.37
+  #   SYSTEM=android
+  #   ARCH=${CMAKE_ANDROID_ARCH}
+  #   ${configure_command})
+
+  # Using android-* targets is currently broken for Clang on ALL versions
+  # * https://github.com/openssl/openssl/pull/2229
+  # The ./config script only detects Android x86 and armv7 targets anyway.
+  # * https://github.com/openssl/openssl/issues/2490
+  if (ANDROID_SSL_ARCH MATCHES "mips64|arm64|x86_64")
+    set(configure_opts "linux-generic64")
+  else()
+    set(configure_opts "linux-generic32")
+  endif()
 endif()
 
 # Pass C compiler through
-set(configure_command 
+set(configure_command
     MACHINE=${CMAKE_SYSTEM_PROCESSOR}
     CC=${CMAKE_C_COMPILER}
     ${configure_command})

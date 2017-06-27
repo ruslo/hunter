@@ -11,7 +11,7 @@ function(hunter_pack_directory dir_to_pack dest_dir result_sha1)
   set(temp "${dest_dir}/cache.tar.bz2")
 
   set(cmd "${CMAKE_COMMAND}" "-E" "tar")
-  if(HUNTER_STATUS_DEBUG)
+  if(HUNTER_STATUS_DEBUG AND NOT HUNTER_SUPPRESS_LIST_OF_FILES)
     list(APPEND cmd "cvjf")
   else()
     list(APPEND cmd "cjf")
@@ -36,27 +36,24 @@ function(hunter_pack_directory dir_to_pack dest_dir result_sha1)
     list(APPEND cmd "${x}")
   endforeach()
 
-  if(HUNTER_STATUS_DEBUG)
-    set(logging_params "")
-  elseif(HUNTER_STATUS_PRINT)
-    set(logging_params "")
-  else()
-    set(logging_params "OUTPUT_QUIET")
-  endif()
-
   hunter_print_cmd("${dir_to_pack}" "${cmd}")
 
   execute_process(
       COMMAND ${cmd}
       WORKING_DIRECTORY "${dir_to_pack}"
       RESULT_VARIABLE packing_result
-      ${logging_params}
+      OUTPUT_VARIABLE packing_output
+      ERROR_VARIABLE packing_error
+      OUTPUT_STRIP_TRAILING_WHITESPACE
+      ERROR_STRIP_TRAILING_WHITESPACE
   )
 
   if(packing_result EQUAL 0)
     hunter_status_debug("Packing successful: ${temp}")
   else()
-    hunter_internal_error("Packing failed")
+    hunter_internal_error(
+        "Packing failed (${packing_result}, ${packing_output}, ${packing_error})"
+    )
   endif()
 
   file(SHA1 "${temp}" archive_sha1)

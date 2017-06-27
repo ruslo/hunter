@@ -98,13 +98,9 @@ function(hunter_save_to_cache)
   )
 
   hunter_test_string_not_empty("${archive_sha1}")
-  set(archive_file "${cache_directory}/raw/${archive_sha1}.tar.bz2")
-  if(NOT EXISTS "${archive_file}")
-    hunter_internal_error("Archive not exists: ${archive_file}")
-  endif()
 
   ### Install to global directory from cache archive
-  hunter_unpack_directory("${archive_file}" "${HUNTER_INSTALL_PREFIX}")
+  hunter_unpack_directory(${archive_sha1})
 
   hunter_patch_unrelocatable_text_files(
       FROM "__HUNTER_PACKAGE_INSTALL_PREFIX__"
