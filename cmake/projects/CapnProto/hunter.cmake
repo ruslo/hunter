@@ -8,6 +8,13 @@ include(hunter_pick_scheme)
 
 hunter_add_version(
     PACKAGE_NAME CapnProto
+    VERSION "0.6.1"
+    URL "https://capnproto.org/capnproto-c++-0.6.1.tar.gz"
+    SHA1 745dc4c60c02d0a664574a63ec85ef7a03c57676
+)
+
+hunter_add_version(
+    PACKAGE_NAME CapnProto
     VERSION "0.6.0"
     URL "https://capnproto.org/capnproto-c++-0.6.0.tar.gz"
     SHA1 c601f0d9da8942fc19dffca79ac3f2279297047b
