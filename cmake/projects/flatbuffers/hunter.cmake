@@ -13,6 +13,17 @@ hunter_add_version(
     PACKAGE_NAME
     flatbuffers
     VERSION
+    1.4.0-p1
+    URL
+    "https://github.com/hunter-packages/flatbuffers/archive/v1.4.0-p1.tar.gz"
+    SHA1
+    dd97013e6aa60c2626b33091d4523fb6402bf922
+)
+
+hunter_add_version(
+    PACKAGE_NAME
+    flatbuffers
+    VERSION
     1.3.0-p3
     URL
     "https://github.com/hunter-packages/flatbuffers/archive/v1.3.0-p3.tar.gz"
@@ -23,9 +34,9 @@ hunter_add_version(
 hunter_cmake_args(
     flatbuffers
     CMAKE_ARGS
-        FLATBUFFERS_BUILD_FLATC=OFF
+        FLATBUFFERS_BUILD_FLATC=ON
         FLATBUFFERS_BUILD_FLATHASH=OFF
-        FLATBUFFERS_BUILD_FLATLIB=OFF
+        FLATBUFFERS_BUILD_FLATLIB=ON
         FLATBUFFERS_BUILD_TESTS=OFF
 )
 
