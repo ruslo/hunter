@@ -11,6 +11,7 @@ All packages
 * `Autobahn-cpp <https://github.com/ruslo/hunter/wiki/pkg.autobahn-cpp>`__
 * `Avahi <https://github.com/ruslo/hunter/wiki/pkg.avahi>`__
 * `BZip2 <https://github.com/ruslo/hunter/wiki/pkg.bzip2>`__
+* `Beast <https://github.com/ruslo/hunter/wiki/pkg.beast>`__
 * `Boost <https://github.com/ruslo/hunter/wiki/pkg.boost>`__
 * `Boost.compute <https://github.com/ruslo/hunter/wiki/pkg.boost.compute>`__
 * `Boost.process <https://github.com/ruslo/hunter/wiki/pkg.boost.process>`__
