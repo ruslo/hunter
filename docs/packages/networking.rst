@@ -3,6 +3,7 @@
   mDNS
   DNS
   websocket
+  Asio
 
 Networking
 ----------
