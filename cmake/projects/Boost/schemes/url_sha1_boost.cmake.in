@@ -94,24 +94,24 @@ else()
   set(env_cmd "")
 endif()
 
-if("@MSVC@")
+if(CMAKE_HOST_WIN32)
   set(install_cmd "b2")
   set(bootstrap_cmd "bootstrap.bat")
-elseif("@MINGW@")
-  # Test scenario: MinGW installed in system, Visual Studio - not
-  set(install_cmd "b2")
-  set(bootstrap_cmd "bootstrap.bat" "gcc")
 else()
   set(install_cmd "./b2")
-  if(APPLE)
-    # Clear Xcode environment
-    set(
-        bootstrap_cmd
-        . "@HUNTER_GLOBAL_SCRIPT_DIR@/clear-all.sh" && ./bootstrap.sh
-    )
-  else()
-    set(bootstrap_cmd "./bootstrap.sh")
-  endif()
+  set(bootstrap_cmd "./bootstrap.sh")
+endif()
+
+if("@MINGW@")
+  # Test scenario: MinGW installed in system, Visual Studio - not
+  list(APPEND bootstrap_cmd "gcc")
+endif()
+if(APPLE)
+  # Clear Xcode environment
+  set(
+      bootstrap_cmd
+      . "@HUNTER_GLOBAL_SCRIPT_DIR@/clear-all.sh" && ${bootstrap_cmd}
+  )
 endif()
 
 if("@MSVC@")
