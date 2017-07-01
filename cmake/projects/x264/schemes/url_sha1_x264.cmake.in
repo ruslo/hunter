@@ -1,0 +1,342 @@
+# Copyright (c) 2017 Alexandre Pretyman
+# All rights reserved.
+
+cmake_minimum_required(VERSION 3.0)
+project(Hunter)
+
+include(ExternalProject) # ExternalProject_Add
+
+# Scheme for building x264 libraries only (no programs)
+
+list(APPEND CMAKE_MODULE_PATH "@HUNTER_SELF@/cmake/modules")
+
+include(hunter_fatal_error)
+include(hunter_get_build_flags)
+include(hunter_get_toolchain_binaries)
+include(hunter_report_broken_package)
+include(hunter_status_debug)
+include(hunter_status_print)
+include(hunter_test_string_not_empty)
+
+hunter_status_debug("Scheme: url_sha1_x264")
+
+# Check preconditions
+hunter_test_string_not_empty("@HUNTER_SELF@")
+hunter_test_string_not_empty("@HUNTER_EP_NAME@")
+hunter_test_string_not_empty("@HUNTER_PACKAGE_URL@")
+hunter_test_string_not_empty("@HUNTER_PACKAGE_SHA1@")
+hunter_test_string_not_empty("@HUNTER_PACKAGE_DOWNLOAD_DIR@")
+hunter_test_string_not_empty("@HUNTER_PACKAGE_SOURCE_DIR@")
+hunter_test_string_not_empty("@HUNTER_PACKAGE_INSTALL_PREFIX@")
+hunter_test_string_not_empty("@HUNTER_PACKAGE_CONFIGURATION_TYPES@")
+hunter_test_string_not_empty("@HUNTER_INSTALL_PREFIX@")
+hunter_test_string_not_empty("@HUNTER_GLOBAL_SCRIPT_DIR@")
+
+if("@MSVC@")
+  hunter_user_error("x264 building under MSVC needs to be implemented")
+endif()
+
+# Ideally the running of commands below should be changed in the future to,
+# instead of using the shell variables, control the environment through CMake's
+# ENV{var} and run the commands through execute_process(...)
+
+set(default_path "/usr/bin:/bin:/usr/sbin:/sbin:/usr/local/bin")
+set(shell_env_path "PATH=@HUNTER_PACKAGE_INSTALL_PREFIX@/bin:${default_path}")
+
+set(d1 "${root_id}/lib/pkgconfig")
+set(d2 "${root_id}/share/pkgconfig")
+set(shell_pkg_config_libdir "PKG_CONFIG_LIBDIR=${d1}:${d2}")
+
+set(clear_vars_shell_script "@HUNTER_GLOBAL_SCRIPT_DIR@/clear-all.sh")
+
+
+hunter_get_toolchain_binaries(
+    OUT_AR
+      ar
+    OUT_AS
+      as
+    OUT_LD
+      ld
+    OUT_NM
+      nm
+    OUT_OBJCOPY
+      objcopy
+    OUT_OBJDUMP
+      objdump
+    OUT_RANLIB
+      ranlib
+    OUT_STRIP
+      strip
+    OUT_CPP
+      cpp
+    OUT_CC
+      cc
+    OUT_CXX
+      cxx
+)
+
+set(toolchain_binaries)
+if(ar)
+  list(APPEND toolchain_binaries "AR=${ar}")
+endif()
+if(as)
+  list(APPEND toolchain_binaries "AS=${as}")
+endif()
+if(ld)
+  list(APPEND toolchain_binaries "LD=${ld}")
+endif()
+if(nm)
+  list(APPEND toolchain_binaries "NM=${nm}")
+endif()
+if(objcopy)
+  list(APPEND toolchain_binaries "OBJCOPY=${objcopy}")
+endif()
+if(objdump)
+  list(APPEND toolchain_binaries "OBJDUMP=${objdump}")
+endif()
+if(ranlib)
+  list(APPEND toolchain_binaries "RANLIB=${ranlib}")
+endif()
+if(strip)
+  list(APPEND toolchain_binaries "STRIP=${strip}")
+endif()
+if(cpp)
+  list(APPEND toolchain_binaries "CPP=${cpp}")
+endif()
+if(cc)
+  list(APPEND toolchain_binaries "CC=${cc}")
+endif()
+if(cxx)
+  list(APPEND toolchain_binaries "CXX=${cxx}")
+endif()
+
+set(shell_env
+    .
+    ${clear_vars_shell_script}
+    &&
+    ${shell_env_path}
+    ${shell_pkg_config_libdir}
+)
+
+if(toolchain_binaries)
+  list(APPEND shell_env ${toolchain_binaries})
+endif()
+
+hunter_get_build_flags(
+    INSTALL_DIR
+      "@HUNTER_INSTALL_PREFIX@"
+    PACKAGE_CONFIGURATION_TYPES
+      "@HUNTER_PACKAGE_CONFIGURATION_TYPES@"
+    OUT_CPPFLAGS
+      cppflags
+    OUT_CFLAGS
+      cflags
+    OUT_LDFLAGS
+      ldflags
+)
+
+set(x264_configure_command "./configure")
+
+if(CMAKE_CROSSCOMPILING)
+  set(configure_host)
+  string(COMPARE NOTEQUAL "${ANDROID}" "" is_android)
+  string(COMPARE NOTEQUAL "${IPHONEOS_ARCHS}${IPHONESIMULATOR_ARCHS}" "" is_ios)
+  string(COMPARE NOTEQUAL "${CROSS_COMPILE_TOOLCHAIN_PREFIX}" "" is_cross_compile)
+  if(is_android)
+    set(configure_host --host=${CMAKE_CXX_ANDROID_TOOLCHAIN_MACHINE})
+  elseif(is_ios)
+    # for iOS the host setting is done below
+  elseif(is_cross_compile)
+    set(configure_host --host=${CROSS_COMPILE_TOOLCHAIN_PREFIX})
+  endif()
+
+  string(COMPARE NOTEQUAL "${configure_host}" "" has_configure_host)
+  if(has_configure_host)
+    list(APPEND x264_configure_command ${configure_host})
+  endif()
+endif()
+
+
+list(APPEND x264_configure_command "--disable-cli") # build only libs
+
+if(NOT CMAKE_ASM_COMPILER OR DISABLE_ASM)
+  list(APPEND x264_configure_command "--disable-asm")
+endif()
+
+set(cflags "${cppflags} ${cflags}")
+string(STRIP "${cflags}" cflags)
+
+# Hunter builds static libraries by default
+if(BUILD_SHARED_LIBS)
+  list(APPEND x264_configure_command --enable-shared --disable-static)
+else()
+  list(APPEND x264_configure_command --disable-shared --enable-static)
+endif()
+
+
+set(x264_make_command "make")
+if("@HUNTER_JOBS_OPTION@")
+  list(APPEND x264_make_command "-j" "@HUNTER_JOBS_OPTION@")
+endif()
+
+#configure_command set below
+set(build_command ${shell_env} ${x264_make_command})
+set(install_command ${shell_env} make install)
+
+string(COMPARE NOTEQUAL "${IPHONEOS_ARCHS}${IPHONESIMULATOR_ARCHS}" "" is_ios)
+if(is_ios)
+  hunter_status_debug("x264 iOS IPHONEOS_ARCHS: ${IPHONEOS_ARCHS} IPHONESIMULATOR_ARCHS: ${IPHONESIMULATOR_ARCHS}")
+  if(BUILD_SHARED_LIBS)
+    hunter_fatal_error("x264: building iOS libraries as shared is not supported")
+  endif()
+  set(ios_architectures)
+  list(APPEND ios_architectures ${IPHONEOS_ARCHS} ${IPHONESIMULATOR_ARCHS})
+endif()
+
+if(NOT is_ios)
+  # The code below should be changed to set these flags as ENV{CFLAGS} and
+  # ENV{LDFLAGS} instead of --extra-* parameters below
+  # When the are spaces in ${cflags} and ${ldflags}, CMake puts the value
+  # inside double quotes, and the shell interprets it as a command instead of
+  # env var, returning error of CFLAGS=... command not found
+  list(APPEND x264_configure_command "--extra-cflags=${cflags}")
+  list(APPEND x264_configure_command "--extra-ldflags=${ldflags}")
+  list(APPEND x264_configure_command "--prefix=@HUNTER_PACKAGE_INSTALL_PREFIX@")
+
+  set(configure_command ${shell_env} ${x264_configure_command})
+  ExternalProject_Add(
+      "@HUNTER_EP_NAME@"
+    URL
+      @HUNTER_PACKAGE_URL@
+    URL_HASH
+      SHA1=@HUNTER_PACKAGE_SHA1@
+    DOWNLOAD_DIR
+      "@HUNTER_PACKAGE_DOWNLOAD_DIR@"
+    SOURCE_DIR
+      "@HUNTER_PACKAGE_SOURCE_DIR@"
+    INSTALL_DIR
+      "@HUNTER_PACKAGE_INSTALL_PREFIX@"
+        # not used, just avoid creating Install/<name> empty directory
+    CONFIGURE_COMMAND
+      ${configure_command}
+    BUILD_COMMAND
+      ${build_command}
+    BUILD_IN_SOURCE
+      1
+    INSTALL_COMMAND
+      ${install_command}
+  )
+else()
+  set(ios_universal_target "@HUNTER_EP_NAME@-universal")
+  set(merge_lipo_script "autotools-merge-lipo.cmake")
+  ExternalProject_Add(${ios_universal_target}
+      DOWNLOAD_COMMAND
+        ""
+      SOURCE_DIR
+        "@HUNTER_PACKAGE_SOURCE_DIR@/universal"
+      INSTALL_DIR
+        "@HUNTER_PACKAGE_INSTALL_PREFIX@"
+        # not used, just avoid creating Install/<name> empty directory
+      CONFIGURE_COMMAND
+        ""
+      BUILD_COMMAND
+        ""
+      BUILD_IN_SOURCE
+        1
+      INSTALL_COMMAND
+      ${CMAKE_COMMAND}
+      -P
+      "@HUNTER_PACKAGE_SOURCE_DIR@/universal/${merge_lipo_script}"
+  )
+  set(ios_built_arch_roots)
+  set(multi_arch_install_root "@HUNTER_PACKAGE_BUILD_DIR@/multi-arch")
+  foreach(ios_architecture ${ios_architectures})
+    hunter_status_debug("Autotools: building for iOS architecture ${ios_architecture}")
+    #clear the conf options
+    set(is_simulator FALSE)
+    if(${ios_architecture} STREQUAL "armv7"
+        OR ${ios_architecture} STREQUAL "armv7s")
+      set(configure_host "arm-apple-darwin")
+    elseif(${ios_architecture} STREQUAL "arm64")
+      set(configure_host "aarch64-apple-darwin")
+    elseif(${ios_architecture} STREQUAL "i386")
+      set(configure_host "i386-apple-darwin")
+      set(is_simulator TRUE)
+    elseif(${ios_architecture} STREQUAL "x86_64")
+      set(configure_host "x86_64-apple-darwin")
+      set(is_simulator TRUE)
+    else()
+      hunter_fatal_error("iOS architecture: ${ios_architecture} not supported")
+    endif()
+
+    set(arch_flags)
+    # Extra space at the end of the arch_flags is needed below when appending
+    # to configure_opts, please do not remove!
+    if(is_simulator)
+      set(arch_flags "-arch ${ios_architecture} -isysroot ${IPHONESIMULATOR_SDK_ROOT} -miphoneos-version-min=${IOS_SDK_VERSION} ")
+    else()
+      set(arch_flags "-arch ${ios_architecture} -isysroot ${IPHONEOS_SDK_ROOT} -miphoneos-version-min=${IOS_SDK_VERSION} ")
+    endif()
+
+    # architecture specific source dir
+    set(arch_source_dir
+      "@HUNTER_PACKAGE_SOURCE_DIR@/multi-arch-build/${ios_architecture}"
+    )
+    set(arch_target
+        "${target_name}-${ios_architecture}"
+    )
+    set(arch_install_dir
+        "${multi_arch_install_root}/${ios_architecture}"
+    )
+
+    set(configure_command
+        ${shell_env}
+        ${x264_configure_command}
+        "--host=${configure_host}"
+        "--extra-cflags=${arch_flags}${cflags}"
+        "--extra-ldflags=${arch_flags}${ldflags}"
+        "--prefix=${arch_install_dir}"
+    )
+    ExternalProject_Add(${arch_target}
+        URL
+          @HUNTER_PACKAGE_URL@
+        URL_HASH
+          SHA1=@HUNTER_PACKAGE_SHA1@
+        DOWNLOAD_DIR
+          "@HUNTER_PACKAGE_DOWNLOAD_DIR@"
+        SOURCE_DIR
+          ${arch_source_dir}
+        INSTALL_DIR
+          ${arch_install_dir}
+          # not used, just avoid creating Install/<name> empty directory
+        CONFIGURE_COMMAND
+          ${configure_command}
+        BUILD_COMMAND
+          ${build_command}
+        BUILD_IN_SOURCE
+          1
+        INSTALL_COMMAND
+          ${install_command}
+    )
+
+    list(APPEND ios_built_arch_roots ${arch_install_dir})
+    add_dependencies(
+      "${ios_universal_target}"
+      "${arch_target}"
+    )
+  endforeach()
+
+  set(HUNTER_PACKAGE_INSTALL_PREFIX "@HUNTER_PACKAGE_INSTALL_PREFIX@")
+  configure_file(
+      "@HUNTER_GLOBAL_SCRIPT_DIR@/${merge_lipo_script}.in"
+      "@HUNTER_PACKAGE_SOURCE_DIR@/universal/${merge_lipo_script}"
+      @ONLY
+  )
+endif()
+
+foreach(PKG_CONFIG_MODULE ${PKGCONFIG_EXPORT_TARGETS})
+  configure_file(
+      "@HUNTER_GLOBAL_SCRIPT_DIR@/pkgconfig-export-targets.cmake.in"
+      "@HUNTER_PACKAGE_INSTALL_PREFIX@/lib/cmake/${PKG_CONFIG_MODULE}/${PKG_CONFIG_MODULE}Config.cmake"
+  )
+endforeach()
