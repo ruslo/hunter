@@ -18,5 +18,5 @@ hunter_download(
     Boost
     PACKAGE_COMPONENT
     python
-    PACKAGE_INTERNAL_DEPS_ID "15"
+    PACKAGE_INTERNAL_DEPS_ID "16"
 )
