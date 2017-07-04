@@ -9,7 +9,19 @@ include(hunter_pick_scheme)
 # use base url for hunter fork
 set(_hunter_ceres_base_url_fork "https://github.com/hunter-packages/ceres-solver/archive")
 
+
 # List of versions
+hunter_add_version(
+    PACKAGE_NAME
+    ceres-solver
+    VERSION
+    "1.12.0-p1"
+    URL
+    "${_hunter_ceres_base_url_fork}/v1.12.0-p1.tar.gz"
+    SHA1
+    d8676dcfe72c19d77aa099a894b94515761e8e94
+)
+
 hunter_add_version(
     PACKAGE_NAME
     ceres-solver
