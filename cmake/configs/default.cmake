@@ -77,6 +77,7 @@ hunter_config(Libcxx VERSION 3.6.2) # Clang
 hunter_config(Libcxxabi VERSION 3.6.2) # Clang
 hunter_config(librtmp VERSION 2.4.0-p0)
 hunter_config(Libssh2 VERSION 1.7.0)
+hunter_config(Live555 VERSION 2017.07.18)
 hunter_config(Lua VERSION 5.3.2)
 hunter_config(MySQL-client VERSION 6.1.9)
 hunter_config(NASM VERSION 2.12.02)
