@@ -69,6 +69,7 @@ if(MSVC_VERSION LESS 1600)
 else()
   hunter_config(jsoncpp VERSION 1.8.0)
 endif()
+hunter_config(LAPACK VERSION 3.7.1)
 hunter_config(LLVM VERSION 3.6.2-p0) # Clang
 hunter_config(LLVMCompilerRT VERSION 3.6.0) # Clang
 hunter_config(Leathers VERSION 0.1.6)
