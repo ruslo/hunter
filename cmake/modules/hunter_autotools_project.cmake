@@ -61,6 +61,8 @@ include(hunter_fatal_error)
 include(hunter_status_debug)
 include(hunter_test_string_not_empty)
 
+# Packages to test this function:
+# * xau
 function(hunter_autotools_project target_name)
   set(optional_params)
   set(one_value_params
@@ -109,8 +111,8 @@ function(hunter_autotools_project target_name)
   set(default_path "/usr/bin:/bin:/usr/sbin:/sbin:/usr/local/bin")
   set(shell_env_path "PATH=${PARAM_GLOBAL_INSTALL_DIR}/bin:${default_path}")
 
-  set(d1 "${root_id}/lib/pkgconfig")
-  set(d2 "${root_id}/share/pkgconfig")
+  set(d1 "${PARAM_GLOBAL_INSTALL_DIR}/lib/pkgconfig")
+  set(d2 "${PARAM_GLOBAL_INSTALL_DIR}/share/pkgconfig")
   set(shell_pkg_config_libdir "PKG_CONFIG_LIBDIR=${d1}:${d2}")
 
   set(clear_vars_shell_script "${PARAM_HUNTER_SELF}/scripts/clear-all.sh")
