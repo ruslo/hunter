@@ -11,4 +11,4 @@ set (CMAKE_CXX_STANDARD 11)
 find_package(fmt CONFIG REQUIRED)
 
 add_executable(fmtexample fmtexample.cpp)
-target_link_libraries(fmtexample fmt)
+target_link_libraries(fmtexample fmt::fmt)
