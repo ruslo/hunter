@@ -16,4 +16,4 @@ hunter_add_package(gflags)
 find_package(gflags CONFIG REQUIRED)
 
 add_executable(foo foo.cpp)
-target_link_libraries(foo gflags-static)
+target_link_libraries(foo gflags)
