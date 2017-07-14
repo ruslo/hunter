@@ -60,6 +60,7 @@ All packages
 * `ZLIB <https://github.com/ruslo/hunter/wiki/pkg.zlib>`__
 * `ZMQPP <https://github.com/ruslo/hunter/wiki/pkg.zmqpp>`__
 * `ZeroMQ <https://github.com/ruslo/hunter/wiki/pkg.zeromq>`__
+* `aes <https://github.com/ruslo/hunter/wiki/pkg.aes>`__
 * `boost-pba <https://github.com/ruslo/hunter/wiki/pkg.boost-pba>`__
 * `caffe <https://github.com/ruslo/hunter/wiki/pkg.caffe>`__
 * `ccv <https://github.com/ruslo/hunter/wiki/pkg.ccv>`__
