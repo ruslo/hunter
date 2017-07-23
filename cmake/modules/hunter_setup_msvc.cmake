@@ -3,6 +3,7 @@
 
 cmake_minimum_required(VERSION 3.0)
 
+include(hunter_fatal_error)
 include(hunter_internal_error)
 include(hunter_status_debug)
 
@@ -121,10 +122,18 @@ macro(hunter_setup_msvc)
         )
         string(COMPARE EQUAL "${CMAKE_VS_DEVENV_COMMAND}" "" is_empty)
         if(is_empty)
-          hunter_internal_error("CMAKE_VS_DEVENV_COMMAND is empty")
+          hunter_fatal_error(
+              "Incorrect CMAKE_VS_DEVENV_COMMAND: is empty"
+              WIKI
+              error.vs.devenv
+          )
         endif()
         if(NOT IS_ABSOLUTE "${CMAKE_VS_DEVENV_COMMAND}")
-          hunter_internal_error("CMAKE_VS_DEVENV_COMMAND is not absolute")
+          hunter_fatal_error(
+              "Incorrect CMAKE_VS_DEVENV_COMMAND: not absolute (${CMAKE_VS_DEVENV_COMMAND})"
+              WIKI
+              error.vs.devenv
+          )
         endif()
         get_filename_component(_hunter_vcvarsall_path "${CMAKE_VS_DEVENV_COMMAND}" DIRECTORY)
         set(_hunter_vcvarsall_path "${_hunter_vcvarsall_path}/../../VC/Auxiliary/Build")

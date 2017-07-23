@@ -35,6 +35,12 @@ function(hunter_pack_git_submodule)
   find_package(Git REQUIRED)
   hunter_status_debug("Using git executable: ${GIT_EXECUTABLE}")
 
+  # For '--git-path':
+  # * https://git-scm.com/docs/git-rev-parse/2.5.0
+  if(GIT_VERSION_STRING VERSION_LESS "2.5.0")
+    hunter_user_error("At least Git 2.5.0 required")
+  endif()
+
   set(cmd "${GIT_EXECUTABLE}" rev-parse --show-toplevel)
   execute_process(
       COMMAND ${cmd}
