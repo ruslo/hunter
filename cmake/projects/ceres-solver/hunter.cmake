@@ -32,11 +32,15 @@ hunter_add_version(
     SHA1
     c8a24d83bf4b26b99fd8fc3bed28a267e6247c85
 )
-# explicitly remove dependency on gflags (only needed for tests)
-# also don't build examples: when suitesparse is enabled the examples need Fortran libraries
 hunter_cmake_args(ceres-solver CMAKE_ARGS
+    # explicitly remove dependency on gflags (only needed for tests)
     GFLAGS=OFF
+    # explicitly disable suitesparse support
+    LAPACK=OFF
+    SUITESPARSE=OFF
+    # don't build tests
     BUILD_TESTING=OFF
+    # also don't build examples: when suitesparse is enabled the examples need Fortran libraries
     BUILD_EXAMPLES=OFF
 )
 
