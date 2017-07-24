@@ -9,6 +9,9 @@ import requests
 import sys
 import time
 
+class Error(Exception):
+  pass
+
 def sleep_time(attempt):
   if attempt <= 0:
     raise Exception('Unexpected')
@@ -32,14 +35,18 @@ def retry(func_in):
       i = i + 1
       try:
         return func_in(*args, **kwargs)
+      except Error as err:
+        # Treat Errors as fatal and do not retry.
+        # Also explicitly flush message to avoid "no output" issue on some CIs.
+        print('Error:\n  {}'.format(err), flush=True)
+        raise err
       except Exception as exc:
         if i > retry_max:
           raise exc
         print('Operation failed. Exception:\n  {}'.format(exc))
         sec = sleep_time(i)
-        print('Retry #{} (of {}) after {} seconds'.format(i, retry_max, sec))
+        print('Retry #{} (of {}) after {} seconds'.format(i, retry_max, sec), flush=True)
         time.sleep(sec)
-    raise Exception('Unreachable')
   return func_out
 
 # http://stackoverflow.com/a/16696317/2288008
@@ -87,6 +94,8 @@ class Github:
     )
 
     r = requests.get(url, auth=self.auth)
+    if r.status_code == 404:
+        raise Error('Release {} does not exist. Create a GitHub release for with this tag'.format(tagname))
     if not r.ok:
       raise Exception('Get tag id failed. Requested url: {}'.format(url))
 
