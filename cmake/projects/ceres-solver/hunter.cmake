@@ -21,9 +21,11 @@ hunter_add_version(
     c8a24d83bf4b26b99fd8fc3bed28a267e6247c85
 )
 # explicitly remove dependency on gflags (only needed for tests)
+# also don't build examples: when suitesparse is enabled the examples need Fortran libraries
 hunter_cmake_args(ceres-solver CMAKE_ARGS
     GFLAGS=OFF
     BUILD_TESTING=OFF
+    BUILD_EXAMPLES=OFF
 )
 
 # Pick a download scheme
