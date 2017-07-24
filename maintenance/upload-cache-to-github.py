@@ -67,6 +67,7 @@ class Github:
     self.repo = repo
     self.auth = requests.auth.HTTPBasicAuth(username, password)
     self.simple_request()
+    self.release_id = None
 
   @retry
   def simple_request(self):
@@ -180,7 +181,8 @@ class Github:
 
   def upload_raw_file(self, local_path):
     tagname = 'cache'
-    release_id = self.get_release_by_tag(tagname)
+    if self.release_id is None:
+      self.release_id = self.get_release_by_tag(tagname)
 
     # https://developer.github.com/v3/repos/releases/#upload-a-release-asset
     # POST https://<upload_url>/repos/:owner/:repo/releases/:id/assets?name=foo.zip
@@ -191,11 +193,11 @@ class Github:
     url = 'https://uploads.github.com/repos/{}/{}/releases/{}/assets?name={}'.format(
         self.repo_owner,
         self.repo,
-        release_id,
+        self.release_id,
         asset_name
     )
 
-    self.upload_bzip(url, local_path, release_id, asset_name)
+    self.upload_bzip(url, local_path, self.release_id, asset_name)
 
   @retry
   def create_new_file(self, local_path, github_path):
