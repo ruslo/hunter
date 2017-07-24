@@ -13,8 +13,6 @@ hunter_add_version(
     SHA1 f99d9901585474002c937c921e4e89722fd34b34
 )
 
-#hunter_cmake_args(pugixml CMAKE_ARGS)
-
 hunter_pick_scheme(DEFAULT url_sha1_cmake)
 hunter_cacheable(pugixml)
 hunter_download(PACKAGE_NAME pugixml)
