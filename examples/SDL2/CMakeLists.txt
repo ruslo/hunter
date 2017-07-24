@@ -12,4 +12,4 @@ find_package(SDL2 CONFIG REQUIRED)
 add_executable(main main.cpp)
 target_link_libraries(main
     SDL2::SDL2main
-    SDL2::SDL2-static)
+    SDL2::SDL2)
