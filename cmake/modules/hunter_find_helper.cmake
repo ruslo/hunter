@@ -7,6 +7,11 @@ include(hunter_internal_error)
 include(hunter_status_debug)
 include(hunter_user_error)
 
+# Test examples:
+# * android
+# * android_log
+# * egl
+# * gles2
 function(hunter_find_helper)
   set(optional "")
   set(one LIBRARY HEADER)
