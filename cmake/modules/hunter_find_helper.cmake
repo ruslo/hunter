@@ -103,7 +103,7 @@ function(hunter_find_helper)
       PROPERTIES
       IMPORTED_LINK_INTERFACE_LANGUAGE "CXX"
       IMPORTED_LOCATION "${_hunter_library}"
-      INTERFACE_INCLUDE_DIRECTORIES ""
+      INTERFACE_INCLUDE_DIRECTORIES "${_hunter_header}"
   )
 
   unset(_hunter_library CACHE)
