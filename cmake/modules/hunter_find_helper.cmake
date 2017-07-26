@@ -11,7 +11,10 @@ include(hunter_user_error)
 # * android
 # * android_log
 # * egl
+# * glapi
 # * gles2
+# * gles3
+# * osmesa
 function(hunter_find_helper)
   set(optional "")
   set(one LIBRARY HEADER)
