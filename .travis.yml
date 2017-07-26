@@ -19,41 +19,44 @@ matrix:
   include:
     # Linux {
     - os: linux
-      env: PROJECT_DIR=examples/Foo TOOLCHAIN=default
+      env: PROJECT_DIR=examples/WDC TOOLCHAIN=default
     - os: linux
-      env: PROJECT_DIR=examples/Foo TOOLCHAIN=clang-libstdcxx
+      env: PROJECT_DIR=examples/WDC TOOLCHAIN=clang-libstdcxx
     - os: linux
-      env: PROJECT_DIR=examples/Foo TOOLCHAIN=gcc
+      env: PROJECT_DIR=examples/WDC TOOLCHAIN=gcc
     - os: linux
-      env: PROJECT_DIR=examples/Foo TOOLCHAIN=android-ndk-r10e-api-19-armeabi-v7a-neon
+      env: PROJECT_DIR=examples/WDC TOOLCHAIN=android-ndk-r10e-api-19-armeabi-v7a-neon
+    
+    # https://github.com/ruslo/polly/issues/32#issuecomment-122081810
+    # - os: linux
+    #   env: PROJECT_DIR=examples/WDC TOOLCHAIN=analyze
     - os: linux
-      env: PROJECT_DIR=examples/Foo TOOLCHAIN=analyze
+      env: PROJECT_DIR=examples/WDC TOOLCHAIN=sanitize-address
     - os: linux
-      env: PROJECT_DIR=examples/Foo TOOLCHAIN=sanitize-address
-    - os: linux
-      env: PROJECT_DIR=examples/Foo TOOLCHAIN=sanitize-leak
+      env: PROJECT_DIR=examples/WDC TOOLCHAIN=sanitize-leak
 
     # FIXME: https://github.com/ruslo/hunter/issues/718#issuecomment-290610583
     # - os: linux
-    #   env: PROJECT_DIR=examples/Foo TOOLCHAIN=sanitize-thread
+    #   env: PROJECT_DIR=examples/WDC TOOLCHAIN=sanitize-thread
 
     # }
 
     # OSX {
     - os: osx
-      env: PROJECT_DIR=examples/Foo TOOLCHAIN=default
+      env: PROJECT_DIR=examples/WDC TOOLCHAIN=default
     - os: osx
-      env: PROJECT_DIR=examples/Foo TOOLCHAIN=libcxx
+      env: PROJECT_DIR=examples/WDC TOOLCHAIN=libcxx
     - os: osx
-      env: PROJECT_DIR=examples/Foo TOOLCHAIN=clang-libstdcxx
+      env: PROJECT_DIR=examples/WDC TOOLCHAIN=clang-libstdcxx
     - os: osx
-      env: PROJECT_DIR=examples/Foo TOOLCHAIN=osx-10-11
+      env: PROJECT_DIR=examples/WDC TOOLCHAIN=osx-10-11
     - os: osx
-      env: PROJECT_DIR=examples/Foo TOOLCHAIN=ios-nocodesign-9-3
+      env: PROJECT_DIR=examples/WDC TOOLCHAIN=ios-nocodesign-9-3
     - os: osx
-      env: PROJECT_DIR=examples/Foo TOOLCHAIN=android-ndk-r10e-api-19-armeabi-v7a-neon
-    - os: osx
-      env: PROJECT_DIR=examples/Foo TOOLCHAIN=analyze
+      env: PROJECT_DIR=examples/WDC TOOLCHAIN=android-ndk-r10e-api-19-armeabi-v7a-neon
+    # https://github.com/ruslo/polly/issues/32#issuecomment-122081810
+    # - os: osx
+    #   env: PROJECT_DIR=examples/WDC TOOLCHAIN=analyze
     # }
 
 install:
