@@ -2,4 +2,4 @@
 # All rights reserved.
 
 include(hunter_find_helper)
-hunter_find_helper(LIBRARY "glapi" HEADER "GL/osmesa.h")
+hunter_find_helper(LIBRARY "glapi" HEADER "GL/gl.h")
