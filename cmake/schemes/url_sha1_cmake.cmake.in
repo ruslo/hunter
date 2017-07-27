@@ -112,8 +112,6 @@ foreach(configuration @HUNTER_PACKAGE_CONFIGURATION_TYPES@)
 
   set(current_project "@HUNTER_EP_NAME@-${configuration}")
 
-  get_filename_component(absolute_CMAKE_TOOLCHAIN_FILE "${CMAKE_TOOLCHAIN_FILE}" ABSOLUTE)
-  
   ExternalProject_Add(
       "${current_project}"
       URL
@@ -144,7 +142,7 @@ foreach(configuration @HUNTER_PACKAGE_CONFIGURATION_TYPES@)
       "-DCMAKE_BUILD_TYPE=${configuration}"
       "-DCMAKE_CONFIGURATION_TYPES=${configuration}"
       "-DCMAKE_INSTALL_PREFIX=@HUNTER_PACKAGE_INSTALL_PREFIX@"
-      "-DCMAKE_TOOLCHAIN_FILE=${absolute_CMAKE_TOOLCHAIN_FILE}"
+      "-DCMAKE_TOOLCHAIN_FILE=${CMAKE_TOOLCHAIN_FILE}"
       "${make_args}"
       ${ios_opts}
       INSTALL_COMMAND
