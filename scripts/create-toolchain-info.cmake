@@ -64,11 +64,13 @@ if(NOT EXISTS "${predefined}")
   hunter_internal_error("${predefined} not exists")
 endif()
 
+get_filename_component(absolute_CMAKE_TOOLCHAIN_FILE "${CMAKE_TOOLCHAIN_FILE}" ABSOLUTE)
+
 try_compile(
     try_compile_result
     "${CMAKE_BINARY_DIR}/_test"
     "${predefined}"
-    CMAKE_FLAGS "-DCMAKE_TOOLCHAIN_FILE=${CMAKE_TOOLCHAIN_FILE}"
+    CMAKE_FLAGS "-DCMAKE_TOOLCHAIN_FILE=${absolute_CMAKE_TOOLCHAIN_FILE}"
     OUTPUT_VARIABLE outresult
 )
 
