@@ -26,6 +26,17 @@ hunter_add_version(
     1b17954403db625d5422faf8c7fd68b5dde093f9
 )
 
+hunter_add_version(
+    PACKAGE_NAME
+    CURL
+    VERSION
+    "7.49.1-DEV-v5"
+    URL
+    "https://github.com/hunter-packages/curl/archive/hunter-7.49.1-v5.tar.gz"
+    SHA1
+    159d73e83f6cde54469c838234d32ed917ec9b80
+)
+
 
 if (ANDROID OR IOS)
   set(_curl_cmake_args
