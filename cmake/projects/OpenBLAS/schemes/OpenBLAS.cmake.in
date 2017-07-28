@@ -49,6 +49,31 @@ else()
   set(lib_type "")
 endif()
 
+set(compiler_arg "@CMAKE_C_COMPILER@")
+
+if(CMAKE_CROSSCOMPILING)
+  # Tells OpenBLAS where to find host CC (HOSTCC=)
+  # and not to run tests (CROSS=1)
+  # and not to use fortran (NOFORTRAN=1)
+  # Feel free to implement cross fortran
+  set(cross_arg HOSTCC=$ENV{CC} CROSS=1 NOFORTRAN=1 ONLY_CBLAS=1)
+
+  # We also need to manually set target when cross compiling
+  if(ANDROID)
+    if(CMAKE_ANDROID_ARCH_ABI STREQUAL "armeabi-v7a")
+      set(target_arg TARGET=ARMV7 BINARY=32 ARM_SOFTFP_ABI=1)
+    elseif(CMAKE_ANDROID_ARCH_ABI STREQUAL "arm64-v8a")
+      set(target_arg TARGET=ARMV8 BINARY=64)
+    endif()
+  endif()
+  if(CMAKE_C_COMPILER_ID STREQUAL "Clang")
+    set(compiler_arg "${compiler_arg} -target ${CMAKE_C_COMPILER_TARGET} --sysroot @CMAKE_SYSROOT@")
+  endif()
+else()
+  set(target_arg "")
+  set(cross_arg "")
+endif()
+
 ExternalProject_Add(
     "@HUNTER_EP_NAME@"
     URL
@@ -65,11 +90,11 @@ ExternalProject_Add(
     CONFIGURE_COMMAND
     ""
     BUILD_COMMAND
-    make ${lib_type} "CC=@CMAKE_C_COMPILER@" "CFLAGS=${cflags}"
+    make ${lib_type} ${target_arg} ${cross_arg} "CC=${compiler_arg}" "AR=@CMAKE_AR@" "CFLAGS=${cflags}"
     BUILD_IN_SOURCE
     1
     INSTALL_COMMAND
-    make ${lib_type} "PREFIX=@HUNTER_PACKAGE_INSTALL_PREFIX@" install
+    make ${lib_type} ${target_arg} ${cross_arg} "CC=${compiler_arg}" "AR=@CMAKE_AR@" "CFLAGS=${cflags}" "PREFIX=@HUNTER_PACKAGE_INSTALL_PREFIX@" install
     COMMAND # Copy license files
     "@CMAKE_COMMAND@"
     "-C@HUNTER_ARGS_FILE@" # for 'HUNTER_INSTALL_LICENSE_FILES'
