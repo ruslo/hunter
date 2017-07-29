@@ -1,4 +1,4 @@
-# Copyright (c) 2013, 2015 Ruslan Baratov, Alexandre Pretyman
+# Copyright (c) 2013, 2015-2016 Ruslan Baratov, Alexandre Pretyman
 # All rights reserved.
 
 cmake_minimum_required(VERSION 3.0)
@@ -27,7 +27,7 @@ hunter_test_string_not_empty("@HUNTER_PACKAGE_CONFIGURATION_TYPES@")
 hunter_test_string_not_empty("@HUNTER_TOOLCHAIN_ID_PATH@")
 hunter_test_string_not_empty("@HUNTER_INSTALL_PREFIX@")
 hunter_test_string_not_empty("@HUNTER_PACKAGE_INSTALL_PREFIX@")
-hunter_test_string_not_empty("@HUNTER_PACKAGE_LICENSE_FILE@")
+hunter_test_string_not_empty("@HUNTER_PACKAGE_LICENSE_DIR@")
 hunter_test_string_not_empty("@HUNTER_Qt_VERSION@")
 hunter_test_string_not_empty("@HUNTER_PACKAGE_SETUP_DIR@")
 hunter_test_string_not_empty("@HUNTER_GLOBAL_SCRIPT_DIR@")
@@ -292,7 +292,11 @@ hunter_status_debug("Qt configure options (without -skip): ${configure_opts}")
 
 list(APPEND configure_command ${configure_opts})
 
-set(ANDROID_API_VERSION "${HUNTER_Android-SDK-Platform_VERSION}")
+if(ANDROID)
+  set(ANDROID_API_VERSION "android-${CMAKE_SYSTEM_VERSION}")
+else()
+  set(ANDROID_API_VERSION "")
+endif()
 
 set(qt_component "@HUNTER_PACKAGE_COMPONENT@")
 set(hunter_self "@HUNTER_SELF@")
@@ -442,11 +446,12 @@ ExternalProject_Add(
     COMMAND
         "@CMAKE_COMMAND@" -P "${qt_source_dir}/qt-install.cmake"
     COMMAND # Copy license files
-      "@CMAKE_COMMAND@"
-      "-Dsrcdir=@HUNTER_PACKAGE_SOURCE_DIR@"
-      "-Ddstfile=@HUNTER_PACKAGE_LICENSE_FILE@"
-      -P
-      "@HUNTER_GLOBAL_SCRIPT_DIR@/try-copy-license.cmake"
+        "@CMAKE_COMMAND@"
+        "-C@HUNTER_ARGS_FILE@" # for 'HUNTER_INSTALL_LICENSE_FILES'
+        "-Dsrcdir=@HUNTER_PACKAGE_SOURCE_DIR@"
+        "-Ddstdir=@HUNTER_PACKAGE_LICENSE_DIR@"
+        -P
+        "@HUNTER_SELF@/scripts/try-copy-license.cmake"
     LOG_BUILD ${log_build}
     LOG_INSTALL ${log_install}
 )

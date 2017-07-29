@@ -1,0 +1,65 @@
+# Copyright (c) 2017, Zhuhao Wang
+# All rights reserved.
+
+cmake_minimum_required(VERSION 3.0)
+project(Hunter)
+
+include(ExternalProject) # ExternalProject_Add
+
+# Scheme for download and install NASM library for Windows
+
+list(APPEND CMAKE_MODULE_PATH "@HUNTER_SELF@/cmake/modules")
+
+include(hunter_status_debug)
+include(hunter_test_string_not_empty)
+
+hunter_status_debug("Scheme: url_sha1_nasm_windows")
+
+# Check preconditions
+hunter_test_string_not_empty("@HUNTER_SELF@")
+hunter_test_string_not_empty("@HUNTER_EP_NAME@")
+hunter_test_string_not_empty("@HUNTER_PACKAGE_URL@")
+hunter_test_string_not_empty("@HUNTER_PACKAGE_SHA1@")
+hunter_test_string_not_empty("@HUNTER_PACKAGE_DOWNLOAD_DIR@")
+hunter_test_string_not_empty("@HUNTER_PACKAGE_SOURCE_DIR@")
+hunter_test_string_not_empty("@HUNTER_PACKAGE_INSTALL_PREFIX@")
+hunter_test_string_not_empty("@HUNTER_MSVC_ARCH@")
+hunter_test_string_not_empty("@HUNTER_MSVC_VCVARSALL@")
+hunter_test_string_not_empty("@HUNTER_PACKAGE_LICENSE_DIR@")
+
+ExternalProject_Add(
+    "@HUNTER_EP_NAME@"
+    URL
+    "@HUNTER_PACKAGE_URL@"
+    URL_HASH
+    SHA1=@HUNTER_PACKAGE_SHA1@
+    DOWNLOAD_DIR
+    "@HUNTER_PACKAGE_DOWNLOAD_DIR@"
+    SOURCE_DIR
+    "@HUNTER_PACKAGE_SOURCE_DIR@"
+    INSTALL_DIR
+    "@HUNTER_PACKAGE_INSTALL_PREFIX@"
+        # not used, just avoid creating Install/<name> empty directory
+    CONFIGURE_COMMAND
+    "@HUNTER_MSVC_VCVARSALL@" "@HUNTER_MSVC_ARCH@"
+    BUILD_COMMAND
+    nmake /f Mkfiles/msvc.mak
+    BUILD_IN_SOURCE
+    1
+    INSTALL_COMMAND
+    "@CMAKE_COMMAND@"
+    "-E" "make_directory" "@HUNTER_PACKAGE_INSTALL_PREFIX@/bin"
+    COMMAND
+    "@CMAKE_COMMAND@"
+    "-E" "copy" "nasm.exe" "ndisasm.exe" "@HUNTER_PACKAGE_INSTALL_PREFIX@/bin"
+    COMMAND
+    "@CMAKE_COMMAND@"
+    "-E" "copy_directory" "rdoff" "@HUNTER_PACKAGE_INSTALL_PREFIX@/bin"
+    COMMAND # Copy license files
+    "@CMAKE_COMMAND@"
+    "-C@HUNTER_ARGS_FILE@" # for 'HUNTER_INSTALL_LICENSE_FILES'
+    "-Dsrcdir=@HUNTER_PACKAGE_SOURCE_DIR@"
+    "-Ddstdir=@HUNTER_PACKAGE_LICENSE_DIR@"
+    -P
+    "@HUNTER_SELF@/scripts/try-copy-license.cmake"
+)

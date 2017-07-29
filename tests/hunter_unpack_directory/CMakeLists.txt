@@ -10,22 +10,24 @@ include(hunter_pack_directory)
 include(hunter_unpack_directory)
 
 set(temp "${CMAKE_CURRENT_BINARY_DIR}/temp")
+set(HUNTER_CACHED_ROOT "${temp}/root")
+set(HUNTER_INSTALL_PREFIX "${temp}/install")
 
 set(dir_to_pack "${temp}/topack")
-set(dir_to_unpack "${temp}/tounpack")
 
 file(WRITE "${dir_to_pack}/1.txt" "hello")
 file(WRITE "${dir_to_pack}/B/2.txt" "boo")
 file(WRITE "${dir_to_pack}/B/C/3.txt" "foo")
 
-set(dest_dir "${temp}/dest")
+set(dest_dir "${HUNTER_CACHED_ROOT}/_Base/Cache/raw")
 
 hunter_pack_directory("${dir_to_pack}" "${dest_dir}" result_sha1)
-hunter_unpack_directory("${dest_dir}/${result_sha1}.tar.bz2" "${dir_to_unpack}")
 
-set(expected_1 "${dir_to_unpack}/1.txt")
-set(expected_2 "${dir_to_unpack}/B/2.txt")
-set(expected_3 "${dir_to_unpack}/B/C/3.txt")
+hunter_unpack_directory(${result_sha1})
+
+set(expected_1 "${HUNTER_INSTALL_PREFIX}/1.txt")
+set(expected_2 "${HUNTER_INSTALL_PREFIX}/B/2.txt")
+set(expected_3 "${HUNTER_INSTALL_PREFIX}/B/C/3.txt")
 
 if(NOT EXISTS "${expected_1}")
   message(FATAL_ERROR "Not found: ${expected_1}")

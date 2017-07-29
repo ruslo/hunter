@@ -45,18 +45,18 @@ Next information will help you to set your environment.
 
 .. code-block:: shell
 
-  > docker pull quay.io/ruslo/hunter-travis # pull/update image
-  > docker run -it quay.io/ruslo/hunter-travis bash
-  travis@...:~$ (cd polly && git pull) # fetch last changes, note that branch "develop" is used!
+  > docker pull quay.io/ruslo/hunter-travis-trusty # pull/update image
+  > docker run -it quay.io/ruslo/hunter-travis-trusty bash
+  travis@...:~$ (cd polly && git pull) # fetch last changes
   travis@...:~$ (cd hunter && git pull) # - // -
-  travis@...:~$  cd hunter && TOOLCHAIN=gcc-4-8 PROJECT_DIR=examples/GTest ./jenkins.py --verbose --clear-except
+  travis@...:~$  cd hunter && TOOLCHAIN=gcc PROJECT_DIR=examples/GTest ./jenkins.py --verbose --clear-except
 
 Starting GUI:
 
 .. code-block:: shell
 
   > xhost +
-  > docker run -it -e DISPLAY -v /tmp/.X11-unix:/tmp/.X11-unix quay.io/ruslo/hunter-travis bash
+  > docker run -it -e DISPLAY -v /tmp/.X11-unix:/tmp/.X11-unix quay.io/ruslo/hunter-travis-trusty bash
   travis@...:~$ firefox
 
 Information from logs

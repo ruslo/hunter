@@ -362,8 +362,9 @@ if(OPENSSL_FOUND)
     add_library(OpenSSL::Crypto UNKNOWN IMPORTED)
     set_target_properties(OpenSSL::Crypto PROPERTIES
       INTERFACE_INCLUDE_DIRECTORIES "${OPENSSL_INCLUDE_DIR}")
+    find_package(Threads REQUIRED)
     set_target_properties(OpenSSL::Crypto PROPERTIES
-        INTERFACE_LINK_LIBRARIES "${CMAKE_DL_LIBS}")
+        INTERFACE_LINK_LIBRARIES "${CMAKE_DL_LIBS};Threads::Threads")
     if(EXISTS "${OPENSSL_CRYPTO_LIBRARY}")
       set_target_properties(OpenSSL::Crypto PROPERTIES
         IMPORTED_LINK_INTERFACE_LANGUAGES "C"

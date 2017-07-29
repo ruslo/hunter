@@ -23,6 +23,39 @@ hunter_add_version(
     PACKAGE_NAME
     spdlog
     VERSION
+    "0.13.0-p0"
+    URL
+    "https://github.com/hunter-packages/spdlog/archive/v0.13.0-p0.tar.gz"
+    SHA1
+    b34b92075423d9da196daefe796316393a0fd593
+)
+
+hunter_add_version(
+    PACKAGE_NAME
+    spdlog
+    VERSION
+    "0.13.0-p1"
+    URL
+    "https://github.com/hunter-packages/spdlog/archive/v0.13.0-p1.tar.gz"
+    SHA1
+    edf9ba15852b181e16e1fe323878d8281941b376
+)
+
+hunter_add_version(
+    PACKAGE_NAME
+    spdlog
+    VERSION
+    "0.12.0-p0"
+    URL
+    "https://github.com/hunter-packages/spdlog/archive/v0.12.0-p0.tar.gz"
+    SHA1
+    b10bf7b537198a5f2224c3e022db38da9b2f3d53
+)
+
+hunter_add_version(
+    PACKAGE_NAME
+    spdlog
+    VERSION
     "0.11.0-p0"
     URL
     "https://github.com/hunter-packages/spdlog/archive/v0.11.0-p0.tar.gz"

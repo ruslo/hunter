@@ -1,4 +1,4 @@
-.. Copyright (c) 2016, Ruslan Baratov
+.. Copyright (c) 2016-2017, Ruslan Baratov
 .. All rights reserved.
 
 Deployed
@@ -61,6 +61,7 @@ is to allow Hunter to be deployed inside
 for development.
 
 .. code-block:: none
+  :emphasize-lines: 2,4,6,8,10,12,14,16,18,20,22,24,26,28,30,32,34,36,38,40,42,44,46,48,50,52,54
 
   _Base/
   ├── <Hunter-ID>/
@@ -112,6 +113,7 @@ for development.
   │                       ├── Install/
   │                       └── Dependencies/
   ├── Download/                                # see below
+  ├── Cellar/                                  # see below
   └── Cache/                                   # see below
 
 Download
@@ -124,6 +126,7 @@ about ``<Config-ID>/<Toolchain-ID>`` part (we have to calculate them using
 Hunter code).
 
 .. code-block:: none
+  :emphasize-lines: 2,4,6,8,10,12,14,16,18,20,22,24,26,28,30
 
   Download/
   ├── <Package>/
@@ -144,6 +147,7 @@ Hunter code).
                ├── Build/
                └── Unpacked/             # Unpacked Hunter archive (HUNTER_SELF)
 
+
 Cache
 =====
 
@@ -153,6 +157,7 @@ of ``raw`` directory with ``*.tar.bz2`` files (packed installed binaries) and
 arguments, dependencies, etc.).
 
 .. code-block:: none
+  :emphasize-lines: 2,4,6,8,10,12,14,16,18,20,22,24,26,28,30,32,34,36,38,40,42
 
   Cache/
   ├─ raw/
@@ -196,3 +201,25 @@ arguments, dependencies, etc.).
                                 ├─ deps.info      # list of all dependencies and corresponding SHA1 of cache archive
                                 ├─ CACHE.DONE     # stamp: deps.info and cache.sha1 created and ready to be used
                                 └─ from.server    # info downloaded from server, no need to upload this entry
+
+Cellar
+======
+
+Cellar directory consists of unpacked raw cache archives and source archives of
+``url_sha1_unpack`` packages:
+
+.. code-block:: none
+  :emphasize-lines: 2,4,6,8,10,12,14,16,18,20,22,24,26,28,30,32,34,36,38,40,42
+
+  Cellar/
+  └─ <sha1>/                                      # SHA1 of unpacked archive
+     └─ <id>/                                     # first 7 digits of SHA1
+        ├─ cmake.lock
+        ├─ SHA1
+        ├─ DONE
+        ├─ unpack.DONE                            # stamp: unpack operation finished
+        ├─ directories.list                       # list of unpacked directories
+        ├─ files.list                             # list of unpacked files
+        ├─ link-all.sh                            # link script
+        ├─ licenses/
+        └─ raw/                                   # directory with unpacked files

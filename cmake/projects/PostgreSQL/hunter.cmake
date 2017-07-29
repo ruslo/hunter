@@ -8,6 +8,18 @@ include(hunter_cacheable)
 include(hunter_configuration_types)
 include(hunter_pick_scheme)
 include(hunter_download)
+include(hunter_cmake_args)
+
+hunter_add_version(
+    PACKAGE_NAME
+    PostgreSQL
+    VERSION
+    "9.6.3"
+    URL
+    "https://github.com/hunter-packages/PostgreSQL/archive/PostgreSQL-9.6.3.tar.gz"
+    SHA1
+    103d31238ef688295960082619968bda4aa01163
+)
 
 hunter_add_version(
     PACKAGE_NAME
@@ -31,7 +43,9 @@ endif()
 hunter_configuration_types(PostgreSQL CONFIGURATION_TYPES Release)
 hunter_pick_scheme(DEFAULT url_sha1_autotools)
 hunter_cacheable(PostgreSQL)
-hunter_download(PACKAGE_NAME PostgreSQL
+hunter_download(
+    PACKAGE_NAME PostgreSQL
+    PACKAGE_INTERNAL_DEPS_ID "1"
     PACKAGE_UNRELOCATABLE_TEXT_FILES
     "lib/pkgconfig/libecpg.pc"
     "lib/pkgconfig/libecpg_compat.pc"
@@ -39,4 +53,3 @@ hunter_download(PACKAGE_NAME PostgreSQL
     "lib/pkgconfig/libpq.pc"
     "lib/postgresql/pgxs/src/Makefile.global"
 )
-

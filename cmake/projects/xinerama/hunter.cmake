@@ -38,6 +38,7 @@ hunter_cmake_args(
 hunter_cacheable(xinerama)
 hunter_download(
     PACKAGE_NAME xinerama
+    PACKAGE_INTERNAL_DEPS_ID "1"
     PACKAGE_UNRELOCATABLE_TEXT_FILES
     "lib/libXinerama.la"
     "lib/pkgconfig/xinerama.pc"

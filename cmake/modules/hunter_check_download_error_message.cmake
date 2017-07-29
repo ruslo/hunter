@@ -52,6 +52,8 @@ function(hunter_check_download_error_message)
     set(expected_message "\"Timeout was reached\"")
   elseif(x_ERROR_CODE EQUAL 1)
     set(expected_message "\"Unsupported protocol\"")
+  elseif(x_ERROR_CODE EQUAL 52)
+    set(expected_message "\"Server returned nothing (no headers, no data)\"")
   else()
     file(REMOVE "${x_REMOVE_ON_ERROR}")
     hunter_internal_error(

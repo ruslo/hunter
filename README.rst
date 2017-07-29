@@ -6,6 +6,7 @@ Supported platforms: **Linux**, **Mac**, **Windows**, **iOS**, **Android**, **Ra
 
 
 * Documentation: https://docs.hunter.sh
+* Supported Packages: https://docs.hunter.sh/en/latest/packages.html
 * Sources: https://github.com/ruslo/hunter
 * Reporting issues: https://github.com/ruslo/hunter/issues/new
 * Contributing guide: https://docs.hunter.sh/en/latest/contributing.html

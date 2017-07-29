@@ -12,6 +12,12 @@ project(download-sugar)
 # download sugar
 hunter_add_package(Sugar)
 
+if(NOT EXISTS "${Sugar_LICENSES}")
+  message(FATAL_ERROR "File not found: '${Sugar_LICENSES}'")
+endif()
+
+message("License: '${Sugar_LICENSES}'")
+
 # now sugar can be used
 include("${SUGAR_ROOT}/cmake/Sugar")
 include(sugar_status_print)

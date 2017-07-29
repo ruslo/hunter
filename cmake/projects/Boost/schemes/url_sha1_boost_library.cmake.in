@@ -17,6 +17,7 @@ include(hunter_dump_cmake_flags)
 include(hunter_fatal_error)
 include(hunter_install_boost_config)
 include(hunter_internal_error)
+include(hunter_pick_archiver)
 include(hunter_status_debug)
 include(hunter_status_print)
 include(hunter_test_string_not_empty)
@@ -98,12 +99,17 @@ endif()
 
 string(COMPARE EQUAL "@CMAKE_CXX_COMPILER_ID@" "Clang" compiler_is_clang)
 
+set(use_cmake_archiver TRUE)
 if("@ANDROID@")
   set(toolset_name "gcc")
   set(toolset_version "ndk")
 elseif("@APPLE@")
   set(toolset_name "darwin")
   set(toolset_version "")
+
+  # Using CMAKE_AR on OSX leads to error (b2 use 'libtool'):
+  # * https://travis-ci.org/ingenue/hunter/jobs/204617507
+  set(use_cmake_archiver FALSE)
 elseif("@CMAKE_COMPILER_IS_GNUCXX@")
   set(toolset_name "gcc")
   set(toolset_version "")
@@ -245,6 +251,10 @@ set(
     "--user-config=${boost_user_jam}"
     --with-@HUNTER_PACKAGE_COMPONENT@
 )
+if("@MINGW@")
+  # cross compile from "linux" to "windows" using mingw
+  set(build_opts target-os=windows ${build_opts})
+endif()
 
 hunter_boost_component_b2_args(
     "@HUNTER_PACKAGE_COMPONENT@"
@@ -276,11 +286,22 @@ else()
   )
 endif()
 
-file(
-    APPEND
-    ${boost_user_jam}
-    "  : <archiver> \"${CMAKE_AR}\"\n"
-)
+if(use_cmake_archiver)
+  # We need custom '<archiver>' and '<ranlib>' for
+  # Android LTO ('*-gcc-ar' instead of '*-ar')
+  # WARNING: no spaces between '<archiver>' and '${CMAKE_AR}'!
+
+  # -> CMAKE_AR
+  # -> CMAKE_RANLIB
+  hunter_pick_archiver()
+
+  file(
+      APPEND
+      ${boost_user_jam}
+      "  : <archiver>\"${CMAKE_AR}\"\n"
+      " <ranlib>\"${CMAKE_RANLIB}\"\n"
+  )
+endif()
 
 if(MSVC)
   # See 'boost_compiler' section
@@ -320,7 +341,7 @@ if(@HUNTER_STATUS_DEBUG@)
   set(verbose_output "-d+2 --debug-configuration")
 endif()
 
-if("@MSVC@" OR "@MINGW@")
+if(CMAKE_HOST_WIN32)
   set(bootstrap_cmd "bootstrap.bat")
   set(b2_cmd "b2")
 else()
@@ -328,6 +349,9 @@ else()
   set(b2_cmd "./b2")
 endif()
 
+if("@MINGW@")
+  list(APPEND bootstrap_cmd "gcc")
+endif()
 
 if(HUNTER_STATUS_DEBUG)
   file(READ "${boost_user_jam}" USER_JAM_CONTENT)
