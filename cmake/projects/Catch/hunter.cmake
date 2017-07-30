@@ -12,6 +12,17 @@ hunter_add_version(
     PACKAGE_NAME
     Catch
     VERSION
+    "1.8.2-p0"
+    URL
+    "https://github.com/hunter-packages/Catch/archive/v1.8.2-p0-hunter.tar.gz"
+    SHA1
+    d8de13879e7be959d95a8e4a0daa2d5eb5fef807
+)
+
+hunter_add_version(
+    PACKAGE_NAME
+    Catch
+    VERSION
     "1.5.9"
     URL
     "https://github.com/hunter-packages/Catch/archive/v1.5.9-hunter.tar.gz"
