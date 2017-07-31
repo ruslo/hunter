@@ -39,10 +39,14 @@ def job(job_index):
     print('Exception caught: {}'.format(exc))
     return 1
 
-pool = multiprocessing.Pool(processes=proc_num)
-result = pool.map(job, range(proc_num))
-pool.close()
-pool.join()
+def run_link():
+  pool = multiprocessing.Pool(processes=proc_num)
+  result = pool.map(job, range(proc_num))
+  pool.close()
+  pool.join()
 
-if 1 in result:
-  sys.exit('Some job failed')
+  if 1 in result:
+    sys.exit('Some job failed')
+
+if __name__ == '__main__':
+  run_link()
