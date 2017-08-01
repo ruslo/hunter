@@ -11,4 +11,5 @@ find_package(SDL_mixer CONFIG REQUIRED)
 
 add_executable(main main.cpp)
 target_link_libraries(main
-    SDL_mixer::SDL_mixer)
+    SDL_mixer::SDL_mixer
+    SDL2::SDL2main)
