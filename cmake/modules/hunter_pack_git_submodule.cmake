@@ -13,13 +13,14 @@ function(hunter_pack_git_submodule)
   endif()
 
   set(optional "")
-  set(one GIT_SUBMODULE PROJECT_FILE VERSION)
+  set(one GIT_SUBMODULE PROJECT_FILE VERSION SUBMODULE_SOURCE_SUBDIR)
   set(multiple "")
 
   # Introduce:
   # * x_GIT_SUBMODULE
   # * x_PROJECT_FILE
   # * x_VERSION
+  # * x_SUBMODULE_SOURCE_SUBDIR
   cmake_parse_arguments(x "${optional}" "${one}" "${multiple}" "${ARGV}")
 
   string(COMPARE NOTEQUAL "${x_UNPARSED_ARGUMENTS}" "" has_unparsed)
@@ -193,7 +194,17 @@ function(hunter_pack_git_submodule)
   set(archive "${archives_directory}/${PACKAGE_NAME}.tar")
   hunter_status_debug("Creating archive '${archive}'")
 
-  set(cmd "${GIT_EXECUTABLE}" archive HEAD -o "${archive}")
+  # check if whole submodule or just a subfolder is to be archived
+  string(COMPARE EQUAL "${x_SUBMODULE_SOURCE_SUBDIR}" "" is_empty)
+  if(is_empty)
+    hunter_status_debug("No SUBMODULE_SOURCE_SUBDIR specified, archive whole submodule")
+    set(source_flag)
+  else()
+    hunter_status_debug("SUBMODULE_SOURCE_SUBDIR specified, only archive subfolder: ${x_SUBMODULE_SOURCE_SUBDIR}")
+    set(source_flag ":${x_SUBMODULE_SOURCE_SUBDIR}")
+  endif()
+
+  set(cmd "${GIT_EXECUTABLE}" archive HEAD${source_flag} -o "${archive}")
   execute_process(
       COMMAND ${cmd}
       WORKING_DIRECTORY "${submodule_dir}"

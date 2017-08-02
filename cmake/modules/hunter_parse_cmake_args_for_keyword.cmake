@@ -6,7 +6,7 @@ include(CMakeParseArguments) # cmake_parse_arguments
 include(hunter_internal_error)
 include(hunter_status_debug)
 
-function(hunter_parse_cmake_args_for_keyword cmake_args)
+function(hunter_parse_cmake_args_for_keyword)
   set(optional "")
   set(one KEYWORD OUTPUT)
   set(multiple CMAKE_ARGS)
