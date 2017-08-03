@@ -215,16 +215,29 @@ hunter_add_version(
     d902b7df94219d2ed2f5c868839c85ce9daa056a
 )
 
-hunter_add_version(
-    PACKAGE_NAME
-    Qt
-    VERSION
-    "5.9.1"
-    URL
-    "http://download.qt.io/official_releases/qt/5.9/5.9.1/single/qt-everywhere-opensource-src-5.9.1.zip"
-    SHA1
-    bdac47fdcf6dd502a123eb403bb4260542f91034
-)
+if(WIN32)
+  hunter_add_version(
+      PACKAGE_NAME
+      Qt
+      VERSION
+      "5.9.1"
+      URL
+      "http://download.qt.io/official_releases/qt/5.9/5.9.1/single/qt-everywhere-opensource-src-5.9.1.zip"
+      SHA1
+      bdac47fdcf6dd502a123eb403bb4260542f91034
+  )
+else()
+  hunter_add_version(
+      PACKAGE_NAME
+      Qt
+      VERSION
+      "5.9.1"
+      URL
+      "http://download.qt.io/official_releases/qt/5.9/5.9.1/single/qt-everywhere-opensource-src-5.9.1.tar.xz"
+      SHA1
+      8b9900cece0a18cf23d53a42379a628a1c1330ae
+  )
+endif()
 
 hunter_cacheable(Qt)
 
