@@ -4,4 +4,4 @@
 Donations
 ---------
 
-* `Donations <https://github.com/ruslo/hunter/blob/develop/donate.md>`_
+* `Donations <https://github.com/ruslo/hunter/blob/master/donate.md>`_
