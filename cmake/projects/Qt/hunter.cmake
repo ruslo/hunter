@@ -236,6 +236,21 @@ if(IOS)
   endif()
 endif()
 
+if(CMAKE_VERSION VERSION_LESS 3.6)
+  # QtCMakeExtra modules (https://github.com/hunter-packages/QtCMakeExtra) installed
+  # near the Qt CMake modules and loaded by `file(GLOB)`:
+  # * https://github.com/qt/qtbase/blob/441ad9b938d453ccf5bff8867e7d3e6e432f9eba/mkspecs/features/data/cmake/Qt5BasicConfig.cmake.in#L352
+  #
+  # Before CMake 3.6 file(GLOB) order is not predictable and QtCMakeExtra will not work
+  # because they are expected to load last.
+  #
+  # file(GLOB) sorted since CMake 3.6:
+  # * https://gitlab.kitware.com/cmake/cmake/commit/edcccde7d65944b3744c4567bd1d452211829702
+  hunter_report_broken_package(
+      "CMake 3.6+ expected for Qt package (current version is ${CMAKE_VERSION}."
+  )
+endif()
+
 include("${CMAKE_CURRENT_LIST_DIR}/qtbase/hunter.cmake")
 
 hunter_add_package(QtCMakeExtra)
