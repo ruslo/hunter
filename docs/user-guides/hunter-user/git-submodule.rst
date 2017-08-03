@@ -108,6 +108,19 @@ Run tests to see changes:
   1:   plum-v2 x 2
   1:   pear x 1
 
+Use subdirectory of submodule
+=============================
+
+To instruct hunter to archive a subdirectory of the Git submodule add the keyword ``HUNTER_SUBMODULE_SOURCE_SUBDIR`` to the CMake arguments:
+
+.. code-block:: cmake
+
+  # cmake/Hunter/config.cmake
+  hunter_config(fruits GIT_SUBMODULE "3rdParty/fruits"
+    CMAKE_ARGS "HUNTER_SUBMODULE_SOURCE_SUBDIR=app")
+
+The created archive will contain just the subfolder ``app`` of the submodule.
+
 GIT_SUBMODULE vs add_subdirectory
 =================================
 
