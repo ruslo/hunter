@@ -7,7 +7,7 @@ include("../common.cmake")
 project(MySQL-client-example)
 
 hunter_add_package(MySQL-client)
-find_package(MySQL-client REQUIRED)
+find_package(MySQL-client CONFIG REQUIRED)
 
 set(${PROJECT_NAME}_SOURCES
   main.c
@@ -17,5 +17,5 @@ add_executable(${PROJECT_NAME}
     ${${PROJECT_NAME}_SOURCES}
 )
 
-target_link_libraries(${PROJECT_NAME} "MySQL::client")
+target_link_libraries(${PROJECT_NAME} "MySQL::libmysql")
 
