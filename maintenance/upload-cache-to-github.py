@@ -39,14 +39,16 @@ def retry(func_in):
       except Error as err:
         # Treat Errors as fatal and do not retry.
         # Also explicitly flush message to avoid "no output" issue on some CIs.
-        print('Error:\n  {}'.format(err), flush=True)
+        print('Error:\n  {}'.format(err))
+        sys.stdout.flush()
         raise err
       except Exception as exc:
         if i > retry_max:
           raise exc
         print('Operation failed. Exception:\n  {}'.format(exc))
         sec = sleep_time(i)
-        print('Retry #{} (of {}) after {} seconds'.format(i, retry_max, sec), flush=True)
+        print('Retry #{} (of {}) after {} seconds'.format(i, retry_max, sec))
+        sys.stdout.flush()
         time.sleep(sec)
   return func_out
 
