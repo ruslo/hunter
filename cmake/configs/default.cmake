@@ -49,6 +49,7 @@ hunter_config(CURL VERSION 7.49.1-DEV-v5)
 hunter_config(Clang VERSION 3.6.2-p0)
 hunter_config(ClangToolsExtra VERSION 3.6.2) # Clang
 hunter_config(Comet VERSION 4.0.2)
+hunter_config(cotire VERSION 1.7.10)
 hunter_config(CppNetlib VERSION 0.10.1-hunter-3)
 hunter_config(CppNetlibUri VERSION 1.0.4-hunter)
 hunter_config(CsvParserCPlusPlus VERSION 1.0.1)
