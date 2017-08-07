@@ -61,6 +61,7 @@ if(PYTHONINTERP_FOUND)
   )
   execute_process(
       COMMAND ${cmd}
+      WORKING_DIRECTORY "${CELLAR_RAW_DIRECTORY}"
       RESULT_VARIABLE result
       OUTPUT_VARIABLE output
       ERROR_VARIABLE error
@@ -80,6 +81,7 @@ if(EXISTS "${shell}")
   set(cmd "${shell}" "${SHELL_LINK_SCRIPT}" "${HUNTER_INSTALL_PREFIX}")
   execute_process(
       COMMAND ${cmd}
+      WORKING_DIRECTORY "${CELLAR_RAW_DIRECTORY}"
       RESULT_VARIABLE result
       OUTPUT_VARIABLE output
       ERROR_VARIABLE error
