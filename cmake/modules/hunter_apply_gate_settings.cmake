@@ -74,11 +74,7 @@ function(hunter_apply_gate_settings)
 
   set(hunter_base "${HUNTER_GATE_ROOT}/_Base")
 
-  # HUNTER_GATE_CONFIG_SHA1
-  hunter_calculate_config_sha1(
-      "${hunter_self}" "${hunter_base}" "${config_location}"
-  )
-
+  # define configuration type variables
   string(COMPARE EQUAL "${HUNTER_CONFIGURATION_TYPES}" "" use_default)
   if(use_default)
     set(HUNTER_CONFIGURATION_TYPES "Release;Debug")
@@ -102,9 +98,40 @@ function(hunter_apply_gate_settings)
     endif()
   endforeach()
 
-  # HUNTER_GATE_TOOLCHAIN_SHA1
+  # * defines: HUNTER_GATE_TOOLCHAIN_SHA1
+  # * needs: HUNTER_CONFIGURATION_TYPES
+  # * creates: global_toolchain_info at
+  #   "${hunter_base}/${HUNTER_GATE_SHA1}/${HUNTER_GATE_TOOLCHAIN_SHA1}/toolchain.info"
   hunter_calculate_toolchain_sha1("${hunter_self}" "${hunter_base}")
 
+  # set PATH variables for hunter and toolchain
+  hunter_make_directory("${hunter_base}" "${HUNTER_GATE_SHA1}" hunter_id_path)
+  hunter_make_directory(
+      "${hunter_id_path}"
+      "${HUNTER_GATE_TOOLCHAIN_SHA1}"
+      hunter_toolchain_id_path
+  )
+  set(HUNTER_ID_PATH "${hunter_id_path}" PARENT_SCOPE)
+  set(HUNTER_TOOLCHAIN_ID_PATH "${hunter_toolchain_id_path}")
+  set(HUNTER_TOOLCHAIN_ID_PATH "${hunter_toolchain_id_path}" PARENT_SCOPE)
+
+  # * defines: HUNTER_GATE_CONFIG_SHA1
+  # * needs: HUNTER_TOOLCHAIN_ID_PATH
+  # * creates: unified global config file at
+  #   "${hunter_base}/${HUNTER_GATE_SHA1}/${HUNTER_GATE_TOOLCHAIN_SHA1}/${HUNTER_GATE_CONFIG_SHA1/config.cmake"
+  hunter_calculate_config_sha1(
+      "${hunter_self}" "${hunter_base}" "${config_location}"
+  )
+  # set PATH variables for config folder
+  hunter_make_directory(
+      "${hunter_toolchain_id_path}"
+      "${HUNTER_GATE_CONFIG_SHA1}"
+      hunter_config_id_path
+  )
+  set(HUNTER_CONFIG_ID_PATH "${hunter_config_id_path}" PARENT_SCOPE)
+
+
+  # test if mandatory variables are set
   hunter_test_string_not_empty("${HUNTER_GATE_ROOT}")
   hunter_test_string_not_empty("${HUNTER_GATE_SHA1}")
   hunter_test_string_not_empty("${HUNTER_GATE_CONFIG_SHA1}")

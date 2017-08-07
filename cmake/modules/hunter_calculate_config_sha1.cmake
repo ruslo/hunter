@@ -135,9 +135,19 @@ function(hunter_calculate_config_sha1 hunter_self hunter_base user_config)
   file(SHA1 "${work_dir}/config.cmake" HUNTER_GATE_CONFIG_SHA1)
   set(HUNTER_GATE_CONFIG_SHA1 "${HUNTER_GATE_CONFIG_SHA1}" PARENT_SCOPE)
   hunter_make_directory("${hunter_base}" "${HUNTER_GATE_SHA1}" hunter_id_path)
+
   hunter_make_directory(
-      "${hunter_id_path}" "${HUNTER_GATE_CONFIG_SHA1}" hunter_config_id_path
+      "${hunter_id_path}"
+      "${HUNTER_GATE_TOOLCHAIN_SHA1}"
+      hunter_toolchain_id_path
   )
+
+  hunter_make_directory(
+      "${hunter_toolchain_id_path}"
+      "${HUNTER_GATE_CONFIG_SHA1}"
+      hunter_config_id_path
+  )
+
 
   set(dst "${hunter_config_id_path}/config.cmake")
 

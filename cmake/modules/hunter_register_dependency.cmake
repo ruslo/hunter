@@ -51,10 +51,10 @@ function(hunter_register_dependency)
   endif()
 
   hunter_test_string_not_empty("${hunter_PACKAGE_NAME}")
-  hunter_test_string_not_empty("${HUNTER_TOOLCHAIN_ID_PATH}")
+  hunter_test_string_not_empty("${HUNTER_CONFIG_ID_PATH}")
   set(
       dependencies_dir
-      "${HUNTER_TOOLCHAIN_ID_PATH}/Build/${hunter_PACKAGE_NAME}"
+      "${HUNTER_CONFIG_ID_PATH}/Build/${hunter_PACKAGE_NAME}"
   )
   if(has_package_component)
     set(
