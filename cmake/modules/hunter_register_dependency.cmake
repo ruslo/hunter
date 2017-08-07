@@ -86,3 +86,5 @@ function(hunter_register_dependency)
   hunter_status_debug("Making: ${dep_file}")
   file(WRITE "${dep_file}" "")
 endfunction()
+
+# vim:set shiftwidth=2 tabstop=2 softtabstop=2 expandtab:

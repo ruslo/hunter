@@ -641,3 +641,5 @@ function(hunter_download)
   # * ${HUNTER_PACKAGE_NAME}_LICENSES (parent scope)
   hunter_find_licenses()
 endfunction()
+
+# vim:set shiftwidth=2 tabstop=2 softtabstop=2 expandtab:

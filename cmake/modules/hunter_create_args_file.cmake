@@ -106,3 +106,5 @@ function(hunter_create_args_file args filename)
     endif()
   endforeach()
 endfunction()
+
+# vim:set shiftwidth=2 tabstop=2 softtabstop=2 expandtab:

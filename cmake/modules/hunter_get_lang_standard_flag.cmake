@@ -65,3 +65,5 @@ function(hunter_get_lang_standard_flag LANG OUTPUT)
   hunter_status_debug("hunter_get_lang_standard_flag(${LANG}): '${flag}'")
   set("${OUTPUT}" "${flag}" PARENT_SCOPE)
 endfunction()
+
+# vim:set shiftwidth=2 tabstop=2 softtabstop=2 expandtab:

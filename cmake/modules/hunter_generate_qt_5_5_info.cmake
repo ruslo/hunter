@@ -174,3 +174,5 @@ function(
   )
   set("${skip_components_varname}" "${skip_list}" PARENT_SCOPE)
 endfunction()
+
+# vim:set shiftwidth=2 tabstop=2 softtabstop=2 expandtab:

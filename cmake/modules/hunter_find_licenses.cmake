@@ -35,3 +35,5 @@ macro(hunter_find_licenses)
   endif()
   # }
 endmacro()
+
+# vim:set shiftwidth=2 tabstop=2 softtabstop=2 expandtab:

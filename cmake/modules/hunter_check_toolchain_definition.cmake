@@ -80,3 +80,5 @@ function(hunter_check_toolchain_definition)
     set(${hunter_ct_arg_VALUE} ${defined_value} PARENT_SCOPE)
   endif()
 endfunction()
+
+# vim:set shiftwidth=2 tabstop=2 softtabstop=2 expandtab:

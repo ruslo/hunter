@@ -189,3 +189,5 @@ function(hunter_create_cache_file cache_path)
   # Atomic operation
   file(RENAME "${temp_path}" "${cache_path}")
 endfunction()
+
+# vim:set shiftwidth=2 tabstop=2 softtabstop=2 expandtab:

@@ -73,3 +73,5 @@ function(hunter_get_package_deps_recurse)
   list(SORT all_dependencies)
   set("${x_RESULT}" "${all_dependencies}" PARENT_SCOPE)
 endfunction()
+
+# vim:set shiftwidth=2 tabstop=2 softtabstop=2 expandtab:

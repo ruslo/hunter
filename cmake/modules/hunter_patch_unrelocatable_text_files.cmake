@@ -50,3 +50,5 @@ function(hunter_patch_unrelocatable_text_files)
     file(WRITE "${text_full_path}" "${output_content}\n")
   endforeach()
 endfunction()
+
+# vim:set shiftwidth=2 tabstop=2 softtabstop=2 expandtab:

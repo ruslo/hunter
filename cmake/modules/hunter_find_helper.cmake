@@ -112,3 +112,5 @@ function(hunter_find_helper)
   unset(_hunter_library CACHE)
   unset(_hunter_header CACHE)
 endfunction()
+
+# vim:set shiftwidth=2 tabstop=2 softtabstop=2 expandtab:

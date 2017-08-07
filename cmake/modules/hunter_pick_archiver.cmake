@@ -34,3 +34,5 @@ function(hunter_pick_archiver)
   set(CMAKE_AR "${CMAKE_CXX_COMPILER_AR}" PARENT_SCOPE)
   set(CMAKE_RANLIB "${CMAKE_CXX_COMPILER_RANLIB}" PARENT_SCOPE)
 endfunction()
+
+# vim:set shiftwidth=2 tabstop=2 softtabstop=2 expandtab:

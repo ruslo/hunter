@@ -51,3 +51,5 @@ function(hunter_create_deps_info temp_deps_info)
     file(APPEND "${temp_deps_info}" "${dep_entry}\n")
   endforeach()
 endfunction()
+
+# vim:set shiftwidth=2 tabstop=2 softtabstop=2 expandtab:

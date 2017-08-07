@@ -153,3 +153,5 @@ function(hunter_unpack_directory cache_sha1)
     hunter_internal_error("Link script failed: ${result}, ${output}, ${error}")
   endif()
 endfunction()
+
+# vim:set shiftwidth=2 tabstop=2 softtabstop=2 expandtab:

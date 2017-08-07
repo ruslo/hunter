@@ -26,3 +26,5 @@ function(hunter_apply_copy_rules)
   endforeach()
   set_property(GLOBAL PROPERTY HUNTER_COPY_FILES "")
 endfunction()
+
+# vim:set shiftwidth=2 tabstop=2 softtabstop=2 expandtab:

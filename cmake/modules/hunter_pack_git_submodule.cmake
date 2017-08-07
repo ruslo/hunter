@@ -262,3 +262,5 @@ function(hunter_pack_git_submodule)
 
   set("${x_VERSION}" "${PACKAGE_SHA1}" PARENT_SCOPE)
 endfunction()
+
+# vim:set shiftwidth=2 tabstop=2 softtabstop=2 expandtab:

@@ -85,3 +85,5 @@ function(hunter_check_download_error_message)
   endif()
   set("${x_NOT_FOUND_COUNTER}" "${i}" PARENT_SCOPE)
 endfunction()
+
+# vim:set shiftwidth=2 tabstop=2 softtabstop=2 expandtab:

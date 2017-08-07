@@ -201,3 +201,5 @@ function(hunter_save_to_cache)
   file(WRITE "${cache_meta_dir}/cache.sha1" "${archive_sha1}")
   file(WRITE "${cache_meta_dir}/CACHE.DONE" "")
 endfunction()
+
+# vim:set shiftwidth=2 tabstop=2 softtabstop=2 expandtab:

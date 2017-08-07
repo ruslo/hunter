@@ -32,3 +32,5 @@ macro(hunter_cmake_args)
       ${_hunter_c_CMAKE_ARGS}
   )
 endmacro()
+
+# vim:set shiftwidth=2 tabstop=2 softtabstop=2 expandtab:

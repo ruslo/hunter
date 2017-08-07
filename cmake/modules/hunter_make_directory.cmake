@@ -45,3 +45,5 @@ function(hunter_make_directory parent sha1 result)
 
   set("${result}" "${dir_path}" PARENT_SCOPE)
 endfunction()
+
+# vim:set shiftwidth=2 tabstop=2 softtabstop=2 expandtab:

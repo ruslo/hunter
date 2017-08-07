@@ -42,3 +42,5 @@ function(hunter_install_libsodium_targets)
     )
 
 endfunction()
+
+# vim:set shiftwidth=2 tabstop=2 softtabstop=2 expandtab:

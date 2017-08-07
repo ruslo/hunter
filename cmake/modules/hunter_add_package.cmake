@@ -54,3 +54,5 @@ macro(hunter_add_package)
     hunter_status_debug("load: ${x} ... end")
   endforeach()
 endmacro()
+
+# vim:set shiftwidth=2 tabstop=2 softtabstop=2 expandtab:

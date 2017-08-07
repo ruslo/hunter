@@ -157,3 +157,5 @@ function(hunter_boost_component_b2_args compName boostCmakeArgs outList)
   set("${outList}" ${myList} PARENT_SCOPE)
 
 endfunction(hunter_boost_component_b2_args)
+
+# vim:set shiftwidth=2 tabstop=2 softtabstop=2 expandtab:

@@ -45,3 +45,5 @@ function(hunter_create_dependency_entry)
     set("${x_RESULT}" "${x_PACKAGE} ${sha1}" PARENT_SCOPE)
   endif()
 endfunction()
+
+# vim:set shiftwidth=2 tabstop=2 softtabstop=2 expandtab:

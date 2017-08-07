@@ -60,3 +60,5 @@ function(hunter_read_http_credentials)
       PARENT_SCOPE
   )
 endfunction()
+
+# vim:set shiftwidth=2 tabstop=2 softtabstop=2 expandtab:

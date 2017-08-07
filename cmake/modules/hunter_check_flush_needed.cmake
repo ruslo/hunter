@@ -74,3 +74,5 @@ function(hunter_check_flush_needed hunter_self flush_done)
   hunter_flush_cache_variables("${hunter_self}")
   set("${flush_done}" TRUE PARENT_SCOPE)
 endfunction()
+
+# vim:set shiftwidth=2 tabstop=2 softtabstop=2 expandtab:

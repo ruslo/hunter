@@ -67,3 +67,5 @@ function(hunter_create_cache_meta_directory cache_directory result)
 
   set("${result}" "${cache_meta_dir}" PARENT_SCOPE)
 endfunction()
+
+# vim:set shiftwidth=2 tabstop=2 softtabstop=2 expandtab:

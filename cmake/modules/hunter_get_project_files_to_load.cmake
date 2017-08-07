@@ -95,3 +95,5 @@ function(hunter_get_project_files_to_load)
 
   set("${x_FILES}" "${result_list}" PARENT_SCOPE)
 endfunction()
+
+# vim:set shiftwidth=2 tabstop=2 softtabstop=2 expandtab:

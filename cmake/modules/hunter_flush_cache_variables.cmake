@@ -121,3 +121,5 @@ function(hunter_flush_cache_variables hunter_self)
   endforeach()
   # }
 endfunction()
+
+# vim:set shiftwidth=2 tabstop=2 softtabstop=2 expandtab:

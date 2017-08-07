@@ -60,3 +60,5 @@ function(hunter_jobs_number jobs_options_varname toolchain_path)
 
   set("${jobs_options_varname}" "" PARENT_SCOPE)
 endfunction()
+
+# vim:set shiftwidth=2 tabstop=2 softtabstop=2 expandtab:

@@ -86,3 +86,5 @@ https://github.com/ruslo/hunter/issues/495
 
   hunter_status_print("Host project build finished: ${home_directory}")
 endfunction()
+
+# vim:set shiftwidth=2 tabstop=2 softtabstop=2 expandtab:

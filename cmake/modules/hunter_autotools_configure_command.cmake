@@ -227,3 +227,4 @@ function(hunter_autotools_configure_command out_command_line)
   set(${out_command_line} ${configure_command} PARENT_SCOPE)
 endfunction()
 
+# vim:set shiftwidth=2 tabstop=2 softtabstop=2 expandtab:

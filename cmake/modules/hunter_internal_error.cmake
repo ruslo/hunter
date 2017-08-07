@@ -12,3 +12,5 @@ function(hunter_internal_error)
   message("")
   hunter_wiki("error.internal")
 endfunction()
+
+# vim:set shiftwidth=2 tabstop=2 softtabstop=2 expandtab:
