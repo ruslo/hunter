@@ -64,3 +64,5 @@ function(hunter_pack_directory dir_to_pack dest_dir result_sha1)
 
   hunter_status_print("Cache saved: ${dest_archive}")
 endfunction()
+
+# vim:set shiftwidth=2 tabstop=2 softtabstop=2 expandtab:

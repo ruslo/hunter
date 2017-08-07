@@ -40,3 +40,5 @@ function(hunter_qt_add_module)
 
   set(component_${x_NAME}_depends_on "${dep_list}" PARENT_SCOPE)
 endfunction()
+
+# vim:set shiftwidth=2 tabstop=2 softtabstop=2 expandtab:

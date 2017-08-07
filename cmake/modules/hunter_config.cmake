@@ -88,3 +88,5 @@ macro(hunter_config)
     hunter_user_error("Expected VERSION option for 'hunter_config' command")
   endif()
 endmacro()
+
+# vim:set shiftwidth=2 tabstop=2 softtabstop=2 expandtab:

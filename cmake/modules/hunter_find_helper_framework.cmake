@@ -74,3 +74,5 @@ function(hunter_find_helper_framework)
       "-framework ${x_FRAMEWORK}"
   )
 endfunction()
+
+# vim:set shiftwidth=2 tabstop=2 softtabstop=2 expandtab:

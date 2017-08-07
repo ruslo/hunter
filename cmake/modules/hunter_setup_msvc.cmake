@@ -170,3 +170,5 @@ macro(hunter_setup_msvc)
     hunter_status_debug("vcvarsall.bat file location: ${HUNTER_MSVC_VCVARSALL}")
   endif()
 endmacro()
+
+# vim:set shiftwidth=2 tabstop=2 softtabstop=2 expandtab:

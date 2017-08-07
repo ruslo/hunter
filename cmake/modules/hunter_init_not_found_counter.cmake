@@ -12,3 +12,5 @@ function(hunter_init_not_found_counter not_found_needed_name not_found_counter_n
   set("${not_found_needed_name}" "${x}" PARENT_SCOPE)
   set("${not_found_counter_name}" 0 PARENT_SCOPE)
 endfunction()
+
+# vim:set shiftwidth=2 tabstop=2 softtabstop=2 expandtab:

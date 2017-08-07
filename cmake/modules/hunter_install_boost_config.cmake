@@ -39,3 +39,5 @@ function(hunter_install_boost_config)
     )
   endif()
 endfunction()
+
+# vim:set shiftwidth=2 tabstop=2 softtabstop=2 expandtab:

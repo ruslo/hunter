@@ -61,3 +61,4 @@ function(hunter_parse_cmake_args_for_keyword)
   set("${x_OUTPUT}" "${output}" PARENT_SCOPE)
 endfunction()
 
+# vim:set shiftwidth=2 tabstop=2 softtabstop=2 expandtab:

@@ -127,3 +127,4 @@ function(hunter_pkgconfig_export_target PKG_CONFIG_MODULE)
   # --- INTERFACE_COMPILE_OPTIONS end ---
 endfunction()
 
+# vim:set shiftwidth=2 tabstop=2 softtabstop=2 expandtab:

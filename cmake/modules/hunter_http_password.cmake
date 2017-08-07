@@ -21,3 +21,5 @@ function(hunter_http_password package_name)
     set(HUNTER_PACKAGE_HTTP_PASSWORD "${x_PASSWORD}" PARENT_SCOPE)
   endif()
 endfunction()
+
+# vim:set shiftwidth=2 tabstop=2 softtabstop=2 expandtab:

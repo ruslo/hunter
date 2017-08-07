@@ -36,3 +36,5 @@ function(hunter_find_stamps build_dir)
     endif()
   endforeach()
 endfunction()
+
+# vim:set shiftwidth=2 tabstop=2 softtabstop=2 expandtab:

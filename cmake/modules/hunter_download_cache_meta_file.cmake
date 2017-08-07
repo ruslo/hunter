@@ -156,3 +156,5 @@ function(hunter_download_cache_meta_file)
     endforeach()
   endforeach()
 endfunction()
+
+# vim:set shiftwidth=2 tabstop=2 softtabstop=2 expandtab:

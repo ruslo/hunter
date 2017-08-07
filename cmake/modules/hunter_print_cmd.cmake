@@ -10,3 +10,5 @@ function(hunter_print_cmd work_dir cmd)
   endforeach()
   hunter_status_debug("${msg}")
 endfunction()
+
+# vim:set shiftwidth=2 tabstop=2 softtabstop=2 expandtab:

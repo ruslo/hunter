@@ -12,3 +12,5 @@ function(hunter_protected_sources package_name)
   endif()
   set("HUNTER_${package_name}_PROTECTED_SOURCES" YES PARENT_SCOPE)
 endfunction()
+
+# vim:set shiftwidth=2 tabstop=2 softtabstop=2 expandtab:

@@ -61,3 +61,5 @@ function(
   set("${component_depends_on_varname}" "${depends_on}" PARENT_SCOPE)
   set("${nobuild_varname}" "${nobuild}" PARENT_SCOPE)
 endfunction()
+
+# vim:set shiftwidth=2 tabstop=2 softtabstop=2 expandtab:

@@ -213,3 +213,5 @@ function(hunter_load_from_cache)
 
   file(WRITE "${HUNTER_PACKAGE_DONE_STAMP}" "")
 endfunction()
+
+# vim:set shiftwidth=2 tabstop=2 softtabstop=2 expandtab:

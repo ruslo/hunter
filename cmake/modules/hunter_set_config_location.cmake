@@ -52,3 +52,5 @@ function(hunter_set_config_location hunter_self result)
 
   set("${result}" "${config_location}" PARENT_SCOPE)
 endfunction()
+
+# vim:set shiftwidth=2 tabstop=2 softtabstop=2 expandtab:

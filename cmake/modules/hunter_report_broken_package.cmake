@@ -13,3 +13,5 @@ function(hunter_report_broken_package)
   endforeach()
   hunter_fatal_error("Broken package: ${msg}" WIKI "error.broken.package")
 endfunction()
+
+# vim:set shiftwidth=2 tabstop=2 softtabstop=2 expandtab:

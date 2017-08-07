@@ -25,3 +25,5 @@ function(hunter_calculate_self root version sha1 result)
 
   set("${result}" "${hunter_self}" PARENT_SCOPE)
 endfunction()
+
+# vim:set shiftwidth=2 tabstop=2 softtabstop=2 expandtab:

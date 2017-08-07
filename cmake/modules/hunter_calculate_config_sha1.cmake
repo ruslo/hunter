@@ -154,3 +154,5 @@ function(hunter_calculate_config_sha1 hunter_self hunter_base user_config)
   hunter_status_debug("Config: ${dst}")
   hunter_status_debug("Config sha1: ${HUNTER_GATE_CONFIG_SHA1}")
 endfunction()
+
+# vim:set shiftwidth=2 tabstop=2 softtabstop=2 expandtab:

@@ -57,3 +57,5 @@ function(hunter_add_version)
   set(${h_url_name} "${h_URL}" PARENT_SCOPE)
   set(${h_sha1_name} "${h_SHA1}" PARENT_SCOPE)
 endfunction()
+
+# vim:set shiftwidth=2 tabstop=2 softtabstop=2 expandtab:

@@ -11,3 +11,5 @@ function(hunter_wiki wiki_page)
   message("")
   message(FATAL_ERROR "")
 endfunction()
+
+# vim:set shiftwidth=2 tabstop=2 softtabstop=2 expandtab:
