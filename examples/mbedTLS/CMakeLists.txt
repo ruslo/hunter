@@ -4,9 +4,9 @@ cmake_minimum_required(VERSION 3.0)
 # * https://github.com/hunter-packages/gate
 include("../common.cmake")
 
-project(download-mbedTLS)
+project(download-mbedtls)
 
-hunter_add_package(mbedTLS)
+hunter_add_package(mbedtls)
 find_library(
     mbedtls_release
     mbedtls
