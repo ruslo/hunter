@@ -12,6 +12,6 @@ new build option to external package.
    :maxdepth: 1
 
    Hunter-ID </overview/customization/hunter-id>
-   Config-ID </overview/customization/config-id>
    Toolchain-ID </overview/customization/toolchain-id>
+   Config-ID </overview/customization/config-id>
    Build types </overview/customization/build-types>
