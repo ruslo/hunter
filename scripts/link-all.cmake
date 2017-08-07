@@ -70,6 +70,7 @@ if(PYTHONINTERP_FOUND)
     message(
         FATAL_ERROR
         "Python script failed: ${cmd}, ${result}, ${output}, ${error}"
+        "(may help: https://stackoverflow.com/a/2009505/2288008)"
     )
   endif()
   return()
