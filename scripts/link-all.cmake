@@ -61,6 +61,7 @@ if(PYTHONINTERP_FOUND)
   )
   execute_process(
       COMMAND ${cmd}
+      WORKING_DIRECTORY "${CELLAR_RAW_DIRECTORY}"
       RESULT_VARIABLE result
       OUTPUT_VARIABLE output
       ERROR_VARIABLE error
@@ -69,6 +70,7 @@ if(PYTHONINTERP_FOUND)
     message(
         FATAL_ERROR
         "Python script failed: ${cmd}, ${result}, ${output}, ${error}"
+        "(may help: https://stackoverflow.com/a/2009505/2288008)"
     )
   endif()
   return()
@@ -80,6 +82,7 @@ if(EXISTS "${shell}")
   set(cmd "${shell}" "${SHELL_LINK_SCRIPT}" "${HUNTER_INSTALL_PREFIX}")
   execute_process(
       COMMAND ${cmd}
+      WORKING_DIRECTORY "${CELLAR_RAW_DIRECTORY}"
       RESULT_VARIABLE result
       OUTPUT_VARIABLE output
       ERROR_VARIABLE error
