@@ -31,6 +31,7 @@ hunter_test_string_not_empty("@HUNTER_PACKAGE_SOURCE_DIR@")
 hunter_test_string_not_empty("@HUNTER_PACKAGE_BUILD_DIR@")
 hunter_test_string_not_empty("@HUNTER_PACKAGE_INSTALL_PREFIX@")
 hunter_test_string_not_empty("@HUNTER_INSTALL_PREFIX@")
+hunter_test_string_not_empty("@HUNTER_GLOBAL_SCRIPT_DIR@")
 
 hunter_autotools_project(
     "@HUNTER_EP_NAME@"
@@ -57,4 +58,10 @@ hunter_autotools_project(
     EXTRA_FLAGS
        --without-doxygen
        --disable-devel-docs
+)
+
+set(PKG_CONFIG_MODULE xcb)
+configure_file(
+    "@HUNTER_GLOBAL_SCRIPT_DIR@/pkgconfig-xcb-export-targets.cmake.in"
+    "@HUNTER_PACKAGE_INSTALL_PREFIX@/lib/cmake/${PKG_CONFIG_MODULE}/${PKG_CONFIG_MODULE}Config.cmake"
 )
