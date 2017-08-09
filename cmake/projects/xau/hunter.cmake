@@ -32,6 +32,7 @@ hunter_cmake_args(
     xau
     CMAKE_ARGS         # do not use double quotes on CMAKE_ARGS
       DEPENDS_ON_PACKAGES=${xau_dependencies}
+      PKGCONFIG_EXPORT_TARGETS=xau
 )
 hunter_cacheable(xau)
 hunter_download(
