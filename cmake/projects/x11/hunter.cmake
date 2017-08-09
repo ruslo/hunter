@@ -36,6 +36,7 @@ hunter_cmake_args(
     x11
     CMAKE_ARGS         # do not use double quotes on CMAKE_ARGS
       DEPENDS_ON_PACKAGES=${x11_dependencies}
+      PKGCONFIG_EXPORT_TARGETS=x11-xcb;x11
 )
 hunter_cacheable(x11)
 hunter_download(
