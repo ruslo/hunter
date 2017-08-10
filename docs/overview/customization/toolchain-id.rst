@@ -74,9 +74,9 @@ Message in logs:
 
 .. code-block:: none
 
-  -- [hunter] [ Hunter-ID: 1eae623 | Config-ID: ... | Toolchain-ID: d46ea0b ]
-  -- [hunter] [ Hunter-ID: 1eae623 | Config-ID: ... | Toolchain-ID: c018e63 ]
-  -- [hunter] [ Hunter-ID: 1eae623 | Config-ID: ... | Toolchain-ID: c39da39 ]
+  -- [hunter] [ Hunter-ID: 1eae623 | Toolchain-ID: d46ea0b | Config-ID: ... ]
+  -- [hunter] [ Hunter-ID: 1eae623 | Toolchain-ID: c018e63 | Config-ID: ... ]
+  -- [hunter] [ Hunter-ID: 1eae623 | Toolchain-ID: c39da39 | Config-ID: ... ]
 
 .. admonition:: Examples on GitHub
 

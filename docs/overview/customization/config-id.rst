@@ -46,10 +46,10 @@ versions and different CMake arguments:
 
 Message in logs:
 
-::
+.. code-block:: none
 
-  -- [hunter] [ Hunter-ID: 1eae623 | Config-ID: 0fa873a | Toolchain-ID: d46ea0b ]
-  -- [hunter] [ Hunter-ID: 1eae623 | Config-ID: e9da39c | Toolchain-ID: d46ea0b ]
+  -- [hunter] [ Hunter-ID: 1eae623 | Toolchain-ID: d46ea0b | Config-ID: 0fa873a ]
+  -- [hunter] [ Hunter-ID: 1eae623 | Toolchain-ID: d46ea0b | Config-ID: e9da39c ]
 
 .. seealso::
 
