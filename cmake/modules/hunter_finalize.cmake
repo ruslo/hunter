@@ -97,8 +97,8 @@ macro(hunter_finalize)
   )
 
   set(_id_info "[ Hunter-ID: ${HUNTER_ID} |")
-  set(_id_info "${_id_info} Config-ID: ${HUNTER_CONFIG_ID} |")
-  set(_id_info "${_id_info} Toolchain-ID: ${HUNTER_TOOLCHAIN_ID} ]")
+  set(_id_info "${_id_info} Toolchain-ID: ${HUNTER_TOOLCHAIN_ID} |")
+  set(_id_info "${_id_info} Config-ID: ${HUNTER_CONFIG_ID} ]")
 
   hunter_status_print("${_id_info}")
 
