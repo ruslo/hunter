@@ -44,7 +44,7 @@ function(hunter_download)
 
   hunter_test_string_not_empty("${HUNTER_INSTALL_PREFIX}")
   hunter_test_string_not_empty("${HUNTER_PACKAGE_NAME}")
-  hunter_test_string_not_empty("${HUNTER_TOOLCHAIN_ID_PATH}")
+  hunter_test_string_not_empty("${HUNTER_CONFIG_ID_PATH}")
   hunter_test_string_not_empty("${HUNTER_CACHE_FILE}")
 
   string(COMPARE NOTEQUAL "${HUNTER_BINARY_DIR}" "" hunter_has_binary_dir)
@@ -147,7 +147,7 @@ function(hunter_download)
   set(HUNTER_PACKAGE_SETUP_DIR "${HUNTER_SELF}/cmake/projects/${HUNTER_PACKAGE_NAME}")
   set(HUNTER_GLOBAL_SCRIPT_DIR "${HUNTER_SELF}/scripts")
   set(HUNTER_PACKAGE_SCRIPT_DIR "${HUNTER_PACKAGE_SETUP_DIR}/scripts/")
-  set(HUNTER_PACKAGE_HOME_DIR "${HUNTER_TOOLCHAIN_ID_PATH}/Build")
+  set(HUNTER_PACKAGE_HOME_DIR "${HUNTER_CONFIG_ID_PATH}/Build")
   set(
       HUNTER_PACKAGE_HOME_DIR
       "${HUNTER_PACKAGE_HOME_DIR}/${HUNTER_PACKAGE_NAME}"
@@ -277,7 +277,7 @@ function(hunter_download)
       "${HUNTER_PACKAGE_DOWNLOAD_DIR}" HUNTER_ALREADY_LOCKED_DIRECTORIES
   )
   hunter_lock_directory(
-      "${HUNTER_TOOLCHAIN_ID_PATH}" HUNTER_ALREADY_LOCKED_DIRECTORIES
+      "${HUNTER_CONFIG_ID_PATH}" HUNTER_ALREADY_LOCKED_DIRECTORIES
   )
   if(hunter_has_binary_dir)
     hunter_lock_directory(

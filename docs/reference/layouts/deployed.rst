@@ -68,16 +68,16 @@ for development.
   │   ├── cmake.lock
   │   ├── SHA1                                 # SHA1 of Hunter archive
   │   ├── DONE
-  │   └── <Config-ID>/
+  │   └── <Toolchain-ID>/
   │       ├── cmake.lock
-  │       ├── SHA1                             # SHA1 of 'config.cmake'
+  │       ├── SHA1                             # SHA1 of 'toolchain.info'
   │       ├── DONE
-  │       ├── config.cmake                     # CMake file with unified hunter_config commands
-  │       └── <Toolchain-ID>/
+  │       ├── toolchain.info
+  │       └── <Config-ID>/
   │           ├── cmake.lock
-  │           ├── SHA1                         # SHA1 of 'toolchain.info'
+  │           ├── SHA1                         # SHA1 of 'config.cmake'
   │           ├── DONE
-  │           ├── toolchain.info
+  │           ├── config.cmake                 # CMake file with unified hunter_config commands
   │           ├── cache.cmake
   │           ├── Install/                     # Main directory with installed packages (global)
   │           │   ├── include/
@@ -120,9 +120,9 @@ Download
 ========
 
 Directory for storing archives with sources. Sources will be unpacked to
-``<Hunter-ID>/<Config-ID>/<Toolchain-ID>/Build/<Package>/Source`` directory.
+``<Hunter-ID>/<Toolchain-ID>/<Config-ID>/Build/<Package>/Source`` directory.
 One exception is archives with Hunter itself since we have no information
-about ``<Config-ID>/<Toolchain-ID>`` part (we have to calculate them using
+about ``<Toolchain-ID>/<Config-ID>`` part (we have to calculate them using
 Hunter code).
 
 .. code-block:: none
