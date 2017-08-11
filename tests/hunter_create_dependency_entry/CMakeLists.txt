@@ -8,11 +8,11 @@ project(TestModuleHunterCreateDependencyEntry)
 
 include(hunter_create_dependency_entry)
 
-set(toolchain_id "${CMAKE_CURRENT_BINARY_DIR}/toolchain-id")
-set(HUNTER_TOOLCHAIN_ID_PATH "${toolchain_id}")
+set(config_id "${CMAKE_CURRENT_BINARY_DIR}/config-id")
+set(HUNTER_CONFIG_ID_PATH "${config_id}")
 
 ### No cache
-file(REMOVE_RECURSE "${toolchain_id}")
+file(REMOVE_RECURSE "${config_id}")
 
 hunter_create_dependency_entry(PACKAGE "Foo" COMPONENT "" RESULT result)
 if(NOT result STREQUAL "")
@@ -20,9 +20,9 @@ if(NOT result STREQUAL "")
 endif()
 
 ### Cache for package
-file(REMOVE_RECURSE "${toolchain_id}")
+file(REMOVE_RECURSE "${config_id}")
 
-set(foo_home "${toolchain_id}/Build/Foo")
+set(foo_home "${config_id}/Build/Foo")
 file(WRITE "${foo_home}/cache.sha1" "Foo-SHA1")
 
 hunter_create_dependency_entry(PACKAGE "Foo" COMPONENT "" RESULT result)
@@ -31,9 +31,9 @@ if(NOT result STREQUAL "Foo Foo-SHA1")
 endif()
 
 ### Cache for package with component
-file(REMOVE_RECURSE "${toolchain_id}")
+file(REMOVE_RECURSE "${config_id}")
 
-set(foo_home "${toolchain_id}/Build/Foo/__Boo")
+set(foo_home "${config_id}/Build/Foo/__Boo")
 file(WRITE "${foo_home}/cache.sha1" "Foo-Boo-SHA1")
 
 hunter_create_dependency_entry(PACKAGE "Foo" COMPONENT "Boo" RESULT result)

@@ -10,15 +10,15 @@ function(hunter_create_cache_file cache_path)
   hunter_test_string_not_empty("${HUNTER_CACHED_ROOT}")
   hunter_test_string_not_empty("${HUNTER_SHA1}")
   hunter_test_string_not_empty("${HUNTER_CONFIG_SHA1}")
+  hunter_test_string_not_empty("${HUNTER_CONFIG_ID_PATH}")
   hunter_test_string_not_empty("${HUNTER_VERSION}")
   hunter_test_string_not_empty("${HUNTER_TOOLCHAIN_SHA1}")
-  hunter_test_string_not_empty("${HUNTER_TOOLCHAIN_ID_PATH}")
 
   if(EXISTS "${cache_path}")
     return()
   endif()
 
-  hunter_lock_directory("${HUNTER_TOOLCHAIN_ID_PATH}" "")
+  hunter_lock_directory("${HUNTER_CONFIG_ID_PATH}" "")
 
   # While waiting for lock other instance can create this file
   if(EXISTS "${cache_path}")

@@ -16,7 +16,7 @@ function(hunter_create_dependency_entry)
 
   hunter_test_string_not_empty("${x_PACKAGE}")
   hunter_test_string_not_empty("${x_RESULT}")
-  hunter_test_string_not_empty("${HUNTER_TOOLCHAIN_ID_PATH}")
+  hunter_test_string_not_empty("${HUNTER_CONFIG_ID_PATH}")
 
   string(COMPARE NOTEQUAL "${x_COMPONENT}" "" has_component)
   string(COMPARE NOTEQUAL "${x_UNPARSED_ARGUMENTS}" "" has_unparsed)
@@ -24,7 +24,7 @@ function(hunter_create_dependency_entry)
     hunter_internal_error("Unparsed: ${x_UNPARSED_ARGUMENTS}")
   endif()
 
-  set(top_dir "${HUNTER_TOOLCHAIN_ID_PATH}/Build")
+  set(top_dir "${HUNTER_CONFIG_ID_PATH}/Build")
 
   set(dep_dir "${top_dir}/${x_PACKAGE}")
   if(has_component)
