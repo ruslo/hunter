@@ -201,13 +201,13 @@ function(hunter_pack_git_submodule)
     set(source_flag)
   else()
     hunter_status_debug("SUBMODULE_SOURCE_SUBDIR specified, only archive subfolder: ${x_SUBMODULE_SOURCE_SUBDIR}")
-    set(source_flag ":${x_SUBMODULE_SOURCE_SUBDIR}")
+    set(source_flag "/${x_SUBMODULE_SOURCE_SUBDIR}")
   endif()
 
-  set(cmd "${GIT_EXECUTABLE}" archive HEAD${source_flag} -o "${archive}")
+  set(cmd "${GIT_EXECUTABLE}" archive HEAD -o "${archive}")
   execute_process(
       COMMAND ${cmd}
-      WORKING_DIRECTORY "${submodule_dir}"
+      WORKING_DIRECTORY "${submodule_dir}${source_flag}"
       RESULT_VARIABLE result
       OUTPUT_VARIABLE output
       ERROR_VARIABLE error
