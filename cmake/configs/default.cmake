@@ -86,7 +86,7 @@ hunter_config(OpenBLAS VERSION 0.2.20-p0)
 hunter_config(OpenCL VERSION 2.1-p3)
 hunter_config(OpenCL-cpp VERSION 2.0.10-p0)
 hunter_config(OpenCV VERSION 3.2.0-p2)
-hunter_config(OpenCV-Extra VERSION 3.0.0)
+hunter_config(OpenCV-Extra VERSION 3.2.0)
 hunter_config(OpenNMTTokenizer VERSION 0.2.0-p1)
 if(MSVC)
   # FIXME: https://ci.appveyor.com/project/ingenue/hunter/build/1.0.1470
