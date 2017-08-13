@@ -46,8 +46,8 @@ hunter_config(BoostProcess VERSION 0.5)
 hunter_config(CapnProto VERSION 0.6.1)
 hunter_config(CLAPACK VERSION 3.2.1)
 hunter_config(CURL VERSION 7.49.1-DEV-v5)
-hunter_config(Clang VERSION 3.6.2-p0)
-hunter_config(ClangToolsExtra VERSION 3.6.2) # Clang
+hunter_config(Clang VERSION 4.0.1-p0)
+hunter_config(ClangToolsExtra VERSION 4.0.1) # Clang
 hunter_config(Comet VERSION 4.0.2)
 hunter_config(CppNetlib VERSION 0.10.1-hunter-3)
 hunter_config(CppNetlibUri VERSION 1.0.4-hunter)
@@ -71,8 +71,8 @@ else()
   hunter_config(jsoncpp VERSION 1.8.0)
 endif()
 hunter_config(LAPACK VERSION 3.7.1)
-hunter_config(LLVM VERSION 3.6.2-p0) # Clang
-hunter_config(LLVMCompilerRT VERSION 3.6.0) # Clang
+hunter_config(LLVM VERSION 4.0.1-p0) # Clang
+hunter_config(LLVMCompilerRT VERSION 4.0.1-patched) # Clang
 hunter_config(Leathers VERSION 0.1.6)
 hunter_config(Leptonica VERSION 1.74.2-p4)
 hunter_config(Libcxx VERSION 3.6.2) # Clang
@@ -206,6 +206,7 @@ hunter_config(rabbitmq-c VERSION 0.7.0-p1)
 hunter_config(randrproto VERSION 1.3.2)
 hunter_config(renderproto VERSION 0.11.1)
 hunter_config(sm VERSION 1.2.1)
+hunter_config(Snappy VERSION 1.1.6-p0)
 hunter_config(sse2neon VERSION 1.0.0-p0)
 hunter_config(sparsehash VERSION 2.0.2)
 if(MSVC_VERSION LESS 1800)
