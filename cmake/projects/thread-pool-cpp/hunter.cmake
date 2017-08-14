@@ -12,6 +12,17 @@ hunter_add_version(
     PACKAGE_NAME
     thread-pool-cpp
     VERSION
+    1.1.0
+    URL
+    "https://github.com/hunter-packages/thread-pool-cpp/archive/v1.1.0.tar.gz"
+    SHA1
+    52c345cb9f0f3e43d0c4760462784b0180f5efe8
+)
+
+hunter_add_version(
+    PACKAGE_NAME
+    thread-pool-cpp
+    VERSION
     1.0.0-p3
     URL
     "https://github.com/hunter-packages/thread-pool-cpp/archive/v1.0.0-p3.tar.gz"
