@@ -12,11 +12,11 @@ hunter_add_version(
     PACKAGE_NAME
     xgboost
     VERSION
-    0.40-p8
+    0.40-p9
     URL
-    "https://github.com/hunter-packages/xgboost/archive/v0.40-p8.tar.gz"
+    "https://github.com/hunter-packages/xgboost/archive/v0.40-p9.tar.gz"
     SHA1
-    1a4168dd40cc4a4cffeddd33bfe5952a3dd94af4
+    040000efe20018fcfcd2acc318cf36eb5dcb1b1d
 )
 
 hunter_add_version(
