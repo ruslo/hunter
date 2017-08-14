@@ -15,24 +15,40 @@ QT_LIBS="
     qtandroidextras
     qtbase
     qtcanvas3d
+    qtcharts
     qtconnectivity
+    qtdatavis3d
     qtdeclarative
     qtdoc
+    qtdocgallery
     qtenginio
+    qtfeedback
+    qtgamepad
     qtgraphicaleffects
     qtimageformats
     qtlocation
     qtmacextras
     qtmultimedia
+    qtnetworkauth
+    qtpim
+    qtpurchasing
+    qtqa
     qtquick1
     qtquickcontrols
     qtquickcontrols2
+    qtremoteobjects
+    qtrepotools
     qtscript
+    qtscxml
     qtsensors
+    qtserialbus
     qtserialport
+    qtspeech
     qtsvg
+    qtsystems
     qttools
     qttranslations
+    qtvirtualkeyboard
     qtwayland
     qtwebchannel
     qtwebengine
