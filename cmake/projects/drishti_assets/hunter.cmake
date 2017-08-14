@@ -19,6 +19,17 @@ hunter_add_version(
     7787ba57e30146c979780c79ae62e8299cfe3cfd
 )
 
+hunter_add_version(
+    PACKAGE_NAME
+    drishti_assets
+    VERSION
+    1.7
+    URL
+    "https://github.com/elucideye/drishti-assets/archive/v1.7.tar.gz"
+    SHA1
+    1c35ca176e4b30111eed44fd607d8a5ac0c71585
+)  
+
 hunter_pick_scheme(DEFAULT url_sha1_cmake)
 hunter_cacheable(drishti_assets)
 hunter_download(PACKAGE_NAME drishti_assets)
