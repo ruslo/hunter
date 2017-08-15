@@ -16,6 +16,17 @@ hunter_add_version(
     PACKAGE_NAME
     cereal
     VERSION
+    "1.2.2-p0"
+    URL
+    "https://github.com/hunter-packages/cereal/archive/v1.2.2-p0.tar.gz"
+    SHA1
+    7325d29644654c16f066a8c887665c2cf78226c2
+    )
+
+hunter_add_version(
+    PACKAGE_NAME
+    cereal
+    VERSION
     "1.2.1-p1"
     URL
     "https://github.com/headupinclouds/cereal/archive/v1.2.1-p1.tar.gz"
