@@ -96,7 +96,7 @@
       android:smallScreens="true"
       android:largeScreens="true"
   />
-  <uses-sdk android:minSdkVersion="9" android:targetSdkVersion="@CMAKE_SYSTEM_VERSION@"/>
+  <uses-sdk android:minSdkVersion="16" android:targetSdkVersion="@CMAKE_SYSTEM_VERSION@"/>
   <uses-permission android:name="android.permission.CAMERA" />
   <uses-permission android:name="android.permission.INTERNET"/>
   <uses-feature android:name="android.hardware.camera" android:required="false" />
