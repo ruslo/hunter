@@ -45,7 +45,7 @@ hunter_config(BoostCompute VERSION 0.5-p0)
 hunter_config(BoostProcess VERSION 0.5)
 hunter_config(CapnProto VERSION 0.6.1)
 hunter_config(CLAPACK VERSION 3.2.1)
-hunter_config(CURL VERSION 7.49.1-DEV-v5)
+hunter_config(CURL VERSION 7.49.1-DEV-v8)
 hunter_config(Clang VERSION 4.0.1-p0)
 hunter_config(ClangToolsExtra VERSION 4.0.1) # Clang
 hunter_config(Comet VERSION 4.0.2)
