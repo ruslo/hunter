@@ -30,6 +30,17 @@ hunter_add_version(
     35b954c7180bce95f491951a87a49098bb074595
 )
 
+hunter_add_version(
+    PACKAGE_NAME
+    intsizeof
+    VERSION
+    "2.0.1"
+    URL
+    "https://github.com/ruslo/intsizeof/archive/v2.0.1.tar.gz"
+    SHA1
+    e897f9c32cbd87130ac6b0e88106d06a8b0ada42
+)
+
 hunter_cacheable(intsizeof)
 hunter_pick_scheme(DEFAULT url_sha1_cmake)
 hunter_download(PACKAGE_NAME intsizeof)
