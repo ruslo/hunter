@@ -100,8 +100,9 @@ hunter_config(PostgreSQL VERSION 9.6.3)
 hunter_config(Protobuf VERSION 3.0.0-p1)
 
 string(COMPARE EQUAL "${CMAKE_SYSTEM_NAME}" "Linux" _is_linux)
-if(_is_linux)
+if(_is_linux OR MINGW)
   # qt-qml example is broken on Linux
+  # qt-core example is broken on MinGW
   hunter_config(Qt VERSION 5.5.1-cvpixelbuffer-2-p9)
 else()
   hunter_config(Qt VERSION 5.9.1-p0)
