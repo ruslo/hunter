@@ -219,7 +219,7 @@ hunter_add_version(
     PACKAGE_NAME
     Qt
     VERSION
-    "5.9.1"
+    "5.9.1-p0"
     URL
     "https://github.com/hunter-packages/Qt/releases/download/v5.9.1-p0/hunter-5.9.1.7z"
     SHA1
