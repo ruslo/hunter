@@ -1,4 +1,5 @@
 # Copyright (c) 2017, Ruslan Baratov
+# Copyright (c) 2017, David Hirvonen
 # All rights reserved.
 
 # !!! DO NOT PLACE HEADER GUARDS HERE !!!
@@ -28,6 +29,17 @@ hunter_add_version(
     "https://github.com/elucideye/drishti-assets/archive/v1.7.tar.gz"
     SHA1
     1c35ca176e4b30111eed44fd607d8a5ac0c71585
+)  
+
+hunter_add_version(
+    PACKAGE_NAME
+    drishti_assets
+    VERSION
+    1.8
+    URL
+    "https://github.com/elucideye/drishti-assets/archive/v1.8.tar.gz"
+    SHA1
+    1667a5209e83902a46251632dab25cf114d75c96
 )  
 
 hunter_pick_scheme(DEFAULT url_sha1_cmake)
