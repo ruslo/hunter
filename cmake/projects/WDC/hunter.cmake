@@ -8,6 +8,13 @@ include(hunter_pick_scheme)
 
 hunter_add_version(
     PACKAGE_NAME WDC
+    VERSION "1.1.1"
+    URL "https://github.com/CloudPolis/webdav-client-cpp/archive/v1.1.1.tar.gz"
+    SHA1 ae111eee686c2f7d9091164ba270a6be11f8d4a8
+)
+
+hunter_add_version(
+    PACKAGE_NAME WDC
     VERSION "1.1.0"
     URL "https://github.com/CloudPolis/webdav-client-cpp/archive/v1.1.0.tar.gz"
     SHA1 cc0923530fd1ce13fe927592bad3999db4f22d5e
