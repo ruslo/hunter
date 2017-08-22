@@ -23,7 +23,7 @@ function(hunter_pkgconfig_export_target PKG_CONFIG_MODULE)
         "Could not find pkg-config module: ${PKG_CONFIG_MODULE}"
     )
   endif()
-  add_library("${target_name}" INTERFACE IMPORTED)
+  add_library("${target_name}" INTERFACE IMPORTED GLOBAL)
 
   # --- INTERFACE_INCLUDE_DIRECTORIES begin ---
   hunter_status_debug(
