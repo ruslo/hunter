@@ -67,6 +67,17 @@ hunter_add_version(
     76b9d007591ac1464c443066f4e9db1a0b973efc
 )
 
+hunter_add_version(
+    PACKAGE_NAME
+    glfw
+    VERSION
+    "3.3.0-p4"
+    URL
+    "https://github.com/hunter-packages/glfw/archive/3.3.0-p4.tar.gz"
+    SHA1
+    455c97ea01a1b78ae39a72d00d86eb1c455e0dca
+)
+
 hunter_cmake_args(
     glfw
     CMAKE_ARGS
