@@ -34,6 +34,7 @@ hunter_cmake_args(
     xfixes
     CMAKE_ARGS         # do not use double quotes on CMAKE_ARGS
       DEPENDS_ON_PACKAGES=${xfixes_dependencies}
+      PKGCONFIG_EXPORT_TARGETS=xfixes
 )
 
 hunter_cacheable(xfixes)

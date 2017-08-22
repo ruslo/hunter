@@ -28,6 +28,7 @@ hunter_cmake_args(
     xproto
     CMAKE_ARGS
       DEPENDS_ON_PACKAGES=xorg-macros
+      PKGCONFIG_EXPORT_TARGETS=xproto
 )
 hunter_cacheable(xproto)
 hunter_download(

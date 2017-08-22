@@ -5,6 +5,7 @@
 
 include(hunter_add_version)
 include(hunter_cacheable)
+include(hunter_cmake_args)
 include(hunter_configuration_types)
 include(hunter_download)
 include(hunter_pick_scheme)
@@ -35,6 +36,11 @@ hunter_add_version(
 
 hunter_configuration_types(xcb-proto CONFIGURATION_TYPES Release)
 hunter_pick_scheme(DEFAULT url_sha1_autotools)
+hunter_cmake_args(
+    xcb-proto
+    CMAKE_ARGS
+    PKGCONFIG_EXPORT_TARGETS=xcb-proto
+)
 hunter_cacheable(xcb-proto)
 hunter_download(
     PACKAGE_NAME xcb-proto

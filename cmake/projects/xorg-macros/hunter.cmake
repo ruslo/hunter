@@ -5,6 +5,7 @@
 
 include(hunter_add_version)
 include(hunter_cacheable)
+include(hunter_cmake_args)
 include(hunter_configuration_types)
 include(hunter_download)
 include(hunter_pick_scheme)
@@ -24,6 +25,11 @@ hunter_add_version(
 hunter_configuration_types(xorg-macros CONFIGURATION_TYPES Release)
 hunter_pick_scheme(DEFAULT url_sha1_autotools)
 hunter_cacheable(xorg-macros)
+hunter_cmake_args(
+    xorg-macros
+    CMAKE_ARGS
+    PKGCONFIG_EXPORT_TARGETS=xorg-macros
+)
 hunter_download(
     PACKAGE_NAME xorg-macros
     PACKAGE_INTERNAL_DEPS_ID "2"
