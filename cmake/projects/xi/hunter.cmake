@@ -39,6 +39,7 @@ hunter_cmake_args(
     xi
     CMAKE_ARGS
       DEPENDS_ON_PACKAGES=${_dependencies}
+      PKGCONFIG_EXPORT_TARGETS=xi
 )
 
 hunter_cacheable(xi)
