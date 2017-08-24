@@ -51,12 +51,22 @@ endif()
 
 set(compiler_arg "@CMAKE_C_COMPILER@")
 
+
 if(CMAKE_CROSSCOMPILING)
   # Tells OpenBLAS where to find host CC (HOSTCC=)
   # and not to run tests (CROSS=1)
   # and not to use fortran (NOFORTRAN=1)
   # Feel free to implement cross fortran
-  set(cross_arg HOSTCC=$ENV{CC} CROSS=1 NOFORTRAN=1 ONLY_CBLAS=1)
+
+  # What is HOSTCC?
+  set(HOSTCC gcc)
+  if($ENV{CC})
+    set(HOSTCC $ENV{CC})
+  elseif(CMAKE_HOST_SYSTEM_NAME STREQUAL "Darwin")
+    set(HOSTCC "clang")
+  endif()
+ 
+  set(cross_arg HOSTCC=${HOSTCC} CROSS=1 NOFORTRAN=1 ONLY_CBLAS=1)
 
   # We also need to manually set target when cross compiling
   if(ANDROID)
@@ -64,7 +74,13 @@ if(CMAKE_CROSSCOMPILING)
       set(target_arg TARGET=ARMV7 BINARY=32 ARM_SOFTFP_ABI=1)
     elseif(CMAKE_ANDROID_ARCH_ABI STREQUAL "arm64-v8a")
       set(target_arg TARGET=ARMV8 BINARY=64)
+    elseif(CMAKE_ANDROID_ARCH_ABI STREQUAL "x86")
+      set(target_arg TARGET=CORE2 BINARY=32)
+    elseif(CMAKE_ANDROID_ARCH_ABI STREQUAL "x86_64")
+      set(target_arg TARGET=PENRYN BINARY=64)
     endif()
+  elseif(IOS)
+    set(target_arg TARGET=generic)
   endif()
   if(CMAKE_C_COMPILER_ID STREQUAL "Clang")
     set(compiler_arg "${compiler_arg} -target ${CMAKE_C_COMPILER_TARGET} --sysroot @CMAKE_SYSROOT@")
