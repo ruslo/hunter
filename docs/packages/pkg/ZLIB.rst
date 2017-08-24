@@ -2,6 +2,8 @@
 
    ZLIB
 
+.. _pkg.ZLIB:
+
 ZLIB
 ====
 

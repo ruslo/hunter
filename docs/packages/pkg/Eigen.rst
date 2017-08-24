@@ -2,6 +2,8 @@
 
    Eigen
 
+.. _pkg.Eigen:
+
 Eigen
 =====
 

@@ -2,6 +2,8 @@
 
     BZip
 
+.. _pkg.BZip2:
+
 BZip2
 =====
 

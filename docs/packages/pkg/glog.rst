@@ -2,6 +2,8 @@
 
     glog
 
+.. _pkg.glog:
+
 glog
 ====
 
