@@ -1,7 +1,7 @@
 Frameworks
 ----------
 
- * `Boost <https://github.com/ruslo/hunter/wiki/pkg.boost>`_ - peer-reviewed portable C++ source libraries.
+ * :ref:`pkg.Boost` - peer-reviewed portable C++ source libraries.
  * `Boost.process <https://github.com/ruslo/hunter/wiki/pkg.boost.process>`_
  * `Qt <https://github.com/ruslo/hunter/wiki/pkg.qt>`_
  * `QtQmlManager <https://github.com/ruslo/hunter/wiki/pkg.qt.qml.manager>`_
