@@ -1,5 +1,18 @@
+.. spelling::
+
+    wiki
+
 All packages
 ------------
+
+.. toctree::
+   :maxdepth: 1
+   :glob:
+
+   pkg/*
+
+Packages described in wiki
+^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 * `ARM_NEON_2_x86_SSE <https://github.com/ruslo/hunter/wiki/pkg.ARM_NEON_2_x86_SSE>`__
 * `Android-Apk <https://github.com/ruslo/hunter/wiki/pkg.android.apk>`__
@@ -10,9 +23,7 @@ All packages
 * `Async++ <https://github.com/ruslo/hunter/wiki/pkg.async>`__
 * `Autobahn-cpp <https://github.com/ruslo/hunter/wiki/pkg.autobahn-cpp>`__
 * `Avahi <https://github.com/ruslo/hunter/wiki/pkg.avahi>`__
-* `BZip2 <https://github.com/ruslo/hunter/wiki/pkg.bzip2>`__
 * `Beast <https://github.com/ruslo/hunter/wiki/pkg.beast>`__
-* `Boost <https://github.com/ruslo/hunter/wiki/pkg.boost>`__
 * `Boost.compute <https://github.com/ruslo/hunter/wiki/pkg.boost.compute>`__
 * `Boost.process <https://github.com/ruslo/hunter/wiki/pkg.boost.process>`__
 * `CLAPACK <https://github.com/ruslo/hunter/wiki/pkg.clapack>`__
@@ -23,7 +34,6 @@ All packages
 * `cpp_redis <https://github.com/ruslo/hunter/wiki/pkg.cpp_redis>`__
 * `CppNetlib.URI <https://github.com/ruslo/hunter/wiki/pkg.cppnetlib.uri>`__
 * `CsvParserCPlusPlus <https://github.com/ruslo/hunter/wiki/pkg.csvparsercplusplus>`__
-* `Eigen <https://github.com/ruslo/hunter/wiki/pkg.eigen>`__
 * `Expat <https://github.com/ruslo/hunter/wiki/pkg.expat>`__
 * `FakeIt <https://github.com/ruslo/hunter/wiki/pkg.fakeit>`__
 * `GMock <https://github.com/ruslo/hunter/wiki/pkg.gtest>`__
@@ -56,7 +66,6 @@ All packages
 * `TIFF <https://github.com/ruslo/hunter/wiki/pkg.tiff>`__
 * `WTL <https://github.com/ruslo/hunter/wiki/pkg.wtl>`__
 * `Washer <https://github.com/ruslo/hunter/wiki/pkg.washer>`__
-* `ZLIB <https://github.com/ruslo/hunter/wiki/pkg.zlib>`__
 * `ZMQPP <https://github.com/ruslo/hunter/wiki/pkg.zmqpp>`__
 * `ZeroMQ <https://github.com/ruslo/hunter/wiki/pkg.zeromq>`__
 * `aes <https://github.com/ruslo/hunter/wiki/pkg.aes>`__
@@ -78,7 +87,6 @@ All packages
 * `freetype <https://github.com/ruslo/hunter/wiki/pkg.freetype>`__
 * `gflags <https://github.com/ruslo/hunter/wiki/pkg.gflags>`__
 * `glm <https://github.com/ruslo/hunter/wiki/pkg.glm>`__
-* `glog <https://github.com/ruslo/hunter/wiki/pkg.glog>`__
 * `half <https://github.com/ruslo/hunter/wiki/pkg.half>`__
 * `hdf5 <https://github.com/ruslo/hunter/wiki/pkg.hdf5>`__
 * `imshow <https://github.com/ruslo/hunter/wiki/pkg.imshow>`__
