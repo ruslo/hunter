@@ -40,8 +40,9 @@ header_format_string = """.. spelling::
 
 .. _pkg.{}:
 
-    {}
-    {}
+{}
+{}
+
 """
 
 def append_file(f, input_file):
