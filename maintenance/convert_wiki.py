@@ -84,6 +84,7 @@ for entry in pkg_only_hunter:
      
     with open(target_rst, 'w') as f:
         f.write(header)
+        f.write("TODO\n")
 
 # convert wiki entry, put in extra folder
 for entry in pkg_only_wiki:
@@ -100,6 +101,8 @@ for entry in pkg_only_wiki:
     
     with open(target_rst, 'w') as f:
         f.write(header)
+        f.write("File only available in wiki.\n"
+                "Please merge with hunter-package entry\n\n")
         append_file(f, tmp_rst)
 
 print("pkg_match entries:       ", len(pkg_match))
