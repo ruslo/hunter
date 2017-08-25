@@ -98,3 +98,7 @@ for entry in pkg_only_wiki:
     with open(target_rst, 'w') as f:
         f.write(header)
         append_file(f, tmp_rst)
+
+print("pkg_match entries:       ", len(pkg_match))
+print("pkg_only_hunter entries: ", len(pkg_only_hunter))
+print("pkg_only_wiki entries:   ", len(pkg_only_wiki))
