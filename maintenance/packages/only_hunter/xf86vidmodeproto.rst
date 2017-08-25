@@ -4,5 +4,6 @@
 
 .. _pkg.xf86vidmodeproto:
 
-    xf86vidmodeproto
-    ================
+xf86vidmodeproto
+================
+

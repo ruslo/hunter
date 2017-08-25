@@ -4,8 +4,9 @@
 
 .. _pkg.Qt:
 
-    Qt
-    ==
+Qt
+==
+
 -  `Official <http://qt.io>`__
 -  `Source archives <http://download.qt.io/archive/qt/>`__
 -  `Example <https://github.com/ruslo/hunter/tree/master/examples/qt-widgets/CMakeLists.txt>`__

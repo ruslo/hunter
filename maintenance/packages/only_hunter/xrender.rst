@@ -4,5 +4,6 @@
 
 .. _pkg.xrender:
 
-    xrender
-    =======
+xrender
+=======
+

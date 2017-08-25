@@ -4,8 +4,9 @@
 
 .. _pkg.Boost:
 
-    Boost
-    =====
+Boost
+=====
+
 Boost
 ^^^^^
 

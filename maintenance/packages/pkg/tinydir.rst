@@ -4,8 +4,9 @@
 
 .. _pkg.tinydir:
 
-    tinydir
-    =======
+tinydir
+=======
+
 -  `GitHub Official <https://github.com/cxong/tinydir>`__
 -  `Hunterized <https://github.com/hunter-packages/tinydir>`__
 -  `Example <https://github.com/ruslo/hunter/blob/develop/examples/tinydir/foo.cpp>`__

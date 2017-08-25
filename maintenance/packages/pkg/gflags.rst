@@ -4,8 +4,9 @@
 
 .. _pkg.gflags:
 
-    gflags
-    ======
+gflags
+======
+
 -  `Official <https://github.com/gflags/gflags>`__
 -  `Hunterized <https://github.com/hunter-packages/gflags>`__
 -  `Example <https://github.com/ruslo/hunter/blob/master/examples/gflags/foo.cpp>`__

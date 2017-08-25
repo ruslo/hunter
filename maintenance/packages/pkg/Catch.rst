@@ -4,8 +4,9 @@
 
 .. _pkg.Catch:
 
-    Catch
-    =====
+Catch
+=====
+
 Catch
 '''''
 

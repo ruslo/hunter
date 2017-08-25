@@ -4,8 +4,9 @@
 
 .. _pkg.ZeroMQ:
 
-    ZeroMQ
-    ======
+ZeroMQ
+======
+
 -  `Official <https://github.com/zeromq/zeromq4-1>`__
 -  `Example <https://github.com/ruslo/hunter/blob/develop/examples/ZeroMQ/CMakeLists.txt>`__
 -  Available since

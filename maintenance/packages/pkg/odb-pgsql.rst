@@ -4,8 +4,9 @@
 
 .. _pkg.odb-pgsql:
 
-    odb-pgsql
-    =========
+odb-pgsql
+=========
+
 -  `Official <http://www.codesynthesis.com/products/odb/download.xhtml>`__
 -  `Example <https://github.com/ruslo/hunter/blob/develop/examples/odb-pgsql/CMakeLists.txt>`__
 -  Available since

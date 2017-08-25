@@ -4,8 +4,9 @@
 
 .. _pkg.ArrayFire:
 
-    ArrayFire
-    =========
+ArrayFire
+=========
+
 -  `Official <https://github.com/arrayfire/arrayfire>`__
 -  `Hunterized <https://github.com/hunter-packages/arrayfire>`__
 -  `Example <https://github.com/ruslo/hunter/blob/master/examples/yaml-cpp/CMakeLists.txt>`__

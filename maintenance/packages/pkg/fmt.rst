@@ -4,8 +4,9 @@
 
 .. _pkg.fmt:
 
-    fmt
-    ===
+fmt
+===
+
 -  `Official <https://github.com/fmtlib/fmt>`__
 -  `Example <https://github.com/ruslo/hunter/blob/develop/examples/fmt/CMakeLists.txt>`__
 -  Available since

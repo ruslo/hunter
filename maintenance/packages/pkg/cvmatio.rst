@@ -4,8 +4,9 @@
 
 .. _pkg.cvmatio:
 
-    cvmatio
-    =======
+cvmatio
+=======
+
 -  `Official <https://github.com/hbristow/cvmatio>`__
 -  `Hunterized <https://github.com/hunter-packages/cvmatio>`__
 

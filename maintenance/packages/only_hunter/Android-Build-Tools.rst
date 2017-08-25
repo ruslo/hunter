@@ -4,5 +4,6 @@
 
 .. _pkg.Android-Build-Tools:
 
-    Android-Build-Tools
-    ===================
+Android-Build-Tools
+===================
+

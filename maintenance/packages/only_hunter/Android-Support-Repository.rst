@@ -4,5 +4,6 @@
 
 .. _pkg.Android-Support-Repository:
 
-    Android-Support-Repository
-    ==========================
+Android-Support-Repository
+==========================
+

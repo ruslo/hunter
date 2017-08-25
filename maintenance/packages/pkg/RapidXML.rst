@@ -4,8 +4,9 @@
 
 .. _pkg.RapidXML:
 
-    RapidXML
-    ========
+RapidXML
+========
+
 -  `Official <http://rapidxml.sourceforge.net/>`__
 -  `Original Fork of Marcin Kalicinski's RapidXml
    library <https://github.com/timniederhausen/rapidxml>`__

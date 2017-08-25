@@ -4,8 +4,9 @@
 
 .. _pkg.libyuv:
 
-    libyuv
-    ======
+libyuv
+======
+
 -  `Official <https://freeswitch.org/stash/scm/sd/libyuv.git>`__
 -  `Documentation <https://code.google.com/p/libyuv/w/list>`__
 -  `Hunterized <https://github.com/headupinclouds/libyuv/tree/hunter>`__

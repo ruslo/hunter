@@ -4,8 +4,9 @@
 
 .. _pkg.ZMQPP:
 
-    ZMQPP
-    =====
+ZMQPP
+=====
+
 -  `Official <http://zeromq.github.io/zmqpp/>`__
 -  `Official GitHub <https://github.com/zeromq/zeromq4-1>`__
 -  `Hunterized <https://github.com/hunter-packages/zeromq4-1>`__

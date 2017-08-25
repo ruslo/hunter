@@ -4,8 +4,9 @@
 
 .. _pkg.thread-pool-cpp:
 
-    thread-pool-cpp
-    ===============
+thread-pool-cpp
+===============
+
 -  `GitHub official <https://github.com/inkooboo/thread-pool-cpp>`__
 -  `Hunterized <https://github.com/hunter-packages/thread-pool-cpp>`__
 -  `Example <https://github.com/ruslo/hunter/blob/develop/examples/thread-pool-cpp/foo.cpp>`__

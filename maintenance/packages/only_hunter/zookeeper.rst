@@ -4,5 +4,6 @@
 
 .. _pkg.zookeeper:
 
-    zookeeper
-    =========
+zookeeper
+=========
+

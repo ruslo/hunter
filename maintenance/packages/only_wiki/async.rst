@@ -4,8 +4,9 @@
 
 .. _pkg.async:
 
-    async
-    =====
+async
+=====
+
 Async++
 '''''''
 

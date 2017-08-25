@@ -4,5 +4,6 @@
 
 .. _pkg.onmt:
 
-    onmt
-    ====
+onmt
+====
+

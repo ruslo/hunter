@@ -4,8 +4,9 @@
 
 .. _pkg.sparsehash:
 
-    sparsehash
-    ==========
+sparsehash
+==========
+
 -  `Official <https://code.google.com/p/sparsehash/>`__
 -  `Hunter <https://github.com/aadityakalsi/sparsehash>`__
 

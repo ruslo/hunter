@@ -4,5 +4,6 @@
 
 .. _pkg.SQLite3:
 
-    SQLite3
-    =======
+SQLite3
+=======
+

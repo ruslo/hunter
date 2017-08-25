@@ -4,5 +4,6 @@
 
 .. _pkg.tommath:
 
-    tommath
-    =======
+tommath
+=======
+

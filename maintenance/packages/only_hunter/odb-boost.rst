@@ -4,5 +4,6 @@
 
 .. _pkg.odb-boost:
 
-    odb-boost
-    =========
+odb-boost
+=========
+

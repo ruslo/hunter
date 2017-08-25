@@ -4,8 +4,9 @@
 
 .. _pkg.BZip2:
 
-    BZip2
-    =====
+BZip2
+=====
+
 -  `Official <http://bzip.org>`__
 -  `Hunterized <https://github.com/hunter-packages/bzip2>`__
 -  `Example <https://github.com/ruslo/hunter/blob/develop/examples/BZip2/CMakeLists.txt>`__

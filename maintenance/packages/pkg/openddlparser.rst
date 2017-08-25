@@ -4,8 +4,9 @@
 
 .. _pkg.openddlparser:
 
-    openddlparser
-    =============
+openddlparser
+=============
+
 -  `Official <https://github.com/kimkulling/openddl-parser>`__
 -  `Hunterized <https://github.com/hunter-packages/openddl-parser>`__
 

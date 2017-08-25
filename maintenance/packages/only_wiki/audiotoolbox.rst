@@ -4,8 +4,9 @@
 
 .. _pkg.audiotoolbox:
 
-    audiotoolbox
-    ============
+audiotoolbox
+============
+
 .. code-block::cmake
 
     find_package(audiotoolbox REQUIRED)

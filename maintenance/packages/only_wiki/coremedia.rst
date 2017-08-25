@@ -4,8 +4,9 @@
 
 .. _pkg.coremedia:
 
-    coremedia
-    =========
+coremedia
+=========
+
 .. code-block::cmake
 
     find_package(coremedia REQUIRED)

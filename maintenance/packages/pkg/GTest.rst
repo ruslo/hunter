@@ -4,8 +4,9 @@
 
 .. _pkg.GTest:
 
-    GTest
-    =====
+GTest
+=====
+
 GTest
 ~~~~~
 

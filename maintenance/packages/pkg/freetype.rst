@@ -4,8 +4,9 @@
 
 .. _pkg.freetype:
 
-    freetype
-    ========
+freetype
+========
+
 -  `Official <http://www.freetype.org/download.html>`__
 -  `Example <https://github.com/ruslo/hunter/blob/develop/examples/freetype/CMakeLists.txt>`__
 -  Available since

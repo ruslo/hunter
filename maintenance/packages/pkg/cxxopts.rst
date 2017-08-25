@@ -4,8 +4,9 @@
 
 .. _pkg.cxxopts:
 
-    cxxopts
-    =======
+cxxopts
+=======
+
 cxxopts
 ~~~~~~~
 

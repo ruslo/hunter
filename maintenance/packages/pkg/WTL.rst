@@ -4,8 +4,9 @@
 
 .. _pkg.WTL:
 
-    WTL
-    ===
+WTL
+===
+
 -  `Official <https://github.com/alamaison/wtl>`__
 -  `Example <https://github.com/ruslo/hunter/blob/develop/examples/WTL/CMakeLists.txt>`__
 -  Available since

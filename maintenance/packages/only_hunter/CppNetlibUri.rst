@@ -4,5 +4,6 @@
 
 .. _pkg.CppNetlibUri:
 
-    CppNetlibUri
-    ============
+CppNetlibUri
+============
+

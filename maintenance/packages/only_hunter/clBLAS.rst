@@ -4,5 +4,6 @@
 
 .. _pkg.clBLAS:
 
-    clBLAS
-    ======
+clBLAS
+======
+

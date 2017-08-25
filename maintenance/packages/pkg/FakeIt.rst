@@ -4,8 +4,9 @@
 
 .. _pkg.FakeIt:
 
-    FakeIt
-    ======
+FakeIt
+======
+
 FakeIt
 ''''''
 

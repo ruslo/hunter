@@ -4,5 +4,6 @@
 
 .. _pkg.intltool:
 
-    intltool
-    ========
+intltool
+========
+

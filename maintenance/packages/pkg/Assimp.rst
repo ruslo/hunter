@@ -4,8 +4,9 @@
 
 .. _pkg.Assimp:
 
-    Assimp
-    ======
+Assimp
+======
+
 -  http://assimp.org/
 -  `Official GitHub repo <https://github.com/assimp/assimp>`__
 -  `Hunterized <https://github.com/hunter-packages/assimp>`__

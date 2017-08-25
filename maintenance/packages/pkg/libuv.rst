@@ -4,8 +4,9 @@
 
 .. _pkg.libuv:
 
-    libuv
-    =====
+libuv
+=====
+
 libuv
 ^^^^^
 

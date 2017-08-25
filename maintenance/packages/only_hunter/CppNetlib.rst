@@ -4,5 +4,6 @@
 
 .. _pkg.CppNetlib:
 
-    CppNetlib
-    =========
+CppNetlib
+=========
+

@@ -4,5 +4,6 @@
 
 .. _pkg.crashup:
 
-    crashup
-    =======
+crashup
+=======
+

@@ -4,5 +4,6 @@
 
 .. _pkg.xext:
 
-    xext
-    ====
+xext
+====
+

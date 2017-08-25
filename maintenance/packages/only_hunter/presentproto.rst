@@ -4,5 +4,6 @@
 
 .. _pkg.presentproto:
 
-    presentproto
-    ============
+presentproto
+============
+

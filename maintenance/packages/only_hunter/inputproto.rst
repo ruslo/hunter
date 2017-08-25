@@ -4,5 +4,6 @@
 
 .. _pkg.inputproto:
 
-    inputproto
-    ==========
+inputproto
+==========
+

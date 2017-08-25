@@ -4,8 +4,9 @@
 
 .. _pkg.tacopie:
 
-    tacopie
-    =======
+tacopie
+=======
+
 -  `Official <https://github.com/Cylix/tacopie>`__
 -  `Official github fork <https://github.com/Cylix/tacopie>`__
 -  `Hunterized <https://github.com/hunter-packages/tacopie>`__

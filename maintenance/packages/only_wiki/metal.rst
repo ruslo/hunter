@@ -4,8 +4,9 @@
 
 .. _pkg.metal:
 
-    metal
-    =====
+metal
+=====
+
 .. code-block::cmake
 
     find_package(metal REQUIRED)

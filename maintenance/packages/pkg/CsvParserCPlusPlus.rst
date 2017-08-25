@@ -4,8 +4,9 @@
 
 .. _pkg.CsvParserCPlusPlus:
 
-    CsvParserCPlusPlus
-    ==================
+CsvParserCPlusPlus
+==================
+
 -  `Official <https://github.com/headupinclouds/csv-parser-cplusplus>`__
 -  Available since
    `v0.8.9 <https://github.com/ruslo/hunter/releases/tag/v0.8.9>`__

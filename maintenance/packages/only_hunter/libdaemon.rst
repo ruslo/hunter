@@ -4,5 +4,6 @@
 
 .. _pkg.libdaemon:
 
-    libdaemon
-    =========
+libdaemon
+=========
+

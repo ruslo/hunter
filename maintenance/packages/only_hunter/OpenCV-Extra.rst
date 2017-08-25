@@ -4,5 +4,6 @@
 
 .. _pkg.OpenCV-Extra:
 
-    OpenCV-Extra
-    ============
+OpenCV-Extra
+============
+

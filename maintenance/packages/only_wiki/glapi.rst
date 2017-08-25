@@ -4,8 +4,9 @@
 
 .. _pkg.glapi:
 
-    glapi
-    =====
+glapi
+=====
+
 .. code-block::cmake
 
     find_package(glapi REQUIRED)

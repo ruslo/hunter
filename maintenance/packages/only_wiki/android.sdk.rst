@@ -4,8 +4,9 @@
 
 .. _pkg.android.sdk:
 
-    android.sdk
-    ===========
+android.sdk
+===========
+
 This module helps to create Android SDK directory: \*
 https://github.com/hunter-packages/android-sdk
 

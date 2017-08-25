@@ -4,8 +4,9 @@
 
 .. _pkg.android_log:
 
-    android_log
-    ===========
+android_log
+===========
+
 .. code-block::cmake
 
     find_package(android_log REQUIRED)

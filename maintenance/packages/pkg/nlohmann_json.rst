@@ -4,8 +4,9 @@
 
 .. _pkg.nlohmann_json:
 
-    nlohmann_json
-    =============
+nlohmann_json
+=============
+
 -  `Official <https://github.com/nlohmann/json/>`__
 -  `Example <https://github.com/ruslo/hunter/blob/master/examples/nlohmann-json/CMakeLists.txt>`__
 -  V1.0.0 Available from

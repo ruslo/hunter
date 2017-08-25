@@ -4,8 +4,9 @@
 
 .. _pkg.accelerate:
 
-    accelerate
-    ==========
+accelerate
+==========
+
 .. code-block::cmake
 
     find_package(accelerate REQUIRED)

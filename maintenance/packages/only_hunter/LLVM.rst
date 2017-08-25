@@ -4,5 +4,6 @@
 
 .. _pkg.LLVM:
 
-    LLVM
-    ====
+LLVM
+====
+

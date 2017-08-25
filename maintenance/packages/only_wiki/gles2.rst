@@ -4,8 +4,9 @@
 
 .. _pkg.gles2:
 
-    gles2
-    =====
+gles2
+=====
+
 .. code-block::cmake
 
     find_package(gles2 REQUIRED)

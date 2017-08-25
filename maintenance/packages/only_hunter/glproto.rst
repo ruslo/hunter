@@ -4,5 +4,6 @@
 
 .. _pkg.glproto:
 
-    glproto
-    =======
+glproto
+=======
+

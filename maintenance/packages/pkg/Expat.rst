@@ -4,8 +4,9 @@
 
 .. _pkg.Expat:
 
-    Expat
-    =====
+Expat
+=====
+
 -  `Official <http://sourceforge.net/projects/expat>`__
 -  `Example <https://github.com/ruslo/hunter/blob/master/examples/Expat/CMakeLists.txt>`__
 -  Added by `Alexander Lamaison <https://github.com/alamaison>`__

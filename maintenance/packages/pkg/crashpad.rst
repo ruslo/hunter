@@ -4,8 +4,9 @@
 
 .. _pkg.crashpad:
 
-    crashpad
-    ========
+crashpad
+========
+
 -  `Official <https://crashpad.chromium.org/index.html>`__
 -  `Hunterized <https://github.com/qedsoftware/crashpad>`__
 -  `Example <https://github.com/ruslo/hunter/blob/develop/examples/crashpad/foo.cpp>`__

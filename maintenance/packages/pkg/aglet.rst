@@ -4,8 +4,9 @@
 
 .. _pkg.aglet:
 
-    aglet
-    =====
+aglet
+=====
+
 -  `Official <https://github.com/elucideye/aglet>`__
 -  `Example <https://github.com/ruslo/hunter/blob/master/examples/aglet/CMakeLists.txt>`__
 

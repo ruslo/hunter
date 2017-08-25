@@ -4,8 +4,9 @@
 
 .. _pkg.corelocation:
 
-    corelocation
-    ============
+corelocation
+============
+
 .. code-block::cmake
 
     find_package(corelocation REQUIRED)

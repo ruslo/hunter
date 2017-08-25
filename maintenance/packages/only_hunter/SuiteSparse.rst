@@ -4,5 +4,6 @@
 
 .. _pkg.SuiteSparse:
 
-    SuiteSparse
-    ===========
+SuiteSparse
+===========
+

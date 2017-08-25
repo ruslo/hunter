@@ -4,8 +4,9 @@
 
 .. _pkg.JsonSpirit:
 
-    JsonSpirit
-    ==========
+JsonSpirit
+==========
+
 JsonSpirit
 ''''''''''
 

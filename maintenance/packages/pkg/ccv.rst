@@ -4,8 +4,9 @@
 
 .. _pkg.ccv:
 
-    ccv
-    ===
+ccv
+===
+
 -  `Official <https://github.com/liuliu/ccv>`__
 -  `Hunterized <https://github.com/headupinclouds/ccv>`__
 -  `Example <https://github.com/ruslo/hunter/blob/develop/examples/ccv/CMakeLists.txt>`__

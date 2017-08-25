@@ -4,5 +4,6 @@
 
 .. _pkg.MySQL-client:
 
-    MySQL-client
-    ============
+MySQL-client
+============
+

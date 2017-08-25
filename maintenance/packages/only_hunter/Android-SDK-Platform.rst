@@ -4,5 +4,6 @@
 
 .. _pkg.Android-SDK-Platform:
 
-    Android-SDK-Platform
-    ====================
+Android-SDK-Platform
+====================
+

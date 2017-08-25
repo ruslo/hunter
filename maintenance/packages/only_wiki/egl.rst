@@ -4,8 +4,9 @@
 
 .. _pkg.egl:
 
-    egl
-    ===
+egl
+===
+
 .. code-block::cmake
 
     find_package(egl REQUIRED)

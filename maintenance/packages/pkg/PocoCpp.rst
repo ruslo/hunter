@@ -4,8 +4,9 @@
 
 .. _pkg.PocoCpp:
 
-    PocoCpp
-    =======
+PocoCpp
+=======
+
 POCO C++ Libraries
 ==================
 

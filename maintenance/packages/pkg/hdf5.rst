@@ -4,8 +4,9 @@
 
 .. _pkg.hdf5:
 
-    hdf5
-    ====
+hdf5
+====
+
 -  `Hunterized <https://github.com/hunter-packages/hdf5>`__
 -  `Example <https://github.com/ruslo/hunter/blob/develop/examples/hdf5/CMakeLists.txt>`__
 

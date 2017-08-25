@@ -4,8 +4,9 @@
 
 .. _pkg.Jpeg:
 
-    Jpeg
-    ====
+Jpeg
+====
+
 -  `Official <http://www.ijg.org/>`__
 -  `Hunterized <https://github.com/hunter-packages/jpeg>`__
 -  `Example <https://github.com/ruslo/hunter/blob/develop/examples/Jpeg/CMakeLists.txt>`__

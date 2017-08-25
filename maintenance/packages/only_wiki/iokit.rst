@@ -4,8 +4,9 @@
 
 .. _pkg.iokit:
 
-    iokit
-    =====
+iokit
+=====
+
 .. code-block::cmake
 
     find_package(iokit REQUIRED)

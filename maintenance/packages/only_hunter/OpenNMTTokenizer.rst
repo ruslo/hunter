@@ -4,5 +4,6 @@
 
 .. _pkg.OpenNMTTokenizer:
 
-    OpenNMTTokenizer
-    ================
+OpenNMTTokenizer
+================
+

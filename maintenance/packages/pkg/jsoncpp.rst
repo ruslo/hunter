@@ -4,8 +4,9 @@
 
 .. _pkg.jsoncpp:
 
-    jsoncpp
-    =======
+jsoncpp
+=======
+
 -  `Official <https://github.com/open-source-parsers/jsoncpp>`__
 -  `Example <https://github.com/ruslo/hunter/blob/master/examples/jsoncpp/CMakeLists.txt>`__
 -  Available since

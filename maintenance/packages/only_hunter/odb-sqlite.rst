@@ -4,5 +4,6 @@
 
 .. _pkg.odb-sqlite:
 
-    odb-sqlite
-    ==========
+odb-sqlite
+==========
+

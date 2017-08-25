@@ -4,5 +4,6 @@
 
 .. _pkg.Tesseract:
 
-    Tesseract
-    =========
+Tesseract
+=========
+

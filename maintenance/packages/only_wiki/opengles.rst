@@ -4,8 +4,9 @@
 
 .. _pkg.opengles:
 
-    opengles
-    ========
+opengles
+========
+
 .. code-block::cmake
 
     find_package(opengles REQUIRED)

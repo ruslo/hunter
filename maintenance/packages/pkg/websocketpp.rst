@@ -4,8 +4,9 @@
 
 .. _pkg.websocketpp:
 
-    websocketpp
-    ===========
+websocketpp
+===========
+
 -  `Hunterized <https://github.com/hunter-packages/websocketpp>`__
 -  `Example <https://github.com/ruslo/hunter/blob/develop/examples/websocketpp/CMakeLists.txt>`__
 -  Added by `Antal Tátrai <https://github.com/tatraian>`__

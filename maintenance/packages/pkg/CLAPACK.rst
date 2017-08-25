@@ -4,6 +4,7 @@
 
 .. _pkg.CLAPACK:
 
-    CLAPACK
-    =======
+CLAPACK
+=======
+
 TODO

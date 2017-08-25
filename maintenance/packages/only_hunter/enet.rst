@@ -4,5 +4,6 @@
 
 .. _pkg.enet:
 
-    enet
-    ====
+enet
+====
+

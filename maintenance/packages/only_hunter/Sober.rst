@@ -4,5 +4,6 @@
 
 .. _pkg.Sober:
 
-    Sober
-    =====
+Sober
+=====
+

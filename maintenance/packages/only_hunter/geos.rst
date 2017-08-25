@@ -4,5 +4,6 @@
 
 .. _pkg.geos:
 
-    geos
-    ====
+geos
+====
+

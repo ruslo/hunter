@@ -4,8 +4,9 @@
 
 .. _pkg.imageio:
 
-    imageio
-    =======
+imageio
+=======
+
 .. code-block::cmake
 
     find_package(imageio REQUIRED)

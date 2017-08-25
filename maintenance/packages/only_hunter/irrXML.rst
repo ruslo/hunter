@@ -4,5 +4,6 @@
 
 .. _pkg.irrXML:
 
-    irrXML
-    ======
+irrXML
+======
+

@@ -4,8 +4,9 @@
 
 .. _pkg.PNG:
 
-    PNG
-    ===
+PNG
+===
+
 -  `Official <http://libpng.sourceforge.net>`__
 -  `Hunterized <https://github.com/hunter-packages/libpng>`__
 -  `Example <https://github.com/ruslo/hunter/blob/master/examples/PNG/CMakeLists.txt>`__

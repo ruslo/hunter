@@ -4,8 +4,9 @@
 
 .. _pkg.boost-pba:
 
-    boost-pba
-    =========
+boost-pba
+=========
+
 boost-pba
 ~~~~~~~~~
 

@@ -4,5 +4,6 @@
 
 .. _pkg.pugixml:
 
-    pugixml
-    =======
+pugixml
+=======
+

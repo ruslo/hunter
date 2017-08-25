@@ -4,5 +4,6 @@
 
 .. _pkg.drishti_faces:
 
-    drishti_faces
-    =============
+drishti_faces
+=============
+

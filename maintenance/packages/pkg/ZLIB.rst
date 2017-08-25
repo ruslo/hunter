@@ -4,8 +4,9 @@
 
 .. _pkg.ZLIB:
 
-    ZLIB
-    ====
+ZLIB
+====
+
 -  `Official <https://github.com/madler/zlib>`__
 -  `Hunterized <https://github.com/hunter-packages/zlib/tree/hunter>`__
 -  `Example <https://github.com/ruslo/hunter/blob/master/examples/ZLIB/CMakeLists.txt>`__

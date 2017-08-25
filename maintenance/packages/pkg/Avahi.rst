@@ -4,8 +4,9 @@
 
 .. _pkg.Avahi:
 
-    Avahi
-    =====
+Avahi
+=====
+
 -  `Official <http://www.avahi.org>`__
 -  `Example <https://github.com/ruslo/hunter/blob/master/examples/Avahi/CMakeLists.txt>`__
 -  Available since

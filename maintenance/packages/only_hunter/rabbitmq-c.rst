@@ -4,5 +4,6 @@
 
 .. _pkg.rabbitmq-c:
 
-    rabbitmq-c
-    ==========
+rabbitmq-c
+==========
+

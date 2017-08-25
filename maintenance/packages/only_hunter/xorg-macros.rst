@@ -4,5 +4,6 @@
 
 .. _pkg.xorg-macros:
 
-    xorg-macros
-    ===========
+xorg-macros
+===========
+

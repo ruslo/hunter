@@ -4,5 +4,6 @@
 
 .. _pkg.Sources-for-Android-SDK:
 
-    Sources-for-Android-SDK
-    =======================
+Sources-for-Android-SDK
+=======================
+

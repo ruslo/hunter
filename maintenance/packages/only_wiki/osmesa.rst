@@ -4,8 +4,9 @@
 
 .. _pkg.osmesa:
 
-    osmesa
-    ======
+osmesa
+======
+
 .. code-block::cmake
 
     find_package(osmesa REQUIRED)

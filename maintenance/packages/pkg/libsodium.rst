@@ -4,8 +4,9 @@
 
 .. _pkg.libsodium:
 
-    libsodium
-    =========
+libsodium
+=========
+
 libsodium
 =========
 

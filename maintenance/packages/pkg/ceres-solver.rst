@@ -4,8 +4,9 @@
 
 .. _pkg.ceres-solver:
 
-    ceres-solver
-    ============
+ceres-solver
+============
+
 | Platforms: Windows VS9+, Linux, OSX
 | Version: currently Ceres 1.12
 

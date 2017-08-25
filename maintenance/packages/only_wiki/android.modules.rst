@@ -4,8 +4,9 @@
 
 .. _pkg.android.modules:
 
-    android.modules
-    ===============
+android.modules
+===============
+
 Android-Modules
 '''''''''''''''
 

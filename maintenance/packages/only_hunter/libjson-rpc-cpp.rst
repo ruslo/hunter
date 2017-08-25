@@ -4,5 +4,6 @@
 
 .. _pkg.libjson-rpc-cpp:
 
-    libjson-rpc-cpp
-    ===============
+libjson-rpc-cpp
+===============
+

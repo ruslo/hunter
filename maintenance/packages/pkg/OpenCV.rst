@@ -4,8 +4,9 @@
 
 .. _pkg.OpenCV:
 
-    OpenCV
-    ======
+OpenCV
+======
+
 -  `Official <https://github.com/Itseez/opencv>`__
 -  `Hunterized <https://github.com/hunter-packages/opencv/tree/hunter-2.4.11>`__
 -  `Example <https://github.com/ruslo/hunter/blob/master/examples/OpenCV/CMakeLists.txt>`__

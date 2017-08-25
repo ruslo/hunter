@@ -4,8 +4,9 @@
 
 .. _pkg.OpenBLAS:
 
-    OpenBLAS
-    ========
+OpenBLAS
+========
+
 -  `Official <https://github.com/xianyi/OpenBLAS>`__
 -  `Hunterized <https://github.com/hunter-packages/OpenBLAS>`__
 -  Available since

@@ -4,8 +4,9 @@
 
 .. _pkg.quartzcore:
 
-    quartzcore
-    ==========
+quartzcore
+==========
+
 .. code-block::cmake
 
     find_package(quartzcore REQUIRED)

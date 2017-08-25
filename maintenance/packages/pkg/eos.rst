@@ -4,8 +4,9 @@
 
 .. _pkg.eos:
 
-    eos
-    ===
+eos
+===
+
 -  `Official GitHub <https://github.com/patrikhuber/eos>`__
 -  `Hunterized <https://github.com/hunter-packages/eos>`__
 -  `Example <https://github.com/ruslo/hunter/blob/develop/examples/eos/foo.cpp>`__

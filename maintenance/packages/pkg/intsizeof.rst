@@ -4,8 +4,9 @@
 
 .. _pkg.intsizeof:
 
-    intsizeof
-    =========
+intsizeof
+=========
+
 -  `Official <https://github.com/ruslo/intsizeof>`__
 -  `Example <https://github.com/ruslo/hunter/blob/master/examples/intsizeof/CMakeLists.txt>`__
 

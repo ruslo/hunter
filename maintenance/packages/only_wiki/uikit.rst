@@ -4,8 +4,9 @@
 
 .. _pkg.uikit:
 
-    uikit
-    =====
+uikit
+=====
+
 .. code-block::cmake
 
     find_package(uikit REQUIRED)

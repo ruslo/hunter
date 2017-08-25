@@ -4,8 +4,9 @@
 
 .. _pkg.Eigen:
 
-    Eigen
-    =====
+Eigen
+=====
+
 -  `Official <https://bitbucket.org/eigen/eigen/>`__
 -  `Hunterized <https://github.com/hunter-packages/eigen>`__
 -  Maintainer: https://github.com/NeroBurner

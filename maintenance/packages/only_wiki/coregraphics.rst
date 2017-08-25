@@ -4,8 +4,9 @@
 
 .. _pkg.coregraphics:
 
-    coregraphics
-    ============
+coregraphics
+============
+
 .. code-block::cmake
 
     find_package(coregraphics REQUIRED)

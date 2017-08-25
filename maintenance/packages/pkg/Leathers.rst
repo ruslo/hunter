@@ -4,8 +4,9 @@
 
 .. _pkg.Leathers:
 
-    Leathers
-    ========
+Leathers
+========
+
 Leathers
 ~~~~~~~~
 

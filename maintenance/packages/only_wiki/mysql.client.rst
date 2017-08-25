@@ -4,8 +4,9 @@
 
 .. _pkg.mysql.client:
 
-    mysql.client
-    ============
+mysql.client
+============
+
 -  `Official <http://dev.mysql.com/downloads/connector/cpp/>`__
 -  `Example <https://github.com/ruslo/hunter/blob/develop/examples/MySQL-client/CMakeLists.txt>`__
 -  Available since

@@ -4,5 +4,6 @@
 
 .. _pkg.xtrans:
 
-    xtrans
-    ======
+xtrans
+======
+

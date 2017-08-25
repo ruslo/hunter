@@ -4,5 +4,6 @@
 
 .. _pkg.renderproto:
 
-    renderproto
-    ===========
+renderproto
+===========
+

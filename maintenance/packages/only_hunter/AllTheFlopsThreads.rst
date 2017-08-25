@@ -4,5 +4,6 @@
 
 .. _pkg.AllTheFlopsThreads:
 
-    AllTheFlopsThreads
-    ==================
+AllTheFlopsThreads
+==================
+

@@ -4,5 +4,6 @@
 
 .. _pkg.mpark_variant:
 
-    mpark_variant
-    =============
+mpark_variant
+=============
+

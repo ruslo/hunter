@@ -4,8 +4,9 @@
 
 .. _pkg.gauze:
 
-    gauze
-    =====
+gauze
+=====
+
 Gauze
 ~~~~~
 

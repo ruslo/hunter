@@ -4,8 +4,9 @@
 
 .. _pkg.Sugar:
 
-    Sugar
-    =====
+Sugar
+=====
+
 Sugar
 '''''
 

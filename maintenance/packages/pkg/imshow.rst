@@ -4,8 +4,9 @@
 
 .. _pkg.imshow:
 
-    imshow
-    ======
+imshow
+======
+
 imshow
 ~~~~~~
 

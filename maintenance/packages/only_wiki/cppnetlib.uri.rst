@@ -4,8 +4,9 @@
 
 .. _pkg.cppnetlib.uri:
 
-    cppnetlib.uri
-    =============
+cppnetlib.uri
+=============
+
 CppNetlib.Uri
 '''''''''''''
 

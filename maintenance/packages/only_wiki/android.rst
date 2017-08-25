@@ -4,8 +4,9 @@
 
 .. _pkg.android:
 
-    android
-    =======
+android
+=======
+
 .. code-block::cmake
 
     find_package(android REQUIRED)

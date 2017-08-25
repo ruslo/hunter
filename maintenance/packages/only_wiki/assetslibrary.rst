@@ -4,8 +4,9 @@
 
 .. _pkg.assetslibrary:
 
-    assetslibrary
-    =============
+assetslibrary
+=============
+
 .. code-block::cmake
 
     find_package(assetslibrary REQUIRED)

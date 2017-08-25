@@ -4,5 +4,6 @@
 
 .. _pkg.eigen3-nnls:
 
-    eigen3-nnls
-    ===========
+eigen3-nnls
+===========
+

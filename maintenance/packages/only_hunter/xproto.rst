@@ -4,5 +4,6 @@
 
 .. _pkg.xproto:
 
-    xproto
-    ======
+xproto
+======
+

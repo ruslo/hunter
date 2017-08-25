@@ -4,5 +4,6 @@
 
 .. _pkg.libxml2:
 
-    libxml2
-    =======
+libxml2
+=======
+

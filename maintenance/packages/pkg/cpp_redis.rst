@@ -4,8 +4,9 @@
 
 .. _pkg.cpp_redis:
 
-    cpp_redis
-    =========
+cpp_redis
+=========
+
 -  `Official <https://github.com/Cylix/cpp_redis>`__
 -  `Official github fork <https://github.com/Cylix/cpp_redis>`__
 -  `Hunterized <https://github.com/hunter-packages/cpp_redis>`__

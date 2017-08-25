@@ -4,5 +4,6 @@
 
 .. _pkg.xrandr:
 
-    xrandr
-    ======
+xrandr
+======
+

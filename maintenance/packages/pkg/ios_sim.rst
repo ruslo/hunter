@@ -4,6 +4,7 @@
 
 .. _pkg.ios_sim:
 
-    ios_sim
-    =======
+ios_sim
+=======
+
 TODO

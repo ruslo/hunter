@@ -4,8 +4,9 @@
 
 .. _pkg.GPUImage:
 
-    GPUImage
-    ========
+GPUImage
+========
+
 -  `Official <https://github.com/BradLarson/GPUImage>`__
 -  `Hunterized <https://github.com/hunter-packages/GPUImage/tree/hunter>`__
 

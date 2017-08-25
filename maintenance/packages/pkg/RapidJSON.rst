@@ -4,8 +4,9 @@
 
 .. _pkg.RapidJSON:
 
-    RapidJSON
-    =========
+RapidJSON
+=========
+
 -  http://rapidjson.org/
 -  `GitHub official <https://github.com/miloyip/rapidjson>`__
 -  `Hunterized <https://github.com/hunter-packages/rapidjson>`__

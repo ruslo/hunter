@@ -4,8 +4,9 @@
 
 .. _pkg.glog:
 
-    glog
-    ====
+glog
+====
+
 -  `Official <https://github.com/google/glog>`__
 -  `Hunterized <https://github.com/hunter-packages/glog>`__
 -  Maintainer: https://github.com/NeroBurner

@@ -4,6 +4,7 @@
 
 .. _pkg.Washer:
 
-    Washer
-    ======
+Washer
+======
+
 TODO

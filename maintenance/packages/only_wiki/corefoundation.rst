@@ -4,8 +4,9 @@
 
 .. _pkg.corefoundation:
 
-    corefoundation
-    ==============
+corefoundation
+==============
+
 .. code-block::cmake
 
     find_package(corefoundation REQUIRED)

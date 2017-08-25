@@ -4,5 +4,6 @@
 
 .. _pkg.dbus:
 
-    dbus
-    ====
+dbus
+====
+

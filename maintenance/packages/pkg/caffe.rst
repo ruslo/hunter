@@ -4,8 +4,9 @@
 
 .. _pkg.caffe:
 
-    caffe
-    =====
+caffe
+=====
+
 -  `Official <https://github.com/BVLC/caffe>`__
 -  `Hunterized <https://github.com/hunter-packages/caffe>`__
 -  Available since

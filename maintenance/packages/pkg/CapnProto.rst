@@ -4,8 +4,9 @@
 
 .. _pkg.CapnProto:
 
-    CapnProto
-    =========
+CapnProto
+=========
+
 -  `Official <https://capnproto.org/>`__
 -  `Example <https://github.com/ruslo/hunter/blob/master/examples/CapnProto/CMakeLists.txt>`__
 -  Available since

@@ -4,5 +4,6 @@
 
 .. _pkg.librtmp:
 
-    librtmp
-    =======
+librtmp
+=======
+

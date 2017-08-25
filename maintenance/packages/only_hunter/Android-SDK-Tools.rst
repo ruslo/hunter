@@ -4,5 +4,6 @@
 
 .. _pkg.Android-SDK-Tools:
 
-    Android-SDK-Tools
-    =================
+Android-SDK-Tools
+=================
+

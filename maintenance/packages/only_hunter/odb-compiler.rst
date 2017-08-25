@@ -4,5 +4,6 @@
 
 .. _pkg.odb-compiler:
 
-    odb-compiler
-    ============
+odb-compiler
+============
+

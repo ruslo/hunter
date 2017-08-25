@@ -4,5 +4,6 @@
 
 .. _pkg.BoostCompute:
 
-    BoostCompute
-    ============
+BoostCompute
+============
+

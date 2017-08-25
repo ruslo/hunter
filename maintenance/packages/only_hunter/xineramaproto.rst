@@ -4,5 +4,6 @@
 
 .. _pkg.xineramaproto:
 
-    xineramaproto
-    =============
+xineramaproto
+=============
+

@@ -4,8 +4,9 @@
 
 .. _pkg.Protobuf:
 
-    Protobuf
-    ========
+Protobuf
+========
+
 -  `Official <https://github.com/google/protobuf>`__
 -  `Hunterized <https://github.com/hunter-packages/protobuf>`__
 -  `Example <https://github.com/ruslo/hunter/blob/develop/examples/Protobuf/CMakeLists.txt>`__

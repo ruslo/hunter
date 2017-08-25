@@ -4,5 +4,6 @@
 
 .. _pkg.WinSparkle:
 
-    WinSparkle
-    ==========
+WinSparkle
+==========
+

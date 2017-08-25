@@ -4,8 +4,9 @@
 
 .. _pkg.convertutf:
 
-    convertutf
-    ==========
+convertutf
+==========
+
 -  `Hunterized <https://github.com/hunter-packages/convertutf>`__
 -  `Example <https://github.com/ruslo/hunter/blob/master/examples/convertutf/foo.cpp>`__
 

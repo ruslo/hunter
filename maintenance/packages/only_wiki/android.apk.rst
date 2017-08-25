@@ -4,8 +4,9 @@
 
 .. _pkg.android.apk:
 
-    android.apk
-    ===========
+android.apk
+===========
+
 -  `Official <https://github.com/Uroc327Mirrors/pixellight/tree/master/cmake/Android>`__
 -  `Hunterized <https://github.com/hunter-packages/android-apk>`__
 -  `Usage examples <https://github.com/forexample/android-cmake>`__

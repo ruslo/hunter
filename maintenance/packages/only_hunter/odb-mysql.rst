@@ -4,5 +4,6 @@
 
 .. _pkg.odb-mysql:
 
-    odb-mysql
-    =========
+odb-mysql
+=========
+

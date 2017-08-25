@@ -4,5 +4,6 @@
 
 .. _pkg.QtCMakeExtra:
 
-    QtCMakeExtra
-    ============
+QtCMakeExtra
+============
+

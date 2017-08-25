@@ -4,8 +4,9 @@
 
 .. _pkg.autobahn-cpp:
 
-    autobahn-cpp
-    ============
+autobahn-cpp
+============
+
 -  `Official Autobahn <http://autobahn.ws/>`__
 -  `Official Autobahn-cpp <http://autobahn.ws/cpp/>`__
 -  `Hunterized <https://github.com/hunter-packages/autobahn-cpp>`__

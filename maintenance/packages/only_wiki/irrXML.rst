@@ -4,8 +4,9 @@
 
 .. _pkg.irrXML:
 
-    irrXML
-    ======
+irrXML
+======
+
 -  `Official <http://www.ambiera.com/irrxml/>`__
 -  `Hunterized <https://github.com/hunter-packages/irrXML>`__
 

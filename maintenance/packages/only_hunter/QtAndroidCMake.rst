@@ -4,5 +4,6 @@
 
 .. _pkg.QtAndroidCMake:
 
-    QtAndroidCMake
-    ==============
+QtAndroidCMake
+==============
+

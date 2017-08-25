@@ -4,8 +4,9 @@
 
 .. _pkg.OpenSSL:
 
-    OpenSSL
-    =======
+OpenSSL
+=======
+
 OpenSSL
 '''''''
 

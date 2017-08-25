@@ -4,5 +4,6 @@
 
 .. _pkg.Android-Intel-x86-Atom-System-Image:
 
-    Android-Intel-x86-Atom-System-Image
-    ===================================
+Android-Intel-x86-Atom-System-Image
+===================================
+

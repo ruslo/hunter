@@ -4,8 +4,9 @@
 
 .. _pkg.boost.process:
 
-    boost.process
-    =============
+boost.process
+=============
+
 -  `Official <https://github.com/BorisSchaeling/boost-process>`__
 -  `Hunterized <https://github.com/alamaison/boost-process/tree/cmake>`__
 -  `Example <https://github.com/ruslo/hunter/blob/develop/examples/Boost-process/CMakeLists.txt>`__

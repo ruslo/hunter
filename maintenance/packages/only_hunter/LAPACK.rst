@@ -4,5 +4,6 @@
 
 .. _pkg.LAPACK:
 
-    LAPACK
-    ======
+LAPACK
+======
+

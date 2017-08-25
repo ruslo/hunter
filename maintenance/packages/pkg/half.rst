@@ -4,8 +4,9 @@
 
 .. _pkg.half:
 
-    half
-    ====
+half
+====
+
 -  `Official <http://half.sourceforge.net>`__
 -  `Hunterized <https://github.com/headupinclouds/half/tree/hunter>`__
 -  `Example <https://github.com/ruslo/hunter/blob/develop/examples/half/CMakeLists.txt>`__

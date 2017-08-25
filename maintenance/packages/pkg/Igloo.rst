@@ -4,6 +4,7 @@
 
 .. _pkg.Igloo:
 
-    Igloo
-    =====
+Igloo
+=====
+
 TODO

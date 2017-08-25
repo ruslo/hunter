@@ -4,8 +4,9 @@
 
 .. _pkg.glfw:
 
-    glfw
-    ====
+glfw
+====
+
 -  `Official <http://www.glfw.org/>`__
 -  `Official GitHub <https://github.com/glfw/glfw>`__
 -  `Hunterized <https://github.com/hunter-packages/glfw>`__

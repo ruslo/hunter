@@ -4,8 +4,9 @@
 
 .. _pkg.foundation:
 
-    foundation
-    ==========
+foundation
+==========
+
 .. code-block::cmake
 
     find_package(foundation REQUIRED)

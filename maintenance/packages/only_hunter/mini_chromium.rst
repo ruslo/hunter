@@ -4,5 +4,6 @@
 
 .. _pkg.mini_chromium:
 
-    mini_chromium
-    =============
+mini_chromium
+=============
+

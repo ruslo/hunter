@@ -4,8 +4,9 @@
 
 .. _pkg.yaml-cpp:
 
-    yaml-cpp
-    ========
+yaml-cpp
+========
+
 -  `Hunterized <https://github.com/jbeder/yaml-cpp>`__
 -  `Example <https://github.com/ruslo/hunter/blob/develop/examples/yaml-cpp/CMakeLists.txt>`__
 -  Added by `Antal Tátrai <https://github.com/tatraian>`__

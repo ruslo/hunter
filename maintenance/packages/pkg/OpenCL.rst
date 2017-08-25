@@ -4,8 +4,9 @@
 
 .. _pkg.OpenCL:
 
-    OpenCL
-    ======
+OpenCL
+======
+
 | Platforms: Windows VS12+/MSYS, Linux
 | Version: currently OpenCL 2.1+
 

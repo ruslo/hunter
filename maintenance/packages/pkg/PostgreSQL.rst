@@ -4,8 +4,9 @@
 
 .. _pkg.PostgreSQL:
 
-    PostgreSQL
-    ==========
+PostgreSQL
+==========
+
 -  `Official <http://www.postgresql.org/>`__
 -  `Hunterized <https://github.com/hunter-packages/PostgreSQL>`__
 -  `Example <https://github.com/ruslo/hunter/blob/develop/examples/PostgreSQL/CMakeLists.txt>`__

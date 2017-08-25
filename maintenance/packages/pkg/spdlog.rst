@@ -4,8 +4,9 @@
 
 .. _pkg.spdlog:
 
-    spdlog
-    ======
+spdlog
+======
+
 -  `Official <https://github.com/gabime/spdlog>`__
 -  `Hunterized <https://github.com/hunter-packages/spdlog>`__
 -  `Example <https://github.com/ruslo/hunter/blob/develop/examples/spdlog/CMakeLists.txt>`__

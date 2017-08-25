@@ -4,8 +4,9 @@
 
 .. _pkg.avfoundation:
 
-    avfoundation
-    ============
+avfoundation
+============
+
 .. code-block::cmake
 
     find_package(avfoundation REQUIRED)

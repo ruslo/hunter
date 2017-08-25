@@ -4,8 +4,9 @@
 
 .. _pkg.minizip:
 
-    minizip
-    =======
+minizip
+=======
+
 -  `Official <http://www.winimage.com/zLibDll/minizip.html>`__
 -  `Hunterized <https://github.com/hunter-packages/minizip>`__
 -  `Example <https://github.com/ruslo/hunter/blob/master/examples/minizip/foo.cpp>`__

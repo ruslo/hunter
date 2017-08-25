@@ -4,5 +4,6 @@
 
 .. _pkg.czmq:
 
-    czmq
-    ====
+czmq
+====
+

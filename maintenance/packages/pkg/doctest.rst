@@ -4,8 +4,9 @@
 
 .. _pkg.doctest:
 
-    doctest
-    =======
+doctest
+=======
+
 doctest
 '''''''
 

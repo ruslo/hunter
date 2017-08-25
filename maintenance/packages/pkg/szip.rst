@@ -4,8 +4,9 @@
 
 .. _pkg.szip:
 
-    szip
-    ====
+szip
+====
+
 -  `Hunterized <https://github.com/hunter-packages/szip>`__
 -  `Example <https://github.com/ruslo/hunter/blob/develop/examples/szip/CMakeLists.txt>`__
 

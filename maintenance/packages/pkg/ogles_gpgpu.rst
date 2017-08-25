@@ -4,8 +4,9 @@
 
 .. _pkg.ogles_gpgpu:
 
-    ogles_gpgpu
-    ===========
+ogles_gpgpu
+===========
+
 -  `GitHub Official <https://github.com/internaut/ogles_gpgpu>`__
 -  `Hunterized <https://github.com/hunter-packages/ogles_gpgpu>`__
 -  `Example <https://github.com/ruslo/hunter/blob/master/examples/ogles_gpgpu/foo.cpp>`__

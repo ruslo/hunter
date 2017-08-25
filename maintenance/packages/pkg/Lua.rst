@@ -4,8 +4,9 @@
 
 .. _pkg.Lua:
 
-    Lua
-    ===
+Lua
+===
+
 -  `Official <http://www.lua.org/ftp/>`__
 -  `Hunterized <https://github.com/hunter-packages/lua>`__
 -  `Example <https://github.com/ruslo/hunter/blob/develop/examples/Lua/CMakeLists.txt>`__

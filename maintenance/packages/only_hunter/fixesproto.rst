@@ -4,5 +4,6 @@
 
 .. _pkg.fixesproto:
 
-    fixesproto
-    ==========
+fixesproto
+==========
+

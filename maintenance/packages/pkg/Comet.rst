@@ -4,8 +4,9 @@
 
 .. _pkg.Comet:
 
-    Comet
-    =====
+Comet
+=====
+
 -  `Official <https://github.com/alamaison/comet>`__
 
 .. code-block::cmake

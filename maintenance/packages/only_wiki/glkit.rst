@@ -4,8 +4,9 @@
 
 .. _pkg.glkit:
 
-    glkit
-    =====
+glkit
+=====
+
 .. code-block::cmake
 
     find_package(glkit REQUIRED)

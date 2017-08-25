@@ -4,5 +4,6 @@
 
 .. _pkg.tomcrypt:
 
-    tomcrypt
-    ========
+tomcrypt
+========
+

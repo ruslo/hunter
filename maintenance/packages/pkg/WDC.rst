@@ -4,8 +4,9 @@
 
 .. _pkg.WDC:
 
-    WDC
-    ===
+WDC
+===
+
 **WDC**
 
 `Official <https://github.com/CloudPolis/webdav-client-cpp>`__

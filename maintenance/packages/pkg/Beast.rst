@@ -4,8 +4,9 @@
 
 .. _pkg.Beast:
 
-    Beast
-    =====
+Beast
+=====
+
 Beast
 '''''
 

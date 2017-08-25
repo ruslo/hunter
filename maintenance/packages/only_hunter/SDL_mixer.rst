@@ -4,5 +4,6 @@
 
 .. _pkg.SDL_mixer:
 
-    SDL_mixer
-    =========
+SDL_mixer
+=========
+

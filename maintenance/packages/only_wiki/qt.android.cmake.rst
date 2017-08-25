@@ -4,8 +4,9 @@
 
 .. _pkg.qt.android.cmake:
 
-    qt.android.cmake
-    ================
+qt.android.cmake
+================
+
 -  `Official <https://github.com/LaurentGomila/qt-android-cmake>`__
 -  `Hunterized <https://github.com/hunter-packages/qt-android-cmake>`__
 -  For usage, see README at

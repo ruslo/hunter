@@ -4,5 +4,6 @@
 
 .. _pkg.xcursor:
 
-    xcursor
-    =======
+xcursor
+=======
+

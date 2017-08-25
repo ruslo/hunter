@@ -4,5 +4,6 @@
 
 .. _pkg.xshmfence:
 
-    xshmfence
-    =========
+xshmfence
+=========
+

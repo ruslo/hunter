@@ -4,8 +4,9 @@
 
 .. _pkg.log4cplus:
 
-    log4cplus
-    =========
+log4cplus
+=========
+
 -  `Official <https://github.com/log4cplus/log4cplus>`__
 -  `Hunterized <https://github.com/hunter-packages/log4cplus>`__
 -  `Example <https://github.com/ruslo/hunter/blob/develop/examples/log4cplus/CMakeLists.txt>`__

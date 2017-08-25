@@ -4,5 +4,6 @@
 
 .. _pkg.dri3proto:
 
-    dri3proto
-    =========
+dri3proto
+=========
+

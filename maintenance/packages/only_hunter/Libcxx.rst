@@ -4,5 +4,6 @@
 
 .. _pkg.Libcxx:
 
-    Libcxx
-    ======
+Libcxx
+======
+

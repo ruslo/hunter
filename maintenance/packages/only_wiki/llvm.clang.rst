@@ -4,8 +4,9 @@
 
 .. _pkg.llvm.clang:
 
-    llvm.clang
-    ==========
+llvm.clang
+==========
+
 LLVM (Clang)
 ''''''''''''
 

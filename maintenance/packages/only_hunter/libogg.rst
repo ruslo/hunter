@@ -4,5 +4,6 @@
 
 .. _pkg.libogg:
 
-    libogg
-    ======
+libogg
+======
+

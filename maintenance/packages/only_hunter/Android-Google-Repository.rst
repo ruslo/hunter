@@ -4,5 +4,6 @@
 
 .. _pkg.Android-Google-Repository:
 
-    Android-Google-Repository
-    =========================
+Android-Google-Repository
+=========================
+

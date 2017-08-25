@@ -4,5 +4,6 @@
 
 .. _pkg.Android-Google-APIs:
 
-    Android-Google-APIs
-    ===================
+Android-Google-APIs
+===================
+

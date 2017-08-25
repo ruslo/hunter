@@ -4,5 +4,6 @@
 
 .. _pkg.damageproto:
 
-    damageproto
-    ===========
+damageproto
+===========
+

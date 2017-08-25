@@ -4,5 +4,6 @@
 
 .. _pkg.pthread-stubs:
 
-    pthread-stubs
-    =============
+pthread-stubs
+=============
+

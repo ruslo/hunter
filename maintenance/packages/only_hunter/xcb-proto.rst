@@ -4,5 +4,6 @@
 
 .. _pkg.xcb-proto:
 
-    xcb-proto
-    =========
+xcb-proto
+=========
+

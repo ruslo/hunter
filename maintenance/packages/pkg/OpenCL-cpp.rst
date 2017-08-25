@@ -4,8 +4,9 @@
 
 .. _pkg.OpenCL-cpp:
 
-    OpenCL-cpp
-    ==========
+OpenCL-cpp
+==========
+
 Platforms: Windows VS12+/MSYS, Linux (limited by OpenCL package)
 
 Adds c++ wrappers for Opencl, http://github.khronos.org/OpenCL-CLHPP/

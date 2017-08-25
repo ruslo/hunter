@@ -4,5 +4,6 @@
 
 .. _pkg.QtQmlManager:
 
-    QtQmlManager
-    ============
+QtQmlManager
+============
+

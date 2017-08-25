@@ -4,5 +4,6 @@
 
 .. _pkg.xinerama:
 
-    xinerama
-    ========
+xinerama
+========
+

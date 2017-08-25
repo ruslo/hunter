@@ -4,8 +4,9 @@
 
 .. _pkg.coredata:
 
-    coredata
-    ========
+coredata
+========
+
 .. code-block::cmake
 
     find_package(coredata REQUIRED)

@@ -4,8 +4,9 @@
 
 .. _pkg.wxWidgets:
 
-    wxWidgets
-    =========
+wxWidgets
+=========
+
 -  `Official <https://github.com/wxWidgets/wxWidgets>`__
 -  `Hunterized <https://github.com/alamaison/wxWidgets>`__
 -  `Example <https://github.com/ruslo/hunter/blob/develop/examples/wxWidgets/CMakeLists.txt>`__

@@ -4,8 +4,9 @@
 
 .. _pkg.sse2neon:
 
-    sse2neon
-    ========
+sse2neon
+========
+
 sse2neon
 ~~~~~~~~
 

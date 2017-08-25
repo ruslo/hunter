@@ -4,8 +4,9 @@
 
 .. _pkg.boost.compute:
 
-    boost.compute
-    =============
+boost.compute
+=============
+
 Boost.compute
 ~~~~~~~~~~~~~
 

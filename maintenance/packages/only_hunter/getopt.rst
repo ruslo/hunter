@@ -4,5 +4,6 @@
 
 .. _pkg.getopt:
 
-    getopt
-    ======
+getopt
+======
+

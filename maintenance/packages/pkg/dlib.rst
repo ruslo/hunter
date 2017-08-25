@@ -4,8 +4,9 @@
 
 .. _pkg.dlib:
 
-    dlib
-    ====
+dlib
+====
+
 -  `Official <http://dlib.net/>`__
 -  `Official github fork <https://github.com/davisking/dlib>`__
 -  `Hunterized <https://github.com/hunter-packages/dlib>`__

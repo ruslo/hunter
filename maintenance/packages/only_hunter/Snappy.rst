@@ -4,5 +4,6 @@
 
 .. _pkg.Snappy:
 
-    Snappy
-    ======
+Snappy
+======
+

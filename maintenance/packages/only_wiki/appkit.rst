@@ -4,8 +4,9 @@
 
 .. _pkg.appkit:
 
-    appkit
-    ======
+appkit
+======
+
 .. code-block::cmake
 
     find_package(appkit REQUIRED)

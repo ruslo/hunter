@@ -4,8 +4,9 @@
 
 .. _pkg.mobilecoreservices:
 
-    mobilecoreservices
-    ==================
+mobilecoreservices
+==================
+
 .. code-block::cmake
 
     find_package(mobilecoreservices REQUIRED)

@@ -4,8 +4,9 @@
 
 .. _pkg.corevideo:
 
-    corevideo
-    =========
+corevideo
+=========
+
 .. code-block::cmake
 
     find_package(corevideo REQUIRED)

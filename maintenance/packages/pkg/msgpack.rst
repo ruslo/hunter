@@ -4,8 +4,9 @@
 
 .. _pkg.msgpack:
 
-    msgpack
-    =======
+msgpack
+=======
+
 -  `Hunterized <https://github.com/msgpack/msgpack-c>`__
 -  `Example <https://github.com/ruslo/hunter/blob/develop/examples/msgpack/CMakeLists.txt>`__
 -  Added by `Antal Tátrai <https://github.com/tatraian>`__
