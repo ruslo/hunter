@@ -11,6 +11,7 @@ include(ExternalProject) # ExternalProject_Add
 list(APPEND CMAKE_MODULE_PATH "@HUNTER_SELF@/cmake/modules")
 
 include(hunter_dump_cmake_flags)
+include(hunter_pick_archiver)
 include(hunter_status_debug)
 include(hunter_test_string_not_empty)
 include(hunter_user_error)
@@ -31,12 +32,18 @@ hunter_test_string_not_empty("@HUNTER_GLOBAL_SCRIPT_DIR@")
 if(APPLE)
   set(configure_command "./Configure")
   set(configure_opts "darwin64-x86_64-cc")
-elseif(ANDROID)
+elseif(ANDROID OR RASPBERRY_PI)
   # Using the ./config script is currently broken with -no* CFLAGS on ALL versions
   # * https://github.com/openssl/openssl/issues/3493
   # * https://github.com/openssl/openssl/blob/OpenSSL_1_1_0-stable/Configure#L560
   # * https://wiki.openssl.org/index.php/Compilation_and_Installation#Configure_.26_Config
   set(configure_command "./Configure")
+elseif(MINGW)
+  if(HUNTER_OPENSSL_MINGW64)
+    set(configure_command "./Configure" mingw64)
+  else()
+    set(configure_command "./Configure" mingw)
+  endif()
 else()
   set(configure_command "./config")
 endif()
@@ -78,6 +85,14 @@ if(ANDROID)
   else()
     set(configure_opts "linux-generic32")
   endif()
+elseif(RASPBERRY_PI)
+  # -> CMAKE_AR
+  # -> CMAKE_RANLIB
+  hunter_pick_archiver()
+
+  set(configure_command AR=${CMAKE_AR} RANLIB=${CMAKE_RANLIB} ${configure_command})
+
+  set(configure_opts "linux-generic32")
 endif()
 
 # Pass C compiler through
