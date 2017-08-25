@@ -12,7 +12,7 @@
 -  Available since
    `v0.9.9 <https://github.com/ruslo/hunter/releases/tag/v0.9.9>`__
 
-.. code:: cmake
+.. code-block::cmake
 
     hunter_add_package(BZip2)
 

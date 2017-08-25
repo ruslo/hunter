@@ -11,7 +11,7 @@
 -  Available since
    `v0.17.19 <https://github.com/ruslo/hunter/releases/tag/v0.17.19>`__
 
-.. code:: cmake
+.. code-block::cmake
 
     hunter_add_package(jsoncpp)
 

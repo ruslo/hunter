@@ -13,7 +13,7 @@
 -  Available since
    `v0.18.50 <https://github.com/ruslo/hunter/releases/tag/v0.18.50>`__
 
-.. code:: cmake
+.. code-block::cmake
 
     hunter_add_package(tacopie)
     find_package(tacopie CONFIG REQUIRED)

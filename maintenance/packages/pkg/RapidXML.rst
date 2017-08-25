@@ -12,7 +12,7 @@
 -  `Hunterized <https://github.com/hunter-packages/rapidxml>`__
 -  `Example <https://github.com/ruslo/hunter/tree/master/examples/RapidXML>`__
 
-.. code:: cmake
+.. code-block::cmake
 
     hunter_add_package(RapidXML)
     find_package(RapidXML REQUIRED CONFIG)

@@ -14,7 +14,7 @@
 -  Added by `Alexandre Pretyman <https://github.com/pretyman>`__
    (`pr-301 <https://github.com/ruslo/hunter/pull/301>`__)
 
-.. code:: cmake
+.. code-block::cmake
 
     hunter_add_package(PostgreSQL)
     find_package(PostgreSQL REQUIRED)

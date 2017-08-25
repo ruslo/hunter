@@ -16,7 +16,7 @@ libuv
 -  `Example C
    file <https://github.com/ruslo/hunter/blob/master/examples/libuv/example.c>`__
 
-.. code:: cmake
+.. code-block::cmake
 
     hunter_add_package(libuv)
     find_package(libuv CONFIG REQUIRED)

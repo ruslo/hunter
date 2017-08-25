@@ -21,7 +21,7 @@ https://github.com/KhronosGroup/OpenCL-ICD-Loader
 Usage:
 ''''''
 
-.. code:: cmake
+.. code-block::cmake
 
     hunter_add_package(OpenCL)
     find_package(OpenCL CONFIG REQUIRED)
@@ -30,7 +30,7 @@ Usage:
 
 or backwards compatible
 
-.. code:: cmake
+.. code-block::cmake
 
     hunter_add_package(OpenCL)
     find_package(OpenCL REQUIRED)

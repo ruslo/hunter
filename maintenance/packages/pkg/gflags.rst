@@ -12,7 +12,7 @@
 -  Available since
    `v0.16.3 <https://github.com/ruslo/hunter/releases/tag/v0.16.3>`__
 
-.. code:: cmake
+.. code-block::cmake
 
     hunter_add_package(gflags)
     find_package(gflags CONFIG REQUIRED)

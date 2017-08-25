@@ -12,7 +12,7 @@
 -  Available since
    `v0.15.28 <https://github.com/ruslo/hunter/releases/tag/v0.15.28>`__
 
-.. code:: cmake
+.. code-block::cmake
 
     hunter_add_package(eos)
     find_package(eos CONFIG REQUIRED)

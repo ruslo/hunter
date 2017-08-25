@@ -10,7 +10,7 @@
 -  `Hunterized <https://github.com/hunter-packages/xgboost>`__
 -  `Example <https://github.com/ruslo/hunter/blob/develop/examples/xgboost/foo.cpp>`__
 
-.. code:: cmake
+.. code-block::cmake
 
     hunter_add_package(xgboost)
     find_package(xgboost CONFIG REQUIRED)

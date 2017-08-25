@@ -6,7 +6,7 @@
 
     osmesa
     ======
-.. code:: cmake
+.. code-block::cmake
 
     find_package(osmesa REQUIRED)
     target_link_libraries(... osmesa::osmesa)
@@ -19,7 +19,7 @@ Ubuntu:
 
 Travis:
 
-.. code:: yml
+.. code-block::yml
 
     addons:
       apt:

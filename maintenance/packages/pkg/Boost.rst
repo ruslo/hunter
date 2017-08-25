@@ -9,7 +9,7 @@
 Boost
 ^^^^^
 
-.. code:: cmake
+.. code-block::cmake
 
     # Header-only libraries
     hunter_add_package(Boost)
@@ -18,7 +18,7 @@ Boost
 
 -  `Example <https://github.com/ruslo/hunter/blob/master/examples/Boost/CMakeLists.txt>`__
 
-.. code:: cmake
+.. code-block::cmake
 
     # Boost components (see list below)
     hunter_add_package(Boost COMPONENTS system filesystem)
@@ -45,7 +45,7 @@ List of components (other libraries are header-only): \* ``atomic`` \*
 Compatibility mode
 ^^^^^^^^^^^^^^^^^^
 
-.. code:: cmake
+.. code-block::cmake
 
     hunter_add_package(Boost COMPONENTS system filesystem)
     set(Boost_USE_STATIC_LIBS ON)
@@ -67,7 +67,7 @@ Options of special form ``<COMPONENT-UPPERCASE>_<OPTION>=<VALUE>`` will
 be added to ``b2`` as ``-s <OPTION>=<VALUE>`` while building component .
 For example:
 
-.. code:: cmake
+.. code-block::cmake
 
     hunter_config(Boost VERSION ... CMAKE_ARGS IOSTREAMS_NO_BZIP2=1)
     # add NO_BZIP2=1 to the b2 build of iostreams library, i.e. `b2 -s NO_BZIP2=1`

@@ -12,7 +12,7 @@
    `v0.16.5 <https://github.com/ruslo/hunter/releases/tag/v0.16.5>`__
 -  `Example <https://github.com/ruslo/hunter/blob/master/examples/caffe/foo.cpp>`__
 
-.. code:: cmake
+.. code-block::cmake
 
     hunter_add_package(caffe)
     find_package(Caffe CONFIG REQUIRED)

@@ -15,7 +15,7 @@
 -  `Testing
    branch <https://github.com/ingenue/hunter/branches/all?utf8=%E2%9C%93&query=fmt>`__
 
-.. code:: cmake
+.. code-block::cmake
 
     hunter_add_package(fmt)
 

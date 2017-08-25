@@ -6,14 +6,14 @@
 
     assetslibrary
     =============
-.. code:: cmake
+.. code-block::cmake
 
     find_package(assetslibrary REQUIRED)
     target_link_libraries(... assetslibrary::assetslibrary)
 
 Same as
 
-.. code:: cmake
+.. code-block::cmake
 
     target_link_libraries(... "-framework AssetsLibrary")
 

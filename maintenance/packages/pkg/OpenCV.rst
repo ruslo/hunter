@@ -15,7 +15,7 @@
 Usage:
 ''''''
 
-.. code:: cmake
+.. code-block::cmake
 
     hunter_add_package(OpenCV)
     find_package(OpenCV REQUIRED)

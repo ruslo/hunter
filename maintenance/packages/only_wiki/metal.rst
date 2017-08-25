@@ -6,14 +6,14 @@
 
     metal
     =====
-.. code:: cmake
+.. code-block::cmake
 
     find_package(metal REQUIRED)
     target_link_libraries(... metal::metal)
 
 Same as
 
-.. code:: cmake
+.. code-block::cmake
 
     target_link_libraries(... "-framework Metal")
 

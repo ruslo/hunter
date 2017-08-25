@@ -9,7 +9,7 @@
 -  `Hunterized <https://github.com/hunter-packages/hdf5>`__
 -  `Example <https://github.com/ruslo/hunter/blob/develop/examples/hdf5/CMakeLists.txt>`__
 
-.. code:: cmake
+.. code-block::cmake
 
     hunter_add_package(hdf5)
 

@@ -16,7 +16,7 @@ Async++
 -  Added by `Andrei Laphin <https://github.com/alapshin>`__
    (`pr-268 <https://github.com/ruslo/hunter/pull/268>`__)
 
-.. code:: cmake
+.. code-block::cmake
 
     hunter_add_package(Async++)
     find_package(Async++ CONFIG REQUIRED)

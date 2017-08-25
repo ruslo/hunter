@@ -6,7 +6,7 @@
 
     corefoundation
     ==============
-.. code:: cmake
+.. code-block::cmake
 
     find_package(corefoundation REQUIRED)
     target_link_libraries(... corefoundation::corefoundation)

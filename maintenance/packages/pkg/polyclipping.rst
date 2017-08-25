@@ -10,7 +10,7 @@
 -  `Hunterized <https://github.com/hunter-packages/polyclipping>`__
 -  `Example <https://github.com/ruslo/hunter/blob/master/examples/polyclipping/foo.cpp>`__
 
-.. code:: cmake
+.. code-block::cmake
 
     hunter_add_package(polyclipping)
     find_package(polyclipping CONFIG REQUIRED)

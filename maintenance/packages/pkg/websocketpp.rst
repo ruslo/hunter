@@ -11,7 +11,7 @@
 -  Added by `Antal Tátrai <https://github.com/tatraian>`__
    (`pr-400 <https://github.com/ruslo/hunter/pull/400>`__)
 
-.. code:: cmake
+.. code-block::cmake
 
     hunter_add_package(websocketpp)
     find_package(websocketpp CONFIG REQUIRED)

@@ -6,7 +6,7 @@
 
     gles2
     =====
-.. code:: cmake
+.. code-block::cmake
 
     find_package(gles2 REQUIRED)
     target_link_libraries(... gles2::gles2)

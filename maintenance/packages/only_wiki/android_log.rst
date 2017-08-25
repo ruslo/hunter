@@ -6,7 +6,7 @@
 
     android_log
     ===========
-.. code:: cmake
+.. code-block::cmake
 
     find_package(android_log REQUIRED)
     target_link_libraries(... android_log::android_log)

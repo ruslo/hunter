@@ -25,7 +25,7 @@ libraries.
 
 Examples:
 
-.. code:: cmake
+.. code-block::cmake
 
     hunter_add_package(Qt)
     # same as: hunter_add_package(Qt COMPONENTS qtbase)
@@ -43,23 +43,23 @@ Examples:
     find_package(Qt5Xml REQUIRED)
     find_package(Qt5DBus REQUIRED)
 
-.. code:: cmake
+.. code-block::cmake
 
     hunter_add_package(Qt COMPONENTS qtsvg)
     find_package(Qt5Svg REQUIRED)
 
-.. code:: cmake
+.. code-block::cmake
 
     hunter_add_package(Qt COMPONENTS qtxmlpatterns)
     find_package(Qt5XmlPatterns REQUIRED)
 
-.. code:: cmake
+.. code-block::cmake
 
     hunter_add_package(Qt COMPONENTS qtlocation)
     find_package(Qt5Positioning REQUIRED)
     find_package(Qt5Location REQUIRED)
 
-.. code:: cmake
+.. code-block::cmake
 
     hunter_add_package(Qt COMPONENTS qtdeclarative)
     find_package(Qt5Qml REQUIRED)
@@ -67,28 +67,28 @@ Examples:
     find_package(Qt5QuickTest REQUIRED)
     find_package(Qt5QuickWidgets REQUIRED)
 
-.. code:: cmake
+.. code-block::cmake
 
     hunter_add_package(Qt COMPONENTS qtmultimedia)
     find_package(Qt5Multimedia REQUIRED)
     find_package(Qt5MultimediaWidgets REQUIRED)
 
-.. code:: cmake
+.. code-block::cmake
 
     hunter_add_package(Qt COMPONENTS qtsensors)
     find_package(Qt5Sensors REQUIRED)
 
-.. code:: cmake
+.. code-block::cmake
 
     hunter_add_package(Qt COMPONENTS qtwebsockets)
     find_package(Qt5WebSockets REQUIRED)
 
-.. code:: cmake
+.. code-block::cmake
 
     hunter_add_package(Qt COMPONENTS qtwebchannel)
     find_package(Qt5WebChannel REQUIRED)
 
-.. code:: cmake
+.. code-block::cmake
 
     hunter_add_package(Qt COMPONENTS qttools)
     find_package(Qt5Designer REQUIRED)
@@ -97,18 +97,18 @@ Examples:
     find_package(Qt5UiPlugin REQUIRED)
     find_package(Qt5UiTools REQUIRED)
 
-.. code:: cmake
+.. code-block::cmake
 
     hunter_add_package(Qt COMPONENTS qtscript)
     find_package(Qt5Script REQUIRED)
     find_package(Qt5ScriptTools REQUIRED)
 
-.. code:: cmake
+.. code-block::cmake
 
     hunter_add_package(Qt COMPONENTS qtquick1)
     find_package(Qt5Declarative REQUIRED)
 
-.. code:: cmake
+.. code-block::cmake
 
     hunter_add_package(Qt COMPONENTS qtimageformats)
     find_package(Qt5Gui) # load plugins
@@ -122,7 +122,7 @@ Examples:
     #  * Qt5::QWbmpPlugin
     #  * Qt5::QWebpPlugin
 
-.. code:: cmake
+.. code-block::cmake
 
     hunter_add_package(Qt COMPONENTS qtquickcontrols)
     # no *.cmake modules installed

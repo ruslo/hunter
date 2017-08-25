@@ -14,7 +14,7 @@
 -  Available since
    `v0.12.50 <https://github.com/ruslo/hunter/releases/tag/v0.12.50>`__
 
-.. code:: cmake
+.. code-block::cmake
 
     hunter_add_package(BoostProcess)
     find_package(BoostProcess CONFIG REQUIRED)

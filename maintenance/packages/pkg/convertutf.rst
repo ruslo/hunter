@@ -9,7 +9,7 @@
 -  `Hunterized <https://github.com/hunter-packages/convertutf>`__
 -  `Example <https://github.com/ruslo/hunter/blob/master/examples/convertutf/foo.cpp>`__
 
-.. code:: cmake
+.. code-block::cmake
 
     hunter_add_package(convertutf)
     find_package(convertutf CONFIG REQUIRED)

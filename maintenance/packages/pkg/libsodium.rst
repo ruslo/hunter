@@ -14,7 +14,7 @@ libsodium
 Example
 -------
 
-.. code:: cmake
+.. code-block::cmake
 
     hunter_add_package(libsodium)
     find_package(libsodium CONFIG REQUIRED)

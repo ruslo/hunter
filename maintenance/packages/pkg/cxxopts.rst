@@ -13,7 +13,7 @@ cxxopts
 -  `Hunterized <https://github.com/hunter-packages/cxxopts>`__
 -  `Example <https://github.com/ruslo/hunter/blob/master/examples/cxxopts/CMakeLists.txt>`__
 
-.. code:: cmake
+.. code-block::cmake
 
     hunter_add_package(cxxopts)
     find_package(cxxopts CONFIG REQUIRED)

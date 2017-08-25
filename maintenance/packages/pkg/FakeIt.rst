@@ -14,7 +14,7 @@ FakeIt
 -  Available since
    `v0.18.24 <https://github.com/ruslo/hunter/releases/tag/v0.18.24>`__
 
-.. code:: cmake
+.. code-block::cmake
 
     hunter_add_package(FakeIt)
     find_package(FakeIt CONFIG REQUIRED)

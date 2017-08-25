@@ -15,7 +15,7 @@ Boost.compute
 -  Available since
    `v0.12.45 <https://github.com/ruslo/hunter/releases/tag/v0.12.45>`__
 
-.. code:: cmake
+.. code-block::cmake
 
     hunter_add_package(BoostCompute)
     find_package(BoostCompute CONFIG REQUIRED)

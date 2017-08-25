@@ -15,7 +15,7 @@
 -  Added by `Antal Tátrai <https://github.com/tatraian>`__
    (`pr-343 <https://github.com/ruslo/hunter/pull/343>`__)
 
-.. code:: cmake
+.. code-block::cmake
 
     # This will failed if C++11 is not enabled or not supported.
     hunter_add_package(ZMQPP)

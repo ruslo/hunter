@@ -13,7 +13,7 @@
 -  Added by `Alexander Lamaison <https://github.com/alamaison>`__
    (`pr-329 <https://github.com/ruslo/hunter/pull/329>`__)
 
-.. code:: cmake
+.. code-block::cmake
 
     hunter_add_package(WTL)
     find_package(WTL CONFIG REQUIRED)

@@ -6,14 +6,14 @@
 
     glkit
     =====
-.. code:: cmake
+.. code-block::cmake
 
     find_package(glkit REQUIRED)
     target_link_libraries(... glkit::glkit)
 
 Same as
 
-.. code:: cmake
+.. code-block::cmake
 
     target_link_libraries(... "-framework GLKit")
 

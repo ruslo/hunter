@@ -11,7 +11,7 @@
 -  `Hunterized <https://github.com/hunter-packages/rapidjson>`__
 -  `Example <https://github.com/ruslo/hunter/blob/develop/examples/rapidjson/condense.cpp>`__
 
-.. code:: cmake
+.. code-block::cmake
 
     hunter_add_package(RapidJSON)
     find_package(RapidJSON CONFIG REQUIRED)

@@ -12,7 +12,7 @@
    `v0.16.4 <https://github.com/ruslo/hunter/releases/tag/v0.16.4>`__
 -  `Example <https://github.com/ruslo/hunter/blob/develop/examples/OpenBLAS/foo.cpp>`__
 
-.. code:: cmake
+.. code-block::cmake
 
     hunter_add_package(OpenBLAS)
     find_package(OpenBLAS CONFIG REQUIRED)

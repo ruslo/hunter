@@ -18,7 +18,7 @@ GTest
 -  Added by `Knitschi <https://github.com/Knitschi>`__
    (`pr-306 <https://github.com/ruslo/hunter/pull/306>`__)
 
-.. code:: cmake
+.. code-block::cmake
 
     hunter_add_package(GTest)
     find_package(GTest CONFIG REQUIRED)
@@ -43,7 +43,7 @@ included. Note that package version 1.8.0-hunter-p1 does **not** support
 the **MinGW** and **Visual Studio 2005** toolchains, so GMock is not
 available in these cases.
 
-.. code:: cmake
+.. code-block::cmake
 
     hunter_add_package(GTest)
     find_package(GMock CONFIG REQUIRED)

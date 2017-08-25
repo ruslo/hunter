@@ -10,7 +10,7 @@
 -  `Hunterized <https://github.com/hunter-packages/dest>`__
 -  `Example <https://github.com/ruslo/hunter/blob/develop/examples/dest/foo.cpp>`__
 
-.. code:: cmake
+.. code-block::cmake
 
     hunter_add_package(dest)
     find_package(dest CONFIG REQUIRED)

@@ -13,7 +13,7 @@ ARM\_NEON\_2\_x86\_SSE
 -  `Hunterized <https://github.com/hunter-packages/ARM_NEON_2_x86_SSE>`__
 -  `Example <https://github.com/ruslo/hunter/blob/master/examples/ARM_NEON_2_x86_SSE/CMakeLists.txt>`__
 
-.. code:: cmake
+.. code-block::cmake
 
     hunter_add_package(ARM_NEON_2_x86_SSE)
     find_package(ARM_NEON_2_x86_SSE CONFIG REQUIRED)

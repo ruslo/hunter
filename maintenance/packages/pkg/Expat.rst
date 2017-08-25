@@ -11,7 +11,7 @@
 -  Added by `Alexander Lamaison <https://github.com/alamaison>`__
    (`pr-59 <https://github.com/ruslo/hunter/pull/59>`__)
 
-.. code:: cmake
+.. code-block::cmake
 
     hunter_add_package(Expat)
     find_package(EXPAT REQUIRED)

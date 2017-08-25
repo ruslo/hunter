@@ -10,7 +10,7 @@
 -  `Hunterized <https://github.com/hunter-packages/libpng>`__
 -  `Example <https://github.com/ruslo/hunter/blob/master/examples/PNG/CMakeLists.txt>`__
 
-.. code:: cmake
+.. code-block::cmake
 
     hunter_add_package(PNG)
     find_package(PNG CONFIG REQUIRED)
@@ -19,7 +19,7 @@
 
 Compatibility mode:
 
-.. code:: cmake
+.. code-block::cmake
 
     hunter_add_package(PNG)
     find_package(PNG REQUIRED)

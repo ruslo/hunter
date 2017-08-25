@@ -14,7 +14,7 @@
 -  Added by `Denis Kerzhemanov <https://github.com/Dinno>`__
    (`pr-283 <https://github.com/ruslo/hunter/pull/283>`__)
 
-.. code:: cmake
+.. code-block::cmake
 
     hunter_add_package(Lua)
     execute_process(COMMAND "${LUA_ROOT}/bin/lua" ...)

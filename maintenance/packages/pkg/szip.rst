@@ -9,7 +9,7 @@
 -  `Hunterized <https://github.com/hunter-packages/szip>`__
 -  `Example <https://github.com/ruslo/hunter/blob/develop/examples/szip/CMakeLists.txt>`__
 
-.. code:: cmake
+.. code-block::cmake
 
     hunter_add_package(szip)
     find_package(szip REQUIRED)

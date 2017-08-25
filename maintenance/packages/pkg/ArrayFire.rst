@@ -13,7 +13,7 @@
 -  Available since
    `v0.12.48 <https://github.com/ruslo/hunter/releases/tag/v0.12.48>`__
 
-.. code:: cmake
+.. code-block::cmake
 
     hunter_add_package(ArrayFire)
     find_package(ArrayFire CONFIG REQUIRED)

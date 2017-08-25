@@ -10,7 +10,7 @@
 -  `Hunterized <https://github.com/hunter-packages/spdlog>`__
 -  `Example <https://github.com/ruslo/hunter/blob/develop/examples/spdlog/CMakeLists.txt>`__
 
-.. code:: cmake
+.. code-block::cmake
 
     hunter_add_package(spdlog)
 

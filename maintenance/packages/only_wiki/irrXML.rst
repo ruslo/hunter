@@ -9,7 +9,7 @@
 -  `Official <http://www.ambiera.com/irrxml/>`__
 -  `Hunterized <https://github.com/hunter-packages/irrXML>`__
 
-.. code:: cmake
+.. code-block::cmake
 
     hunter_add_package(irrXML)
     find_package(irrXML CONFIG REQUIRED)

@@ -10,7 +10,7 @@
 -  `Hunterized <https://github.com/hunter-packages/glog>`__
 -  Maintainer: https://github.com/NeroBurner
 
-.. code:: cmake
+.. code-block::cmake
 
     hunter_add_package(glog)
     find_package(glog CONFIG REQUIRED)
@@ -19,7 +19,7 @@
 Until Hunter 0.17.15
 ~~~~~~~~~~~~~~~~~~~~
 
-.. code:: cmake
+.. code-block::cmake
 
     hunter_add_package(glog)
     find_package(glog CONFIG REQUIRED)
