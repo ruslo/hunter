@@ -38,6 +38,12 @@ elseif(ANDROID OR RASPBERRY_PI)
   # * https://github.com/openssl/openssl/blob/OpenSSL_1_1_0-stable/Configure#L560
   # * https://wiki.openssl.org/index.php/Compilation_and_Installation#Configure_.26_Config
   set(configure_command "./Configure")
+elseif(MINGW)
+  if(HUNTER_OPENSSL_MINGW64)
+    set(configure_command "./Configure" mingw64)
+  else()
+    set(configure_command "./Configure" mingw)
+  endif()
 else()
   set(configure_command "./config")
 endif()
