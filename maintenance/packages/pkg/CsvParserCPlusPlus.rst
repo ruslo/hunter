@@ -11,7 +11,7 @@ CsvParserCPlusPlus
 -  Available since
    `v0.8.9 <https://github.com/ruslo/hunter/releases/tag/v0.8.9>`__
 
-.. code-block::cmake
+.. code-block:: cmake
 
     hunter_add_package(CsvParserCPlusPlus)
     find_package(CsvParserCPlusPlus CONFIG REQUIRED)

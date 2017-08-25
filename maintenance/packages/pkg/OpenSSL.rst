@@ -15,7 +15,7 @@ OpenSSL
 -  `Versions <https://github.com/ruslo/hunter/blob/master/cmake/projects/OpenSSL/hunter.cmake>`__
 -  `Example <https://github.com/ruslo/hunter/blob/master/examples/OpenSSL/CMakeLists.txt>`__
 
-.. code-block::cmake
+.. code-block:: cmake
 
     hunter_add_package(OpenSSL)
     find_package(OpenSSL REQUIRED)
@@ -24,7 +24,7 @@ OpenSSL
 
 For backward compatibility:
 
-.. code-block::cmake
+.. code-block:: cmake
 
     hunter_add_package(OpenSSL)
     find_package(OpenSSL REQUIRED)

@@ -7,7 +7,7 @@
 glapi
 =====
 
-.. code-block::cmake
+.. code-block:: cmake
 
     find_package(glapi REQUIRED)
     target_link_libraries(... glapi::glapi)
@@ -20,7 +20,7 @@ Ubuntu:
 
 Travis:
 
-.. code-block::yaml
+.. code-block:: yaml
 
     addons:
       apt:

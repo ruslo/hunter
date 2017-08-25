@@ -14,7 +14,7 @@ autobahn-cpp
 
 This is a C++11 library. On Windows only VS14 is supported.
 
-.. code-block::cmake
+.. code-block:: cmake
 
     set (CMAKE_CXX_STANDARD11)
     hunter_add_package(autobahn-cpp)

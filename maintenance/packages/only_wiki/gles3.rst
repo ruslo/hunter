@@ -7,7 +7,7 @@
 gles3
 =====
 
-.. code-block::cmake
+.. code-block:: cmake
 
     find_package(gles3 REQUIRED)
     target_link_libraries(... gles3::gles3)

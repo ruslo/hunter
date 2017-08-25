@@ -12,7 +12,7 @@ Assimp
 -  `Hunterized <https://github.com/hunter-packages/assimp>`__
 -  `Example <https://github.com/ruslo/hunter/blob/master/examples/Assimp/foo.cpp>`__
 
-.. code-block::cmake
+.. code-block:: cmake
 
     hunter_add_package(Assimp)
     find_package(Assimp CONFIG REQUIRED)

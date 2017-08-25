@@ -14,7 +14,7 @@ dlib
 -  Available since
    `v0.9.2 <https://github.com/ruslo/hunter/releases/tag/v0.9.2>`__
 
-.. code-block::cmake
+.. code-block:: cmake
 
     hunter_add_package(dlib)
     find_package(dlib CONFIG REQUIRED)

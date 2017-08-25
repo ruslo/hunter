@@ -11,7 +11,7 @@ Eigen
 -  `Hunterized <https://github.com/hunter-packages/eigen>`__
 -  Maintainer: https://github.com/NeroBurner
 
-.. code-block::cmake
+.. code-block:: cmake
 
     hunter_add_package(Eigen)
     find_package(Eigen REQUIRED)
@@ -20,7 +20,7 @@ Eigen
 For Hunter >= v0.17.15
 ~~~~~~~~~~~~~~~~~~~~~~
 
-.. code-block::cmake
+.. code-block:: cmake
 
     hunter_add_package(Eigen)
     find_package(Eigen3 CONFIG REQUIRED)

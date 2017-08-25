@@ -12,7 +12,7 @@ glfw
 -  `Hunterized <https://github.com/hunter-packages/glfw>`__
 -  `Example <https://github.com/ruslo/hunter/tree/master/examples/glfw>`__
 
-.. code-block::cmake
+.. code-block:: cmake
 
     hunter_add_package(glfw)
     find_package(glfw3 REQUIRED)

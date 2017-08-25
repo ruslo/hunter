@@ -11,7 +11,7 @@ tinydir
 -  `Hunterized <https://github.com/hunter-packages/tinydir>`__
 -  `Example <https://github.com/ruslo/hunter/blob/develop/examples/tinydir/foo.cpp>`__
 
-.. code-block::cmake
+.. code-block:: cmake
 
     hunter_add_package(tinydir)
     find_package(tinydir CONFIG REQUIRED)

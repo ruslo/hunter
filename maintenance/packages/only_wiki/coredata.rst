@@ -7,14 +7,14 @@
 coredata
 ========
 
-.. code-block::cmake
+.. code-block:: cmake
 
     find_package(coredata REQUIRED)
     target_link_libraries(... coredata::coredata)
 
 Same as
 
-.. code-block::cmake
+.. code-block:: cmake
 
     target_link_libraries(... "-framework CoreData")
 

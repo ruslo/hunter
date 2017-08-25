@@ -7,14 +7,14 @@
 quartzcore
 ==========
 
-.. code-block::cmake
+.. code-block:: cmake
 
     find_package(quartzcore REQUIRED)
     target_link_libraries(... quartzcore::quartzcore)
 
 Same as
 
-.. code-block::cmake
+.. code-block:: cmake
 
     target_link_libraries(... "-framework QuartzCore")
 

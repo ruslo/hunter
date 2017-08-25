@@ -14,7 +14,7 @@ odb-pgsql
 -  Added by `Alexandre Pretyman <https://github.com/pretyman>`__
    (`pr-307 <https://github.com/ruslo/hunter/pull/307>`__)
 
-.. code-block::cmake
+.. code-block:: cmake
 
     hunter_add_package(odb-pgsql)
     find_package(odb COMPONENTS pgsql)

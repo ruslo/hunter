@@ -15,7 +15,7 @@ Catch
 -  Available since
    `v0.17.6 <https://github.com/ruslo/hunter/releases/tag/v0.17.6>`__
 
-.. code-block::cmake
+.. code-block:: cmake
 
     hunter_add_package(Catch)
     find_package(Catch CONFIG REQUIRED)

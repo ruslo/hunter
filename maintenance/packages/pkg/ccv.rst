@@ -11,7 +11,7 @@ ccv
 -  `Hunterized <https://github.com/headupinclouds/ccv>`__
 -  `Example <https://github.com/ruslo/hunter/blob/develop/examples/ccv/CMakeLists.txt>`__
 
-.. code-block::cmake
+.. code-block:: cmake
 
     hunter_add_package(ccv)
     find_package(ccv REQUIRED CONFIG)

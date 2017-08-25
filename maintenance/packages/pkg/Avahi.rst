@@ -14,7 +14,7 @@ Avahi
 -  Added by `Damien Buhl <https://github.com/daminetreg>`__
    (`pr-237 <https://github.com/ruslo/hunter/pull/237>`__)
 
-.. code-block::cmake
+.. code-block:: cmake
 
     hunter_add_package(Avahi)
     find_package(Avahi REQUIRED)

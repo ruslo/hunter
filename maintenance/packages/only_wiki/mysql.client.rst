@@ -12,7 +12,7 @@ mysql.client
 -  Available since
    `v0.12.51 <https://github.com/ruslo/hunter/releases/tag/v0.12.51>`__
 
-.. code-block::cmake
+.. code-block:: cmake
 
     hunter_add_package(MySQL-client)
     find_package(MySQL-client REQUIRED)
@@ -20,7 +20,7 @@ mysql.client
 
 pre Hunter v0.19.58 use the below
 
-.. code-block::cmake
+.. code-block:: cmake
 
     hunter_add_package(MySQL-client)
     find_package(MySQL-client REQUIRED)

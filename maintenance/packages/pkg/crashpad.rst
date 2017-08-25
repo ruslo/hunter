@@ -22,7 +22,7 @@ crashpad
 Use this code in case you want to copy ``crashpad_handler`` to the
 directory with ``foo`` executable:
 
-.. code-block::cmake
+.. code-block:: cmake
 
     add_custom_command(
         TARGET foo

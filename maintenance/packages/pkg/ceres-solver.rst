@@ -27,7 +27,7 @@ performant library that has been used in production at Google since
 Usage:
 ''''''
 
-.. code-block::cmake
+.. code-block:: cmake
 
     hunter_add_package(ceeres-solver)
     find_package(Ceres CONFIG REQUIRED)

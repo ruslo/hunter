@@ -16,7 +16,7 @@ WDC
 Available since
 `v1.0.9 <https://github.com/CloudPolis/webdav-client-cpp/tree/v1.0.9>`__
 
-.. code-block::cmake
+.. code-block:: cmake
 
     hunter_add_package(WDC)
     find_package(WDC CONFIG REQUIRED)

@@ -14,7 +14,7 @@ msgpack
 -  Available since
    `v0.14.19 <https://github.com/ruslo/hunter/releases/tag/v0.14.19>`__
 
-.. code-block::cmake
+.. code-block:: cmake
 
     hunter_add_package(msgpack)
     find_package(msgpack CONFIG REQUIRED)

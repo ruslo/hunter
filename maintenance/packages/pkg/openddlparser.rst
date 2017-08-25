@@ -10,7 +10,7 @@ openddlparser
 -  `Official <https://github.com/kimkulling/openddl-parser>`__
 -  `Hunterized <https://github.com/hunter-packages/openddl-parser>`__
 
-.. code-block::cmake
+.. code-block:: cmake
 
     hunter_add_package(openddlparser)
     find_package(openddlparser CONFIG REQUIRED)

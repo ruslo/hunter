@@ -11,7 +11,7 @@ thread-pool-cpp
 -  `Hunterized <https://github.com/hunter-packages/thread-pool-cpp>`__
 -  `Example <https://github.com/ruslo/hunter/blob/develop/examples/thread-pool-cpp/foo.cpp>`__
 
-.. code-block::cmake
+.. code-block:: cmake
 
     hunter_add_package(thread-pool-cpp)
     find_package(thread-pool-cpp CONFIG REQUIRED)

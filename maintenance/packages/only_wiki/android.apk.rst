@@ -11,7 +11,7 @@ android.apk
 -  `Hunterized <https://github.com/hunter-packages/android-apk>`__
 -  `Usage examples <https://github.com/forexample/android-cmake>`__
 
-.. code-block::cmake
+.. code-block:: cmake
 
     hunter_add_package(Android-Apk)
     list(APPEND CMAKE_MODULE_PATH "${ANDROID-APK_ROOT}")

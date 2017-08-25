@@ -19,7 +19,7 @@ Adds c++ wrappers for Opencl, http://github.khronos.org/OpenCL-CLHPP/
 Usage:
 ''''''
 
-.. code-block::cmake
+.. code-block:: cmake
 
     hunter_add_package(OpenCL-cpp)
     find_package(OpenCL-cpp CONFIG REQUIRED)

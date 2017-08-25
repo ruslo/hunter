@@ -12,7 +12,7 @@ Leathers
 
 -  `Official <https://github.com/ruslo/leathers>`__
 
-.. code-block::cmake
+.. code-block:: cmake
 
     hunter_add_package(Leathers)
     find_package(Leathers CONFIG REQUIRED)

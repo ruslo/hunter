@@ -13,7 +13,7 @@ log4cplus
 -  Available since
    `v0.12.9 <https://github.com/ruslo/hunter/releases/tag/v0.12.9>`__
 
-.. code-block::cmake
+.. code-block:: cmake
 
     hunter_add_package(log4cplus)
     find_package(log4cplus CONFIG REQUIRED)

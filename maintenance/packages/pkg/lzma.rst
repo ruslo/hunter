@@ -13,7 +13,7 @@ lzma
 -  Available since
    `v0.18.17 <https://github.com/ruslo/hunter/releases/tag/v0.18.17>`__
 
-.. code-block::cmake
+.. code-block:: cmake
 
     hunter_add_package(lzma)
     find_package(lzma CONFIG REQUIRED)

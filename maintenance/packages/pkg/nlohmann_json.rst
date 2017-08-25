@@ -19,7 +19,7 @@ nlohmann_json
 Usage since hunter v0.19.52
 ---------------------------
 
-.. code-block::cmake
+.. code-block:: cmake
 
     hunter_add_package(nlohmann_json)
     find_package(nlohmann_json CONFIG REQUIRED)
@@ -28,7 +28,7 @@ Usage since hunter v0.19.52
 Usage before hunter v0.19.52
 ----------------------------
 
-.. code-block::cmake
+.. code-block:: cmake
 
     hunter_add_package(nlohmann-json)
     find_package(nlohmann-json REQUIRED)

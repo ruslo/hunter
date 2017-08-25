@@ -15,7 +15,7 @@ Protobuf
 -  Added by `Antal Tátrai <https://github.com/tatraian>`__
    (`pr-340 <https://github.com/ruslo/hunter/pull/340>`__)
 
-.. code-block::cmake
+.. code-block:: cmake
 
     hunter_add_package(Protobuf)
     find_package(Protobuf CONFIG REQUIRED)

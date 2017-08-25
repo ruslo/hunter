@@ -13,7 +13,7 @@ POCO C++ Libraries
 -  `Official Repository <https://github.com/pocoproject/poco>`__
 -  `Hunterized Repository <https://github.com/hunter-packages/poco>`__
 
-.. code-block::cmake
+.. code-block:: cmake
 
     hunter_add_package(PocoCpp)
     find_package(Poco REQUIRED Foundation CONFIG)

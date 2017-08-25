@@ -17,7 +17,7 @@ Hunterized repository: https://github.com/hunter-packages/SDL2
 Example
 -------
 
-.. code-block::cmake
+.. code-block:: cmake
 
     hunter_add_package(SDL2)
     find_package(SDL2 CONFIG REQUIRED)

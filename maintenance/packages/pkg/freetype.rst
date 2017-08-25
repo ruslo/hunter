@@ -14,7 +14,7 @@ freetype
 -  Added by `Denis A. Kerzhemanov <https://github.com/Dinno>`__
    (`pr-284 <https://github.com/ruslo/hunter/pull/284>`__)
 
-.. code-block::cmake
+.. code-block:: cmake
 
     hunter_add_package(freetype)
     find_package(freetype CONFIG REQUIRED)

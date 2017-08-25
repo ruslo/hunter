@@ -11,7 +11,7 @@ TIFF
 -  `Hunterized <https://github.com/hunter-packages/tiff>`__
 -  `Example <https://github.com/ruslo/hunter/blob/master/examples/TIFF/CMakeLists.txt>`__
 
-.. code-block::cmake
+.. code-block:: cmake
 
     hunter_add_package(TIFF)
     find_package(TIFF CONFIG REQUIRED)
@@ -19,7 +19,7 @@ TIFF
 
 Compatibility mode:
 
-.. code-block::cmake
+.. code-block:: cmake
 
     hunter_add_package(TIFF)
     find_package(TIFF REQUIRED)

@@ -11,7 +11,7 @@ flatbuffers
 -  `Hunterized <https://github.com/hunter-packages/flatbuffers>`__
 -  `Example <https://github.com/ruslo/hunter/blob/develop/examples/flatbuffers/foo.cpp>`__
 
-.. code-block::cmake
+.. code-block:: cmake
 
     hunter_add_package(flatbuffers)
     find_package(flatbuffers CONFIG REQUIRED)

@@ -10,7 +10,7 @@ cereal
 -  `Official <https://github.com/USCiLab/cereal>`__
 -  `Hunterized <https://github.com/headupinclouds/cereal>`__
 
-.. code-block::cmake
+.. code-block:: cmake
 
     hunter_add_package(cereal)
     find_package(cereal CONFIG REQUIRED)

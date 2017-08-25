@@ -14,7 +14,7 @@ cpp_redis
 -  Available since
    `v0.18.51 <https://github.com/ruslo/hunter/releases/tag/v0.18.51>`__
 
-.. code-block::cmake
+.. code-block:: cmake
 
     hunter_add_package(cpp_redis)
     find_package(cpp_redis CONFIG REQUIRED)

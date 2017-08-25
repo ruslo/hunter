@@ -7,7 +7,7 @@
 opengles
 ========
 
-.. code-block::cmake
+.. code-block:: cmake
 
     find_package(opengles REQUIRED)
     target_link_libraries(... opengles::opengles)

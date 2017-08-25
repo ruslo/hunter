@@ -7,14 +7,14 @@
 appkit
 ======
 
-.. code-block::cmake
+.. code-block:: cmake
 
     find_package(appkit REQUIRED)
     target_link_libraries(... appkit::appkit)
 
 Same as
 
-.. code-block::cmake
+.. code-block:: cmake
 
     target_link_libraries(... "-framework AppKit")
 

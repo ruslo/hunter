@@ -12,7 +12,7 @@ ogles_gpgpu
 -  `Example <https://github.com/ruslo/hunter/blob/master/examples/ogles_gpgpu/foo.cpp>`__
 -  Maintainer: https://github.com/ruslo
 
-.. code-block::cmake
+.. code-block:: cmake
 
     hunter_add_package(ogles_gpgpu)
     find_package(ogles_gpgpu CONFIG REQUIRED)

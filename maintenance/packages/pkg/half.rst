@@ -15,7 +15,7 @@ half
 -  Added by `David Hirvonen <https://github.com/headupinclouds>`__
    (`pr-286 <https://github.com/ruslo/hunter/pull/286>`__)
 
-.. code-block::cmake
+.. code-block:: cmake
 
     hunter_add_package(half)
     find_package(half CONFIG REQUIRED)

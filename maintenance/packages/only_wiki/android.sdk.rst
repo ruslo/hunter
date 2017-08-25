@@ -10,7 +10,7 @@ android.sdk
 This module helps to create Android SDK directory: \*
 https://github.com/hunter-packages/android-sdk
 
-.. code-block::cmake
+.. code-block:: cmake
 
     hunter_add_package(Android-SDK)
     message("Path to `android`: ${ANDROID-SDK_ROOT}/android-sdk/tools/android")

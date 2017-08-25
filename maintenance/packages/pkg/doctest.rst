@@ -15,7 +15,7 @@ doctest
 -  Available since
    `v0.18.29 <https://github.com/ruslo/hunter/releases/tag/v0.18.29>`__
 
-.. code-block::cmake
+.. code-block:: cmake
 
     hunter_add_package(doctest)
     find_package(doctest CONFIG REQUIRED)

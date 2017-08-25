@@ -11,7 +11,7 @@ ZLIB
 -  `Hunterized <https://github.com/hunter-packages/zlib/tree/hunter>`__
 -  `Example <https://github.com/ruslo/hunter/blob/master/examples/ZLIB/CMakeLists.txt>`__
 
-.. code-block::cmake
+.. code-block:: cmake
 
     hunter_add_package(ZLIB)
     find_package(ZLIB CONFIG REQUIRED)
@@ -19,7 +19,7 @@ ZLIB
 
 Compatibility mode:
 
-.. code-block::cmake
+.. code-block:: cmake
 
     hunter_add_package(ZLIB)
     find_package(ZLIB REQUIRED)

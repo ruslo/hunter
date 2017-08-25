@@ -14,7 +14,7 @@ yaml-cpp
 -  Available since
    `v0.16.34 <https://github.com/ruslo/hunter/releases/tag/v0.16.34>`__
 
-.. code-block::cmake
+.. code-block:: cmake
 
     hunter_add_package(yaml-cpp)
     find_package(yaml-cpp CONFIG REQUIRED)

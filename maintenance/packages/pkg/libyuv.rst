@@ -12,7 +12,7 @@ libyuv
 -  `Hunterized <https://github.com/headupinclouds/libyuv/tree/hunter>`__
 -  `Example <https://github.com/ruslo/hunter/blob/develop/examples/libyuv/CMakeLists.txt>`__
 
-.. code-block::cmake
+.. code-block:: cmake
 
     hunter_add_package(libyuv)
     find_package(libyuv CONFIG REQUIRED)

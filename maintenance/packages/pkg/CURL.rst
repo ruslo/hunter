@@ -11,7 +11,7 @@ CURL
 -  `Hunterized <https://github.com/hunter-packages/curl>`__
 -  `Example <https://github.com/ruslo/hunter/blob/master/examples/CURL/foo.cpp>`__
 
-.. code-block::cmake
+.. code-block:: cmake
 
     hunter_add_package(CURL)
     find_package(CURL CONFIG REQUIRED)

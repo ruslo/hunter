@@ -11,7 +11,7 @@ wxWidgets
 -  `Hunterized <https://github.com/alamaison/wxWidgets>`__
 -  `Example <https://github.com/ruslo/hunter/blob/develop/examples/wxWidgets/CMakeLists.txt>`__
 
-.. code-block::cmake
+.. code-block:: cmake
 
     hunter_add_package(wxWidgets)
 

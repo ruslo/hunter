@@ -7,14 +7,14 @@
 uikit
 =====
 
-.. code-block::cmake
+.. code-block:: cmake
 
     find_package(uikit REQUIRED)
     target_link_libraries(... uikit::uikit)
 
 Same as
 
-.. code-block::cmake
+.. code-block:: cmake
 
     target_link_libraries(... "-framework UIKit")
 

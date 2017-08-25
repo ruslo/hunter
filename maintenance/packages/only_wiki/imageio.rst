@@ -7,14 +7,14 @@
 imageio
 =======
 
-.. code-block::cmake
+.. code-block:: cmake
 
     find_package(imageio REQUIRED)
     target_link_libraries(... imageio::imageio)
 
 Same as
 
-.. code-block::cmake
+.. code-block:: cmake
 
     target_link_libraries(... "-framework ImageIO")
 

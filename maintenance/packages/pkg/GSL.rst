@@ -11,7 +11,7 @@ GSL
 -  `Hunterized <https://github.com/hunter-packages/gsl>`__
 -  `Example <https://github.com/ruslo/hunter/blob/master/examples/GSL/foo.cpp>`__
 
-.. code-block::cmake
+.. code-block:: cmake
 
     hunter_add_package(GSL)
     find_package(GSL CONFIG REQUIRED)

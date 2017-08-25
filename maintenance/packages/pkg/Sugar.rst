@@ -15,7 +15,7 @@ Sugar
 -  `Versions <https://github.com/ruslo/hunter/blob/master/cmake/projects/Sugar/hunter.cmake>`__
 -  `Example <https://github.com/ruslo/hunter/blob/master/examples/Sugar/CMakeLists.txt>`__
 
-.. code-block::cmake
+.. code-block:: cmake
 
     hunter_add_package(Sugar)
     include("${SUGAR_ROOT}/cmake/Sugar")

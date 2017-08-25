@@ -12,7 +12,7 @@ sparsehash
 
 Example:
 
-.. code-block::cmake
+.. code-block:: cmake
 
     hunter_add_package(sparsehash)
     set(SPARSEHASH_INCLUDE_DIRS ${SPARSEHASH_ROOT}/include)

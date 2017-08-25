@@ -12,7 +12,7 @@ LLVM (Clang)
 
 -  `Official <http://llvm.org/releases/download.html>`__
 
-.. code-block::cmake
+.. code-block:: cmake
 
     hunter_add_package(LLVM)
     message("Clang++: ${LLVM_ROOT}/bin/clang++")
