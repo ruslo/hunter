@@ -44,6 +44,13 @@ header_format_string = """.. spelling::
     {}
 """
 
+def append_file(f, input_file):
+    with open(input_file, 'r') as tmp:
+        for line in tmp.readlines():
+            if line.startswith('.. code::'):
+                line = '.. code-block::' + line[10:]
+            f.write(line)
+
 # convert matching entries
 for entry in pkg_match:
     source_md = os.path.join(WIKI_DIR, 'pkg.' + entry.lower() + '.md')
@@ -59,9 +66,7 @@ for entry in pkg_match:
     
     with open(target_rst, 'w') as f:
         f.write(header)
-        with open(tmp_rst, 'r') as tmp:
-            for line in tmp.readlines():
-                f.write(line)
+        append_file(f, tmp_rst)
 
 # create dummy entries for packages only in hunter
 for entry in pkg_only_hunter:
@@ -91,6 +96,4 @@ for entry in pkg_only_wiki:
     
     with open(target_rst, 'w') as f:
         f.write(header)
-        with open(tmp_rst, 'r') as tmp:
-            for line in tmp.readlines():
-                f.write(line)
+        append_file(f, tmp_rst)
