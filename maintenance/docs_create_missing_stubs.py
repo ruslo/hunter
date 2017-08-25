@@ -53,6 +53,7 @@ for entry in pkg_only_hunter:
      
     with open(target_rst, 'w') as f:
         f.write(header)
+        f.write("TODO\n")
 
 print("pkg_match entries:       ", len(pkg_match))
 print("pkg_only_hunter entries: ", len(pkg_only_hunter))
