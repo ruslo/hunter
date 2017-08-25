@@ -49,7 +49,7 @@ def append_file(f, input_file):
     with open(input_file, 'r') as tmp:
         for line in tmp.readlines():
             if line.startswith('.. code::'):
-                line = '.. code-block::' + line[10:]
+                line = '.. code-block::' + line[9:]
             f.write(line)
 
 # convert matching entries
