@@ -1,0 +1,19 @@
+.. spelling::
+
+    android.apk
+
+.. _pkg.android.apk:
+
+    android.apk
+    ===========
+-  `Official <https://github.com/Uroc327Mirrors/pixellight/tree/master/cmake/Android>`__
+-  `Hunterized <https://github.com/hunter-packages/android-apk>`__
+-  `Usage examples <https://github.com/forexample/android-cmake>`__
+
+.. code:: cmake
+
+    hunter_add_package(Android-Apk)
+    list(APPEND CMAKE_MODULE_PATH "${ANDROID-APK_ROOT}")
+    include(AndroidApk)
+    add_library(simple ...)
+    android_create_apk(NAME simple DIRECTORY "${CMAKE_CURRENT_BINARY_DIR}/apk")
