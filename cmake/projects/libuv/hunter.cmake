@@ -4,6 +4,7 @@ include(hunter_add_version)
 include(hunter_cacheable)
 include(hunter_download)
 include(hunter_pick_scheme)
+include(hunter_report_broken_package)
 
 hunter_add_version(
   PACKAGE_NAME
@@ -28,6 +29,11 @@ hunter_add_version(
   )
 
 hunter_pick_scheme(DEFAULT url_sha1_cmake)
+
+if(ANDROID AND (CMAKE_SYSTEM_VERSION VERSION_LESS 21))
+  # https://stackoverflow.com/a/32638557/2288008
+  hunter_report_broken_package("API 21+ required for 'pthread_atfork'")
+endif()
 
 hunter_cacheable(libuv)
 hunter_download(PACKAGE_NAME libuv)
