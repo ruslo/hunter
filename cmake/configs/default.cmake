@@ -128,6 +128,7 @@ hunter_config(SDL2 VERSION 2.0.4-p4)
 hunter_config(SDL_mixer VERSION 2.0.1-p1)
 hunter_config(SQLite3 VERSION autoconf-3080803) #R-Tree enabled
 hunter_config(Sober VERSION 0.1.3)
+hunter_config(stormlib VERSION 9.21-p1)
 hunter_config(Sugar VERSION 1.2.2)
 hunter_config(SuiteSparse VERSION 4.5.1-p0)
 hunter_config(TIFF VERSION 4.0.2-p3)
