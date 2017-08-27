@@ -32,10 +32,15 @@ hunter_add_version(
 )
 
 hunter_configuration_types(OpenBLAS CONFIGURATION_TYPES Release)
-hunter_pick_scheme(DEFAULT OpenBLAS)
+if (MSVC)
+  hunter_pick_scheme(DEFAULT url_sha1_cmake)
+else()
+  hunter_pick_scheme(DEFAULT OpenBLAS)
+endif()
 hunter_cacheable(OpenBLAS)
 hunter_download(
     PACKAGE_NAME OpenBLAS
+    PACKAGE_INTERNAL_DEPS_ID "1"
     PACKAGE_UNRELOCATABLE_TEXT_FILES
     "lib/cmake/openblas/OpenBLASConfig.cmake"
 )
