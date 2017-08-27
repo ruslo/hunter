@@ -29,3 +29,5 @@ _Base
 # Clion
 .idea/
 
+# logs
+/_logs/

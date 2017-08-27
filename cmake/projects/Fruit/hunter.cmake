@@ -17,3 +17,9 @@ hunter_add_version(
 
 hunter_pick_scheme(DEFAULT url_sha1_cmake)
 hunter_download(PACKAGE_NAME Fruit)
+
+hunter_cmake_args(
+	Fruit
+	CMAKE_ARGS
+		"CMAKE_BUILD_TYPE=$<CMAKE_CONFIGURATION_TYPES>"
+)
