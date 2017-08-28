@@ -1,17 +1,11 @@
 .. spelling::
 
-    android.modules
+    Android-Modules
 
-.. _pkg.android.modules:
-
-android.modules
-===============
-
-File only available in wiki.
-Please merge with hunter-package entry
+.. _pkg.Android-Modules:
 
 Android-Modules
-'''''''''''''''
+===============
 
 -  `Official <https://github.com/taka-no-me/android-cmake>`__
 -  `Hunterized <https://github.com/hunter-packages/android-cmake>`__

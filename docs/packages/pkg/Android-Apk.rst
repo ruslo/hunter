@@ -1,14 +1,11 @@
 .. spelling::
 
-    android.apk
+    Android-Apk
 
-.. _pkg.android.apk:
+.. _pkg.Android-Apk:
 
-android.apk
+Android-Apk
 ===========
-
-File only available in wiki.
-Please merge with hunter-package entry
 
 -  `Official <https://github.com/Uroc327Mirrors/pixellight/tree/master/cmake/Android>`__
 -  `Hunterized <https://github.com/hunter-packages/android-apk>`__

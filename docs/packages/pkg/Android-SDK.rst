@@ -1,17 +1,15 @@
 .. spelling::
 
-    android.sdk
+    Android-SDK
 
-.. _pkg.android.sdk:
+.. _pkg.Android-SDK:
 
-android.sdk
+Android-SDK
 ===========
 
-File only available in wiki.
-Please merge with hunter-package entry
+This module helps to create Android SDK directory:
 
-This module helps to create Android SDK directory: \*
-https://github.com/hunter-packages/android-sdk
+- https://github.com/hunter-packages/android-sdk
 
 .. code-block:: cmake
 
