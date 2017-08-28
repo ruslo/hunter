@@ -7,8 +7,9 @@
 accelerate
 ==========
 
-File only available in wiki.
-Please merge with hunter-package entry
+.. note::
+
+    This is a helper package. There is no corresponding package in hunter to be included by ``hunter_add_package(...)``
 
 .. code-block:: cmake
 
