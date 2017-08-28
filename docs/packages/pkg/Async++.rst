@@ -1,17 +1,11 @@
 .. spelling::
 
-    async
+    Async++
 
-.. _pkg.async:
-
-async
-=====
-
-File only available in wiki.
-Please merge with hunter-package entry
+.. _pkg.Async++:
 
 Async++
-'''''''
+=======
 
 -  `Official <https://github.com/Amanieu/asyncplusplus>`__
 -  `Hunterized <https://github.com/hunter-packages/asyncplusplus>`__

@@ -1,14 +1,11 @@
 .. spelling::
 
-    qt.qml.manager
+    QtQmlManager
 
-.. _pkg.qt.qml.manager:
+.. _pkg.QtQmlManager:
 
-qt.qml.manager
-==============
-
-File only available in wiki.
-Please merge with hunter-package entry
+QtQmlManager
+============
 
 -  `Official <https://github.com/hunter-packages/QtQmlManager>`__
 -  `Example <https://github.com/hunter-packages/QtQmlManager/blob/master/example/CMakeLists.txt>`__

@@ -1,17 +1,11 @@
 .. spelling::
 
-    boost.compute
+    BoostCompute
 
-.. _pkg.boost.compute:
+.. _pkg.BoostCompute:
 
-boost.compute
-=============
-
-File only available in wiki.
-Please merge with hunter-package entry
-
-Boost.compute
-~~~~~~~~~~~~~
+BoostCompute
+============
 
 -  `Official <https://github.com/boostorg/compute>`__
 -  `Hunterized <https://github.com/hunter-packages/boost-compute>`__

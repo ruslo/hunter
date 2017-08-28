@@ -1,17 +1,11 @@
 .. spelling::
 
-    rabbitmq.c
+    rabbitmq-c
 
-.. _pkg.rabbitmq.c:
-
-rabbitmq.c
-==========
-
-File only available in wiki.
-Please merge with hunter-package entry
+.. _pkg.rabbitmq-c:
 
 rabbitmq-c
-''''''''''
+==========
 
 -  `Official <https://github.com/alanxz/rabbitmq-c>`__
 -  `Hunterized <https://github.com/oliverdaniell/rabbitmq-c/tree/hunter>`__

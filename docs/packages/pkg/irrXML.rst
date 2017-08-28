@@ -7,9 +7,6 @@
 irrXML
 ======
 
-File only available in wiki.
-Please merge with hunter-package entry
-
 -  `Official <http://www.ambiera.com/irrxml/>`__
 -  `Hunterized <https://github.com/hunter-packages/irrXML>`__
 

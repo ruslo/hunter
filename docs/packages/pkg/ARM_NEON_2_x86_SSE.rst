@@ -7,12 +7,6 @@
 ARM_NEON_2_x86_SSE
 ==================
 
-File only available in wiki.
-Please merge with hunter-package entry
-
-ARM\_NEON\_2\_x86\_SSE
-~~~~~~~~~~~~~~~~~~~~~~
-
 -  `Official <https://github.com/intel/ARM_NEON_2_x86_SSE>`__
 -  `Hunterized <https://github.com/hunter-packages/ARM_NEON_2_x86_SSE>`__
 -  `Example <https://github.com/ruslo/hunter/blob/master/examples/ARM_NEON_2_x86_SSE/CMakeLists.txt>`__

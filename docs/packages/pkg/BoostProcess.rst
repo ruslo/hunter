@@ -1,14 +1,11 @@
 .. spelling::
 
-    boost.process
+    BoostProcess
 
-.. _pkg.boost.process:
+.. _pkg.BoostProcess:
 
-boost.process
-=============
-
-File only available in wiki.
-Please merge with hunter-package entry
+BoostProcess
+============
 
 -  `Official <https://github.com/BorisSchaeling/boost-process>`__
 -  `Hunterized <https://github.com/alamaison/boost-process/tree/cmake>`__

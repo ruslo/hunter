@@ -1,17 +1,13 @@
 .. spelling::
 
-    llvm.clang
+    LLVM
 
-.. _pkg.llvm.clang:
+.. _pkg.LLVM:
 
-llvm.clang
-==========
-
-File only available in wiki.
-Please merge with hunter-package entry
+LLVM
+====
 
 LLVM (Clang)
-''''''''''''
 
 -  `Official <http://llvm.org/releases/download.html>`__
 
@@ -20,14 +16,14 @@ LLVM (Clang)
     hunter_add_package(LLVM)
     message("Clang++: ${LLVM_ROOT}/bin/clang++")
 
-Build issues:
-'''''''''''''
+Build issues
+------------
 
 -  Can't build with ``-stdlib=libstdc++ -std=c++11`` (Ubuntu Linux)
 -  Can't build with ``-std=c++11`` (MinGW gcc)
 
-Usage issues:
-'''''''''''''
+Usage issues
+------------
 
 -  Exceptions are not available, need to build with
    `\_HAS\_EXCEPTION=0 <http://stackoverflow.com/a/24750725/2288008>`__
