@@ -1,14 +1,11 @@
 .. spelling::
 
-    mysql.client
+    MySQL-client
 
-.. _pkg.mysql.client:
+.. _pkg.MySQL-client:
 
-mysql.client
+MySQL-client
 ============
-
-File only available in wiki.
-Please merge with hunter-package entry
 
 -  `Official <http://dev.mysql.com/downloads/connector/cpp/>`__
 -  `Example <https://github.com/ruslo/hunter/blob/develop/examples/MySQL-client/CMakeLists.txt>`__
@@ -21,7 +18,7 @@ Please merge with hunter-package entry
     find_package(MySQL-client REQUIRED)
     target_link_libraries(... "MySQL::libmysql")
 
-pre Hunter v0.19.58 use the below
+before Hunter `v0.19.58 <https://github.com/ruslo/hunter/releases/tag/v0.19.58>`__
 
 .. code-block:: cmake
 
