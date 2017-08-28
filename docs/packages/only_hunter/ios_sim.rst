@@ -1,11 +1,11 @@
 .. spelling::
 
-    rabbitmq-c
+    ios_sim
 
-.. _pkg.rabbitmq-c:
+.. _pkg.ios_sim:
 
-rabbitmq-c
-==========
+ios_sim
+=======
 
 -  `__FIXME__ Official <https://__FIXME__>`__
 -  `__FIXME__ Hunterized <https://github.com/hunter-packages/__FIXME__>`__

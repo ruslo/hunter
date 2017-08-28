@@ -1,11 +1,11 @@
 .. spelling::
 
-    BoostProcess
+    Igloo
 
-.. _pkg.BoostProcess:
+.. _pkg.Igloo:
 
-BoostProcess
-============
+Igloo
+=====
 
 -  `__FIXME__ Official <https://__FIXME__>`__
 -  `__FIXME__ Hunterized <https://github.com/hunter-packages/__FIXME__>`__
