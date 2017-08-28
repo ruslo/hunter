@@ -38,12 +38,26 @@ header_format_string = """.. spelling::
 
 {}
 {}
+"""
+
+template_string = """
+-  `__FIXME__ Official <https://__FIXME__>`__
+-  `__FIXME__ Hunterized <https://github.com/hunter-packages/__FIXME__>`__
+-  `__FIXME__ Example <https://github.com/ruslo/hunter/blob/master/examples/__FIXME__/CMakeLists.txt>`__
+-  Available since `__FIXME__ vX.Y.Z <https://github.com/ruslo/hunter/releases/tag/vX.Y.Z>`__
+-  Added by `__FIXME__ <https://github.com/__FIXME__>`__ (`__FIXME__ pr-N <https://github.com/ruslo/hunter/pull/N>`__)
+
+.. code-block:: cmake
+
+    hunter_add_package(__FIXME__)
+    find_package(__FIXME__ CONFIG REQUIRED)
+    target_link_libraries(foo __FIXME__::__FIXME__)
 
 """
 
+
 # create dummy entries for packages only in hunter
 for entry in pkg_only_hunter:
-    source_md = os.path.join(WIKI_DIR, 'pkg.' + entry.lower() + '.md')
     tmp_rst = os.path.join(tmp_dir, entry + '.rst')
     target_rst = os.path.join(only_hunter_dir, entry + '.rst')
     
@@ -53,7 +67,7 @@ for entry in pkg_only_hunter:
      
     with open(target_rst, 'w') as f:
         f.write(header)
-        f.write("TODO\n")
+        f.write(template_string)
 
 print("pkg_match entries:       ", len(pkg_match))
 print("pkg_only_hunter entries: ", len(pkg_only_hunter))
