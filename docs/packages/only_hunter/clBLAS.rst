@@ -7,6 +7,11 @@
 clBLAS
 ======
 
+.. warning::
+
+    This page is a template and contains no real information.
+    Please send pull request with real description.
+
 -  `__FIXME__ Official <https://__FIXME__>`__
 -  `__FIXME__ Hunterized <https://github.com/hunter-packages/__FIXME__>`__
 -  `__FIXME__ Example <https://github.com/ruslo/hunter/blob/master/examples/__FIXME__/CMakeLists.txt>`__
