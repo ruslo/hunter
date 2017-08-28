@@ -7,17 +7,18 @@
 OpenCL-cpp
 ==========
 
-Platforms: Windows VS12+/MSYS, Linux (limited by OpenCL package)
-
-Adds c++ wrappers for Opencl, http://github.khronos.org/OpenCL-CLHPP/
-
 -  `Official <https://github.com/KhronosGroup/OpenCL-CLHPP>`__
 -  `Hunterized <https://github.com/hunter-packages/OpenCL-CLHPP>`__
 -  `Example <https://github.com/ruslo/hunter/blob/master/examples/OpenCL-cpp/CMakeLists.txt>`__
 -  Available since: in acceptance process
 
-Usage:
-''''''
+Adds c++ wrappers for Opencl, http://github.khronos.org/OpenCL-CLHPP/
+
+- Platforms: Windows VS12+/MSYS, Linux (limited by OpenCL package)
+
+
+Usage
+-----
 
 .. code-block:: cmake
 

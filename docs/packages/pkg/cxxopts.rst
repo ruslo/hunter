@@ -7,9 +7,6 @@
 cxxopts
 =======
 
-cxxopts
-~~~~~~~
-
 -  `Official <https://github.com/jarro2783/cxxopts>`__
 -  `Hunterized <https://github.com/hunter-packages/cxxopts>`__
 -  `Example <https://github.com/ruslo/hunter/blob/master/examples/cxxopts/CMakeLists.txt>`__

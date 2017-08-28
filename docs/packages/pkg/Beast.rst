@@ -7,9 +7,6 @@
 Beast
 =====
 
-Beast
-'''''
-
 -  `Official <https://github.com/vinniefalco/Beast>`__
 -  `Hunterized <https://github.com/hunter-packages/Beast>`__
 -  Available since

@@ -7,12 +7,16 @@
 JsonSpirit
 ==========
 
-JsonSpirit
-''''''''''
+-  `Official <https://github.com/cierelabs/json_spirit>`__
+-  `Hunterized <https://github.com/hunter-packages/json_spirit/tree/hunter>`__
 
--  https://github.com/cierelabs/json\_spirit
--  https://github.com/hunter-packages/json\_spirit/tree/hunter
-   \`\`\`cmake hunter\_add\_package(JsonSpirit) find\_package(JsonSpirit
-   CONFIG REQUIRED)
+.. -  `__FIXME__ Example <https://github.com/ruslo/hunter/blob/master/examples/__FIXME__/CMakeLists.txt>`__
+.. -  Available since `__FIXME__ vX.Y.Z <https://github.com/ruslo/hunter/releases/tag/vX.Y.Z>`__
+.. -  Added by `__FIXME__ <https://github.com/__FIXME__>`__ (`__FIXME__ pr-N <https://github.com/ruslo/hunter/pull/N>`__)
 
-target\_link\_libraries(foo json) \`\`\`
+.. code-block:: cmake
+
+    hunter_add_package(JsonSpirit)
+    find_package(JsonSpirit CONFIG REQUIRED)
+
+    target_link_libraries(foo json)

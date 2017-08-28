@@ -17,7 +17,7 @@ Qt
    `v0.12.0 <https://github.com/ruslo/hunter/releases/tag/v0.12.0>`__
 
 Usage
-^^^^^
+-----
 
 Qt is split into
 `components <https://github.com/ruslo/hunter/tree/develop/cmake/projects/Qt>`__.
@@ -129,51 +129,53 @@ Examples:
     # no *.cmake modules installed
 
 Pitfalls
-^^^^^^^^
+--------
 
 -  Conflicts with system Qt: `bug with
    workaround <https://github.com/ruslo/hunter/issues/224#issuecomment-137101944>`__
 
 -  iOS (Qt < 5.9): you must use ``qtmn`` instead of ``main`` (see
    `SO <http://stackoverflow.com/a/25061034/2288008>`__): \`\`\`cpp
-   #include // Q\_OS\_IOS
-
-if defined(Q\_OS\_IOS)
-======================
-
-extern "C" int qtmn(int argc, char\*\* argv) { #else int main(int argc,
-char \*\*argv) { #endif
-
-::
 
 
-    you will see next error without this fix applied:
+.. code-block:: cpp
 
-Error: You are creating QApplication before calling UIApplicationMain.
-If you are writing a native iOS application, and only want to use Qt for
-parts of the application, a good place to create QApplication is from
-within 'applicationDidFinishLaunching' inside your UIApplication
-delegate.
+    #include <QtGlobal> // Q_OS_IOS
 
-::
+    #if defined(Q_OS_IOS)
+    extern "C" int qtmn(int argc, char** argv) {
+    #else
+    int main(int argc, char **argv) {
+    #endif
 
+you will see next error without this fix applied:
 
-    * `QtQuick2Plugin` conflict.
+.. code::
 
-    Both `plugins/qmltooling/libqmldbg_qtquick2.a` and `qml/QtQuick.2/libqtquick2plugin.a` implement this plugin:
+    Error: You are creating QApplication before calling UIApplicationMain.
+    If you are writing a native iOS application, and only want to use Qt for
+    parts of the application, a good place to create QApplication is from
+    within 'applicationDidFinishLaunching' inside your UIApplication
+    delegate.
 
-[Install]> nm -gU plugins/qmltooling/libqmldbg\_qtquick2.a \| grep
-static\_plugin 00000000000000b0 T
-\_\_Z31qt\_static\_plugin\_QtQuick2Pluginv [Install]> nm -gU
-qml/QtQuick.2/libqtquick2plugin.a \| grep static\_plugin
-0000000000000080 T \_\_Z31qt\_static\_plugin\_QtQuick2Pluginv
+- `QtQuick2Plugin` conflict.
 
-::
+  Both `plugins/qmltooling/libqmldbg_qtquick2.a` and `qml/QtQuick.2/libqtquick2plugin.a` implement this plugin:
 
-    Linking of `libqmldbg_qtquick2.a` may lead to the next runtime error:
+.. code::
 
-module "QtQuick" plugin "qtquick2plugin" not found
-\`\`\ ``if you see this error try to remove usage of target``\ Qt5::QtQuick2Plugin\ ``and variable``\ Qt5Qml\_PLUGINS\`.
+    [Install]> nm -gU plugins/qmltooling/libqmldbg_qtquick2.a | grep static_plugin
+    00000000000000b0 T __Z31qt_static_plugin_QtQuick2Pluginv
+    [Install]> nm -gU qml/QtQuick.2/libqtquick2plugin.a | grep static_plugin
+    0000000000000080 T __Z31qt_static_plugin_QtQuick2Pluginv
+
+Linking of ``libqmldbg_qtquick2.a`` may lead to the next runtime error:
+
+.. code::
+
+    module "QtQuick" plugin "qtquick2plugin" not found
+
+if you see this error try to remove usage of target ``Qt5::QtQuick2Plugin`` and variable ``Qt5Qml_PLUGINS``.
 
 -  Static QML plugins loading issue and workaround:
    https://bugreports.qt.io/browse/QTBUG-35754
@@ -185,14 +187,14 @@ module "QtQuick" plugin "qtquick2plugin" not found
    can be fixed by installing the necessary libraries before calling
    cmake with the command:
 
-   .. code:: shell
+   .. code-block:: shell
 
        > sudo apt-get install libfontconfig1-dev libfreetype6-dev libx11-dev libxext-dev libxfixes-dev libxi-dev libxrender-dev libxcb1-dev libx11-xcb-dev libxcb-glx0-dev
 
 -  Requirements for Ubuntu for Hunter v0.14.14+ (need ``GL``,\ ``EGL``:
    ``/usr/include/GL/gl.h``, ``usr/include/EGL/egl.h``):
 
-   .. code:: shell
+   .. code-block:: shell
 
        > sudo apt-get install libegl1-mesa-dev libgl1-mesa-dev libegl1-mesa-drivers
 
@@ -200,7 +202,7 @@ module "QtQuick" plugin "qtquick2plugin" not found
    answer <http://superuser.com/a/360398/252568>`__)
 
 Applied workaround for next bugs
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+--------------------------------
 
 -  Default version of Xcode should not be set to ``7.0`` for Qt
    ``5.5.0``. See `bug
@@ -219,7 +221,7 @@ Applied workaround for next bugs
    #47453 <https://bugreports.qt.io/browse/QTBUG-47453>`__
 
 Hints
-^^^^^
+-----
 
 -  Set ``QT_DEBUG_PLUGINS=1`` environment variable to obtain some
    diagnostic info: http://doc.qt.io/qt-5.5/deployment-plugins.html

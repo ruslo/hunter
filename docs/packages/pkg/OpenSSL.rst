@@ -7,9 +7,6 @@
 OpenSSL
 =======
 
-OpenSSL
-'''''''
-
 -  `Official <http://www.openssl.org/>`__
 -  `Dev branch <https://github.com/ruslo/hunter/tree/openssl>`__
 -  `Versions <https://github.com/ruslo/hunter/blob/master/cmake/projects/OpenSSL/hunter.cmake>`__
@@ -33,14 +30,14 @@ For backward compatibility:
     target_link_libraries(... ${OPENSSL_LIBRARIES})
 
 Bugs
-~~~~
+----
 
 -  https://github.com/ruslo/hunter/issues/28
 -  https://github.com/ruslo/hunter/issues/29
 -  https://github.com/ruslo/hunter/issues/30
 
 Fixed/workaround
-~~~~~~~~~~~~~~~~
+----------------
 
 -  `space in path <https://github.com/openssl/openssl/pull/185>`__,
    `related <https://github.com/ruslo/hunter/wiki/error.spaces.in.hunter.root>`__

@@ -24,8 +24,8 @@ PostgreSQL
 Ubuntu workarounds for missing dependencies (See
 `pr-301 <https://github.com/ruslo/hunter/pull/301>`__):
 
-::
+.. code::
 
-    > sudo apt-get install libreadline-dev
-    > sudo apt-get install bison
-    > sudo apt-get install flex
+    sudo apt-get install libreadline-dev
+    sudo apt-get install bison
+    sudo apt-get install flex

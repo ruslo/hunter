@@ -13,8 +13,8 @@ OpenCV
 -  Available since
    `v0.8.10 <https://github.com/ruslo/hunter/releases/tag/v0.8.10>`__
 
-Usage:
-''''''
+Usage
+-----
 
 .. code-block:: cmake
 
@@ -23,8 +23,8 @@ Usage:
 
     target_link_libraries(... PRIVATE ${OpenCV_LIBS})
 
-Qt backend:
-'''''''''''
+Qt backend
+----------
 
 Qt backend support for desktop can be enabled by `creating a custom
 config <https://github.com/hunter-packages/gate/tree/develop#usage-custom-config>`__
@@ -32,8 +32,8 @@ with the line:
 
 ``cmake hunter_config(OpenCV VERSION ${HUNTER_OpenCV_VERSION} CMAKE_ARGS WITH_QT=YES)``
 
-Known issues:
-'''''''''''''
+Known issues
+------------
 
 -  since hunter
    `v0.18.44 <https://github.com/ruslo/hunter/releases/tag/v0.18.44>`__

@@ -17,8 +17,7 @@ glog
     find_package(glog CONFIG REQUIRED)
     target_link_libraries(... glog::glog)
 
-Until Hunter 0.17.15
-~~~~~~~~~~~~~~~~~~~~
+For Hunter <= `__FIXME__ v0.17.15 <https://github.com/ruslo/hunter/releases/tag/v0.17.15>`__
 
 .. code-block:: cmake
 

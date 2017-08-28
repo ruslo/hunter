@@ -17,8 +17,7 @@ Eigen
     find_package(Eigen REQUIRED)
     target_link_libraries(... Eigen::eigen)
 
-For Hunter >= v0.17.15
-~~~~~~~~~~~~~~~~~~~~~~
+For Hunter >= `v0.17.15 <https://github.com/ruslo/hunter/releases/tag/v0.17.15>`__
 
 .. code-block:: cmake
 

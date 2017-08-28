@@ -7,9 +7,6 @@
 imshow
 ======
 
-imshow
-~~~~~~
-
 -  `Official <https://github.com/leonidk/imshow>`__
 -  `Hunterized <https://github.com/hunter-packages/imshow>`__
 -  `Example <https://github.com/ruslo/hunter/blob/master/examples/imshow/CMakeLists.txt>`__

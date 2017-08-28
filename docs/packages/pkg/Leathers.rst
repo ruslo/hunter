@@ -7,9 +7,6 @@
 Leathers
 ========
 
-Leathers
-~~~~~~~~
-
 -  `Official <https://github.com/ruslo/leathers>`__
 
 .. code-block:: cmake

@@ -20,7 +20,7 @@ caffe
     target_link_libraries(... caffe)
 
 Notes
-~~~~~
+-----
 
 -  Works only on Linux with minimal set of dependencies (e.g. no CUDA)
 -  Android port: https://github.com/sh1r0/caffe-android-lib

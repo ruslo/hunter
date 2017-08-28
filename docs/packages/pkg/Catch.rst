@@ -7,9 +7,6 @@
 Catch
 =====
 
-Catch
-'''''
-
 -  `Official <https://github.com/philsquared/Catch>`__
 -  `Hunterized <https://github.com/hunter-packages/Catch>`__
 -  Available since

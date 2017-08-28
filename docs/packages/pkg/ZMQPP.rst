@@ -26,11 +26,11 @@ ZMQPP
     target_link_libraries(... ZMQPP::zmqpp)
 
 Note
-~~~~
+----
 
 This library requires C++11.
 
 Bugs
-~~~~
+----
 
 -  Currently can be used only on Linux

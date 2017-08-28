@@ -7,9 +7,6 @@
 sse2neon
 ========
 
-sse2neon
-~~~~~~~~
-
 -  `Hunterized <https://github.com/hunter-packages/sse2neon>`__
 -  `Example <https://github.com/ruslo/hunter/blob/master/examples/sse2neon/CMakeLists.txt>`__
 

@@ -7,9 +7,6 @@
 GTest
 =====
 
-GTest
-~~~~~
-
 -  `Official <https://code.google.com/p/googletest/>`__
 -  `Hunterized <https://github.com/hunter-packages/googletest>`__ (`old
    repo <https://github.com/hunter-packages/gtest>`__)
@@ -28,12 +25,12 @@ GTest
     target_link_libraries(boo GTest::gtest)
 
 Bugs
-''''
+----
 
 -  Cygwin GCC build failed with ``c++11`` flag
 
 GMock
-~~~~~
+=====
 
 -  Available since
    `v0.12.42 <https://github.com/ruslo/hunter/releases/tag/v0.12.42>`__

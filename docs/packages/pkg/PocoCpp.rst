@@ -8,7 +8,6 @@ PocoCpp
 =======
 
 POCO C++ Libraries
-==================
 
 -  `Official Repository <https://github.com/pocoproject/poco>`__
 -  `Hunterized Repository <https://github.com/hunter-packages/poco>`__
@@ -22,9 +21,14 @@ POCO C++ Libraries
 ``find_package`` command requires at least one of the following
 components, else CMake will fail.
 
-Components are as follows: - Foundation (Poco::Foundation) - JSON
-(Poco::JSON) - Net (Poco::Net) - Util (Poco::Util) - XML (Poco::XML) -
-Zip (Poco::Zip)
+Components are as follows:
+
+- Foundation (Poco::Foundation)
+- JSON (Poco::JSON)
+- Net (Poco::Net)
+- Util (Poco::Util)
+- XML (Poco::XML)
+- Zip (Poco::Zip)
 
 **Note**: Components can be enabled or disabled by using
 `cmake\_args <https://github.com/ruslo/hunter/blob/master/cmake/projects/PocoCpp/hunter.cmake>`__.

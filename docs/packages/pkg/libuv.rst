@@ -7,9 +7,6 @@
 libuv
 =====
 
-libuv
-^^^^^
-
 -  `Official <http://libuv.org/>`__
 -  `Testing branch <https://github.com/ingenue/hunter/tree/pkg.libuv>`__
 -  `Example

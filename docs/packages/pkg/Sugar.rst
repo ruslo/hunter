@@ -7,9 +7,6 @@
 Sugar
 =====
 
-Sugar
-'''''
-
 -  `Project <https://github.com/ruslo/sugar>`__
 -  `Dev branch <https://github.com/ruslo/hunter/tree/sugar>`__
 -  `Versions <https://github.com/ruslo/hunter/blob/master/cmake/projects/Sugar/hunter.cmake>`__

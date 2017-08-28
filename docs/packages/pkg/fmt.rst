@@ -26,7 +26,7 @@ fmt
     target_link_libraries(... fmt) 
 
 Bugs
-~~~~
+----
 
 -  Looks like on Android the ``<clocale>`` API is not implemented, so
    ```{:n}`` formatter <https://github.com/fmtlib/fmt/issues/305>`__

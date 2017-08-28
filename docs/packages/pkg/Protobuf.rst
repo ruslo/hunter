@@ -22,7 +22,7 @@ Protobuf
     target_link_libraries(... protobuf::libprotobuf)
 
 Mixing toolchains
-~~~~~~~~~~~~~~~~~
+-----------------
 
 Example of mixing host and target toolchains in **one** CMake step (e.g.
 build ``protoc`` executable for OSX host and use it to build

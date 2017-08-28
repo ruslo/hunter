@@ -18,7 +18,7 @@ GPUImage
     target_link_libraries(... PUBLIC GPUImage::gpuimage)
 
 Example
-~~~~~~~
+-------
 
 A self contained test application can be run in the hunterized GPUImage
 fork using the following `polly <https://github.com/ruslo/polly>`__

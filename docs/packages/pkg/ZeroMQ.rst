@@ -26,6 +26,6 @@ ZeroMQ
     target_link_libraries(... ZeroMQ::libzmq) 
 
 Bugs
-~~~~
+----
 
 -  Tests doesn't work properly on Windows and OSX

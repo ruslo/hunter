@@ -16,8 +16,10 @@ nlohmann_json
 -  V2.1.1 Available since
    `v0.19.52 <https://github.com/ruslo/hunter/releases/tag/v0.19.52>`__
 
-Usage since hunter v0.19.52
----------------------------
+Usage
+-----
+
+since Hunter `v0.19.52 <https://github.com/ruslo/hunter/releases/tag/v0.19.52>`__
 
 .. code-block:: cmake
 
@@ -25,8 +27,7 @@ Usage since hunter v0.19.52
     find_package(nlohmann_json CONFIG REQUIRED)
     target_link_libraries(... nlohmann_json)
 
-Usage before hunter v0.19.52
-----------------------------
+before Hunter `v0.19.52 <https://github.com/ruslo/hunter/releases/tag/v0.19.52>`__
 
 .. code-block:: cmake
 

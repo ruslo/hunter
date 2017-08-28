@@ -7,9 +7,6 @@
 boost-pba
 =========
 
-boost-pba
-~~~~~~~~~
-
 -  `Hunterized <https://github.com/hunter-packages/boost-pba>`__
 -  `Example <https://github.com/ruslo/hunter/blob/master/examples/boost-pba/CMakeLists.txt>`__
 

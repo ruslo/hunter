@@ -21,6 +21,6 @@ Expat
     target_include_directories(... ${EXPAT_INCLUDE_DIRS})
 
 CI
-~~
+--
 
 -  https://github.com/ingenue/hunter/tree/pkg.expat

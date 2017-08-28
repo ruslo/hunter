@@ -20,7 +20,7 @@ wxWidgets
     target_link_libraries(... ${wxWidgets_LIBRARIES})
 
 Issues
-~~~~~~
+------
 
 -  `Add GTK <https://github.com/ruslo/hunter/issues/119>`__
 -  `Add OpenGL <https://github.com/ruslo/hunter/issues/120>`__

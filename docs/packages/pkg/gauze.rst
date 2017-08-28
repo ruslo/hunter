@@ -7,9 +7,6 @@
 gauze
 =====
 
-Gauze
-~~~~~
-
 -  `Official <https://github.com/hunter-packages/gauze>`__
 -  `Example <https://github.com/ruslo/hunter/blob/master/examples/gauze/CMakeLists.txt>`__
 

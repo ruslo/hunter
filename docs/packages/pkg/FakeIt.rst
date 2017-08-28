@@ -7,9 +7,6 @@
 FakeIt
 ======
 
-FakeIt
-''''''
-
 -  `Official <https://github.com/eranpeer/FakeIt>`__
 -  `Hunterized <https://github.com/hunter-packages/FakeIt>`__
 -  Available since
