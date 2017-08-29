@@ -1,6 +1,7 @@
 .. spelling::
 
     gles2
+    gles
 
 .. _pkg.gles2:
 
