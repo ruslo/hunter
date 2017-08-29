@@ -7,6 +7,7 @@ include(hunter_fatal_error)
 include(hunter_pack_git_submodule)
 include(hunter_unsetvar)
 include(hunter_user_error)
+include(hunter_parse_cmake_args_for_keyword)
 
 macro(hunter_config)
   if(NOT HUNTER_ALLOW_CONFIG_LOADING)
@@ -44,9 +45,17 @@ macro(hunter_config)
 
   string(COMPARE NOTEQUAL "${_hunter_GIT_SUBMODULE}" "" _hunter_submodule_create)
   if(_hunter_submodule_create)
+    # get HUNTER_SUBMODULE_SOURCE_SUBDIR from CMAKE_ARGS
+    hunter_parse_cmake_args_for_keyword(
+      CMAKE_ARGS ${_hunter_CMAKE_ARGS}
+      KEYWORD HUNTER_SUBMODULE_SOURCE_SUBDIR
+      OUTPUT _source_subdir
+    )
+
     hunter_pack_git_submodule(
         GIT_SUBMODULE "${_hunter_GIT_SUBMODULE}"
         VERSION _hunter_VERSION
+        SUBMODULE_SOURCE_SUBDIR "${_source_subdir}"
     )
   endif()
 

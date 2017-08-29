@@ -33,6 +33,7 @@ hunter_cmake_args(
     xext
     CMAKE_ARGS         # do not use double quotes on CMAKE_ARGS
       DEPENDS_ON_PACKAGES=${xext_dependencies}
+      PKGCONFIG_EXPORT_TARGETS=xext
 )
 hunter_cacheable(xext)
 hunter_download(

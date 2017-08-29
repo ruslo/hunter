@@ -58,3 +58,13 @@ hunter_autotools_project("@HUNTER_EP_NAME@"
     BOOTSTRAP
       "${BOOTSTRAP}"
 )
+
+foreach(PKG_CONFIG_MODULE ${PKGCONFIG_EXPORT_TARGETS})
+  # Use:
+  # * DEPENDS_ON_PACKAGES
+  configure_file(
+      "@HUNTER_GLOBAL_SCRIPT_DIR@/pkgconfig-export-targets.cmake.in"
+      "@HUNTER_PACKAGE_INSTALL_PREFIX@/lib/cmake/${PKG_CONFIG_MODULE}/${PKG_CONFIG_MODULE}Config.cmake"
+      @ONLY
+  )
+endforeach()

@@ -3,6 +3,7 @@
 
 cmake_minimum_required(VERSION 3.0)
 
+include(hunter_fatal_error)
 include(hunter_internal_error)
 include(hunter_status_debug)
 
@@ -41,7 +42,7 @@ macro(hunter_setup_msvc)
     string(COMPARE EQUAL "${MSVC_VERSION}" "1700" _vs_11_2012)
     string(COMPARE EQUAL "${MSVC_VERSION}" "1800" _vs_12_2013)
     string(COMPARE EQUAL "${MSVC_VERSION}" "1900" _vs_14_2015)
-    string(COMPARE EQUAL "${MSVC_VERSION}" "1910" _vs_15_2017)
+    string(REGEX MATCH "^191[01]$" _vs_15_2017 "${MSVC_VERSION}")
 
     if(_vs_8_2005)
       set(HUNTER_MSVC_VERSION "8")
@@ -121,16 +122,29 @@ macro(hunter_setup_msvc)
         )
         string(COMPARE EQUAL "${CMAKE_VS_DEVENV_COMMAND}" "" is_empty)
         if(is_empty)
-          hunter_internal_error("CMAKE_VS_DEVENV_COMMAND is empty")
+          hunter_fatal_error(
+              "Incorrect CMAKE_VS_DEVENV_COMMAND: is empty"
+              WIKI
+              error.vs.devenv
+          )
         endif()
         if(NOT IS_ABSOLUTE "${CMAKE_VS_DEVENV_COMMAND}")
-          hunter_internal_error("CMAKE_VS_DEVENV_COMMAND is not absolute")
+          hunter_fatal_error(
+              "Incorrect CMAKE_VS_DEVENV_COMMAND: not absolute (${CMAKE_VS_DEVENV_COMMAND})"
+              WIKI
+              error.vs.devenv
+          )
         endif()
         get_filename_component(_hunter_vcvarsall_path "${CMAKE_VS_DEVENV_COMMAND}" DIRECTORY)
         set(_hunter_vcvarsall_path "${_hunter_vcvarsall_path}/../../VC/Auxiliary/Build")
       endif()
     else()
       set(_hunter_vcvarsall_path "${_hunter_vcvarsall_path}/../../VC")
+      if(NOT HUNTER_MSVC_VERSION VERSION_LESS "15")
+        # Visual Studio 15 2017+
+        # * https://github.com/ruslo/hunter/issues/836#issue-236352343
+        set(_hunter_vcvarsall_path "${_hunter_vcvarsall_path}/Auxiliary/Build")
+      endif()
     endif()
 
     get_filename_component(

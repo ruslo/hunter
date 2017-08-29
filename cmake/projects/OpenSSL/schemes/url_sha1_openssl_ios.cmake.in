@@ -10,6 +10,7 @@ include(ExternalProject) # ExternalProject_Add
 
 list(APPEND CMAKE_MODULE_PATH "@HUNTER_SELF@/cmake/modules")
 
+include(hunter_dump_cmake_flags)
 include(hunter_status_debug)
 include(hunter_test_string_not_empty)
 include(hunter_unsetvar)
@@ -33,8 +34,16 @@ hunter_test_string_not_empty("@IOS_SDK_VERSION@")
 hunter_test_string_not_empty("@IPHONESIMULATOR_ROOT@")
 hunter_test_string_not_empty("@IPHONEOS_ROOT@")
 
+hunter_dump_cmake_flags(SKIP_INCLUDES)
+# -> CMAKE_CXX_FLAGS
+# -> CMAKE_C_FLAGS
+
 hunter_unsetvar(ssl_input_libraries)
 hunter_unsetvar(crypto_input_libraries)
+
+set(configure_opts iphoneos-cross threads no-shared)
+# Pass C flags through
+set(configure_opts ${configure_opts} ${CMAKE_C_FLAGS})
 
 foreach(arch @IPHONEOS_ARCHS@ @IPHONESIMULATOR_ARCHS@)
   list(
@@ -83,11 +92,9 @@ foreach(variant @IPHONEOS_ARCHS@ @IPHONESIMULATOR_ARCHS@)
   set(iphoneos_archs @IPHONEOS_ARCHS@)
   list(FIND iphoneos_archs ${variant} find_index)
   if(find_index EQUAL -1)
-    set(iphone_minversion "-miphoneos-version-min=@IOS_SDK_VERSION@")
     set(CROSS_TOP "@IPHONESIMULATOR_ROOT@")
     set(CROSS_SDK "iPhoneSimulator@IOS_SDK_VERSION@.sdk")
   else()
-    set(iphone_minversion "")
     set(CROSS_TOP "@IPHONEOS_ROOT@")
     set(CROSS_SDK "iPhoneOS@IOS_SDK_VERSION@.sdk")
   endif()
@@ -116,12 +123,10 @@ foreach(variant @IPHONEOS_ARCHS@ @IPHONESIMULATOR_ARCHS@)
           # not used, just avoid creating Install/<name> empty directory
       CONFIGURE_COMMAND
       ./Configure
-      iphoneos-cross
-      threads
-      no-shared
+      "${configure_opts}"
       "${noasm}"
+      "no-async"
       "--prefix=@HUNTER_PACKAGE_INSTALL_PREFIX@"
-      "${iphone_minversion}"
       "-arch ${variant}"
       BUILD_COMMAND
       . "@HUNTER_GLOBAL_SCRIPT_DIR@/clear-all.sh" &&

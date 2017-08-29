@@ -11,3 +11,7 @@ project(download-xcb)
 
 # download xcb
 hunter_add_package(xcb)
+find_package(xcb CONFIG REQUIRED)
+
+add_executable(foo foo.cpp)
+target_link_libraries(foo PUBLIC PkgConfig::xcb)

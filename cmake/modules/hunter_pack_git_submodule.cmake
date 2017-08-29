@@ -13,13 +13,14 @@ function(hunter_pack_git_submodule)
   endif()
 
   set(optional "")
-  set(one GIT_SUBMODULE PROJECT_FILE VERSION)
+  set(one GIT_SUBMODULE PROJECT_FILE VERSION SUBMODULE_SOURCE_SUBDIR)
   set(multiple "")
 
   # Introduce:
   # * x_GIT_SUBMODULE
   # * x_PROJECT_FILE
   # * x_VERSION
+  # * x_SUBMODULE_SOURCE_SUBDIR
   cmake_parse_arguments(x "${optional}" "${one}" "${multiple}" "${ARGV}")
 
   string(COMPARE NOTEQUAL "${x_UNPARSED_ARGUMENTS}" "" has_unparsed)
@@ -34,6 +35,12 @@ function(hunter_pack_git_submodule)
 
   find_package(Git REQUIRED)
   hunter_status_debug("Using git executable: ${GIT_EXECUTABLE}")
+
+  # For '--git-path':
+  # * https://git-scm.com/docs/git-rev-parse/2.5.0
+  if(GIT_VERSION_STRING VERSION_LESS "2.5.0")
+    hunter_user_error("At least Git 2.5.0 required")
+  endif()
 
   set(cmd "${GIT_EXECUTABLE}" rev-parse --show-toplevel)
   execute_process(
@@ -187,10 +194,20 @@ function(hunter_pack_git_submodule)
   set(archive "${archives_directory}/${PACKAGE_NAME}.tar")
   hunter_status_debug("Creating archive '${archive}'")
 
+  # check if whole submodule or just a subfolder is to be archived
+  string(COMPARE EQUAL "${x_SUBMODULE_SOURCE_SUBDIR}" "" is_empty)
+  if(is_empty)
+    hunter_status_debug("No SUBMODULE_SOURCE_SUBDIR specified, archive whole submodule")
+    set(source_flag)
+  else()
+    hunter_status_debug("SUBMODULE_SOURCE_SUBDIR specified, only archive subfolder: ${x_SUBMODULE_SOURCE_SUBDIR}")
+    set(source_flag "/${x_SUBMODULE_SOURCE_SUBDIR}")
+  endif()
+
   set(cmd "${GIT_EXECUTABLE}" archive HEAD -o "${archive}")
   execute_process(
       COMMAND ${cmd}
-      WORKING_DIRECTORY "${submodule_dir}"
+      WORKING_DIRECTORY "${submodule_dir}${source_flag}"
       RESULT_VARIABLE result
       OUTPUT_VARIABLE output
       ERROR_VARIABLE error

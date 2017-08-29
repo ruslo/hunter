@@ -13,6 +13,17 @@ hunter_add_version(
     PACKAGE_NAME
     OpenBLAS
     VERSION
+    0.2.20-p0
+    URL
+    "https://github.com/hunter-packages/OpenBLAS/archive/v0.2.20-p0.tar.gz"
+    SHA1
+    8f56263dda492f18972e55d51911a419d37eaba4
+)
+
+hunter_add_version(
+    PACKAGE_NAME
+    OpenBLAS
+    VERSION
     0.2.19-p0
     URL
     "https://github.com/hunter-packages/OpenBLAS/archive/v0.2.19-p0.tar.gz"
@@ -21,10 +32,15 @@ hunter_add_version(
 )
 
 hunter_configuration_types(OpenBLAS CONFIGURATION_TYPES Release)
-hunter_pick_scheme(DEFAULT OpenBLAS)
+if (MSVC)
+  hunter_pick_scheme(DEFAULT url_sha1_cmake)
+else()
+  hunter_pick_scheme(DEFAULT OpenBLAS)
+endif()
 hunter_cacheable(OpenBLAS)
 hunter_download(
     PACKAGE_NAME OpenBLAS
+    PACKAGE_INTERNAL_DEPS_ID "1"
     PACKAGE_UNRELOCATABLE_TEXT_FILES
     "lib/cmake/openblas/OpenBLASConfig.cmake"
 )

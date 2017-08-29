@@ -24,7 +24,7 @@ hunter_test_string_not_empty("@HUNTER_PACKAGE_COMPONENT@")
 hunter_test_string_not_empty("@HUNTER_PACKAGE_DOWNLOAD_DIR@")
 hunter_test_string_not_empty("@HUNTER_PACKAGE_BUILD_DIR@")
 hunter_test_string_not_empty("@HUNTER_PACKAGE_CONFIGURATION_TYPES@")
-hunter_test_string_not_empty("@HUNTER_TOOLCHAIN_ID_PATH@")
+hunter_test_string_not_empty("@HUNTER_CONFIG_ID_PATH@")
 hunter_test_string_not_empty("@HUNTER_INSTALL_PREFIX@")
 hunter_test_string_not_empty("@HUNTER_PACKAGE_INSTALL_PREFIX@")
 hunter_test_string_not_empty("@HUNTER_PACKAGE_LICENSE_DIR@")
@@ -236,7 +236,9 @@ list(APPEND configure_opts "-no-fontconfig")
 list(APPEND configure_opts "-no-gif")
 if(NOT WIN32)
   list(APPEND configure_opts "-no-glib")
-  list(APPEND configure_opts "-no-gtkstyle")
+  if(HUNTER_Qt_VERSION VERSION_LESS 5.9)
+    list(APPEND configure_opts "-no-gtkstyle")
+  endif()
   list(APPEND configure_opts "-no-xinput2")
 endif()
 list(APPEND configure_opts "-no-icu")
@@ -316,7 +318,7 @@ endif()
 # lose some extra HDD space. Example: Qt base + 2 components + sources ~ 4.4G
 set(
     qt_source_dir
-    "@HUNTER_TOOLCHAIN_ID_PATH@/QtBuild/@HUNTER_PACKAGE_INTERNAL_DEPS_ID@"
+    "@HUNTER_CONFIG_ID_PATH@/QtBuild/@HUNTER_PACKAGE_INTERNAL_DEPS_ID@"
 )
 
 # We are building only one component "qt_component". To skip all other

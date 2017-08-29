@@ -73,7 +73,7 @@ else()
   set(log_build 0)
 endif()
 
-if("@HUNTER_PACKAGE_LOG_INSTALL@")
+if("@HUNTER_PACKAGE_LOG_INSTALL@" OR "@HUNTER_SUPPRESS_LIST_OF_FILES@")
   set(log_install 1)
 else()
   set(log_install 0)
@@ -97,6 +97,8 @@ else()
   set(make_args "")
 endif()
 
+string(COMPARE EQUAL "${CMAKE_CFG_INTDIR}" "." is_single)
+
 foreach(configuration @HUNTER_PACKAGE_CONFIGURATION_TYPES@)
   # All configurations use the same URL which will be downloaded only once
   # i.e. overhead only for unpacking archive + no files from the previous
@@ -111,6 +113,12 @@ foreach(configuration @HUNTER_PACKAGE_CONFIGURATION_TYPES@)
   endif()
 
   set(current_project "@HUNTER_EP_NAME@-${configuration}")
+  
+  if(is_single)
+    set(build_type_opts "-DCMAKE_BUILD_TYPE=${configuration}")
+  else()
+    set(build_type_opts "-DCMAKE_CONFIGURATION_TYPES=${configuration}")
+  endif()
 
   ExternalProject_Add(
       "${current_project}"
@@ -126,16 +134,20 @@ foreach(configuration @HUNTER_PACKAGE_CONFIGURATION_TYPES@)
       INSTALL_DIR
       "@HUNTER_PACKAGE_INSTALL_PREFIX@"
           # not used, just avoid creating Install/<name> empty directory
-      BUILD_COMMAND ""
-          # this command is empty because all necessary targets will
-          # be built on install stage
+      BUILD_COMMAND
+          # Separate build and install stage so we can suppress install log
+          # which may consist of a long list of files
+          "@CMAKE_COMMAND@"
+          --build .
+          --config ${configuration}
+          --
+          ${jobs_option}
       CMAKE_ARGS
       "-G@CMAKE_GENERATOR@"
       "-C@HUNTER_CACHE_FILE@"
       "-C@HUNTER_ARGS_FILE@"
       "-D${postfix_name}=${${postfix_name}}"
-      "-DCMAKE_BUILD_TYPE=${configuration}"
-      "-DCMAKE_CONFIGURATION_TYPES=${configuration}"
+      "${build_type_opts}"
       "-DCMAKE_INSTALL_PREFIX=@HUNTER_PACKAGE_INSTALL_PREFIX@"
       "-DCMAKE_TOOLCHAIN_FILE=${CMAKE_TOOLCHAIN_FILE}"
       "${make_args}"
@@ -145,8 +157,6 @@ foreach(configuration @HUNTER_PACKAGE_CONFIGURATION_TYPES@)
           --build .
           --target install
           --config ${configuration}
-          --
-          ${jobs_option}
         COMMAND # Copy license files
           "@CMAKE_COMMAND@"
           "-C@HUNTER_ARGS_FILE@" # for 'HUNTER_INSTALL_LICENSE_FILES'

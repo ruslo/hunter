@@ -12,6 +12,17 @@ hunter_add_version(
     PACKAGE_NAME
     fmt
     VERSION
+    "4.0.0"
+    URL
+    "https://github.com/fmtlib/fmt/archive/4.0.0.tar.gz"
+    SHA1
+    d52942b4a31fb94dbb2cca36c90e34209033408f
+)
+
+hunter_add_version(
+    PACKAGE_NAME
+    fmt
+    VERSION
     "3.0.0"
     URL
     "https://github.com/fmtlib/fmt/releases/download/3.0.0/fmt-3.0.0.zip"

@@ -47,9 +47,6 @@ function(hunter_add_version)
   endif()
   string(COMPARE NOTEQUAL "${${expected_version}}" "${h_VERSION}" version_diff)
   if(version_diff)
-    hunter_status_debug(
-        "Skip '${h_VERSION}' (looking for '${${expected_version}}')"
-    )
     return()
   endif()
 

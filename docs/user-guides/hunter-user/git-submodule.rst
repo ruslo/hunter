@@ -10,8 +10,8 @@
 Use version from Git submodule
 ------------------------------
 
-Hunter allows creation of archive with sources on the fly by getting it from
-Git submodule.
+Hunter allows the creation of an archive with sources on the fly by getting it
+from a Git submodule.
 
 Example:
 
@@ -21,7 +21,8 @@ Example:
   > cd git-submodule-integration
   [git-submodule-integration]> git submodule update --init .
 
-Submodule set in local config file:
+To instruct Hunter to use the contents of the submodule, add a local config file
+and set the ``GIT_SUBMODULE`` flag:
 
 .. code-block:: cmake
   :emphasize-lines: 9
@@ -42,7 +43,7 @@ Submodule set in local config file:
   # cmake/Hunter/config.cmake
   hunter_config(fruits GIT_SUBMODULE "3rdParty/fruits")
 
-Path to submodule is the same as in ``.gitmodules`` file:
+The path set by the ``GIT_SUBMODULE`` flag is the same as in the ``.gitmodules`` file:
 
 .. code-block:: none
   :emphasize-lines: 3
@@ -52,7 +53,7 @@ Path to submodule is the same as in ``.gitmodules`` file:
     path = 3rdParty/fruits
     url = https://github.com/cgold-examples/fruits
 
-On configure step Hunter will run ``git archive`` command to pack sources:
+At the configure step Hunter will run the command ``git archive`` to pack sources:
 
 .. code-block:: none
 
@@ -61,7 +62,7 @@ On configure step Hunter will run ``git archive`` command to pack sources:
   -- [hunter *** DEBUG *** ...] Creating archive '/.../git-submodule-integration/_builds/_3rdParty/Hunter/git-archives/fruits.tar'
   ...
 
-Let's build project and run tests:
+Let's build the project and run tests:
 
 .. code-block:: none
 
@@ -73,8 +74,8 @@ Let's build project and run tests:
   1:   pear x 1
   ...
 
-If you want to make changes to dependent project and test them you have
-to **commit** patches first:
+If you want to make changes to the dependent project (the one added
+as submodule) and test them, you have to **commit** patches first:
 
 .. code-block:: none
   :emphasize-lines: 3, 6, 8
@@ -88,9 +89,9 @@ to **commit** patches first:
   [fruits]> git add lib/fruits/rosaceae/Plum.cpp
   [fruits]> git commit -m 'Update'
 
-Go back to parent directory and run build. There is no need to run configure
-again, corresponding Git files watched by CMake hence configure will start
-automatically on build step:
+Go back to the parent directory and run build. There is no need to run
+configure again, corresponding Git files are watched by CMake hence the
+configure step will start automatically when the build step is invoked:
 
 .. code-block:: none
 
@@ -106,6 +107,19 @@ Run tests to see changes:
   1: Quick meal:
   1:   plum-v2 x 2
   1:   pear x 1
+
+Use subdirectory of submodule
+=============================
+
+To instruct hunter to archive a subdirectory of the Git submodule add the keyword ``HUNTER_SUBMODULE_SOURCE_SUBDIR`` to the CMake arguments:
+
+.. code-block:: cmake
+
+  # cmake/Hunter/config.cmake
+  hunter_config(fruits GIT_SUBMODULE "3rdParty/fruits"
+    CMAKE_ARGS "HUNTER_SUBMODULE_SOURCE_SUBDIR=app")
+
+The created archive will contain just the subfolder ``app`` of the submodule.
 
 GIT_SUBMODULE vs add_subdirectory
 =================================
@@ -190,7 +204,7 @@ Config-ID is ``f743b0b``:
      timeout='none'
   -- Using src='https://github.com/hunter-packages/zlib/archive/v1.2.8-p3.tar.gz'
   ...
-  /usr/bin/cc ... -isystem ~/.hunter/_Base/3b39eff/f743b0b/e1266bb/Install/include ... /.../tif_zip.c
+  /usr/bin/cc ... -isystem ~/.hunter/_Base/3b39eff/e1266bb/f743b0b/Install/include ... /.../tif_zip.c
 
 Now let's add ``LOCAL`` back and run build again:
 
@@ -238,7 +252,7 @@ And **rebuilding** TIFF with newly installed ZLIB, Config-ID changed from
 
 .. code-block:: none
 
-  /usr/bin/cc ... -isystem ~/.hunter/_Base/3b39eff/817c9cb/e1266bb/Install/include ... /.../tif_zip.c
+  /usr/bin/cc ... -isystem ~/.hunter/_Base/3b39eff/e1266bb/817c9cb/Install/include ... /.../tif_zip.c
 
 To achieve the same with ``add_subdirectory`` you have to clone TIFF package too.
 Then you have to be sure that TIFF supports external ZLIB targets configuration,

@@ -13,8 +13,21 @@ include(hunter_pick_scheme)
 set(Boost_NO_SYSTEM_PATHS ON)
 
 # use base url for official boost releases
-set(_hunter_boost_base_url "https://downloads.sourceforge.net/project/boost/boost/")
+set(_hunter_boost_base_url "https://dl.bintray.com/boostorg/release")
 
+hunter_add_version(
+    PACKAGE_NAME
+    Boost
+    VERSION
+    "1.65.0"
+    URL
+    "${_hunter_boost_base_url}/1.65.0/source/boost_1_65_0.tar.bz2"
+    SHA1
+    f9260074ecfb31f3e65322fae9c15cc423c0ad59
+)
+
+# up until 1.63 sourcefourge was used
+set(_hunter_boost_base_url "https://downloads.sourceforge.net/project/boost/boost/")
 hunter_add_version(
     PACKAGE_NAME
     Boost
@@ -256,4 +269,4 @@ hunter_add_version(
 
 hunter_pick_scheme(DEFAULT url_sha1_boost)
 hunter_cacheable(Boost)
-hunter_download(PACKAGE_NAME Boost PACKAGE_INTERNAL_DEPS_ID "13")
+hunter_download(PACKAGE_NAME Boost PACKAGE_INTERNAL_DEPS_ID "17")

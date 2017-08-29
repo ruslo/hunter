@@ -7,8 +7,7 @@ environment:
       secure: KbhVDnegXkjLm8H7lUZX9/t/4AL3dzhQLy8mWZ3Ldv0sXDs7d5bFz7+Yo3EFZNtw
 
   matrix:
-    - TOOLCHAIN: "default"
-      PROJECT_DIR: examples\dlib
+    # Note: 'default' toolchain is the same as 'vs-14-2015'
 
     # VS 2015 required:
     # * https://ci.appveyor.com/project/ingenue/hunter/build/1.0.1293/job/qx11p4a3eava3yqd
