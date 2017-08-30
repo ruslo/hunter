@@ -2,6 +2,8 @@
 
     glm
 
+.. index:: math ; glm
+
 .. _pkg.glm:
 
 glm

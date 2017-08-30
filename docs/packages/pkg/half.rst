@@ -2,6 +2,8 @@
 
     half
 
+.. index:: math ; half
+
 .. _pkg.half:
 
 half

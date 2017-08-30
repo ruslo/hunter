@@ -2,6 +2,8 @@
 
     poly2tri
 
+.. index:: math ; poly2tri
+
 .. _pkg.poly2tri:
 
 poly2tri

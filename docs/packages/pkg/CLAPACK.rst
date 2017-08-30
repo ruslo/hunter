@@ -2,6 +2,8 @@
 
     CLAPACK
 
+.. index:: math ; CLAPACK
+
 .. _pkg.CLAPACK:
 
 CLAPACK

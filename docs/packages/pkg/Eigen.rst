@@ -2,6 +2,8 @@
 
     Eigen
 
+.. index:: math ; Eigen
+
 .. _pkg.Eigen:
 
 Eigen

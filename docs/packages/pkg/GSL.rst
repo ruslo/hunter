@@ -2,6 +2,8 @@
 
     GSL
 
+.. index:: math ; GSL
+
 .. _pkg.GSL:
 
 GSL

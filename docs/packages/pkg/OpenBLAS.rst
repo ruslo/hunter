@@ -2,6 +2,8 @@
 
     OpenBLAS
 
+.. index:: math ; OpenBLAS
+
 .. _pkg.OpenBLAS:
 
 OpenBLAS

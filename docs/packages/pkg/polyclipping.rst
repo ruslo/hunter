@@ -2,6 +2,8 @@
 
     polyclipping
 
+.. index:: math ; polyclipping
+
 .. _pkg.polyclipping:
 
 polyclipping
