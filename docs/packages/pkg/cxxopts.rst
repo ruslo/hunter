@@ -2,6 +2,8 @@
 
     cxxopts
 
+.. index:: commandline tools ; cxxopts
+
 .. _pkg.cxxopts:
 
 cxxopts

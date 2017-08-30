@@ -2,6 +2,8 @@
 
     gflags
 
+.. index:: commandline tools ; gflags
+
 .. _pkg.gflags:
 
 gflags
