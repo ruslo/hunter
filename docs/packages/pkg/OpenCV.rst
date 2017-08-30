@@ -2,7 +2,6 @@
 
     OpenCV
     GStreamer
-    backend
 
 .. index:: computer-vision ; OpenCV
 
@@ -27,10 +26,10 @@ Usage
 
     target_link_libraries(... PRIVATE ${OpenCV_LIBS})
 
-Qt backend
-----------
+Qt back-end
+-----------
 
-Qt backend support for desktop can be enabled by `creating a custom
+Qt back-end support for desktop can be enabled by `creating a custom
 config <https://github.com/hunter-packages/gate/tree/develop#usage-custom-config>`__
 with the line:
 
