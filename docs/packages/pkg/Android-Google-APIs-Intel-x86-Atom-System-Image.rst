@@ -3,7 +3,7 @@
     Android-Google-APIs-Intel-x86-Atom-System-Image
     APIs
 
-.. index:: unsorted ; Android-Google-APIs-Intel-x86-Atom-System-Image
+.. index:: android_sdk_component ; Android-Google-APIs-Intel-x86-Atom-System-Image
 
 .. _pkg.Android-Google-APIs-Intel-x86-Atom-System-Image:
 

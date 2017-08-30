@@ -2,7 +2,7 @@
 
     x11
 
-.. index:: unsorted ; x11
+.. index:: x11 ; x11
 
 .. _pkg.x11:
 

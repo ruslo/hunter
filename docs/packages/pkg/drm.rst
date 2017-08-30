@@ -2,7 +2,7 @@
 
     drm
 
-.. index:: unsorted ; drm
+.. index:: x11 ; drm
 
 .. _pkg.drm:
 

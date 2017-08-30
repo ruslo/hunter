@@ -4,7 +4,7 @@
     rpc
     cpp
 
-.. index:: unsorted ; libjson-rpc-cpp
+.. index:: json ; libjson-rpc-cpp
 
 .. _pkg.libjson-rpc-cpp:
 

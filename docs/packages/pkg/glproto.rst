@@ -2,7 +2,7 @@
 
     glproto
 
-.. index:: unsorted ; glproto
+.. index:: x11 ; glproto
 
 .. _pkg.glproto:
 

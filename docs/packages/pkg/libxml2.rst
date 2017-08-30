@@ -2,7 +2,7 @@
 
     libxml
 
-.. index:: unsorted ; libxml2
+.. index:: xml ; libxml2
 
 .. _pkg.libxml2:
 

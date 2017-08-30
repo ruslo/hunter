@@ -2,7 +2,7 @@
 
     xcb
 
-.. index:: unsorted ; xcb
+.. index:: x11 ; xcb
 
 .. _pkg.xcb:
 

@@ -3,7 +3,7 @@
     Android-ARM-EABI-v7a-System-Image
     EABI
 
-.. index:: unsorted ; Android-ARM-EABI-v7a-System-Image
+.. index:: android_sdk_component; Android-ARM-EABI-v7a-System-Image
 
 .. _pkg.Android-ARM-EABI-v7a-System-Image:
 

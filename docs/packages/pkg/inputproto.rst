@@ -2,7 +2,7 @@
 
     inputproto
 
-.. index:: unsorted ; inputproto
+.. index:: x11 ; inputproto
 
 .. _pkg.inputproto:
 

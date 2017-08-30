@@ -2,7 +2,7 @@
 
     Android-SDK-Tools
 
-.. index:: unsorted ; Android-SDK-Tools
+.. index:: android_sdk_component ; Android-SDK-Tools
 
 .. _pkg.Android-SDK-Tools:
 

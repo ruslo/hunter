@@ -2,7 +2,7 @@
 
     OpenCV-Extra
 
-.. index:: unsorted ; OpenCV-Extra
+.. index:: opencv_component ; OpenCV-Extra
 
 .. _pkg.OpenCV-Extra:
 

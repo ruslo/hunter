@@ -2,7 +2,7 @@
 
     xshmfence
 
-.. index:: unsorted ; xshmfence
+.. index:: x11 ; xshmfence
 
 .. _pkg.xshmfence:
 

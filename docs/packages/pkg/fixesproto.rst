@@ -2,7 +2,7 @@
 
     fixesproto
 
-.. index:: unsorted ; fixesproto
+.. index:: x11 ; fixesproto
 
 .. _pkg.fixesproto:
 

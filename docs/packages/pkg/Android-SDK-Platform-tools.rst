@@ -2,7 +2,7 @@
 
     Android-SDK-Platform-tools
 
-.. index:: unsorted ; Android-SDK-Platform-tools
+.. index:: android_sdk_component ; Android-SDK-Platform-tools
 
 .. _pkg.Android-SDK-Platform-tools:
 

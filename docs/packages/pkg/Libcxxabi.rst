@@ -2,7 +2,7 @@
 
     Libcxxabi
 
-.. index:: unsorted ; Libcxxabi
+.. index:: llvm_component ; Libcxxabi
 
 .. _pkg.Libcxxabi:
 

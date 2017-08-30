@@ -2,7 +2,7 @@
 
     Expat
 
-.. index:: unsorted ; Expat
+.. index:: xml ; Expat
 
 .. _pkg.Expat:
 

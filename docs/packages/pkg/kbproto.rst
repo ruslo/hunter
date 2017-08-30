@@ -2,7 +2,7 @@
 
     kbproto
 
-.. index:: unsorted ; kbproto
+.. index:: x11 ; kbproto
 
 .. _pkg.kbproto:
 

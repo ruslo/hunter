@@ -2,7 +2,7 @@
 
     Android-Intel-x86-Atom-System-Image
 
-.. index:: unsorted ; Android-Intel-x86-Atom-System-Image
+.. index:: android_sdk_component ; Android-Intel-x86-Atom-System-Image
 
 .. _pkg.Android-Intel-x86-Atom-System-Image:
 

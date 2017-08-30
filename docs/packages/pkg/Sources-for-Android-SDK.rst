@@ -2,7 +2,7 @@
 
     Sources-for-Android-SDK
 
-.. index:: unsorted ; Sources-for-Android-SDK
+.. index:: android_sdk_component ; Sources-for-Android-SDK
 
 .. _pkg.Sources-for-Android-SDK:
 

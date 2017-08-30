@@ -2,7 +2,7 @@
 
     xcursor
 
-.. index:: unsorted ; xcursor
+.. index:: x11 ; xcursor
 
 .. _pkg.xcursor:
 

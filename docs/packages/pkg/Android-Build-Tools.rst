@@ -2,7 +2,7 @@
 
     Android-Build-Tools
 
-.. index:: unsorted ; Android-Build-Tools
+.. index:: android_sdk_component; Android-Build-Tools
 
 .. _pkg.Android-Build-Tools:
 

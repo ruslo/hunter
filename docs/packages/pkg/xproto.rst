@@ -2,7 +2,7 @@
 
     xproto
 
-.. index:: unsorted ; xproto
+.. index:: x11 ; xproto
 
 .. _pkg.xproto:
 

@@ -2,7 +2,7 @@
 
     Android-SDK
 
-.. index:: unsorted ; Android-SDK
+.. index:: android ; Android-SDK
 
 .. _pkg.Android-SDK:
 

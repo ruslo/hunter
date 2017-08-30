@@ -2,7 +2,7 @@
 
     xinerama
 
-.. index:: unsorted ; xinerama
+.. index:: x11 ; xinerama
 
 .. _pkg.xinerama:
 

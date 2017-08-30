@@ -2,7 +2,7 @@
 
     xau
 
-.. index:: unsorted ; xau
+.. index:: x11 ; xau
 
 .. _pkg.xau:
 

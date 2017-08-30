@@ -2,7 +2,7 @@
 
     CsvParserCPlusPlus
 
-.. index:: unsorted ; CsvParserCPlusPlus
+.. index:: csv ; CsvParserCPlusPlus
 
 .. _pkg.CsvParserCPlusPlus:
 

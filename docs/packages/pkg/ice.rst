@@ -2,7 +2,7 @@
 
     ice
 
-.. index:: unsorted ; ice
+.. index:: x11 ; ice
 
 .. _pkg.ice:
 

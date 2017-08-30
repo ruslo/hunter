@@ -2,7 +2,7 @@
 
     pciaccess
 
-.. index:: unsorted ; pciaccess
+.. index:: x11 ; pciaccess
 
 .. _pkg.pciaccess:
 

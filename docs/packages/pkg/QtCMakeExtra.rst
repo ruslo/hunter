@@ -2,7 +2,7 @@
 
     QtCMakeExtra
 
-.. index:: unsorted ; QtCMakeExtra
+.. index:: qt_helper ; QtCMakeExtra
 
 .. _pkg.QtCMakeExtra:
 

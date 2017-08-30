@@ -2,7 +2,7 @@
 
     Android-Support-Repository
 
-.. index:: unsorted ; Android-Support-Repository
+.. index:: android_sdk_component ; Android-Support-Repository
 
 .. _pkg.Android-Support-Repository:
 

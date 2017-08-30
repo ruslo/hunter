@@ -2,7 +2,7 @@
 
     randrproto
 
-.. index:: unsorted ; randrproto
+.. index:: x11 ; randrproto
 
 .. _pkg.randrproto:
 

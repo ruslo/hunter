@@ -2,7 +2,7 @@
 
     gauze
 
-.. index:: unsorted ; gauze
+.. index:: testing ; gauze
 
 .. _pkg.gauze:
 
