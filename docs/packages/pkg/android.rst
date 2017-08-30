@@ -2,6 +2,8 @@
 
     android
 
+.. index:: system_library_finder ; android
+
 .. _pkg.android:
 
 android

@@ -2,9 +2,9 @@
 
     quartzcore
 
-.. _pkg.quartzcore:
-
 .. index:: system_library_finder ; quartzcore
+
+.. _pkg.quartzcore:
 
 quartzcore
 ==========

@@ -2,9 +2,9 @@
 
     coregraphics
 
-.. _pkg.coregraphics:
-
 .. index:: system_library_finder ; coregraphics
+
+.. _pkg.coregraphics:
 
 coregraphics
 ============

@@ -2,9 +2,9 @@
 
     avfoundation
 
-.. _pkg.avfoundation:
-
 .. index:: system_library_finder ; avfoundation
+
+.. _pkg.avfoundation:
 
 avfoundation
 ============

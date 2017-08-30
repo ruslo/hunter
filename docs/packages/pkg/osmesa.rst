@@ -2,9 +2,9 @@
 
     osmesa
 
-.. _pkg.osmesa:
-
 .. index:: system_library_finder ; osmesa
+
+.. _pkg.osmesa:
 
 osmesa
 ======

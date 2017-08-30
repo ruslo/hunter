@@ -2,9 +2,9 @@
 
     appkit
 
-.. _pkg.appkit:
-
 .. index:: system_library_finder ; appkit
+
+.. _pkg.appkit:
 
 appkit
 ======

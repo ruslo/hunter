@@ -2,9 +2,9 @@
 
     glapi
 
-.. _pkg.glapi:
-
 .. index:: system_library_finder ; glapi
+
+.. _pkg.glapi:
 
 glapi
 =====

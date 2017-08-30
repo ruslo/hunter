@@ -2,9 +2,9 @@
 
     corelocation
 
-.. _pkg.corelocation:
-
 .. index:: system_library_finder ; corelocation
+
+.. _pkg.corelocation:
 
 corelocation
 ============

@@ -2,9 +2,9 @@
 
     coredata
 
-.. _pkg.coredata:
-
 .. index:: system_library_finder ; coredata
+
+.. _pkg.coredata:
 
 coredata
 ========

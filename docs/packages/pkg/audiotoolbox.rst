@@ -2,9 +2,9 @@
 
     audiotoolbox
 
-.. _pkg.audiotoolbox:
-
 .. index:: system_library_finder ; audiotoolbox
+
+.. _pkg.audiotoolbox:
 
 audiotoolbox
 ============

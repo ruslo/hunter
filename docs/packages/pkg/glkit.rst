@@ -2,9 +2,9 @@
 
     glkit
 
-.. _pkg.glkit:
-
 .. index:: system_library_finder ; glkit
+
+.. _pkg.glkit:
 
 glkit
 =====

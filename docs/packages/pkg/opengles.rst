@@ -2,9 +2,9 @@
 
     opengles
 
-.. _pkg.opengles:
-
 .. index:: system_library_finder ; opengles
+
+.. _pkg.opengles:
 
 opengles
 ========

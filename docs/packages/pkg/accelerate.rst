@@ -2,9 +2,9 @@
 
     accelerate
 
-.. _pkg.accelerate:
-
 .. index:: system_library_finder ; accelerate
+
+.. _pkg.accelerate:
 
 accelerate
 ==========

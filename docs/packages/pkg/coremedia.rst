@@ -2,9 +2,9 @@
 
     coremedia
 
-.. _pkg.coremedia:
-
 .. index:: system_library_finder ; coremedia
+
+.. _pkg.coremedia:
 
 coremedia
 =========

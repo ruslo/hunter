@@ -2,9 +2,9 @@
 
     mobilecoreservices
 
-.. _pkg.mobilecoreservices:
-
 .. index:: system_library_finder ; mobilecoreservices
+
+.. _pkg.mobilecoreservices:
 
 mobilecoreservices
 ==================

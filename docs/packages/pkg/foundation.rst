@@ -2,9 +2,9 @@
 
     foundation
 
-.. _pkg.foundation:
-
 .. index:: system_library_finder ; foundation
+
+.. _pkg.foundation:
 
 foundation
 ==========

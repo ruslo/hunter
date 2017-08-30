@@ -3,9 +3,9 @@
     gles3
     gles
 
-.. _pkg.gles3:
-
 .. index:: system_library_finder ; gles3
+
+.. _pkg.gles3:
 
 gles3
 =====

@@ -2,9 +2,9 @@
 
     uikit
 
-.. _pkg.uikit:
-
 .. index:: system_library_finder ; uikit
+
+.. _pkg.uikit:
 
 uikit
 =====

@@ -2,9 +2,9 @@
 
     iokit
 
-.. _pkg.iokit:
-
 .. index:: system_library_finder ; iokit
+
+.. _pkg.iokit:
 
 iokit
 =====

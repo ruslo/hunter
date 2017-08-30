@@ -2,9 +2,9 @@
 
     imageio
 
-.. _pkg.imageio:
-
 .. index:: system_library_finder ; imageio
+
+.. _pkg.imageio:
 
 imageio
 =======

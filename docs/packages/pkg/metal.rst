@@ -2,9 +2,9 @@
 
     metal
 
-.. _pkg.metal:
-
 .. index:: system_library_finder ; metal
+
+.. _pkg.metal:
 
 metal
 =====

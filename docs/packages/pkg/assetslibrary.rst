@@ -2,9 +2,9 @@
 
     assetslibrary
 
-.. _pkg.assetslibrary:
-
 .. index:: system_library_finder ; assetslibrary
+
+.. _pkg.assetslibrary:
 
 assetslibrary
 =============

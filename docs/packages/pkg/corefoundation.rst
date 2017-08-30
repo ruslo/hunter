@@ -2,9 +2,9 @@
 
     corefoundation
 
-.. _pkg.corefoundation:
-
 .. index:: system_library_finder ; corefoundation
+
+.. _pkg.corefoundation:
 
 corefoundation
 ==============

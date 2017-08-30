@@ -2,9 +2,9 @@
 
     corevideo
 
-.. _pkg.corevideo:
-
 .. index:: system_library_finder ; corevideo
+
+.. _pkg.corevideo:
 
 corevideo
 =========
