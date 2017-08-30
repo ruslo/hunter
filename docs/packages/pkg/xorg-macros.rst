@@ -2,6 +2,8 @@
 
     xorg-macros
 
+.. index:: unsorted ; xorg-macros
+
 .. _pkg.xorg-macros:
 
 xorg-macros

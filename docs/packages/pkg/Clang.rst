@@ -2,6 +2,8 @@
 
     Clang
 
+.. index:: unsorted ; Clang
+
 .. _pkg.Clang:
 
 Clang

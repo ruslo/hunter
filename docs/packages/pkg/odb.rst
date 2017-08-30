@@ -2,6 +2,8 @@
 
     odb
 
+.. index:: unsorted ; odb
+
 .. _pkg.odb:
 
 odb

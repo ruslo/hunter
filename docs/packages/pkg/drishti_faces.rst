@@ -2,6 +2,8 @@
 
     drishti_faces
 
+.. index:: unsorted ; drishti_faces
+
 .. _pkg.drishti_faces:
 
 drishti_faces

@@ -2,6 +2,8 @@
 
     Leathers
 
+.. index:: unsorted ; Leathers
+
 .. _pkg.Leathers:
 
 Leathers

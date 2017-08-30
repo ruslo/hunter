@@ -2,6 +2,8 @@
 
     glfw
 
+.. index:: unsorted ; glfw
+
 .. _pkg.glfw:
 
 glfw

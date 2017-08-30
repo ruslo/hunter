@@ -2,6 +2,8 @@
 
     imshow
 
+.. index:: unsorted ; imshow
+
 .. _pkg.imshow:
 
 imshow

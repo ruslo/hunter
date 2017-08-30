@@ -2,6 +2,8 @@
 
     dri2proto
 
+.. index:: unsorted ; dri2proto
+
 .. _pkg.dri2proto:
 
 dri2proto

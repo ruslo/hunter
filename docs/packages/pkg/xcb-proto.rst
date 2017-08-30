@@ -2,6 +2,8 @@
 
     xcb-proto
 
+.. index:: unsorted ; xcb-proto
+
 .. _pkg.xcb-proto:
 
 xcb-proto

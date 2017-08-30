@@ -2,6 +2,8 @@
 
     getopt
 
+.. index:: unsorted ; getopt
+
 .. _pkg.getopt:
 
 getopt

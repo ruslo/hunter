@@ -2,6 +2,8 @@
 
     nanoflann
 
+.. index:: unsorted ; nanoflann
+
 .. _pkg.nanoflann:
 
 nanoflann

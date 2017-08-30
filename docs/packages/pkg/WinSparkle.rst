@@ -2,6 +2,8 @@
 
     WinSparkle
 
+.. index:: unsorted ; WinSparkle
+
 .. _pkg.WinSparkle:
 
 WinSparkle

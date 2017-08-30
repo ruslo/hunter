@@ -2,6 +2,8 @@
 
     tomcrypt
 
+.. index:: unsorted ; tomcrypt
+
 .. _pkg.tomcrypt:
 
 tomcrypt

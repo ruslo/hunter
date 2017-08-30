@@ -2,6 +2,8 @@
 
     aes
 
+.. index:: unsorted ; aes
+
 .. _pkg.aes:
 
 aes

@@ -2,6 +2,8 @@
 
     yaml-cpp
 
+.. index:: unsorted ; yaml-cpp
+
 .. _pkg.yaml-cpp:
 
 yaml-cpp

@@ -2,6 +2,8 @@
 
     gauze
 
+.. index:: unsorted ; gauze
+
 .. _pkg.gauze:
 
 gauze

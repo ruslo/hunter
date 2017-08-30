@@ -2,6 +2,8 @@
 
     xcursor
 
+.. index:: unsorted ; xcursor
+
 .. _pkg.xcursor:
 
 xcursor

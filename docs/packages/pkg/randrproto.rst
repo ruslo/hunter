@@ -2,6 +2,8 @@
 
     randrproto
 
+.. index:: unsorted ; randrproto
+
 .. _pkg.randrproto:
 
 randrproto

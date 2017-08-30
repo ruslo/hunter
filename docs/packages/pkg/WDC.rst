@@ -2,6 +2,8 @@
 
     WDC
 
+.. index:: unsorted ; WDC
+
 .. _pkg.WDC:
 
 WDC

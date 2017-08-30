@@ -2,6 +2,8 @@
 
     ice
 
+.. index:: unsorted ; ice
+
 .. _pkg.ice:
 
 ice

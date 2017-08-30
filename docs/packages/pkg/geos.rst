@@ -2,6 +2,8 @@
 
     geos
 
+.. index:: unsorted ; geos
+
 .. _pkg.geos:
 
 geos

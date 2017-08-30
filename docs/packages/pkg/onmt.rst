@@ -2,6 +2,8 @@
 
     onmt
 
+.. index:: unsorted ; onmt
+
 .. _pkg.onmt:
 
 onmt

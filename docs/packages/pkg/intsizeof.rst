@@ -2,6 +2,8 @@
 
     intsizeof
 
+.. index:: unsorted ; intsizeof
+
 .. _pkg.intsizeof:
 
 intsizeof

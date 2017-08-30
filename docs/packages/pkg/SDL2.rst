@@ -2,6 +2,8 @@
 
     SDL2
 
+.. index:: unsorted ; SDL2
+
 .. _pkg.SDL2:
 
 SDL2

@@ -2,6 +2,8 @@
 
     boost-pba
 
+.. index:: unsorted ; boost-pba
+
 .. _pkg.boost-pba:
 
 boost-pba

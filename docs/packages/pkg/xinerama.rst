@@ -2,6 +2,8 @@
 
     xinerama
 
+.. index:: unsorted ; xinerama
+
 .. _pkg.xinerama:
 
 xinerama

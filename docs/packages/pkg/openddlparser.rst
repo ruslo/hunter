@@ -2,6 +2,8 @@
 
     openddlparser
 
+.. index:: unsorted ; openddlparser
+
 .. _pkg.openddlparser:
 
 openddlparser

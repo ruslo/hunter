@@ -2,6 +2,8 @@
 
     xext
 
+.. index:: unsorted ; xext
+
 .. _pkg.xext:
 
 xext

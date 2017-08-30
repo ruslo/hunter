@@ -2,6 +2,8 @@
 
     SuiteSparse
 
+.. index:: unsorted ; SuiteSparse
+
 .. _pkg.SuiteSparse:
 
 SuiteSparse

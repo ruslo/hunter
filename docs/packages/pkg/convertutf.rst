@@ -2,6 +2,8 @@
 
     convertutf
 
+.. index:: unsorted ; convertutf
+
 .. _pkg.convertutf:
 
 convertutf

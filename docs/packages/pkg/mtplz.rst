@@ -2,6 +2,8 @@
 
     mtplz
 
+.. index:: unsorted ; mtplz
+
 .. _pkg.mtplz:
 
 mtplz

@@ -2,6 +2,8 @@
 
     inputproto
 
+.. index:: unsorted ; inputproto
+
 .. _pkg.inputproto:
 
 inputproto

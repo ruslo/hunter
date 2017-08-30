@@ -2,6 +2,8 @@
 
     libyuv
 
+.. index:: unsorted ; libyuv
+
 .. _pkg.libyuv:
 
 libyuv

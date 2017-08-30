@@ -2,6 +2,8 @@
 
     zookeeper
 
+.. index:: unsorted ; zookeeper
+
 .. _pkg.zookeeper:
 
 zookeeper

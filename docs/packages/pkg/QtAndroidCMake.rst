@@ -2,6 +2,8 @@
 
     QtAndroidCMake
 
+.. index:: unsorted ; QtAndroidCMake
+
 .. _pkg.QtAndroidCMake:
 
 QtAndroidCMake

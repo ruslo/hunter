@@ -2,6 +2,8 @@
 
     glproto
 
+.. index:: unsorted ; glproto
+
 .. _pkg.glproto:
 
 glproto

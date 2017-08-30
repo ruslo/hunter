@@ -2,6 +2,8 @@
 
     LLVMCompilerRT
 
+.. index:: unsorted ; LLVMCompilerRT
+
 .. _pkg.LLVMCompilerRT:
 
 LLVMCompilerRT

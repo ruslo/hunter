@@ -2,6 +2,8 @@
 
     renderproto
 
+.. index:: unsorted ; renderproto
+
 .. _pkg.renderproto:
 
 renderproto

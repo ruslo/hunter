@@ -2,6 +2,8 @@
 
     ceres-solver
 
+.. index:: unsorted ; ceres-solver
+
 .. _pkg.ceres-solver:
 
 ceres-solver

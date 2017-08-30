@@ -2,6 +2,8 @@
 
     jsoncpp
 
+.. index:: unsorted ; jsoncpp
+
 .. _pkg.jsoncpp:
 
 jsoncpp

@@ -2,6 +2,8 @@
 
     pciaccess
 
+.. index:: unsorted ; pciaccess
+
 .. _pkg.pciaccess:
 
 pciaccess

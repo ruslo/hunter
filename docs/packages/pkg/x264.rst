@@ -2,6 +2,8 @@
 
     x264
 
+.. index:: unsorted ; x264
+
 .. _pkg.x264:
 
 x264

@@ -2,6 +2,8 @@
 
     Tesseract
 
+.. index:: unsorted ; Tesseract
+
 .. _pkg.Tesseract:
 
 Tesseract

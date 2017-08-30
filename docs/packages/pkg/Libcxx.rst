@@ -2,6 +2,8 @@
 
     Libcxx
 
+.. index:: unsorted ; Libcxx
+
 .. _pkg.Libcxx:
 
 Libcxx

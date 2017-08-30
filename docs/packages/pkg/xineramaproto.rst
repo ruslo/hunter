@@ -2,6 +2,8 @@
 
     xineramaproto
 
+.. index:: unsorted ; xineramaproto
+
 .. _pkg.xineramaproto:
 
 xineramaproto

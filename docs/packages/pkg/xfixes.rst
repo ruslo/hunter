@@ -2,6 +2,8 @@
 
     xfixes
 
+.. index:: unsorted ; xfixes
+
 .. _pkg.xfixes:
 
 xfixes

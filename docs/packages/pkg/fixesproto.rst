@@ -2,6 +2,8 @@
 
     fixesproto
 
+.. index:: unsorted ; fixesproto
+
 .. _pkg.fixesproto:
 
 fixesproto

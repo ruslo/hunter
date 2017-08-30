@@ -2,6 +2,8 @@
 
     clBLAS
 
+.. index:: unsorted ; clBLAS
+
 .. _pkg.clBLAS:
 
 clBLAS

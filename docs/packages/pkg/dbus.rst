@@ -2,6 +2,8 @@
 
     dbus
 
+.. index:: unsorted ; dbus
+
 .. _pkg.dbus:
 
 dbus

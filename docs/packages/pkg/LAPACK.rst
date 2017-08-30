@@ -2,6 +2,8 @@
 
     LAPACK
 
+.. index:: unsorted ; LAPACK
+
 .. _pkg.LAPACK:
 
 LAPACK

@@ -2,6 +2,8 @@
 
     WTL
 
+.. index:: unsorted ; WTL
+
 .. _pkg.WTL:
 
 WTL

@@ -2,6 +2,8 @@
 
     doctest
 
+.. index:: unsorted ; doctest
+
 .. _pkg.doctest:
 
 doctest

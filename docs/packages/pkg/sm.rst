@@ -2,6 +2,8 @@
 
     sm
 
+.. index:: unsorted ; sm
+
 .. _pkg.sm:
 
 sm

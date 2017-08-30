@@ -2,6 +2,8 @@
 
     libdaemon
 
+.. index:: unsorted ; libdaemon
+
 .. _pkg.libdaemon:
 
 libdaemon

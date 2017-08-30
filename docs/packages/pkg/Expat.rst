@@ -2,6 +2,8 @@
 
     Expat
 
+.. index:: unsorted ; Expat
+
 .. _pkg.Expat:
 
 Expat

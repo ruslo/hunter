@@ -2,6 +2,8 @@
 
     drishti_assets
 
+.. index:: unsorted ; drishti_assets
+
 .. _pkg.drishti_assets:
 
 drishti_assets

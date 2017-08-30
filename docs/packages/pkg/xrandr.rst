@@ -2,6 +2,8 @@
 
     xrandr
 
+.. index:: unsorted ; xrandr
+
 .. _pkg.xrandr:
 
 xrandr

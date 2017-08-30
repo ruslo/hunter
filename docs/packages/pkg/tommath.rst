@@ -2,6 +2,8 @@
 
     tommath
 
+.. index:: unsorted ; tommath
+
 .. _pkg.tommath:
 
 tommath

@@ -2,6 +2,8 @@
 
     msgpack
 
+.. index:: unsorted ; msgpack
+
 .. _pkg.msgpack:
 
 msgpack

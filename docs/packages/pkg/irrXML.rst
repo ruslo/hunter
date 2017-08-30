@@ -2,6 +2,8 @@
 
     irrXML
 
+.. index:: unsorted ; irrXML
+
 .. _pkg.irrXML:
 
 irrXML

@@ -2,6 +2,8 @@
 
     czmq
 
+.. index:: unsorted ; czmq
+
 .. _pkg.czmq:
 
 czmq

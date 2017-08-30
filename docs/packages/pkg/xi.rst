@@ -2,6 +2,8 @@
 
     xi
 
+.. index:: unsorted ; xi
+
 .. _pkg.xi:
 
 xi

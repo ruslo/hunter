@@ -2,6 +2,8 @@
 
     Snappy
 
+.. index:: unsorted ; Snappy
+
 .. _pkg.Snappy:
 
 Snappy

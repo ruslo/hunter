@@ -2,6 +2,8 @@
 
     xrender
 
+.. index:: unsorted ; xrender
+
 .. _pkg.xrender:
 
 xrender

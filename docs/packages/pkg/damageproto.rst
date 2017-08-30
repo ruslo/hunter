@@ -2,6 +2,8 @@
 
     damageproto
 
+.. index:: unsorted ; damageproto
+
 .. _pkg.damageproto:
 
 damageproto

@@ -2,6 +2,8 @@
 
     RapidJSON
 
+.. index:: unsorted ; RapidJSON
+
 .. _pkg.RapidJSON:
 
 RapidJSON

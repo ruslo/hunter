@@ -2,6 +2,8 @@
 
     Protobuf
 
+.. index:: unsorted ; Protobuf
+
 .. _pkg.Protobuf:
 
 Protobuf

@@ -2,6 +2,8 @@
 
     xcb
 
+.. index:: unsorted ; xcb
+
 .. _pkg.xcb:
 
 xcb

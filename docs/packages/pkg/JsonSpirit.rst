@@ -2,6 +2,8 @@
 
     JsonSpirit
 
+.. index:: unsorted ; JsonSpirit
+
 .. _pkg.JsonSpirit:
 
 JsonSpirit

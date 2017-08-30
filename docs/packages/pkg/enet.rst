@@ -2,6 +2,8 @@
 
     enet
 
+.. index:: unsorted ; enet
+
 .. _pkg.enet:
 
 enet

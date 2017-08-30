@@ -2,6 +2,8 @@
 
     xxf86vm
 
+.. index:: unsorted ; xxf86vm
+
 .. _pkg.xxf86vm:
 
 xxf86vm

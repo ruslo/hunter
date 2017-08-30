@@ -2,6 +2,8 @@
 
     glew
 
+.. index:: unsorted ; glew
+
 .. _pkg.glew:
 
 glew

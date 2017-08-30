@@ -2,6 +2,8 @@
 
     Leptonica
 
+.. index:: unsorted ; Leptonica
+
 .. _pkg.Leptonica:
 
 Leptonica

@@ -2,6 +2,8 @@
 
     odb-boost
 
+.. index:: unsorted ; odb-boost
+
 .. _pkg.odb-boost:
 
 odb-boost

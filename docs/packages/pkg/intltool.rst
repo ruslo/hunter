@@ -2,6 +2,8 @@
 
     intltool
 
+.. index:: unsorted ; intltool
+
 .. _pkg.intltool:
 
 intltool

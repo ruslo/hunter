@@ -2,6 +2,8 @@
 
     nlohmann_json
 
+.. index:: unsorted ; nlohmann_json
+
 .. _pkg.nlohmann_json:
 
 nlohmann_json

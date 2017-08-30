@@ -2,6 +2,8 @@
 
     kbproto
 
+.. index:: unsorted ; kbproto
+
 .. _pkg.kbproto:
 
 kbproto

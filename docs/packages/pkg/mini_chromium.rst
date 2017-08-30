@@ -2,6 +2,8 @@
 
     mini_chromium
 
+.. index:: unsorted ; mini_chromium
+
 .. _pkg.mini_chromium:
 
 mini_chromium

@@ -2,6 +2,8 @@
 
     OpenNMTTokenizer
 
+.. index:: unsorted ; OpenNMTTokenizer
+
 .. _pkg.OpenNMTTokenizer:
 
 OpenNMTTokenizer

@@ -2,6 +2,8 @@
 
     sse2neon
 
+.. index:: unsorted ; sse2neon
+
 .. _pkg.sse2neon:
 
 sse2neon

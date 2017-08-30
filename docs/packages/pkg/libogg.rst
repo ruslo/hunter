@@ -2,6 +2,8 @@
 
     libogg
 
+.. index:: unsorted ; libogg
+
 .. _pkg.libogg:
 
 libogg

@@ -2,6 +2,8 @@
 
     cpp_redis
 
+.. index:: unsorted ; cpp_redis
+
 .. _pkg.cpp_redis:
 
 cpp_redis

@@ -2,6 +2,8 @@
 
     xshmfence
 
+.. index:: unsorted ; xshmfence
+
 .. _pkg.xshmfence:
 
 xshmfence

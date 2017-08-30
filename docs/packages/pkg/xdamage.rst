@@ -2,6 +2,8 @@
 
     xdamage
 
+.. index:: unsorted ; xdamage
+
 .. _pkg.xdamage:
 
 xdamage

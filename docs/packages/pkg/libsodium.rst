@@ -2,6 +2,8 @@
 
     libsodium
 
+.. index:: unsorted ; libsodium
+
 .. _pkg.libsodium:
 
 libsodium

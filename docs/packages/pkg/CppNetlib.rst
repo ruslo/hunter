@@ -2,6 +2,8 @@
 
     CppNetlib
 
+.. index:: unsorted ; CppNetlib
+
 .. _pkg.CppNetlib:
 
 CppNetlib

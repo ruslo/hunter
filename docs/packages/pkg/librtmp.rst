@@ -2,6 +2,8 @@
 
     librtmp
 
+.. index:: unsorted ; librtmp
+
 .. _pkg.librtmp:
 
 librtmp

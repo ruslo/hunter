@@ -2,6 +2,8 @@
 
     Washer
 
+.. index:: unsorted ; Washer
+
 .. _pkg.Washer:
 
 Washer

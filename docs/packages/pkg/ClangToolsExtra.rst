@@ -2,6 +2,8 @@
 
     ClangToolsExtra
 
+.. index:: unsorted ; ClangToolsExtra
+
 .. _pkg.ClangToolsExtra:
 
 ClangToolsExtra

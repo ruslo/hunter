@@ -2,6 +2,8 @@
 
     ippicv
 
+.. index:: unsorted ; ippicv
+
 .. _pkg.ippicv:
 
 ippicv

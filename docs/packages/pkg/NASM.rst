@@ -2,6 +2,8 @@
 
     NASM
 
+.. index:: unsorted ; NASM
+
 .. _pkg.NASM:
 
 NASM

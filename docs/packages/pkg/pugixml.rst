@@ -2,6 +2,8 @@
 
     pugixml
 
+.. index:: unsorted ; pugixml
+
 .. _pkg.pugixml:
 
 pugixml

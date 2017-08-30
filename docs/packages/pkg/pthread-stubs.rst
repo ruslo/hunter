@@ -2,6 +2,8 @@
 
     pthread-stubs
 
+.. index:: unsorted ; pthread-stubs
+
 .. _pkg.pthread-stubs:
 
 pthread-stubs

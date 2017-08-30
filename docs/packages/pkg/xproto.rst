@@ -2,6 +2,8 @@
 
     xproto
 
+.. index:: unsorted ; xproto
+
 .. _pkg.xproto:
 
 xproto

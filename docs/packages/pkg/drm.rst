@@ -2,6 +2,8 @@
 
     drm
 
+.. index:: unsorted ; drm
+
 .. _pkg.drm:
 
 drm

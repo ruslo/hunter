@@ -2,6 +2,8 @@
 
     Sober
 
+.. index:: unsorted ; Sober
+
 .. _pkg.Sober:
 
 Sober

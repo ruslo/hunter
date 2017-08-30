@@ -2,6 +2,8 @@
 
     crashup
 
+.. index:: unsorted ; crashup
+
 .. _pkg.crashup:
 
 crashup

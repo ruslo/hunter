@@ -2,6 +2,8 @@
 
     xtrans
 
+.. index:: unsorted ; xtrans
+
 .. _pkg.xtrans:
 
 xtrans

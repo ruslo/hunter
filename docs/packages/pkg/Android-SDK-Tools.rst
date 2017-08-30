@@ -2,6 +2,8 @@
 
     Android-SDK-Tools
 
+.. index:: unsorted ; Android-SDK-Tools
+
 .. _pkg.Android-SDK-Tools:
 
 Android-SDK-Tools

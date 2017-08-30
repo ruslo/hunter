@@ -2,6 +2,8 @@
 
     Sugar
 
+.. index:: unsorted ; Sugar
+
 .. _pkg.Sugar:
 
 Sugar

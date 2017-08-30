@@ -2,6 +2,8 @@
 
     tacopie
 
+.. index:: unsorted ; tacopie
+
 .. _pkg.tacopie:
 
 tacopie

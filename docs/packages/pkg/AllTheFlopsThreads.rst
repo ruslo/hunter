@@ -2,6 +2,8 @@
 
     AllTheFlopsThreads
 
+.. index:: unsorted ; AllTheFlopsThreads
+
 .. _pkg.AllTheFlopsThreads:
 
 AllTheFlopsThreads

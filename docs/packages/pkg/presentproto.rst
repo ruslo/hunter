@@ -2,6 +2,8 @@
 
     presentproto
 
+.. index:: unsorted ; presentproto
+
 .. _pkg.presentproto:
 
 presentproto

@@ -2,6 +2,8 @@
 
     flatbuffers
 
+.. index:: unsorted ; flatbuffers
+
 .. _pkg.flatbuffers:
 
 flatbuffers

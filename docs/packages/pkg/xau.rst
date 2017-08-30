@@ -2,6 +2,8 @@
 
     xau
 
+.. index:: unsorted ; xau
+
 .. _pkg.xau:
 
 xau

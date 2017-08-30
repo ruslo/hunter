@@ -2,6 +2,8 @@
 
     cereal
 
+.. index:: unsorted ; cereal
+
 .. _pkg.cereal:
 
 cereal
