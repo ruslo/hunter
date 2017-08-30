@@ -2,6 +2,8 @@
 
     dlib
 
+.. index:: computer-vision ; dlib
+
 .. _pkg.dlib:
 
 dlib

@@ -2,6 +2,8 @@
 
     OpenCV
 
+.. index:: computer-vision ; OpenCV
+
 .. _pkg.OpenCV:
 
 OpenCV

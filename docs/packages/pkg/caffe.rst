@@ -2,6 +2,8 @@
 
     caffe
 
+.. index:: computer-vision ; caffe
+
 .. _pkg.caffe:
 
 caffe

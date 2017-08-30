@@ -2,6 +2,8 @@
 
     xgboost
 
+.. index:: computer-vision ; xgboost
+
 .. _pkg.xgboost:
 
 xgboost

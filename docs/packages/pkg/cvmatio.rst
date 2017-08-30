@@ -2,6 +2,8 @@
 
     cvmatio
 
+.. index:: computer-vision ; cvmatio
+
 .. _pkg.cvmatio:
 
 cvmatio

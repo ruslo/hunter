@@ -2,6 +2,8 @@
 
     ccv
 
+.. index:: computer-vision ; ccv
+
 .. _pkg.ccv:
 
 ccv

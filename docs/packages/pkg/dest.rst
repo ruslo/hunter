@@ -2,6 +2,8 @@
 
     dest
 
+.. index:: computer-vision ; dest
+
 .. _pkg.dest:
 
 dest

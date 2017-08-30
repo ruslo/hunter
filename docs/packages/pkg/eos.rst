@@ -2,6 +2,8 @@
 
     eos
 
+.. index:: computer-vision ; eos
+
 .. _pkg.eos:
 
 eos
