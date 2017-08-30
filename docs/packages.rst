@@ -31,6 +31,7 @@ List of packages and usage instructions for each package.
    /packages/serialize
    /packages/os
    /packages/misc
+   /packages/system_library_finder
 
 .. note::
 
