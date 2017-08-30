@@ -5,12 +5,27 @@ include(hunter_add_version)
 include(hunter_cmake_args)
 include(hunter_download)
 include(hunter_pick_scheme)
+include(hunter_cacheable)
+
+# starting with 1.12.0-p2 ceres-solver is cacheable
+hunter_cacheable(ceres-solver)
 
 # use base url for hunter fork
 set(_hunter_ceres_base_url_fork "https://github.com/hunter-packages/ceres-solver/archive")
 
 
 # List of versions
+hunter_add_version(
+    PACKAGE_NAME
+    ceres-solver
+    VERSION
+    "1.12.0-p2"
+    URL
+    "${_hunter_ceres_base_url_fork}/v1.12.0-p2.tar.gz"
+    SHA1
+    04724b04aaa17fdd1feaa7d21e8a37723f78d9fc
+)
+
 hunter_add_version(
     PACKAGE_NAME
     ceres-solver
