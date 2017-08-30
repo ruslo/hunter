@@ -423,6 +423,26 @@
 # pragma message(HUNTER_INFO(__AARCH64_SIMD__))
 #endif
 
+#if defined(__ACCUM_EPSILON__)
+# pragma message(HUNTER_INFO(__ACCUM_EPSILON__))
+#endif
+
+#if defined(__ACCUM_FBIT__)
+# pragma message(HUNTER_INFO(__ACCUM_FBIT__))
+#endif
+
+#if defined(__ACCUM_IBIT__)
+# pragma message(HUNTER_INFO(__ACCUM_IBIT__))
+#endif
+
+#if defined(__ACCUM_MAX__)
+# pragma message(HUNTER_INFO(__ACCUM_MAX__))
+#endif
+
+#if defined(__ACCUM_MIN__)
+# pragma message(HUNTER_INFO(__ACCUM_MIN__))
+#endif
+
 #if defined(__ALTIVEC__)
 # pragma message(HUNTER_INFO(__ALTIVEC__))
 #endif
@@ -459,6 +479,10 @@
 # pragma message(HUNTER_INFO(__ARMEL__))
 #endif
 
+#if defined(__ARM_32BIT_STATE)
+# pragma message(HUNTER_INFO(__ARM_32BIT_STATE))
+#endif
+
 #if defined(__ARM_64BIT_STATE)
 # pragma message(HUNTER_INFO(__ARM_64BIT_STATE))
 #endif
@@ -491,8 +515,20 @@
 # pragma message(HUNTER_INFO(__ARM_ARCH_ISA_A64))
 #endif
 
+#if defined(__ARM_ARCH_ISA_ARM)
+# pragma message(HUNTER_INFO(__ARM_ARCH_ISA_ARM))
+#endif
+
+#if defined(__ARM_ARCH_ISA_THUMB)
+# pragma message(HUNTER_INFO(__ARM_ARCH_ISA_THUMB))
+#endif
+
 #if defined(__ARM_ARCH_PROFILE)
 # pragma message(HUNTER_INFO(__ARM_ARCH_PROFILE))
+#endif
+
+#if defined(__ARM_ASM_SYNTAX_UNIFIED__)
+# pragma message(HUNTER_INFO(__ARM_ASM_SYNTAX_UNIFIED__))
 #endif
 
 #if defined(__ARM_EABI__)
@@ -511,8 +547,28 @@
 # pragma message(HUNTER_INFO(__ARM_FEATURE_DIV))
 #endif
 
+#if defined(__ARM_FEATURE_DSP)
+# pragma message(HUNTER_INFO(__ARM_FEATURE_DSP))
+#endif
+
 #if defined(__ARM_FEATURE_FMA)
 # pragma message(HUNTER_INFO(__ARM_FEATURE_FMA))
+#endif
+
+#if defined(__ARM_FEATURE_LDREX)
+# pragma message(HUNTER_INFO(__ARM_FEATURE_LDREX))
+#endif
+
+#if defined(__ARM_FEATURE_QBIT)
+# pragma message(HUNTER_INFO(__ARM_FEATURE_QBIT))
+#endif
+
+#if defined(__ARM_FEATURE_SAT)
+# pragma message(HUNTER_INFO(__ARM_FEATURE_SAT))
+#endif
+
+#if defined(__ARM_FEATURE_SIMD32)
+# pragma message(HUNTER_INFO(__ARM_FEATURE_SIMD32))
 #endif
 
 #if defined(__ARM_FEATURE_UNALIGNED)
@@ -541,6 +597,10 @@
 
 #if defined(__ARM_PCS_AAPCS64)
 # pragma message(HUNTER_INFO(__ARM_PCS_AAPCS64))
+#endif
+
+#if defined(__ARM_PCS_VFP)
+# pragma message(HUNTER_INFO(__ARM_PCS_VFP))
 #endif
 
 #if defined(__ARM_SIZEOF_MINIMAL_ENUM)
@@ -651,6 +711,10 @@
 # pragma message(HUNTER_INFO(__CHAR_BIT__))
 #endif
 
+#if defined(__CHAR_UNSIGNED__)
+# pragma message(HUNTER_INFO(__CHAR_UNSIGNED__))
+#endif
+
 #if defined(__CLR_VER)
 # pragma message(HUNTER_INFO(__CLR_VER))
 #endif
@@ -693,6 +757,14 @@
 
 #if defined(__CYGWIN__)
 # pragma message(HUNTER_INFO(__CYGWIN__))
+#endif
+
+#if defined(__DA_FBIT__)
+# pragma message(HUNTER_INFO(__DA_FBIT__))
+#endif
+
+#if defined(__DA_IBIT__)
+# pragma message(HUNTER_INFO(__DA_IBIT__))
 #endif
 
 #if defined(__DBL_DECIMAL_DIG__)
@@ -875,6 +947,14 @@
 # pragma message(HUNTER_INFO(__DMC__))
 #endif
 
+#if defined(__DQ_FBIT__)
+# pragma message(HUNTER_INFO(__DQ_FBIT__))
+#endif
+
+#if defined(__DQ_IBIT__)
+# pragma message(HUNTER_INFO(__DQ_IBIT__))
+#endif
+
 #if defined(__DYNAMIC__)
 # pragma message(HUNTER_INFO(__DYNAMIC__))
 #endif
@@ -985,6 +1065,26 @@
 
 #if defined(__FMA__)
 # pragma message(HUNTER_INFO(__FMA__))
+#endif
+
+#if defined(__FRACT_EPSILON__)
+# pragma message(HUNTER_INFO(__FRACT_EPSILON__))
+#endif
+
+#if defined(__FRACT_FBIT__)
+# pragma message(HUNTER_INFO(__FRACT_FBIT__))
+#endif
+
+#if defined(__FRACT_IBIT__)
+# pragma message(HUNTER_INFO(__FRACT_IBIT__))
+#endif
+
+#if defined(__FRACT_MAX__)
+# pragma message(HUNTER_INFO(__FRACT_MAX__))
+#endif
+
+#if defined(__FRACT_MIN__)
+# pragma message(HUNTER_INFO(__FRACT_MIN__))
 #endif
 
 #if defined(__FUNCDNAME__)
@@ -1163,12 +1263,24 @@
 # pragma message(HUNTER_INFO(__GXX_RTTI))
 #endif
 
+#if defined(__GXX_TYPEINFO_EQUALITY_INLINE)
+# pragma message(HUNTER_INFO(__GXX_TYPEINFO_EQUALITY_INLINE))
+#endif
+
 #if defined(__GXX_WEAK__)
 # pragma message(HUNTER_INFO(__GXX_WEAK__))
 #endif
 
 #if defined(__HAIKU__)
 # pragma message(HUNTER_INFO(__HAIKU__))
+#endif
+
+#if defined(__HA_FBIT__)
+# pragma message(HUNTER_INFO(__HA_FBIT__))
+#endif
+
+#if defined(__HA_IBIT__)
+# pragma message(HUNTER_INFO(__HA_IBIT__))
 #endif
 
 #if defined(__HIGHC__)
@@ -1189,6 +1301,14 @@
 
 #if defined(__HP_aCC)
 # pragma message(HUNTER_INFO(__HP_aCC))
+#endif
+
+#if defined(__HQ_FBIT__)
+# pragma message(HUNTER_INFO(__HQ_FBIT__))
+#endif
+
+#if defined(__HQ_IBIT__)
+# pragma message(HUNTER_INFO(__HQ_IBIT__))
 #endif
 
 #if defined(__I86__)
@@ -1375,6 +1495,26 @@
 # pragma message(HUNTER_INFO(__KCC))
 #endif
 
+#if defined(__LACCUM_EPSILON__)
+# pragma message(HUNTER_INFO(__LACCUM_EPSILON__))
+#endif
+
+#if defined(__LACCUM_FBIT__)
+# pragma message(HUNTER_INFO(__LACCUM_FBIT__))
+#endif
+
+#if defined(__LACCUM_IBIT__)
+# pragma message(HUNTER_INFO(__LACCUM_IBIT__))
+#endif
+
+#if defined(__LACCUM_MAX__)
+# pragma message(HUNTER_INFO(__LACCUM_MAX__))
+#endif
+
+#if defined(__LACCUM_MIN__)
+# pragma message(HUNTER_INFO(__LACCUM_MIN__))
+#endif
+
 #if defined(__LDBL_DENORM_MIN__)
 # pragma message(HUNTER_INFO(__LDBL_DENORM_MIN__))
 #endif
@@ -1427,6 +1567,26 @@
 # pragma message(HUNTER_INFO(__LDBL_MIN__))
 #endif
 
+#if defined(__LFRACT_EPSILON__)
+# pragma message(HUNTER_INFO(__LFRACT_EPSILON__))
+#endif
+
+#if defined(__LFRACT_FBIT__)
+# pragma message(HUNTER_INFO(__LFRACT_FBIT__))
+#endif
+
+#if defined(__LFRACT_IBIT__)
+# pragma message(HUNTER_INFO(__LFRACT_IBIT__))
+#endif
+
+#if defined(__LFRACT_MAX__)
+# pragma message(HUNTER_INFO(__LFRACT_MAX__))
+#endif
+
+#if defined(__LFRACT_MIN__)
+# pragma message(HUNTER_INFO(__LFRACT_MIN__))
+#endif
+
 #if defined(__LIBCOMO__)
 # pragma message(HUNTER_INFO(__LIBCOMO__))
 #endif
@@ -1441,6 +1601,46 @@
 
 #if defined(__LITTLE_ENDIAN__)
 # pragma message(HUNTER_INFO(__LITTLE_ENDIAN__))
+#endif
+
+#if defined(__LLACCUM_EPSILON__)
+# pragma message(HUNTER_INFO(__LLACCUM_EPSILON__))
+#endif
+
+#if defined(__LLACCUM_FBIT__)
+# pragma message(HUNTER_INFO(__LLACCUM_FBIT__))
+#endif
+
+#if defined(__LLACCUM_IBIT__)
+# pragma message(HUNTER_INFO(__LLACCUM_IBIT__))
+#endif
+
+#if defined(__LLACCUM_MAX__)
+# pragma message(HUNTER_INFO(__LLACCUM_MAX__))
+#endif
+
+#if defined(__LLACCUM_MIN__)
+# pragma message(HUNTER_INFO(__LLACCUM_MIN__))
+#endif
+
+#if defined(__LLFRACT_EPSILON__)
+# pragma message(HUNTER_INFO(__LLFRACT_EPSILON__))
+#endif
+
+#if defined(__LLFRACT_FBIT__)
+# pragma message(HUNTER_INFO(__LLFRACT_FBIT__))
+#endif
+
+#if defined(__LLFRACT_IBIT__)
+# pragma message(HUNTER_INFO(__LLFRACT_IBIT__))
+#endif
+
+#if defined(__LLFRACT_MAX__)
+# pragma message(HUNTER_INFO(__LLFRACT_MAX__))
+#endif
+
+#if defined(__LLFRACT_MIN__)
+# pragma message(HUNTER_INFO(__LLFRACT_MIN__))
 #endif
 
 #if defined(__LONG_LONG_MAX__)
@@ -1671,12 +1871,48 @@
 # pragma message(HUNTER_INFO(__QNX__))
 #endif
 
+#if defined(__QQ_FBIT__)
+# pragma message(HUNTER_INFO(__QQ_FBIT__))
+#endif
+
+#if defined(__QQ_IBIT__)
+# pragma message(HUNTER_INFO(__QQ_IBIT__))
+#endif
+
 #if defined(__REGISTER_PREFIX__)
 # pragma message(HUNTER_INFO(__REGISTER_PREFIX__))
 #endif
 
 #if defined(__RISC2_0__)
 # pragma message(HUNTER_INFO(__RISC2_0__))
+#endif
+
+#if defined(__SACCUM_EPSILON__)
+# pragma message(HUNTER_INFO(__SACCUM_EPSILON__))
+#endif
+
+#if defined(__SACCUM_FBIT__)
+# pragma message(HUNTER_INFO(__SACCUM_FBIT__))
+#endif
+
+#if defined(__SACCUM_IBIT__)
+# pragma message(HUNTER_INFO(__SACCUM_IBIT__))
+#endif
+
+#if defined(__SACCUM_MAX__)
+# pragma message(HUNTER_INFO(__SACCUM_MAX__))
+#endif
+
+#if defined(__SACCUM_MIN__)
+# pragma message(HUNTER_INFO(__SACCUM_MIN__))
+#endif
+
+#if defined(__SA_FBIT__)
+# pragma message(HUNTER_INFO(__SA_FBIT__))
+#endif
+
+#if defined(__SA_IBIT__)
+# pragma message(HUNTER_INFO(__SA_IBIT__))
 #endif
 
 #if defined(__SCHAR_MAX__)
@@ -1689,6 +1925,26 @@
 
 #if defined(__SEG_GS)
 # pragma message(HUNTER_INFO(__SEG_GS))
+#endif
+
+#if defined(__SFRACT_EPSILON__)
+# pragma message(HUNTER_INFO(__SFRACT_EPSILON__))
+#endif
+
+#if defined(__SFRACT_FBIT__)
+# pragma message(HUNTER_INFO(__SFRACT_FBIT__))
+#endif
+
+#if defined(__SFRACT_IBIT__)
+# pragma message(HUNTER_INFO(__SFRACT_IBIT__))
+#endif
+
+#if defined(__SFRACT_MAX__)
+# pragma message(HUNTER_INFO(__SFRACT_MAX__))
+#endif
+
+#if defined(__SFRACT_MIN__)
+# pragma message(HUNTER_INFO(__SFRACT_MIN__))
 #endif
 
 #if defined(__SGI_STL)
@@ -1801,6 +2057,14 @@
 
 #if defined(__SIZE_WIDTH__)
 # pragma message(HUNTER_INFO(__SIZE_WIDTH__))
+#endif
+
+#if defined(__SQ_FBIT__)
+# pragma message(HUNTER_INFO(__SQ_FBIT__))
+#endif
+
+#if defined(__SQ_IBIT__)
+# pragma message(HUNTER_INFO(__SQ_IBIT__))
 #endif
 
 #if defined(__SSE2_MATH__)
@@ -1939,6 +2203,14 @@
 # pragma message(HUNTER_INFO(__TARGET_LIB__))
 #endif
 
+#if defined(__TA_FBIT__)
+# pragma message(HUNTER_INFO(__TA_FBIT__))
+#endif
+
+#if defined(__TA_IBIT__)
+# pragma message(HUNTER_INFO(__TA_IBIT__))
+#endif
+
 #if defined(__THUMBEB__)
 # pragma message(HUNTER_INFO(__THUMBEB__))
 #endif
@@ -1971,12 +2243,92 @@
 # pragma message(HUNTER_INFO(__TOS_WIN__))
 #endif
 
+#if defined(__TQ_FBIT__)
+# pragma message(HUNTER_INFO(__TQ_FBIT__))
+#endif
+
+#if defined(__TQ_IBIT__)
+# pragma message(HUNTER_INFO(__TQ_IBIT__))
+#endif
+
 #if defined(__TenDRA__)
 # pragma message(HUNTER_INFO(__TenDRA__))
 #endif
 
+#if defined(__UACCUM_EPSILON__)
+# pragma message(HUNTER_INFO(__UACCUM_EPSILON__))
+#endif
+
+#if defined(__UACCUM_FBIT__)
+# pragma message(HUNTER_INFO(__UACCUM_FBIT__))
+#endif
+
+#if defined(__UACCUM_IBIT__)
+# pragma message(HUNTER_INFO(__UACCUM_IBIT__))
+#endif
+
+#if defined(__UACCUM_MAX__)
+# pragma message(HUNTER_INFO(__UACCUM_MAX__))
+#endif
+
+#if defined(__UACCUM_MIN__)
+# pragma message(HUNTER_INFO(__UACCUM_MIN__))
+#endif
+
 #if defined(__UCLIBC__)
 # pragma message(HUNTER_INFO(__UCLIBC__))
+#endif
+
+#if defined(__UDA_FBIT__)
+# pragma message(HUNTER_INFO(__UDA_FBIT__))
+#endif
+
+#if defined(__UDA_IBIT__)
+# pragma message(HUNTER_INFO(__UDA_IBIT__))
+#endif
+
+#if defined(__UDQ_FBIT__)
+# pragma message(HUNTER_INFO(__UDQ_FBIT__))
+#endif
+
+#if defined(__UDQ_IBIT__)
+# pragma message(HUNTER_INFO(__UDQ_IBIT__))
+#endif
+
+#if defined(__UFRACT_EPSILON__)
+# pragma message(HUNTER_INFO(__UFRACT_EPSILON__))
+#endif
+
+#if defined(__UFRACT_FBIT__)
+# pragma message(HUNTER_INFO(__UFRACT_FBIT__))
+#endif
+
+#if defined(__UFRACT_IBIT__)
+# pragma message(HUNTER_INFO(__UFRACT_IBIT__))
+#endif
+
+#if defined(__UFRACT_MAX__)
+# pragma message(HUNTER_INFO(__UFRACT_MAX__))
+#endif
+
+#if defined(__UFRACT_MIN__)
+# pragma message(HUNTER_INFO(__UFRACT_MIN__))
+#endif
+
+#if defined(__UHA_FBIT__)
+# pragma message(HUNTER_INFO(__UHA_FBIT__))
+#endif
+
+#if defined(__UHA_IBIT__)
+# pragma message(HUNTER_INFO(__UHA_IBIT__))
+#endif
+
+#if defined(__UHQ_FBIT__)
+# pragma message(HUNTER_INFO(__UHQ_FBIT__))
+#endif
+
+#if defined(__UHQ_IBIT__)
+# pragma message(HUNTER_INFO(__UHQ_IBIT__))
 #endif
 
 #if defined(__UINT16_C)
@@ -2111,12 +2463,172 @@
 # pragma message(HUNTER_INFO(__UINT_LEAST8_TYPE__))
 #endif
 
+#if defined(__ULACCUM_EPSILON__)
+# pragma message(HUNTER_INFO(__ULACCUM_EPSILON__))
+#endif
+
+#if defined(__ULACCUM_FBIT__)
+# pragma message(HUNTER_INFO(__ULACCUM_FBIT__))
+#endif
+
+#if defined(__ULACCUM_IBIT__)
+# pragma message(HUNTER_INFO(__ULACCUM_IBIT__))
+#endif
+
+#if defined(__ULACCUM_MAX__)
+# pragma message(HUNTER_INFO(__ULACCUM_MAX__))
+#endif
+
+#if defined(__ULACCUM_MIN__)
+# pragma message(HUNTER_INFO(__ULACCUM_MIN__))
+#endif
+
+#if defined(__ULFRACT_EPSILON__)
+# pragma message(HUNTER_INFO(__ULFRACT_EPSILON__))
+#endif
+
+#if defined(__ULFRACT_FBIT__)
+# pragma message(HUNTER_INFO(__ULFRACT_FBIT__))
+#endif
+
+#if defined(__ULFRACT_IBIT__)
+# pragma message(HUNTER_INFO(__ULFRACT_IBIT__))
+#endif
+
+#if defined(__ULFRACT_MAX__)
+# pragma message(HUNTER_INFO(__ULFRACT_MAX__))
+#endif
+
+#if defined(__ULFRACT_MIN__)
+# pragma message(HUNTER_INFO(__ULFRACT_MIN__))
+#endif
+
+#if defined(__ULLACCUM_EPSILON__)
+# pragma message(HUNTER_INFO(__ULLACCUM_EPSILON__))
+#endif
+
+#if defined(__ULLACCUM_FBIT__)
+# pragma message(HUNTER_INFO(__ULLACCUM_FBIT__))
+#endif
+
+#if defined(__ULLACCUM_IBIT__)
+# pragma message(HUNTER_INFO(__ULLACCUM_IBIT__))
+#endif
+
+#if defined(__ULLACCUM_MAX__)
+# pragma message(HUNTER_INFO(__ULLACCUM_MAX__))
+#endif
+
+#if defined(__ULLACCUM_MIN__)
+# pragma message(HUNTER_INFO(__ULLACCUM_MIN__))
+#endif
+
+#if defined(__ULLFRACT_EPSILON__)
+# pragma message(HUNTER_INFO(__ULLFRACT_EPSILON__))
+#endif
+
+#if defined(__ULLFRACT_FBIT__)
+# pragma message(HUNTER_INFO(__ULLFRACT_FBIT__))
+#endif
+
+#if defined(__ULLFRACT_IBIT__)
+# pragma message(HUNTER_INFO(__ULLFRACT_IBIT__))
+#endif
+
+#if defined(__ULLFRACT_MAX__)
+# pragma message(HUNTER_INFO(__ULLFRACT_MAX__))
+#endif
+
+#if defined(__ULLFRACT_MIN__)
+# pragma message(HUNTER_INFO(__ULLFRACT_MIN__))
+#endif
+
+#if defined(__UQQ_FBIT__)
+# pragma message(HUNTER_INFO(__UQQ_FBIT__))
+#endif
+
+#if defined(__UQQ_IBIT__)
+# pragma message(HUNTER_INFO(__UQQ_IBIT__))
+#endif
+
+#if defined(__USACCUM_EPSILON__)
+# pragma message(HUNTER_INFO(__USACCUM_EPSILON__))
+#endif
+
+#if defined(__USACCUM_FBIT__)
+# pragma message(HUNTER_INFO(__USACCUM_FBIT__))
+#endif
+
+#if defined(__USACCUM_IBIT__)
+# pragma message(HUNTER_INFO(__USACCUM_IBIT__))
+#endif
+
+#if defined(__USACCUM_MAX__)
+# pragma message(HUNTER_INFO(__USACCUM_MAX__))
+#endif
+
+#if defined(__USACCUM_MIN__)
+# pragma message(HUNTER_INFO(__USACCUM_MIN__))
+#endif
+
+#if defined(__USA_FBIT__)
+# pragma message(HUNTER_INFO(__USA_FBIT__))
+#endif
+
+#if defined(__USA_IBIT__)
+# pragma message(HUNTER_INFO(__USA_IBIT__))
+#endif
+
 #if defined(__USER_LABEL_PREFIX__)
 # pragma message(HUNTER_INFO(__USER_LABEL_PREFIX__))
 #endif
 
+#if defined(__USFRACT_EPSILON__)
+# pragma message(HUNTER_INFO(__USFRACT_EPSILON__))
+#endif
+
+#if defined(__USFRACT_FBIT__)
+# pragma message(HUNTER_INFO(__USFRACT_FBIT__))
+#endif
+
+#if defined(__USFRACT_IBIT__)
+# pragma message(HUNTER_INFO(__USFRACT_IBIT__))
+#endif
+
+#if defined(__USFRACT_MAX__)
+# pragma message(HUNTER_INFO(__USFRACT_MAX__))
+#endif
+
+#if defined(__USFRACT_MIN__)
+# pragma message(HUNTER_INFO(__USFRACT_MIN__))
+#endif
+
 #if defined(__USING_SJLJ_EXCEPTIONS__)
 # pragma message(HUNTER_INFO(__USING_SJLJ_EXCEPTIONS__))
+#endif
+
+#if defined(__USQ_FBIT__)
+# pragma message(HUNTER_INFO(__USQ_FBIT__))
+#endif
+
+#if defined(__USQ_IBIT__)
+# pragma message(HUNTER_INFO(__USQ_IBIT__))
+#endif
+
+#if defined(__UTA_FBIT__)
+# pragma message(HUNTER_INFO(__UTA_FBIT__))
+#endif
+
+#if defined(__UTA_IBIT__)
+# pragma message(HUNTER_INFO(__UTA_IBIT__))
+#endif
+
+#if defined(__UTQ_FBIT__)
+# pragma message(HUNTER_INFO(__UTQ_FBIT__))
+#endif
+
+#if defined(__UTQ_IBIT__)
+# pragma message(HUNTER_INFO(__UTQ_IBIT__))
 #endif
 
 #if defined(__VECTOR4DOUBLE__)
@@ -2161,6 +2673,10 @@
 
 #if defined(__WCHAR_TYPE__)
 # pragma message(HUNTER_INFO(__WCHAR_TYPE__))
+#endif
+
+#if defined(__WCHAR_UNSIGNED__)
+# pragma message(HUNTER_INFO(__WCHAR_UNSIGNED__))
 #endif
 
 #if defined(__WCHAR_WIDTH__)
