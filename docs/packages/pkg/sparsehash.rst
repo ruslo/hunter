@@ -2,6 +2,8 @@
 
     sparsehash
 
+.. index:: containers ; sparsehash
+
 .. _pkg.sparsehash:
 
 sparsehash
