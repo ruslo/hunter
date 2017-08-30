@@ -2,6 +2,8 @@
 
     OpenSSL
 
+.. index:: crypto ; OpenSSL
+
 .. _pkg.OpenSSL:
 
 OpenSSL
