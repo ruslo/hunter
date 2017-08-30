@@ -2,6 +2,8 @@
 
     spdlog
 
+.. index:: logging ; spdlog
+
 .. _pkg.spdlog:
 
 spdlog

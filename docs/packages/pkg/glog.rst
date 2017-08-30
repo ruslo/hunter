@@ -2,6 +2,8 @@
 
     glog
 
+.. index:: logging ; glog
+
 .. _pkg.glog:
 
 glog

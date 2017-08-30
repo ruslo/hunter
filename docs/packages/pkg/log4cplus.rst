@@ -2,6 +2,8 @@
 
     log4cplus
 
+.. index:: logging ; log4cplus
+
 .. _pkg.log4cplus:
 
 log4cplus
