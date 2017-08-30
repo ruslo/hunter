@@ -2,6 +2,8 @@
 
     LLVM
 
+.. index:: compiler ; LLVM
+
 .. _pkg.LLVM:
 
 LLVM
