@@ -2,6 +2,8 @@
 
     fmt
 
+.. index:: filesystem ; fmt
+
 .. _pkg.fmt:
 
 fmt

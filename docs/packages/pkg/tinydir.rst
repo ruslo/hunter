@@ -2,6 +2,8 @@
 
     tinydir
 
+.. index:: filesystem ; tinydir
+
 .. _pkg.tinydir:
 
 tinydir

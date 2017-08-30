@@ -2,6 +2,8 @@
 
     hdf5
 
+.. index:: filesystem ; hdf5
+
 .. _pkg.hdf5:
 
 hdf5
