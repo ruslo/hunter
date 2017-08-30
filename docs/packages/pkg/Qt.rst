@@ -2,6 +2,8 @@
 
     Qt
 
+.. index:: frameworks ; Qt
+
 .. _pkg.Qt:
 
 Qt

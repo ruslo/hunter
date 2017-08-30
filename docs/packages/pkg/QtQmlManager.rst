@@ -2,6 +2,8 @@
 
     QtQmlManager
 
+.. index:: frameworks ; QtQmlManager
+
 .. _pkg.QtQmlManager:
 
 QtQmlManager

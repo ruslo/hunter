@@ -1,3 +1,5 @@
+.. index:: frameworks ; Boost
+
 .. _pkg.Boost:
 
 Boost

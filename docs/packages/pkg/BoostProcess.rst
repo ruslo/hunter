@@ -2,6 +2,8 @@
 
     BoostProcess
 
+.. index:: frameworks ; BoostProcess
+
 .. _pkg.BoostProcess:
 
 BoostProcess
