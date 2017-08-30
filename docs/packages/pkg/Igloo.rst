@@ -2,6 +2,8 @@
 
     Igloo
 
+.. index:: testing ; Igloo
+
 .. _pkg.Igloo:
 
 Igloo

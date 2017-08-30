@@ -2,6 +2,8 @@
 
     GTest
 
+.. index:: testing ; GTest
+
 .. _pkg.GTest:
 
 GTest
@@ -28,6 +30,8 @@ Bugs
 ----
 
 -  Cygwin GCC build failed with ``c++11`` flag
+
+.. index:: testing ; GMock
 
 .. _pkg.GMock:
 

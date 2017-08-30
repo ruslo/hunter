@@ -2,6 +2,8 @@
 
     crashpad
 
+.. index:: testing ; crashpad
+
 .. _pkg.crashpad:
 
 crashpad

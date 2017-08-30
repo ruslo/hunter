@@ -2,6 +2,8 @@
 
     FakeIt
 
+.. index:: testing ; FakeIt
+
 .. _pkg.FakeIt:
 
 FakeIt

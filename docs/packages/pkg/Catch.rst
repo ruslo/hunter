@@ -2,6 +2,8 @@
 
     Catch
 
+.. index:: testing ; Catch
+
 .. _pkg.Catch:
 
 Catch
