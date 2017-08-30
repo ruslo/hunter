@@ -2,6 +2,8 @@
 
     ZLIB
 
+.. index:: compression ; ZLIB
+
 .. _pkg.ZLIB:
 
 ZLIB

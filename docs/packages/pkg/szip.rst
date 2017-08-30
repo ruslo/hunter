@@ -2,6 +2,8 @@
 
     szip
 
+.. index:: compression ; szip
+
 .. _pkg.szip:
 
 szip

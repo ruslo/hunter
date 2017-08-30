@@ -2,6 +2,8 @@
 
     minizip
 
+.. index:: compression ; minizip
+
 .. _pkg.minizip:
 
 minizip

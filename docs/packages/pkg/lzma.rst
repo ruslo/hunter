@@ -2,6 +2,8 @@
 
     lzma
 
+.. index:: compression ; lzma
+
 .. _pkg.lzma:
 
 lzma
