@@ -1,8 +1,8 @@
 Frameworks
 ----------
 
- * `Boost <https://github.com/ruslo/hunter/wiki/pkg.boost>`_ - peer-reviewed portable C++ source libraries.
- * `Boost.process <https://github.com/ruslo/hunter/wiki/pkg.boost.process>`_
- * `Qt <https://github.com/ruslo/hunter/wiki/pkg.qt>`_
- * `QtQmlManager <https://github.com/ruslo/hunter/wiki/pkg.qt.qml.manager>`_
- * `wxWidgets <https://github.com/ruslo/hunter/wiki/pkg.wxwidgets>`_ - Cross-Platform GUI Library
+ - :ref:`pkg.Boost` - peer-reviewed portable C++ source libraries.
+ - :ref:`pkg.BoostProcess`
+ - :ref:`pkg.Qt`
+ - :ref:`pkg.QtQmlManager`
+ - :ref:`pkg.wxWidgets` - Cross-Platform GUI Library

@@ -5,6 +5,6 @@
 Filesystem
 ----------
 
- * `fmt <https://github.com/ruslo/hunter/wiki/pkg.fmt>`_ - Small, safe and fast formatting library
- * `hdf5 <https://github.com/ruslo/hunter/wiki/pkg.hdf5>`_ -  data model, library, and file format for storing and managing data.
- * `tinydir <https://github.com/ruslo/hunter/wiki/pkg.tinydir>`_ - Lightweight, portable and easy to integrate C directory and file reader
+ - :ref:`pkg.fmt` - Small, safe and fast formatting library
+ - :ref:`pkg.hdf5` -  data model, library, and file format for storing and managing data.
+ - :ref:`pkg.tinydir` - Lightweight, portable and easy to integrate C directory and file reader
