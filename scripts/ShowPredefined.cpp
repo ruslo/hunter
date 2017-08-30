@@ -1067,6 +1067,18 @@
 # pragma message(HUNTER_INFO(__FMA__))
 #endif
 
+#if defined(__FP_FAST_FMA)
+# pragma message(HUNTER_INFO(__FP_FAST_FMA))
+#endif
+
+#if defined(__FP_FAST_FMAF)
+# pragma message(HUNTER_INFO(__FP_FAST_FMAF))
+#endif
+
+#if defined(__FP_FAST_FMAL)
+# pragma message(HUNTER_INFO(__FP_FAST_FMAL))
+#endif
+
 #if defined(__FRACT_EPSILON__)
 # pragma message(HUNTER_INFO(__FRACT_EPSILON__))
 #endif
