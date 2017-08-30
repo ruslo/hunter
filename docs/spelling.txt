@@ -18,6 +18,7 @@ NMake
 Proto
 RPC
 Scalable
+SDK
 Shareable
 Stackoverflow
 Toolchain
@@ -35,6 +36,9 @@ hunterized
 iOS
 internet
 login
+performant
+plugin
+plugins
 prebuilt
 reconstructible
 reproducibility
