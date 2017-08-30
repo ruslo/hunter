@@ -2,6 +2,8 @@
 
     thread-pool-cpp
 
+.. index:: concurrency ; thread-pool-cpp
+
 .. _pkg.thread-pool-cpp:
 
 thread-pool-cpp

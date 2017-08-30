@@ -2,6 +2,8 @@
 
     ArrayFire
 
+.. index:: concurrency ; ArrayFire
+
 .. _pkg.ArrayFire:
 
 ArrayFire

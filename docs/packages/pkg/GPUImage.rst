@@ -2,6 +2,8 @@
 
     GPUImage
 
+.. index:: concurrency ; GPUImage
+
 .. _pkg.GPUImage:
 
 GPUImage

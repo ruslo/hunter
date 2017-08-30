@@ -2,6 +2,8 @@
 
     BoostCompute
 
+.. index:: concurrency ; BoostCompute
+
 .. _pkg.BoostCompute:
 
 BoostCompute

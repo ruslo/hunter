@@ -2,6 +2,8 @@
 
     OpenCL-cpp
 
+.. index:: concurrency ; OpenCL-cpp
+
 .. _pkg.OpenCL-cpp:
 
 OpenCL-cpp
