@@ -2,6 +2,8 @@
 
     ZMQPP
 
+.. index:: messaging ; ZMQPP
+
 .. _pkg.ZMQPP:
 
 ZMQPP

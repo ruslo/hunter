@@ -2,6 +2,8 @@
 
     CapnProto
 
+.. index:: messaging ; CapnProto
+
 .. _pkg.CapnProto:
 
 CapnProto

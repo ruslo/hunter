@@ -2,6 +2,8 @@
 
     rabbitmq-c
 
+.. index:: messaging ; rabbitmq-c
+
 .. _pkg.rabbitmq-c:
 
 rabbitmq-c

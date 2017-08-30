@@ -2,6 +2,8 @@
 
     ZeroMQ
 
+.. index:: messaging ; ZeroMQ
+
 .. _pkg.ZeroMQ:
 
 ZeroMQ

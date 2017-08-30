@@ -2,6 +2,8 @@
 
     Comet
 
+.. index:: messaging ; Comet
+
 .. _pkg.Comet:
 
 Comet
