@@ -4,6 +4,8 @@
 
 .. _pkg.corelocation:
 
+.. index:: system_library_finder ; corelocation
+
 corelocation
 ============
 

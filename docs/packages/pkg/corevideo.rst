@@ -4,6 +4,8 @@
 
 .. _pkg.corevideo:
 
+.. index:: system_library_finder ; corevideo
+
 corevideo
 =========
 

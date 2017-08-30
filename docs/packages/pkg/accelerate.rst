@@ -4,6 +4,8 @@
 
 .. _pkg.accelerate:
 
+.. index:: system_library_finder ; accelerate
+
 accelerate
 ==========
 

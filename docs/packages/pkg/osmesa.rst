@@ -4,6 +4,8 @@
 
 .. _pkg.osmesa:
 
+.. index:: system_library_finder ; osmesa
+
 osmesa
 ======
 

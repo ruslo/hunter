@@ -4,6 +4,8 @@
 
 .. _pkg.assetslibrary:
 
+.. index:: system_library_finder ; assetslibrary
+
 assetslibrary
 =============
 

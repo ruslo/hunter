@@ -4,6 +4,8 @@
 
 .. _pkg.uikit:
 
+.. index:: system_library_finder ; uikit
+
 uikit
 =====
 

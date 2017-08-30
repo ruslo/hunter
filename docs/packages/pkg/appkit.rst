@@ -4,6 +4,8 @@
 
 .. _pkg.appkit:
 
+.. index:: system_library_finder ; appkit
+
 appkit
 ======
 

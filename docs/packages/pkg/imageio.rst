@@ -4,6 +4,8 @@
 
 .. _pkg.imageio:
 
+.. index:: system_library_finder ; imageio
+
 imageio
 =======
 

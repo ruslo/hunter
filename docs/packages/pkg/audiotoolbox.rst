@@ -4,6 +4,8 @@
 
 .. _pkg.audiotoolbox:
 
+.. index:: system_library_finder ; audiotoolbox
+
 audiotoolbox
 ============
 

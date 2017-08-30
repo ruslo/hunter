@@ -4,6 +4,8 @@
 
 .. _pkg.avfoundation:
 
+.. index:: system_library_finder ; avfoundation
+
 avfoundation
 ============
 

@@ -4,6 +4,8 @@
 
 .. _pkg.glapi:
 
+.. index:: system_library_finder ; glapi
+
 glapi
 =====
 

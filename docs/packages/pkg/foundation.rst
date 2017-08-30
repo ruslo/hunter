@@ -4,6 +4,8 @@
 
 .. _pkg.foundation:
 
+.. index:: system_library_finder ; foundation
+
 foundation
 ==========
 

@@ -4,6 +4,8 @@
 
 .. _pkg.egl:
 
+.. index:: system_library_finder ; egl
+
 egl
 ===
 

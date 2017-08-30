@@ -4,6 +4,8 @@
 
 .. _pkg.coredata:
 
+.. index:: system_library_finder ; coredata
+
 coredata
 ========
 

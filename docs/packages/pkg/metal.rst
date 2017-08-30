@@ -4,6 +4,8 @@
 
 .. _pkg.metal:
 
+.. index:: system_library_finder ; metal
+
 metal
 =====
 

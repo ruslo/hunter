@@ -5,6 +5,8 @@
 
 .. _pkg.gles2:
 
+.. index:: system_library_finder ; gles2
+
 gles2
 =====
 

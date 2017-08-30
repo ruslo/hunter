@@ -4,6 +4,8 @@
 
 .. _pkg.quartzcore:
 
+.. index:: system_library_finder ; quartzcore
+
 quartzcore
 ==========
 

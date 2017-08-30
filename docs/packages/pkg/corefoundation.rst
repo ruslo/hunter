@@ -4,6 +4,8 @@
 
 .. _pkg.corefoundation:
 
+.. index:: system_library_finder ; corefoundation
+
 corefoundation
 ==============
 

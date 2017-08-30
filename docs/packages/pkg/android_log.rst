@@ -4,6 +4,8 @@
 
 .. _pkg.android_log:
 
+.. index:: system_library_finder ; android_log
+
 android_log
 ===========
 

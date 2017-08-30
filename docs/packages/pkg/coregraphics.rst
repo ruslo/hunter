@@ -4,6 +4,8 @@
 
 .. _pkg.coregraphics:
 
+.. index:: system_library_finder ; coregraphics
+
 coregraphics
 ============
 

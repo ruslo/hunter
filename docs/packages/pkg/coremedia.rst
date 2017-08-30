@@ -4,6 +4,8 @@
 
 .. _pkg.coremedia:
 
+.. index:: system_library_finder ; coremedia
+
 coremedia
 =========
 

@@ -4,6 +4,8 @@
 
 .. _pkg.glkit:
 
+.. index:: system_library_finder ; glkit
+
 glkit
 =====
 

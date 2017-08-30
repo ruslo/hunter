@@ -4,6 +4,8 @@
 
 .. _pkg.opengles:
 
+.. index:: system_library_finder ; opengles
+
 opengles
 ========
 
