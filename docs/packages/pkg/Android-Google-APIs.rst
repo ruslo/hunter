@@ -1,6 +1,7 @@
 .. spelling::
 
     Android-Google-APIs
+    APIs
 
 .. index:: unsorted ; Android-Google-APIs
 

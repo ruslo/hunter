@@ -1,6 +1,6 @@
 .. spelling::
 
-    BZip2
+    BZip
 
 .. index:: compression ; BZip2
 

@@ -1,6 +1,7 @@
 .. spelling::
 
-    ios_sim
+    ios
+    sim
 
 .. index:: unsorted ; ios_sim
 

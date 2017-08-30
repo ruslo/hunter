@@ -1,6 +1,6 @@
 .. spelling::
 
-    thread-pool-cpp
+    cpp
 
 .. index:: concurrency ; thread-pool-cpp
 

@@ -1,6 +1,6 @@
 .. spelling::
 
-    Libssh2
+    Libssh
 
 .. index:: networking ; Libssh2
 

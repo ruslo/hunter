@@ -1,6 +1,7 @@
 .. spelling::
 
-    ogles_gpgpu
+    ogles
+    gpgpu
 
 .. index:: concurrency ; ogles_gpgpu,
     graphics ; ogles_gpgpu

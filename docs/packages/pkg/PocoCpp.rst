@@ -1,6 +1,7 @@
 .. spelling::
 
     PocoCpp
+    Util
 
 .. index:: networking ; PocoCpp
 
@@ -25,14 +26,14 @@ components, else CMake will fail.
 
 Components are as follows:
 
-- Foundation (Poco::Foundation)
-- JSON (Poco::JSON)
-- Net (Poco::Net)
-- Util (Poco::Util)
-- XML (Poco::XML)
-- Zip (Poco::Zip)
+- Foundation (``Poco::Foundation``)
+- JSON (``Poco::JSON``)
+- Net (``Poco::Net``)
+- Util (``Poco::Util``)
+- XML (``Poco::XML``)
+- Zip (``Poco::Zip``)
 
 **Note**: Components can be enabled or disabled by using
-`cmake\_args <https://github.com/ruslo/hunter/blob/master/cmake/projects/PocoCpp/hunter.cmake>`__.
-The map between cmake args and Poco components can be found
+`CMAKE_ARGS <https://github.com/ruslo/hunter/blob/master/cmake/projects/PocoCpp/hunter.cmake>`__.
+The map between ``CMAKE_ARGS`` and PocoCpp components can be found
 `here <https://github.com/pocoproject/poco/blob/develop/CMakeLists.txt>`__.

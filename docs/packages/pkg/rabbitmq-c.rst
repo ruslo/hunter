@@ -1,6 +1,6 @@
 .. spelling::
 
-    rabbitmq-c
+    rabbitmq
 
 .. index:: messaging ; rabbitmq-c
 

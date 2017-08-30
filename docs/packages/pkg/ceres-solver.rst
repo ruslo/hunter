@@ -1,6 +1,7 @@
 .. spelling::
 
-    ceres-solver
+    ceres
+    performant
 
 .. index:: unsorted ; ceres-solver
 

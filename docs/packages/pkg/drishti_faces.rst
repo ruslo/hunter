@@ -1,6 +1,6 @@
 .. spelling::
 
-    drishti_faces
+    drishti
 
 .. index:: unsorted ; drishti_faces
 

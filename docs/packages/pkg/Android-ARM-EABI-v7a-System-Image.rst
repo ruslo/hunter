@@ -1,6 +1,7 @@
 .. spelling::
 
     Android-ARM-EABI-v7a-System-Image
+    EABI
 
 .. index:: unsorted ; Android-ARM-EABI-v7a-System-Image
 

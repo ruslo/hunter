@@ -1,6 +1,7 @@
 .. spelling::
 
-    dri3proto
+    dri
+    proto
 
 .. index:: unsorted ; dri3proto
 

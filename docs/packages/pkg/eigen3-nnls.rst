@@ -1,6 +1,7 @@
 .. spelling::
 
-    eigen3-nnls
+    eigen
+    nnls
 
 .. index:: unsorted ; eigen3-nnls
 

@@ -1,6 +1,8 @@
 .. spelling::
 
     OpenCV
+    GStreamer
+    backend
 
 .. index:: computer-vision ; OpenCV
 
@@ -40,7 +42,7 @@ Known issues
 -  since hunter
    `v0.18.44 <https://github.com/ruslo/hunter/releases/tag/v0.18.44>`__
    OpenCV can't find system libraries to link against on Linux. If you
-   need those dependencies (FFMPEG, GTK, Gstreamer, V4L2, etc.) you need
+   need those dependencies (FFMPEG, GTK, GStreamer, V4L2, etc.) you need
    to fork hunter and revert commit
    `f6f0965 <https://github.com/ruslo/hunter/commit/f6f096561f0e09b4c85e4049a4eb7948ad24d7eb>`__
    in your fork. Try `this

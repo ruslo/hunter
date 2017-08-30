@@ -1,6 +1,7 @@
 .. spelling::
 
-    yaml-cpp
+    yaml
+    cpp
 
 .. index:: unsorted ; yaml-cpp
 

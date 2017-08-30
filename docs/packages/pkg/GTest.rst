@@ -1,6 +1,7 @@
 .. spelling::
 
     GTest
+    GMock
 
 .. index:: testing ; GTest
 

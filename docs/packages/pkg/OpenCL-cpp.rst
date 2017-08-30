@@ -1,6 +1,6 @@
 .. spelling::
 
-    OpenCL-cpp
+    OpenCL
 
 .. index:: concurrency ; OpenCL-cpp
 
@@ -14,7 +14,7 @@ OpenCL-cpp
 -  `Example <https://github.com/ruslo/hunter/blob/master/examples/OpenCL-cpp/CMakeLists.txt>`__
 -  Available since: in acceptance process
 
-Adds c++ wrappers for Opencl, http://github.khronos.org/OpenCL-CLHPP/
+Adds c++ wrappers for OpenCL, http://github.khronos.org/OpenCL-CLHPP/
 
 - Platforms: Windows VS12+/MSYS, Linux (limited by OpenCL package)
 

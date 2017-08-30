@@ -1,6 +1,7 @@
 .. spelling::
 
-    odb-mysql
+    odb
+    mysql
 
 .. index:: database ; odb-mysql
 
