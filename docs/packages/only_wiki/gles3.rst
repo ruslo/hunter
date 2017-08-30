@@ -10,7 +10,7 @@ gles3
 
 .. note::
 
-    This is a helper package. There is no corresponding package in hunter to be included by ``hunter_add_package(...)``
+    This is a helper package. There is no corresponding package in Hunter to be included by ``hunter_add_package(...)``
 
 .. code-block:: cmake
 
