@@ -3,8 +3,8 @@
   Matlab
   Morphable
 
-Computer Vision/Machine Learning/Image Processing
--------------------------------------------------
+Computer Vision
+---------------
 
  - :ref:`pkg.caffe` - fast open framework for deep learning.
  - :ref:`pkg.ccv` - A Modern Computer Vision Library

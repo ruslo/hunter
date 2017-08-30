@@ -30,4 +30,3 @@ System library finder
  - :ref:`pkg.osmesa`
  - :ref:`pkg.quartzcore`
  - :ref:`pkg.uikit`
-
