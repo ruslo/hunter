@@ -2,6 +2,8 @@
 
     PNG
 
+.. index:: media ; PNG
+
 .. _pkg.PNG:
 
 PNG

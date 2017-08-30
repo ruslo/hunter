@@ -2,6 +2,8 @@
 
     TIFF
 
+.. index:: media ; TIFF
+
 .. _pkg.TIFF:
 
 TIFF

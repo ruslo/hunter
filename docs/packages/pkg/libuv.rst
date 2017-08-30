@@ -2,6 +2,8 @@
 
     libuv
 
+.. index:: media ; libuv
+
 .. _pkg.libuv:
 
 libuv

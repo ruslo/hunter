@@ -2,6 +2,8 @@
 
     Jpeg
 
+.. index:: media ; Jpeg
+
 .. _pkg.Jpeg:
 
 Jpeg
