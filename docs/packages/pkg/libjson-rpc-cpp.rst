@@ -1,6 +1,8 @@
 .. spelling::
 
-    libjson-rpc-cpp
+    libjson
+    rpc
+    cpp
 
 .. index:: unsorted ; libjson-rpc-cpp
 

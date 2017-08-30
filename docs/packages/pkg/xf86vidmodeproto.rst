@@ -1,6 +1,7 @@
 .. spelling::
 
-    xf86vidmodeproto
+    xf
+    vidmodeproto
 
 .. index:: unsorted ; xf86vidmodeproto
 

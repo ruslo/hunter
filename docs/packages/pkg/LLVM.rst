@@ -22,12 +22,12 @@ Build issues
 ------------
 
 -  Can't build with ``-stdlib=libstdc++ -std=c++11`` (Ubuntu Linux)
--  Can't build with ``-std=c++11`` (MinGW gcc)
+-  Can't build with ``-std=c++11`` (MinGW)
 
 Usage issues
 ------------
 
 -  Exceptions are not available, need to build with
-   `\_HAS\_EXCEPTION=0 <http://stackoverflow.com/a/24750725/2288008>`__
+   `_HAS_EXCEPTION=0 <http://stackoverflow.com/a/24750725/2288008>`__
    (Visual Studio)
 -  Call to ``std::endl`` lead to crash (MinGW)

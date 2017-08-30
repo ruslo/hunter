@@ -1,6 +1,7 @@
 .. spelling::
 
-    odb-compiler
+    odb
+    compiler
 
 .. index:: unsorted ; odb-compiler
 

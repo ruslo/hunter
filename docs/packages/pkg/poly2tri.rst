@@ -1,6 +1,7 @@
 .. spelling::
 
-    poly2tri
+    poly
+    tri
 
 .. index:: math ; poly2tri
 

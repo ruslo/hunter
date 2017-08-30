@@ -1,6 +1,7 @@
 .. spelling::
 
-    nlohmann_json
+    nlohmann
+    json
 
 .. index:: unsorted ; nlohmann_json
 

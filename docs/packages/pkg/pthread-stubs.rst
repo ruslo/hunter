@@ -1,6 +1,6 @@
 .. spelling::
 
-    pthread-stubs
+    pthread
 
 .. index:: unsorted ; pthread-stubs
 

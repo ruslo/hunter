@@ -1,6 +1,6 @@
 .. spelling::
 
-    log4cplus
+    cplus
 
 .. index:: logging ; log4cplus
 

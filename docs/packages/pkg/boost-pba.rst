@@ -1,6 +1,6 @@
 .. spelling::
 
-    boost-pba
+    pba
 
 .. index:: unsorted ; boost-pba
 

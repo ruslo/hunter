@@ -1,6 +1,6 @@
 .. spelling::
 
-    mpark_variant
+    mpark
 
 .. index:: unsorted ; mpark_variant
 

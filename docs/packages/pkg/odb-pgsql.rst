@@ -1,6 +1,7 @@
 .. spelling::
 
-    odb-pgsql
+    odb
+    pgsql
 
 .. index:: database ; odb-pgsql
 

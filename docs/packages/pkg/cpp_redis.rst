@@ -1,6 +1,7 @@
 .. spelling::
 
-    cpp_redis
+    cpp
+    redis
 
 .. index:: unsorted ; cpp_redis
 

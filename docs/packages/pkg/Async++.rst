@@ -1,6 +1,6 @@
 .. spelling::
 
-    Async++
+    Async
 
 .. _pkg.Async++:
 

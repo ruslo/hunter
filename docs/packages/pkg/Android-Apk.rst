@@ -1,6 +1,7 @@
 .. spelling::
 
     Android-Apk
+    Apk
 
 .. index:: unsorted ; Android-Apk
 

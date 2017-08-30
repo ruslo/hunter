@@ -1,6 +1,6 @@
 .. spelling::
 
-    sse2neon
+    sse
 
 .. index:: unsorted ; sse2neon
 

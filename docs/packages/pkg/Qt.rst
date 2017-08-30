@@ -137,7 +137,7 @@ Pitfalls
    workaround <https://github.com/ruslo/hunter/issues/224#issuecomment-137101944>`__
 
 -  iOS (Qt < 5.9): you must use ``qtmn`` instead of ``main`` (see
-   `SO <http://stackoverflow.com/a/25061034/2288008>`__): \`\`\`cpp
+   `SO <http://stackoverflow.com/a/25061034/2288008>`__):
 
 
 .. code-block:: cpp
@@ -187,7 +187,7 @@ if you see this error try to remove usage of target ``Qt5::QtQuick2Plugin`` and 
    some Qt dependencies first. See `Qt Issue
    2 <https://github.com/hunter-packages/Qt/issues/2>`__. The Problem
    can be fixed by installing the necessary libraries before calling
-   cmake with the command:
+   CMake with the command:
 
    .. code-block:: shell
 
