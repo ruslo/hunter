@@ -2,6 +2,8 @@
 
     Lua
 
+.. index:: scripting ; Lua
+
 .. _pkg.Lua:
 
 Lua
