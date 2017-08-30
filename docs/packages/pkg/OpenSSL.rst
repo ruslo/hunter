@@ -43,5 +43,5 @@ Fixed/workaround
 
 -  `space in path <https://github.com/openssl/openssl/pull/185>`__,
    `related <https://github.com/ruslo/hunter/wiki/error.spaces.in.hunter.root>`__
--  Can't be build with 'make -jN':
+-  Can't be build with ``make -jN``:
    https://github.com/ruslo/hunter/issues/87

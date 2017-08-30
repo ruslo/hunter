@@ -1,6 +1,7 @@
 .. spelling::
 
     Android-Google-APIs-Intel-x86-Atom-System-Image
+    APIs
 
 .. index:: unsorted ; Android-Google-APIs-Intel-x86-Atom-System-Image
 

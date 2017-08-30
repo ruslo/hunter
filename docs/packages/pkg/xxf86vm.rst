@@ -1,6 +1,7 @@
 .. spelling::
 
-    xxf86vm
+    xxf
+    vm
 
 .. index:: unsorted ; xxf86vm
 

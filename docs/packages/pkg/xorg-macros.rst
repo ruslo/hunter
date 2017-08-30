@@ -1,6 +1,6 @@
 .. spelling::
 
-    xorg-macros
+    xorg
 
 .. index:: unsorted ; xorg-macros
 

@@ -1,6 +1,6 @@
 .. spelling::
 
-    libxml2
+    libxml
 
 .. index:: unsorted ; libxml2
 

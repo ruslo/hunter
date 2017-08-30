@@ -1,6 +1,7 @@
 .. spelling::
 
-    odb-sqlite
+    odb
+    sqlite
 
 .. index:: database ; odb-sqlite
 

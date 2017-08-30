@@ -1,6 +1,6 @@
 .. spelling::
 
-    drishti_assets
+    drishti
 
 .. index:: unsorted ; drishti_assets
 

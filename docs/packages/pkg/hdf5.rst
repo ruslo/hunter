@@ -1,6 +1,6 @@
 .. spelling::
 
-    hdf5
+    hdf
 
 .. index:: filesystem ; hdf5
 

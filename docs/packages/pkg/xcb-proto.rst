@@ -1,6 +1,7 @@
 .. spelling::
 
-    xcb-proto
+    xcb
+    proto
 
 .. index:: unsorted ; xcb-proto
 

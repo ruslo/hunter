@@ -1,6 +1,6 @@
 .. spelling::
 
-    odb-boost
+    odb
 
 .. index:: unsorted ; odb-boost
 

@@ -1,6 +1,6 @@
 .. spelling::
 
-    autobahn-cpp
+    cpp
 
 .. index:: networking ; autobahn-cpp
 
