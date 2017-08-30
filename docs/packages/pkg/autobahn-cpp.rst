@@ -2,6 +2,8 @@
 
     autobahn-cpp
 
+.. index:: networking ; autobahn-cpp
+
 .. _pkg.autobahn-cpp:
 
 autobahn-cpp

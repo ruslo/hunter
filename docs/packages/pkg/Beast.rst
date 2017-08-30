@@ -2,6 +2,8 @@
 
     Beast
 
+.. index:: networking ; Beast
+
 .. _pkg.Beast:
 
 Beast

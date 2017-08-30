@@ -2,6 +2,8 @@
 
     PocoCpp
 
+.. index:: networking ; PocoCpp
+
 .. _pkg.PocoCpp:
 
 PocoCpp

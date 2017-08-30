@@ -2,6 +2,8 @@
 
     websocketpp
 
+.. index:: networking ; websocketpp
+
 .. _pkg.websocketpp:
 
 websocketpp

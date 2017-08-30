@@ -2,6 +2,8 @@
 
     CURL
 
+.. index:: networking ; CURL
+
 .. _pkg.CURL:
 
 CURL

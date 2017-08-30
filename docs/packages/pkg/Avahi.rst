@@ -2,6 +2,8 @@
 
     Avahi
 
+.. index:: networking ; Avahi
+
 .. _pkg.Avahi:
 
 Avahi

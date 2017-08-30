@@ -2,6 +2,8 @@
 
     CppNetlibUri
 
+.. index:: networking ; CppNetlibUri
+
 .. _pkg.CppNetlibUri:
 
 CppNetlibUri

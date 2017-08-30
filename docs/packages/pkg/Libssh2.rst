@@ -2,6 +2,8 @@
 
     Libssh2
 
+.. index:: networking ; Libssh2
+
 .. _pkg.Libssh2:
 
 Libssh2
