@@ -2,6 +2,8 @@
 
     MySQL-client
 
+.. index:: database ; MySQL-client
+
 .. _pkg.MySQL-client:
 
 MySQL-client

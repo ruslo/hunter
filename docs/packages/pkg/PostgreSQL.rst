@@ -2,6 +2,8 @@
 
     PostgreSQL
 
+.. index:: database ; PostgreSQL
+
 .. _pkg.PostgreSQL:
 
 PostgreSQL

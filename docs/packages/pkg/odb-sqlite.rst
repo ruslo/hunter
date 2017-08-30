@@ -2,6 +2,8 @@
 
     odb-sqlite
 
+.. index:: database ; odb-sqlite
+
 .. _pkg.odb-sqlite:
 
 odb-sqlite

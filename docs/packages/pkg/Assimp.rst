@@ -2,6 +2,8 @@
 
     Assimp
 
+.. index:: graphics ; Assimp
+
 .. _pkg.Assimp:
 
 Assimp

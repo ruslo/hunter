@@ -2,6 +2,8 @@
 
     odb-mysql
 
+.. index:: database ; odb-mysql
+
 .. _pkg.odb-mysql:
 
 odb-mysql

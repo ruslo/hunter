@@ -2,6 +2,8 @@
 
     aglet
 
+.. index:: graphics ; aglet
+
 .. _pkg.aglet:
 
 aglet

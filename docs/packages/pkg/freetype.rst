@@ -2,6 +2,8 @@
 
     freetype
 
+.. index:: graphics ; freetype
+
 .. _pkg.freetype:
 
 freetype

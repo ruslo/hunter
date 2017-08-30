@@ -2,7 +2,8 @@
 
     ogles_gpgpu
 
-.. index:: concurrency ; ogles_gpgpu
+.. index:: concurrency ; ogles_gpgpu,
+    graphics ; ogles_gpgpu
 
 .. _pkg.ogles_gpgpu:
 

@@ -2,6 +2,8 @@
 
     odb-pgsql
 
+.. index:: database ; odb-pgsql
+
 .. _pkg.odb-pgsql:
 
 odb-pgsql
