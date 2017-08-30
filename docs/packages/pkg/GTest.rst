@@ -29,6 +29,8 @@ Bugs
 
 -  Cygwin GCC build failed with ``c++11`` flag
 
+.. _pkg.GMock:
+
 GMock
 =====
 
