@@ -117,11 +117,25 @@ Content of ``hunter.cmake``:
 
 Second, specify version in default config:
 
-.. code-block:: bash
+.. code-block:: none
   :emphasize-lines: 2
 
   > grep Example cmake/config/default.cmake
   hunter_config(Example VERSION 1.0.1)
+
+Documentation
+~~~~~~~~~~~~~
+
+Copy template documentation file and fill it with valid information:
+
+.. code-block:: none
+
+  > cp docs/packages/pkg/template.rst docs/packages/pkg/foo.rst
+
+Substitute ``unsorted`` with some tag in directive ``.. index:: unsorted ; foo``.
+This tag will be used on this page:
+
+* :ref:`All packages (Index) <genindex>`
 
 Note
 ====
