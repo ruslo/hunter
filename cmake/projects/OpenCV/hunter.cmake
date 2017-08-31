@@ -302,7 +302,7 @@ hunter_add_version(
 string(COMPARE EQUAL "${CMAKE_OSX_SYSROOT}" "iphoneos" _is_ios)
 
 if(_is_ios)
-  set(_ios_args ENABLE_NEON=ON)
+  set(_ios_args BUILD_WEBP=ON)
 else()
   set(_ios_args "")
 endif()
