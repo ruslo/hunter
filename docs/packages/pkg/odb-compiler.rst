@@ -3,7 +3,7 @@
     odb
     compiler
 
-.. index:: unsorted ; odb-compiler
+.. index:: odb ; odb-compiler
 
 .. _pkg.odb-compiler:
 

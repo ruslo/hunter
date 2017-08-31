@@ -3,7 +3,7 @@
     xcb
     proto
 
-.. index:: unsorted ; xcb-proto
+.. index:: x11 ; xcb-proto
 
 .. _pkg.xcb-proto:
 

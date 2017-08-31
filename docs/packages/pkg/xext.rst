@@ -2,7 +2,7 @@
 
     xext
 
-.. index:: unsorted ; xext
+.. index:: x11 ; xext
 
 .. _pkg.xext:
 

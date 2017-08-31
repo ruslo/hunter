@@ -2,7 +2,7 @@
 
     xineramaproto
 
-.. index:: unsorted ; xineramaproto
+.. index:: x11 ; xineramaproto
 
 .. _pkg.xineramaproto:
 

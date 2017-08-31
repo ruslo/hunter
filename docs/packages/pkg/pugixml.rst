@@ -2,7 +2,7 @@
 
     pugixml
 
-.. index:: unsorted ; pugixml
+.. index:: xml ; pugixml
 
 .. _pkg.pugixml:
 

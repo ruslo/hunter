@@ -2,7 +2,7 @@
 
     damageproto
 
-.. index:: unsorted ; damageproto
+.. index:: x11 ; damageproto
 
 .. _pkg.damageproto:
 

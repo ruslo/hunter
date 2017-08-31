@@ -2,7 +2,7 @@
 
     fmt
 
-.. index:: filesystem ; fmt
+.. index:: logging ; fmt
 
 .. _pkg.fmt:
 
@@ -25,7 +25,7 @@ fmt
     find_package(fmt CONFIG REQUIRED)
 
     # or fmt-header-only
-    target_link_libraries(... fmt) 
+    target_link_libraries(... fmt)
 
 Bugs
 ----

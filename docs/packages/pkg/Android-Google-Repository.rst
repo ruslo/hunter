@@ -2,7 +2,7 @@
 
     Android-Google-Repository
 
-.. index:: unsorted ; Android-Google-Repository
+.. index:: android_sdk_component ; Android-Google-Repository
 
 .. _pkg.Android-Google-Repository:
 

@@ -2,7 +2,7 @@
 
     CppNetlib
 
-.. index:: unsorted ; CppNetlib
+.. index:: networking ; CppNetlib
 
 .. _pkg.CppNetlib:
 

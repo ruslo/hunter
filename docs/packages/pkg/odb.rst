@@ -2,7 +2,7 @@
 
     odb
 
-.. index:: unsorted ; odb
+.. index:: odb ; odb
 
 .. _pkg.odb:
 

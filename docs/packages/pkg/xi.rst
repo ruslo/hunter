@@ -2,7 +2,7 @@
 
     xi
 
-.. index:: unsorted ; xi
+.. index:: x11 ; xi
 
 .. _pkg.xi:
 

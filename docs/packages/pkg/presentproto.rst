@@ -2,7 +2,7 @@
 
     presentproto
 
-.. index:: unsorted ; presentproto
+.. index:: x11 ; presentproto
 
 .. _pkg.presentproto:
 

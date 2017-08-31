@@ -2,7 +2,7 @@
 
     RapidXML
 
-.. index:: unsorted ; RapidXML
+.. index:: xml ; RapidXML
 
 .. _pkg.RapidXML:
 

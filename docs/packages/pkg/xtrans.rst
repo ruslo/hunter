@@ -2,7 +2,7 @@
 
     xtrans
 
-.. index:: unsorted ; xtrans
+.. index:: x11 ; xtrans
 
 .. _pkg.xtrans:
 

@@ -2,7 +2,7 @@
 
     wxWidgets
 
-.. index:: frameworks ; wxWidgets
+.. index:: ui ; wxWidgets
 
 .. _pkg.wxWidgets:
 

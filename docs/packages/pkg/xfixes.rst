@@ -2,7 +2,7 @@
 
     xfixes
 
-.. index:: unsorted ; xfixes
+.. index:: x11 ; xfixes
 
 .. _pkg.xfixes:
 

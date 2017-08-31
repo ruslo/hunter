@@ -2,7 +2,7 @@
 
     ClangToolsExtra
 
-.. index:: unsorted ; ClangToolsExtra
+.. index:: llvm_component ; ClangToolsExtra
 
 .. _pkg.ClangToolsExtra:
 

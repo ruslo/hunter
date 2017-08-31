@@ -2,7 +2,7 @@
 
     xextproto
 
-.. index:: unsorted ; xextproto
+.. index:: x11 ; xextproto
 
 .. _pkg.xextproto:
 

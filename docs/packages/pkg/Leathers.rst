@@ -2,7 +2,7 @@
 
     Leathers
 
-.. index:: unsorted ; Leathers
+.. index:: warnings ; Leathers
 
 .. _pkg.Leathers:
 

@@ -3,7 +3,7 @@
     nlohmann
     json
 
-.. index:: unsorted ; nlohmann_json
+.. index:: json ; nlohmann_json
 
 .. _pkg.nlohmann_json:
 

@@ -2,7 +2,7 @@
 
     SQLite3
 
-.. index:: unsorted ; SQLite3
+.. index:: database ; SQLite3
 
 .. _pkg.SQLite3:
 

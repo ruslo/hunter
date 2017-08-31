@@ -3,7 +3,7 @@
     dri
     proto
 
-.. index:: unsorted ; dri2proto
+.. index:: x11 ; dri2proto
 
 .. _pkg.dri2proto:
 

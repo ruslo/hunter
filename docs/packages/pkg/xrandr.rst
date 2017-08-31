@@ -2,7 +2,7 @@
 
     xrandr
 
-.. index:: unsorted ; xrandr
+.. index:: x11 ; xrandr
 
 .. _pkg.xrandr:
 

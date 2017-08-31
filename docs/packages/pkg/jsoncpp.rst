@@ -2,7 +2,7 @@
 
     jsoncpp
 
-.. index:: unsorted ; jsoncpp
+.. index:: json ; jsoncpp
 
 .. _pkg.jsoncpp:
 

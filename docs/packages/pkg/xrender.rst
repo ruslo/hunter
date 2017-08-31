@@ -2,7 +2,7 @@
 
     xrender
 
-.. index:: unsorted ; xrender
+.. index:: x11 ; xrender
 
 .. _pkg.xrender:
 

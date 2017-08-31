@@ -2,7 +2,7 @@
 
     QtAndroidCMake
 
-.. index:: unsorted ; QtAndroidCMake
+.. index:: qt_helper ; QtAndroidCMake
 
 .. _pkg.QtAndroidCMake:
 

@@ -2,7 +2,7 @@
 
     Libcxx
 
-.. index:: unsorted ; Libcxx
+.. index:: llvm_component ; Libcxx
 
 .. _pkg.Libcxx:
 

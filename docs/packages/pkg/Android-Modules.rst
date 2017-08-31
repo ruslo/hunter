@@ -2,7 +2,7 @@
 
     Android-Modules
 
-.. index:: unsorted ; Android-Modules
+.. index:: android ; Android-Modules
 
 .. _pkg.Android-Modules:
 

@@ -2,7 +2,7 @@
 
     renderproto
 
-.. index:: unsorted ; renderproto
+.. index:: x11 ; renderproto
 
 .. _pkg.renderproto:
 

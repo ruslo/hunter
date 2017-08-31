@@ -5,8 +5,8 @@
   GPGPU
   GPU
 
-Concurrency/MultiThreading/HPC/GPGPU
-------------------------------------
+Concurrency
+-----------
 
  - :ref:`pkg.ArrayFire` - general-purpose library that simplifies the process of developing software that targets parallel and massively-parallel architectures including CPUs, GPUs, and other hardware acceleration devices.
  - :ref:`pkg.Async++` - concurrency framework for C++11

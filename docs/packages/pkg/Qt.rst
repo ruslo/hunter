@@ -2,7 +2,7 @@
 
     Qt
 
-.. index:: frameworks ; Qt
+.. index:: ui ; Qt
 
 .. _pkg.Qt:
 

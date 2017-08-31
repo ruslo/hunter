@@ -2,7 +2,7 @@
 
     Clang
 
-.. index:: unsorted ; Clang
+.. index:: llvm_component ; Clang
 
 .. _pkg.Clang:
 
