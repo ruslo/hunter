@@ -1,9 +1,9 @@
 AppVeyor
 Bonjour
-Cap'n
 CGold
 CMake
 CPack
+Cap'n
 Config
 Cygwin
 GCC
@@ -17,8 +17,8 @@ Makefile
 NMake
 Proto
 RPC
-Scalable
 SDK
+Scalable
 Shareable
 Stackoverflow
 Toolchain
@@ -42,6 +42,7 @@ plugins
 prebuilt
 reconstructible
 reproducibility
+runtime
 sanitizers
 shareable
 subfolder
