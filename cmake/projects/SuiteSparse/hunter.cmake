@@ -19,6 +19,16 @@ hunter_add_version(
     PACKAGE_NAME
     SuiteSparse
     VERSION
+    "4.5.1-p1"
+    URL
+    "https://github.com/hunter-packages/suitesparse-metis-for-windows/archive/v1.3.1-p1.tar.gz"
+    SHA1
+    b5c678a7dbb88ff60e454c9f93c30b618d8451ac
+)
+hunter_add_version(
+    PACKAGE_NAME
+    SuiteSparse
+    VERSION
     "4.5.1-p0"
     URL
     "https://github.com/hunter-packages/suitesparse-metis-for-windows/archive/v1.3.1-p0.tar.gz"
