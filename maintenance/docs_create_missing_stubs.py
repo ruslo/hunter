@@ -21,11 +21,10 @@ pkg_only_hunter = [x for x in pkg_entries if x not in pkg_match]
 
 # output directories
 packages_dir = 'packages'
-tmp_dir = 'packages/tmp'
 only_hunter_dir = 'packages/only_hunter'
 
 # create if not exist
-for d in [packages_dir, tmp_dir, only_hunter_dir]:
+for d in [packages_dir, only_hunter_dir]:
     if not os.path.exists(d):
         os.mkdir(d)
 
@@ -33,6 +32,8 @@ for d in [packages_dir, tmp_dir, only_hunter_dir]:
 header_format_string = """.. spelling::
 
     {}
+
+.. index:: unsorted ; {}
 
 .. _pkg.{}:
 
@@ -63,13 +64,12 @@ template_string = """
 
 # create dummy entries for packages only in hunter
 for entry in pkg_only_hunter:
-    tmp_rst = os.path.join(tmp_dir, entry + '.rst')
     target_rst = os.path.join(only_hunter_dir, entry + '.rst')
-    
+
     underscores = "=" * len(entry)
-    header = header_format_string.format(entry, entry, entry, underscores)
+    header = header_format_string.format(entry, entry, entry, entry, underscores)
     #print(header)
-     
+
     with open(target_rst, 'w') as f:
         f.write(header)
         f.write(template_string)
