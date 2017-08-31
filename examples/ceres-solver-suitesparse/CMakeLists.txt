@@ -19,6 +19,12 @@ enable_language(Fortran)
 #  CMAKE_ARGS BUILD_SHARED_LIBS=ON
 #)
 
+# need OpenMP for successful linking with mingw
+if(MINGW)
+	find_package(OpenMP REQUIRED)
+	set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} ${OpenMP_CXX_FLAGS}")
+endif()
+
 hunter_add_package(ceres-solver)
 
 find_package(Ceres CONFIG REQUIRED)
