@@ -33,7 +33,9 @@ Qt back-end support for desktop can be enabled by `creating a custom
 config <https://github.com/hunter-packages/gate/tree/develop#usage-custom-config>`__
 with the line:
 
-``cmake hunter_config(OpenCV VERSION ${HUNTER_OpenCV_VERSION} CMAKE_ARGS WITH_QT=YES)``
+.. code-block:: cmake
+
+    hunter_config(OpenCV VERSION ${HUNTER_OpenCV_VERSION} CMAKE_ARGS WITH_QT=YES)
 
 Known issues
 ------------
