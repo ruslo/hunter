@@ -2,7 +2,7 @@
 
     Sugar
 
-.. index:: unsorted ; Sugar
+.. index:: cmake_modules ; Sugar
 
 .. _pkg.Sugar:
 

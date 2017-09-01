@@ -2,7 +2,7 @@
 
     ARM_NEON_2_x86_SSE
 
-.. index:: unsorted ; ARM_NEON_2_x86_SSE
+.. index:: cpu ; ARM_NEON_2_x86_SSE
 
 .. _pkg.ARM_NEON_2_x86_SSE:
 
