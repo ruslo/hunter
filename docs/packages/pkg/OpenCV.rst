@@ -35,7 +35,7 @@ with the line:
 
 .. code-block:: cmake
 
-    cmake hunter_config(OpenCV VERSION ${HUNTER_OpenCV_VERSION} CMAKE_ARGS WITH_QT=YES)
+    hunter_config(OpenCV VERSION ${HUNTER_OpenCV_VERSION} CMAKE_ARGS WITH_QT=YES)
 
 Known issues
 ------------
