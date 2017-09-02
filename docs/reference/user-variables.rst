@@ -50,6 +50,8 @@ HUNTER_STATUS_PRINT
 * Print current build status
 * Default: ``ON``
 
+.. _hunter_status_debug:
+
 HUNTER_STATUS_DEBUG
 ===================
 
