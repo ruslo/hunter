@@ -9,10 +9,13 @@
 MySQL-client
 ============
 
+.. |hunter| image:: https://img.shields.io/badge/hunter-v0.12.51-blue.svg
+  :target: https://github.com/ruslo/hunter/releases/tag/v0.12.51
+  :alt: Hunter v0.12.51
+
 -  `Official <http://dev.mysql.com/downloads/connector/cpp/>`__
 -  `Example <https://github.com/ruslo/hunter/blob/develop/examples/MySQL-client/CMakeLists.txt>`__
--  Available since
-   `v0.12.51 <https://github.com/ruslo/hunter/releases/tag/v0.12.51>`__
+- Available since |hunter|
 
 .. code-block:: cmake
 
