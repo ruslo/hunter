@@ -4,7 +4,7 @@
 Why binaries from server not used?
 ==================================
 
-If settings and environment of your local project doesn't match environment
+If settings and environment of your local project does not match environment
 of Travis/AppVeyor services (this is where binaries usually uploaded from)
 you will see ``Cache miss`` message and package will be build locally:
 
@@ -182,7 +182,7 @@ Uploading to server
 
 It is possible to upload Hunter binary cache to the server.
 For now only GitHub hosting supported. All big raw ``*.tar.bz2`` archives
-uploaded as assets to release with name ``cache`` (directory layout doesn't
+uploaded as assets to release with name ``cache`` (directory layout does not
 matter) and all small text files with meta information uploaded directly to
 branch ``master`` (directory layout matters) (see
 `hunter-cache <https://github.com/ingenue/hunter-cache>`__ as example).

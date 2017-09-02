@@ -33,4 +33,4 @@ ZeroMQ
 Bugs
 ----
 
--  Tests doesn't work properly on Windows and OSX
+-  Tests does not work properly on Windows and OSX

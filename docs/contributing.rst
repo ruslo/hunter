@@ -93,7 +93,7 @@ If everything seems OK:
 * Take a look at **first** error reported by Hunter. If Hunter reports chain
   of errors the last error you see is **not relevant**!
 * Update to `latest Hunter URL/SHA1 <https://github.com/ruslo/hunter/releases>`__
-  and check that issue you've hit is not already fixed/reported
+  and check that issue you have hit is not already fixed/reported
 * Open an `issue <https://github.com/ruslo/hunter/issues/new>`__ and provide
   next info:
 
