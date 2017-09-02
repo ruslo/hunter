@@ -27,6 +27,8 @@ matrix:
     - os: linux
       env: PROJECT_DIR=examples/Foo TOOLCHAIN=android-ndk-r10e-api-19-armeabi-v7a-neon
     - os: linux
+      env: PROJECT_DIR=examples/Foo TOOLCHAIN=android-ndk-r15c-api-21-armeabi-v7a-neon-clang-libcxx
+    - os: linux
       env: PROJECT_DIR=examples/Foo TOOLCHAIN=analyze
     - os: linux
       env: PROJECT_DIR=examples/Foo TOOLCHAIN=sanitize-address
@@ -52,6 +54,8 @@ matrix:
       env: PROJECT_DIR=examples/Foo TOOLCHAIN=ios-nocodesign-9-3
     - os: osx
       env: PROJECT_DIR=examples/Foo TOOLCHAIN=android-ndk-r10e-api-19-armeabi-v7a-neon
+    - os: osx
+      env: PROJECT_DIR=examples/Foo TOOLCHAIN=android-ndk-r15c-api-21-armeabi-v7a-neon-clang-libcxx
     - os: osx
       env: PROJECT_DIR=examples/Foo TOOLCHAIN=analyze
     # }
