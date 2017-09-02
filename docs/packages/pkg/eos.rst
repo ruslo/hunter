@@ -9,11 +9,14 @@
 eos
 ===
 
+.. |hunter| image:: https://img.shields.io/badge/hunter-v0.15.28-blue.svg
+  :target: https://github.com/ruslo/hunter/releases/tag/v0.15.28
+  :alt: Hunter v0.15.28
+
 -  `Official GitHub <https://github.com/patrikhuber/eos>`__
 -  `Hunterized <https://github.com/hunter-packages/eos>`__
 -  `Example <https://github.com/ruslo/hunter/blob/develop/examples/eos/foo.cpp>`__
--  Available since
-   `v0.15.28 <https://github.com/ruslo/hunter/releases/tag/v0.15.28>`__
+- Available since |hunter|
 
 .. code-block:: cmake
 

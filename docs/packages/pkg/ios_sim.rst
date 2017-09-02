@@ -3,7 +3,7 @@
     ios
     sim
 
-.. index:: unsorted ; ios_sim
+.. index:: ios ; ios_sim
 
 .. _pkg.ios_sim:
 

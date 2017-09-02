@@ -9,12 +9,15 @@
 tacopie
 =======
 
+.. |hunter| image:: https://img.shields.io/badge/hunter-v0.18.50-blue.svg
+  :target: https://github.com/ruslo/hunter/releases/tag/v0.18.50
+  :alt: Hunter v0.18.50
+
 -  `Official <https://github.com/Cylix/tacopie>`__
 -  `Official github fork <https://github.com/Cylix/tacopie>`__
 -  `Hunterized <https://github.com/hunter-packages/tacopie>`__
 -  `Example <https://github.com/ruslo/hunter/blob/master/examples/tacopie/CMakeLists.txt>`__
--  Available since
-   `v0.18.50 <https://github.com/ruslo/hunter/releases/tag/v0.18.50>`__
+- Available since |hunter|
 
 .. code-block:: cmake
 
