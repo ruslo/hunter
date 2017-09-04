@@ -11,7 +11,7 @@ double-conversion
 
 -  `Official <https://github.com/google/double-conversion>`__
 -  `Example <https://github.com/ruslo/hunter/blob/master/examples/double-conversion/CMakeLists.txt>`__
--  Added by `Isaac Hier <https://github.com/isaachier>`__ (`pr-1016 <https://github.com/ruslo/hunter/pull/1016>`__)
+-  Added by `Isaac Hier <https://github.com/isaachier>`__ (`pr-1017 <https://github.com/ruslo/hunter/pull/1017>`__)
 
 .. code-block:: cmake
 
