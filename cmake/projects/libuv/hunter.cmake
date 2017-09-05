@@ -39,6 +39,17 @@ hunter_add_version(
   b570a0b45a631b1955e7c58a3f35dcbf19c522d6
 )
 
+hunter_add_version(
+  PACKAGE_NAME
+  libuv
+  VERSION
+  1.14.0-p1
+  URL
+  "https://github.com/hunter-packages/libuv/archive/v1.14.0-p1.tar.gz"
+  SHA1
+  4b334b174f4abf4a7f41656e1cfe3c60ad9382ca
+)
+
 hunter_pick_scheme(DEFAULT url_sha1_cmake)
 
 if(ANDROID AND (CMAKE_SYSTEM_VERSION VERSION_LESS 21))

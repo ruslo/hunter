@@ -61,7 +61,7 @@ is to allow Hunter to be deployed inside
 for development.
 
 .. code-block:: none
-  :emphasize-lines: 2,4,6,8,10,12,14,16,18,20,22,24,26,28,30,32,34,36,38,40,42,44,46,48,50,52,54
+  :emphasize-lines: 2,4,6,8,10,12,14,16,18,20,22,24,26,28,30,32,34,36,38,40,42,44,46,48,50,52
 
   _Base/
   ├── <Hunter-ID>/
@@ -126,7 +126,7 @@ about ``<Toolchain-ID>/<Config-ID>`` part (we have to calculate them using
 Hunter code).
 
 .. code-block:: none
-  :emphasize-lines: 2,4,6,8,10,12,14,16,18,20,22,24,26,28,30
+  :emphasize-lines: 2,4,6,8,10,12,14,16,18
 
   Download/
   ├── <Package>/
@@ -209,7 +209,7 @@ Cellar directory consists of unpacked raw cache archives and source archives of
 ``url_sha1_unpack`` packages:
 
 .. code-block:: none
-  :emphasize-lines: 2,4,6,8,10,12,14,16,18,20,22,24,26,28,30,32,34,36,38,40,42
+  :emphasize-lines: 2,4,6,8,10,12
 
   Cellar/
   └─ <sha1>/                                      # SHA1 of unpacked archive

@@ -2,7 +2,7 @@
 
     sse
 
-.. index:: unsorted ; sse2neon
+.. index:: cpu ; sse2neon
 
 .. _pkg.sse2neon:
 

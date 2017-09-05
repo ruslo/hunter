@@ -39,8 +39,11 @@ Bugs
 GMock
 =====
 
--  Available since
-   `v0.12.42 <https://github.com/ruslo/hunter/releases/tag/v0.12.42>`__
+.. |hunter| image:: https://img.shields.io/badge/hunter-v0.12.42-blue.svg
+  :target: https://github.com/ruslo/hunter/releases/tag/v0.12.42
+  :alt: Hunter v0.12.42
+
+- Available since |hunter|
 
 For package versions 1.8.0-hunter-p1 and higher the package also
 includes GMock. When finding the GMock package GTest is automatically
@@ -54,4 +57,4 @@ available in these cases.
     find_package(GMock CONFIG REQUIRED)
 
     # GMock::gmock and GTest::main will be linked automatically
-    target_link_libraries(foo GMock::main) 
+    target_link_libraries(foo GMock::main)

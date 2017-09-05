@@ -32,6 +32,8 @@ matrix:
     # Requires std::round or newer NDK
     # - os: linux
     #   env: PROJECT_DIR=examples/dlib TOOLCHAIN=android-ndk-r10e-api-19-armeabi-v7a-neon
+    # - os: linux
+    #   env: PROJECT_DIR=examples/dlib TOOLCHAIN=android-ndk-r15c-api-21-armeabi-v7a-neon-clang-libcxx
 
     # FIXME: https://travis-ci.org/ingenue/hunter/jobs/152423598
     # - os: linux
@@ -70,6 +72,8 @@ matrix:
     # Requires std::round or newer NDK
     # - os: osx
     #   env: PROJECT_DIR=examples/dlib TOOLCHAIN=android-ndk-r10e-api-19-armeabi-v7a-neon
+    # - os: osx
+    #   env: PROJECT_DIR=examples/dlib TOOLCHAIN=android-ndk-r15c-api-21-armeabi-v7a-neon-clang-libcxx
     - os: osx
       env: PROJECT_DIR=examples/dlib TOOLCHAIN=analyze
     # }
@@ -105,6 +109,7 @@ install:
   # Installed if toolchain is Android (otherwise directory doesn't exist)
   - export ANDROID_NDK_r10e="`pwd`/_ci/android-ndk-r10e"
   - export ANDROID_NDK_r11c="`pwd`/_ci/android-ndk-r11c"
+  - export ANDROID_NDK_r15c="`pwd`/_ci/android-ndk-r15c"
 
 script:
   - python3 ./jenkins.py

@@ -257,7 +257,7 @@ Package defaults
 CMake options
 +++++++++++++
 
-Note that it doesn't make sense to include in build such stuff like examples,
+Note that it does not make sense to include in build such stuff like examples,
 tests or documentation. Please check that your package has CMake option to
 disable it and apply extra variables to all versions  (if options is not
 disabled by default) using ``hunter_cmake_args`` function:
@@ -299,7 +299,7 @@ User can overwrite this default by using
 Default behavior
 ~~~~~~~~~~~~~~~~
 
-Please check that your package respect (i.e. doesn't rewrite) such CMake variables like:
+Please check that your package respect (i.e. does not rewrite) such CMake variables like:
 
 * `CMAKE_INSTALL_PREFIX <http://www.cmake.org/cmake/help/v3.2/variable/CMAKE_INSTALL_PREFIX.html>`__ (**critical**)
 * `CMAKE_{C,CXX}_FLAGS + variations <http://www.cmake.org/cmake/help/v3.2/variable/CMAKE_LANG_FLAGS.html>`__ (**critical**)

@@ -5,7 +5,7 @@ Regular user
 ------------
 
 How does Hunter affect end users which do usually run ``*.msi`` or ``*.dmg``
-installers?  The answer - it doesn't at all. Hunter in fact do quite the same
+installers?  The answer - it does not at all. Hunter in fact do quite the same
 stuff that developer do with packages: download, build, install, reuse in other
 projects.  There will be no new functionality introduced by package - it will
 be installed in the same way as system package manager or custom build script do.

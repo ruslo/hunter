@@ -71,15 +71,15 @@ In terms of CMake code it means adding ``HunterGate`` and ``hunter_add_package``
 
 Note that now the main project ``Bar`` and the hunter dependency ``Roo`` contain
 a ``HunterGate`` command. The URL and SHA1 of the ``HunterGate`` command my not match.
-In this case the URL and SHA1 of the main project ``Bar`` are used for both 
-``HunterGate`` commands. The user doesn't need to manage them manually.
+In this case the URL and SHA1 of the main project ``Bar`` are used for both
+``HunterGate`` commands. The user does not need to manage them manually.
 The same is true for sub-projects added by ``add_subdirectory`` calls.
 
 Maintenance
 ===========
 
 In practice patching requires to have a fork of a project.  In general it
-doesn't matter where the fork is located. But it matters that there is a central place for the
+does not matter where the fork is located. But it matters that there is a central place for the
 patched packages:
 
 * https://github.com/hunter-packages
