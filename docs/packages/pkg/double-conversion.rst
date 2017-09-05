@@ -1,13 +1,14 @@
 .. spelling::
 
-    double-conversion
+    double
+    conversion
 
 .. index:: math ; double-conversion
 
 .. _pkg.double-conversion:
 
 double-conversion
-===
+=================
 
 -  `Official <https://github.com/google/double-conversion>`__
 -  `Example <https://github.com/ruslo/hunter/blob/master/examples/double-conversion/CMakeLists.txt>`__
