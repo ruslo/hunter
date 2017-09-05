@@ -8,6 +8,7 @@ hunter_add_package(double-conversion)
 
 # now double-conversion can be used
 find_package(double-conversion CONFIG REQUIRED)
+include_directories(${double-conversion_INCLUDE_DIRS})
 
 add_executable(main main.cpp)
 target_link_libraries(main double-conversion)
