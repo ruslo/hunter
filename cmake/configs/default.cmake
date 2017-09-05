@@ -67,7 +67,7 @@ hunter_config(GPUImage VERSION 0.1.6-p6)
 hunter_config(GSL VERSION 2.1.0-p2)
 hunter_config(Igloo VERSION 1.1.1-hunter)
 hunter_config(intsizeof VERSION 2.0.1)
-hunter_config(Jpeg VERSION 9b-p2)
+hunter_config(Jpeg VERSION 9b-p3)
 hunter_config(JsonSpirit VERSION 0.0.4-hunter)
 if(MSVC_VERSION LESS 1600)
     # for VS10 - version without support C++11
