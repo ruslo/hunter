@@ -1,6 +1,8 @@
 .. spelling::
 
     libuv
+    uv
+    ssize
 
 .. index:: media ; libuv
 
