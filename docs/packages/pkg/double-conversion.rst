@@ -19,4 +19,4 @@ double-conversion
 
     hunter_add_package(double-conversion)
     find_package(double-conversion CONFIG REQUIRED)
-    target_link_libraries(... double-conversion)
+    target_link_libraries(... double-conversion::double-conversion)

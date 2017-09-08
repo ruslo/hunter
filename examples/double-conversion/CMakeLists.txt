@@ -10,4 +10,4 @@ hunter_add_package(double-conversion)
 find_package(double-conversion CONFIG REQUIRED)
 
 add_executable(main main.cpp)
-target_link_libraries(main double-conversion)
+target_link_libraries(main double-conversion::double-conversion)
