@@ -80,7 +80,7 @@ elseif(compiler_is_clang)
 elseif("@MSVC@")
   set(toolset_name "msvc")
   set(toolset_version "")
-elseif("${CMAKE_Fortran_COMPILER_ID}" STREQUAL "Intel")
+elseif("${CMAKE_CXX_COMPILER_ID}" STREQUAL "Intel")
   set(toolset_name "intel"
   set(toolset_version "")
 else()
