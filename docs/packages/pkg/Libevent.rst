@@ -19,6 +19,4 @@ Libevent
     hunter_add_package(Libevent)
     find_package(Libevent CONFIG REQUIRED)
     target_link_libraries(... Libevent::event_core
-                              Libevent::event_extra
-                              Libevent::event_openssl
-                              Libevent::event_pthreads)
+                              Libevent::event_extra)

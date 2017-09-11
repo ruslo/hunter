@@ -10,6 +10,4 @@ find_package(Libevent CONFIG REQUIRED)
 
 add_executable(main main.cpp)
 target_link_libraries(main Libevent::event_core
-                           Libevent::event_extra
-                           Libevent::event_openssl
-                           Libevent::event_pthreads)
+                           Libevent::event_extra)
