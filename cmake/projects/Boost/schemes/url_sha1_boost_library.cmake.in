@@ -62,7 +62,7 @@ string(COMPARE EQUAL "@CMAKE_CXX_COMPILER_ID@" "Clang" compiler_is_clang)
 
 set(use_cmake_archiver TRUE)
 if("@ANDROID@")
-  set(toolset_name "gcc")
+  set(toolset_name "clang")
   set(toolset_version "ndk")
 elseif("@APPLE@")
   set(toolset_name "darwin")
