@@ -33,11 +33,15 @@ if(APPLE)
   set(configure_command "./Configure")
   set(configure_opts "darwin64-x86_64-cc")
 elseif(ANDROID OR RASPBERRY_PI)
+  # -> CMAKE_AR
+  # -> CMAKE_RANLIB
+  hunter_pick_archiver()
+
   # Using the ./config script is currently broken with -no* CFLAGS on ALL versions
   # * https://github.com/openssl/openssl/issues/3493
   # * https://github.com/openssl/openssl/blob/OpenSSL_1_1_0-stable/Configure#L560
   # * https://wiki.openssl.org/index.php/Compilation_and_Installation#Configure_.26_Config
-  set(configure_command "./Configure")
+  set(configure_command AR=${CMAKE_AR} RANLIB=${CMAKE_RANLIB} "./Configure")
 elseif(MINGW)
   if(HUNTER_OPENSSL_MINGW64)
     set(configure_command "./Configure" mingw64)
@@ -86,12 +90,6 @@ if(ANDROID)
     set(configure_opts "linux-generic32")
   endif()
 elseif(RASPBERRY_PI)
-  # -> CMAKE_AR
-  # -> CMAKE_RANLIB
-  hunter_pick_archiver()
-
-  set(configure_command AR=${CMAKE_AR} RANLIB=${CMAKE_RANLIB} ${configure_command})
-
   set(configure_opts "linux-generic32")
 endif()
 
