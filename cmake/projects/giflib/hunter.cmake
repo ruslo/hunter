@@ -26,5 +26,4 @@ hunter_cacheable(giflib)
 hunter_download(
     PACKAGE_NAME giflib
     PACKAGE_INTERNAL_DEPS_ID "2"
-    PACKAGE_UNRELOCATABLE_TEXT_FILES "lib/pkgconfig/giflib.pc"
 )
