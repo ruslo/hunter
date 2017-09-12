@@ -12,8 +12,9 @@ hunter_add_version(
     VERSION
     "3.0.0"
     URL
-    "https://github.com/hunter-packages/double-conversion/archive/v3.0.0-hunter-release.tar.gz"
-    SHA1 8c28e2f7814922630ebe8cbc048488ff04b4430f
+    "https://github.com/hunter-packages/double-conversion/archive/v3.0.0-p0.tar.gz"
+    SHA1
+    8cef7eff66b8488f996fb091f036eb6dc82f92d5
 )
 
 hunter_pick_scheme(DEFAULT url_sha1_cmake)
