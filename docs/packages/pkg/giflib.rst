@@ -2,20 +2,18 @@
 
     foo
 
-.. index:: unsorted ; foo
+.. index:: unsorted ; giflib
 
 .. _pkg.foo:
 
-foo
+giflib
 ===
 
--  `Official <https://official_foo>`__
--  `Hunterized <https://github.com/hunter-packages/foo>`__
--  `Example <https://github.com/ruslo/hunter/blob/master/examples/foo/CMakeLists.txt>`__
--  Added by `foo_developer <https://github.com/foo_developer>`__ (`pr-N <https://github.com/ruslo/hunter/pull/N>`__)
+-  `Official <http://giflib.sourceforge.net/`__
+-  Added by `sgara <https://github.com/sgara>`__ (`pr-1028 <https://github.com/ruslo/hunter/pull/1028>`__)
 
 .. code-block:: cmake
 
-    hunter_add_package(foo)
-    find_package(foo CONFIG REQUIRED)
-    target_link_libraries(foo foo::foo)
+    hunter_add_package(giflib)
+    find_package(giflib REQUIRED)
+    target_link_libraries(foo giflib)
