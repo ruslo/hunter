@@ -241,6 +241,9 @@ function(hunter_autotools_project target_name)
       else()
         set(arch_flags "-arch ${ios_architecture} -isysroot ${IPHONEOS_SDK_ROOT} -miphoneos-version-min=${IOS_SDK_VERSION} ")
       endif()
+      set(arch_install_dir
+          ${multi_arch_install_root}/${ios_architecture}
+      )
       hunter_autotools_configure_command(autotools_configure_command
           PACKAGE_INSTALL_DIR
             ${arch_install_dir}
@@ -269,9 +272,6 @@ function(hunter_autotools_project target_name)
       )
       set(arch_target
           ${target_name}-${ios_architecture}
-      )
-      set(arch_install_dir
-          ${multi_arch_install_root}/${ios_architecture}
       )
       ExternalProject_Add(${arch_target}
           URL
