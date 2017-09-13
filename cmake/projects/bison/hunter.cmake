@@ -2,9 +2,10 @@
 
 include(hunter_add_version)
 include(hunter_cacheable)
+include(hunter_cmake_args)
 include(hunter_configuration_types)
-include(hunter_pick_scheme)
 include(hunter_download)
+include(hunter_pick_scheme)
 
 hunter_add_version(
     PACKAGE_NAME
@@ -18,7 +19,8 @@ hunter_add_version(
 )
 
 hunter_configuration_types(bison CONFIGURATION_TYPES Release)
-hunter_pick_scheme(DEFAULT url_sha1_bison_autotools)
+hunter_pick_scheme(DEFAULT url_sha1_autotools)
+#hunter_cmake_args(bison CMAKE_ARGS EXTRA_FLAGS=--disable-rpath)
 # bison is not cacheable at this time because it hard codes paths to m4sugar
 # directories in C source code.
 hunter_download(PACKAGE_NAME bison)
