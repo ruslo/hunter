@@ -1,13 +1,13 @@
 .. spelling::
 
-    foo
+    giflib
 
 .. index:: media ; giflib
 
 .. _pkg.giflib:
 
 giflib
-===
+======
 
 -  `Official <http://giflib.sourceforge.net/>`__
 -  Added by `sgara <https://github.com/sgara>`__ (`pr-1031 <https://github.com/ruslo/hunter/pull/1031>`__)
