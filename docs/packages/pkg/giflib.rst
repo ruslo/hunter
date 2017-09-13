@@ -2,15 +2,15 @@
 
     foo
 
-.. index:: unsorted ; giflib
+.. index:: media ; giflib
 
-.. _pkg.foo:
+.. _pkg.giflib:
 
 giflib
 ===
 
--  `Official <http://giflib.sourceforge.net/`__
--  Added by `sgara <https://github.com/sgara>`__ (`pr-1028 <https://github.com/ruslo/hunter/pull/1028>`__)
+-  `Official <http://giflib.sourceforge.net/>`__
+-  Added by `sgara <https://github.com/sgara>`__ (`pr-1031 <https://github.com/ruslo/hunter/pull/1031>`__)
 
 .. code-block:: cmake
 

@@ -1,4 +1,4 @@
-# Copyright (c) 2015, Damien Buhl
+# Copyright (c) 2017, Stephane Garagnani
 # All rights reserved.
 
 # !!! DO NOT PLACE HEADER GUARDS HERE !!!
@@ -25,5 +25,4 @@ hunter_pick_scheme(DEFAULT url_sha1_autotools)
 hunter_cacheable(giflib)
 hunter_download(
     PACKAGE_NAME giflib
-    PACKAGE_INTERNAL_DEPS_ID "2"
 )

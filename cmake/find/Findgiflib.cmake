@@ -1,5 +1,5 @@
 # ----------------------------------------------------------------------
-# Findodb.cmake - odb CMake module
+# Findgiflib.cmake - giflib CMake module
 #
 # Copyright (C) 2015 Alexandre Pretyman. All rights reserved.
 #
