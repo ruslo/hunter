@@ -111,6 +111,10 @@ def run():
     print('Skip (https://github.com/ruslo/hunter/issues/30)')
     sys.exit(0)
 
+  if (project_dir == 'examples/double-conversion') and (toolchain == 'analyze'):
+    print('Skip (https://github.com/ruslo/hunter/issues/1037)')
+    sys.exit(0)
+
   ci = os.getenv('TRAVIS') or os.getenv('APPVEYOR')
   if (ci and toolchain == 'dummy'):
     print('Skip build: CI dummy (workaround)')
