@@ -21,4 +21,5 @@ hunter_add_version(
 hunter_configuration_types(flex CONFIGURATION_TYPES Release)
 hunter_pick_scheme(DEFAULT url_sha1_autotools)
 hunter_cacheable(flex)
-hunter_download(PACKAGE_NAME flex)
+hunter_download(PACKAGE_NAME flex
+                PACKAGE_INTERNAL_DEPS_ID "1")
