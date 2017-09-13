@@ -11,12 +11,21 @@ flex
 
 -  `Official <https://github.com/westes/flex/>`__
 -  `Example <https://github.com/ruslo/hunter/blob/master/examples/flex/CMakeLists.txt>`__
--  Added by `Isaac Hier <https://github.com/isaachier>`__ (`pr-N <https://github.com/ruslo/hunter/pull/N>`__)
+-  Added by `Isaac Hier <https://github.com/isaachier>`__ (`pr-1039 <https://github.com/ruslo/hunter/pull/1039>`__)
 
 .. code-block:: cmake
+    # Simple flex example (no bison).
+    hunter_add_package(flex)
+    find_package(FLEX REQUIRED)
 
-    # Based on https://cmake.org/cmake/help/v3.0/module/FindFLEX.html.
-    # TODO: hunter_add_package(bison)
+    FLEX_TARGET(MyScanner numbers.lex ${CMAKE_CURRENT_BINARY_DIR}/numbers.cpp)
+    add_executable(main ${FLEX_MyScanner_OUTPUTS})
+    target_include_directories(main PUBLIC ${FLEX_INCLUDE_DIRS})
+    target_link_libraries(main ${FLEX_LIBRARIES})
+
+.. code-block:: cmake
+    # More complex example involving flex and bison. Based on
+    # https://cmake.org/cmake/help/v3.0/module/FindFLEX.html.
     find_package(BISON REQUIRED)
     hunter_add_package(flex)
     find_package(FLEX REQUIRED)
