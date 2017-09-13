@@ -9,12 +9,14 @@
 flex
 =====
 
--  `Official <https://github.com/westes/flex/>`__
+-  `Official <https://github.com/westes/flex>`__
 -  `Example <https://github.com/ruslo/hunter/blob/master/examples/flex/CMakeLists.txt>`__
 -  Added by `Isaac Hier <https://github.com/isaachier>`__ (`pr-1039 <https://github.com/ruslo/hunter/pull/1039>`__)
 
+Simple flex example (no bison).
+
 .. code-block:: cmake
-    # Simple flex example (no bison).
+
     hunter_add_package(flex)
     find_package(FLEX REQUIRED)
 
@@ -23,9 +25,10 @@ flex
     target_include_directories(main PUBLIC ${FLEX_INCLUDE_DIRS})
     target_link_libraries(main ${FLEX_LIBRARIES})
 
+More complex example involving flex and bison. Based on `FindFLEX <https://cmake.org/cmake/help/v3.0/module/FindFLEX.html>`__.
+
 .. code-block:: cmake
-    # More complex example involving flex and bison. Based on
-    # https://cmake.org/cmake/help/v3.0/module/FindFLEX.html.
+
     find_package(BISON REQUIRED)
     hunter_add_package(flex)
     find_package(FLEX REQUIRED)
