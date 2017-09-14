@@ -47,20 +47,7 @@ available. Here is how to do it.
 Note that the build may not be cacheable if autotools generation expands
 absolute paths. Try using ``hunter_cacheable`` and see if it works.
 
-**Important**: by default, this build will not provide any CMake config.
-Therefore, projects using autotools **must provide a file ``Findfoo.cmake`` in
-the ``cmake/find`` directory**. Dependent projects will use code similar to the
-following:
-
-.. code-block:: cmake
-
-    hunter_add_package(foo)
-    find_package(foo REQUIRED)
-    add_executable(bar ${BAR_SOURCES})
-    target_include_directories(bar PUBLIC ${FOO_INCLUDE_DIRS})
-    target_link_libraries(bar PUBLIC ${FOO_LIBRARIES})
-
-However, many autotools projects generate pkg-config files. These can be used
+Many autotools projects generate pkg-config files. These can be used
 to generate a CMake config. For example, consider using the following in your
 package's ``hunter.cmake`` file:
 
@@ -73,7 +60,7 @@ package's ``hunter.cmake`` file:
     )
 
 In the above example, package ``foo`` generates a file ``foo.pc`` in the
-autotools build. CMake then uses ``foo.pc`` to generate a CMake config file
+autotools build. Hunter then uses ``foo.pc`` to generate a CMake config file
 ``fooConfig.cmake``. Now, our dependent project ``Bar`` has a much simpler
 ``CMakeLists.txt``:
 
@@ -97,3 +84,16 @@ cacheable, you must add this piece of code to your package's ``hunter.cmake``:
 The pkg-config files will probably need to be patched so that they do not point
 to the directory they are initially installed into.
 ``PACKAGE_UNRELOCATABLE_TEXT_FILES`` identifies these files for Hunter to patch.
+
+If the autotools build does not produce a pkg-config output file, you must
+add ``Findfoo.cmake`` place it in the ``cmake/find`` directory so Hunter can
+find the package. This script should also provide import targets for dependent
+builds, such that linking against ``foo::foo`` pulls in the foo includes and
+libraries. In this case, dependent projects will use code similar to the following:
+
+.. code-block:: cmake
+
+    hunter_add_package(foo)
+    find_package(foo REQUIRED)
+    add_executable(bar ${BAR_SOURCES})
+    target_link_libraries(bar PUBLIC foo::foo)
