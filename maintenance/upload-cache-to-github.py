@@ -19,14 +19,14 @@ def sleep_time(attempt):
   if attempt == 1:
     return 0
   if attempt == 2:
-    return 15
+    return 5
   if attempt == 3:
-    return 60
+    return 10
   if attempt == 4:
-    return 90
+    return 15
   if attempt == 5:
-    return 300
-  return 1200
+    return 20
+  return 30
 
 def retry(func_in):
   def func_out(*args, **kwargs):
