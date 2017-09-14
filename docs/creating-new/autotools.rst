@@ -1,3 +1,9 @@
+.. spelling::
+
+    Autotools
+    autotools
+
+
 Autotools
 =========
 
