@@ -170,7 +170,8 @@ Now package ready to be used:
     -- [download 100% complete]
     ios_sim: /.../Hunter/_Base/7912489/9ec2ff8/c018e63/Install/ios-sim
 
-### Default behaviour
+Default behavior
+================
 
 Note that such CMake variables like:
 
