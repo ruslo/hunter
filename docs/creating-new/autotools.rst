@@ -2,6 +2,7 @@
 
     Autotools
     autotools
+    foo
 
 
 Autotools
