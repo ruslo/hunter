@@ -9,7 +9,8 @@ Non-CMake projects can be added too. But sometimes it's not a trivial task
 apply a patch to an existing CMake build and use :ref:`cmake-simple` add
 instruction. Anyway here is a guide how to add a project with custom build:
 
-#. Test it manually
+Test it manually
+================
 
 .. code-block:: bash
 
@@ -22,7 +23,8 @@ instruction. Anyway here is a guide how to add a project with custom build:
     > ls build/Release/ios-sim
     build/Release/ios-sim
 
-#. Test it using ExternalProject_Add
+Test it using ``ExternalProject_Add``
+=====================================
 
 .. code-block:: bash
 
@@ -53,7 +55,9 @@ instruction. Anyway here is a guide how to add a project with custom build:
     > ls _install/
     ios-sim
 
-#. Add new package
+Add new package
+===============
+
 First, custom build scheme need to be added to ``cmake/schemes`` directory:
 
 .. code-block:: bash
@@ -141,7 +145,9 @@ Next steps are similar to :ref:`cmake-simple`.
     > grep ios_sim cmake/config/default.cmake
     hunter_config(ios_sim VERSION 1.8.2)
 
-#. Using
+Using
+=====
+
 Now package ready to be used:
 
 .. code-block:: bash
@@ -180,4 +186,4 @@ Note that such CMake variables like:
 * `CMAKE_CONFIGURATION_TYPES <http://www.cmake.org/cmake/help/v3.2/variable/CMAKE_CONFIGURATION_TYPES.html>`_
 * `BUILD_SHARED_LIBS <http://www.cmake.org/cmake/help/v3.2/variable/BUILD_SHARED_LIBS.html>`_
 
-must to be checked manually for each custom build scheme (see :ref:`cmake-simple`).
+must be checked manually for each custom build scheme (see :ref:`cmake-simple`).
