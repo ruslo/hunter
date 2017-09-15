@@ -16,4 +16,5 @@ creating custom build scheme).
 
    /creating-new/cmake
    /creating-new/cmake-dependencies
+   /creating-new/autotools
    /creating-new/custom
