@@ -9,11 +9,11 @@ project(TestModuleHunterGetPackageDeps)
 include(hunter_get_package_deps)
 
 set(package_name "Foo")
-set(toolchain_id "${CMAKE_CURRENT_BINARY_DIR}/toolchain-id")
+set(config_id "${CMAKE_CURRENT_BINARY_DIR}/config-id")
 
-set(HUNTER_TOOLCHAIN_ID_PATH "${toolchain_id}")
+set(HUNTER_CONFIG_ID_PATH "${config_id}")
 
-set(home_dir "${toolchain_id}/Build/${package_name}")
+set(home_dir "${config_id}/Build/${package_name}")
 set(dependencies_dir "${home_dir}/Dependencies")
 
 function(cleanup)

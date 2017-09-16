@@ -1,0 +1,22 @@
+# ----------------------------------------------------------------------
+# Auto creation of CMake targets from pkg-config
+#
+# Copyright (C) 2017 Alexandre Pretyman. All rights reserved.
+#
+# ----------------------------------------------------------------------
+
+include(hunter_pkgconfig_export_target)
+
+hunter_pkgconfig_export_target("@PKG_CONFIG_MODULE@")
+
+foreach(_hunter_deps @DEPENDS_ON_PACKAGES@)
+  find_package("${_hunter_deps}" CONFIG REQUIRED)
+
+  set_property(
+      TARGET
+      "PkgConfig::@PKG_CONFIG_MODULE@"
+      APPEND
+      PROPERTY
+      INTERFACE_LINK_LIBRARIES "PkgConfig::${_hunter_deps}"
+  )
+endforeach()

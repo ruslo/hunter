@@ -13,6 +13,17 @@ hunter_add_version(
     PACKAGE_NAME
     ogles_gpgpu
     VERSION
+    0.1.6-p3
+    URL
+    "https://github.com/hunter-packages/ogles_gpgpu/archive/v0.1.6-p3.tar.gz"
+    SHA1
+    3ddef5cd88ae26776e86e5d0d0cf637d06a88d1f
+)
+
+hunter_add_version(
+    PACKAGE_NAME
+    ogles_gpgpu
+    VERSION
     0.1.6-p2
     URL
     "https://github.com/hunter-packages/ogles_gpgpu/archive/v0.1.6-p2.tar.gz"
@@ -84,6 +95,17 @@ hunter_add_version(
     "https://github.com/hunter-packages/ogles_gpgpu/archive/v0.1.1.tar.gz"
     SHA1
     3b9b76a5af9e8eb206cfaa4503b954ec87cb5c7c
+)
+
+hunter_add_version(
+    PACKAGE_NAME
+    ogles_gpgpu
+    VERSION
+    0.2.1
+    URL
+    "https://github.com/hunter-packages/ogles_gpgpu/archive/v0.2.1.tar.gz"
+    SHA1
+    373a66b1149b1b563f65195c6767ba4ee7a0b9ed
 )
 
 hunter_cmake_args(ogles_gpgpu CMAKE_ARGS OGLES_GPGPU_INSTALL=ON)

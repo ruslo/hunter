@@ -5,6 +5,7 @@
 
 include(hunter_add_version)
 include(hunter_cacheable)
+include(hunter_cmake_args)
 include(hunter_configuration_types)
 include(hunter_download)
 include(hunter_pick_scheme)
@@ -24,6 +25,11 @@ hunter_add_version(
 hunter_configuration_types(xtrans CONFIGURATION_TYPES Release)
 hunter_pick_scheme(DEFAULT url_sha1_autotools)
 hunter_cacheable(xtrans)
+hunter_cmake_args(
+    xtrans
+    CMAKE_ARGS
+    PKGCONFIG_EXPORT_TARGETS=xtrans
+)
 hunter_download(
     PACKAGE_NAME xtrans
     PACKAGE_INTERNAL_DEPS_ID "2"

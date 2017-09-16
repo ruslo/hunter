@@ -34,6 +34,7 @@ hunter_cmake_args(
     xinerama
     CMAKE_ARGS         # do not use double quotes on CMAKE_ARGS
       DEPENDS_ON_PACKAGES=${xinerama_dependencies}
+      PKGCONFIG_EXPORT_TARGETS=xinerama
 )
 hunter_cacheable(xinerama)
 hunter_download(

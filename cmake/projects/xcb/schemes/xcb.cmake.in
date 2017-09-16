@@ -17,9 +17,16 @@ if("@MSVC@")
   hunter_fatal_error("Autotools scheme not supported with Visual Studio")
 endif()
 
-hunter_add_package(xcb-proto)
-hunter_add_package(pthread-stubs)
-hunter_add_package(xau)
+set(
+    DEPENDS_ON_PACKAGES
+    xcb-proto
+    pthread-stubs
+    xau
+)
+
+foreach(x ${DEPENDS_ON_PACKAGES})
+  hunter_add_package("${x}")
+endforeach()
 
 # Check preconditions
 hunter_test_string_not_empty("@HUNTER_SELF@")
@@ -31,6 +38,7 @@ hunter_test_string_not_empty("@HUNTER_PACKAGE_SOURCE_DIR@")
 hunter_test_string_not_empty("@HUNTER_PACKAGE_BUILD_DIR@")
 hunter_test_string_not_empty("@HUNTER_PACKAGE_INSTALL_PREFIX@")
 hunter_test_string_not_empty("@HUNTER_INSTALL_PREFIX@")
+hunter_test_string_not_empty("@HUNTER_GLOBAL_SCRIPT_DIR@")
 
 hunter_autotools_project(
     "@HUNTER_EP_NAME@"
@@ -57,4 +65,15 @@ hunter_autotools_project(
     EXTRA_FLAGS
        --without-doxygen
        --disable-devel-docs
+)
+
+set(PKG_CONFIG_MODULE xcb)
+
+# Use:
+# * PKG_CONFIG_MODULE
+# * DEPENDS_ON_PACKAGES
+configure_file(
+    "@HUNTER_GLOBAL_SCRIPT_DIR@/pkgconfig-export-targets.cmake.in"
+    "@HUNTER_PACKAGE_INSTALL_PREFIX@/lib/cmake/${PKG_CONFIG_MODULE}/${PKG_CONFIG_MODULE}Config.cmake"
+    @ONLY
 )

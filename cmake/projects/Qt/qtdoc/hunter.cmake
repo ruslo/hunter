@@ -1,4 +1,4 @@
-# Copyright (c) 2015, Ruslan Baratov
+# Copyright (c) 2015-2017, Ruslan Baratov
 # All rights reserved.
 
 # !!! DO NOT PLACE HEADER GUARDS HERE !!!
@@ -21,12 +21,58 @@ if(_is_qtquick1 OR _is_qtwebkit OR _is_qtwebkit_examples)
 endif()
 ## -- end
 
-## 5.6 only --
+## 5.6+ only --
 string(COMPARE EQUAL "qtdoc" "qtquickcontrol2" _is_qtquickcontrols2)
 string(COMPARE EQUAL "qtdoc" "qtwebview" _is_qtwebview)
 
 if(_is_qtquickcontrols2 OR _is_qtwebview)
-  if(NOT HUNTER_Qt_VERSION MATCHES "^5\\.6\\.")
+  if(HUNTER_Qt_VERSION MATCHES "^5\\.6\\.")
+    # Qt 5.6.*
+  elseif(HUNTER_Qt_VERSION MATCHES "^5\\.9\\.")
+    # Qt 5.6.*
+  else()
+    return()
+  endif()
+endif()
+## -- end
+
+## 5.9 only --
+string(COMPARE EQUAL "qtdoc" "qtcharts" _is_qtcharts)
+string(COMPARE EQUAL "qtdoc" "qtdatavis3d" _is_qtdatavis3d)
+string(COMPARE EQUAL "qtdoc" "qtdocgallery" _is_qtdocgallery)
+string(COMPARE EQUAL "qtdoc" "qtfeedback" _is_qtfeedback)
+string(COMPARE EQUAL "qtdoc" "qtgamepad" _is_qtgamepad)
+string(COMPARE EQUAL "qtdoc" "qtnetworkauth" _is_qtnetworkauth)
+string(COMPARE EQUAL "qtdoc" "qtpim" _is_qtpim)
+string(COMPARE EQUAL "qtdoc" "qtpurchasing" _is_qtpurchasing)
+string(COMPARE EQUAL "qtdoc" "qtqa" _is_qtqa)
+string(COMPARE EQUAL "qtdoc" "qtremoteobjects" _is_qtremoteobjects)
+string(COMPARE EQUAL "qtdoc" "qtrepotools" _is_qtrepotools)
+string(COMPARE EQUAL "qtdoc" "qtscxml" _is_qtscxml)
+string(COMPARE EQUAL "qtdoc" "qtserialbus" _is_qtserialbus)
+string(COMPARE EQUAL "qtdoc" "qtspeech" _is_qtspeech)
+string(COMPARE EQUAL "qtdoc" "qtsystems" _is_qtsystems)
+string(COMPARE EQUAL "qtdoc" "qtvirtualkeyboard" _is_qtvirtualkeyboard)
+
+if(
+    _is_qtcharts OR
+    _is_qtdatavis3d OR
+    _is_qtdocgallery OR
+    _is_qtfeedback OR
+    _is_qtgamepad OR
+    _is_qtnetworkauth OR
+    _is_qtpim OR
+    _is_qtpurchasing OR
+    _is_qtqa OR
+    _is_qtremoteobjects OR
+    _is_qtrepotools OR
+    _is_qtscxml OR
+    _is_qtserialbus OR
+    _is_qtspeech OR
+    _is_qtsystems OR
+    _is_qtvirtualkeyboard
+)
+  if(NOT HUNTER_Qt_VERSION MATCHES "^5\\.9\\.")
     return()
   endif()
 endif()

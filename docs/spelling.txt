@@ -1,9 +1,9 @@
 AppVeyor
 Bonjour
-Cap'n
 CGold
 CMake
 CPack
+Cap'n
 Config
 Cygwin
 GCC
@@ -17,6 +17,7 @@ Makefile
 NMake
 Proto
 RPC
+SDK
 Scalable
 Shareable
 Stackoverflow
@@ -35,10 +36,15 @@ hunterized
 iOS
 internet
 login
+performant
+plugin
+plugins
 prebuilt
 reconstructible
 reproducibility
+runtime
 sanitizers
 shareable
+subfolder
 toolchain
 toolchains

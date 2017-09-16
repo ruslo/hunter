@@ -18,11 +18,8 @@
 #include <QQuickView>
 
 #define QT_QML_NO_DEBUGGER
-#if defined(Q_OS_IOS)
-extern "C" int qtmn(int argc, char** argv) {
-#else
+
 int main(int argc, char **argv) {
-#endif
   QApplication application(argc, argv);
 
   QQuickView view;

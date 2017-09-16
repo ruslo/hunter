@@ -1,4 +1,4 @@
-# Copyright (c) 2015, Ruslan Baratov
+# Copyright (c) 2015-2017, Ruslan Baratov
 # All rights reserved.
 
 # !!! DO NOT PLACE HEADER GUARDS HERE !!!
@@ -21,12 +21,58 @@ if(_is_qtquick1 OR _is_qtwebkit OR _is_qtwebkit_examples)
 endif()
 ## -- end
 
-## 5.6 only --
+## 5.6+ only --
 string(COMPARE EQUAL "qtlocation" "qtquickcontrol2" _is_qtquickcontrols2)
 string(COMPARE EQUAL "qtlocation" "qtwebview" _is_qtwebview)
 
 if(_is_qtquickcontrols2 OR _is_qtwebview)
-  if(NOT HUNTER_Qt_VERSION MATCHES "^5\\.6\\.")
+  if(HUNTER_Qt_VERSION MATCHES "^5\\.6\\.")
+    # Qt 5.6.*
+  elseif(HUNTER_Qt_VERSION MATCHES "^5\\.9\\.")
+    # Qt 5.6.*
+  else()
+    return()
+  endif()
+endif()
+## -- end
+
+## 5.9 only --
+string(COMPARE EQUAL "qtlocation" "qtcharts" _is_qtcharts)
+string(COMPARE EQUAL "qtlocation" "qtdatavis3d" _is_qtdatavis3d)
+string(COMPARE EQUAL "qtlocation" "qtdocgallery" _is_qtdocgallery)
+string(COMPARE EQUAL "qtlocation" "qtfeedback" _is_qtfeedback)
+string(COMPARE EQUAL "qtlocation" "qtgamepad" _is_qtgamepad)
+string(COMPARE EQUAL "qtlocation" "qtnetworkauth" _is_qtnetworkauth)
+string(COMPARE EQUAL "qtlocation" "qtpim" _is_qtpim)
+string(COMPARE EQUAL "qtlocation" "qtpurchasing" _is_qtpurchasing)
+string(COMPARE EQUAL "qtlocation" "qtqa" _is_qtqa)
+string(COMPARE EQUAL "qtlocation" "qtremoteobjects" _is_qtremoteobjects)
+string(COMPARE EQUAL "qtlocation" "qtrepotools" _is_qtrepotools)
+string(COMPARE EQUAL "qtlocation" "qtscxml" _is_qtscxml)
+string(COMPARE EQUAL "qtlocation" "qtserialbus" _is_qtserialbus)
+string(COMPARE EQUAL "qtlocation" "qtspeech" _is_qtspeech)
+string(COMPARE EQUAL "qtlocation" "qtsystems" _is_qtsystems)
+string(COMPARE EQUAL "qtlocation" "qtvirtualkeyboard" _is_qtvirtualkeyboard)
+
+if(
+    _is_qtcharts OR
+    _is_qtdatavis3d OR
+    _is_qtdocgallery OR
+    _is_qtfeedback OR
+    _is_qtgamepad OR
+    _is_qtnetworkauth OR
+    _is_qtpim OR
+    _is_qtpurchasing OR
+    _is_qtqa OR
+    _is_qtremoteobjects OR
+    _is_qtrepotools OR
+    _is_qtscxml OR
+    _is_qtserialbus OR
+    _is_qtspeech OR
+    _is_qtsystems OR
+    _is_qtvirtualkeyboard
+)
+  if(NOT HUNTER_Qt_VERSION MATCHES "^5\\.9\\.")
     return()
   endif()
 endif()

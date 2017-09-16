@@ -9,18 +9,18 @@ project(TestModuleHunterGetPackageDepsRecurse)
 include(hunter_get_package_deps_recurse)
 include(hunter_register_dependency)
 
-set(toolchain_id "${CMAKE_CURRENT_BINARY_DIR}/toolchain-id")
+set(config_id "${CMAKE_CURRENT_BINARY_DIR}/config-id")
 
-set(HUNTER_TOOLCHAIN_ID_PATH "${toolchain_id}")
+set(HUNTER_CONFIG_ID_PATH "${config_id}")
 
-file(MAKE_DIRECTORY "${toolchain_id}/Build/A")
-file(MAKE_DIRECTORY "${toolchain_id}/Build/B")
-file(MAKE_DIRECTORY "${toolchain_id}/Build/C")
-file(MAKE_DIRECTORY "${toolchain_id}/Build/D/__E")
-file(MAKE_DIRECTORY "${toolchain_id}/Build/F/__G")
-file(MAKE_DIRECTORY "${toolchain_id}/Build/H")
-file(MAKE_DIRECTORY "${toolchain_id}/Build/I")
-file(MAKE_DIRECTORY "${toolchain_id}/Build/J")
+file(MAKE_DIRECTORY "${config_id}/Build/A")
+file(MAKE_DIRECTORY "${config_id}/Build/B")
+file(MAKE_DIRECTORY "${config_id}/Build/C")
+file(MAKE_DIRECTORY "${config_id}/Build/D/__E")
+file(MAKE_DIRECTORY "${config_id}/Build/F/__G")
+file(MAKE_DIRECTORY "${config_id}/Build/H")
+file(MAKE_DIRECTORY "${config_id}/Build/I")
+file(MAKE_DIRECTORY "${config_id}/Build/J")
 
 hunter_register_dependency(
     PACKAGE "J"

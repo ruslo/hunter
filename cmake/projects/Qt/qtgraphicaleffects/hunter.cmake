@@ -1,4 +1,4 @@
-# Copyright (c) 2015, Ruslan Baratov
+# Copyright (c) 2015-2017, Ruslan Baratov
 # All rights reserved.
 
 # !!! DO NOT PLACE HEADER GUARDS HERE !!!
@@ -21,12 +21,58 @@ if(_is_qtquick1 OR _is_qtwebkit OR _is_qtwebkit_examples)
 endif()
 ## -- end
 
-## 5.6 only --
+## 5.6+ only --
 string(COMPARE EQUAL "qtgraphicaleffects" "qtquickcontrol2" _is_qtquickcontrols2)
 string(COMPARE EQUAL "qtgraphicaleffects" "qtwebview" _is_qtwebview)
 
 if(_is_qtquickcontrols2 OR _is_qtwebview)
-  if(NOT HUNTER_Qt_VERSION MATCHES "^5\\.6\\.")
+  if(HUNTER_Qt_VERSION MATCHES "^5\\.6\\.")
+    # Qt 5.6.*
+  elseif(HUNTER_Qt_VERSION MATCHES "^5\\.9\\.")
+    # Qt 5.6.*
+  else()
+    return()
+  endif()
+endif()
+## -- end
+
+## 5.9 only --
+string(COMPARE EQUAL "qtgraphicaleffects" "qtcharts" _is_qtcharts)
+string(COMPARE EQUAL "qtgraphicaleffects" "qtdatavis3d" _is_qtdatavis3d)
+string(COMPARE EQUAL "qtgraphicaleffects" "qtdocgallery" _is_qtdocgallery)
+string(COMPARE EQUAL "qtgraphicaleffects" "qtfeedback" _is_qtfeedback)
+string(COMPARE EQUAL "qtgraphicaleffects" "qtgamepad" _is_qtgamepad)
+string(COMPARE EQUAL "qtgraphicaleffects" "qtnetworkauth" _is_qtnetworkauth)
+string(COMPARE EQUAL "qtgraphicaleffects" "qtpim" _is_qtpim)
+string(COMPARE EQUAL "qtgraphicaleffects" "qtpurchasing" _is_qtpurchasing)
+string(COMPARE EQUAL "qtgraphicaleffects" "qtqa" _is_qtqa)
+string(COMPARE EQUAL "qtgraphicaleffects" "qtremoteobjects" _is_qtremoteobjects)
+string(COMPARE EQUAL "qtgraphicaleffects" "qtrepotools" _is_qtrepotools)
+string(COMPARE EQUAL "qtgraphicaleffects" "qtscxml" _is_qtscxml)
+string(COMPARE EQUAL "qtgraphicaleffects" "qtserialbus" _is_qtserialbus)
+string(COMPARE EQUAL "qtgraphicaleffects" "qtspeech" _is_qtspeech)
+string(COMPARE EQUAL "qtgraphicaleffects" "qtsystems" _is_qtsystems)
+string(COMPARE EQUAL "qtgraphicaleffects" "qtvirtualkeyboard" _is_qtvirtualkeyboard)
+
+if(
+    _is_qtcharts OR
+    _is_qtdatavis3d OR
+    _is_qtdocgallery OR
+    _is_qtfeedback OR
+    _is_qtgamepad OR
+    _is_qtnetworkauth OR
+    _is_qtpim OR
+    _is_qtpurchasing OR
+    _is_qtqa OR
+    _is_qtremoteobjects OR
+    _is_qtrepotools OR
+    _is_qtscxml OR
+    _is_qtserialbus OR
+    _is_qtspeech OR
+    _is_qtsystems OR
+    _is_qtvirtualkeyboard
+)
+  if(NOT HUNTER_Qt_VERSION MATCHES "^5\\.9\\.")
     return()
   endif()
 endif()

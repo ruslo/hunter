@@ -1,6 +1,8 @@
 .. Copyright (c) 2016, Ruslan Baratov
 .. All rights reserved.
 
+.. _cmake-simple:
+
 CMake (no dependencies)
 -----------------------
 
@@ -117,11 +119,25 @@ Content of ``hunter.cmake``:
 
 Second, specify version in default config:
 
-.. code-block:: bash
+.. code-block:: none
   :emphasize-lines: 2
 
   > grep Example cmake/config/default.cmake
   hunter_config(Example VERSION 1.0.1)
+
+Documentation
+~~~~~~~~~~~~~
+
+Copy template documentation file and fill it with valid information:
+
+.. code-block:: none
+
+  > cp docs/packages/pkg/template.rst docs/packages/pkg/foo.rst
+
+Substitute ``unsorted`` with some tag in directive ``.. index:: unsorted ; foo``.
+This tag will be used on this page:
+
+* :ref:`All packages (Index) <genindex>`
 
 Note
 ====
@@ -213,13 +229,13 @@ Test
 
 Let's test it (see `how to do it nicely <https://github.com/ruslo/hunter/wiki/dev.hunter.root>`__):
 
-.. code-block:: bash
+.. code-block:: none
 
   > cmake -H. -B_builds
   -- [hunter] HUNTER_ROOT: /.../Hunter
-  -- [hunter] [ Hunter-ID: 7912489 | Config-ID: f1ec619 | Toolchain-ID: f8714ae ]
+  -- [hunter] [ Hunter-ID: 7912489 | Toolchain-ID: f8714ae | Config-ID: f1ec619 ]
   ...
-  -- [hunter] EXAMPLE_ROOT: /.../Hunter/_Base/7912489/f1ec619/f8714ae/Install (ver.: 1.0.1)
+  -- [hunter] EXAMPLE_ROOT: /.../Hunter/_Base/7912489/f8714ae/f1ec619/Install (ver.: 1.0.1)
   -- [hunter] Building Example
   ...
   -- downloading...
@@ -231,8 +247,8 @@ Let's test it (see `how to do it nicely <https://github.com/ruslo/hunter/wiki/de
   ...
   -- Install configuration: "Debug"
   ...
-  Release: /.../Hunter/_Base/7912489/f1ec619/f8714ae/Install/libexample_A.a
-  Debug: /.../Hunter/_Base/7912489/f1ec619/f8714ae/Install/libexample_Ad.a
+  Release: /.../Hunter/_Base/7912489/f8714ae/f1ec619/Install/libexample_A.a
+  Debug: /.../Hunter/_Base/7912489/f8714ae/f1ec619/Install/libexample_Ad.a
 
 Extra
 =====
@@ -243,7 +259,7 @@ Package defaults
 CMake options
 +++++++++++++
 
-Note that it doesn't make sense to include in build such stuff like examples,
+Note that it does not make sense to include in build such stuff like examples,
 tests or documentation. Please check that your package has CMake option to
 disable it and apply extra variables to all versions  (if options is not
 disabled by default) using ``hunter_cmake_args`` function:
@@ -285,7 +301,7 @@ User can overwrite this default by using
 Default behavior
 ~~~~~~~~~~~~~~~~
 
-Please check that your package respect (i.e. doesn't rewrite) such CMake variables like:
+Please check that your package respect (i.e. does not rewrite) such CMake variables like:
 
 * `CMAKE_INSTALL_PREFIX <http://www.cmake.org/cmake/help/v3.2/variable/CMAKE_INSTALL_PREFIX.html>`__ (**critical**)
 * `CMAKE_{C,CXX}_FLAGS + variations <http://www.cmake.org/cmake/help/v3.2/variable/CMAKE_LANG_FLAGS.html>`__ (**critical**)

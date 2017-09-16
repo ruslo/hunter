@@ -32,6 +32,7 @@ hunter_cmake_args(
     xrender
     CMAKE_ARGS         # do not use double quotes on CMAKE_ARGS
       DEPENDS_ON_PACKAGES=${xrender_dependencies}
+      PKGCONFIG_EXPORT_TARGETS=xrender
 )
 hunter_cacheable(xrender)
 hunter_download(

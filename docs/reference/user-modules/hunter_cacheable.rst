@@ -5,10 +5,10 @@ hunter_cacheable
 ----------------
 
 This command will give permission to package so it can be saved in cache.
-Usually each root ``<hunter-id>/<config-id>/<toolchain-id>`` directory can be
+Usually each root ``<hunter-id>/<toolchain-id>/<config-id>`` directory can be
 shared between unlimited number of projects but need to build from scratch
 every time. Binary cache allow to save builds in cache directory and share this
-cache between several ``<hunter-id>/<config-id>/<toolchain-id>`` roots. Note
+cache between several ``<hunter-id>/<toolchain-id>/<config-id>`` roots. Note
 that all dependencies of this package and the package itself must be
 `relocatable <https://github.com/ruslo/hunter/wiki/usr.adding.new.package#important>`__.
 

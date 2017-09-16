@@ -97,6 +97,8 @@ else()
   set(make_args "")
 endif()
 
+string(COMPARE EQUAL "${CMAKE_CFG_INTDIR}" "." is_single)
+
 foreach(configuration @HUNTER_PACKAGE_CONFIGURATION_TYPES@)
   # All configurations use the same URL which will be downloaded only once
   # i.e. overhead only for unpacking archive + no files from the previous
@@ -111,6 +113,12 @@ foreach(configuration @HUNTER_PACKAGE_CONFIGURATION_TYPES@)
   endif()
 
   set(current_project "@HUNTER_EP_NAME@-${configuration}")
+  
+  if(is_single)
+    set(build_type_opts "-DCMAKE_BUILD_TYPE=${configuration}")
+  else()
+    set(build_type_opts "-DCMAKE_CONFIGURATION_TYPES=${configuration}")
+  endif()
 
   ExternalProject_Add(
       "${current_project}"
@@ -139,8 +147,7 @@ foreach(configuration @HUNTER_PACKAGE_CONFIGURATION_TYPES@)
       "-C@HUNTER_CACHE_FILE@"
       "-C@HUNTER_ARGS_FILE@"
       "-D${postfix_name}=${${postfix_name}}"
-      "-DCMAKE_BUILD_TYPE=${configuration}"
-      "-DCMAKE_CONFIGURATION_TYPES=${configuration}"
+      "${build_type_opts}"
       "-DCMAKE_INSTALL_PREFIX=@HUNTER_PACKAGE_INSTALL_PREFIX@"
       "-DCMAKE_TOOLCHAIN_FILE=${CMAKE_TOOLCHAIN_FILE}"
       "${make_args}"
