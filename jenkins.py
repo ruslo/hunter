@@ -54,11 +54,6 @@ def run():
       help='Remove old testing directories except `Download` directory'
   )
   parser.add_argument(
-      '--verbose',
-      action='store_true',
-      help='Verbose output'
-  )
-  parser.add_argument(
       '--disable-builds',
       action='store_true',
       help='Disable building of package (useful for checking package can be loaded from cache)'
