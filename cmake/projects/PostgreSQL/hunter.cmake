@@ -8,6 +8,18 @@ include(hunter_cacheable)
 include(hunter_configuration_types)
 include(hunter_pick_scheme)
 include(hunter_download)
+include(hunter_cmake_args)
+
+hunter_add_version(
+    PACKAGE_NAME
+    PostgreSQL
+    VERSION
+    "9.6.3"
+    URL
+    "https://github.com/hunter-packages/PostgreSQL/archive/PostgreSQL-9.6.3.tar.gz"
+    SHA1
+    103d31238ef688295960082619968bda4aa01163
+)
 
 hunter_add_version(
     PACKAGE_NAME

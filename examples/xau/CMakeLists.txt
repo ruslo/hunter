@@ -11,3 +11,7 @@ project(download-xau)
 
 # download xau
 hunter_add_package(xau)
+find_package(xau CONFIG REQUIRED)
+
+add_executable(foo foo.cpp)
+target_link_libraries(foo PUBLIC PkgConfig::xau)

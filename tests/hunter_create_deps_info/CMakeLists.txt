@@ -25,14 +25,14 @@ function(run_check file1)
 endfunction()
 
 ### Test empty
-set(toolchain_id "${CMAKE_CURRENT_BINARY_DIR}/toolchain-id")
+set(config_id "${CMAKE_CURRENT_BINARY_DIR}/config-id")
 set(package_name "Foo")
 set(temp_deps_info "${CMAKE_CURRENT_BINARY_DIR}/deps.info-TEMP")
 
-set(HUNTER_TOOLCHAIN_ID_PATH "${toolchain_id}")
+set(HUNTER_CONFIG_ID_PATH "${config_id}")
 set(HUNTER_PACKAGE_NAME "${package_name}")
 
-set(home "${toolchain_id}/Build/${package_name}")
+set(home "${config_id}/Build/${package_name}")
 file(WRITE "${home}/cache.sha1" "abc")
 
 hunter_create_deps_info("${temp_deps_info}")
@@ -40,19 +40,19 @@ run_check("${CMAKE_CURRENT_LIST_DIR}/empty.txt")
 
 ### Complex
 
-file(REMOVE_RECURSE "${toolchain_id}")
+file(REMOVE_RECURSE "${config_id}")
 
 set(package_name "J")
 set(HUNTER_PACKAGE_NAME "${package_name}")
 
-file(WRITE "${toolchain_id}/Build/A/cache.sha1" "A-SHA1")
-file(WRITE "${toolchain_id}/Build/B/cache.sha1" "B-SHA1")
-file(WRITE "${toolchain_id}/Build/C/cache.sha1" "C-SHA1")
-file(WRITE "${toolchain_id}/Build/D/__E/cache.sha1" "D-E-SHA1")
-file(WRITE "${toolchain_id}/Build/F/__G/cache.sha1" "F-G-SHA1")
-file(WRITE "${toolchain_id}/Build/H/cache.sha1" "H-SHA1")
-file(WRITE "${toolchain_id}/Build/I/cache.sha1" "I-SHA1")
-file(WRITE "${toolchain_id}/Build/J/cache.sha1" "J-SHA1")
+file(WRITE "${config_id}/Build/A/cache.sha1" "A-SHA1")
+file(WRITE "${config_id}/Build/B/cache.sha1" "B-SHA1")
+file(WRITE "${config_id}/Build/C/cache.sha1" "C-SHA1")
+file(WRITE "${config_id}/Build/D/__E/cache.sha1" "D-E-SHA1")
+file(WRITE "${config_id}/Build/F/__G/cache.sha1" "F-G-SHA1")
+file(WRITE "${config_id}/Build/H/cache.sha1" "H-SHA1")
+file(WRITE "${config_id}/Build/I/cache.sha1" "I-SHA1")
+file(WRITE "${config_id}/Build/J/cache.sha1" "J-SHA1")
 
 hunter_register_dependency(
     PACKAGE "J"

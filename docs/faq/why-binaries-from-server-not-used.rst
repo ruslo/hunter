@@ -4,7 +4,7 @@
 Why binaries from server not used?
 ==================================
 
-If settings and environment of your local project doesn't match environment
+If settings and environment of your local project does not match environment
 of Travis/AppVeyor services (this is where binaries usually uploaded from)
 you will see ``Cache miss`` message and package will be build locally:
 
@@ -133,11 +133,11 @@ in logs:
 
 .. code-block:: none
 
-  -- [hunter *** DEBUG *** ...] HUNTER_TOOLCHAIN_ID_PATH: /.../_Base/86b1bc9/cef4daf/aa85dd8
+  -- [hunter *** DEBUG *** ...] HUNTER_TOOLCHAIN_ID_PATH: /.../_Base/86b1bc9/aa85dd8
 
 .. code-block:: shell
 
-  > openssl sha1 /.../_Base/86b1bc9/cef4daf/aa85dd8/toolchain.info
+  > openssl sha1 /.../_Base/86b1bc9/aa85dd8/toolchain.info
   SHA1(toolchain.info)= aa85dd86f2feefe76397d7b624ccb6c09d971fe5
 
 You can see that there is no ``aa85dd8`` entry in cache:
@@ -159,7 +159,7 @@ Compare both files to figure out what's wrong:
 
 .. code-block:: shell
 
-  > diff hunter-cache/8928885/toolchain.info /.../_Base/86b1bc9/cef4daf/aa85dd8/toolchain.info
+  > diff hunter-cache/8928885/toolchain.info /.../_Base/86b1bc9/aa85dd8/toolchain.info
   ...
   < #define __GNUC_MINOR__ 8
   < #define __GNUC_PATCHLEVEL__ 1
@@ -182,7 +182,7 @@ Uploading to server
 
 It is possible to upload Hunter binary cache to the server.
 For now only GitHub hosting supported. All big raw ``*.tar.bz2`` archives
-uploaded as assets to release with name ``cache`` (directory layout doesn't
+uploaded as assets to release with name ``cache`` (directory layout does not
 matter) and all small text files with meta information uploaded directly to
 branch ``master`` (directory layout matters) (see
 `hunter-cache <https://github.com/ingenue/hunter-cache>`__ as example).

@@ -5,6 +5,8 @@
 
 include(hunter_add_version)
 include(hunter_cacheable)
+include(hunter_check_toolchain_definition)
+include(hunter_cmake_args)
 include(hunter_download)
 include(hunter_pick_scheme)
 
@@ -294,7 +296,9 @@ hunter_add_version(
     072cf2bc8e19c7c59a42e7e20977fe3037c9c9f3
 )
 
-if(WIN32)
+if(MINGW)
+  hunter_pick_scheme(DEFAULT url_sha1_openssl)
+elseif(WIN32)
   if("${HUNTER_OpenSSL_VERSION}" VERSION_LESS "1.1")
     hunter_pick_scheme(DEFAULT url_sha1_openssl_windows)
   else()
@@ -306,5 +310,12 @@ else()
   hunter_pick_scheme(DEFAULT url_sha1_openssl)
 endif()
 
+if(MINGW)
+  hunter_check_toolchain_definition(NAME "__MINGW64__" DEFINED _hunter_mingw64)
+  if(_hunter_mingw64)
+    hunter_cmake_args(OpenSSL CMAKE_ARGS HUNTER_OPENSSL_MINGW64=TRUE)
+  endif()
+endif()
+
 hunter_cacheable(OpenSSL)
-hunter_download(PACKAGE_NAME OpenSSL PACKAGE_INTERNAL_DEPS_ID "12")
+hunter_download(PACKAGE_NAME OpenSSL PACKAGE_INTERNAL_DEPS_ID "14")

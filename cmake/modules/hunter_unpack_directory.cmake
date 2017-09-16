@@ -7,15 +7,10 @@ include(hunter_status_debug)
 include(hunter_test_string_not_empty)
 
 function(hunter_unpack_directory cache_sha1)
+  hunter_test_string_not_empty("${HUNTER_SELF}")
   hunter_test_string_not_empty("${HUNTER_CACHED_ROOT}")
   hunter_test_string_not_empty("${HUNTER_INSTALL_PREFIX}")
   hunter_test_string_not_empty("${cache_sha1}")
-
-  if(CMAKE_HOST_UNIX)
-    set(use_link_script TRUE)
-  else()
-    set(use_link_script FALSE)
-  endif()
 
   set(cache_directory "${HUNTER_CACHED_ROOT}/_Base/Cache")
   set(cellar_directory "${HUNTER_CACHED_ROOT}/_Base/Cellar")
@@ -32,8 +27,7 @@ function(hunter_unpack_directory cache_sha1)
 
   set(list_of_directories "${cellar_directory}/directories.list")
   set(list_of_files "${cellar_directory}/files.list")
-  set(link_script "${cellar_directory}/link-all.sh")
-  set(shell "/bin/bash")
+  set(shell_link_script "${cellar_directory}/link-all.sh")
 
   set(archive_file "${cache_directory}/raw/${cache_sha1}.tar.bz2")
   if(NOT EXISTS "${archive_file}")
@@ -81,45 +75,32 @@ function(hunter_unpack_directory cache_sha1)
       hunter_internal_error("Unpack failed")
     endif()
 
-    # For LIST_DIRECTORIES
-    if(CMAKE_VERSION VERSION_LESS 3.3 AND use_link_script)
-      hunter_internal_error(
-          "CMake version 3.3 at least needed."
-          "Current version is ${CMAKE_VERSION}."
-      )
-    endif()
-
     hunter_status_debug("Creating list of files and directories")
+    # Note: LIST_DIRECTORIES available only since CMake 3.3
     file(
         GLOB_RECURSE
-        all
-        LIST_DIRECTORIES true
+        files
         RELATIVE "${cellar_raw_directory}"
         "${cellar_raw_directory}/*"
     )
 
-    set(files "")
     set(directories "")
-    foreach(x ${all})
-      if(IS_DIRECTORY "${cellar_raw_directory}/${x}")
-        list(APPEND directories "${x}")
-      else()
-        list(APPEND files "${x}")
-      endif()
+    foreach(x ${files})
+      get_filename_component(file_dir "${x}" DIRECTORY)
+      list(APPEND directories "${file_dir}")
     endforeach()
+    list(REMOVE_DUPLICATES directories)
 
     # Create link script {
-    file(WRITE "${link_script}" "#!${shell}\n")
-    file(APPEND "${link_script}" "\n")
     file(
-        APPEND
-        "${link_script}"
+        WRITE
+        "${shell_link_script}"
         "export \"HUNTER_CELLAR_RAW_DIRECTORY=${cellar_raw_directory}\"\n\n"
     )
     foreach(x ${files})
       file(
           APPEND
-          "${link_script}"
+          "${shell_link_script}"
           "ln \\\n  \"\${HUNTER_CELLAR_RAW_DIRECTORY}/${x}\" \\\n  \"\$1/${x}\"\n\n"
        )
     endforeach()
@@ -146,28 +127,29 @@ function(hunter_unpack_directory cache_sha1)
     file(REMOVE "${HUNTER_INSTALL_PREFIX}/${x}")
   endforeach()
 
-  if(use_link_script)
-    hunter_status_debug("Linking files")
-    if(NOT EXISTS "${shell}")
-      hunter_internal_error("File not found: '${shell}'")
-    endif()
-    set(cmd "${shell}" "${link_script}" "${HUNTER_INSTALL_PREFIX}")
-    hunter_print_cmd("${cellar_directory}" "${cmd}")
-    execute_process(
-        COMMAND ${cmd}
-        WORKING_DIRECTORY "${cellar_directory}"
-        RESULT_VARIABLE result
-    )
-
-    if(NOT result EQUAL 0)
-      hunter_internal_error("Link script failed")
-    endif()
+  hunter_status_debug("Linking files")
+  set(
+      cmd
+      "${CMAKE_COMMAND}"
+      "-DHUNTER_INSTALL_PREFIX=${HUNTER_INSTALL_PREFIX}"
+      "-DLIST_OF_FILES=${list_of_files}"
+      "-DSHELL_LINK_SCRIPT=${shell_link_script}"
+      "-DCELLAR_RAW_DIRECTORY=${cellar_raw_directory}"
+      "-DPYTHON_LINK_SCRIPT=${HUNTER_SELF}/scripts/link-all.py"
+      "-P"
+      "${HUNTER_SELF}/scripts/link-all.cmake"
+  )
+  hunter_print_cmd("${cellar_directory}" "${cmd}")
+  execute_process(
+      COMMAND ${cmd}
+      WORKING_DIRECTORY "${cellar_directory}"
+      RESULT_VARIABLE result
+      OUTPUT_VARIABLE output
+      ERROR_VARIABLE error
+  )
+  if(result EQUAL 0)
+    hunter_status_debug("Linking done: ${output}, ${error}")
   else()
-    hunter_status_debug("Copying files")
-    foreach(x ${files})
-      set(full_dst_path "${HUNTER_INSTALL_PREFIX}/${x}")
-      get_filename_component(dst_dir "${full_dst_path}" DIRECTORY)
-      file(COPY "${cellar_raw_directory}/${x}" DESTINATION "${dst_dir}")
-    endforeach()
+    hunter_internal_error("Link script failed: ${result}, ${output}, ${error}")
   endif()
 endfunction()

@@ -1,5 +1,7 @@
 Logging
 -------
 
- * `log4cplus <https://github.com/ruslo/hunter/wiki/pkg.log4cplus>`_ - simple to use C++ logging API providing thread-safe, flexible, and arbitrarily granular control over log management and configuration.
- * `spdlog <https://github.com/ruslo/hunter/wiki/pkg.spdlog>`_ - Super fast C++ logging library.
+ - :ref:`pkg.fmt` - Small, safe and fast formatting library
+ - :ref:`pkg.glog` - C++ implementation of the Google logging module
+ - :ref:`pkg.log4cplus` - simple to use C++ logging API providing thread-safe, flexible, and arbitrarily granular control over log management and configuration.
+ - :ref:`pkg.spdlog` - Super fast C++ logging library.

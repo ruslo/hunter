@@ -5,5 +5,7 @@
 Graphics 2D/3D
 --------------
 
- * `Assimp <https://github.com/ruslo/hunter/wiki/pkg.assimp>`_ - portable Open Source library to import various well-known 3D model formats in a uniform manner.
- * `freetype <https://github.com/ruslo/hunter/wiki/pkg.freetype>`_ - render freetype fonts
+ - :ref:`pkg.aglet` - Tiny cross platform (headless) OpenGL context creation
+ - :ref:`pkg.Assimp` - portable Open Source library to import various well-known 3D model formats in a uniform manner
+ - :ref:`pkg.freetype` - render freetype fonts
+ - :ref:`pkg.ogles_gpgpu` - GPGPU for mobile devices and embedded systems using OpenGL ES 2.0

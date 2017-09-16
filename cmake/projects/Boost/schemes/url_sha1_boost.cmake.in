@@ -15,6 +15,7 @@ include(hunter_report_broken_package)
 include(hunter_status_debug)
 include(hunter_status_print)
 include(hunter_test_string_not_empty)
+include(hunter_get_boost_libs)
 
 hunter_status_debug("Scheme: url_sha1_boost")
 
@@ -35,48 +36,8 @@ if("@MSVC@")
   hunter_test_string_not_empty("@HUNTER_MSVC_VCVARSALL@")
 endif()
 
-# Same logic in all url_sha1_boost* schemes (TODO: DRY)
-macro(BOOST_COMPONENT name version)
-  list(APPEND BOOST_COMPONENT_NAMES ${name})
-  set(BOOST_COMPONENT_${name}_VERSION ${version})
-endmacro()
-
-boost_component(atomic 1.53.0)
-boost_component(chrono 1.47.0)
-boost_component(container 1.56.0)
-boost_component(context 1.51.0)
-boost_component(coroutine 1.53.0)
-boost_component(coroutine2 1.60.0)
-boost_component(date_time 1.29.0)
-boost_component(exception 1.36.0)
-boost_component(fiber 1.62.0)
-boost_component(filesystem 1.30.0)
-boost_component(graph 1.18.0)
-boost_component(graph_parallel 1.18.0)
-boost_component(iostreams 1.33.0)
-boost_component(locale 1.48.0)
-boost_component(log 1.54.0)
-boost_component(math 1.23.0)
-boost_component(metaparse 1.61.0)
-boost_component(mpi 1.35.0)
-boost_component(program_options 1.32.0)
-boost_component(python 1.19.0)
-boost_component(random 1.15.0)
-boost_component(regex 1.18.0)
-boost_component(serialization 1.32.0)
-boost_component(signals 1.29.0)
-boost_component(system 1.35.0)
-boost_component(test 1.21.0)
-boost_component(thread 1.25.0)
-boost_component(timer 1.9.0)
-boost_component(type_erasure 1.60.0)
-boost_component(wave 1.33.0)
-
-foreach(name IN LISTS BOOST_COMPONENT_NAMES)
-  if(NOT @HUNTER_Boost_VERSION@ VERSION_LESS BOOST_COMPONENT_${name}_VERSION)
-    list(APPEND boost_libs ${name})
-  endif()
-endforeach()
+# get list of boost components for given version
+hunter_get_boost_libs(VERSION "@HUNTER_Boost_VERSION@" LIBS boost_libs)
 
 # MinGW 1.55 is broken
 string(REGEX MATCH "1.55.0*" version_1_55 "@HUNTER_Boost_VERSION@")
@@ -94,24 +55,24 @@ else()
   set(env_cmd "")
 endif()
 
-if("@MSVC@")
+if(CMAKE_HOST_WIN32)
   set(install_cmd "b2")
   set(bootstrap_cmd "bootstrap.bat")
-elseif("@MINGW@")
-  # Test scenario: MinGW installed in system, Visual Studio - not
-  set(install_cmd "b2")
-  set(bootstrap_cmd "bootstrap.bat" "gcc")
 else()
   set(install_cmd "./b2")
-  if(APPLE)
-    # Clear Xcode environment
-    set(
-        bootstrap_cmd
-        . "@HUNTER_GLOBAL_SCRIPT_DIR@/clear-all.sh" && ./bootstrap.sh
-    )
-  else()
-    set(bootstrap_cmd "./bootstrap.sh")
-  endif()
+  set(bootstrap_cmd "./bootstrap.sh")
+endif()
+
+if("@MINGW@")
+  # Test scenario: MinGW installed in system, Visual Studio - not
+  list(APPEND bootstrap_cmd "gcc")
+endif()
+if(APPLE)
+  # Clear Xcode environment
+  set(
+      bootstrap_cmd
+      . "@HUNTER_GLOBAL_SCRIPT_DIR@/clear-all.sh" && ${bootstrap_cmd}
+  )
 endif()
 
 if("@MSVC@")
@@ -154,6 +115,7 @@ ExternalProject_Add(
     install
     ${boost_list}
     "--prefix=@HUNTER_PACKAGE_INSTALL_PREFIX@"
+    --ignore-site-config # Ignore Gentoo specific optimization "none" in site config that only the patched bjam of Gentoo can understand.
     COMMAND # Copy license files
     "@CMAKE_COMMAND@"
     "-C@HUNTER_ARGS_FILE@" # for 'HUNTER_INSTALL_LICENSE_FILES'

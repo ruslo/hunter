@@ -8,7 +8,7 @@ include("../common.cmake")
 project(glfw-example)
 
 hunter_add_package(glfw)
-find_package(glfw3 REQUIRED)
+find_package(glfw3 CONFIG REQUIRED)
 
 set(${PROJECT_NAME}_SOURCES
   simple.c
@@ -19,4 +19,3 @@ add_executable(${PROJECT_NAME}
 )
 
 target_link_libraries(${PROJECT_NAME} glfw)
-

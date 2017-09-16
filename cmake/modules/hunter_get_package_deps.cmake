@@ -36,11 +36,11 @@ function(hunter_get_package_deps)
   hunter_test_string_not_empty("${x_PACKAGE}")
   hunter_test_string_not_empty("${x_RESULT}")
 
-  hunter_test_string_not_empty("${HUNTER_TOOLCHAIN_ID_PATH}")
+  hunter_test_string_not_empty("${HUNTER_CONFIG_ID_PATH}")
 
   # Go to directory '<toolchain-id>/Build/<package>/__<component>/Dependencies'
   # and find all `__dep` files.
-  set(dep_dir "${HUNTER_TOOLCHAIN_ID_PATH}/Build/${x_PACKAGE}")
+  set(dep_dir "${HUNTER_CONFIG_ID_PATH}/Build/${x_PACKAGE}")
   if(has_component)
     set(dep_dir "${dep_dir}/__${x_COMPONENT}")
   endif()

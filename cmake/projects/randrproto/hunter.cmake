@@ -31,6 +31,7 @@ hunter_cmake_args(
     randrproto
     CMAKE_ARGS         # do not use double quotes on CMAKE_ARGS
       DEPENDS_ON_PACKAGES=${randrproto_dependencies}
+      PKGCONFIG_EXPORT_TARGETS=randrproto
 )
 hunter_cacheable(randrproto)
 hunter_download(

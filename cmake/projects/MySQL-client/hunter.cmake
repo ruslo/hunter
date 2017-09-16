@@ -31,6 +31,17 @@ hunter_add_version(
     3268345d8e324d11380cd26475e1669bc5ff2fa0
 )
 
+hunter_add_version(
+    PACKAGE_NAME
+    MySQL-client
+    VERSION
+    "6.1.9-p0"
+    URL
+    "https://github.com/hunter-packages/mysql-client/archive/v1.6.9-p0.tar.gz"
+    SHA1
+    64c3fb0500e03fc0ee188dca1ec33e52c2f54e32
+)
+
 # https://github.com/ruslo/hunter/issues/705
 # hunter_cacheable(MySQL-client)
 

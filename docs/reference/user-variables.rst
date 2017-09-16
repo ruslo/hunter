@@ -50,6 +50,8 @@ HUNTER_STATUS_PRINT
 * Print current build status
 * Default: ``ON``
 
+.. _hunter_status_debug:
+
 HUNTER_STATUS_DEBUG
 ===================
 
@@ -80,7 +82,7 @@ HUNTER_JOBS_NUMBER
 ==================
 
 * Number of parallel builds that will be used in such native tools like ``make -jN`` or ``xcodebuild -jobs N``
-* For Visual Studio flag ``/MP`` will be used
+* For Visual Studio >= 12 2013 flag ``/maxcpucount:N`` will be added to ``MSBuild``
 * Set variable to ``0`` to disable adding any flags: ``HUNTER_JOBS_NUMBER=0``
 * Default: `NUMBER_OF_LOGICAL_CORES <http://www.cmake.org/cmake/help/v3.2/command/cmake_host_system_information.html>`__
 
@@ -157,7 +159,7 @@ This is a workaround for
 `issue #359 <https://github.com/ruslo/hunter/issues/359>`__
 and have some usage peculiarities:
 
-* It doesn't work well with Hunter cache mechanism. If package binaries will
+* It does not work well with Hunter cache mechanism. If package binaries will
   be found on server, then there will be no build stage triggered, hence there
   will be no sources kept. Use
   :ref:`HUNTER_USE_CACHE_SERVERS=NO <hunter_use_cache_servers>`

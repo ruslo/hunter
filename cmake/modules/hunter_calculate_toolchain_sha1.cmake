@@ -112,12 +112,6 @@ function(hunter_calculate_toolchain_sha1 hunter_self hunter_base)
 
   hunter_make_directory(
       "${hunter_id_path}"
-      "${HUNTER_GATE_CONFIG_SHA1}"
-      hunter_config_id_path
-  )
-
-  hunter_make_directory(
-      "${hunter_config_id_path}"
       "${HUNTER_GATE_TOOLCHAIN_SHA1}"
       hunter_toolchain_id_path
   )

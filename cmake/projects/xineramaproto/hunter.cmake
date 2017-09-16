@@ -31,6 +31,7 @@ hunter_cmake_args(
     xineramaproto
     CMAKE_ARGS         # do not use double quotes on CMAKE_ARGS
       DEPENDS_ON_PACKAGES=${xineramaproto_dependencies}
+      PKGCONFIG_EXPORT_TARGETS=xineramaproto
 )
 hunter_cacheable(xineramaproto)
 hunter_download(

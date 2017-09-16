@@ -30,9 +30,11 @@ else()
 endif()
 
 add_executable(qmlexample main.cpp)
-target_link_libraries(
-    qmlexample Qt5::Widgets Qt5::Quick Qt5::QTcpServerConnection ${plugins}
-)
+target_link_libraries(qmlexample PUBLIC Qt5::Widgets Qt5::Quick ${plugins})
+
+if(TARGET Qt5::QTcpServerConnection)
+  target_link_libraries(qmlexample PUBLIC Qt5::QTcpServerConnection)
+endif()
 
 # Workaround for Linux's linker problems (*_MULTIPLICITY doesn't help, TODO) --
 set(fix_cyclic FALSE)

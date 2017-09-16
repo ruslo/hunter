@@ -1,4 +1,5 @@
 #!/usr/bin/env python3
+from __future__ import print_function
 
 import argparse
 import base64
@@ -8,6 +9,9 @@ import os
 import requests
 import sys
 import time
+
+class Error(Exception):
+  pass
 
 def sleep_time(attempt):
   if attempt <= 0:
@@ -32,14 +36,20 @@ def retry(func_in):
       i = i + 1
       try:
         return func_in(*args, **kwargs)
+      except Error as err:
+        # Treat Errors as fatal and do not retry.
+        # Also explicitly flush message to avoid "no output" issue on some CIs.
+        print('Error:\n  {}'.format(err))
+        sys.stdout.flush()
+        raise err
       except Exception as exc:
         if i > retry_max:
           raise exc
         print('Operation failed. Exception:\n  {}'.format(exc))
         sec = sleep_time(i)
         print('Retry #{} (of {}) after {} seconds'.format(i, retry_max, sec))
+        sys.stdout.flush()
         time.sleep(sec)
-    raise Exception('Unreachable')
   return func_out
 
 # http://stackoverflow.com/a/16696317/2288008
@@ -60,6 +70,7 @@ class Github:
     self.repo = repo
     self.auth = requests.auth.HTTPBasicAuth(username, password)
     self.simple_request()
+    self.release_id = None
 
   @retry
   def simple_request(self):
@@ -87,6 +98,8 @@ class Github:
     )
 
     r = requests.get(url, auth=self.auth)
+    if r.status_code == 404:
+        raise Error('Release {} does not exist. Create a GitHub release for with this tag'.format(tagname))
     if not r.ok:
       raise Exception('Get tag id failed. Requested url: {}'.format(url))
 
@@ -171,7 +184,8 @@ class Github:
 
   def upload_raw_file(self, local_path):
     tagname = 'cache'
-    release_id = self.get_release_by_tag(tagname)
+    if self.release_id is None:
+      self.release_id = self.get_release_by_tag(tagname)
 
     # https://developer.github.com/v3/repos/releases/#upload-a-release-asset
     # POST https://<upload_url>/repos/:owner/:repo/releases/:id/assets?name=foo.zip
@@ -182,11 +196,11 @@ class Github:
     url = 'https://uploads.github.com/repos/{}/{}/releases/{}/assets?name={}'.format(
         self.repo_owner,
         self.repo,
-        release_id,
+        self.release_id,
         asset_name
     )
 
-    self.upload_bzip(url, local_path, release_id, asset_name)
+    self.upload_bzip(url, local_path, self.release_id, asset_name)
 
   @retry
   def create_new_file(self, local_path, github_path):

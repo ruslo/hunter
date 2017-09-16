@@ -23,3 +23,8 @@ find_package(GTest CONFIG REQUIRED)
 
 add_executable(foo foo.cpp)
 target_link_libraries(foo GTest::main)
+
+find_package(GMock CONFIG REQUIRED)
+if(NOT TARGET GMock::main)
+  message(FATAL_ERROR "Target GMock::main not exists")
+endif()
