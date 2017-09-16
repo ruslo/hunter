@@ -118,19 +118,18 @@ def run():
   # -- end
 
   verbose = True
-  if (
-      os.getenv('TRAVIS') and
-      (project_dir == 'examples/CLAPACK') and
-      (toolchain == 'xcode')
-  ):
-    verbose = False
-
-  if (
-      os.getenv('TRAVIS') and
-      (project_dir == 'examples/GSL') and
-      (toolchain == 'xcode')
-  ):
-    verbose = False
+  env_verbose = os.getenv('VERBOSE')
+  if env_verbose:
+    if env_verbose == '0':
+      verbose = False
+    elif env_verbose == '1':
+      verbose = True
+    else:
+      sys.exit(
+          'Environment variable VERBOSE: expected 0 or 1, got "{}"'.format(
+              env_verbose
+          )
+      )
 
   project_dir = os.path.join(cdir, project_dir)
   project_dir = os.path.normpath(project_dir)
