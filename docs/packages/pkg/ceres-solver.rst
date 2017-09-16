@@ -42,7 +42,7 @@ Usage
 
 .. code-block:: cmake
 
-    hunter_add_package(ceeres-solver)
+    hunter_add_package(ceres-solver)
     find_package(Ceres CONFIG REQUIRED)
 
     target_link_libraries(... PRIVATE ceres)
