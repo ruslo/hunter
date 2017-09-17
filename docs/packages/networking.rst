@@ -4,6 +4,7 @@
   DNS
   websocket
   Asio
+  scalable
 
 Networking
 ----------
