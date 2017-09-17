@@ -6,6 +6,7 @@ Math
 ----
 
  - :ref:`pkg.CLAPACK`
+ - :ref:`pkg.double-conversion` - provides binary-decimal and decimal-binary routines for IEEE doubles.
  - :ref:`pkg.Eigen` - C++ template library for linear algebra: matrices, vectors, numerical solvers, and related algorithms.
  - :ref:`pkg.glm` - header only C++ mathematics library for graphics software based on the OpenGL Shading Language (GLSL>`_ specifications.
  - :ref:`pkg.GSL` - GNU Scientific Library
