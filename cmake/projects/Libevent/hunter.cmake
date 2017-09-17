@@ -9,8 +9,8 @@ include(hunter_pick_scheme)
 hunter_add_version(
     PACKAGE_NAME Libevent
     VERSION "2.1.8"
-    URL "https://github.com/hunter-packages/libevent/archive/v2.1.8-p0.tar.gz"
-    SHA1 "0f95aa9fac6e64148ebd3e3d8fe94d0a0151eb56")
+    URL "https://github.com/hunter-packages/libevent/archive/v2.1.8-p1.tar.gz"
+    SHA1 "9f1d71d5ff1f7f0cde6b92503d82dc7e4c19c749")
 
 hunter_cmake_args(Libevent CMAKE_ARGS
                   EVENT__DISABLE_TESTS=ON
