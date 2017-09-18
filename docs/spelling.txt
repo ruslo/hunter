@@ -48,5 +48,6 @@ runtime
 sanitizers
 shareable
 subfolder
+submodules
 toolchain
 toolchains
