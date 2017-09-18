@@ -7,7 +7,7 @@
 .. _pkg.hunter_box_1:
 
 hunter_box_1
-===
+============
 
 -  `Official <https://github.com/hunterbox/hunter_box_1>`__
 -  `Example <https://github.com/ruslo/hunter/blob/master/examples/hunter_box_1/CMakeLists.txt>`__
