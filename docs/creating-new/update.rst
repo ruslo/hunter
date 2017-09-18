@@ -1,6 +1,10 @@
 .. Copyright (c) 2017, Ruslan Baratov
 .. All rights reserved.
 
+.. spelling::
+
+  diff
+
 Update package
 --------------
 

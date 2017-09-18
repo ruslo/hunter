@@ -219,7 +219,8 @@ Hunter hosted on GitHub service where common way to add code is to fork
 project and create pull request.
 
 Fork `ruslo/hunter <https://github.com/ruslo/hunter>`__, clone
-`your fork <https://github.com/hunterbox/hunter>`__ and init all submodules:
+`your fork <https://github.com/hunterbox/hunter>`__ and initialize all
+submodules:
 
 .. code-block:: none
 
@@ -314,7 +315,7 @@ Build types
 
 .. warning::
 
-  Usually there is no need to set build type explicitly. If package doesn't
+  Usually there is no need to set build type explicitly. If package does not
   work with default ``Debug`` + ``Release`` it means something wrong with
   package itself.
 
