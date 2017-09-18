@@ -30,7 +30,18 @@ ZeroMQ
     # or ZeroMQ::libzmq-static
     target_link_libraries(... ZeroMQ::libzmq) 
 
+Versions
+--------
+
+Hunter provides two separate versions of ZeroMQ:
+
+-  ZeroMQ 4.1.4 (default)
+-  ZeroMQ 4.2.3
+
+Since 4.2.3 introduces some API-breaking changes, 4.1.4 remains the default version for hunter.
+Version 4.2.3 can be configured manually (see example) and improves windows compatibility.
+
 Bugs
 ----
 
--  Tests does not work properly on Windows and OSX
+-  Tests does not work properly on Windows and OSX (should be fixed with 4.2.3)
