@@ -21,22 +21,23 @@ hunter_add_version(
     PACKAGE_NAME
     Protobuf
     VERSION
-    "3.1.0-p2"
+    "3.1.0-p3"
     URL
-    "https://github.com/hunter-packages/protobuf/releases/download/v3.1.0-hunter-1/protobuf-3.1.0-hunter-1.tar.gz"
+    "https://github.com/hunter-packages/protobuf/releases/download/v3.1.0-hunter-2/protobuf-3.1.0-hunter-2.tar.gz"
     SHA1
-    0cdc3e2c7b9cf77adcf1e641bb404f7ee70db820
+    6dd8996c36adcbc39d4eaa87c2492b27820b5899
 )
+
 
 hunter_add_version(
     PACKAGE_NAME
     Protobuf
     VERSION
-    "3.3.0"
+    "3.3.0-p1"
     URL
-    "https://github.com/hunter-packages/protobuf/releases/download/v3.3.0-hunter-0/protobuf-3.3.0-hunter-0.tar.gz"
+    "https://github.com/hunter-packages/protobuf/releases/download/v3.3.0-hunter-1/protobuf-3.3.0-hunter-1.tar.gz"
     SHA1
-    d3780cd3cb936ac61c5f2d792b01fe52e1e88f5b
+    8815a6be8188b2d6c8002924e752018b64658748
 )
 
 if(ANDROID OR IOS)
