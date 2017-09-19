@@ -102,7 +102,7 @@ endif()
 hunter_config(PNG VERSION 1.6.26-p1)
 hunter_config(PocoCpp VERSION 1.7.8-p0)
 hunter_config(PostgreSQL VERSION 9.6.3)
-hunter_config(Protobuf VERSION 3.1.0)
+hunter_config(Protobuf VERSION 3.1.0-p2)
 
 string(COMPARE EQUAL "${CMAKE_SYSTEM_NAME}" "Linux" _is_linux)
 if(_is_linux OR MINGW)
