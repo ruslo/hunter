@@ -21,11 +21,11 @@ hunter_add_version(
     PACKAGE_NAME
     Protobuf
     VERSION
-    "3.1.0-p3"
+    "3.1.0-p4"
     URL
-    "https://github.com/hunter-packages/protobuf/releases/download/v3.1.0-hunter-2/protobuf-3.1.0-hunter-2.tar.gz"
+    "https://github.com/hunter-packages/protobuf/releases/download/v3.1.0-hunter-4/protobuf-3.1.0-hunter-4.tar.gz"
     SHA1
-    6dd8996c36adcbc39d4eaa87c2492b27820b5899
+    8f58f2cbe6d3fae61451a5e29b703686fe4bc9d6
 )
 
 
