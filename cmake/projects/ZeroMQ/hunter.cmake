@@ -32,7 +32,7 @@ hunter_add_version(
     PACKAGE_NAME
     ZeroMQ
     VERSION
-    "4.2.3"
+    "4.2.3-p1"
     URL
     "https://github.com/hunter-packages/libzmq/releases/download/v4.2.3-hunter-1/libzmq-4.2.3-hunter-1.tar.gz"
     SHA1
