@@ -37,7 +37,9 @@ hunter_download(
     PACKAGE_NAME glib
     PACKAGE_INTERNAL_DEPS_ID "1"
     PACKAGE_UNRELOCATABLE_TEXT_FILES
+    "bin/glib-gettextize"
     "lib/libgio-2.0.la"
+    "lib/libglib-2.0.la"
     "lib/libgmodule-2.0.la"
     "lib/libgobject-2.0.la"
     "lib/libgthread-2.0.la"
