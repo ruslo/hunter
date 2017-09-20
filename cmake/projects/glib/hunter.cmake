@@ -5,6 +5,7 @@
 
 include(hunter_add_version)
 include(hunter_cacheable)
+include(hunter_cmake_args)
 include(hunter_configuration_types)
 include(hunter_download)
 include(hunter_pick_scheme)
@@ -22,7 +23,15 @@ hunter_add_version(
 
 hunter_configuration_types(glib CONFIGURATION_TYPES Release)
 
-hunter_pick_scheme(DEFAULT glib)
+hunter_cmake_args(
+    glib
+    CMAKE_ARGS
+    DEPENDS_ON_PACKAGES=libffi;util_linux;libpcre
+    DEPENDS_ON_PKGCONFIGS=libffi;blkid;fdisk;mount;smartcols;uuid;libpcre;libpcrecpp;libpcreposix
+    PKGCONFIG_EXPORT_TARGETS=glib-2.0
+)
+
+hunter_pick_scheme(DEFAULT url_sha1_autotools)
 hunter_cacheable(glib)
 hunter_download(
     PACKAGE_NAME glib
