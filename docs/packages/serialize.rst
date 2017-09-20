@@ -13,7 +13,7 @@ Serialize
  * :ref:`pkg.irrXML` -  simple and fast open source xml parser for C++
  * :ref:`pkg.JsonSpirit` - C++ JSON Library including both a json-data-structure and parser (based on Boost.Spirit>`.
  * :ref:`pkg.msgpack` - efficient binary serialization format.
- * :ref:`pkg.nlohmann::json` - JSON for Modern C++
+ * :ref:`pkg.nlohmann_json` - JSON for Modern C++
  * :ref:`pkg.openddlparser` - A simple and fast OpenDDL Parser. OpenDDL is the shortcut for Open Data Description Language.
  * :ref:`pkg.Protobuf` - Protocol Buffers - Google's data interchange format
  * :ref:`pkg.RapidJSON` - A fast JSON parser/generator for C++ with both SAX/DOM style API
