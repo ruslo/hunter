@@ -42,4 +42,5 @@ hunter_download(
     "lib/pkgconfig/libpcre.pc"
     "lib/pkgconfig/libpcrecpp.pc"
     "lib/pkgconfig/libpcreposix.pc"
+    "bin/pcre-config"
 )
