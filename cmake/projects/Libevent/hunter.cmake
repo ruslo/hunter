@@ -10,8 +10,7 @@ hunter_add_version(
     PACKAGE_NAME Libevent
     VERSION "2.1.8"
     URL "https://github.com/hunter-packages/libevent/archive/v2.1.8-p2.tar.gz"
-    SHA1 "9f1d71d5ff1f7f0cde6b92503d82dc7e4c19c749")
-
+    SHA1 "492abb962dad3071f34bbe4975e28768fd29edf0")
 hunter_cmake_args(Libevent CMAKE_ARGS
                   EVENT__DISABLE_TESTS=ON
                   EVENT__DISABLE_SAMPLES=ON
