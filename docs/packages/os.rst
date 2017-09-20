@@ -1,10 +1,10 @@
 OS
 --
 
- * `Android-Apk <https://github.com/ruslo/hunter/wiki/pkg.android.apk>`_
- * `Android-Modules <https://github.com/ruslo/hunter/wiki/pkg.android.modules>`_
- * `Android-SDK <https://github.com/ruslo/hunter/wiki/pkg.android.sdk>`_
- * `ios_sim <https://github.com/ruslo/hunter/wiki/pkg.ios_sim>`_
- * `Qt-Android-CMake <https://github.com/ruslo/hunter/wiki/pkg.qt.android.cmake>`_
- * `Washer <https://github.com/ruslo/hunter/wiki/pkg.washer>`_ - Lightweight, header-only, C++ wrapper around the Windows API
- * `WTL <https://github.com/ruslo/hunter/wiki/pkg.wtl>`_ - Windows Template Library (WTL>`_ is a C++ library for developing Windows applications and UI components.
+ * `Android-Apk <https://docs.hunter.sh/en/latest/packages/pkg/Android-Apk.html>`_
+ * `Android-Modules <https://docs.hunter.sh/en/latest/packages/pkg/Android-Modules.html>`_
+ * `Android-SDK <https://docs.hunter.sh/en/latest/packages/pkg/Android-SDK.html>`_
+ * `ios_sim <https://docs.hunter.sh/en/latest/packages/pkg/ios_sim.html>`_
+ * `Qt-Android-CMake <https://docs.hunter.sh/en/latest/packages/pkg/Qt-Android-CMake.html>`_
+ * `Washer <https://docs.hunter.sh/en/latest/packages/pkg/Washer.html>`_ - Lightweight, header-only, C++ wrapper around the Windows API
+ * `WTL <https://docs.hunter.sh/en/latest/packages/pkg/WTL.html>`_ - Windows Template Library (WTL>`_ is a C++ library for developing Windows applications and UI components.
