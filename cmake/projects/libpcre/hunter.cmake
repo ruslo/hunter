@@ -28,6 +28,7 @@ hunter_cmake_args(
     libpcre
     CMAKE_ARGS
     PKGCONFIG_EXPORT_TARGETS=libpcre;libpcrecpp;libpcreposix
+    EXTRA_FLAGS=--enable-unicode-properties
 )
 
 hunter_cacheable(libpcre)
