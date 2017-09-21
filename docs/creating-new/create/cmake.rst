@@ -441,6 +441,8 @@ Go back to Hunter repository and run test:
   /.../bin/polly.py
   [hunter]> TOOLCHAIN=gcc PROJECT_DIR=examples/hunter_box_1 ./jenkins.py
 
+.. _ci testing:
+
 CI testing
 ==========
 
