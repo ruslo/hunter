@@ -20,7 +20,7 @@ Calculate SHA1 of release:
 .. code-block:: none
 
   > wget https://github.com/hunterbox/hunter_box_1/archive/v1.0.1.tar.gz
-  > openssl sha1 v1.0.1.tar.gz 
+  > openssl sha1 v1.0.1.tar.gz
   SHA1(v1.0.1.tar.gz)= 10d046eec6c8b0aabd28bd3d1b99faf6beeb226b
 
 Add URL and SHA1 to corresponding ``hunter.cmake``:
@@ -54,17 +54,29 @@ Testing
   Check :ref:`Create package: CI testing <ci testing>` page for registering
   services and branches/remotes description.
 
-Create temporary branch ``test.hunter_box_1`` for testing and merge CI configs
-from ``pkg.hunter_box_1``:
+Fetch latest CI configs, you may need to run ``git pull`` if you have
+``pkg.hunter_box_1`` locally:
 
 .. code-block:: none
 
   [hunter]> git fetch ci
   [hunter]> git checkout pkg.hunter_box_1
+  [hunter]> git pull
+
+Create temporary branch ``test.hunter_box_1`` for testing basing on
+``pkg.hunter_box_1``:
+
+.. code-block:: none
+
   [hunter]> git checkout -b test.hunter_box_1
+
+Merge it with ``hunter_box_1`` package updates:
+
+.. code-block:: none
+
   [hunter]> git merge pr.hunter_box_1
 
-Push changes to remote to start tests:
+Push changes to your Hunter fork remote to start tests:
 
 .. code-block:: none
 
