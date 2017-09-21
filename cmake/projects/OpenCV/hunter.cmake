@@ -118,7 +118,7 @@ hunter_add_version(
     VERSION
     "3.0.0-p11"
     URL
-    "https://github.com/hunter-packages/opencv/archive/v3.0.0-p11.tar.gz"
+    "https://github.com/hunter-packages/opencv/releases/download/v3.0.0-p11/v3.0.0-p11.tar.gz"
     SHA1
     3fa05fadc5c2b5e02ada00ccb7752ede660699ab
 )

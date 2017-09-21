@@ -49,7 +49,7 @@ Let's download and install ``boost.{regex,system,filesystem}``:
 
   hunter_add_package(Boost COMPONENTS regex system filesystem)
 
-Hunter part is done, now well known CMake-style kung fu (see `pkg.boost`_):
+Hunter part is done, now well known CMake-style kung fu (see :ref:`pkg.Boost`):
 
 .. code-block:: cmake
 
@@ -90,4 +90,3 @@ Build it:
 .. _other options: https://github.com/hunter-packages/gate#effects
 .. _HunterGate: https://github.com/hunter-packages/gate
 .. _notes: https://github.com/hunter-packages/gate#notes
-.. _pkg.boost: https://github.com/ruslo/hunter/wiki/pkg.boost
