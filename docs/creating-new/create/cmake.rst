@@ -730,6 +730,6 @@ At this moment all branches can be removed:
   [hunter]> git push origin :pr.pkg.hunter_box_1
   [hunter]> git push origin :test.hunter_box_1
 
-  [hunter]> git branch -D :pr.hunter_box_1
-  [hunter]> git branch -D :pr.pkg.hunter_box_1
-  [hunter]> git branch -D :test.hunter_box_1
+  [hunter]> git branch -D pr.hunter_box_1
+  [hunter]> git branch -D pr.pkg.hunter_box_1
+  [hunter]> git branch -D test.hunter_box_1
