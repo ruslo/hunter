@@ -1,6 +1,7 @@
 .. spelling::
 
-    util_linux
+    util
+    linux
 
 .. index:: system ; util_linux
 

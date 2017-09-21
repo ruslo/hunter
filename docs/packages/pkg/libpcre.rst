@@ -7,7 +7,7 @@
 .. _pkg.libpcre:
 
 libpcre
-===
+=======
 
 -  `Official <http://www.pcre.org>`__
 -  `Example <https://github.com/ruslo/hunter/blob/master/examples/libpcre/CMakeLists.txt>`__

@@ -1,6 +1,6 @@
 .. spelling::
 
-    gst_plugins_bad
+    gst
 
 .. index:: media ; gst_plugins_bad
 
