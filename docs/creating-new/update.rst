@@ -20,7 +20,7 @@ Calculate SHA1 of release:
 .. code-block:: none
 
   > wget https://github.com/hunterbox/hunter_box_1/archive/v1.0.1.tar.gz
-  > openssl sha1 v1.0.1.tar.gz 
+  > openssl sha1 v1.0.1.tar.gz
   SHA1(v1.0.1.tar.gz)= 10d046eec6c8b0aabd28bd3d1b99faf6beeb226b
 
 Add URL and SHA1 to corresponding ``hunter.cmake``:
