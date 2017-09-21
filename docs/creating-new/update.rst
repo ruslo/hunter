@@ -49,6 +49,11 @@ Commit changes:
 Testing
 =======
 
+.. note::
+
+  Check :ref:`Create package: CI testing <ci testing>` page for registering
+  services and branches/remotes description.
+
 Create temporary branch ``test.hunter_box_1`` for testing and merge CI configs
 from ``pkg.hunter_box_1``:
 
