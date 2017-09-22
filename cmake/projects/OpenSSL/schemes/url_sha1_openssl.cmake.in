@@ -32,7 +32,7 @@ hunter_test_string_not_empty("@HUNTER_GLOBAL_SCRIPT_DIR@")
 if(APPLE)
   set(configure_command "./Configure")
   set(configure_opts "darwin64-x86_64-cc")
-elseif(ANDROID OR RASPBERRY_PI)
+elseif(ANDROID OR RASPBERRY_PI OR OPENWRT)
   # -> CMAKE_AR
   # -> CMAKE_RANLIB
   hunter_pick_archiver()
@@ -92,6 +92,8 @@ if(ANDROID)
   list(APPEND configure_opts "-latomic")
 elseif(RASPBERRY_PI)
   set(configure_opts "linux-generic32")
+elseif(OPENWRT)
+  set(configure_opts "linux-generic32" "no-async")
 endif()
 
 # Pass C compiler through
