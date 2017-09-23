@@ -1,4 +1,5 @@
 include(hunter_add_version)
+include(hunter_cacheable)
 include(hunter_download)
 include(hunter_pick_scheme)
 
@@ -10,10 +11,14 @@ hunter_add_version(
 	URL
 	"https://github.com/Meralis40/ogg/archive/v1.3.2-cmake3.tar.gz"
 	SHA1
-	2640E75997765339BA06BE0E4BFA66D85B70636A
+  646672cabc9eec253c9199a872541e3a182f6062
 )
 
 hunter_pick_scheme(DEFAULT url_sha1_cmake)
-
-hunter_download(PACKAGE_NAME libogg)
-
+hunter_cacheable(libogg)
+hunter_download(
+    PACKAGE_NAME
+    libogg
+    PACKAGE_UNRELOCATABLE_TEXT_FILES
+    "lib/pkgconfig/ogg.pc"
+)
