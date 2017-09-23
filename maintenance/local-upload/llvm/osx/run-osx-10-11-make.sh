@@ -12,7 +12,7 @@ cd "${THIS_SCRIPT_DIR}/../../../.."
 
 # {
 export TOOLCHAIN=osx-10-11-make # same as 'libcxx' on Travis
-PROJECT_DIR=examples/LLVM ./jenkins.py --verbose --clear-except-download --upload
+PROJECT_DIR=examples/LLVM ./jenkins.py --clear-except-download --upload
 # }
 
 echo "Done"
