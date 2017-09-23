@@ -71,6 +71,7 @@ class Github:
     self.auth = requests.auth.HTTPBasicAuth(username, password)
     self.simple_request()
     self.release_id = None
+    self.upload_url = None
 
   @retry
   def simple_request(self):
@@ -101,11 +102,19 @@ class Github:
     if r.status_code == 404:
         raise Error('Release {} does not exist. Create a GitHub release for with this tag'.format(tagname))
     if not r.ok:
-      raise Exception('Get tag id failed. Requested url: {}'.format(url))
+        raise Exception(
+            'Get release id failed. Status code: {}. Requested url: {}'.format(
+                r.status_code, url))
 
-    tag_id = r.json()['id']
-    print('Tag id is {}'.format(tag_id))
-    return tag_id
+    release_id = r.json()['id']
+    upload_url = r.json()['upload_url']
+    uri_template_vars = '{?name,label}'
+    if uri_template_vars not in upload_url:
+        raise Exception('Unsupported upload URI template: {}'.format(upload_url))
+    upload_url = upload_url.replace(uri_template_vars, '?name={}')
+    print('Release id: {}'.format(release_id))
+    print('Upload URL: {}'.format(upload_url))
+    return release_id, upload_url
 
   @retry
   def find_asset_id_by_name(self, release_id, name):
@@ -185,21 +194,16 @@ class Github:
   def upload_raw_file(self, local_path):
     tagname = 'cache'
     if self.release_id is None:
-      self.release_id = self.get_release_by_tag(tagname)
+        self.release_id, self.upload_url = self.get_release_by_tag(tagname)
 
     # https://developer.github.com/v3/repos/releases/#upload-a-release-asset
-    # POST https://<upload_url>/repos/:owner/:repo/releases/:id/assets?name=foo.zip
+    # POST to upload_url received in the release description
+    # in get_release_by_tag()
 
     asset_name = hashlib.sha1(open(local_path, 'rb').read()).hexdigest()
     asset_name = asset_name + '.tar.bz2'
 
-    url = 'https://uploads.github.com/repos/{}/{}/releases/{}/assets?name={}'.format(
-        self.repo_owner,
-        self.repo,
-        self.release_id,
-        asset_name
-    )
-
+    url = self.upload_url.format(asset_name)
     self.upload_bzip(url, local_path, self.release_id, asset_name)
 
   @retry

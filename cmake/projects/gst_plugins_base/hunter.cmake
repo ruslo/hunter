@@ -45,7 +45,7 @@ endforeach()
 hunter_cmake_args(
     gst_plugins_base
     CMAKE_ARGS
-    DEPENDS_ON_PACKAGES=gstreamer
+    DEPENDS_ON_PACKAGES=gstreamer;libogg;x11
     DEPENDS_ON_PKGCONFIGS=gstreamer-1.0
     PKGCONFIG_EXPORT_TARGETS=${_gst_export_targets}
 )
@@ -67,6 +67,7 @@ hunter_download(
     "lib/gstreamer-1.0/libgstaudiotestsrc.la"
     "lib/gstreamer-1.0/libgstencodebin.la"
     "lib/gstreamer-1.0/libgstgio.la"
+    "lib/gstreamer-1.0/libgstogg.la"
     "lib/gstreamer-1.0/libgstplayback.la"
     "lib/gstreamer-1.0/libgstsubparse.la"
     "lib/gstreamer-1.0/libgsttcp.la"
@@ -76,6 +77,7 @@ hunter_download(
     "lib/gstreamer-1.0/libgstvideoscale.la"
     "lib/gstreamer-1.0/libgstvideotestsrc.la"
     "lib/gstreamer-1.0/libgstvolume.la"
+    "lib/gstreamer-1.0/libgstximagesink.la"
     "lib/libgstallocators-1.0.la"
     "lib/libgstapp-1.0.la"
     "lib/libgstaudio-1.0.la"

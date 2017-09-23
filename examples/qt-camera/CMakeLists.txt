@@ -3,6 +3,8 @@
 
 cmake_minimum_required(VERSION 3.0)
 
+set(TESTING_CONFIG_OPT FILEPATH "${CMAKE_CURRENT_LIST_DIR}/config.cmake")
+
 # Emulate HunterGate:
 # * https://github.com/hunter-packages/gate
 include("../common.cmake")
@@ -127,3 +129,28 @@ if(fix_cyclic)
   )
 endif()
 # --
+
+string(COMPARE EQUAL "${CMAKE_SYSTEM_NAME}" "Linux" is_linux)
+
+if(is_linux)
+  configure_file(
+      qt.conf
+      ${CMAKE_CURRENT_BINARY_DIR}/qt.conf
+      @ONLY
+  )
+
+  configure_file(
+      env.sh
+      ${CMAKE_CURRENT_BINARY_DIR}/env.sh
+      @ONLY
+  )
+
+  enable_testing()
+  add_test(NAME qt-camera COMMAND qt-camera)
+  set_tests_properties(
+      qt-camera
+      PROPERTIES
+      ENVIRONMENT
+      "QT_DEBUG_PLUGINS=1;LD_LIBRARY_PATH=${QT_ROOT}/lib;GST_PLUGIN_SCANNER=1;GST_PLUGIN_PATH=${QT_ROOT}/lib/gstreamer-1.0"
+  )
+endif()
