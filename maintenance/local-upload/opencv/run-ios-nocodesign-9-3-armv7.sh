@@ -11,6 +11,6 @@ THIS_SCRIPT_DIR=`dirname "${BASH_SOURCE[0]}"`
 cd "${THIS_SCRIPT_DIR}/../../.."
 
 # {
-export TOOLCHAIN=ios-nocodesign-9-3-wo-armv7s
-PROJECT_DIR=examples/OpenCV ./jenkins.py --verbose --upload --clear-except-download
+export TOOLCHAIN=ios-nocodesign-9-3-armv7
+PROJECT_DIR=examples/OpenCV-extra ./jenkins.py --clear-except-download --upload
 # }

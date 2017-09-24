@@ -4,7 +4,7 @@
 hunter_download
 ---------------
 
-* `Source <https://github.com/ruslo/hunter/blob/develop/cmake/modules/hunter_download.cmake>`__
+* `Source <https://github.com/ruslo/hunter/blob/master/cmake/modules/hunter_download.cmake>`__
 * Usage examples:
 
  * `PACKAGE_NAME <https://github.com/ruslo/hunter/blob/71daf403edd1cc870452ae7bf5c8e873c6d6398c/cmake/projects/GTest/hunter.cmake#L138>`__

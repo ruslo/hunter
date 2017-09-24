@@ -12,7 +12,7 @@ hunter_add_version(
   VERSION
   "0.5.3"
   URL
-  "https://github.com/hunter-packages/yaml-cpp/archive/release-0.5.3-hunter-p2.tar.gz"
+  "https://github.com/hunter-packages/yaml-cpp/releases/download/release-0.5.3-hunter-p2/release-0.5.3-hunter-p2.tar.gz"
   SHA1
   ee1fe3713409de48b203f6b631c1284190d95671
   )
