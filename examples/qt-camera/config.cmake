@@ -24,6 +24,9 @@ if(is_linux)
       xdamage
       xext
       xfixes
+      xi
+      xinerama
+      xrandr
       xrender
       xshmfence
       xxf86vm

@@ -64,6 +64,7 @@ foreach(deps ${depends_on})
 endforeach()
 
 string(COMPARE EQUAL "@qt_component@" "qttools" is_qttools)
+string(COMPARE EQUAL "@qt_component@" "qtbase" is_qtbase)
 list(FIND depends_on "qttools" depends_on_qttools_index)
 
 include("@hunter_self@/scripts/clear-all.cmake")
@@ -178,6 +179,28 @@ if("@IOS@")
     endif()
 
     file(REMOVE "@local_install_dir@/${sim_lib}")
+  endforeach()
+endif()
+
+# Fix RPATH issue:
+# * https://github.com/hunter-packages/Qt/issues/3
+if("@HUNTER_QT_OS_IS_LINUX@" AND "@BUILD_SHARED_LIBS@" AND is_qtbase)
+  set(
+      rpath_fix_list
+      qdbuscpp2xml
+      qdbusxml2cpp
+      qdoc
+      qlalr
+      uic
+  )
+
+  foreach(x ${rpath_fix_list})
+    file(
+        RPATH_CHANGE
+        FILE "@local_install_dir@/bin/${x}"
+        OLD_RPATH "@local_install_dir@/lib"
+        NEW_RPATH "$ORIGIN/../lib"
+    )
   endforeach()
 endif()
 
