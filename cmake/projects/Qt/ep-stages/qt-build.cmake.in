@@ -31,6 +31,8 @@ if("@HUNTER_QT_OS_IS_LINUX@")
   set(x "@global_install_dir@/share/pkgconfig")
   set(y "@global_install_dir@/lib/pkgconfig")
   set(ENV{PKG_CONFIG_PATH} "${x}:${y}")
+
+  set(ENV{LD_LIBRARY_PATH} "@global_install_dir@/lib")
 endif()
 
 execute_process(COMMAND ${build_command} @build_opts@ RESULT_VARIABLE result)
