@@ -381,6 +381,8 @@ configure_file(
 #   * ANDROID
 #   * IOS
 #   * HUNTER_Qt_VERSION
+#   * HUNTER_QT_OS_IS_LINUX
+#   * BUILD_SHARED_LIBS
 configure_file(
     "@HUNTER_PACKAGE_SETUP_DIR@/ep-stages/qt-install.cmake.in"
     "@HUNTER_PACKAGE_BUILD_DIR@/qt-install.cmake"
