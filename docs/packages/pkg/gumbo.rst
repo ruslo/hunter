@@ -10,7 +10,7 @@ gumbo
 =====
 
 -  `Official <https://github.com/gumbo/gumbo>`__
--  `Hunterized <https://github.com/isaachier/gumbo>`__
+-  `Hunterized <https://github.com/hunter-packages/gumbo>`__
 -  `Example <https://github.com/ruslo/hunter/blob/master/examples/gumbo/CMakeLists.txt>`__
 -  Added by `Isaac Hier <https://github.com/isaachier>`__ (`pr-1062 <https://github.com/ruslo/hunter/pull/1062>`__)
 
