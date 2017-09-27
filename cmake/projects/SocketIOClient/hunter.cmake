@@ -17,7 +17,7 @@ hunter_add_version(
         URL
         "https://github.com/madmongo1/socket.io-client-cpp/archive/v1.6.1-hunter-1.tar.gz"
         SHA1
-        3e67677d8d0328c07c7a2d2c9e8ebda87c9ad583
+        00d6da0ce2301bdd362bd1c51dd2241019948a80
 )
 
 hunter_pick_scheme(DEFAULT url_sha1_cmake)
