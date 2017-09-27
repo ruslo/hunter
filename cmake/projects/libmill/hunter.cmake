@@ -10,7 +10,7 @@ hunter_add_version(
     PACKAGE_NAME libmill
     VERSION "1.18"
     URL "https://github.com/hunter-packages/libmill/archive/hunter-1.18.tar.gz"
-    SHA1 "604be4de618314e4bd4d72a4e7a708e064a01097")
+    SHA1 "447807f84cbd3369d3031b394e0941574e01b08a")
 hunter_cmake_args(libmill CMAKE_ARGS
                   BUILD_TESTING=OFF
                   BUILD_PERF=OFF)
