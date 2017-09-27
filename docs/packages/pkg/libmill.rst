@@ -2,7 +2,7 @@
 
     libmill
 
-.. index:: unsorted ; libmill
+.. index:: concurrency ; libmill
 
 .. _pkg.libmill:
 
