@@ -10,6 +10,7 @@ Serialize
  * :ref:`pkg.CsvParserCPlusPlus` - C++ library for parsing text files.
  * :ref:`pkg.Expat` - XML parser library in C.
  * :ref:`pkg.flatbuffers` - Memory Efficient Serialization Library
+ * :ref:`pkg.gumbo` - An HTML5 parsing library in pure C99
  * :ref:`pkg.irrXML` -  simple and fast open source xml parser for C++
  * :ref:`pkg.JsonSpirit` - C++ JSON Library including both a json-data-structure and parser (based on Boost.Spirit>`.
  * :ref:`pkg.msgpack` - efficient binary serialization format.
