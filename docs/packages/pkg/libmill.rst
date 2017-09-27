@@ -12,7 +12,7 @@ libmill
 -  `Official <https://github.com/sustrik/libmill>`__
 -  `Hunterized <https://github.com/hunter-packages/libmill>`__
 -  `Example <https://github.com/ruslo/hunter/blob/master/examples/libmill/CMakeLists.txt>`__
--  Added by `Isaac Hier <https://github.com/isaachier>`__ (`pr-N <https://github.com/ruslo/hunter/pull/N>`__)
+-  Added by `Isaac Hier <https://github.com/isaachier>`__ (`pr-1063 <https://github.com/ruslo/hunter/pull/1063>`__)
 
 .. code-block:: cmake
 
