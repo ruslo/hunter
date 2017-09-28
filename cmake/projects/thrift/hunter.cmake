@@ -20,7 +20,8 @@ hunter_cmake_args(thrift CMAKE_ARGS
     BUILD_C_GLIB=OFF
     WITH_QT4=OFF
     WITH_QT5=OFF
-    WITH_SHARED_LIB=OFF)
+    WITH_SHARED_LIB=OFF
+    WITH_PLUGIN=OFF)
 
 hunter_pick_scheme(DEFAULT url_sha1_cmake)
 hunter_cacheable(thrift)
