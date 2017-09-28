@@ -78,6 +78,13 @@ HUNTER_CONFIGURATION_TYPES
 * See `example <https://github.com/ruslo/hunter/wiki/example.hunter_configuration_types>`__
 * Default: ``Release``, ``Debug``
 
+HUNTER_BUILD_SHARED_LIBS
+========================
+
+* Value for
+  `BUILD_SHARED_LIBS <https://cmake.org/cmake/help/latest/variable/BUILD_SHARED_LIBS.html>`__
+  for 3rd party packages
+
 HUNTER_JOBS_NUMBER
 ==================
 
