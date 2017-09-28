@@ -4,6 +4,7 @@
   HPC
   GPGPU
   GPU
+  libdill
   libmill
 
 Concurrency
@@ -13,6 +14,7 @@ Concurrency
  - :ref:`pkg.Async++` - concurrency framework for C++11
  - :ref:`pkg.BoostCompute`
  - :ref:`pkg.GPUImage` - open source iOS framework for GPU-based image and video processing
+ - :ref:`pkg.libdill` - C library that makes writing structured concurrent programs easy
  - :ref:`pkg.libmill` - Go-style concurrency in C
  - :ref:`pkg.ogles_gpgpu` - GPGPU for mobile devices and embedded systems using OpenGL ES 2.0
  - :ref:`pkg.OpenCL` - OpenCL headers and Installable Client Driver
