@@ -10,7 +10,7 @@ hunter_add_version(
     PACKAGE_NAME libdill
     VERSION "1.6"
     URL "https://github.com/isaachier/libdill/archive/hunter-1.6-p1.tar.gz"
-    SHA1 "fa46951cca010b6a829b9d8aaf6a94a221cc7002")
+    SHA1 "06a6aa00364007b2f19d942b503566bb15136a93")
 hunter_cmake_args(libdill CMAKE_ARGS
                   BUILD_TESTING=OFF
                   BUILD_PERF=OFF)
