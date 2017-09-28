@@ -19,6 +19,6 @@ thrift
     hunter_add_package(thrift)
     find_package(thrift CONFIG REQUIRED)
     target_link_libraries(foo
-        thrift::thrift     # Main thrift library
-        thrift::thriftz    # thrift ZLIB support
-        thrift::thriftnb)  # thrift Libevent non-blocking support
+        thrift::thrift_static     # Main thrift library
+        thrift::thriftz_static    # thrift ZLIB support
+        thrift::thriftnb_static)  # thrift Libevent non-blocking support
