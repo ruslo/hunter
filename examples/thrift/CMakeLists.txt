@@ -9,4 +9,4 @@ hunter_add_package(thrift)
 find_package(thrift CONFIG REQUIRED)
 
 add_executable(main main.cpp)
-target_link_libraries(main thrift::thrift)
+target_link_libraries(main thrift::thrift_static)
