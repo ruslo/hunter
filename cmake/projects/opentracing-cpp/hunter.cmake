@@ -9,8 +9,8 @@ include(hunter_pick_scheme)
 hunter_add_version(
     PACKAGE_NAME opentracing-cpp
     VERSION "1.0.0"
-    URL "https://github.com/isaachier/opentracing-cpp/archive/hunter-v1.0.0.tar.gz"
-    SHA1 "fb78cf1a45291eae5f87040b231df53baada1869")
+    URL "https://github.com/isaachier/opentracing-cpp/archive/hunter-v1.0.0-p1.tar.gz"
+    SHA1 "a6fa55e954da3c2b41810a955e47b8dc985cb0a8")
 
 hunter_cmake_args(opentracing-cpp CMAKE_ARGS BUILD_TESTING=OFF)
 
