@@ -1,6 +1,7 @@
 .. spelling::
 
-    opentracing-cpp
+    opentracing
+    cpp
 
 .. index:: frameworks ; opentracing-cpp
 
