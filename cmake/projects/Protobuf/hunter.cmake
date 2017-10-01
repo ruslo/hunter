@@ -14,7 +14,7 @@ hunter_add_version(
     URL
     "https://github.com/hunter-packages/protobuf/archive/v3.0.0-hunter-3.tar.gz"
     SHA1
-    242443553ca20ab279427330e175a3c33ecbf265
+    e3d5ab642e0295d16b86a4a55e06c3ee026ff249
 )
 
 hunter_add_version(
