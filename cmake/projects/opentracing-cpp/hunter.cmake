@@ -12,7 +12,8 @@ hunter_add_version(
     URL "https://github.com/isaachier/opentracing-cpp/archive/hunter-v1.0.0-p1.tar.gz"
     SHA1 "a6fa55e954da3c2b41810a955e47b8dc985cb0a8")
 
-hunter_cmake_args(opentracing-cpp CMAKE_ARGS BUILD_TESTING=OFF)
+hunter_cmake_args(opentracing-cpp CMAKE_ARGS
+    BUILD_TESTING=OFF ENABLE_LINTING=OFF)
 
 hunter_pick_scheme(DEFAULT url_sha1_cmake)
 hunter_cacheable(opentracing-cpp)
