@@ -4,6 +4,9 @@ include("../common.cmake")
 
 project(download-opentracing-cpp)
 
+set(CMAKE_CXX_STANDARD_REQUIRED true)
+set(CMAKE_CXX_STANDARD 11)
+
 hunter_add_package(opentracing-cpp)
 
 find_package(OpenTracing CONFIG REQUIRED)
