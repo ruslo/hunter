@@ -22,4 +22,4 @@ gflags
 
     hunter_add_package(gflags)
     find_package(gflags CONFIG REQUIRED)
-    target_link_libraries(... gflags-static)
+    target_link_libraries(... gflags)
