@@ -95,6 +95,9 @@ macro(hunter_finalize)
   hunter_status_debug(
       "HUNTER_CONFIGURATION_TYPES: ${HUNTER_CACHED_CONFIGURATION_TYPES}"
   )
+  hunter_status_debug(
+      "HUNTER_BUILD_SHARED_LIBS: ${HUNTER_BUILD_SHARED_LIBS}"
+  )
 
   set(_id_info "[ Hunter-ID: ${HUNTER_ID} |")
   set(_id_info "${_id_info} Toolchain-ID: ${HUNTER_TOOLCHAIN_ID} |")

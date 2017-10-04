@@ -24,7 +24,7 @@ hunter_add_version(
 hunter_cmake_args(
     gst_plugins_good
     CMAKE_ARGS
-    DEPENDS_ON_PACKAGES=gst_plugins_base;xext
+    DEPENDS_ON_PACKAGES=gst_plugins_base;xext;Jpeg
     DEPENDS_ON_PKGCONFIGS=gstreamer-plugins-base-1.0 # ???
 )
 

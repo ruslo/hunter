@@ -311,11 +311,24 @@ function(hunter_download)
   endif()
 
   # load from cache using SHA1 of args.cmake file
+  set(package_cmake_args "")
+  list(APPEND package_cmake_args ${HUNTER_${h_name}_DEFAULT_CMAKE_ARGS})
+
+  # Priority is higher than default CMAKE_ARGS from `hunter.cmake` but
+  # lower than user's CMAKE_ARGS from `config.cmake`.
+  string(COMPARE EQUAL "${HUNTER_CACHED_BUILD_SHARED_LIBS}" "" is_empty)
+  if(NOT is_empty)
+    list(
+        APPEND
+        package_cmake_args
+        "BUILD_SHARED_LIBS=${HUNTER_CACHED_BUILD_SHARED_LIBS}"
+    )
+  endif()
+
+  list(APPEND package_cmake_args ${HUNTER_${h_name}_CMAKE_ARGS})
+
   file(REMOVE "${HUNTER_ARGS_FILE}")
-  hunter_create_args_file(
-      "${HUNTER_${h_name}_DEFAULT_CMAKE_ARGS};${HUNTER_${h_name}_CMAKE_ARGS}"
-      "${HUNTER_ARGS_FILE}"
-  )
+  hunter_create_args_file("${package_cmake_args}" "${HUNTER_ARGS_FILE}")
 
   # Check if package can be loaded from cache
   hunter_load_from_cache()
