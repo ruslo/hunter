@@ -1,6 +1,7 @@
 .. spelling::
 
     Qt
+    GStreamer
 
 .. index:: ui ; Qt
 
@@ -132,6 +133,26 @@ Examples:
 
     hunter_add_package(Qt COMPONENTS qtquickcontrols)
     # no *.cmake modules installed
+
+Customization
+-------------
+
+* ``QT_WITH_GSTREAMER``
+
+  * Build with :ref:`pkg.gstreamer`
+  * You will need this when building Qt application with camera support on Linux
+  * Adds ``-gstreamer 1.0``
+  * Only configuration with shared libraries tested. Also you have to set
+    runtime paths with ``LD_LIBRARY_PATH``/``GST_PLUGIN_PATH``, see
+    `example <https://github.com/ruslo/hunter/blob/master/examples/qt-camera/CMakeLists.txt>`__.
+  * To test GStreamer camera you can run ``gst-launch -v -m camerabin``
+
+* ``QT_OPENGL_DESKTOP``
+
+  * Use OpenGL installed on Windows
+  * Visual Studio
+  * Adds ``-opengl desktop``
+  * `Qt Configure Options <https://doc.qt.io/qt-5/configure-options.html>`__
 
 Pitfalls
 --------

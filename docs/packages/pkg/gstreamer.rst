@@ -17,3 +17,7 @@ gstreamer
     hunter_add_package(gstreamer)
     find_package(gstreamer-1.0 CONFIG REQUIRED)
     target_link_libraries(... PkgConfig::gstreamer-1.0)
+
+.. warning::
+
+  * Only Linux tested
