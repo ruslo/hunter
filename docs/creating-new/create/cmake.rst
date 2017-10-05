@@ -381,7 +381,7 @@ Substitute ``unsorted`` with some tag in directive
 
 .. note::
 
-  Since you don't know a priory pull request number leave it as ``N`` for now.
+  Since you don't know the pull request number a priori leave it as ``N`` for now.
   You can update it later.
 
 To check documentation building locally you can run:
