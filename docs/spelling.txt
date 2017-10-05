@@ -42,6 +42,7 @@ performant
 plugin
 plugins
 prebuilt
+priori
 reconstructible
 reproducibility
 runtime
