@@ -12,7 +12,7 @@ globjects
 -  `Official <https://github.com/cginternals/globjects>`__
 -  `Hunterized <https://github.com/hunter-packages/globjects>`__
 -  `Example <https://github.com/ruslo/hunter/blob/master/examples/globjects/CMakeLists.txt>`__
--  Added by `NeroBurner <https://github.com/NeroBurner>`__ (`pr-N <https://github.com/ruslo/hunter/pull/N>`__)
+-  Added by `NeroBurner <https://github.com/NeroBurner>`__ (`pr-1075 <https://github.com/ruslo/hunter/pull/1075>`__)
 
 .. code-block:: cmake
 
