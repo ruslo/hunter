@@ -1,0 +1,5 @@
+hunter_config(
+    xgboost
+    VERSION ${HUNTER_xgboost_VERSION}
+    CMAKE_ARGS XGBOOST_USE_HALF=ON XGBOOST_USE_CEREAL=ON XGBOOST_DO_LEAN=ON
+)
