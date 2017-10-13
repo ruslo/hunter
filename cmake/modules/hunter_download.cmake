@@ -413,7 +413,7 @@ function(hunter_download)
   file(
       APPEND
       "${HUNTER_DOWNLOAD_TOOLCHAIN}"
-      "list(APPEND HUNTER_CACHE_SERVERS ${HUNTER_CACHE_SERVERS})\n"
+      "set(HUNTER_CACHE_SERVERS \"${HUNTER_CACHE_SERVERS}\" CACHE INTERNAL \"\")\n"
   )
   file(
       APPEND

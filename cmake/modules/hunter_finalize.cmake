@@ -19,8 +19,12 @@ macro(hunter_finalize)
   # Check preconditions
   hunter_sanity_checks()
 
-  list(APPEND HUNTER_CACHE_SERVERS "https://github.com/ingenue/hunter-cache")
-  list(REMOVE_DUPLICATES HUNTER_CACHE_SERVERS)
+  string(COMPARE EQUAL "${HUNTER_CACHE_SERVERS}" "" _is_empty)
+  if(_is_empty)
+    hunter_status_debug("Using default cache server")
+    set(HUNTER_CACHE_SERVERS "https://github.com/ingenue/hunter-cache")
+  endif()
+
   hunter_status_debug("List of cache servers:")
   foreach(_server ${HUNTER_CACHE_SERVERS})
     hunter_status_debug("  * ${_server}")
