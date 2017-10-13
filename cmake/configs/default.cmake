@@ -316,6 +316,7 @@ if(ANDROID)
     hunter_config(Android-Intel-x86-Atom-System-Image VERSION 16)
     hunter_config(Android-SDK-Platform VERSION 16_r05)
     hunter_config(Sources-for-Android-SDK VERSION 16)
+    hunter_config(Android-ARM-EABI-v7a-System-Image VERSION 16_r04)
   else()
     hunter_user_error(
         "Android API (CMAKE_SYSTEM_VERSION)"
