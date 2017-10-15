@@ -12,6 +12,12 @@ hunter_add_version(
     URL "https://github.com/hunter-packages/thrift/archive/v0.10.0-p0.tar.gz"
     SHA1 "e346fd04d2228e4d08df363b4f260d92d12e7b67")
 
+hunter_add_version(
+    PACKAGE_NAME thrift
+    VERSION "0.9.2"
+    URL "https://github.com/isaachier/thrift/archive/hunter-0.9.2-p0.tar.gz"
+    SHA1 "ffcc08215308e6d2b6b67a54281d5bad31c1919e")
+
 hunter_cmake_args(thrift CMAKE_ARGS
     BUILD_TESTING=OFF
     BUILD_TUTORIALS=OFF
