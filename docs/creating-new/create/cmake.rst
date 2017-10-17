@@ -285,10 +285,10 @@ Add this information to ``cmake/projects/hunter_box_1/hunter.cmake`` file:
 CMake options
 =============
 
-Note that it does not make sense to include in build such stuff like examples,
-tests or documentation. Please check that your package has CMake option to
-disable it and apply extra variables to all versions  (if options is not
-disabled by default) using ``hunter_cmake_args`` function:
+Note that it does not make sense to build and install stuff like examples,
+tests or documentation. Please check that your package has CMake options to
+disable those. If such an option is not disabled by default use 
+``hunter_cmake_args``:
 
 .. code-block:: cmake
   :emphasize-lines: 3, 6-8
@@ -315,9 +315,9 @@ Build types
 
 .. warning::
 
-  Usually there is no need to set build type explicitly. If package does not
-  work with default ``Debug`` + ``Release`` it means something wrong with
-  package itself.
+  Usually there is no need to set a build type explicitly. If the package does not
+  work with default ``Debug`` + ``Release`` it means something is wrong with
+  the package itself.
 
 Default build type(s) can be set by ``hunter_configuration_types``:
 
@@ -343,8 +343,8 @@ Add ``hunter_config`` directive with default version to
 Create example
 ==============
 
-Simple example will be used to test integration of package. Copy template
-example and substitute all strings ``foo`` with ``hunter_box_1``:
+ To test the integration of the package into another project a simple example will be used.
+ Copy the template example and substitute all strings ``foo`` with ``hunter_box_1``:
 
 .. code-block:: none
 
@@ -352,16 +352,16 @@ example and substitute all strings ``foo`` with ``hunter_box_1``:
   [hunter]> sed -i 's,foo,hunter_box_1,g' examples/hunter_box_1/*
 
 Tweak all files in ``examples/hunter_box_1`` directory to fit headers and
-name of imported targets.
+names of imported targets.
 
 Add documentation
 =================
 
-Each package should have
+Each package should have a
 :doc:`page with information and usage example </packages/all>`.
 
-To create such page copy template file and substitute all strings ``foo`` with
-project name ``hunter_box_1`` string:
+To create such a page copy the template file and substitute all strings ``foo`` with
+the project name (for example ``hunter_box_1``):
 
 .. code-block:: none
 
@@ -381,10 +381,10 @@ Substitute ``unsorted`` with some tag in directive
 
 .. note::
 
-  Since you don't know a priory pull request number leave it as ``N`` for now.
+  Since you don't know the pull request number a priori leave it as ``N`` for now.
   You can update it later.
 
-To check documentation building locally you can run:
+To locally check if the documentation is still building you can run:
 
 .. code-block:: none
 
@@ -395,7 +395,7 @@ To check documentation building locally you can run:
 Commit
 ======
 
-Now save all changes by doing commit:
+Now save all changes by doing a commit:
 
 .. code-block:: none
 
@@ -413,14 +413,14 @@ Now save all changes by doing commit:
 Testing locally
 ===============
 
-This step is optional since we will run tests on CI server. However it's the
+This step is optional since we will run tests on the CI server. However it's the
 fastest way to check that everything is ready and working correctly.
 
-Script ``jenkins.py`` will package temporary Hunter archive based on current
-state and build example. This script use
+Script ``jenkins.py`` will package a temporary Hunter archive based on current
+state and build the specified example. This script uses
 `Polly <https://github.com/ruslo/polly>`__ toolchains.
 
-Check you have Python 3 installed, clone Polly and add ``bin`` folder to
+Check you have Python 3 installed, clone Polly and add its ``bin`` folder to
 ``PATH`` environment variable:
 
 .. code-block:: none
@@ -447,11 +447,11 @@ CI testing
 ==========
 
 Now let's run tests on continuous integration servers with various toolchains
-and platforms. Hunter use `AppVeyor <https://appveyor.com>`__ to test
+and platforms. Hunter uses `AppVeyor <https://appveyor.com>`__ to test for
 Windows (Visual Studio, NMake, Ninja, MinGW, MSYS) and
 `Travis <https://travis-ci.org>`__ to test
-Linux (GCC, Clang, Android, Clang Analyzer, Sanitize Address, Sanitize Leak)
-and OSX (Clang + Makefile, Xcode, iOS).
+for Linux (GCC, Clang, Android, Clang Analyzer, Sanitize Address, Sanitize Leak)
+and for OSX (Clang + Makefile, Xcode, iOS).
 
 Register your Hunter fork:
 
@@ -468,12 +468,12 @@ of branches.
 * Repository: https://github.com/ruslo/hunter
 * Testing: Documentation on Linux
 
-In branch ``master`` there is only ``.travis.yml`` file which will only check
-documentation building:
+In branch ``master`` there is only the ``.travis.yml`` file which will only check
+if the documentation is building:
 
 * https://github.com/ruslo/hunter/blob/ea9de264d6c1b05484bdc16a9967c3cb8cca9048/.travis.yml#L57-L59
 
-When you open pull request to ``ruslo/hunter`` this test will run automatically.
+When you open a pull request to ``ruslo/hunter`` this test will automatically run.
 
 Branch pkg.template
 ===================
@@ -482,15 +482,14 @@ Branch pkg.template
 * Repository: https://github.com/ingenue/hunter
 * Testing: *Nothing*
 
-In branch ``pkg.template`` of ``ingenue/hunter`` repository there are
-**template** ``.travis.yml`` and ``appveyor.yml`` files:
+In branch ``pkg.template`` of the repository ``ingenue/hunter`` there are
+the **template** files ``.travis.yml`` and ``appveyor.yml``:
 
 * https://github.com/ingenue/hunter/blob/pkg.template/.travis.yml
 * https://github.com/ingenue/hunter/blob/pkg.template/appveyor.yml
 
-All changes from ``master`` will go to ``pkg.template``. The only difference
-between ``master`` and ``pkg.template`` is ``.travis.yml``/``appveyor.yml``
-files.
+All changes from ``master`` will go to ``pkg.template``. The only differences
+between ``master`` and ``pkg.template`` are the files ``.travis.yml``/``appveyor.yml``.
 
 Branch pkg.<name>
 =================
@@ -509,8 +508,8 @@ E.g. branch ``pkg.gtest``:
 * Travis https://travis-ci.org/ingenue/hunter/builds/274507515
 
 All changes from ``pkg.template`` will go to ``pkg.<name>`` branch on updates.
-The only difference between ``pkg.template`` and ``pkg.<name>`` is
-``travis.yml``/``appveyor.yml`` files.
+The only differences between ``pkg.template`` and ``pkg.<name>`` are
+the files ``travis.yml``/``appveyor.yml``.
 
 Branch upload.<name>
 ====================
@@ -519,9 +518,9 @@ Branch for uploads.
 
 * Name: ``upload.<name>``
 * Repository: https://github.com/ingenue/hunter
-* Testing: Upload archives with binaries to server
+* Testing: Upload archives with binaries to cache-server
 
-After successful tests on ``pkg.<name>`` branch ``upload.<name>`` will do
+After successful tests on ``pkg.<name>`` the branch ``upload.<name>`` will do
 uploads. E.g. branch ``upload.gtest``:
 
 * https://github.com/ingenue/hunter/tree/upload.gtest
@@ -530,12 +529,12 @@ uploads. E.g. branch ``upload.gtest``:
 
 All changes from ``pkg.<name>`` will go to ``upload.<name>`` branch on updates.
 The only difference between ``upload.<name>`` and ``pkg.<name>`` is
-build command: ``jenkins.py`` vs. ``jenkins.py --upload``.
+the build command: ``jenkins.py`` vs. ``jenkins.py --upload``.
 
 Branches structure
 ==================
 
-Here is an image for branches structure:
+Here is an image showing the structure of the branches:
 
 .. image:: /creating-new/images/branches.png
   :align: center
@@ -544,8 +543,8 @@ Here is an image for branches structure:
 Fetch CI configs
 ================
 
-Since we are adding new package we have to create new CI configs for it.
-Fetch ``pkg.template`` branch and substitute all ``foo`` strings with
+Since we are adding a new package we have to create new CI configs for it.
+Fetch the branch ``pkg.template`` and substitute all ``foo`` strings with
 ``hunter_box_1``:
 
 .. code-block:: none
@@ -564,7 +563,7 @@ Fetch ``pkg.template`` branch and substitute all ``foo`` strings with
 Run remote tests
 ================
 
-Current state is:
+Currently we have two new branches:
 
 * ``pr.hunter_box_1`` contains new package
 * ``pr.pkg.hunter_box_1`` contains configs for testing
@@ -600,20 +599,23 @@ Excluding tests
 
 If all tests passed you can skip this section.
 
-If some toolchains are working and some toolchains failed it means project
+If some toolchains are working and some toolchains failed it means the project
 has platform-specific problems. Note that you don't have to have all
 toolchains working and there is **no need to fix all issues you see**.
 If at least *something* is working then you can exclude broken
-toolchain and you or somebody else can apply fixes later.
+toolchains and you or somebody else can apply fixes later.
 
-**Do not remove** toolchains from ``.travis.yml``/``appveyor.yml`` configs.
-Comment it out instead to simplify enabling it back. Do not change the order
-of toolchains since it will affect ``git merge``. Leave the link to broken job:
+Please follow these guidelines when disabling toolchains:
+
+- **Do not remove** toolchains from ``.travis.yml``/``appveyor.yml`` configs.
+  Comment it out instead to simplify enabling it back.
+- Do not change the order of toolchains since it will affect ``git merge``.
+- Leave the link to broken job:
 
 .. literalinclude:: ci/.travis-NEW.yml
   :diff: ci/.travis-OLD.yml
 
-If no working toolchains left for ``.travis.yml`` or ``appveyor.yml`` then
+If no working toolchain is left for ``.travis.yml`` or ``appveyor.yml`` then
 comment out everything and add ``TOOLCHAIN=dummy`` test.
 
 Go to branch ``pr.pkg.hunter_box_1`` with CI configs and commit this change
@@ -704,7 +706,7 @@ to test package:
 Upload
 ======
 
-After tests passed pull request will be merged and upload run. When upload
+After all tests pass the pull request will be merged and upload run. When upload
 finished new release will be created:
 
 .. image:: /creating-new/images/upload.png
