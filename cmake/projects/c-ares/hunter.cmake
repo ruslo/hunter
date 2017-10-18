@@ -7,7 +7,7 @@ include(hunter_pick_scheme)
 
 hunter_add_version(
     PACKAGE_NAME c-ares
-    VERSION "0.13.0"
+    VERSION "1.13.0"
     URL "https://github.com/c-ares/c-ares/archive/cares-1_13_0.tar.gz"
     SHA1 "00a0dcb85db6f08afdaf4731cc8e3606daf5a12b")
 
