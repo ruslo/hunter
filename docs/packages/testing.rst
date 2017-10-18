@@ -1,3 +1,7 @@
+.. spelling::
+
+  benchmarking
+
 Testing
 -------
 
