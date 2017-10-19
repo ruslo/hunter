@@ -19,7 +19,7 @@ glog
     find_package(glog CONFIG REQUIRED)
     target_link_libraries(... glog::glog)
 
-For Hunter <= `__FIXME__ v0.17.15 <https://github.com/ruslo/hunter/releases/tag/v0.17.15>`__
+For Hunter <= `v0.17.15 <https://github.com/ruslo/hunter/releases/tag/v0.17.15>`__:
 
 .. code-block:: cmake
 
@@ -27,5 +27,8 @@ For Hunter <= `__FIXME__ v0.17.15 <https://github.com/ruslo/hunter/releases/tag/
     find_package(glog CONFIG REQUIRED)
     target_link_libraries(... glog)
 
-Note that it does not work on Android:
-https://github.com/google/glog/issues/59
+.. warning::
+
+  Does not work on Android:
+
+  * https://github.com/google/glog/issues/59
