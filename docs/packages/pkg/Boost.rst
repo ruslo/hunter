@@ -44,12 +44,12 @@ List of components (other libraries are header-only):
 - ``locale``
 - ``log``
 - ``math`` - Requires Special names for ``find_package`` and ``target_link_libraries``, choose one of:
-  - ``math_c99``
-  - ``math_c99f``
-  - ``math_c99l``
-  - ``math_tr1``
-  - ``math_tr1f``
-  - ``math_tr1l``
+   - ``math_c99``
+   - ``math_c99f``
+   - ``math_c99l``
+   - ``math_tr1``
+   - ``math_tr1f``
+   - ``math_tr1l``
 - ``mpi``
 - ``program_options``
 - ``python``
