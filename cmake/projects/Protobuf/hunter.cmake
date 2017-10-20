@@ -50,6 +50,28 @@ hunter_add_version(
     f91766a391284b7ccd192fa36bc3f09449b3c202
 )
 
+hunter_add_version(
+    PACKAGE_NAME
+    Protobuf
+    VERSION
+    "3.1.0"
+    URL
+    "https://github.com/hunter-packages/protobuf/archive/v3.1.0-hunter-4.tar.gz"
+    SHA1
+    8f58f2cbe6d3fae61451a5e29b703686fe4bc9d6
+)
+
+hunter_add_version(
+    PACKAGE_NAME
+    Protobuf
+    VERSION
+    "3.3.0"
+    URL
+    "https://github.com/hunter-packages/protobuf/archive/v3.3.0-hunter-1.tar.gz"
+    SHA1
+    8815a6be8188b2d6c8002924e752018b64658748
+)
+
 if(ANDROID OR IOS)
   hunter_cmake_args(
       Protobuf
