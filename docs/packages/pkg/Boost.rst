@@ -27,6 +27,7 @@ Examples:
 - `Boost-system <https://github.com/ruslo/hunter/blob/master/examples/Boost-system/CMakeLists.txt>`__
 - `Boost-iostreams <https://github.com/ruslo/hunter/blob/master/examples/Boost-iostreams/CMakeLists.txt>`__
 - `Boost-filesystem <https://github.com/ruslo/hunter/blob/master/examples/Boost-filesystem/CMakeLists.txt>`__
+- `Boost-math <https://github.com/ruslo/hunter/blob/master/examples/Boost-math/CMakeLists.txt>`__
 
 List of components (other libraries are header-only):
 
@@ -42,7 +43,13 @@ List of components (other libraries are header-only):
 - ``iostreams``
 - ``locale``
 - ``log``
-- ``math``
+- ``math`` - Requires Special names for ``find_package`` and ``target_link_libraries``, choose one of:
+  - ``math_c99``
+  - ``math_c99f``
+  - ``math_c99l``
+  - ``math_tr1``
+  - ``math_tr1f``
+  - ``math_tr1l``
 - ``mpi``
 - ``program_options``
 - ``python``
