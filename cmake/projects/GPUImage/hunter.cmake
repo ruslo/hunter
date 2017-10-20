@@ -17,7 +17,7 @@ hunter_add_version(
     URL
     "https://github.com/hunter-packages/GPUImage/archive/v0.1.6-p5.tar.gz"
     SHA1
-    463564d96442c214d21faa28a3ca229962ca086c
+    69a287016c57ca02012faf973e2eabda4ec87123    
 	)
 
   hunter_add_version(
