@@ -21,6 +21,17 @@ hunter_add_version(
     0bc34af72ace36e14dc8387e292e338ee30f620d
     )
 
+hunter_add_version(
+    PACKAGE_NAME
+    eigen3-nnls
+    VERSION
+    1.0.1
+    URL
+    "https://github.com/hunter-packages/eigen3-nnls/archive/v1.0.1.tar.gz"
+    SHA1
+    c324595a32b51476eb5e26ce70616709e97b2ec3
+    )
+  
 hunter_pick_scheme(DEFAULT url_sha1_cmake)
 hunter_cacheable(eigen3-nnls)
 hunter_download(PACKAGE_NAME eigen3-nnls)
