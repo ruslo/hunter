@@ -6,11 +6,11 @@ include(hunter_download)
 include(hunter_pick_scheme)
 
 hunter_add_version(
-    PACKAGE_NAME grpc
+    PACKAGE_NAME gRPC
     VERSION "1.6.6"
-    URL "https://github.com/isaachier/grpc/archive/hunter-1.6.6-p5.tar.gz"
-    SHA1 "3d01a56a9e7905ce39e6198f3366e3ba648efa20")
+    URL "https://github.com/isaachier/grpc/archive/hunter-1.6.6-p6.tar.gz"
+    SHA1 "c4abbf4a411f794f4cac2a0ec2311187b6fee31f")
 
 hunter_pick_scheme(DEFAULT url_sha1_cmake)
-hunter_cacheable(grpc)
-hunter_download(PACKAGE_NAME grpc)
+hunter_cacheable(gRPC)
+hunter_download(PACKAGE_NAME gRPC)
