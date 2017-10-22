@@ -37,6 +37,9 @@ environment:
     - TOOLCHAIN: "vs-14-2015"
       PROJECT_DIR: examples\dlib
 
+    - TOOLCHAIN: "vs-14-2015-win64"
+      PROJECT_DIR: examples\dlib
+
     - TOOLCHAIN: "mingw"
       PROJECT_DIR: examples\dlib
 
