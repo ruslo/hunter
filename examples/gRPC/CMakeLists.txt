@@ -7,6 +7,9 @@ project(download-gRPC)
 
 hunter_add_package(gRPC)
 
+set(CMAKE_CXX_STANDARD_REQUIRED true)
+set(CMAKE_CXX_STANDARD 11)
+
 find_package(gRPC CONFIG REQUIRED)
 
 add_executable(main main.cpp)
