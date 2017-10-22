@@ -44,6 +44,15 @@ file(
     "    HUNTER_TOOLCHAIN_UNDETECTABLE_ID: ${HUNTER_TOOLCHAIN_UNDETECTABLE_ID}\n"
 )
 
+string(COMPARE EQUAL "${HUNTER_BUILD_SHARED_LIBS}" "" is_empty)
+if(NOT is_empty)
+  file(
+      APPEND
+      "${TOOLCHAIN_INFO_FILE}"
+      "    HUNTER_BUILD_SHARED_LIBS: ${HUNTER_BUILD_SHARED_LIBS}\n"
+  )
+endif()
+
 string(COMPARE EQUAL "${OSX_SDK_VERSION}" "" is_empty)
 if(NOT is_empty)
   file(

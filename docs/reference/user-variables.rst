@@ -78,6 +78,13 @@ HUNTER_CONFIGURATION_TYPES
 * See `example <https://github.com/ruslo/hunter/wiki/example.hunter_configuration_types>`__
 * Default: ``Release``, ``Debug``
 
+HUNTER_BUILD_SHARED_LIBS
+========================
+
+* Value for
+  `BUILD_SHARED_LIBS <https://cmake.org/cmake/help/latest/variable/BUILD_SHARED_LIBS.html>`__
+  for 3rd party packages
+
 HUNTER_JOBS_NUMBER
 ==================
 
@@ -94,6 +101,8 @@ HUNTER_RUN_INSTALL
 Set this variable to ``ON`` to run auto-install procedure if it's disabled by
 :ref:`HUNTER_DISABLE_AUTOINSTALL <hunter disable install>` environment variable.
 
+.. _hunter_disable_builds:
+
 HUNTER_DISABLE_BUILDS
 =====================
 
@@ -102,20 +111,44 @@ HUNTER_DISABLE_BUILDS
   local/server cache
 * Default: ``NO``
 
+.. _hunter_cache_servers:
+
 HUNTER_CACHE_SERVERS
 ====================
 
 * Variable contains list of servers with cache binaries
-* For now only GitHub supported
-  (see :doc:`overview </faq/why-binaries-from-server-not-used>`)
 * Variable should be modified before ``HunterGate`` command:
 
 .. code-block:: cmake
 
-  list(APPEND HUNTER_CACHE_SERVERS "https://github.com/ingenue/hunter-cache")
-  HunterGate(URL ... SHA1 ...)
+  set(
+      HUNTER_CACHE_SERVERS
+      "https://github.com/elucideye/hunter-cache"
+      CACHE
+      STRING
+      "Hunter cache servers"
+  )
+  HunterGate(URL "..." SHA1 "...")
+
+Using two servers:
+
+.. code-block:: cmake
+
+  set(
+      HUNTER_CACHE_SERVERS
+      "https://github.com/elucideye/hunter-cache;https://github.com/ingenue/hunter-cache"
+      CACHE
+      STRING
+      "Hunter cache servers"
+  )
+  HunterGate(URL "..." SHA1 "...")
 
 * Default: https://github.com/ingenue/hunter-cache
+
+.. seealso::
+
+  * :doc:`Why binaries from server not used? </faq/why-binaries-from-server-not-used>`
+  * :doc:`Using Nexus Repository </user-guides/hunter-user/nexus-cache-server>`
 
 .. _hunter_use_cache_servers:
 

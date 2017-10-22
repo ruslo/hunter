@@ -1,12 +1,20 @@
 # OSX/Linux (https://github.com/travis-ci-tester/toolchain-table)
 
+# Workaround for https://github.com/travis-ci/travis-ci/issues/8363
 language:
-  - cpp
+  - minimal
 
 # Container-based infrastructure (Linux)
 # * https://docs.travis-ci.com/user/migrating-from-legacy/#How-can-I-use-container-based-infrastructure%3F
 sudo:
   - false
+
+# Install packages differs for container-based infrastructure
+# * https://docs.travis-ci.com/user/migrating-from-legacy/#How-do-I-install-APT-sources-and-packages%3F
+addons:
+  apt:
+    packages:
+      - python3-pip
 
 dist:
   - trusty
@@ -52,30 +60,13 @@ matrix:
 
     # OSX {
 
-    # c++11 needed:
-    # * https://travis-ci.org/ingenue/hunter/jobs/188517434
-    # - os: osx
-    #   env: PROJECT_DIR=examples/dlib TOOLCHAIN=default
-
     - os: osx
       env: PROJECT_DIR=examples/dlib TOOLCHAIN=libcxx
-
-    # FIXME: https://travis-ci.org/ingenue/hunter/jobs/227839866
-    # - os: osx
-    #   env: PROJECT_DIR=examples/dlib TOOLCHAIN=clang-libstdcxx
-
     - os: osx
       env: PROJECT_DIR=examples/dlib TOOLCHAIN=osx-10-11
     - os: osx
       env: PROJECT_DIR=examples/dlib TOOLCHAIN=ios-nocodesign-9-3
 
-    # Requires std::round or newer NDK
-    # - os: osx
-    #   env: PROJECT_DIR=examples/dlib TOOLCHAIN=android-ndk-r10e-api-19-armeabi-v7a-neon
-    # - os: osx
-    #   env: PROJECT_DIR=examples/dlib TOOLCHAIN=android-ndk-r15c-api-21-armeabi-v7a-neon-clang-libcxx
-    - os: osx
-      env: PROJECT_DIR=examples/dlib TOOLCHAIN=analyze
     # }
 
 install:

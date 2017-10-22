@@ -1,0 +1,6 @@
+#include <libdill.h>
+
+int main()
+{
+    return 0;
+}

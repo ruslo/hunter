@@ -1,6 +1,7 @@
 .. spelling::
 
     Qt
+    GStreamer
 
 .. index:: ui ; Qt
 
@@ -133,15 +134,33 @@ Examples:
     hunter_add_package(Qt COMPONENTS qtquickcontrols)
     # no *.cmake modules installed
 
+Customization
+-------------
+
+* ``QT_WITH_GSTREAMER``
+
+  * Build with :ref:`pkg.gstreamer`
+  * You will need this when building Qt application with camera support on Linux
+  * Adds ``-gstreamer 1.0``
+  * Only configuration with shared libraries tested. Also you have to set
+    runtime paths with ``LD_LIBRARY_PATH``/``GST_PLUGIN_PATH``, see
+    `example <https://github.com/ruslo/hunter/blob/master/examples/qt-camera/CMakeLists.txt>`__.
+  * To test GStreamer camera you can run ``gst-launch -v -m camerabin``
+
+* ``QT_OPENGL_DESKTOP``
+
+  * Use OpenGL installed on Windows
+  * Visual Studio
+  * Adds ``-opengl desktop``
+  * `Qt Configure Options <https://doc.qt.io/qt-5/configure-options.html>`__
+
 Pitfalls
 --------
 
 -  Conflicts with system Qt: `bug with
    workaround <https://github.com/ruslo/hunter/issues/224#issuecomment-137101944>`__
 
--  iOS (Qt < 5.9): you must use ``qtmn`` instead of ``main`` (see
-   `SO <http://stackoverflow.com/a/25061034/2288008>`__):
-
+-  iOS (Qt < 5.9): you must use ``qtmn`` instead of ``main``:
 
 .. code-block:: cpp
 
@@ -155,7 +174,7 @@ Pitfalls
 
 you will see next error without this fix applied:
 
-.. code::
+.. code-block:: none
 
     Error: You are creating QApplication before calling UIApplicationMain.
     If you are writing a native iOS application, and only want to use Qt for
@@ -163,20 +182,27 @@ you will see next error without this fix applied:
     within 'applicationDidFinishLaunching' inside your UIApplication
     delegate.
 
-- `QtQuick2Plugin` conflict.
+.. admonition:: Stackoverflow
 
-  Both `plugins/qmltooling/libqmldbg_qtquick2.a` and `qml/QtQuick.2/libqtquick2plugin.a` implement this plugin:
+  * `Run-time error for Qt application on iOS built via CMake <http://stackoverflow.com/a/25061034/2288008>`__
 
-.. code::
+- ``QtQuick2Plugin`` conflict.
+
+  Both ``plugins/qmltooling/libqmldbg_qtquick2.a`` and ``qml/QtQuick.2/libqtquick2plugin.a`` implement this plugin:
+
+.. code-block:: none
 
     [Install]> nm -gU plugins/qmltooling/libqmldbg_qtquick2.a | grep static_plugin
     00000000000000b0 T __Z31qt_static_plugin_QtQuick2Pluginv
+
+.. code-block:: none
+
     [Install]> nm -gU qml/QtQuick.2/libqtquick2plugin.a | grep static_plugin
     0000000000000080 T __Z31qt_static_plugin_QtQuick2Pluginv
 
 Linking of ``libqmldbg_qtquick2.a`` may lead to the next runtime error:
 
-.. code::
+.. code-block:: none
 
     module "QtQuick" plugin "qtquick2plugin" not found
 
@@ -192,14 +218,14 @@ if you see this error try to remove usage of target ``Qt5::QtQuick2Plugin`` and 
    can be fixed by installing the necessary libraries before calling
    CMake with the command:
 
-   .. code-block:: shell
+   .. code-block:: none
 
        > sudo apt-get install libfontconfig1-dev libfreetype6-dev libx11-dev libxext-dev libxfixes-dev libxi-dev libxrender-dev libxcb1-dev libx11-xcb-dev libxcb-glx0-dev
 
 -  Requirements for Ubuntu for Hunter v0.14.14+ (need ``GL``,\ ``EGL``:
    ``/usr/include/GL/gl.h``, ``usr/include/EGL/egl.h``):
 
-   .. code-block:: shell
+   .. code-block:: none
 
        > sudo apt-get install libegl1-mesa-dev libgl1-mesa-dev libegl1-mesa-drivers
 

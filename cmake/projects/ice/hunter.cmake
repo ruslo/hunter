@@ -24,14 +24,10 @@ hunter_add_version(
 
 hunter_configuration_types(ice CONFIGURATION_TYPES Release)
 hunter_pick_scheme(DEFAULT url_sha1_autotools)
-set(x11_dependencies
-    xproto
-    xtrans
-)
 hunter_cmake_args(
-    x11
-    CMAKE_ARGS         # do not use double quotes on CMAKE_ARGS
-      DEPENDS_ON_PACKAGES=${x11_dependencies}
+    ice
+    CMAKE_ARGS
+    DEPENDS_ON_PACKAGES=xproto;xtrans
 )
 hunter_cacheable(ice)
 hunter_download(
