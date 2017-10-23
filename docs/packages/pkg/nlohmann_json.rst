@@ -11,7 +11,7 @@ nlohmann_json
 =============
 
 -  `Official <https://github.com/nlohmann/json/>`__
--  `Example <https://github.com/ruslo/hunter/blob/master/examples/nlohmann-json/CMakeLists.txt>`__
+-  `Example <https://github.com/ruslo/hunter/blob/master/examples/nlohmann_json/CMakeLists.txt>`__
 -  V1.0.0 Available from
    `v0.12.13 <https://github.com/ruslo/hunter/releases/tag/v0.12.13>`__
    to
