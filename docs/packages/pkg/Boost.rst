@@ -90,17 +90,16 @@ For example:
 -  `boost.iostreams
    options <http://www.boost.org/doc/libs/1_57_0/libs/iostreams/doc/index.html?path=7>`__
 
-Boost::Math
+Math
 -----------
 
 When using Boost Math you will need to link in the libraries, however these are not named ``math`` but
-rather are individual based on what you need to link it, the easist of which is to link in all parts:
+rather are individual based on what you need to link it, the easiest of which is to link in all parts:
 
 .. code-block:: cmake
 
     hunter_add_package(Boost COMPONENTS math)
     find_package(Boost CONFIG REQUIRED math_c99 math_c99f math_c99l math_tr1 math_tr1f math_tr1l)
-    include_directories(${Boost_INCLUDE_DIRS})
     target_link_libraries(...
       Boost::math_c99
       Boost::math_c99f
@@ -110,23 +109,12 @@ rather are individual based on what you need to link it, the easist of which is 
       Boost::math_tr1l
     )
 
-Or implicitly:
-
-.. code-block:: cmake
-
-    hunter_add_package(Boost COMPONENTS math)
-    find_package(Boost CONFIG REQUIRED math_c99 math_c99f math_c99l math_tr1 math_tr1f math_tr1l)
-    include_directories(${Boost_INCLUDE_DIRS})
-    target_link_libraries(... ${Boost_LIBRARIES})
-
 If you are using only the header-only parts of Boost::Math then the libraries can be ignored:
 
 .. code-block:: cmake
 
     hunter_add_package(Boost COMPONENTS math)
     find_package(Boost CONFIG REQUIRED)
-    include_directories(${Boost_INCLUDE_DIRS})
-    target_link_libraries(... ${Boost_LIBRARIES})
 
 Bugs
 ----

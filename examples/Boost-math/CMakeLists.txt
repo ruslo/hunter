@@ -12,7 +12,7 @@ project(download-boost)
 # download boost
 hunter_add_package(Boost COMPONENTS math)
 
-# now boost::math can be used
+# now boost::math_* targets
 # link in all the parts of boost math, or leave out unneeded parts
 find_package(Boost CONFIG REQUIRED math_c99 math_c99f math_c99l math_tr1 math_tr1f math_tr1l)
 add_executable(foo foo.cpp)
