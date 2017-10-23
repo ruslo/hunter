@@ -14,6 +14,17 @@ hunter_add_version(
     PACKAGE_NAME
     PostgreSQL
     VERSION
+    "10.0.0"
+    URL
+    "https://github.com/hunter-packages/PostgreSQL/archive/PostgreSQL-10.0.0.tar.gz"
+    SHA1
+    d35d4e958509460347f39f0ba542a17eb2228f3c
+)
+
+hunter_add_version(
+    PACKAGE_NAME
+    PostgreSQL
+    VERSION
     "9.6.3"
     URL
     "https://github.com/hunter-packages/PostgreSQL/archive/PostgreSQL-9.6.3.tar.gz"
