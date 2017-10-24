@@ -196,7 +196,7 @@ hunter_add_version(
 
 # The regexp case is used when the package is added as GIT_SUBMODULE.
 # In this case we assume that the version is later than 1.8.0.
-if(HUNTER_GTest_VERSION VERSION_LESS 1.8.0 AND NOT A MATCHES "^[a-z0-9]{40}$" )
+if(HUNTER_GTest_VERSION VERSION_LESS 1.8.0 AND NOT A MATCHES "[a-z]+" )
   set(_gtest_license "LICENSE")
 else()
   set(_gtest_license "googletest/LICENSE")
