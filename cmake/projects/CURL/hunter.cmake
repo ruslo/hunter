@@ -43,6 +43,17 @@ hunter_add_version(
     3ac2684e3274c17ca209731e121e9a0acc79e4a5
 )
 
+hunter_add_version(
+    PACKAGE_NAME
+    CURL
+    VERSION
+    "7.49.1-DEV-v9"
+    URL
+    "https://github.com/hunter-packages/curl/archive/hunter-7.49.1-v9.tar.gz"
+    SHA1
+    4d4cb6e5faebfceaafa152bb3572c4760f1745cf
+)
+
 if (ANDROID OR IOS OR RASPBERRY_PI OR OPENWRT)
   set(_curl_cmake_args
       HAVE_GLIBC_STRERROR_R=1
