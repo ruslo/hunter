@@ -183,6 +183,17 @@ hunter_add_version(
     4fe083a96d7597f7dce6f453dca01e1d94a1e45b
 )
 
+hunter_add_version(
+    PACKAGE_NAME
+    GTest
+    VERSION
+    1.8.0-hunter-p8
+    URL
+    "https://github.com/hunter-packages/googletest/archive/1.8.0-hunter-p8.tar.gz"
+    SHA1
+    ab0f563b3bd80a1721cb93df034a86ec
+)
+
 if(HUNTER_GTest_VERSION VERSION_LESS 1.8.0)
   set(_gtest_license "LICENSE")
 else()
