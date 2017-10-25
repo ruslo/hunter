@@ -91,7 +91,7 @@ For example:
    options <http://www.boost.org/doc/libs/1_57_0/libs/iostreams/doc/index.html?path=7>`__
 
 Math
------------
+----
 
 When using Boost Math you will need to link in the libraries, however these are not named ``math`` but
 rather are individual based on what you need to link it, the easiest of which is to link in all parts:
