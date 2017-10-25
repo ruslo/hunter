@@ -27,6 +27,7 @@ Examples:
 - `Boost-system <https://github.com/ruslo/hunter/blob/master/examples/Boost-system/CMakeLists.txt>`__
 - `Boost-iostreams <https://github.com/ruslo/hunter/blob/master/examples/Boost-iostreams/CMakeLists.txt>`__
 - `Boost-filesystem <https://github.com/ruslo/hunter/blob/master/examples/Boost-filesystem/CMakeLists.txt>`__
+- `Boost-math <https://github.com/ruslo/hunter/blob/master/examples/Boost-math/CMakeLists.txt>`__
 
 List of components (other libraries are header-only):
 
@@ -88,6 +89,32 @@ For example:
 
 -  `boost.iostreams
    options <http://www.boost.org/doc/libs/1_57_0/libs/iostreams/doc/index.html?path=7>`__
+
+Math
+-----------
+
+When using Boost Math you will need to link in the libraries, however these are not named ``math`` but
+rather are individual based on what you need to link it, the easiest of which is to link in all parts:
+
+.. code-block:: cmake
+
+    hunter_add_package(Boost COMPONENTS math)
+    find_package(Boost CONFIG REQUIRED math_c99 math_c99f math_c99l math_tr1 math_tr1f math_tr1l)
+    target_link_libraries(...
+      Boost::math_c99
+      Boost::math_c99f
+      Boost::math_c99l
+      Boost::math_tr1
+      Boost::math_tr1f
+      Boost::math_tr1l
+    )
+
+If you are using only the header-only parts of Boost::Math then the libraries can be ignored:
+
+.. code-block:: cmake
+
+    hunter_add_package(Boost COMPONENTS math)
+    find_package(Boost CONFIG REQUIRED)
 
 Bugs
 ----
