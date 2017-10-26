@@ -183,7 +183,20 @@ hunter_add_version(
     4fe083a96d7597f7dce6f453dca01e1d94a1e45b
 )
 
-if(HUNTER_GTest_VERSION VERSION_LESS 1.8.0)
+hunter_add_version(
+    PACKAGE_NAME
+    GTest
+    VERSION
+    1.8.0-hunter-p8
+    URL
+    "https://github.com/hunter-packages/googletest/archive/1.8.0-hunter-p8.tar.gz"
+    SHA1
+    ab0f563b3bd80a1721cb93df034a86ec
+)
+
+# The regexp case is used when the package is added as GIT_SUBMODULE.
+# In this case we assume that the version is later than 1.8.0.
+if(HUNTER_GTest_VERSION VERSION_LESS 1.8.0 AND NOT A MATCHES "[a-z]+" )
   set(_gtest_license "LICENSE")
 else()
   set(_gtest_license "googletest/LICENSE")
