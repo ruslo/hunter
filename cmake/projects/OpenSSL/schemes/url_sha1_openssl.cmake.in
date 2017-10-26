@@ -103,15 +103,20 @@ set(configure_command
     ${configure_command})
 
 # Pass C flags through
-string(REGEX MATCHALL "[^ ]+" PARSED_C_FLAGS "${CMAKE_C_FLAGS}")
-set(C_FLAGS_NO_PIC)
-foreach(C_FLAG IN LISTS PARSED_C_FLAGS)
+if(APPLE)
+  # Apple cannot process `-fPIC` flag argument (PR-1121)
+  string(REGEX MATCHALL "[^ ]+" PARSED_C_FLAGS "${CMAKE_C_FLAGS}")
+  set(C_FLAGS_NO_PIC)
+  foreach(C_FLAG IN LISTS PARSED_C_FLAGS)
     if(NOT C_FLAG MATCHES "^--?f?(PIC|PIE|pic|pie)$"
        AND NOT C_FLAG STREQUAL "")
-        set(C_FLAGS_NO_PIC "${C_FLAGS_NO_PIC} ${C_FLAG}")
+      set(C_FLAGS_NO_PIC "${C_FLAGS_NO_PIC} ${C_FLAG}")
     endif()
-endforeach()
-set(configure_opts ${configure_opts} ${C_FLAGS_NO_PIC})
+  endforeach()
+  set(configure_opts ${configure_opts} ${C_FLAGS_NO_PIC})
+else()
+  set(configure_opts ${configure_opts} ${CMAKE_CXX_FLAGS}
+endif()
 
 set(
     configure_command
