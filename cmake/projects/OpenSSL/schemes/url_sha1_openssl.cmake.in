@@ -52,7 +52,14 @@ else()
   set(configure_command "./config")
 endif()
 
-hunter_dump_cmake_flags(SKIP_INCLUDES)
+set(skip_pic "")
+if(APPLE)
+  # Apple cannot process `-fPIC` flag argument
+  # (https://github.com/ruslo/hunter/pull/1109#discussion_r146360981)
+  set(skip_pic SKIP_PIC)
+endif()
+
+hunter_dump_cmake_flags(SKIP_INCLUDES ${skip_pic})
 # -> CMAKE_CXX_FLAGS
 # -> CMAKE_C_FLAGS
 
