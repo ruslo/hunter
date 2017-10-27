@@ -2,27 +2,22 @@
 
     SDL_mixer
 
-.. index:: unsorted ; SDL_mixer
+.. index:: media ; SDL_mixer
 
 .. _pkg.SDL_mixer:
 
 SDL_mixer
 =========
 
-.. warning::
-
-    This page is a template and contains no real information.
-    Please send pull request with real description.
-
--  `__FIXME__ Official <https://__FIXME__>`__
--  `__FIXME__ Hunterized <https://github.com/hunter-packages/__FIXME__>`__
--  `__FIXME__ Example <https://github.com/ruslo/hunter/blob/master/examples/__FIXME__/CMakeLists.txt>`__
--  Available since `__FIXME__ vX.Y.Z <https://github.com/ruslo/hunter/releases/tag/vX.Y.Z>`__
--  Added by `__FIXME__ <https://github.com/__FIXME__>`__ (`__FIXME__ pr-N <https://github.com/ruslo/hunter/pull/N>`__)
+-  `Official <https://www.libsdl.org/projects/SDL_mixer/>`__
+-  `Hunterized <https://github.com/hunter-packages/SDL_mixer>`__
+-  `Example <https://github.com/ruslo/hunter/blob/master/examples/SDL_mixer/CMakeLists.txt>`__
+-  Available since `v0.19.56 <https://github.com/ruslo/hunter/releases/tag/v0.19.56>`__
+-  Added by `wheybags <https://github.com/wheybags>`__ (`pr-924 <https://github.com/ruslo/hunter/pull/924>`__)
 
 .. code-block:: cmake
 
-    hunter_add_package(__FIXME__)
-    find_package(__FIXME__ CONFIG REQUIRED)
-    target_link_libraries(foo __FIXME__::__FIXME__)
-
+    hunter_add_package(SDL_mixer)
+    find_package(SDL_mixer CONFIG REQUIRED)
+    #...
+    target_link_libraries(foo SDL_mixer::SDL_mixer)
