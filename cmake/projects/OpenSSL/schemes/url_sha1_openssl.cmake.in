@@ -54,7 +54,8 @@ endif()
 
 set(skip_pic "")
 if(APPLE)
-  # Apple cannot process `-fPIC` flag argument (PR-1121)
+  # Apple cannot process `-fPIC` flag argument
+  # (https://github.com/ruslo/hunter/pull/1109#discussion_r146360981)
   set(skip_pic SKIP_PIC)
 endif()
 
