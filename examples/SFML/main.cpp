@@ -1,8 +1,10 @@
 #include <SFML/Audio.hpp>
 #include <SFML/Graphics.hpp>
+#include <SFML/Network.hpp>
+#include <SFML/System.hpp>
+#include <SFML/Window.hpp>
 
 int main()
 {
-	sf::RenderWindow window(sf::VideoMode(800, 600), "SFML window");
 	return EXIT_SUCCESS;
 }
