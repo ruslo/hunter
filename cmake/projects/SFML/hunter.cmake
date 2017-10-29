@@ -19,6 +19,12 @@ hunter_add_version(
 	275C68B51B8509BA90EDA6D5DEF791B497F1F777
 )
 
+hunter_cmake_args(
+    SFML
+    CMAKE_ARGS
+        SFML_BUILD_AUDIO=NO
+)
+
 hunter_pick_scheme(DEFAULT url_sha1_cmake)
 hunter_cacheable(SFML)
 hunter_download(PACKAGE_NAME SFML)
