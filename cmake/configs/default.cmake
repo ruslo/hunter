@@ -233,6 +233,7 @@ hunter_config(openddlparser VERSION 0.1.0-p2)
 hunter_config(opentracing-cpp VERSION 1.0.0)
 hunter_config(pciaccess VERSION 0.13.4)
 hunter_config(libpcre VERSION 8.41)
+hunter_config(ogg VERSION 1.3.2-p1)
 hunter_config(poly2tri VERSION 1.0.0)
 hunter_config(polyclipping VERSION 4.8.8-p0) # for Assimp
 hunter_config(presentproto VERSION 1.0)
