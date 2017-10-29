@@ -11,7 +11,7 @@ foo
 
 -  `Official <https://sfml-dev.org>`__
 -  `Example <https://github.com/ruslo/hunter/blob/master/examples/SFML/CMakeLists.txt>`__
--  Added by `nuke_bird <https://github.com/NukeBird>`__ (`pr-1129 <https://github.com/ruslo/hunter/pull/1129>`__)
+-  Added by `NukeBird <https://github.com/NukeBird>`__ (`pr-1129 <https://github.com/ruslo/hunter/pull/1129>`__)
 
 .. code-block:: cmake
 
