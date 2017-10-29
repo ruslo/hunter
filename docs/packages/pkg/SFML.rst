@@ -1,10 +1,10 @@
 .. spelling::
 
-    foo
+    SFML
 
-.. index:: unsorted ; foo
+.. index:: unsorted ; SFML
 
-.. _pkg.foo:
+.. _pkg.SFML:
 
 foo
 ===
@@ -17,4 +17,5 @@ foo
 
     hunter_add_package(SFML)
     find_package(SFML CONFIG REQUIRED)
-    target_link_libraries(foo SFML::system SFML::window SFML::graphics SFML::network SFML::audio)
+    #...
+    target_link_libraries(... SFML::system SFML::window SFML::graphics SFML::network SFML::audio)
