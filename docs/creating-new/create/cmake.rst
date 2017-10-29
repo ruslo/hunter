@@ -437,9 +437,38 @@ Go back to Hunter repository and run test:
 .. code-block:: none
 
   > cd hunter
+
   [hunter]> which polly.py
   /.../bin/polly.py
+
+  [hunter]> polly.py --help
+  Python version: 3.5
+  usage: polly.py [-h]
+  ...
+
   [hunter]> TOOLCHAIN=gcc PROJECT_DIR=examples/hunter_box_1 ./jenkins.py
+
+On Windows:
+
+.. code-block:: none
+
+  > cd hunter
+
+  [hunter]> where polly.py
+  C:\...\bin\polly.py
+
+  [hunter]> polly.py --help
+  Python version: 3.5
+  usage: polly.py [-h]
+  ...
+
+  [hunter]> set TOOLCHAIN=vs-12-2013
+  [hunter]> set PROJECT_DIR=examples\hunter_box_1
+  [hunter]> .\jenkins.py
+
+.. admonition:: Stackoverflow
+
+  * `How to execute Python scripts in Windows? <https://stackoverflow.com/a/1936078/2288008>`__
 
 .. _ci testing:
 
