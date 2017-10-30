@@ -12,7 +12,7 @@ include(hunter_test_string_not_empty)
 # * OpenSSL
 # * odb-boost
 function(hunter_dump_cmake_flags)
-  cmake_parse_arguments(x "SKIP_INCLUDES" "SKIP_PIC" "CPPFLAGS" "" "${ARGV}")
+  cmake_parse_arguments(x "SKIP_INCLUDES;SKIP_PIC" "CPPFLAGS" "" "${ARGV}")
   # -> x_SKIP_INCLUDES
   # -> x_SKIP_PIC
   # -> x_CPPFLAGS
