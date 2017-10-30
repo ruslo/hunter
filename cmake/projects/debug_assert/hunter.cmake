@@ -13,6 +13,17 @@ hunter_add_version(
     PACKAGE_NAME
     debug_assert
     VERSION
+    "1.3"
+    URL
+    "https://github.com/foonathan/debug_assert/archive/v1.3.tar.gz"
+    SHA1
+    0dd6930196488741ebb79680b261694a8141bf9c
+)
+
+hunter_add_version(
+    PACKAGE_NAME
+    debug_assert
+    VERSION
     "1.2"
     URL
     "https://github.com/foonathan/debug_assert/archive/v1.2.tar.gz"
