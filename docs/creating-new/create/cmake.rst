@@ -310,6 +310,14 @@ Options set by ``hunter_cmake_args`` have lower precedence than options set
 by ``hunter_config(... CMAKE_ARGS ...)`` (see
 `order <https://github.com/ruslo/hunter/wiki/example.custom.config.id#order>`__).
 
+In the ``hunter.cmake`` file hunter defines the cmake variable ``HUNTER_<package>_VERSION``.
+The value of the variable is set to the hunter-package version that is used by the client.
+Note that in case that the user pulls the package over a 
+:doc:`Git submodule </user-guides/hunter-user/git-submodule>`, the value of 
+the variable will be the Git commit hash of the submodule. 
+The ``HUNTER_<package>_VERSION`` variable is usefull when the required values of the 
+``CMAKE_ARGS`` depend on tha package version.
+
 Build types
 ===========
 
