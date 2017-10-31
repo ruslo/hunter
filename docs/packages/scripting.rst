@@ -1,3 +1,7 @@
+.. spelling::
+
+    pybind11
+
 Scripting
 ---------
 
