@@ -1,6 +1,8 @@
 .. spelling::
 
+    pybind
     pybind11
+    versa
 
 Scripting
 ---------
