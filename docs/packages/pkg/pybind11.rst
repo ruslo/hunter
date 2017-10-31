@@ -1,5 +1,6 @@
 .. spelling::
 
+    pybind
     pybind11
 
 .. index:: scripting ; pybind11
