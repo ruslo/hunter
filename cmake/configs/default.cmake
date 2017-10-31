@@ -238,6 +238,7 @@ hunter_config(polyclipping VERSION 4.8.8-p0) # for Assimp
 hunter_config(presentproto VERSION 1.0)
 hunter_config(pthread-stubs VERSION 0.3)
 hunter_config(pugixml VERSION 1.8.1)
+hunter_config(pybind11 VERSION 2.2.1)
 hunter_config(rabbitmq-c VERSION 0.7.0-p1)
 hunter_config(randrproto VERSION 1.3.2)
 hunter_config(renderproto VERSION 0.11.1)
