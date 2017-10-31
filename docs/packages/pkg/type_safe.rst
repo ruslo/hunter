@@ -12,7 +12,7 @@ type_safe
 -  `Official <https://github.com/foonathan/type_safe>`__
 -  `Hunterized <https://github.com/dvirtz/type_safe>`__
 -  `Example <https://github.com/ruslo/hunter/blob/master/examples/type_safe/CMakeLists.txt>`__
--  Added by `dvirtz <https://github.com/dvirtz>`__ (`pr-N <https://github.com/ruslo/hunter/pull/N>`__)
+-  Added by `dvirtz <https://github.com/dvirtz>`__ (`pr-1143 <https://github.com/ruslo/hunter/pull/1143>`__)
 
 .. code-block:: cmake
 
