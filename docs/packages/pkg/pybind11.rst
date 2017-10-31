@@ -11,7 +11,7 @@ pybind11
 
 -  `Official <https://github.com/pybind/pybind11>`__
 -  `Example <https://github.com/ruslo/hunter/blob/master/examples/pybind11/CMakeLists.txt>`__
--  Added by `Isaac Hier <https://github.com/isaachier>`__ (`pr-1138 <https://github.com/ruslo/hunter/pull/1062>`__)
+-  Added by `Isaac Hier <https://github.com/isaachier>`__ (`pr-1140 <https://github.com/ruslo/hunter/pull/1140>`__)
 
 .. code-block:: cmake
 
