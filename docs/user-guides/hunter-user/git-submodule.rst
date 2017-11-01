@@ -111,7 +111,7 @@ Run tests to see changes:
 Possible problems with GIT_SUBMODULE
 ====================================
 
-When using a package via the ``GIT_SUBMODULE`` option, the hunter defined cmake variable ``HUNTER_<package>_VERSION``
+When using a package via the ``GIT_SUBMODULE`` option, the Hunter defined CMake variable ``HUNTER_<package>_VERSION``
 is set to the commit hash of the Git sub-module. If the ``hunter.cmake`` file of the package
 contains logic that depends on the value of the ``HUNTER_<package>_VERSION`` variable,
 using the ``GIT_SUBMODULE`` option may break the package build.
