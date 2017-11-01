@@ -15,9 +15,9 @@ hunter_add_version(
     VERSION
     "0.1"
     URL
-    "https://github.com/dvirtz/type_safe/archive/v0.1-p.tar.gz"
+    "https://github.com/hunter-packages/type_safe/archive/v0.1-p.tar.gz"
     SHA1
-    e49e2233efb3e2307407956515472e801cb9f319
+    57e426af70791485e2a209c602ce9d71e9d52ab7
 )
 
 # Pick a download scheme
