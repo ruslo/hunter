@@ -50,7 +50,7 @@ foreach(x ${boost_libs})
 endforeach()
 
 if("@MSVC@")
-  set(env_cmd "@HUNTER_MSVC_VCVARSALL@" "@HUNTER_MSVC_ARCH@")
+  set(env_cmd "@HUNTER_MSVC_VCVARSALL@" "@HUNTER_MSVC_ARCH@" && cd "@HUNTER_PACKAGE_SOURCE_DIR@" &&)
 else()
   set(env_cmd "")
 endif()
@@ -102,7 +102,6 @@ ExternalProject_Add(
         # not used, just avoid creating Install/<name> empty directory
     CONFIGURE_COMMAND
     ${env_cmd}
-    COMMAND
     ${bootstrap_cmd}
     BUILD_COMMAND
     ""

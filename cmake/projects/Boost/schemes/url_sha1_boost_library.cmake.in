@@ -107,10 +107,9 @@ if("@ANDROID@")
 endif()
 
 if("@MSVC@")
-  set(env_cmd "@HUNTER_MSVC_VCVARSALL@" "@HUNTER_MSVC_ARCH@")
+  set(env_cmd "@HUNTER_MSVC_VCVARSALL@" "@HUNTER_MSVC_ARCH@" && cd "@HUNTER_PACKAGE_SOURCE_DIR@" &&)
 else()
-  # Workaround for: http://public.kitware.com/Bug/view.php?id=15567
-  set(env_cmd "@CMAKE_COMMAND@" -E echo "configure")
+  set(env_cmd "")
 endif()
 
 if("@MSVC@")
@@ -149,12 +148,12 @@ if(is_mpi)
     # on configure step
     set(
         copy_mpi_command
-        COMMAND
         "@CMAKE_COMMAND@"
         -E
         copy
         "@HUNTER_PACKAGE_BUILD_DIR@/tools/build/v2/tools/mpi.jam"
         "@HUNTER_PACKAGE_SOURCE_DIR@/tools/build/v2/tools/mpi.jam"
+	    &&
     )
   endif()
   set(variants variant=release) # build bug
@@ -358,7 +357,6 @@ ExternalProject_Add(
     CONFIGURE_COMMAND
     ${env_cmd}
     ${copy_mpi_command}
-    COMMAND
     ${bootstrap_cmd}
     BUILD_COMMAND
     ${b2_cmd}
