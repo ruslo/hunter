@@ -16,12 +16,23 @@ hunter_add_version(
     PACKAGE_NAME
     glfw
     VERSION
+    "3.2.1"
+    URL
+    "https://github.com/hunter-packages/glfw/archive/3.2.1.gz"
+    SHA1
+    BEE9CD9A8B4925184070ADE5BC287C5635830EB0
+)
+
+hunter_add_version(
+    PACKAGE_NAME
+    glfw
+    VERSION
     "3.2-p0"
     URL
     "https://github.com/hunter-packages/glfw/archive/3.2-p0.tar.gz"
     SHA1
     90f91bab3020db15a0fc07c27c53095fa2dbf1b3
-    )
+)
 
 hunter_add_version(
     PACKAGE_NAME
@@ -32,7 +43,7 @@ hunter_add_version(
     "https://github.com/hunter-packages/glfw/archive/3.3.0-p0.tar.gz"
     SHA1
     3621fc665397f07c57d1c77ac4d85d4634f18d3a
-    )
+)
 
 hunter_add_version(
     PACKAGE_NAME
