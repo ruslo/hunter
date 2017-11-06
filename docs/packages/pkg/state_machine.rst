@@ -7,7 +7,7 @@
 .. _pkg.state_machine:
 
 state_machine
-===
+============
 
 -  `Official <https://github.com/NukeBird/state_machine>`__
 -  `Example <https://github.com/ruslo/hunter/blob/master/examples/state_machine/CMakeLists.txt>`__
