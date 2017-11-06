@@ -71,6 +71,12 @@ else()
   set(log_opts "")
 endif()
 
+if (BUILD_SHARED_LIBS)
+  set(shared "shared")
+else()
+  set(shared "no-shared")
+endif()
+
 set(openssl_dir "@HUNTER_PACKAGE_INSTALL_PREFIX@/ssl")
 file(MAKE_DIRECTORY "${openssl_dir}")
 
@@ -90,7 +96,7 @@ ExternalProject_Add(
     CONFIGURE_COMMAND
     "@HUNTER_MSVC_VCVARSALL@" "@HUNTER_MSVC_ARCH@"
     COMMAND
-    perl Configure "${opt}" no-asm "--prefix=@HUNTER_PACKAGE_INSTALL_PREFIX@" "--openssldir=${openssl_dir}"
+    perl Configure "${opt}" ${shared} no-asm "--prefix=@HUNTER_PACKAGE_INSTALL_PREFIX@" "--openssldir=${openssl_dir}"
     COMMAND
     nmake
     COMMAND
