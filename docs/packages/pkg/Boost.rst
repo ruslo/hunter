@@ -127,6 +127,7 @@ Bugs
 -  `boost mingw <https://github.com/ruslo/hunter/issues/27>`__
 -  `arm64 unknown <https://svn.boost.org/trac/boost/ticket/10910>`__
     -  workaround: set additional ``armv7``, i.e. when ``arm64`` build alone - result will be universal library ``armv7`` + ``arm64``
+- `VSCMD_START_DIR issue <https://github.com/ruslo/hunter/issues/745#issuecomment-316629752>`__
 
 CI
 --
