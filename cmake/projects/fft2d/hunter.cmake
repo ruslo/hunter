@@ -16,7 +16,7 @@ hunter_add_version(
     VERSION
     1.0.0-p0
     URL
-    "https://github.com/headupinclouds/fft2d/archive/v1.0.0-p0.tar.gz" # TODO: hunter-packages/fft2d
+    "https://github.com/hunter-packages/fft2d/archive/v1.0.0-p0.tar.gz"
     SHA1
     080f5415229653fe032e981e4ce65a05a6967bbe
     )
