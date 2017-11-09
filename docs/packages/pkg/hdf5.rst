@@ -10,7 +10,7 @@ hdf5
 ====
 
 -  `Hunterized <https://github.com/hunter-packages/hdf5>`__
--  `Example <https://github.com/ruslo/hunter/blob/develop/examples/hdf5/CMakeLists.txt>`__
+-  `Example <https://github.com/ruslo/hunter/blob/master/examples/hdf5/CMakeLists.txt>`__
 
 .. code-block:: cmake
 
