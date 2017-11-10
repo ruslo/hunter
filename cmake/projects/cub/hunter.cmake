@@ -18,7 +18,7 @@ hunter_add_version(
     URL
     "https://github.com/hunter-packages/cub/archive/v1.7.4-p0.tar.gz"
     SHA1
-    fa984e46fc50bb9ec56dd0944651a3874c3714ca
+    c90ecb5fd3c393371abb9cfbf61d4fd5e36564f1
     )
   
 hunter_pick_scheme(DEFAULT url_sha1_cmake)
