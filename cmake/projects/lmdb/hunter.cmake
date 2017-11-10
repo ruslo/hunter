@@ -14,11 +14,11 @@ hunter_add_version(
     PACKAGE_NAME
     lmdb
     VERSION
-    0.9.21-p0
+    0.9.21-p1
     URL
-    "https://github.com/hunter-packages/lmdb/archive/v0.9.21-p0.tar.gz"
+    "https://github.com/hunter-packages/lmdb/archive/v0.9.21-p1.tar.gz"
     SHA1
-    adfe01e5ec3499fadbea1a4e606f966e107522fe
+    4218e126cbc18756d93a798f56e5e6dd10803aae
     )
   
 hunter_pick_scheme(DEFAULT url_sha1_cmake)
