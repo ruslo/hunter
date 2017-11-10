@@ -14,11 +14,11 @@ hunter_add_version(
     PACKAGE_NAME
     re2
     VERSION
-    2017.11.01
+    2017.11.01-p0
     URL
-    https://github.com/headupinclouds/re2/archive/2017.11.01.tar.gz
+    https://github.com/hunter-packages/re2/archive/2017.11.01-p0.tar.gz
     SHA1
-    17316240e8e28dd32be6e7271fe504a35d2dff76
+    78ed8b27fe1499a30281f3763bb282ea47636b1a
     )
 
 hunter_pick_scheme(DEFAULT url_sha1_cmake)
