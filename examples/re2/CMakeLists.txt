@@ -11,7 +11,7 @@ include("../common.cmake")
 project(download-re2)
 
 hunter_add_package(re2)
-find_package(re2 CONFIG REQUIRED)
+find_package(RE2 CONFIG REQUIRED)
 
 add_executable(foo foo.cpp)
 target_link_libraries(foo RE2::re2)
