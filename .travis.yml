@@ -27,35 +27,35 @@ matrix:
   include:
     # Linux {
     - os: linux
-      env: PROJECT_DIR=examples/foo TOOLCHAIN=default
+      env: PROJECT_DIR=examples/cub TOOLCHAIN=default
     - os: linux
-      env: PROJECT_DIR=examples/foo TOOLCHAIN=clang-libstdcxx
+      env: PROJECT_DIR=examples/cub TOOLCHAIN=clang-libstdcxx
     - os: linux
-      env: PROJECT_DIR=examples/foo TOOLCHAIN=gcc
+      env: PROJECT_DIR=examples/cub TOOLCHAIN=gcc
     - os: linux
-      env: PROJECT_DIR=examples/foo TOOLCHAIN=android-ndk-r10e-api-19-armeabi-v7a-neon
+      env: PROJECT_DIR=examples/cub TOOLCHAIN=android-ndk-r10e-api-19-armeabi-v7a-neon
     - os: linux
-      env: PROJECT_DIR=examples/foo TOOLCHAIN=android-ndk-r15c-api-21-armeabi-v7a-neon-clang-libcxx
+      env: PROJECT_DIR=examples/cub TOOLCHAIN=android-ndk-r15c-api-21-armeabi-v7a-neon-clang-libcxx
     - os: linux
-      env: PROJECT_DIR=examples/foo TOOLCHAIN=analyze
+      env: PROJECT_DIR=examples/cub TOOLCHAIN=analyze
     - os: linux
-      env: PROJECT_DIR=examples/foo TOOLCHAIN=sanitize-address
+      env: PROJECT_DIR=examples/cub TOOLCHAIN=sanitize-address
     - os: linux
-      env: PROJECT_DIR=examples/foo TOOLCHAIN=sanitize-leak
+      env: PROJECT_DIR=examples/cub TOOLCHAIN=sanitize-leak
 
     # FIXME: https://github.com/ruslo/hunter/issues/718#issuecomment-290610583
     # - os: linux
-    #   env: PROJECT_DIR=examples/foo TOOLCHAIN=sanitize-thread
+    #   env: PROJECT_DIR=examples/cub TOOLCHAIN=sanitize-thread
 
     # }
 
     # OSX {
     - os: osx
-      env: PROJECT_DIR=examples/foo TOOLCHAIN=libcxx
+      env: PROJECT_DIR=examples/cub TOOLCHAIN=libcxx
     - os: osx
-      env: PROJECT_DIR=examples/foo TOOLCHAIN=osx-10-11
+      env: PROJECT_DIR=examples/cub TOOLCHAIN=osx-10-11
     - os: osx
-      env: PROJECT_DIR=examples/foo TOOLCHAIN=ios-nocodesign-9-3
+      env: PROJECT_DIR=examples/cub TOOLCHAIN=ios-nocodesign-9-3
     # }
 
 install:
