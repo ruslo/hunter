@@ -10,6 +10,7 @@ Math
  - :ref:`pkg.GSL` - GNU Scientific Library
  - :ref:`pkg.OpenBLAS` - OpenBLAS is an optimized BLAS library based on GotoBLAS2 1.13 BSD version
  - :ref:`pkg.double-conversion` - provides binary-decimal and decimal-binary routines for IEEE doubles.
+ - :ref:`pkg.gemmlowp` - Low-precision matrix multiplication.
  - :ref:`pkg.glm` - header only C++ mathematics library for graphics software based on the OpenGL Shading Language (GLSL) specifications.
  - :ref:`pkg.half` - Half-precision floating point library
  - :ref:`pkg.poly2tri` - 2D constrained Delaunay triangulation library
