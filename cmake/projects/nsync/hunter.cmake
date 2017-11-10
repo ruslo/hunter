@@ -14,11 +14,11 @@ hunter_add_version(
     PACKAGE_NAME
     nsync
     VERSION
-    1.14-p0
+    1.14-p1
     URL
-    "https://github.com/hunter-packages/nsync/archive/v1.14-p0.tar.gz"
+    "https://github.com/hunter-packages/nsync/archive/v1.14-p1.tar.gz"
     SHA1
-    eaa0680df5d7823ce4b364cac86b10bf112da1d2
+    ba52dbd178fc5162aac4469b67c0b5a684e37075
     )
   
 hunter_pick_scheme(DEFAULT url_sha1_cmake)
