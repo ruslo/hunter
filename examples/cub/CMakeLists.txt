@@ -14,10 +14,16 @@ project(download-cub)
 hunter_add_package(cub)
 find_package(cub CONFIG REQUIRED)
 
-find_package(CUDA QUIET REQUIRED)
-if (CUDA_FOUND)
-  cuda_add_executable(foo foo.cu)
-  target_link_libraries(foo cub::cub)
+if(NOT TARGET cub::cub)
+  message(FATAL_ERROR "Target not found")
 endif()
+
+# Note: Enable CUDA setup for full test, i,e:
+#
+# find_package(CUDA QUIET REQUIRED)
+# if (CUDA_FOUND)
+#   cuda_add_executable(foo foo.cu)
+#   target_link_libraries(foo cub::cub)
+# endif()
 
 
