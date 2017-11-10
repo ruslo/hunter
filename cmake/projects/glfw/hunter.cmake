@@ -16,6 +16,17 @@ hunter_add_version(
     PACKAGE_NAME
     glfw
     VERSION
+    "3.2.1"
+    URL
+    "https://github.com/hunter-packages/glfw/archive/3.2.1.gz"
+    SHA1
+    BEE9CD9A8B4925184070ADE5BC287C5635830EB0
+    )
+
+hunter_add_version(
+    PACKAGE_NAME
+    glfw
+    VERSION
     "3.2-p0"
     URL
     "https://github.com/hunter-packages/glfw/archive/3.2-p0.tar.gz"
@@ -43,7 +54,7 @@ hunter_add_version(
     "https://github.com/hunter-packages/glfw/archive/3.3.0-p1.tar.gz"
     SHA1
     3b42c415f6f6f197768857d12ba44f77e9f1fc50
-)
+    )
 
 hunter_add_version(
     PACKAGE_NAME
@@ -54,7 +65,7 @@ hunter_add_version(
     "https://github.com/hunter-packages/glfw/archive/3.3.0-p2.tar.gz"
     SHA1
     980c5b788849da9e8429e8f57a10569620b2fa07
-)
+    )
 
 hunter_add_version(
     PACKAGE_NAME
@@ -65,8 +76,8 @@ hunter_add_version(
     "https://github.com/hunter-packages/glfw/archive/3.3.0-p3.tar.gz"
     SHA1
     76b9d007591ac1464c443066f4e9db1a0b973efc
-)
-
+    )
+    
 hunter_add_version(
     PACKAGE_NAME
     glfw
@@ -76,7 +87,7 @@ hunter_add_version(
     "https://github.com/hunter-packages/glfw/archive/3.3.0-p4.tar.gz"
     SHA1
     455c97ea01a1b78ae39a72d00d86eb1c455e0dca
-)
+    )
 
 hunter_cmake_args(
     glfw
