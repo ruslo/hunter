@@ -14,9 +14,9 @@ hunter_add_version(
     PACKAGE_NAME
     lmdb
     VERSION
-    0.9.21
+    0.9.21-p0
     URL
-    "https://github.com/headupinclouds/lmdb/archive/v0.9.21.tar.gz"
+    "https://github.com/hunter-packages/lmdb/archive/v0.9.21-p0.tar.gz"
     SHA1
     cfe06cccccf45f18bfe5d5df6f72a62ccd1279ca
     )
