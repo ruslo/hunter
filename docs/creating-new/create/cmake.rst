@@ -764,3 +764,21 @@ At this moment all branches can be removed:
   [hunter]> git branch -D pr.hunter_box_1
   [hunter]> git branch -D pr.pkg.hunter_box_1
   [hunter]> git branch -D test.hunter_box_1
+
+Badge
+=====
+
+Badge in ``README.rst`` can signal that package ``hunter_box_1`` is available
+via Hunter:
+
+.. code-block:: none
+
+  |hunter|
+
+  .. |hunter| image:: https://img.shields.io/badge/hunter-hunter_box_1-blue.svg
+    :target: https://docs.hunter.sh/en/latest/packages/pkg/hunter_box_1.html
+    :alt: Hunter
+
+Example:
+
+* https://github.com/hunter-packages/gauze/blob/master/README.rst
