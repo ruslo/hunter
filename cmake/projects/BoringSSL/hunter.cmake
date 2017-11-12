@@ -21,6 +21,10 @@ hunter_add_version(
     caa7cd122960c9427bda30db5020b9058cb1ed0a
     )
 
+if(MSVC)
+  hunter_cmake_args(BoringSSL CMAKE_ARGS OPENSSL_NO_ASM=YES)
+endif()
+
 hunter_pick_scheme(DEFAULT url_sha1_cmake)
 hunter_cacheable(BoringSSL)
 hunter_download(PACKAGE_NAME BoringSSL)
