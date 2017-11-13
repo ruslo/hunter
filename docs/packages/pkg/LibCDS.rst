@@ -12,7 +12,7 @@ LibCDS
 -  `Official <https://github.com/LibCDS/LibCDS>`__
 -  `Hunterized <https://github.com/hunter-packages/LibCDS>`__
 -  `Example <https://github.com/ruslo/hunter/blob/master/examples/LibCDS/CMakeLists.txt>`__
--  Added by `Isaac Hier <https://github.com/isaachier>`__ (`pr-1181 <https://github.com/ruslo/hunter/pull/1181>`__)
+-  Added by `Isaac Hier <https://github.com/isaachier>`__ (`pr-1194 <https://github.com/ruslo/hunter/pull/1194>`__)
 
 .. code-block:: cmake
 
