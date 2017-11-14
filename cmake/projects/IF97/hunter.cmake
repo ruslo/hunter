@@ -15,9 +15,9 @@ hunter_add_version(
     VERSION
     2.1.2
     URL
-    "https://github.com/hunter-packages/IF97/archive/v2.1.2-hunter.2.tar.gz"
+    "https://github.com/CoolProp/IF97/archive/v2.1.2.tar.gz"
     SHA1
-    62de960e1128160f0439c5557224a02bdcb8982e
+    84d7a541d7aee33c708b25499c82e12cf68f63f1
 )
 
 hunter_cmake_args(
