@@ -464,7 +464,7 @@ On Windows:
 
   [hunter]> set TOOLCHAIN=vs-12-2013
   [hunter]> set PROJECT_DIR=examples\hunter_box_1
-  [hunter]> ./jenkins.py
+  [hunter]> .\jenkins.py
 
 .. admonition:: Stackoverflow
 
