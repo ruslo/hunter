@@ -73,7 +73,7 @@ function(hunter_download_server_url)
 
       # check if package URL is in the download server list
       string(FIND "${x_URL}" "${list_item}" found)
-      if(NOT (found EQUAL -1))
+      if(NOT (found EQUAL "-1"))
         # if in list use the original URL instead of name mangling
         hunter_status_print("DOWNLOAD_SERVER: \"${x_PACKAGE}\": URL \"${x_URL}\" matches list item \"${list_item}\".")
         set(hunter_main_url "${x_URL}")
