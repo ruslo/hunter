@@ -50,73 +50,82 @@ function(hunter_download_server_url)
   # default to the given URL
   set(hunter_package_new_url "${x_URL}")
 
+  # check if download server is given
+  string(COMPARE NOTEQUAL "${HUNTER_DOWNLOAD_SERVER}" "" use_download_server)
+  if(NOT use_download_server)
+    # nothing to be done, set variable and exit
+    set(${x_OUTPUT} ${hunter_package_new_url} PARENT_SCOPE)
+    return()
+  endif()
+
+  # update download url to point to HUNTER_DOWNLOAD_SERVER
   set(hunter_main_url) # variable for main_url (x_URL if it matches one of the download server)
   set(hunter_url_list) # list of URLs to try downloading from
 
-  # check if download server is given
-  string(COMPARE NOTEQUAL "${HUNTER_DOWNLOAD_SERVER}" "" use_download_server)
-  if(use_download_server)
-    # update download url to point to HUNTER_DOWNLOAD_SERVER
+  # extract archive-ID from archive SHA1
+  string(SUBSTRING "${x_SHA1}" 0 7 archive_id)
 
-    # point download URL to DOWNLOAD_SERVER
-    # extract archive-ID from archive SHA1
-    string(SUBSTRING "${x_SHA1}" 0 7 archive_id)
+  # get filename from download URL
+  get_filename_component(package_filename_raw "${x_URL}" NAME)
+  # replace special characters from filename
+  string(REGEX REPLACE "[!@#$%^&*?]" "_" package_filename "${package_filename_raw}")
 
-    # get filename from download URL
-    get_filename_component(package_filename_raw "${x_URL}" NAME)
-    # replace special characters from filename
-    string(REGEX REPLACE "[!@#$%^&*?]" "_" package_filename "${package_filename_raw}")
+  foreach(list_item ${HUNTER_DOWNLOAD_SERVER})
+    # create new URL
+    set(download_server_url "${list_item}/${x_PACKAGE}/${x_VERSION}/${archive_id}/${package_filename}")
 
-    foreach(list_item ${HUNTER_DOWNLOAD_SERVER})
-      # create new URL
-      set(download_server_url "${list_item}/${x_PACKAGE}/${x_VERSION}/${archive_id}/${package_filename}")
-
-      # check if package URL is in the download server list
-      string(FIND "${x_URL}" "${list_item}" found)
-      if(NOT (found EQUAL "-1"))
-        # if in list use the original URL instead of name mangling
-        hunter_status_print("DOWNLOAD_SERVER: \"${x_PACKAGE}\": URL \"${x_URL}\" matches list item \"${list_item}\".")
-        set(hunter_main_url "${x_URL}")
-      else()
-        # append URL to list of download URLs
-        list(APPEND hunter_url_list "${download_server_url}")
-      endif()
-    endforeach()
-
-    string(COMPARE NOTEQUAL "${hunter_main_url}" "" has_main_url)
-    if(has_main_url)
-      if(CMAKE_VERSION VERSION_LESS 3.7)
-        # use only original URL
-        set(hunter_package_new_url "${hunter_main_url}")
-      else()
-        # highest priority for original URL
-        set(hunter_package_new_url "${hunter_main_url}" ${hunter_url_list})
-      endif()
+    # check if package URL is in the download server list
+    string(FIND "${x_URL}" "${list_item}" found)
+    if(NOT (found EQUAL "-1"))
+      # if in list use the original URL instead of name mangling
+      hunter_status_print("DOWNLOAD_SERVER: \"${x_PACKAGE}\": URL \"${x_URL}\" matches list item \"${list_item}\".")
+      set(hunter_main_url "${x_URL}")
     else()
-      if(CMAKE_VERSION VERSION_LESS 3.7)
-        # use only first server
-        list(GET hunter_url_list 0 hunter_package_new_url)
-      else()
-        # try all download server one after another
-        set(hunter_package_new_url ${hunter_url_list})
-      endif()
+      # append URL to list of download URLs
+      list(APPEND hunter_url_list "${download_server_url}")
     endif()
+  endforeach()
 
-    hunter_status_print("DOWNLOAD_SERVER: replacing URL
-    PACKAGE: \"${x_PACKAGE}\"
-    VERSION: \"${x_VERSION}\"
-    SHA1:    \"${x_SHA1}\"
-    old URL: \"${x_URL}\"
-    new URL: \"${hunter_package_new_url}\"")
-
-    set(download_command "./download_package_for_server.sh")
-    set(download_command "${download_command} --PACKAGE \"${x_PACKAGE}\"")
-    set(download_command "${download_command} --VERSION \"${x_VERSION}\" ")
-    set(download_command "${download_command} --SHA1 \"${x_SHA1}\" ")
-    set(download_command "${download_command} --URL \"${x_URL}\"")
-    hunter_status_print("DOWNLOAD_SERVER: download with maintenance-script:
-    ${download_command}")
+  # check version to determine if external_project_add can handle multiple download URLs
+  set(multiple_urls_allowed TRUE)
+  if(CMAKE_VERSION VERSION_LESS 3.7)
+    hunter_status_debug("DOWNLOAD_SERVER: Multiple URLs are not supported, only one URL will be used as download server. Use CMake 3.7+ for multiple URLs (current version: ${CMAKE_VERSION})")
+    set(multiple_urls_allowed FALSE)
   endif()
+
+  string(COMPARE NOTEQUAL "${hunter_main_url}" "" has_main_url)
+  if(has_main_url)
+    if(multiple_urls_allowed)
+      # highest priority for original URL
+      set(hunter_package_new_url "${hunter_main_url}" ${hunter_url_list})
+    else()
+      # use only original URL
+      set(hunter_package_new_url "${hunter_main_url}")
+    endif()
+  else()
+    if(multiple_urls_allowed)
+      # try all download server one after another
+      set(hunter_package_new_url ${hunter_url_list})
+    else()
+      # use only first server
+      list(GET hunter_url_list 0 hunter_package_new_url)
+    endif()
+  endif()
+
+  hunter_status_print("DOWNLOAD_SERVER: replacing URL
+  PACKAGE: \"${x_PACKAGE}\"
+  VERSION: \"${x_VERSION}\"
+  SHA1:    \"${x_SHA1}\"
+  old URL: \"${x_URL}\"
+  new URL: \"${hunter_package_new_url}\"")
+
+  set(download_command "./download_package_for_server.sh")
+  set(download_command "${download_command} --PACKAGE \"${x_PACKAGE}\"")
+  set(download_command "${download_command} --VERSION \"${x_VERSION}\" ")
+  set(download_command "${download_command} --SHA1 \"${x_SHA1}\" ")
+  set(download_command "${download_command} --URL \"${x_URL}\"")
+  hunter_status_print("DOWNLOAD_SERVER: download with maintenance-script:
+  ${download_command}")
 
   # set output_var to found definition
   set(${x_OUTPUT} ${hunter_package_new_url} PARENT_SCOPE)
