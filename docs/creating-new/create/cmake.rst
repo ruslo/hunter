@@ -449,9 +449,6 @@ On Windows:
 
 .. code-block:: none
 
-  > where python
-  C:\Python3\python.exe
-
   > git clone https://github.com/ruslo/polly
   > cd polly
   [polly]> set PATH=%CD%\bin;%PATH%
@@ -467,7 +464,7 @@ On Windows:
 
   [hunter]> set TOOLCHAIN=vs-12-2013
   [hunter]> set PROJECT_DIR=examples\hunter_box_1
-  [hunter]> python jenkins.py
+  [hunter]> ./jenkins.py
 
 .. admonition:: Stackoverflow
 
