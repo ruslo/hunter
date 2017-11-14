@@ -250,6 +250,10 @@ For package ``boo`` the following URLs are passed to ``ExternalProject_Add``
 - ``https://server-1.com/boo/3.0/SHASUM/boo-3.0.tar.gz``
 - ``https://server-3.com/boo/3.0/SHASUM/boo-3.0.tar.gz``
 
+.. note::
+
+    Multiple URLs are supported only with CMake 3.7+. For earlier versions
+    the first listed URL is passed to ``ExternalProject_Add``.
 
 The retry logic is implemented in the CMake function ``ExternalProject_Add``.
 
@@ -259,7 +263,10 @@ To create new URLs the following template is used:
 
 - The characters ``!@#$%^&*?`` occurring in ``${filename}`` are replaced with ``_``.
 - ``${ARCHIVE_ID}`` is the first 7 characters of the package archive ``SHA1`` sum.
-- Note: This is the same structure as Hunter uses for its own ``Download`` directory.
+
+.. note::
+
+    This is the same structure as Hunter uses for its own :doc:`Download </reference/layouts/deployed>` directory.
 
 
 Environment
