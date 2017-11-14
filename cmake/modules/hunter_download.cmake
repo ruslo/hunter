@@ -78,8 +78,8 @@ function(hunter_download)
   set(root_name "${root_name}_ROOT") # FOO_ROOT
 
   set(HUNTER_PACKAGE_VERSION "${HUNTER_${h_name}_VERSION}")
-  set(HUNTER_PACKAGE_SHA1 "${HUNTER_${h_name}_SHA1}")
   set(ver "${HUNTER_PACKAGE_VERSION}")
+  set(HUNTER_PACKAGE_SHA1 "${HUNTER_${h_name}_SHA1}")
   # set download URL, either direct download or redirected if HUNTER_DOWNLOAD_SERVER is set
   hunter_download_server_url(
     PACKAGE "${HUNTER_PACKAGE_NAME}"
