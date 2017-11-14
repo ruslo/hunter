@@ -1,0 +1,21 @@
+.. spelling::
+
+    IF97
+
+.. index:: unsorted ; IF97
+
+.. _pkg.IF97:
+
+IF97
+===
+
+-  `Official <https://official_foo>`__
+-  `Hunterized <https://github.com/hunter-packages/IF97>`__
+-  `Example <https://github.com/ruslo/hunter/blob/master/examples/IF97/CMakeLists.txt>`__
+-  Added by `Jorrit Wronski <https://github.com/jowr>`__ (`pr-N <https://github.com/ruslo/hunter/pull/N>`__)
+
+.. code-block:: cmake
+
+    hunter_add_package(IF97)
+    find_package(IF97 CONFIG REQUIRED)
+    target_link_libraries(IF97 IF97::IF97)
