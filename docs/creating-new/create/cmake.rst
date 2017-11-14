@@ -420,8 +420,10 @@ Script ``jenkins.py`` will package a temporary Hunter archive based on current
 state and build the specified example. This script uses
 `Polly <https://github.com/ruslo/polly>`__ toolchains.
 
-Check you have Python 3 installed, clone Polly and add its ``bin`` folder to
-``PATH`` environment variable:
+Check you have Python 3 installed, clone Polly, add its ``bin`` folder to
+``PATH`` environment variable, go back to Hunter repository and run test.
+
+On Linux:
 
 .. code-block:: none
 
@@ -432,12 +434,7 @@ Check you have Python 3 installed, clone Polly and add its ``bin`` folder to
   > cd polly
   [polly]> export PATH="`pwd`/bin:$PATH"
 
-Go back to Hunter repository and run test:
-
-.. code-block:: none
-
   > cd hunter
-
   [hunter]> which polly.py
   /.../bin/polly.py
 
@@ -452,8 +449,11 @@ On Windows:
 
 .. code-block:: none
 
-  > cd hunter
+  > git clone https://github.com/ruslo/polly
+  > cd polly
+  [polly]> set PATH=%CD%\bin;%PATH%
 
+  > cd hunter
   [hunter]> where polly.py
   C:\...\bin\polly.py
 
