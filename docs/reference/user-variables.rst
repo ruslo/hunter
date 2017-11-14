@@ -266,7 +266,7 @@ To create new URLs the following template is used:
 
 .. note::
 
-    This is the same structure as Hunter uses for its own :doc:`Download </reference/layouts/deployed>` directory.
+    This is the same structure as Hunter uses for its own :ref:`Download <layout deployed download>` directory.
 
 
 Environment
