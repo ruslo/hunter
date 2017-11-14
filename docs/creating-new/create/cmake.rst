@@ -454,10 +454,10 @@ On Windows:
   [polly]> set PATH=%CD%\bin;%PATH%
 
   > cd hunter
-  [hunter]> where polly.bat
-  C:\...\bin\polly.bat
+  [hunter]> where polly.py
+  C:\...\bin\polly.py
 
-  [hunter]> polly.bat --help
+  [hunter]> polly.py --help
   Python version: 3.5
   usage: polly.py [-h]
   ...
