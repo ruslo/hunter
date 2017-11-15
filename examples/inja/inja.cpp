@@ -5,6 +5,6 @@ int main() {
     inja::Parser parser = inja::Parser();
     std::string test = "lorem ipsum";
     nlohmann::json result = {{{"type", inja::Parser::Type::String}, {"text", "lorem ipsum"}}};
-    bool test = parser.parse(test) == result;
+    bool tested = (parser.parse(test) == result);
     return 0;
 }
