@@ -9,6 +9,8 @@ include("../common.cmake")
 
 project(download-inja)
 
+set(CMAKE_CXX_STANDARD 11)
+
 hunter_add_package(inja)
 find_package(inja CONFIG REQUIRED)
 
