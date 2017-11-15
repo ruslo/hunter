@@ -19,7 +19,7 @@ hunter_add_version(
   bison
   VERSION
   "3.0.4-p0"
-  URL "https://github.com/isaachier/bison/files/1471873/bison-3.0.4.tar.gz"
+  URL "https://github.com/hunter-packages/bison/releases/download/v3.0.4/bison-3.0.4.tar.gz"
   SHA1 "984caba9061e21d048b71a49bf553d2e32ac8252"
 )
 
