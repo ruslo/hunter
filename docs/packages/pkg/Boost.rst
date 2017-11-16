@@ -87,7 +87,7 @@ config file (boost/config/user.hpp):
 
   .. code-block:: cmake
 
-    hunter_config(Boost ${HUNTER_Boost_VERSION} ... CMAKE_ARGS IOSTREAMS_NO_BZIP2=1)
+    hunter_config(Boost ${HUNTER_Boost_VERSION} CMAKE_ARGS IOSTREAMS_NO_BZIP2=1)
     # add NO_BZIP2=1 to the b2 build of iostreams library, i.e. `b2 -s NO_BZIP2=1`
 
 -  `boost.iostreams
@@ -101,7 +101,7 @@ config file (boost/config/user.hpp):
 
   .. code-block:: cmake
 
-    hunter_config(Boost ${HUNTER_Boost_VERSION} ... CMAKE_ARGS
+    hunter_config(Boost ${HUNTER_Boost_VERSION} CMAKE_ARGS
         CONFIG_MACRO=BOOST_REGEX_MATCH_EXTRA;BOOST_MPL_CFG_NO_PREPROCESSED_HEADERS
         CONFIG_MACRO_BOOST_MPL_LIMIT_LIST_SIZE=3
     )
