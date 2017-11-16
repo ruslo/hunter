@@ -19,6 +19,12 @@ thrift
     hunter_add_package(thrift)
     find_package(thrift CONFIG REQUIRED)
     target_link_libraries(foo
-        thrift::thrift_static     # Main thrift library
-        thrift::thriftz_static    # thrift ZLIB support
-        thrift::thriftnb_static)  # thrift Libevent non-blocking support
+        thrift::thrift            # Main thrift library, thrift_static for static library
+        thrift::thriftz           # thrift ZLIB support
+        thrift::thriftnb)         # thrift Libevent non-blocking support
+
+    # If you just need the core C++ library, not the compiler or ZLIB/Libevent
+    # support, use the libthrift package instead
+    hunter_add_package(libthrift)
+    find_package(thrift CONFIG REQUIRED)
+    target_link_libraries(foo PUBLIC thrift::thrift)
