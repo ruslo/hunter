@@ -9,14 +9,14 @@ include(hunter_pick_scheme)
 hunter_add_version(
     PACKAGE_NAME libthrift
     VERSION "0.10.0"
-    URL "https://github.com/isaachier/thrift/archive/hunter-0.10.0-p7.tar.gz"
-    SHA1 "f5cc2fae935fba47ae4b441e0f651bff84a3cc83")
+    URL "https://github.com/hunter-packages/thrift/archive/v0.10.0-p2.tar.gz"
+    SHA1 "9060fe039f57ea11d1143299b456ff98d4cc56c2")
 
 hunter_add_version(
     PACKAGE_NAME libthrift
     VERSION "0.9.2"
-    URL "https://github.com/isaachier/thrift/archive/hunter-0.9.2-p4.tar.gz"
-    SHA1 "9d5b60c9af6583a3d4f516f70db1262de7db1c73")
+    URL "https://github.com/hunter-packages/thrift/archive/v0.9.2-p2.tar.gz"
+    SHA1 "0dba938473a718a547b0f21ad3bd6eda2a2574ac")
 
 hunter_cmake_args(libthrift CMAKE_ARGS
     BUILD_TESTING=OFF
