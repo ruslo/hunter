@@ -1,6 +1,7 @@
 # !!! DO NOT PLACE HEADER GUARDS HERE !!!
 
 include(hunter_add_version)
+include(hunter_cacheable)
 include(hunter_cmake_args)
 include(hunter_download)
 include(hunter_pick_scheme)
@@ -19,6 +20,12 @@ hunter_add_version(
 
 hunter_add_version(
     PACKAGE_NAME thrift
+    VERSION "0.10.0-p2"
+    URL "https://github.com/hunter-packages/thrift/archive/v0.10.0-p2.tar.gz"
+    SHA1 "9060fe039f57ea11d1143299b456ff98d4cc56c2")
+
+hunter_add_version(
+    PACKAGE_NAME thrift
     VERSION "0.9.2"
     URL "https://github.com/hunter-packages/thrift/archive/v0.9.2-p0.tar.gz"
     SHA1 "a53f54ca03e4535b45f74bb71b07f82e0dda6640")
@@ -29,17 +36,29 @@ hunter_add_version(
     URL "https://github.com/hunter-packages/thrift/archive/v0.9.2-p1.tar.gz"
     SHA1 "b097d5df29681d57c2b75ecfc4400b5ab28252ba")
 
+hunter_add_version(
+    PACKAGE_NAME thrift
+    VERSION "0.9.2-p2"
+    URL "https://github.com/hunter-packages/thrift/archive/v0.9.2-p2.tar.gz"
+    SHA1 "0dba938473a718a547b0f21ad3bd6eda2a2574ac")
+
 hunter_cmake_args(thrift CMAKE_ARGS
     BUILD_TESTING=OFF
     BUILD_TUTORIALS=OFF
+    BUILD_COMPILER=OFF
+    BUILD_C_GLIB=OFF
+    BUILD_CPP=ON
     BUILD_HASKELL=OFF
     BUILD_JAVA=OFF
-    BUILD_C_GLIB=OFF
+    BUILD_PYTHON=OFF
     WITH_QT4=OFF
     WITH_QT5=OFF
     WITH_SHARED_LIB=OFF
-    WITH_PLUGIN=OFF)
+    WITH_PLUGIN=OFF
+    WITH_LIBEVENT=OFF
+    WITH_OPENSSL=OFF
+    WITH_ZLIB=OFF)
 
 hunter_pick_scheme(DEFAULT url_sha1_cmake)
-# Not cachable due to dependency on bison
+hunter_cacheable(thrift)
 hunter_download(PACKAGE_NAME thrift)
