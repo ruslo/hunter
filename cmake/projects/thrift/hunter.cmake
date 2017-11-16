@@ -44,6 +44,7 @@ hunter_add_version(
 hunter_cmake_args(thrift CMAKE_ARGS
     BUILD_TESTING=OFF
     BUILD_TUTORIALS=OFF
+    BUILD_COMPILER=OFF
     BUILD_C_GLIB=OFF
     BUILD_CPP=ON
     BUILD_HASKELL=OFF
@@ -52,8 +53,11 @@ hunter_cmake_args(thrift CMAKE_ARGS
     WITH_QT4=OFF
     WITH_QT5=OFF
     WITH_SHARED_LIB=OFF
-    WITH_PLUGIN=OFF)
+    WITH_PLUGIN=OFF
+    WITH_LIBEVENT=OFF
+    WITH_OPENSSL=OFF
+    WITH_ZLIB=OFF)
 
 hunter_pick_scheme(DEFAULT url_sha1_cmake)
-# Not cachable due to dependency on bison
+hunter_cacheable(thrift)
 hunter_download(PACKAGE_NAME thrift)
