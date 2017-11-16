@@ -1,3 +1,5 @@
+cmake_minimum_required(VERSION 3.0)
+
 # run at the boost source root
 set(boost_user_config_file "boost/config/user.hpp")
 
