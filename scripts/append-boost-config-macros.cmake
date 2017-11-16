@@ -27,7 +27,7 @@ foreach(i RANGE ${CMAKE_ARGC})
 
   if(append_str)
     message("-- append '${append_str}' to '${boost_user_config_file}'")
-    file(APPEND "${boost_user_config_file}" "${append_str}")
+    file(APPEND "${boost_user_config_file}" "\n${append_str}\n")
   endif()
 
 endforeach()
