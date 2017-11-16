@@ -110,13 +110,6 @@ config file (boost/config/user.hpp):
     # #define BOOST_MPL_CFG_NO_PREPROCESSED_HEADERS
     # #define CONFIG_MACRO_BOOST_MPL_LIMIT_LIST_SIZE 3
 
-  .. note::
-
-      If you define BOOST_USER_CONFIG to use a non default boot user config
-      file make sure to include the default boot user config
-      file (boost/config/user.hpp) or define the same set of config macros
-      used to build boost libs.
-
 Math
 ----
 
