@@ -13,11 +13,11 @@ hunter_add_version(
     PACKAGE_NAME
     inja
     VERSION
-    0.1
+    0.1.1
     URL
-    "https://github.com/jowr/inja/archive/v0.1-hunter.4.tar.gz"
+    "https://github.com/pantor/inja/archive/v0.1.1.tar.gz"
     SHA1
-    a8af3f807bbcf25a33be605eacf4e72bb8cdf47e
+    fdf2af404917350a7d9c4f263ddf020130088444
 )
 
 hunter_cmake_args(

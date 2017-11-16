@@ -10,7 +10,7 @@ inja
 ====
 
 -  `Official <https://github.com/pantor/inja>`__
--  `Hunterized <https://github.com/jowr/inja>`__
+-  `Hunterized <https://github.com/pantor/inja>`__
 -  `Example <https://github.com/ruslo/hunter/blob/master/examples/inja/CMakeLists.txt>`__
 -  Added by `Jorrit Wronski <https://github.com/jowr>`__ (`pr-N <https://github.com/ruslo/hunter/pull/N>`__)
 
