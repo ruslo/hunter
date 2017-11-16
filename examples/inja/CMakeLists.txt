@@ -9,11 +9,6 @@ include("../common.cmake")
 
 project(download-inja)
 
-set(CMAKE_CXX_STANDARD 11)
-if(WIN32 AND MSVC AND MSVC_VERSION LESS 1900)
-    message(FATAL_ERROR "[${PROJECT_NAME}] Visual Studio < 2015 is not supported.")
-endif()
-
 hunter_add_package(inja)
 find_package(inja CONFIG REQUIRED)
 
