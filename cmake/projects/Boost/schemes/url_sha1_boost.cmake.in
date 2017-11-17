@@ -10,12 +10,13 @@ include(ExternalProject) # ExternalProject_Add
 
 list(APPEND CMAKE_MODULE_PATH "@HUNTER_SELF@/cmake/modules")
 
+include(hunter_get_boost_libs)
 include(hunter_install_boost_config)
 include(hunter_report_broken_package)
 include(hunter_status_debug)
 include(hunter_status_print)
 include(hunter_test_string_not_empty)
-include(hunter_get_boost_libs)
+include(hunter_user_error)
 
 hunter_status_debug("Scheme: url_sha1_boost")
 
@@ -34,6 +35,13 @@ hunter_test_string_not_empty("@HUNTER_GLOBAL_SCRIPT_DIR@")
 if("@MSVC@")
   hunter_test_string_not_empty("@HUNTER_MSVC_ARCH@")
   hunter_test_string_not_empty("@HUNTER_MSVC_VCVARSALL@")
+
+  set(x "$ENV{USERPROFILE}/source")
+  if(EXISTS "${x}")
+    hunter_user_error(
+        "Please remove directory '${x}' (see https://github.com/ruslo/hunter/issues/745#issuecomment-316629752)"
+    )
+  endif()
 endif()
 
 # get list of boost components for given version
