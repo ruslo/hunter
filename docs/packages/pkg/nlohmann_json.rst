@@ -19,6 +19,8 @@ nlohmann_json
 -  V2.1.1 Available since
    `v0.19.52 <https://github.com/ruslo/hunter/releases/tag/v0.19.52>`__
 
+Please note that C++ 11 is required, you can find the supported compiler versions in the official `README <https://github.com/nlohmann/json#supported-compilers>`__.
+
 Usage
 -----
 
