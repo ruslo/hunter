@@ -6,6 +6,13 @@ include(hunter_cmake_args)
 include(hunter_download)
 include(hunter_pick_scheme)
 
+if(MSVC AND MSVC_VERSION LESS 1900)
+    hunter_report_broken_package(
+        "The 'nlohmann_json' library cannot be used with Visual Studio < 2015."
+        "This is due to the missing implementation of the 'noexcept' keyword."
+    )
+endif()
+
 hunter_add_version(
     PACKAGE_NAME nlohmann_json
     VERSION "2.1.1-p0"
