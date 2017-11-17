@@ -107,12 +107,6 @@ if("@ANDROID@")
 endif()
 
 if("@MSVC@")
-  set(env_cmd "@HUNTER_MSVC_VCVARSALL@" "@HUNTER_MSVC_ARCH@" && cd "@HUNTER_PACKAGE_SOURCE_DIR@" &&)
-else()
-  set(env_cmd "")
-endif()
-
-if("@MSVC@")
   set(boost_compiler  "@CMAKE_CXX_COMPILER@")
   string(REPLACE "/" "\\" boost_compiler "${boost_compiler}")
 else()
@@ -305,11 +299,20 @@ if(@HUNTER_STATUS_DEBUG@)
 endif()
 
 if(CMAKE_HOST_WIN32)
-  set(bootstrap_cmd "bootstrap.bat")
-  set(b2_cmd "b2")
+  if("@MSVC@")
+    file(WRITE "@HUNTER_PACKAGE_DOWNLOAD_DIR@/patched_boostrap.bat" "\
+call \"@HUNTER_MSVC_VCVARSALL@\" @HUNTER_MSVC_ARCH@\n\
+cd @HUNTER_PACKAGE_SOURCE_DIR@\n\
+bootstrap.bat")
+    set(patch_cmd "@CMAKE_COMMAND@" -E copy "@HUNTER_PACKAGE_DOWNLOAD_DIR@/patched_boostrap.bat" "@HUNTER_PACKAGE_SOURCE_DIR@/patched_boostrap.bat")
+    set(bootstrap_cmd "patched_boostrap.bat")
+  else()
+    set(patch_cmd "")
+    set(bootstrap_cmd "bootstrap.bat")
+  endif()
 else()
   set(bootstrap_cmd "./bootstrap.sh")
-  set(b2_cmd "./b2")
+  set(patch_cmd "")
 endif()
 
 if("@MINGW@")
@@ -354,8 +357,9 @@ ExternalProject_Add(
     INSTALL_DIR
     "@HUNTER_PACKAGE_INSTALL_PREFIX@"
         # not used, just avoid creating Install/<name> empty directory
+    PATCH_COMMAND
+    ${patch_cmd}
     CONFIGURE_COMMAND
-    ${env_cmd}
     ${copy_mpi_command}
     ${bootstrap_cmd}
     BUILD_COMMAND
