@@ -355,6 +355,10 @@ ExternalProject_Add(
     INSTALL_DIR
     "@HUNTER_PACKAGE_INSTALL_PREFIX@"
         # not used, just avoid creating Install/<name> empty directory
+    UPDATE_COMMAND
+    "@CMAKE_COMMAND@" -P
+    "@HUNTER_GLOBAL_SCRIPT_DIR@/append-boost-config-macros.cmake"
+    "@HUNTER_Boost_CMAKE_ARGS@"
     CONFIGURE_COMMAND
     ${env_cmd}
     ${copy_mpi_command}
