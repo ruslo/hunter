@@ -2,12 +2,12 @@
 
     cpr
 
-.. index:: unsorted ; cpr
+.. index:: networking ; cpr
 
 .. _pkg.cpr:
 
 cpr
-============
+===
 
 -  `Official <https://github.com/whoshuu/cpr>`__
 -  `Hunterized <https://github.com/hunter-packages/cpr>`__

@@ -27,4 +27,4 @@ hunter_cmake_args(cpr CMAKE_ARGS
 
 hunter_pick_scheme(DEFAULT url_sha1_cmake)
 hunter_cacheable(cpr)
-hunter_download(PACKAGE_NAME cpr PACKAGE_INTERNAL_DEPS_ID "4" )
+hunter_download(PACKAGE_NAME cpr)
