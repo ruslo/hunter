@@ -150,12 +150,12 @@ if(is_mpi)
     # on configure step
     set(
         copy_mpi_command
+        COMMAND
         "@CMAKE_COMMAND@"
         -E
         copy
         "@HUNTER_PACKAGE_BUILD_DIR@/tools/build/v2/tools/mpi.jam"
         "@HUNTER_PACKAGE_SOURCE_DIR@/tools/build/v2/tools/mpi.jam"
-	    &&
     )
   endif()
   set(variants variant=release) # build bug
@@ -371,8 +371,8 @@ ExternalProject_Add(
     "@HUNTER_Boost_CMAKE_ARGS@"
     PATCH_COMMAND
     ${patch_cmd}
-    CONFIGURE_COMMAND
     ${copy_mpi_command}
+    CONFIGURE_COMMAND
     ${bootstrap_cmd}
     BUILD_COMMAND
     ${b2_cmd}
