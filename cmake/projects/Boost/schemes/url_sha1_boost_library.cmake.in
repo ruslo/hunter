@@ -15,13 +15,14 @@ include(CheckSymbolExists) # check_symbol_exists
 include(hunter_boost_component_b2_args)
 include(hunter_dump_cmake_flags)
 include(hunter_fatal_error)
+include(hunter_get_boost_libs)
 include(hunter_install_boost_config)
 include(hunter_internal_error)
 include(hunter_pick_archiver)
 include(hunter_status_debug)
 include(hunter_status_print)
 include(hunter_test_string_not_empty)
-include(hunter_get_boost_libs)
+include(hunter_user_error)
 
 hunter_status_debug("Scheme: url_sha1_boost_library")
 
@@ -41,6 +42,13 @@ hunter_test_string_not_empty("@HUNTER_PACKAGE_SCRIPT_DIR@")
 if("@MSVC@")
   hunter_test_string_not_empty("@HUNTER_MSVC_ARCH@")
   hunter_test_string_not_empty("@HUNTER_MSVC_VCVARSALL@")
+
+  set(x "$ENV{USERPROFILE}/source")
+  if(EXISTS "${x}")
+    hunter_user_error(
+        "Please remove directory '${x}' (see https://github.com/ruslo/hunter/issues/745#issuecomment-316629752)"
+    )
+  endif()
 endif()
 
 # get list of boost components for given version
