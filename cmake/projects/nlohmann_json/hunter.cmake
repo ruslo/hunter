@@ -5,6 +5,8 @@ include(hunter_cacheable)
 include(hunter_cmake_args)
 include(hunter_download)
 include(hunter_pick_scheme)
+include(hunter_report_broken_package)
+include(hunter_status_debug)
 
 # See https://github.com/nlohmann/json#supported-compilers
 if("${CMAKE_CXX_COMPILER_ID}" STREQUAL "GNU")
