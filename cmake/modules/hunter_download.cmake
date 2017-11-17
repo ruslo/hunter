@@ -338,6 +338,12 @@ function(hunter_download)
     return()
   endif()
 
+  if(HUNTER_PACKAGE_SCHEME_UNPACK AND HUNTER_SKIP_SCHEME_UNPACK)
+    # We don't need sources if parent is available in cache
+    hunter_status_debug("Skip unpacking of ${HUNTER_PACKAGE_NAME}")
+    return()
+  endif()
+
   if(EXISTS "${HUNTER_PACKAGE_DONE_STAMP}")
     hunter_status_debug("Package installed from cache: ${HUNTER_PACKAGE_NAME}")
     if(hunter_has_component)
