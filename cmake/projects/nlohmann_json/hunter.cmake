@@ -6,11 +6,25 @@ include(hunter_cmake_args)
 include(hunter_download)
 include(hunter_pick_scheme)
 
-if(MSVC AND MSVC_VERSION LESS 1900)
-    hunter_report_broken_package(
-        "The 'nlohmann_json' library cannot be used with Visual Studio < 2015."
-        "This is due to the missing implementation of the 'noexcept' keyword."
-    )
+# See https://github.com/nlohmann/json#supported-compilers
+if("${CMAKE_CXX_COMPILER_ID}" STREQUAL "GNU")
+    if (CMAKE_CXX_COMPILER_VERSION VERSION_LESS 4.9)
+        hunter_report_broken_package("The nlohmann_json package requires GCC 4.9 or newer.")
+    endif()
+elseif ("${CMAKE_CXX_COMPILER_ID}" STREQUAL "Clang")
+    if (CMAKE_CXX_COMPILER_VERSION VERSION_LESS 3.4)
+        hunter_report_broken_package("The nlohmann_json package requires Clang 3.4 or newer.")
+    endif()
+elseif ("${CMAKE_CXX_COMPILER_ID}" STREQUAL "MSVC")
+    if (CMAKE_CXX_COMPILER_VERSION VERSION_LESS 19.0)
+        hunter_report_broken_package("The nlohmann_json package requires Visual Studio 2015 or newer.")
+    endif()
+elseif ("${CMAKE_CXX_COMPILER_ID}" STREQUAL "Intel")
+    if (CMAKE_CXX_COMPILER_VERSION VERSION_LESS 17.0.2)
+        hunter_report_broken_package("The nlohmann_json package requires Intel compiler 17.0.2 or newer.")
+    endif()
+else()
+    message(WARNING "You are using an untested compiler for the nlohmann_json package.")
 endif()
 
 hunter_add_version(
