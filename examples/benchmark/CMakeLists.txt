@@ -8,5 +8,5 @@ hunter_add_package(benchmark)
 
 find_package(benchmark CONFIG REQUIRED)
 
-add_executable(main main.cpp)
-target_link_libraries(main benchmark::benchmark)
+add_executable(bench main.cpp)
+target_link_libraries(bench benchmark::benchmark)

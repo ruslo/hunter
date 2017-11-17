@@ -8,7 +8,6 @@ cmake_minimum_required(VERSION 3.0.2)
 include("../common.cmake")
 
 project(download-Catch)
-set(CMAKE_CXX_STANDARD 98)
 
 hunter_add_package(Catch)
 
@@ -21,6 +20,3 @@ set(HEADERS foo.hpp)
 
 add_executable(foo_test ${SOURCES} ${HEADERS})
 target_link_libraries(foo_test PUBLIC Catch::Catch)
-
-enable_testing(true)
-add_test(NAME foo_test COMMAND foo_test)
