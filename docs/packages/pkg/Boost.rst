@@ -75,20 +75,40 @@ Compatibility mode
 CMake options
 -------------
 
-CMake options can be passed to boost build using ``CMAKE_ARGS`` feature
+You can use ``CMAKE_ARGS`` feature
 (see
-`customization <https://github.com/ruslo/hunter/wiki/example.custom.config.id#custom-cmake-options>`__).
-Options of special form ``<COMPONENT-UPPERCASE>_<OPTION>=<VALUE>`` will
-be added to ``b2`` as ``-s <OPTION>=<VALUE>`` while building component .
-For example:
+`customization <https://github.com/ruslo/hunter/wiki/example.custom.config.id#custom-cmake-options>`__)
+to pass options to boost build or to append config macros in the default boost user
+config file (boost/config/user.hpp):
 
-.. code-block:: cmake
+- Options of special form ``<COMPONENT-UPPERCASE>_<OPTION>=<VALUE>`` will
+  be added to ``b2`` as ``-s <OPTION>=<VALUE>`` while building component .
+  For example:
 
-    hunter_config(Boost VERSION ... CMAKE_ARGS IOSTREAMS_NO_BZIP2=1)
+  .. code-block:: cmake
+
+    hunter_config(Boost ${HUNTER_Boost_VERSION} CMAKE_ARGS IOSTREAMS_NO_BZIP2=1)
     # add NO_BZIP2=1 to the b2 build of iostreams library, i.e. `b2 -s NO_BZIP2=1`
 
 -  `boost.iostreams
    options <http://www.boost.org/doc/libs/1_57_0/libs/iostreams/doc/index.html?path=7>`__
+
+- Options ``CONFIG_MACRO_<ID>=<VALUE>`` will append ``#define <ID> <VALUE>``
+  to the default boost user config file. And options
+  ``CONFIG_MACRO=<ID_1>;<ID_2>;...;<ID_n>`` will append ``#define <ID_1>``,
+  ``#define <ID_2>``, ..., ``#define <ID_n>``.
+  Example:
+
+  .. code-block:: cmake
+
+    hunter_config(Boost ${HUNTER_Boost_VERSION} CMAKE_ARGS
+        CONFIG_MACRO=BOOST_REGEX_MATCH_EXTRA;BOOST_MPL_CFG_NO_PREPROCESSED_HEADERS
+        CONFIG_MACRO_BOOST_MPL_LIMIT_LIST_SIZE=3
+    )
+    # append the next lines to boost/config/user.hpp:
+    # #define BOOST_REGEX_MATCH_EXTRA
+    # #define BOOST_MPL_CFG_NO_PREPROCESSED_HEADERS
+    # #define CONFIG_MACRO_BOOST_MPL_LIMIT_LIST_SIZE 3
 
 Math
 ----
