@@ -429,7 +429,7 @@ function(hunter_download)
   file(
       APPEND
       "${HUNTER_DOWNLOAD_TOOLCHAIN}"
-      "set(HUNTER_KEEP_PACKAGE_SOURCES \"${HUNTER_KEEP_PACKAGE_SOURCES}\" CACHE INTERNAL \"\")\n"
+      "set(HUNTER_KEEP_PACKAGE_SOURCES \"${_hunter_keep_package_sources}\" CACHE INTERNAL \"\")\n"
   )
   file(
       APPEND
@@ -628,9 +628,13 @@ function(hunter_download)
 
   hunter_status_debug("Cleaning up build directories...")
 
+  if(HUNTER_KEEP_PACKAGE_SOURCES OR HUNTER_${h_name}_KEEP_PACKAGE_SOURCES)
+    set(_hunter_keep_package_sources ON)
+  endif()
+  
   file(REMOVE_RECURSE "${HUNTER_PACKAGE_BUILD_DIR}")
   if(HUNTER_PACKAGE_SCHEME_INSTALL)
-    if(HUNTER_KEEP_PACKAGE_SOURCES)
+    if(_hunter_keep_package_sources)
       hunter_status_debug("Keep source directory '${HUNTER_PACKAGE_SOURCE_DIR}'")
     else()
       # Unpacked directory not needed (save some disk space)
