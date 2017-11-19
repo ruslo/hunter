@@ -382,6 +382,10 @@ function(hunter_download)
   file(REMOVE "${HUNTER_PACKAGE_HOME_DIR}/CMakeLists.txt")
   file(REMOVE "${HUNTER_DOWNLOAD_TOOLCHAIN}")
 
+  if(HUNTER_KEEP_PACKAGE_SOURCES OR HUNTER_${h_name}_KEEP_PACKAGE_SOURCES)
+    set(_hunter_keep_package_sources ON)
+  endif()  
+
   file(WRITE "${HUNTER_DOWNLOAD_TOOLCHAIN}" "")
 
   hunter_jobs_number(HUNTER_JOBS_OPTION "${HUNTER_DOWNLOAD_TOOLCHAIN}")
@@ -627,10 +631,6 @@ function(hunter_download)
   hunter_save_to_cache()
 
   hunter_status_debug("Cleaning up build directories...")
-
-  if(HUNTER_KEEP_PACKAGE_SOURCES OR HUNTER_${h_name}_KEEP_PACKAGE_SOURCES)
-    set(_hunter_keep_package_sources ON)
-  endif()
   
   file(REMOVE_RECURSE "${HUNTER_PACKAGE_BUILD_DIR}")
   if(HUNTER_PACKAGE_SCHEME_INSTALL)
