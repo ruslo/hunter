@@ -384,7 +384,9 @@ function(hunter_download)
 
   if(HUNTER_KEEP_PACKAGE_SOURCES OR HUNTER_${h_name}_KEEP_PACKAGE_SOURCES)
     set(_hunter_keep_package_sources ON)
-  endif()  
+  else()
+    set(_hunter_keep_package_sources OFF)
+  endif()
 
   file(WRITE "${HUNTER_DOWNLOAD_TOOLCHAIN}" "")
 
@@ -433,7 +435,7 @@ function(hunter_download)
   file(
       APPEND
       "${HUNTER_DOWNLOAD_TOOLCHAIN}"
-      "set(HUNTER_KEEP_PACKAGE_SOURCES \"${_hunter_keep_package_sources}\" CACHE INTERNAL \"\")\n"
+      "set(HUNTER_KEEP_PACKAGE_SOURCES \"${HUNTER_KEEP_PACKAGE_SOURCES}\" CACHE INTERNAL \"\")\n"
   )
   file(
       APPEND
