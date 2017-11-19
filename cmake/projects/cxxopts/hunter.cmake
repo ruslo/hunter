@@ -20,6 +20,17 @@ hunter_add_version(
     90040ef52faf71686febb0f93a3189cd9ea36ede
 )
 
+hunter_add_version(
+    PACKAGE_NAME
+    cxxopts
+    VERSION
+    1.4.3
+    URL
+    "https://github.com/jarro2783/cxxopts/archive/v1.4.3.tar.gz"
+    SHA1
+    bc9a333a56c0a3d90bcab72ea8ecebed9d66da58
+)
+
 hunter_pick_scheme(DEFAULT url_sha1_cmake)
 hunter_cacheable(cxxopts)
 hunter_cmake_args(
