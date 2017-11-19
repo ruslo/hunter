@@ -90,9 +90,12 @@ macro(hunter_config)
   endif()
 
   if(_hunter_KEEP_PACKAGE_SOURCES)
-    set(HUNTER_${_hunter_current_project}_KEEP_PACKAGE_SOURCES ON)
+    set_property(
+      GLOBAL
+      PROPERTY
+      "HUNTER_${_hunter_current_project}_KEEP_PACKAGE_SOURCES"
+      ON
+      )
   endif()
-
-  message("MOD: ${_hunter_current_project}  ${HUNTER_${_hunter_current_project}_KEEP_PACKAGE_SOURCES}")
 
 endmacro()

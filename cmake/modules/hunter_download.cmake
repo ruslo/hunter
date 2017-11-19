@@ -382,12 +382,20 @@ function(hunter_download)
   file(REMOVE "${HUNTER_PACKAGE_HOME_DIR}/CMakeLists.txt")
   file(REMOVE "${HUNTER_DOWNLOAD_TOOLCHAIN}")
 
+  get_property(
+    keep_sources
+    GLOBAL
+    PROPERTY
+    "HUNTER_${h_name}_KEEP_PACKAGE_SOURCES"
+    )
+
   if(HUNTER_KEEP_PACKAGE_SOURCES OR HUNTER_${h_name}_KEEP_PACKAGE_SOURCES)
     set(_hunter_keep_package_sources ON)
   else()
     set(_hunter_keep_package_sources OFF)
   endif()
-
+  hunter_status_debug("Keep package sources: ${_hunter_keep_package_sources}")
+  
   file(WRITE "${HUNTER_DOWNLOAD_TOOLCHAIN}" "")
 
   hunter_jobs_number(HUNTER_JOBS_OPTION "${HUNTER_DOWNLOAD_TOOLCHAIN}")
