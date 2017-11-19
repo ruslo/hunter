@@ -93,4 +93,6 @@ macro(hunter_config)
     set(HUNTER_${_hunter_current_project}_KEEP_PACKAGE_SOURCES ON)
   endif()
 
+  message("MOD: ${_hunter_current_project}  ${HUNTER_${_hunter_current_project}_KEEP_PACKAGE_SOURCES}")
+
 endmacro()
