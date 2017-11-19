@@ -389,7 +389,7 @@ function(hunter_download)
     "HUNTER_${h_name}_KEEP_PACKAGE_SOURCES"
     )
 
-  if(HUNTER_KEEP_PACKAGE_SOURCES OR HUNTER_${h_name}_KEEP_PACKAGE_SOURCES)
+  if(HUNTER_KEEP_PACKAGE_SOURCES OR keep_sources)
     set(_hunter_keep_package_sources ON)
   else()
     set(_hunter_keep_package_sources OFF)
