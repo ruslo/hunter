@@ -128,11 +128,6 @@ function(hunter_calculate_config_sha1 hunter_self hunter_base user_config)
         )
       endif()
 
-      string(COMPARE NOTEQUAL "{HUNTER_${x}_KEEP_PACKAGE_SOURCES}" "" have_keep_package_sources)
-      if(have_keep_package_sources)
-        file(APPEND "${input_file}" " KEEP_PACKAGE_SOURCES")
-      endif()
-      
       file(APPEND "${input_file}" ")\n")
     endif()
   endforeach()
