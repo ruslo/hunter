@@ -382,6 +382,20 @@ function(hunter_download)
   file(REMOVE "${HUNTER_PACKAGE_HOME_DIR}/CMakeLists.txt")
   file(REMOVE "${HUNTER_DOWNLOAD_TOOLCHAIN}")
 
+  get_property(
+    keep_sources
+    GLOBAL
+    PROPERTY
+    "HUNTER_${h_name}_KEEP_PACKAGE_SOURCES"
+    )
+
+  if(HUNTER_KEEP_PACKAGE_SOURCES OR keep_sources)
+    set(_hunter_keep_package_sources ON)
+  else()
+    set(_hunter_keep_package_sources OFF)
+  endif()
+  hunter_status_debug("Keep package sources: ${_hunter_keep_package_sources}")
+  
   file(WRITE "${HUNTER_DOWNLOAD_TOOLCHAIN}" "")
 
   hunter_jobs_number(HUNTER_JOBS_OPTION "${HUNTER_DOWNLOAD_TOOLCHAIN}")
@@ -627,10 +641,10 @@ function(hunter_download)
   hunter_save_to_cache()
 
   hunter_status_debug("Cleaning up build directories...")
-
+  
   file(REMOVE_RECURSE "${HUNTER_PACKAGE_BUILD_DIR}")
   if(HUNTER_PACKAGE_SCHEME_INSTALL)
-    if(HUNTER_KEEP_PACKAGE_SOURCES)
+    if(_hunter_keep_package_sources)
       hunter_status_debug("Keep source directory '${HUNTER_PACKAGE_SOURCE_DIR}'")
     else()
       # Unpacked directory not needed (save some disk space)
