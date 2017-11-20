@@ -89,7 +89,10 @@ function(hunter_download_server_url)
   # check version to determine if external_project_add can handle multiple download URLs
   set(multiple_urls_allowed TRUE)
   if(CMAKE_VERSION VERSION_LESS 3.7)
-    hunter_status_debug("DOWNLOAD_SERVER: Multiple URLs are not supported, only one URL will be used as download server. Use CMake 3.7+ for multiple URLs (current version: ${CMAKE_VERSION})")
+    set(msg "DOWNLOAD_SERVER: Multiple URLs are not supported,")
+    set(msg "${msg} only one URL will be used as download server.")
+    set(msg "${msg} Use CMake 3.7+ for multiple URLs (current version: ${CMAKE_VERSION})")
+    hunter_status_debug("${msg}")
     set(multiple_urls_allowed FALSE)
   endif()
 
