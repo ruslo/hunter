@@ -10,15 +10,18 @@ set(BOOST_USER_CONFIG "${BOOST_CONFIG_ROOT}/user.hpp")
 
 function(test_append_boost_config_macros expected_boost_user_config_content)
 
-  hunter_parse_boost_config_macros(boost_config_macros_list ${ARGN})
+  hunter_parse_boost_config_macros(BOOST_CONFIG_MACROS ${ARGN})
+  configure_file(
+    "${HUNTER_GLOBAL_SCRIPT_DIR}/append-boost-config-macros.cmake.in"
+    "${CMAKE_CURRENT_BINARY_DIR}/append-boost-config-macros.cmake"
+    @ONLY
+  )
 
   file(MAKE_DIRECTORY "${BOOST_CONFIG_ROOT}")
   file(WRITE "${BOOST_USER_CONFIG}" "")
   execute_process(
     COMMAND
-      "${CMAKE_COMMAND}"
-      "-DBOOST_CONFIG_MACROS=${boost_config_macros_list}"
-      -P "${HUNTER_GLOBAL_SCRIPT_DIR}/append-boost-config-macros.cmake"
+      "${CMAKE_COMMAND}" -P append-boost-config-macros.cmake
     WORKING_DIRECTORY
       "${CMAKE_CURRENT_BINARY_DIR}"
   )
