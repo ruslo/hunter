@@ -156,3 +156,17 @@ CONFIG_MACRO_CM1=1 IGNORED1=1 IGNORED2=2 CONFIG_MACRO_CM2=1
 CONFIG_MACRO=CM3;CM4 CM5 IGNORED3=3 IGNORED4
 )
 
+test_append_boost_config_macros(
+[=[
+
+#define CM1 "with spaces"
+
+#define CM2 2
+
+#define CM3
+
+#define CM4
+]=]
+"CONFIG_MACRO_CM1=\"with spaces\""
+CONFIG_MACRO_CM2=2 CONFIG_MACRO=CM3;CM4
+)
