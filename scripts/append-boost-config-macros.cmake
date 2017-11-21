@@ -6,7 +6,7 @@ set(boost_user_config_file "boost/config/user.hpp")
 set(define_without_value_mode FALSE)
 math(EXPR ARGC_COUNT ${CMAKE_ARGC}-1)
 
-foreach(i RANGE ${ARGC_COUNT})
+foreach(i RANGE 3 ${ARGC_COUNT})
 
   if (define_without_value_mode)
     if ("${CMAKE_ARGV${i}}" MATCHES "[^=]+=.+")
