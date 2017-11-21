@@ -1,5 +1,7 @@
 cmake_minimum_required(VERSION 3.0)
 
+include("../../examples/common.cmake")
+include(hunter_parse_boost_config_macros)
 project(test-append-boost-config-macros-script)
 
 set(HUNTER_GLOBAL_SCRIPT_DIR "${CMAKE_CURRENT_SOURCE_DIR}/../../scripts")
@@ -7,13 +9,16 @@ set(BOOST_CONFIG_ROOT "${CMAKE_CURRENT_BINARY_DIR}/boost/config")
 set(BOOST_USER_CONFIG "${BOOST_CONFIG_ROOT}/user.hpp")
 
 function(test_append_boost_config_macros expected_boost_user_config_content)
+
+  hunter_parse_boost_config_macros(boost_config_macros_list ${ARGN})
+
   file(MAKE_DIRECTORY "${BOOST_CONFIG_ROOT}")
   file(WRITE "${BOOST_USER_CONFIG}" "")
   execute_process(
     COMMAND
-      "${CMAKE_COMMAND}" -P
-      "${HUNTER_GLOBAL_SCRIPT_DIR}/append-boost-config-macros.cmake"
-      ${ARGN}
+      "${CMAKE_COMMAND}"
+      "-DBOOST_CONFIG_MACROS=${boost_config_macros_list}"
+      -P "${HUNTER_GLOBAL_SCRIPT_DIR}/append-boost-config-macros.cmake"
     WORKING_DIRECTORY
       "${CMAKE_CURRENT_BINARY_DIR}"
   )

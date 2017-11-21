@@ -18,6 +18,7 @@ include(hunter_status_debug)
 include(hunter_test_string_not_empty)
 include(hunter_unsetvar)
 include(hunter_get_boost_libs)
+include(hunter_parse_boost_config_macros)
 
 hunter_status_debug("Scheme: url_sha1_boost_ios_library")
 
@@ -296,6 +297,8 @@ else()
   set(extra_lib_command "")
 endif()
 
+hunter_parse_boost_config_macros(boost_config_macros_list "@HUNTER_Boost_CMAKE_ARGS@")
+
 ExternalProject_Add(
     "@HUNTER_EP_NAME@-ios_universal"
     DEPENDS
@@ -311,9 +314,9 @@ ExternalProject_Add(
     "@HUNTER_PACKAGE_INSTALL_PREFIX@"
         # not used, just avoid creating Install/<name> empty directory
     UPDATE_COMMAND
-    "@CMAKE_COMMAND@" -P
-    "@HUNTER_GLOBAL_SCRIPT_DIR@/append-boost-config-macros.cmake"
-    "@HUNTER_Boost_CMAKE_ARGS@"
+    "@CMAKE_COMMAND@"
+    "-DBOOST_CONFIG_MACROS=${boost_config_macros_list}"
+     -P "@HUNTER_GLOBAL_SCRIPT_DIR@/append-boost-config-macros.cmake"
     CONFIGURE_COMMAND
     ""
     BUILD_COMMAND
