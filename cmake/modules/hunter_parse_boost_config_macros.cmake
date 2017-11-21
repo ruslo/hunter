@@ -1,5 +1,3 @@
-cmake_minimum_required(VERSION 3.0)
-
 function(hunter_parse_boost_config_macros outvar)
   # parse ARGN to convert 'CONFIG_MACRO=id1;id2;CONFIG_MACRO_id3=3' to 'id1;id2;id3=3'
   unset(boost_config_macros_list)
