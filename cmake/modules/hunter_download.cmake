@@ -5,6 +5,7 @@
 include(CMakeParseArguments) # cmake_parse_arguments
 
 include(hunter_create_args_file)
+include(hunter_download_server_url)
 include(hunter_find_licenses)
 include(hunter_find_stamps)
 include(hunter_internal_error)
@@ -78,8 +79,15 @@ function(hunter_download)
 
   set(HUNTER_PACKAGE_VERSION "${HUNTER_${h_name}_VERSION}")
   set(ver "${HUNTER_PACKAGE_VERSION}")
-  set(HUNTER_PACKAGE_URL "${HUNTER_${h_name}_URL}")
   set(HUNTER_PACKAGE_SHA1 "${HUNTER_${h_name}_SHA1}")
+  # set download URL, either direct download or redirected if HUNTER_DOWNLOAD_SERVER is set
+  hunter_download_server_url(
+    PACKAGE "${HUNTER_PACKAGE_NAME}"
+    VERSION "${HUNTER_PACKAGE_VERSION}"
+    SHA1    "${HUNTER_PACKAGE_SHA1}"
+    URL     "${HUNTER_${h_name}_URL}"
+    OUTPUT  HUNTER_PACKAGE_URL
+  )
   set(
       HUNTER_PACKAGE_CONFIGURATION_TYPES
       "${HUNTER_${h_name}_CONFIGURATION_TYPES}"
@@ -449,6 +457,11 @@ function(hunter_download)
       APPEND
       "${HUNTER_DOWNLOAD_TOOLCHAIN}"
       "set(HUNTER_SUPPRESS_LIST_OF_FILES \"${HUNTER_SUPPRESS_LIST_OF_FILES}\" CACHE INTERNAL \"\")\n"
+  )
+  file(
+      APPEND
+      "${HUNTER_DOWNLOAD_TOOLCHAIN}"
+      "set(HUNTER_DOWNLOAD_SERVER \"${HUNTER_DOWNLOAD_SERVER}\" CACHE INTERNAL \"\")\n"
   )
 
   string(COMPARE NOTEQUAL "${CMAKE_MAKE_PROGRAM}" "" has_make)
