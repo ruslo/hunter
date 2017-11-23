@@ -59,7 +59,12 @@ if(APPLE)
   set(skip_pic SKIP_PIC)
 endif()
 
-hunter_dump_cmake_flags(SKIP_INCLUDES ${skip_pic})
+set(skip_includes SKIP_INCLUDES)
+if(ANDROID)
+  set(skip_includes "")
+endif()
+
+hunter_dump_cmake_flags(${skip_includes} ${skip_pic})
 # -> CMAKE_CXX_FLAGS
 # -> CMAKE_C_FLAGS
 
@@ -96,7 +101,15 @@ if(ANDROID)
   else()
     set(configure_opts "linux-generic32")
   endif()
-  list(APPEND configure_opts "-latomic")
+
+  # On Android '--sysroot' differs for compile and linker.
+  # With the '-l*' trick we can pass needed '--sysroot' to linker but not to
+  # compiler.
+  #
+  # Tested:
+  # * android-ndk-r15c-api-21-armeabi-v7a-neon-clang-libcxx
+  # * android-ndk-r16-api-21-armeabi-v7a-neon-clang-libcxx
+  list(APPEND configure_opts "-latomic --sysroot=${CMAKE_SYSROOT}")
 elseif(RASPBERRY_PI)
   set(configure_opts "linux-generic32")
 elseif(OPENWRT)
@@ -125,6 +138,9 @@ else()
 endif()
 
 set(configure_opts ${configure_opts} threads ${shared_flag})
+
+hunter_status_debug("Configure command: ${configure_command}")
+hunter_status_debug("Configure options: ${configure_opts}")
 
 ExternalProject_Add(
     "@HUNTER_EP_NAME@"
