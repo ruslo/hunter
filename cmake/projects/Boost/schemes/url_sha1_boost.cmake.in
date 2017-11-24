@@ -17,6 +17,7 @@ include(hunter_status_debug)
 include(hunter_status_print)
 include(hunter_test_string_not_empty)
 include(hunter_user_error)
+include(hunter_parse_boost_config_macros)
 
 hunter_status_debug("Scheme: url_sha1_boost")
 
@@ -27,6 +28,7 @@ hunter_test_string_not_empty("@HUNTER_PACKAGE_URL@")
 hunter_test_string_not_empty("@HUNTER_PACKAGE_SHA1@")
 hunter_test_string_not_empty("@HUNTER_PACKAGE_DOWNLOAD_DIR@")
 hunter_test_string_not_empty("@HUNTER_PACKAGE_SOURCE_DIR@")
+hunter_test_string_not_empty("@HUNTER_PACKAGE_BUILD_DIR@")
 hunter_test_string_not_empty("@HUNTER_PACKAGE_INSTALL_PREFIX@")
 hunter_test_string_not_empty("@HUNTER_Boost_VERSION@")
 hunter_test_string_not_empty("@HUNTER_PACKAGE_LICENSE_DIR@")
@@ -95,6 +97,13 @@ else()
   set(log_opts "")
 endif()
 
+hunter_parse_boost_config_macros(BOOST_CONFIG_MACROS "@HUNTER_Boost_CMAKE_ARGS@")
+configure_file(
+  "@HUNTER_GLOBAL_SCRIPT_DIR@/append-boost-config-macros.cmake.in"
+  "@HUNTER_PACKAGE_BUILD_DIR@/append-boost-config-macros.cmake"
+  @ONLY
+)
+
 ExternalProject_Add(
     "@HUNTER_EP_NAME@"
     URL
@@ -110,8 +119,7 @@ ExternalProject_Add(
         # not used, just avoid creating Install/<name> empty directory
     UPDATE_COMMAND
     "@CMAKE_COMMAND@" -P
-    "@HUNTER_GLOBAL_SCRIPT_DIR@/append-boost-config-macros.cmake"
-    "@HUNTER_Boost_CMAKE_ARGS@"
+    "@HUNTER_PACKAGE_BUILD_DIR@/append-boost-config-macros.cmake"
     CONFIGURE_COMMAND
     ${env_cmd}
     COMMAND
