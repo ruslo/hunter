@@ -43,11 +43,10 @@ function(hunter_dump_cmake_flags)
   set(cppflags "")
 
   if(ANDROID)
-    if(CMAKE_VERSION VERSION_LESS "3.9")
+    string(COMPARE EQUAL "${CMAKE_SYSROOT_COMPILE}" "" no_sysroot_compile)
+    if(no_sysroot_compile)
       set(android_sysroot "${CMAKE_SYSROOT}")
     else()
-      # CMAKE_SYSROOT_COMPILE available since CMake 3.9:
-      # * https://cmake.org/cmake/help/v3.9/variable/CMAKE_SYSROOT_COMPILE.html
       set(android_sysroot "${CMAKE_SYSROOT_COMPILE}")
     endif()
 
