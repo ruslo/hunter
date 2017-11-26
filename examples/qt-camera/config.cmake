@@ -30,6 +30,7 @@ if(is_linux)
       xrender
       xshmfence
       xxf86vm
+      Jpeg
   )
   foreach(pkg ${dependencies})
     hunter_config(
