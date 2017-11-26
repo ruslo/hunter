@@ -8,6 +8,7 @@ include(hunter_cacheable)
 include(hunter_cmake_args)
 include(hunter_download)
 include(hunter_pick_scheme)
+include(hunter_check_toolchain_definition)
 
 # Disable searching in locations not specified by these hint variables.
 set(Boost_NO_SYSTEM_PATHS ON)
@@ -278,6 +279,15 @@ hunter_add_version(
     26a52840e9d12f829e3008589abf0a925ce88524
 )
 
+if(MSVC)
+  hunter_check_toolchain_definition(NAME "_DLL" DEFINED _hunter_vs_md)
+  hunter_cmake_args(
+    Boost
+    CMAKE_ARGS
+      BOOST_BUILD_DYNAMIC_VSRUNTIME=${_hunter_vs_md}
+  )
+endif()
+
 hunter_pick_scheme(DEFAULT url_sha1_boost)
 hunter_cacheable(Boost)
-hunter_download(PACKAGE_NAME Boost PACKAGE_INTERNAL_DEPS_ID "19")
+hunter_download(PACKAGE_NAME Boost PACKAGE_INTERNAL_DEPS_ID "20")
