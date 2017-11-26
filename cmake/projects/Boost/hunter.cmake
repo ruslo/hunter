@@ -280,12 +280,12 @@ hunter_add_version(
 )
 
 if(MSVC)
-    hunter_check_toolchain_definition(NAME "_DLL" DEFINED _hunter_vs_md)
-    hunter_cmake_args(
-      Boost
-      CMAKE_ARGS
-        BOOST_BUILD_DYNAMIC_VSRUNTIME=${_hunter_vs_md}
-    )
+  hunter_check_toolchain_definition(NAME "_DLL" DEFINED _hunter_vs_md)
+  hunter_cmake_args(
+    Boost
+    CMAKE_ARGS
+      BOOST_BUILD_DYNAMIC_VSRUNTIME=${_hunter_vs_md}
+  )
 endif()
 
 hunter_pick_scheme(DEFAULT url_sha1_boost)
