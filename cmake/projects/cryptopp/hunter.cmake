@@ -12,6 +12,17 @@ hunter_add_version(
     PACKAGE_NAME
     cryptopp
     VERSION
+    "5.6.5-p0"
+    URL
+    "https://github.com/hunter-packages/cryptopp/archive/v5.6.5-p0.tar.gz"
+    SHA1
+    4258c9b49c48c433c4aa63629bc896ac9a3902e3
+)
+
+hunter_add_version(
+    PACKAGE_NAME
+    cryptopp
+    VERSION
     "5.6.5"
     URL
     "https://github.com/weidai11/cryptopp/archive/CRYPTOPP_5_6_5.tar.gz"
