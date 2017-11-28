@@ -1,6 +1,8 @@
 .. spelling::
 
     RocksDB
+    Paweł
+    Bylica
 
 .. index:: database ; RocksDB
 
