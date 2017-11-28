@@ -1,51 +1,29 @@
 # OSX/Linux (https://github.com/travis-ci-tester/toolchain-table)
 
+# Workaround for https://github.com/travis-ci/travis-ci/issues/8363
 language:
-  - cpp
+  - minimal
 
 os:
   - linux
-  - osx
 
 # Container-based infrastructure (Linux)
 # * https://docs.travis-ci.com/user/migrating-from-legacy/#How-can-I-use-container-based-infrastructure%3F
 sudo:
   - false
 
-dist:
-  - trusty
-
 # Install packages differs for container-based infrastructure
 # * https://docs.travis-ci.com/user/migrating-from-legacy/#How-do-I-install-APT-sources-and-packages%3F
 addons:
   apt:
     packages:
+      - python3-pip
       - enchant # for documentation
 
-env:
-  - PROJECT_DIR=tests/simple TOOLCHAIN=default
-  - PROJECT_DIR=tests/issue/22 TOOLCHAIN=default
-  - PROJECT_DIR=tests/issue/24/unit TOOLCHAIN=default
-  - PROJECT_DIR=tests/issue/107 TOOLCHAIN=default
-  - PROJECT_DIR=tests/issue/109/unit TOOLCHAIN=default
-  - PROJECT_DIR=tests/autotools-merge-lipo TOOLCHAIN=default
-  - PROJECT_DIR=tests/hunter_create_args_file TOOLCHAIN=default
-  - PROJECT_DIR=tests/hunter_create_dependency_entry TOOLCHAIN=default
-  - PROJECT_DIR=tests/hunter_create_deps_info TOOLCHAIN=default
-  - PROJECT_DIR=tests/hunter_download_cache_meta_file TOOLCHAIN=default
-  - PROJECT_DIR=tests/hunter_download_cache_raw_file TOOLCHAIN=default
-  - PROJECT_DIR=tests/hunter_generate_qt_info TOOLCHAIN=default
-  - PROJECT_DIR=tests/hunter_get_package_deps TOOLCHAIN=default
-  - PROJECT_DIR=tests/hunter_get_package_deps_recurse TOOLCHAIN=default
-  - PROJECT_DIR=tests/hunter_pack_directory TOOLCHAIN=default
-  - PROJECT_DIR=tests/hunter_register_dependency TOOLCHAIN=default
-  - PROJECT_DIR=tests/hunter_setup_msvc TOOLCHAIN=default
-  - PROJECT_DIR=tests/hunter_sleep_before_download TOOLCHAIN=default
-  - PROJECT_DIR=tests/hunter_unpack_directory TOOLCHAIN=default
-  - PROJECT_DIR=tests/hunter_init_not_found_counter TOOLCHAIN=default
-  - PROJECT_DIR=tests/hunter_check_toolchain_definition TOOLCHAIN=default
-  - PROJECT_DIR=tests/hunter_standard_flag TOOLCHAIN=default
+dist:
+  - trusty
 
+env:
   - TOOLCHAIN=generate-documentation-test
 
 install:
@@ -77,18 +55,8 @@ install:
   - export ANDROID_NDK_r11c="`pwd`/_ci/android-ndk-r11c"
 
 script:
-  - >
-    if [[ "${TOOLCHAIN}" == "generate-documentation-test" && "`uname`" == "Linux" ]];
-    then
-      cd docs
-      ./jenkins.sh
-    fi
-
-  - >
-    if [[ "${TOOLCHAIN}" != "generate-documentation-test" ]];
-    then
-      python3 ./jenkins.py
-    fi
+  - cd docs
+  - ./jenkins.sh
 
 branches:
   except:

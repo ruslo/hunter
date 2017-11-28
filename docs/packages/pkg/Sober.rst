@@ -2,7 +2,7 @@
 
     Sober
 
-.. index:: unsorted ; Sober
+.. index:: networking ; Sober
 
 .. _pkg.Sober:
 

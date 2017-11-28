@@ -2,7 +2,7 @@
 
     NASM
 
-.. index:: unsorted ; NASM
+.. index:: asm ; NASM
 
 .. _pkg.NASM:
 

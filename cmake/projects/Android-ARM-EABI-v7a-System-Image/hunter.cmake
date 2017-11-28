@@ -13,6 +13,17 @@ hunter_add_version(
     PACKAGE_NAME
     Android-ARM-EABI-v7a-System-Image
     VERSION
+    "16_r04"
+    URL
+    "https://dl.google.com/android/repository/sys-img/android/sysimg_armv7a-16_r04.zip"
+    SHA1
+    39c093ea755098f0ee79f607be7df9e54ba4943f
+)
+
+hunter_add_version(
+    PACKAGE_NAME
+    Android-ARM-EABI-v7a-System-Image
+    VERSION
     "19_r05"
     URL
     "https://dl.google.com/android/repository/sys-img/android/armeabi-v7a-19_r05.zip"

@@ -10,11 +10,14 @@
 OpenCV
 ======
 
+.. |hunter| image:: https://img.shields.io/badge/hunter-v0.8.10-blue.svg
+  :target: https://github.com/ruslo/hunter/releases/tag/v0.8.10
+  :alt: Hunter v0.8.10
+
 -  `Official <https://github.com/Itseez/opencv>`__
 -  `Hunterized <https://github.com/hunter-packages/opencv/tree/hunter-2.4.11>`__
 -  `Example <https://github.com/ruslo/hunter/blob/master/examples/OpenCV/CMakeLists.txt>`__
--  Available since
-   `v0.8.10 <https://github.com/ruslo/hunter/releases/tag/v0.8.10>`__
+- Available since |hunter|
 
 Usage
 -----
@@ -33,7 +36,9 @@ Qt back-end support for desktop can be enabled by `creating a custom
 config <https://github.com/hunter-packages/gate/tree/develop#usage-custom-config>`__
 with the line:
 
-``cmake hunter_config(OpenCV VERSION ${HUNTER_OpenCV_VERSION} CMAKE_ARGS WITH_QT=YES)``
+.. code-block:: cmake
+
+    hunter_config(OpenCV VERSION ${HUNTER_OpenCV_VERSION} CMAKE_ARGS WITH_QT=YES)
 
 Known issues
 ------------

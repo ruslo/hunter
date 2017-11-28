@@ -9,10 +9,13 @@
 Beast
 =====
 
+.. |hunter| image:: https://img.shields.io/badge/hunter-v0.9.9-blue.svg
+  :target: https://github.com/ruslo/hunter/releases/tag/v0.9.9
+  :alt: Hunter v0.9.9
+
 -  `Official <https://github.com/vinniefalco/Beast>`__
 -  `Hunterized <https://github.com/hunter-packages/Beast>`__
--  Available since
-   `0.19.9 <https://github.com/ruslo/hunter/releases/tag/v0.19.9>`__
+-  Available since |hunter|
 
 .. code-block:: cmake
 

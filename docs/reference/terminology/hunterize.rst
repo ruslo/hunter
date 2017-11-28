@@ -11,4 +11,4 @@ of default one.
 
 .. seealso::
 
-  * :doc:`New package: CMake with dependencies </creating-new/cmake-dependencies>`
+  * :doc:`New package: CMake with dependencies </creating-new/create/cmake-dependencies>`

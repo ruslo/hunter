@@ -15,7 +15,7 @@ Such developers can do:
 
 * Add more targets to project
 * Add more sources to targets
-* Add C++ flags that doesn't break compatibility (e.g. warnings/optimization)
+* Add C++ flags that does not break compatibility (e.g. warnings/optimization)
 
 Such developers can't do:
 

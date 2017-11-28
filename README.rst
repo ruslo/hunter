@@ -1,31 +1,36 @@
 Hunter
 ======
 
-Cross-platform package manager for C++ (based on CMake ``ExternalProject``).
+|gitter| |rtfd| |travis| |appveyor| |license|
+
+CMake-driven cross-platform package manager for C++.
 Supported platforms: **Linux**, **Mac**, **Windows**, **iOS**, **Android**, **Raspberry Pi**.
 
-
 * Documentation: https://docs.hunter.sh
-* Supported Packages: https://docs.hunter.sh/en/latest/packages.html
+* Packages: https://docs.hunter.sh/en/latest/packages.html
 * Sources: https://github.com/ruslo/hunter
 * Reporting issues: https://github.com/ruslo/hunter/issues/new
 * Contributing guide: https://docs.hunter.sh/en/latest/contributing.html
-* License: `BSD 2-Clause <https://raw.githubusercontent.com/ruslo/hunter/master/LICENSE>`_
 * Contacts: https://docs.hunter.sh/en/latest/contacts.html
-* |gitter|
+* `Per package testing table <https://github.com/ingenue/hunter/branches/all>`_
 
 .. |gitter| image:: https://badges.gitter.im/ruslo/hunter.svg
   :target: https://gitter.im/ruslo/hunter
-
-CI
---
-
-* Travis CI OSX/Linux: |TravisCI|
-* AppVeyor CI Windows: |AppVeyor|
-* `Per package deep testing table <https://github.com/ingenue/hunter/branches/all>`_
-
-.. |TravisCI| image:: https://travis-ci.org/ruslo/hunter.svg?branch=master
-  :target: https://travis-ci.org/ruslo/hunter/builds
+  :alt: Gitter public chat room
   
-.. |AppVeyor| image:: https://ci.appveyor.com/api/projects/status/ubo6jse3lh5ciyvv/branch/master?svg=true
-  :target: https://ci.appveyor.com/project/ruslo/hunter/history
+.. |rtfd| image:: https://readthedocs.org/projects/hunter/badge/?version=latest
+  :target: http://hunter.readthedocs.io/en/latest/?badge=latest
+  :alt: Documentation status
+  
+.. |travis| image:: https://img.shields.io/travis/ingenue/hunter/pkg.gtest.svg?style=flat-square&label=Linux%20OSX%20Android%20iOS
+  :target: https://travis-ci.org/ingenue/hunter/builds
+  :alt: Travis CI
+  
+.. |appveyor| image:: https://img.shields.io/appveyor/ci/ingenue/hunter/pkg.gtest.svg?style=flat-square&label=Windows
+  :target: https://ci.appveyor.com/project/ingenue/hunter/history
+  :alt: AppVeyor CI
+  
+.. |license| image:: https://img.shields.io/github/license/ruslo/hunter.svg
+  :target: https://github.com/ruslo/hunter/blob/master/LICENSE
+  :alt: LICENSE
+  

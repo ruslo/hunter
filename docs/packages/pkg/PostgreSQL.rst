@@ -9,11 +9,14 @@
 PostgreSQL
 ==========
 
+.. |hunter| image:: https://img.shields.io/badge/hunter-v0.12.35-blue.svg
+  :target: https://github.com/ruslo/hunter/releases/tag/v0.12.35
+  :alt: Hunter v0.12.35
+
 -  `Official <http://www.postgresql.org/>`__
 -  `Hunterized <https://github.com/hunter-packages/PostgreSQL>`__
 -  `Example <https://github.com/ruslo/hunter/blob/develop/examples/PostgreSQL/CMakeLists.txt>`__
--  Available since
-   `v0.12.35 <https://github.com/ruslo/hunter/releases/tag/v0.12.35>`__
+- Available since |hunter|
 -  Added by `Alexandre Pretyman <https://github.com/pretyman>`__
    (`pr-301 <https://github.com/ruslo/hunter/pull/301>`__)
 

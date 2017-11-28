@@ -1,8 +1,13 @@
 .. Copyright (c) 2016-2017, Ruslan Baratov
 .. All rights reserved.
 
+
+.. _layout deployed:
+
 Deployed
 --------
+
+.. _layout deployed common:
 
 Common
 ======
@@ -51,6 +56,8 @@ For example we have file ``toolchain.info`` and we want to save it in
 
 * Unlock ``<Toolchain-ID>/cmake.lock``
 
+.. _layout deployed base:
+
 Base
 ====
 
@@ -61,7 +68,7 @@ is to allow Hunter to be deployed inside
 for development.
 
 .. code-block:: none
-  :emphasize-lines: 2,4,6,8,10,12,14,16,18,20,22,24,26,28,30,32,34,36,38,40,42,44,46,48,50,52,54
+  :emphasize-lines: 2,4,6,8,10,12,14,16,18,20,22,24,26,28,30,32,34,36,38,40,42,44,46,48,50,52
 
   _Base/
   ├── <Hunter-ID>/
@@ -116,6 +123,8 @@ for development.
   ├── Cellar/                                  # see below
   └── Cache/                                   # see below
 
+.. _layout deployed download:
+
 Download
 ========
 
@@ -126,7 +135,7 @@ about ``<Toolchain-ID>/<Config-ID>`` part (we have to calculate them using
 Hunter code).
 
 .. code-block:: none
-  :emphasize-lines: 2,4,6,8,10,12,14,16,18,20,22,24,26,28,30
+  :emphasize-lines: 2,4,6,8,10,12,14,16,18
 
   Download/
   ├── <Package>/
@@ -147,6 +156,8 @@ Hunter code).
                ├── Build/
                └── Unpacked/             # Unpacked Hunter archive (HUNTER_SELF)
 
+
+.. _layout deployed cache:
 
 Cache
 =====
@@ -202,6 +213,9 @@ arguments, dependencies, etc.).
                                 ├─ CACHE.DONE     # stamp: deps.info and cache.sha1 created and ready to be used
                                 └─ from.server    # info downloaded from server, no need to upload this entry
 
+
+.. _layout deployed cellar:
+
 Cellar
 ======
 
@@ -209,7 +223,7 @@ Cellar directory consists of unpacked raw cache archives and source archives of
 ``url_sha1_unpack`` packages:
 
 .. code-block:: none
-  :emphasize-lines: 2,4,6,8,10,12,14,16,18,20,22,24,26,28,30,32,34,36,38,40,42
+  :emphasize-lines: 2,4,6,8,10,12
 
   Cellar/
   └─ <sha1>/                                      # SHA1 of unpacked archive

@@ -48,9 +48,17 @@ The simplest way to upload local cache binaries to Nexus server is by using
 Configuring Hunter to use Nexus
 ===============================
 
-To configure ``Hunter`` to use ``Nexus`` server, you must perform the following
-step:
+Set :ref:`HUNTER_CACHE_SERVERS <hunter_cache_servers>`
+variable before ``HunterGate`` to configure ``Hunter`` to use ``Nexus`` server:
 
 .. code-block:: cmake
 
-   list(APPEND HUNTER_CACHE_SERVERS "http://my.nexus.server.com/content/repositories/hunter/cache")
+  set(
+      HUNTER_CACHE_SERVERS
+      "http://my.nexus.server.com/content/repositories/hunter/cache"
+      CACHE
+      STRING
+      "Hunter cache servers"
+  )
+
+  HunterGate(URL "..." SHA1 "...")

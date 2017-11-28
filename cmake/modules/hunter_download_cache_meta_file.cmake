@@ -75,7 +75,7 @@ function(hunter_download_cache_meta_file)
             url
             "${server}"
         )
-          
+
         set(local_url "${url}/master/${local_suffix}")
         set(done_url "${url}/master/${done_suffix}")
       endif()

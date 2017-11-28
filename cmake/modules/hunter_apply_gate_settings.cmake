@@ -110,6 +110,7 @@ function(hunter_apply_gate_settings)
 
   # * defines: HUNTER_GATE_TOOLCHAIN_SHA1
   # * needs: HUNTER_CONFIGURATION_TYPES
+  # * needs: HUNTER_BUILD_SHARED_LIBS
   # * creates: global_toolchain_info at
   #   "${hunter_base}/${HUNTER_GATE_SHA1}/${HUNTER_GATE_TOOLCHAIN_SHA1}/toolchain.info"
   hunter_calculate_toolchain_sha1("${hunter_self}" "${hunter_base}")
@@ -183,4 +184,11 @@ function(hunter_apply_gate_settings)
         ""
     )
   endforeach()
+  set(
+      HUNTER_CACHED_BUILD_SHARED_LIBS
+      "${HUNTER_BUILD_SHARED_LIBS}"
+      CACHE
+      INTERNAL
+      ""
+  )
 endfunction()

@@ -66,6 +66,20 @@ function(hunter_check_flush_needed hunter_self flush_done)
     set(flush TRUE)
   endif()
 
+  string(
+      COMPARE
+      EQUAL
+      "${HUNTER_BUILD_SHARED_LIBS}"
+      "${HUNTER_CACHED_BUILD_SHARED_LIBS}"
+      is_ok
+  )
+  if(NOT is_ok)
+    hunter_status_debug("HUNTER_BUILD_SHARED_LIBS changed:")
+    hunter_status_debug("  ${HUNTER_BUILD_SHARED_LIBS}")
+    hunter_status_debug("  ${HUNTER_CACHED_BUILD_SHARED_LIBS}")
+    set(flush TRUE)
+  endif()
+
   if(NOT flush)
     set("${flush_done}" FALSE PARENT_SCOPE)
     return()

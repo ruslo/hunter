@@ -88,6 +88,11 @@ function(hunter_calculate_toolchain_sha1 hunter_self hunter_base)
     )
   endforeach()
 
+  string(COMPARE EQUAL "${HUNTER_BUILD_SHARED_LIBS}" "" is_empty)
+  if(NOT is_empty)
+    list(APPEND cmd "-DHUNTER_BUILD_SHARED_LIBS=${HUNTER_BUILD_SHARED_LIBS}")
+  endif()
+
   hunter_print_cmd("${temp_project_dir}" "${cmd}")
 
   # HUNTER_CONFIGURATION_TYPES notes: list is tricky...
