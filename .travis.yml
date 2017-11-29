@@ -53,9 +53,9 @@ matrix:
     - os: osx
       env: PROJECT_DIR=examples/foo TOOLCHAIN=libcxx
     - os: osx
-      env: PROJECT_DIR=examples/foo TOOLCHAIN=osx-10-11
+      env: PROJECT_DIR=examples/foo TOOLCHAIN=osx-10-12
     - os: osx
-      env: PROJECT_DIR=examples/foo TOOLCHAIN=ios-nocodesign-9-3
+      env: PROJECT_DIR=examples/foo TOOLCHAIN=ios-nocodesign-10-3
     # }
 
 install:
