@@ -7,8 +7,7 @@ include("../common.cmake")
 project(rocksdb-test)
 
 hunter_add_package(rocksdb)
-find_package(rocksdb CONFIG REQUIRED)
+find_package(RocksDB CONFIG REQUIRED)
 
 add_executable(rocksdb-test test.cpp)
-set_target_properties(rocksdb-test PROPERTIES CXX_STANDARD 11)
-target_link_libraries(rocksdb-test PRIVATE rocksdb::rocksdb)
+target_link_libraries(rocksdb-test PRIVATE RocksDB::rocksdb)

@@ -19,5 +19,5 @@ rocksdb
 .. code-block:: cmake
 
     hunter_add_package(rocksdb)
-    find_package(rocksdb CONFIG REQUIRED)
-    target_link_libraries(target rocksdb::rocksdb)
+    find_package(RocksDB CONFIG REQUIRED)
+    target_link_libraries(target RocksDB::rocksdb)

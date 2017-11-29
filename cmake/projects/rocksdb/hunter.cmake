@@ -22,8 +22,10 @@ hunter_add_version(
     URL "https://github.com/facebook/rocksdb/archive/v5.8.6.tar.gz"
     SHA1 "0610c260676e78b03ba48b2d671ba92bdcff2641")
 
-hunter_cmake_args(rocksdb
-    CMAKE_ARGS WITH_TESTS=OFF)
+hunter_cmake_args(rocksdb CMAKE_ARGS
+    WITH_TESTS=OFF
+    PORTABLE=ON
+    FAIL_ON_WARNINGS=OFF)
 
 hunter_pick_scheme(DEFAULT url_sha1_cmake)
 hunter_cacheable(rocksdb)
