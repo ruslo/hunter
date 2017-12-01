@@ -6,3 +6,4 @@ Database
  - :ref:`pkg.odb-pgsql`
  - :ref:`pkg.odb-sqlite`
  - :ref:`pkg.PostgreSQL`
+ - :ref:`pkg.rocksdb`
