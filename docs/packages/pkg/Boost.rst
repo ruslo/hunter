@@ -79,7 +79,7 @@ You can use ``CMAKE_ARGS`` feature
 (see
 `customization <https://github.com/ruslo/hunter/wiki/example.custom.config.id#custom-cmake-options>`__)
 to pass options to boost build or to append config macros in the default boost user
-config file (boost/config/user.hpp):
+config file (``boost/config/user.hpp``):
 
 - Options of special form ``<COMPONENT-UPPERCASE>_<OPTION>=<VALUE>`` will
   be added to ``b2`` as ``-s <OPTION>=<VALUE>`` while building component .
