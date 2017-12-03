@@ -37,7 +37,7 @@ hunter_add_version(
     VERSION
     "1.5.9"
     URL
-    "https://github.com/hunter-packages/Catch/archive/v1.5.9-hunter.tar.gz"
+    "https://github.com/hunter-packages/Catch/releases/download/v1.5.9-hunter/v1.5.9-hunter.tar.gz"
     SHA1
     737cb1c98fedccceb95e7bfd385e5dea0ad5d047
 )
