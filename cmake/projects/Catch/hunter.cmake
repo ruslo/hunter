@@ -39,7 +39,7 @@ hunter_add_version(
     URL
     "https://github.com/hunter-packages/Catch/releases/download/v1.5.9-hunter/v1.5.9-hunter.tar.gz"
     SHA1
-    737cb1c98fedccceb95e7bfd385e5dea0ad5d047
+    5ac39da617fe3ae91951529fba1ab493b296ab7a
 )
 
 hunter_cmake_args(
