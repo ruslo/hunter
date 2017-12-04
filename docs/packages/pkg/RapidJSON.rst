@@ -12,7 +12,7 @@ RapidJSON
 -  http://rapidjson.org/
 -  `GitHub official <https://github.com/miloyip/rapidjson>`__
 -  `Hunterized <https://github.com/hunter-packages/rapidjson>`__
--  `Example <https://github.com/ruslo/hunter/blob/develop/examples/rapidjson/condense.cpp>`__
+-  `Example <https://github.com/ruslo/hunter/blob/master/examples/rapidjson/condense.cpp>`__
 
 .. code-block:: cmake
 
