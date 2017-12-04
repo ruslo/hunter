@@ -374,14 +374,14 @@ if(OPENSSL_FOUND)
     set_target_properties(OpenSSL::Crypto PROPERTIES
       INTERFACE_INCLUDE_DIRECTORIES "${OPENSSL_INCLUDE_DIR}")
     find_package(Threads REQUIRED)
-    if(MINGW)
+    if(WIN32)
       # https://github.com/openssl/openssl/issues/1061
-      set(_openssl_mingw_crypt "crypt32")
+      set(_openssl_win32_crypt "crypt32")
     else()
-      set(_openssl_mingw_crypt "")
+      set(_openssl_win32_crypt "")
     endif()
     set_target_properties(OpenSSL::Crypto PROPERTIES
-        INTERFACE_LINK_LIBRARIES "${CMAKE_DL_LIBS};Threads::Threads;${_openssl_mingw_crypt}")
+        INTERFACE_LINK_LIBRARIES "${CMAKE_DL_LIBS};Threads::Threads;${_openssl_win32_crypt}")
     if(EXISTS "${OPENSSL_CRYPTO_LIBRARY}")
       set_target_properties(OpenSSL::Crypto PROPERTIES
         IMPORTED_LINK_INTERFACE_LANGUAGES "C"
