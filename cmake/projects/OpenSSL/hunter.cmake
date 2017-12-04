@@ -340,4 +340,4 @@ if(MINGW)
 endif()
 
 hunter_cacheable(OpenSSL)
-hunter_download(PACKAGE_NAME OpenSSL PACKAGE_INTERNAL_DEPS_ID "18")
+hunter_download(PACKAGE_NAME OpenSSL PACKAGE_INTERNAL_DEPS_ID "19")
