@@ -1,6 +1,7 @@
 .. spelling::
 
     crc32c
+    crc
 
 .. index:: crypto ; crc32c
 
