@@ -266,6 +266,7 @@ hunter_config(sm VERSION 1.2.1)
 hunter_config(Snappy VERSION 1.1.6-p0)
 hunter_config(sse2neon VERSION 1.0.0-p0)
 hunter_config(sparsehash VERSION 2.0.2)
+hunter_config(stanhull VERSION 0.0.1)
 if(MSVC_VERSION LESS 1800)
     # for VS12 - version without support C++11
   hunter_config(spdlog VERSION 1.0.0-p0)
