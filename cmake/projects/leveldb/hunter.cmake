@@ -9,8 +9,8 @@ include(hunter_pick_scheme)
 hunter_add_version(
     PACKAGE_NAME leveldb
     VERSION "1.20"
-    URL "https://github.com/hunter-packages/leveldb/archive/v1.20-p2.tar.gz"
-    SHA1 "c35129740e7da76aecc23a5f848037b5df76d7a7")
+    URL "https://github.com/hunter-packages/leveldb/archive/v1.20-p3.tar.gz"
+    SHA1 "e843a3321605bd818628509c669d6dae65854657")
 
 hunter_cmake_args(leveldb CMAKE_ARGS
     LEVELDB_BUILD_TESTS=OFF
