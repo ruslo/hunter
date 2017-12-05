@@ -11,7 +11,7 @@ dest
 
 -  `Official GitHub <https://github.com/cheind/dest>`__
 -  `Hunterized <https://github.com/hunter-packages/dest>`__
--  `Example <https://github.com/ruslo/hunter/blob/develop/examples/dest/foo.cpp>`__
+-  `Example <https://github.com/ruslo/hunter/blob/master/examples/dest/foo.cpp>`__
 
 .. code-block:: cmake
 

@@ -35,6 +35,7 @@ string(COMPARE EQUAL "@HUNTER_MSVC_VERSION@" "10" _is_platform_toolset_v100) # V
 string(COMPARE EQUAL "@HUNTER_MSVC_VERSION@" "11" _is_platform_toolset_v110) # VC2012
 string(COMPARE EQUAL "@HUNTER_MSVC_VERSION@" "12" _is_platform_toolset_v120) # VC2013
 string(COMPARE EQUAL "@HUNTER_MSVC_VERSION@" "14" _is_platform_toolset_v140) # VC2015
+string(COMPARE EQUAL "@HUNTER_MSVC_VERSION@" "15" _is_platform_toolset_v141) # VC2017
 
 if(_is_platform_toolset_v100)
     set(msvc_platform_toolset "v100")
@@ -44,9 +45,11 @@ elseif(_is_platform_toolset_v120)
     set(msvc_platform_toolset "v120")
 elseif(_is_platform_toolset_v140)
     set(msvc_platform_toolset "v140")
+elseif(_is_platform_toolset_v141)
+    set(msvc_platform_toolset "v141")
 else()
     hunter_user_error(
-        "Visual studio version not supported. Supported versions are: Visual studio 2010, 2012, 2013 and 2015."
+        "Visual studio version not supported. Supported versions are: Visual studio 2010, 2012, 2013, 2015 and 2017."
         "If there is a new version please open an issue at https://github.com/ruslo/hunter and mention @Cyberunner23")
 endif()
 

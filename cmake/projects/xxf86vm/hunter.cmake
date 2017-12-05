@@ -34,8 +34,9 @@ set(xxf86vm_dependencies
 )
 hunter_cmake_args(
     xxf86vm
-    CMAKE_ARGS         # do not use double quotes on CMAKE_ARGS
-      DEPENDS_ON_PACKAGES=${xxf86vm_dependencies}
+    CMAKE_ARGS
+    DEPENDS_ON_PACKAGES=${xxf86vm_dependencies}
+    PKGCONFIG_EXPORT_TARGETS=xxf86vm
 )
 hunter_cacheable(xxf86vm)
 hunter_download(

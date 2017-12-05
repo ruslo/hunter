@@ -144,12 +144,18 @@ elseif(_is_darwin)
   set(HUNTER_PATCH_QT_MACX_CLANG TRUE)
 elseif(_is_linux)
   set(HUNTER_QT_OS_IS_LINUX TRUE)
-  hunter_add_package(xcb)
-  hunter_add_package(x11)
-  hunter_add_package(xext)
-  hunter_add_package(xrender)
-  hunter_add_package(sm)
+  hunter_add_package(drm)
   hunter_add_package(ice)
+  hunter_add_package(sm)
+  hunter_add_package(x11)
+  hunter_add_package(xcb)
+  hunter_add_package(xcursor)
+  hunter_add_package(xdamage)
+  hunter_add_package(xext)
+  hunter_add_package(xfixes)
+  hunter_add_package(xrender)
+  hunter_add_package(xshmfence)
+  hunter_add_package(xxf86vm)
 
   string(COMPARE EQUAL "${X11_ROOT}" "${XCB_ROOT}" is_good)
   if(NOT is_good)
@@ -193,6 +199,14 @@ elseif("@MINGW@")
   list(APPEND configure_opts -opengl "desktop")
 endif()
 
+if(QT_WITH_GSTREAMER)
+  hunter_add_package(gst_plugins_bad)
+  hunter_add_package(gst_plugins_good)
+  hunter_add_package(gst_plugins_ugly)
+
+  list(APPEND configure_opts -gstreamer 1.0)
+endif()
+
 if(HUNTER_STATUS_DEBUG AND NOT WIN32)
   list(APPEND configure_opts "-verbose")
 endif()
@@ -201,6 +215,9 @@ if(BUILD_SHARED_LIBS)
   list(APPEND configure_opts "-shared")
 else()
   list(APPEND configure_opts "-static")
+  if("@MSVC@" AND NOT QT_BUILD_DYNAMIC_VSRUNTIME)
+    list(APPEND configure_opts "-static-runtime")
+  endif()
 endif()
 
 list(APPEND configure_opts "-prefix" "@HUNTER_PACKAGE_INSTALL_PREFIX@")
@@ -367,6 +384,8 @@ configure_file(
 #   * ANDROID
 #   * IOS
 #   * HUNTER_Qt_VERSION
+#   * HUNTER_QT_OS_IS_LINUX
+#   * BUILD_SHARED_LIBS
 configure_file(
     "@HUNTER_PACKAGE_SETUP_DIR@/ep-stages/qt-install.cmake.in"
     "@HUNTER_PACKAGE_BUILD_DIR@/qt-install.cmake"
@@ -381,6 +400,8 @@ configure_file(
 #  * is_release_debug
 #  * is_release
 #  * is_debug
+#  * global_install_dir
+#  * HUNTER_QT_OS_IS_LINUX
 configure_file(
     "@HUNTER_PACKAGE_SETUP_DIR@/ep-stages/qt-build.cmake.in"
     "@HUNTER_PACKAGE_BUILD_DIR@/qt-build.cmake"

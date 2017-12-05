@@ -111,6 +111,8 @@ function(hunter_autotools_project target_name)
   set(default_path "/usr/bin:/bin:/usr/sbin:/sbin:/usr/local/bin")
   set(shell_env_path "PATH=${PARAM_GLOBAL_INSTALL_DIR}/bin:${default_path}")
 
+  set(shell_ld_path "LD_LIBRARY_PATH=${PARAM_GLOBAL_INSTALL_DIR}/lib")
+
   set(d1 "${PARAM_GLOBAL_INSTALL_DIR}/lib/pkgconfig")
   set(d2 "${PARAM_GLOBAL_INSTALL_DIR}/share/pkgconfig")
   set(shell_pkg_config_libdir "PKG_CONFIG_LIBDIR=${d1}:${d2}")
@@ -123,6 +125,7 @@ function(hunter_autotools_project target_name)
       &&
       ${shell_env_path}
       ${shell_pkg_config_libdir}
+      ${shell_ld_path}
   )
 
   # Build command and options

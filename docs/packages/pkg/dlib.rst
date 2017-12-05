@@ -16,7 +16,7 @@ dlib
 -  `Official <http://dlib.net/>`__
 -  `Official github fork <https://github.com/davisking/dlib>`__
 -  `Hunterized <https://github.com/hunter-packages/dlib>`__
--  `Example <https://github.com/ruslo/hunter/blob/develop/examples/dlib/CMakeLists.txt>`__
+-  `Example <https://github.com/ruslo/hunter/blob/master/examples/dlib/CMakeLists.txt>`__
 - Available since |hunter|
 
 .. code-block:: cmake

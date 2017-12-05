@@ -1,0 +1,103 @@
+# OSX/Linux (https://github.com/travis-ci-tester/toolchain-table)
+
+# Workaround for https://github.com/travis-ci/travis-ci/issues/8363
+language:
+  - minimal
+
+# Container-based infrastructure (Linux)
+# * https://docs.travis-ci.com/user/migrating-from-legacy/#How-can-I-use-container-based-infrastructure%3F
+sudo:
+  - false
+
+# Install packages differs for container-based infrastructure
+# * https://docs.travis-ci.com/user/migrating-from-legacy/#How-do-I-install-APT-sources-and-packages%3F
+addons:
+  apt:
+    packages:
+      - python3-pip
+
+dist:
+  - trusty
+
+env:
+  global:
+    - secure: "RXl1cmKQUgB/Lr6CFW82nYDFSyF5tYjG5N3+ZpZZWDbmVvm8Wj634GR1B5JVcLzoWLearGYtqOA2mQcK+vcp04/KMQC7mEEtUWix74wXz9djzUZMYuMz0VvImpqyE8KF8ZVgbQL5XFP1u+nRahLT9qtNX7VFTqgSB2PJ/kDEQQPV+H4lv/tVBv9ptMC4q9Nwev8qFzEPLqQgp6mqb05BBsgrExEbzVrX5kywb23TGcxMe3c6IHf63vCmr8aHAJFVsHHGkV2QhOoJKeMNa1xPJXGE+yf1rAACglTru7IXOlsZ4bym2qLtQRHz+2jHn1i+qQf0V5M+4H/OBkqOpU9AJ/ylF/WK2eBZedxC+4WPvuO/iDnrtNxikzS5avdFS7IMUJrIm9fP0B8efLovEiJaKwo5k1Yj0uw07b1PoyRE5x+ozRzSLzvWXgOIXbZjOM9BzYFfoNJ+dpjilELuxGn85HljeniK89H/d5gtEUPvSMQC/+RuMo420qaGGhy/lR4ivPTZwCqT7VPQ6+2HLz/wAF5S2jFLGjSZIbb/NMmrV6+puIEEicx0mj2eSpgt7cn9UguevnwtT5UoN2G+dZrI6RfUp0CSH8UHdcJtoSCmYVxO5LsRPXyCEFFF54EsfhqjWegYcxLmHqQQUKlJ8lX9dXMRftW7bIldb98PQGud6Fg="
+
+matrix:
+  include:
+    # Linux {
+    - os: linux
+      env: PROJECT_DIR=examples/hunter_box_1 TOOLCHAIN=default
+    - os: linux
+      env: PROJECT_DIR=examples/hunter_box_1 TOOLCHAIN=clang-libstdcxx
+    - os: linux
+      env: PROJECT_DIR=examples/hunter_box_1 TOOLCHAIN=gcc
+    - os: linux
+      env: PROJECT_DIR=examples/hunter_box_1 TOOLCHAIN=android-ndk-r10e-api-19-armeabi-v7a-neon
+    - os: linux
+      env: PROJECT_DIR=examples/hunter_box_1 TOOLCHAIN=android-ndk-r15c-api-21-armeabi-v7a-neon-clang-libcxx
+    - os: linux
+      env: PROJECT_DIR=examples/hunter_box_1 TOOLCHAIN=analyze
+    - os: linux
+      env: PROJECT_DIR=examples/hunter_box_1 TOOLCHAIN=sanitize-address
+    - os: linux
+      env: PROJECT_DIR=examples/hunter_box_1 TOOLCHAIN=sanitize-leak
+
+    # FIXME: https://github.com/ruslo/hunter/issues/718#issuecomment-290610583
+    # - os: linux
+    #   env: PROJECT_DIR=examples/hunter_box_1 TOOLCHAIN=sanitize-thread
+
+    # }
+
+    # OSX {
+    - os: osx
+      env: PROJECT_DIR=examples/hunter_box_1 TOOLCHAIN=libcxx
+    - os: osx
+      env: PROJECT_DIR=examples/hunter_box_1 TOOLCHAIN=osx-10-11
+    - os: osx
+      env: PROJECT_DIR=examples/hunter_box_1 TOOLCHAIN=ios-nocodesign-9-3
+    # }
+
+install:
+  # Info about OS
+  - uname -a
+
+  # Disable autoupdate
+  # * https://github.com/Homebrew/brew/blob/7d31a70373edae4d8e78d91a4cbc05324bebc3ba/Library/Homebrew/manpages/brew.1.md.erb#L202
+  - export HOMEBREW_NO_AUTO_UPDATE=1
+
+  # Install Python 3
+  - if [[ "`uname`" == "Darwin" ]]; then travis_retry brew install python3; fi
+
+  # Install Python package 'requests'
+  # 'easy_install3' is not installed by 'brew install python3' on OS X 10.9 Maverick
+  - if [[ "`uname`" == "Darwin" ]]; then pip3 install requests; fi
+  - if [[ "`uname`" == "Linux" ]]; then travis_retry pip3 install --user requests; fi
+
+  # Install latest Polly toolchains and scripts
+  - wget https://github.com/ruslo/polly/archive/master.zip
+  - unzip master.zip
+  - POLLY_ROOT="`pwd`/polly-master"
+  - export PATH="${POLLY_ROOT}/bin:${PATH}"
+
+  # Install dependencies (CMake, Android NDK)
+  - install-ci-dependencies.py
+
+  # Tune locations
+  - export PATH="`pwd`/_ci/cmake/bin:${PATH}"
+
+  # Installed if toolchain is Android (otherwise directory doesn't exist)
+  - export ANDROID_NDK_r10e="`pwd`/_ci/android-ndk-r10e"
+  - export ANDROID_NDK_r11c="`pwd`/_ci/android-ndk-r11c"
+  - export ANDROID_NDK_r15c="`pwd`/_ci/android-ndk-r15c"
+
+script:
+  - python3 ./jenkins.py
+
+# https://docs.travis-ci.com/user/customizing-the-build/#Whitelisting-or-blacklisting-branches
+# Exclude branch 'pkg.template'. Nothing to build there.
+branches:
+  except:
+    - pkg.template
+    - /^pr\..*/
+    - /^v[0-9]+\.[0-9]+\.[0-9]+$/
