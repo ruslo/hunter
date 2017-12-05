@@ -15,7 +15,7 @@ Lua
 
 -  `Official <http://www.lua.org/ftp/>`__
 -  `Hunterized <https://github.com/hunter-packages/lua>`__
--  `Example <https://github.com/ruslo/hunter/blob/develop/examples/Lua/CMakeLists.txt>`__
+-  `Example <https://github.com/ruslo/hunter/blob/master/examples/Lua/CMakeLists.txt>`__
 - Available since |hunter|
 -  Added by `Denis Kerzhemanov <https://github.com/Dinno>`__
    (`pr-283 <https://github.com/ruslo/hunter/pull/283>`__)

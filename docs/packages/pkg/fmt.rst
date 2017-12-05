@@ -14,7 +14,7 @@ fmt
   :alt: Hunter v0.14.22
 
 -  `Official <https://github.com/fmtlib/fmt>`__
--  `Example <https://github.com/ruslo/hunter/blob/develop/examples/fmt/CMakeLists.txt>`__
+-  `Example <https://github.com/ruslo/hunter/blob/master/examples/fmt/CMakeLists.txt>`__
 - Available since |hunter|
 -  Added by `Dmitry Panteleev <https://github.com/dpantele>`__
    (`pr-413 <https://github.com/ruslo/hunter/pull/413>`__)

@@ -15,7 +15,7 @@ half
 
 -  `Official <http://half.sourceforge.net>`__
 -  `Hunterized <https://github.com/headupinclouds/half/tree/hunter>`__
--  `Example <https://github.com/ruslo/hunter/blob/develop/examples/half/CMakeLists.txt>`__
+-  `Example <https://github.com/ruslo/hunter/blob/master/examples/half/CMakeLists.txt>`__
 - Available since |hunter|
 -  Added by `David Hirvonen <https://github.com/headupinclouds>`__
    (`pr-286 <https://github.com/ruslo/hunter/pull/286>`__)

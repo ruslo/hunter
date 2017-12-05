@@ -14,7 +14,7 @@ WTL
   :alt: Hunter v0.12.49
 
 -  `Official <https://github.com/alamaison/wtl>`__
--  `Example <https://github.com/ruslo/hunter/blob/develop/examples/WTL/CMakeLists.txt>`__
+-  `Example <https://github.com/ruslo/hunter/blob/master/examples/WTL/CMakeLists.txt>`__
 - Available since |hunter|
 -  Added by `Alexander Lamaison <https://github.com/alamaison>`__
    (`pr-329 <https://github.com/ruslo/hunter/pull/329>`__)

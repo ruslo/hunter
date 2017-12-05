@@ -15,7 +15,7 @@ PostgreSQL
 
 -  `Official <http://www.postgresql.org/>`__
 -  `Hunterized <https://github.com/hunter-packages/PostgreSQL>`__
--  `Example <https://github.com/ruslo/hunter/blob/develop/examples/PostgreSQL/CMakeLists.txt>`__
+-  `Example <https://github.com/ruslo/hunter/blob/master/examples/PostgreSQL/CMakeLists.txt>`__
 - Available since |hunter|
 -  Added by `Alexandre Pretyman <https://github.com/pretyman>`__
    (`pr-301 <https://github.com/ruslo/hunter/pull/301>`__)

@@ -16,7 +16,7 @@ OpenBLAS
 -  `Official <https://github.com/xianyi/OpenBLAS>`__
 -  `Hunterized <https://github.com/hunter-packages/OpenBLAS>`__
 - Available since |hunter|
--  `Example <https://github.com/ruslo/hunter/blob/develop/examples/OpenBLAS/foo.cpp>`__
+-  `Example <https://github.com/ruslo/hunter/blob/master/examples/OpenBLAS/foo.cpp>`__
 
 .. code-block:: cmake
 

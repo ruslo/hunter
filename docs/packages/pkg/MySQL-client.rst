@@ -14,7 +14,7 @@ MySQL-client
   :alt: Hunter v0.12.51
 
 -  `Official <http://dev.mysql.com/downloads/connector/cpp/>`__
--  `Example <https://github.com/ruslo/hunter/blob/develop/examples/MySQL-client/CMakeLists.txt>`__
+-  `Example <https://github.com/ruslo/hunter/blob/master/examples/MySQL-client/CMakeLists.txt>`__
 - Available since |hunter|
 
 .. code-block:: cmake
