@@ -117,9 +117,9 @@ ExternalProject_Add(
     "@CMAKE_COMMAND@" -P
     "@HUNTER_GLOBAL_SCRIPT_DIR@/append-boost-config-macros.cmake"
     "@HUNTER_Boost_CMAKE_ARGS@"
-    PATCH_COMMAND
-    ${patch_cmd}
     CONFIGURE_COMMAND
+    ${patch_cmd}
+    COMMAND
     ${bootstrap_cmd}
     BUILD_COMMAND
     ""

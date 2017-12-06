@@ -371,10 +371,10 @@ ExternalProject_Add(
     "@CMAKE_COMMAND@" -P
     "@HUNTER_GLOBAL_SCRIPT_DIR@/append-boost-config-macros.cmake"
     "@HUNTER_Boost_CMAKE_ARGS@"
-    PATCH_COMMAND
+    CONFIGURE_COMMAND
     ${patch_cmd}
     ${copy_mpi_command}
-    CONFIGURE_COMMAND
+    COMMAND
     ${bootstrap_cmd}
     BUILD_COMMAND
     ${b2_cmd}
