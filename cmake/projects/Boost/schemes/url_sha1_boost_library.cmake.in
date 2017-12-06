@@ -307,6 +307,7 @@ if(@HUNTER_STATUS_DEBUG@)
 endif()
 
 if(CMAKE_HOST_WIN32)
+  set(b2_cmd "b2")
   if("@MSVC@")
     file(WRITE "@HUNTER_PACKAGE_DOWNLOAD_DIR@/patched_boostrap.bat" "\
 call \"@HUNTER_MSVC_VCVARSALL@\" @HUNTER_MSVC_ARCH@\n\
@@ -319,6 +320,7 @@ bootstrap.bat")
     set(bootstrap_cmd "bootstrap.bat")
   endif()
 else()
+  set(b2_cmd "./b2")
   set(bootstrap_cmd "./bootstrap.sh")
   set(patch_cmd "")
 endif()
