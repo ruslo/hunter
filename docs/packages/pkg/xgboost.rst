@@ -11,7 +11,7 @@ xgboost
 
 -  `Official GitHub <https://github.com/dmlc/xgboost>`__
 -  `Hunterized <https://github.com/hunter-packages/xgboost>`__
--  `Example <https://github.com/ruslo/hunter/blob/develop/examples/xgboost/foo.cpp>`__
+-  `Example <https://github.com/ruslo/hunter/blob/master/examples/xgboost/foo.cpp>`__
 
 .. code-block:: cmake
 

@@ -23,6 +23,7 @@ include(hunter_status_debug)
 include(hunter_status_print)
 include(hunter_test_string_not_empty)
 include(hunter_user_error)
+include(hunter_parse_boost_config_macros)
 
 hunter_status_debug("Scheme: url_sha1_boost_library")
 
@@ -194,6 +195,9 @@ endif()
 
 if(BOOST_BUILD_STATIC)
   set(link_opts link=static)
+  if("@MSVC@" AND NOT BOOST_BUILD_DYNAMIC_VSRUNTIME)
+    list(APPEND link_opts "runtime-link=static")
+  endif()
 else()
   set(link_opts link=shared)
 endif()
@@ -354,6 +358,13 @@ else()
   set(log_opts "")
 endif()
 
+hunter_parse_boost_config_macros(BOOST_CONFIG_MACROS "@HUNTER_Boost_CMAKE_ARGS@")
+configure_file(
+  "@HUNTER_GLOBAL_SCRIPT_DIR@/append-boost-config-macros.cmake.in"
+  "@HUNTER_PACKAGE_BUILD_DIR@/append-boost-config-macros.cmake"
+  @ONLY
+)
+
 ExternalProject_Add(
     "@HUNTER_EP_NAME@"
     URL
@@ -369,8 +380,7 @@ ExternalProject_Add(
         # not used, just avoid creating Install/<name> empty directory
     UPDATE_COMMAND
     "@CMAKE_COMMAND@" -P
-    "@HUNTER_GLOBAL_SCRIPT_DIR@/append-boost-config-macros.cmake"
-    "@HUNTER_Boost_CMAKE_ARGS@"
+    "@HUNTER_PACKAGE_BUILD_DIR@/append-boost-config-macros.cmake"
     CONFIGURE_COMMAND
     ${patch_cmd}
     ${copy_mpi_command}

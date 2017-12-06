@@ -11,7 +11,7 @@ wxWidgets
 
 -  `Official <https://github.com/wxWidgets/wxWidgets>`__
 -  `Hunterized <https://github.com/alamaison/wxWidgets>`__
--  `Example <https://github.com/ruslo/hunter/blob/develop/examples/wxWidgets/CMakeLists.txt>`__
+-  `Example <https://github.com/ruslo/hunter/blob/master/examples/wxWidgets/CMakeLists.txt>`__
 
 .. code-block:: cmake
 

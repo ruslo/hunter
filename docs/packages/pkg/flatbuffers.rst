@@ -11,7 +11,7 @@ flatbuffers
 
 -  `Official GitHub <https://github.com/google/flatbuffers>`__
 -  `Hunterized <https://github.com/hunter-packages/flatbuffers>`__
--  `Example <https://github.com/ruslo/hunter/blob/develop/examples/flatbuffers/foo.cpp>`__
+-  `Example <https://github.com/ruslo/hunter/blob/master/examples/flatbuffers/foo.cpp>`__
 
 .. code-block:: cmake
 

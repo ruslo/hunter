@@ -175,6 +175,8 @@ function(hunter_load_from_cache)
     return()
   endif()
 
+  set(HUNTER_SKIP_SCHEME_UNPACK TRUE)
+
   # Install dependencies
   file(STRINGS "${basic_deps_info}" basic_deps_list)
   foreach(dependency_string ${basic_deps_list})

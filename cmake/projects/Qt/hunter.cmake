@@ -9,6 +9,7 @@ include(hunter_cacheable)
 include(hunter_cmake_args)
 include(hunter_configuration_types)
 include(hunter_report_broken_package)
+include(hunter_check_toolchain_definition)
 
 # Use *.7z version.
 # Qt 5.5 overview:
@@ -259,6 +260,15 @@ if(CMAKE_VERSION VERSION_LESS 3.6)
   # * https://gitlab.kitware.com/cmake/cmake/commit/edcccde7d65944b3744c4567bd1d452211829702
   hunter_report_broken_package(
       "CMake 3.6+ expected for Qt package (current version is ${CMAKE_VERSION}."
+  )
+endif()
+
+if(MSVC)
+  hunter_check_toolchain_definition(NAME "_DLL" DEFINED _hunter_vs_md)
+  hunter_cmake_args(
+    Qt
+    CMAKE_ARGS
+      QT_BUILD_DYNAMIC_VSRUNTIME=${_hunter_vs_md}
   )
 endif()
 

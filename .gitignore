@@ -29,3 +29,6 @@ _Base
 # Clion
 .idea/
 
+# Visual Studio
+.vs
+CMakeSettings.json

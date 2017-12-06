@@ -18,4 +18,4 @@ foo
 
     hunter_add_package(foo)
     find_package(foo CONFIG REQUIRED)
-    target_link_libraries(foo foo::foo)
+    target_link_libraries(boo PUBLIC foo::foo)

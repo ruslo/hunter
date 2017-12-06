@@ -43,10 +43,16 @@ function(hunter_dump_cmake_flags)
   set(cppflags "")
 
   if(ANDROID)
-    # --sysroot=/path/to/sysroot not added by CMake 3.7+
-    set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} --sysroot=${CMAKE_SYSROOT}")
-    set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} --sysroot=${CMAKE_SYSROOT}")
-    set(cppflags "${cppflags} --sysroot=${CMAKE_SYSROOT}")
+    string(COMPARE EQUAL "${CMAKE_SYSROOT_COMPILE}" "" no_sysroot_compile)
+    if(no_sysroot_compile)
+      set(android_sysroot "${CMAKE_SYSROOT}")
+    else()
+      set(android_sysroot "${CMAKE_SYSROOT_COMPILE}")
+    endif()
+
+    set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} --sysroot=${android_sysroot}")
+    set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} --sysroot=${android_sysroot}")
+    set(cppflags "${cppflags} --sysroot=${android_sysroot}")
 
     if(NOT x_SKIP_INCLUDES)
       foreach(x ${CMAKE_CXX_STANDARD_INCLUDE_DIRECTORIES})
@@ -55,12 +61,15 @@ function(hunter_dump_cmake_flags)
             "${CMAKE_CXX_FLAGS} ${CMAKE_INCLUDE_SYSTEM_FLAG_CXX} ${x}"
         )
         set(
-            CMAKE_C_FLAGS
-            "${CMAKE_C_FLAGS} ${CMAKE_INCLUDE_SYSTEM_FLAG_CXX} ${x}"
-        )
-        set(
             cppflags
             "${cppflags} ${CMAKE_INCLUDE_SYSTEM_FLAG_CXX} ${x}"
+        )
+      endforeach()
+
+      foreach(x ${CMAKE_C_STANDARD_INCLUDE_DIRECTORIES})
+        set(
+            CMAKE_C_FLAGS
+            "${CMAKE_C_FLAGS} ${CMAKE_INCLUDE_SYSTEM_FLAG_CXX} ${x}"
         )
       endforeach()
     endif()

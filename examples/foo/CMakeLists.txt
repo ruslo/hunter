@@ -12,5 +12,5 @@ project(download-foo)
 hunter_add_package(foo)
 find_package(foo CONFIG REQUIRED)
 
-add_executable(foo foo.cpp)
-target_link_libraries(foo foo::foo)
+add_executable(boo boo.cpp)
+target_link_libraries(boo PUBLIC foo::foo)
