@@ -2,7 +2,7 @@
 
     lmdb
 
-.. index:: unsorted ; lmdb
+.. index:: database ; lmdb
 
 .. _pkg.lmdb:
 
