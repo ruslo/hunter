@@ -75,7 +75,7 @@ bootstrap.bat")
 else()
   set(install_cmd "./b2")
   set(bootstrap_cmd "./bootstrap.sh")
-  set(patch_cmd "")
+  set(patch_cmd "@CMAKE_COMMAND@" -E echo "Dummy patch command")
 endif()
 
 if("@MINGW@")
