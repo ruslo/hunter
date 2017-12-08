@@ -14,3 +14,4 @@ Graphics 2D/3D
  - :ref:`pkg.ogles_gpgpu` - GPGPU for mobile devices and embedded systems using OpenGL ES 2.0
  - :ref:`pkg.SDL2` - A cross-platform development library designed to provide low level access to audio, keyboard, mouse, joystick, and graphics hardware via OpenGL and Direct3D. 
  - :ref:`pkg.SDL_ttf` - Sample library which allows to use TrueType fonts in SDL applications
+ - :ref:`pkg.Urho3D` - Cross-platform 2D and 3D game engine
