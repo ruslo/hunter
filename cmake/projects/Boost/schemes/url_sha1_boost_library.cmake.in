@@ -313,10 +313,10 @@ endif()
 if(CMAKE_HOST_WIN32)
   set(b2_cmd "b2")
   if("@MSVC@")
-    file(WRITE "@HUNTER_PACKAGE_DOWNLOAD_DIR@/patched_boostrap.bat" "\
-call \"@HUNTER_MSVC_VCVARSALL@\" @HUNTER_MSVC_ARCH@\n\
-cd @HUNTER_PACKAGE_SOURCE_DIR@\n\
-bootstrap.bat")
+    set(HUNTER_MSVC_VCVARSALL "@HUNTER_MSVC_VCVARSALL@")
+    set(HUNTER_MSVC_ARCH "@HUNTER_MSVC_ARCH@")
+    set(HUNTER_PACKAGE_SOURCE_DIR "@HUNTER_PACKAGE_SOURCE_DIR@")
+    configure_file("@HUNTER_PACKAGE_SCRIPT_DIR@/patched_boostrap.bat.in" "@HUNTER_PACKAGE_DOWNLOAD_DIR@/patched_boostrap.bat")
     set(patch_cmd "@CMAKE_COMMAND@" -E copy "@HUNTER_PACKAGE_DOWNLOAD_DIR@/patched_boostrap.bat" "@HUNTER_PACKAGE_SOURCE_DIR@/patched_boostrap.bat")
     set(bootstrap_cmd "patched_boostrap.bat")
   else()
