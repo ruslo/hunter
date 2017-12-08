@@ -125,6 +125,7 @@ hunter_config(rocksdb VERSION 5.8.6)
 hunter_config(SDL2 VERSION 2.0.4-p8)
 hunter_config(SDL_image VERSION 2.0.1-p1)
 hunter_config(SDL_mixer VERSION 2.0.1-p1)
+hunter_config(SDL_ttf VERSION 2.0.14-p0)
 hunter_config(SQLite3 VERSION autoconf-3080803) #R-Tree enabled
 hunter_config(Sober VERSION 0.1.3)
 hunter_config(stormlib VERSION 9.21-p1)
