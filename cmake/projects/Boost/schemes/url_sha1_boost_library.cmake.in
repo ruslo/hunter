@@ -40,18 +40,6 @@ hunter_test_string_not_empty("@CMAKE_CXX_COMPILER_ID@")
 hunter_test_string_not_empty("@HUNTER_Boost_VERSION@")
 hunter_test_string_not_empty("@HUNTER_PACKAGE_SCRIPT_DIR@")
 
-if("@MSVC@")
-  hunter_test_string_not_empty("@HUNTER_MSVC_ARCH@")
-  hunter_test_string_not_empty("@HUNTER_MSVC_VCVARSALL@")
-
-  set(x "$ENV{USERPROFILE}/source")
-  if(EXISTS "${x}")
-    hunter_user_error(
-        "Please remove directory '${x}' (see https://github.com/ruslo/hunter/issues/745#issuecomment-316629752)"
-    )
-  endif()
-endif()
-
 # get list of boost components for given version
 hunter_get_boost_libs(VERSION "@HUNTER_Boost_VERSION@" LIBS boost_libs)
 
@@ -320,7 +308,7 @@ if(CMAKE_HOST_WIN32)
     set(patch_cmd "@CMAKE_COMMAND@" -E copy "@HUNTER_PACKAGE_DOWNLOAD_DIR@/patched_boostrap.bat" "@HUNTER_PACKAGE_SOURCE_DIR@/patched_boostrap.bat")
     set(bootstrap_cmd "patched_boostrap.bat")
   else()
-    set(patch_cmd "")
+    set(patch_cmd "@CMAKE_COMMAND@" -E echo "Dummy patch command")
     set(bootstrap_cmd "bootstrap.bat")
   endif()
 else()
