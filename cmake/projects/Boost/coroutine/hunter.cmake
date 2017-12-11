@@ -18,5 +18,5 @@ hunter_download(
     Boost
     PACKAGE_COMPONENT
     coroutine
-    PACKAGE_INTERNAL_DEPS_ID "20"
+    PACKAGE_INTERNAL_DEPS_ID "21"
 )
