@@ -1,6 +1,7 @@
 .. spelling::
 
     Urho3D
+    Urho
 
 .. index:: graphics ; Urho3D
 
