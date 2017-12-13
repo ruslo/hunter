@@ -9,8 +9,8 @@ include(hunter_pick_scheme)
 hunter_add_version(
     PACKAGE_NAME sds
     VERSION "2.0.0"
-    URL "https://github.com/isaachier/sds/archive/hunter-2.0.0-p2.tar.gz"
-    SHA1 "5111c53982500b6f5d91b8218d5266d60676767b")
+    URL "https://github.com/hunter-packages/sds/archive/v2.0.0.tar.gz"
+    SHA1 "afbfd0c74a4130166e7b18d3f088e38bed7583d3")
 
 hunter_cmake_args(sds CMAKE_ARGS BUILD_TESTING=OFF)
 
