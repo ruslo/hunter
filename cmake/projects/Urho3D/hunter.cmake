@@ -31,6 +31,17 @@ hunter_add_version(
     af0daeaa7be483ed98830b5080cfab54976db47e
 )
 
+hunter_add_version(
+    PACKAGE_NAME
+    Urho3D
+    VERSION
+    1.7-p5
+    URL
+    "https://github.com/hunter-packages/Urho3D/archive/v1.7-p5.tar.gz"
+    SHA1
+    42bc93e302c8e35312fa966f4a9b1faf3ac8db7f
+)
+
 hunter_cmake_args(
     Urho3D
     CMAKE_ARGS
@@ -43,7 +54,7 @@ hunter_cmake_args(
     URHO3D_PCH=OFF
     URHO3D_PHYSICS=ON
     URHO3D_SAMPLES=OFF
-    URHO3D_URHO2D=OFF
+    URHO3D_URHO2D=ON
 )
 
 hunter_pick_scheme(DEFAULT url_sha1_cmake)
