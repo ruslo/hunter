@@ -18,13 +18,6 @@ OpenSSL
     find_package(OpenSSL REQUIRED)
     target_link_libraries(foo PUBLIC OpenSSL::SSL OpenSSL::Crypto)
 
-Bugs
-----
-
--  https://github.com/ruslo/hunter/issues/28
--  https://github.com/ruslo/hunter/issues/29
--  https://github.com/ruslo/hunter/issues/30
-
 Fixed/workaround
 ----------------
 
