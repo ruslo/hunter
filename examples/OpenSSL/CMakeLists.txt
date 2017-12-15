@@ -9,11 +9,8 @@ include("../common.cmake")
 
 project(download-openssl)
 
-# download gtest
 hunter_add_package(OpenSSL)
-
-# now gtest can be used
 find_package(OpenSSL REQUIRED)
 
 add_executable(foo foo.cpp)
-target_link_libraries(foo OpenSSL::SSL OpenSSL::Crypto)
+target_link_libraries(foo PUBLIC OpenSSL::SSL OpenSSL::Crypto)
