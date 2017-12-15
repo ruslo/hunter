@@ -9,10 +9,8 @@ include("../common.cmake")
 
 project(download-boost-random)
 
-# download boost-random
 hunter_add_package(Boost COMPONENTS random)
-
-# now boost can be used
 find_package(Boost CONFIG REQUIRED random)
+
 add_executable(foo foo.cpp)
-target_link_libraries(foo Boost::random)
+target_link_libraries(foo PUBLIC Boost::random)
