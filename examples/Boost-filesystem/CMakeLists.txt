@@ -32,15 +32,6 @@ endif()
 
 target_link_libraries(foo Boost::system Boost::filesystem)
 
-# Compatibility mode
-set(Boost_USE_STATIC_LIBS ON)
-if(MSVC)
-  add_definitions(-DBOOST_ALL_NO_LIB=1)
-endif()
-find_package(Boost REQUIRED system filesystem)
-include_directories("${Boost_INCLUDE_DIRS}")
-target_link_libraries(foo ${Boost_LIBRARIES})
-
 if(ANDROID)
   target_link_libraries(foo log android)
   target_include_directories(
