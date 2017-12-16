@@ -324,7 +324,7 @@ hunter_config(yaml-cpp VERSION 0.5.3-plus-p0)
 if(MSVC80)
   hunter_config(GTest VERSION 1.7.0-hunter-6)
 else()
-  hunter_config(GTest VERSION 1.8.0-hunter-p10)
+  hunter_config(GTest VERSION 1.8.0-hunter-p11)
 endif()
 
 if(ANDROID)
