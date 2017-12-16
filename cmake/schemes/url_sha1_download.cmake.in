@@ -52,6 +52,7 @@ while(TRUE)
       SHOW_PROGRESS
       STATUS status
       LOG log
+      TLS_VERIFY ON
   )
   list(GET status 0 status_code)
   list(GET status 1 status_string)

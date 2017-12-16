@@ -179,6 +179,8 @@ if(has_iphoneos)
       SHA1=@HUNTER_PACKAGE_SHA1@
       DOWNLOAD_DIR
       "@HUNTER_PACKAGE_DOWNLOAD_DIR@"
+      TLS_VERIFY
+      ON
       SOURCE_DIR
       "@HUNTER_PACKAGE_SOURCE_DIR@"
       INSTALL_DIR
@@ -205,6 +207,8 @@ else()
       SHA1=@HUNTER_PACKAGE_SHA1@
       DOWNLOAD_DIR
       "@HUNTER_PACKAGE_DOWNLOAD_DIR@"
+      TLS_VERIFY
+      ON
       SOURCE_DIR
       "@HUNTER_PACKAGE_SOURCE_DIR@"
       INSTALL_DIR
@@ -228,6 +232,8 @@ if(has_isim)
       ""
       DOWNLOAD_DIR
       "@HUNTER_PACKAGE_DOWNLOAD_DIR@"
+      TLS_VERIFY
+      ON
       SOURCE_DIR
       "@HUNTER_PACKAGE_SOURCE_DIR@"
       INSTALL_DIR
@@ -254,6 +260,8 @@ else()
       SHA1=@HUNTER_PACKAGE_SHA1@
       DOWNLOAD_DIR
       "@HUNTER_PACKAGE_DOWNLOAD_DIR@"
+      TLS_VERIFY
+      ON
       SOURCE_DIR
       "@HUNTER_PACKAGE_SOURCE_DIR@"
       INSTALL_DIR
@@ -311,6 +319,8 @@ ExternalProject_Add(
     "@HUNTER_EP_NAME@-ios_sim"
     DOWNLOAD_COMMAND
     ""
+    TLS_VERIFY
+    ON
     DOWNLOAD_DIR
     "@HUNTER_PACKAGE_DOWNLOAD_DIR@"
     SOURCE_DIR
