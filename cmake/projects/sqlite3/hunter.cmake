@@ -19,6 +19,17 @@ hunter_add_version(
     5e2761ac6f94410da58d2cd00e64bda84f1a01aa
 )
 
+hunter_add_version(
+    PACKAGE_NAME
+    sqlite3
+    VERSION
+    3.21.0-p2
+    URL
+    "https://github.com/hunter-packages/sqlite3/archive/v3.21.0-p2.tar.gz"
+    SHA1
+    5742f5fcc0f84d87fcde746f66eadbbfd0dd0e15
+)
+
 hunter_pick_scheme(DEFAULT url_sha1_cmake)
 hunter_cacheable(sqlite3)
 hunter_download(
