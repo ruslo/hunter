@@ -18,10 +18,9 @@ hunter_add_version(
 hunter_pick_scheme(DEFAULT url_sha1_cmake)
 
 hunter_cmake_args(
-    SplayTree
-    CMAKE_ARGS
-    BUILD_EXAMPLES=NO
-    BUILD_TESTS=NO
+  SplayTree
+  CMAKE_ARGS
+    NO_SELFTEST=TRUE
 )
 hunter_cacheable(SplayTree)
 hunter_download(PACKAGE_NAME SplayTree)
