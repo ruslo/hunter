@@ -28,4 +28,5 @@ hunter_download(
     PACKAGE_UNRELOCATABLE_TEXT_FILES
     "lib/libodb-sqlite.la"
     "lib/pkgconfig/libodb-sqlite.pc"
+    PACKAGE_INTERNAL_DEPS_ID "1"
 )
