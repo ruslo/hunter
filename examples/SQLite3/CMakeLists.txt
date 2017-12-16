@@ -15,3 +15,6 @@ find_package(SQLite3 REQUIRED)
 if(NOT TARGET SQLite3)
   message(FATAL_ERROR "No SQLite3 target")
 endif()
+
+add_executable(boo boo.cpp)
+target_link_libraries(boo PUBLIC SQLite3)
