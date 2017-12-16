@@ -25,13 +25,25 @@ hunter_add_version(
     SHA1
     e6ac97ffda1638101c68aed473862fd1e14d7660
 ) 
+hunter_add_version(
+    PACKAGE_NAME
+    SplayTree
+    VERSION
+    "0.3"
+    URL
+    "https://github.com/BinaryTreesImplementation/SplayTree/archive/v0.3.tar.gz"
+    SHA1
+    ca27867847077ae1c44fc2a9f9bba0b8a5e374d8
+)
+
+hunter_pick_scheme(DEFAULT url_sha1_cmake)
 
 hunter_cmake_args(
-  SplayTree
-  CMAKE_ARGS
-    NO_SELFTEST=TRUE
+    hashtable
+    CMAKE_ARGS
+    BUILD_EXAMPLES=NO
+    BUILD_TESTS=NO
 )
-hunter_pick_scheme(DEFAULT url_sha1_cmake)
 hunter_cacheable(SplayTree)
 hunter_download(PACKAGE_NAME SplayTree)
 
