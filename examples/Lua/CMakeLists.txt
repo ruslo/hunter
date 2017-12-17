@@ -9,8 +9,10 @@ include("../common.cmake")
 
 project(download-lua)
 
+# DOCUMENTATION_START_0 {
 hunter_add_package(Lua)
 find_package(Lua CONFIG REQUIRED)
+# DOCUMENTATION_END_0 }
 
 if(NOT TARGET Lua::lua)
   message(FATAL_ERROR "Target Lua::lua not found")

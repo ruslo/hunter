@@ -22,6 +22,11 @@ Lua
 
 .. literalinclude:: /../examples/Lua/CMakeLists.txt
   :language: cmake
+  :start-after: # DOCUMENTATION_START_0 {
+  :end-before: # DOCUMENTATION_END_0 }
+
+.. literalinclude:: /../examples/Lua/CMakeLists.txt
+  :language: cmake
   :start-after: # DOCUMENTATION_START_1 {
   :end-before: # DOCUMENTATION_END_1 }
 
