@@ -30,6 +30,7 @@ hunter_add_version(
     6512fca43e01209f6e69803558d346ea767e52fc
 )
 
+# NOTE: Test '5.1.*' version with 'toluapp' package
 hunter_add_version(
     PACKAGE_NAME
     Lua
