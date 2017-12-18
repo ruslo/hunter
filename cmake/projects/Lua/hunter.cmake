@@ -19,7 +19,17 @@ hunter_add_version(
     0697a2fa7fc657aac91e0a31f9f7709aebf1e3db
 )
 
-hunter_configuration_types(Lua CONFIGURATION_TYPES Release)
+hunter_add_version(
+    PACKAGE_NAME
+    Lua
+    VERSION
+    "5.3.2-p2"
+    URL
+    "https://github.com/hunter-packages/lua/archive/v5.3.2-p2.tar.gz"
+    SHA1
+    6512fca43e01209f6e69803558d346ea767e52fc
+)
+
 hunter_cacheable(Lua)
 hunter_pick_scheme(DEFAULT url_sha1_cmake)
 hunter_download(PACKAGE_NAME Lua)

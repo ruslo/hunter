@@ -15,7 +15,7 @@ BoostProcess
 
 -  `Official <https://github.com/BorisSchaeling/boost-process>`__
 -  `Hunterized <https://github.com/alamaison/boost-process/tree/cmake>`__
--  `Example <https://github.com/ruslo/hunter/blob/develop/examples/Boost-process/CMakeLists.txt>`__
+-  `Example <https://github.com/ruslo/hunter/blob/master/examples/Boost-process/CMakeLists.txt>`__
 -  Added by `Alexander Lamaison <https://github.com/alamaison>`__
    (`pr-330 <https://github.com/ruslo/hunter/pull/330>`__)
 - Available since |hunter|

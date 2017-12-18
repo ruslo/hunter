@@ -134,5 +134,5 @@ hunter_pick_scheme(DEFAULT url_sha1_qt)
 hunter_download(
     PACKAGE_NAME Qt
     PACKAGE_COMPONENT "qtsystems"
-    PACKAGE_INTERNAL_DEPS_ID "13"
+    PACKAGE_INTERNAL_DEPS_ID "14"
 )

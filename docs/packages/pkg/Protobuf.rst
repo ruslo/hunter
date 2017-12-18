@@ -15,7 +15,7 @@ Protobuf
 
 -  `Official <https://github.com/google/protobuf>`__
 -  `Hunterized <https://github.com/hunter-packages/protobuf>`__
--  `Example <https://github.com/ruslo/hunter/blob/develop/examples/Protobuf/CMakeLists.txt>`__
+-  `Example <https://github.com/ruslo/hunter/blob/master/examples/Protobuf/CMakeLists.txt>`__
 -  Available since |hunter|
 -  Added by `Antal Tátrai <https://github.com/tatraian>`__
    (`pr-340 <https://github.com/ruslo/hunter/pull/340>`__)

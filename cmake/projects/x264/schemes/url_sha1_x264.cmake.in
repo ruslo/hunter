@@ -212,6 +212,8 @@ if(NOT is_ios)
       SHA1=@HUNTER_PACKAGE_SHA1@
     DOWNLOAD_DIR
       "@HUNTER_PACKAGE_DOWNLOAD_DIR@"
+    TLS_VERIFY
+    ON
     SOURCE_DIR
       "@HUNTER_PACKAGE_SOURCE_DIR@"
     INSTALL_DIR
@@ -232,6 +234,8 @@ else()
   ExternalProject_Add(${ios_universal_target}
       DOWNLOAD_COMMAND
         ""
+      TLS_VERIFY
+      ON
       SOURCE_DIR
         "@HUNTER_PACKAGE_SOURCE_DIR@/universal"
       INSTALL_DIR
@@ -304,6 +308,8 @@ else()
           SHA1=@HUNTER_PACKAGE_SHA1@
         DOWNLOAD_DIR
           "@HUNTER_PACKAGE_DOWNLOAD_DIR@"
+        TLS_VERIFY
+        ON
         SOURCE_DIR
           ${arch_source_dir}
         INSTALL_DIR
