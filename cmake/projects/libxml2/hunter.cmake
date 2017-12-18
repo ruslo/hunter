@@ -14,6 +14,17 @@ hunter_add_version(
     PACKAGE_NAME
     libxml2
     VERSION
+    "2.9.7"
+    URL
+    "http://xmlsoft.org/sources/libxml2-2.9.7.tar.gz"
+    SHA1
+    ab3325e6cdda50ab2382fdfe0bdb6f7d1b9224a6
+)
+
+hunter_add_version(
+    PACKAGE_NAME
+    libxml2
+    VERSION
     "2.9.4"
     URL
     "http://xmlsoft.org/sources/libxml2-2.9.4.tar.gz"
