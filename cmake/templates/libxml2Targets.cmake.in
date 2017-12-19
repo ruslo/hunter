@@ -1,0 +1,15 @@
+# Commands may need to know the format version.
+set(CMAKE_IMPORT_FILE_VERSION 1)
+
+get_filename_component(_install_dir "${CMAKE_CURRENT_LIST_DIR}/../../../" ABSOLUTE)
+
+set_property(TARGET libxml2::libxml2 APPEND PROPERTY IMPORTED_CONFIGURATIONS @TARGET_CONFIGURATION@)
+set_target_properties(libxml2::libxml2 PROPERTIES
+    IMPORTED_LINK_INTERFACE_LANGUAGES_@TARGET_CONFIGURATION@ "C"
+    IMPORTED_LOCATION_@TARGET_CONFIGURATION@ "${_install_dir}/lib/@TARGET_LIB_FILE@"
+)
+
+set(LIBXML2_LIBRARY_@TARGET_CONFIGURATION@ "${_install_dir}/lib/@TARGET_LIB_FILE@")
+
+# Commands beyond this point should not need to know the version.
+set(CMAKE_IMPORT_FILE_VERSION)
