@@ -30,7 +30,13 @@ else()
   add_executable(foo foo.cpp)
 endif()
 
-target_link_libraries(foo Boost::system Boost::filesystem)
+target_link_libraries(
+    foo
+    Boost::filesystem
+    Boost::system # Should be last
+        # Boost 1.66.0, Linux, Clang with -stdlib=libstdc++:
+        # * https://travis-ci.org/ingenue/hunter/jobs/318140416#L2674
+)
 
 if(ANDROID)
   target_link_libraries(foo log android)
