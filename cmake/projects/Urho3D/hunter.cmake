@@ -75,12 +75,23 @@ hunter_add_version(
     c150a5495a317ad2d92187d31388d42a8d413434
 )
 
+hunter_add_version(
+    PACKAGE_NAME
+    Urho3D
+    VERSION
+    1.7-p9
+    URL
+    "https://github.com/hunter-packages/Urho3D/archive/v1.7-p9.tar.gz"
+    SHA1
+    df696bba70384368a703c3650988e91951ce51f1
+)
+
 hunter_cmake_args(
     Urho3D
     CMAKE_ARGS
     URHO3D_ANGELSCRIPT=ON
     URHO3D_DATABASE_ODBC=OFF
-    URHO3D_DATABASE_SQLITE=OFF
+    URHO3D_DATABASE_SQLITE=ON
     URHO3D_LUA=OFF
     URHO3D_NAVIGATION=ON
     URHO3D_NETWORK=ON
