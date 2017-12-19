@@ -70,12 +70,15 @@ foreach(x @IPHONEOS_ARCHS@)
     # First goes to instruction-set option;
     # arm64 is not supported:
     #   * https://svn.boost.org/trac/boost/ticket/10910
+    # NOTE:
+    #   Being in instruction-set is not enough, should be
+    #   mentioned explicitly in C++ flags too (Boost 1.66)
     set(arm_instruction_set "${x}")
     set(is_first NO)
-  else()
-    # others go to the C++ flags directly
-    set(iphoneos_archs "${iphoneos_archs} -arch ${x}")
   endif()
+
+  set(iphoneos_archs "${iphoneos_archs} -arch ${x}")
+
   # Has at least one iPhoneOS architecture to build
   set(has_iphoneos TRUE)
 endforeach()
