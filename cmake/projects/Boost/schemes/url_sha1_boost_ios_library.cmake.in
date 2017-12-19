@@ -46,6 +46,12 @@ hunter_test_string_not_empty("@HUNTER_Boost_VERSION@")
 # get list of boost components for given version
 hunter_get_boost_libs(VERSION "@HUNTER_Boost_VERSION@" LIBS boost_libs)
 
+if("@HUNTER_Boost_VERSION@" VERSION_LESS 1.66)
+  set(fatlib_script "@HUNTER_PACKAGE_SCRIPT_DIR@/create-boost-ios-fatlib.sh")
+else()
+  set(fatlib_script "@HUNTER_PACKAGE_SCRIPT_DIR@/create-boost-1-66-ios-fatlib.sh")
+endif()
+
 set(libfound NO)
 foreach(x ${boost_libs})
   string(COMPARE EQUAL "${x}" "@HUNTER_PACKAGE_COMPONENT@" result)
@@ -301,7 +307,7 @@ if(log_setup_target)
   set(
       extra_lib_command
       COMMAND
-      "@HUNTER_PACKAGE_SCRIPT_DIR@/create-boost-ios-fatlib.sh"
+      ${fatlib_script}
       "@HUNTER_PACKAGE_SOURCE_DIR@"
       "log_setup"
       "@HUNTER_PACKAGE_COMPONENT@"
@@ -344,7 +350,7 @@ ExternalProject_Add(
     INSTALL_COMMAND
     "${CMAKE_COMMAND}" -E make_directory "@HUNTER_PACKAGE_INSTALL_PREFIX@/lib"
     COMMAND
-    "@HUNTER_PACKAGE_SCRIPT_DIR@/create-boost-ios-fatlib.sh"
+    ${fatlib_script}
     "@HUNTER_PACKAGE_SOURCE_DIR@"
     "${LIBNAME}"
     "@HUNTER_PACKAGE_COMPONENT@"
