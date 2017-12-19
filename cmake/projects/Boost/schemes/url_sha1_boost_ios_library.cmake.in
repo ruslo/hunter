@@ -109,6 +109,9 @@ file(
      ";"
 )
 
+file(READ ${boost_user_jam} boost_user_jam_content)
+hunter_status_debug("boost.user.jam content:\n${boost_user_jam_content}")
+
 set(
     build_opts
     -a
