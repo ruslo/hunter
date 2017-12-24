@@ -11,8 +11,9 @@ autoutils
 
 -  `Project <https://github.com/isaachier/autoutils>`__
 -  `Example <https://github.com/ruslo/hunter/blob/master/examples/autoutils/CMakeLists.txt>`__
+-  Added by `isaachier <https://github.com/isaachier>`__ (`pr-1273 <https://github.com/ruslo/hunter/pull/1273>`__)
 
-.. code-block:: cmake
-
-    hunter_add_package(autoutils)
-    list(APPEND CMAKE_MODULE_PATH "${AUTOUTILS_ROOT}/cmake")
+.. literalinclude:: /../examples/autoutils/CMakeLists.txt
+  :language: cmake
+  :start-after: # DOCUMENTATION_START {
+  :end-before: # DOCUMENTATION_END }
