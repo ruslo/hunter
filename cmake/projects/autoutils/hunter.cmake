@@ -7,7 +7,7 @@ hunter_add_version(
   PACKAGE_NAME autoutils
   VERSION "0.1.0"
   URL "https://github.com/isaachier/autoutils/archive/v0.1.0.tar.gz"
-  SHA1 "901a6ccc5f9d5d89ca411d51f8706f085f3f0c11")
+  SHA1 "defa23744e5fc3b561992f58a1ca5518c9164b3b")
 
 # Usually there is no need to specify 'LICENSE' explicitly (one of the defaults).
 # Here it's used to update Hunter cache.

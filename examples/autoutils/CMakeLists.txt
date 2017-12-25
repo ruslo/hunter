@@ -14,11 +14,13 @@ endif()
 message("License: '${autoutils_LICENSES}'")
 
 # now autoutils can be used
+# DOCUMENTATION_START {
 list(APPEND CMAKE_MODULE_PATH "${AUTOUTILS_ROOT}/cmake")
-include(CheckHeader)
+include(AutoutilsCheckHeader)
 
 # try some function
-check_header("stdio.h")
+autoutils_check_header("stdio.h")
 if(NOT HAVE_STDIO_H)
   message(FATAL_ERROR "Cannot find stdio.h")
 endif()
+# DOCUMENTATION_END }
