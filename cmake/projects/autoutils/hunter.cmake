@@ -9,6 +9,12 @@ hunter_add_version(
   URL "https://github.com/isaachier/autoutils/archive/v0.1.0.tar.gz"
   SHA1 "5e7a54fe584a6055e54fd4e6fcfc6de1e458eb07")
 
+hunter_add_version(
+  PACKAGE_NAME autoutils
+  VERSION "0.2.0"
+  URL "https://github.com/isaachier/autoutils/archive/v0.2.0.tar.gz"
+  SHA1 "5dd542274dae4c2dc167fd9f1e35c405c19e4457")
+
 hunter_pick_scheme(DEFAULT url_sha1_cmake)
 hunter_cacheable(autoutils)
 hunter_download(PACKAGE_NAME autoutils)
