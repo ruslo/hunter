@@ -9,9 +9,6 @@ include(hunter_configuration_types)
 include(hunter_download)
 include(hunter_pick_scheme)
 
-hunter_add_package(odb)
-hunter_add_package(SQLite3)
-
 hunter_add_version(
     PACKAGE_NAME
     odb-sqlite
@@ -31,4 +28,5 @@ hunter_download(
     PACKAGE_UNRELOCATABLE_TEXT_FILES
     "lib/libodb-sqlite.la"
     "lib/pkgconfig/libodb-sqlite.pc"
+    PACKAGE_INTERNAL_DEPS_ID "1"
 )

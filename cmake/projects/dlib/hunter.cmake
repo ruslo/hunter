@@ -130,6 +130,16 @@ hunter_add_version(
     bf73cd97ab81162e085d06f1b4595902abe5a436
 )
 
+hunter_add_version(
+    PACKAGE_NAME
+    dlib
+    VERSION
+    "19.6-p2"
+    URL
+    "https://github.com/hunter-packages/dlib/archive/v19.6-p2.tar.gz"
+    SHA1
+    2f763c72f9d7fc5f2d7120d775a37606a4b3b899
+)
 
 hunter_cmake_args(
     dlib

@@ -19,6 +19,7 @@ List of packages and usage instructions for each package.
 .. toctree::
    :maxdepth: 1
 
+   /packages/cmake_modules
    /packages/concurrency
    /packages/containers
    /packages/commandline

@@ -9,11 +9,8 @@ include("../common.cmake")
 
 project(download-boost)
 
-# download boost
 hunter_add_package(Boost COMPONENTS system thread)
-
-# now boost can be used
 find_package(Boost CONFIG REQUIRED system thread)
-add_executable(foo foo.cpp)
-target_link_libraries(foo Boost::system Boost::thread)
 
+add_executable(foo foo.cpp)
+target_link_libraries(foo PUBLIC Boost::system Boost::thread)

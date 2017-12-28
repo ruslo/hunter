@@ -13,8 +13,13 @@ sudo:
 # * https://docs.travis-ci.com/user/migrating-from-legacy/#How-do-I-install-APT-sources-and-packages%3F
 addons:
   apt:
+    sources:
+      - ubuntu-toolchain-r-test
     packages:
       - python3-pip
+
+      - g++-5
+      - gcc-5
 
 dist:
   - trusty
@@ -31,7 +36,7 @@ matrix:
     - os: linux
       env: PROJECT_DIR=examples/Eigen TOOLCHAIN=clang-libstdcxx
     - os: linux
-      env: PROJECT_DIR=examples/Eigen TOOLCHAIN=gcc
+      env: PROJECT_DIR=examples/Eigen TOOLCHAIN=gcc-5
     - os: linux
       env: PROJECT_DIR=examples/Eigen TOOLCHAIN=android-ndk-r10e-api-19-armeabi-v7a-neon
     - os: linux

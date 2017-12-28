@@ -129,6 +129,8 @@ foreach(configuration @HUNTER_PACKAGE_CONFIGURATION_TYPES@)
       ${http_credentials}
       DOWNLOAD_DIR
       "@HUNTER_PACKAGE_DOWNLOAD_DIR@"
+      TLS_VERIFY
+      ON
       SOURCE_DIR
       "@HUNTER_PACKAGE_SOURCE_DIR@"
       INSTALL_DIR

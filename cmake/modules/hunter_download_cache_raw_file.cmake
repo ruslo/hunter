@@ -88,7 +88,7 @@ function(hunter_download_cache_raw_file)
         set(showprogress "")
       endif()
 
-      file(DOWNLOAD "${url}" "${x_LOCAL}" STATUS status ${showprogress})
+      file(DOWNLOAD "${url}" "${x_LOCAL}" STATUS status ${showprogress} TLS_VERIFY ON)
       file(SHA1 "${x_LOCAL}" local_sha1)
       string(COMPARE EQUAL "${local_sha1}" "${x_SHA1}" sha1_is_good)
 

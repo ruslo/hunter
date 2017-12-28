@@ -14,8 +14,7 @@ foo
 -  `Example <https://github.com/ruslo/hunter/blob/master/examples/foo/CMakeLists.txt>`__
 -  Added by `foo_developer <https://github.com/foo_developer>`__ (`pr-N <https://github.com/ruslo/hunter/pull/N>`__)
 
-.. code-block:: cmake
-
-    hunter_add_package(foo)
-    find_package(foo CONFIG REQUIRED)
-    target_link_libraries(foo foo::foo)
+.. literalinclude:: /../examples/foo/CMakeLists.txt
+  :language: cmake
+  :start-after: # DOCUMENTATION_START {
+  :end-before: # DOCUMENTATION_END }

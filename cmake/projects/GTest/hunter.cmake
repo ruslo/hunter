@@ -216,6 +216,17 @@ hunter_add_version(
     1d92c9f51af756410843b13f8c4e4df09e235394
 )
 
+hunter_add_version(
+    PACKAGE_NAME
+    GTest
+    VERSION
+    "1.8.0-hunter-p11"
+    URL
+    "https://github.com/hunter-packages/googletest/archive/1.8.0-hunter-p11.tar.gz"
+    SHA1
+    76c6aec038f7d7258bf5c4f45c4817b34039d285
+)
+
 if(HUNTER_GTest_VERSION VERSION_LESS 1.8.0)
   set(_gtest_license "LICENSE")
 else()

@@ -10,33 +10,13 @@ OpenSSL
 =======
 
 -  `Official <http://www.openssl.org/>`__
--  `Dev branch <https://github.com/ruslo/hunter/tree/openssl>`__
--  `Versions <https://github.com/ruslo/hunter/blob/master/cmake/projects/OpenSSL/hunter.cmake>`__
 -  `Example <https://github.com/ruslo/hunter/blob/master/examples/OpenSSL/CMakeLists.txt>`__
 
 .. code-block:: cmake
 
     hunter_add_package(OpenSSL)
     find_package(OpenSSL REQUIRED)
-
-    target_link_libraries(foo OpenSSL::SSL OpenSSL::Crypto)
-
-For backward compatibility:
-
-.. code-block:: cmake
-
-    hunter_add_package(OpenSSL)
-    find_package(OpenSSL REQUIRED)
-
-    include_directories("${OPENSSL_INCLUDE_DIR}")
-    target_link_libraries(... ${OPENSSL_LIBRARIES})
-
-Bugs
-----
-
--  https://github.com/ruslo/hunter/issues/28
--  https://github.com/ruslo/hunter/issues/29
--  https://github.com/ruslo/hunter/issues/30
+    target_link_libraries(foo PUBLIC OpenSSL::SSL OpenSSL::Crypto)
 
 Fixed/workaround
 ----------------
