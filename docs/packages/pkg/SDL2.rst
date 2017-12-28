@@ -2,7 +2,7 @@
 
     SDL2
 
-.. index:: unsorted ; SDL2
+.. index:: graphics ; SDL2
 
 .. _pkg.SDL2:
 
@@ -12,9 +12,9 @@ SDL2
 -  `Official <https://www.libsdl.org>`__
 -  `Hunterized <https://github.com/hunter-packages/SDL2>`__
 
-.. -  `__FIXME__ Example <https://github.com/ruslo/hunter/blob/master/examples/__FIXME__/CMakeLists.txt>`__
-.. -  Available since `__FIXME__ vX.Y.Z <https://github.com/ruslo/hunter/releases/tag/vX.Y.Z>`__
-.. -  Added by `__FIXME__ <https://github.com/__FIXME__>`__ (`__FIXME__ pr-N <https://github.com/ruslo/hunter/pull/N>`__)
+-  `Example <https://github.com/ruslo/hunter/blob/master/examples/SDL2/CMakeLists.txt>`__
+-  Available since `v0.14.29 <https://github.com/ruslo/hunter/releases/tag/v0.14.29>`__
+-  Added by `Cyberunner23 <https://github.com/Cyberunner23>`__ (`pr-451 <https://github.com/ruslo/hunter/pull/451>`__)
 
 .. code-block:: cmake
 
@@ -23,4 +23,4 @@ SDL2
     #...
     target_link_libraries(... SDL2::SDL2)
 
-Available targets: ``SDL2::SDL2``, ``SDL2::SDL2-static``, ``SDL2::SDL2main``
+Available targets: ``SDL2::SDL2``, ``SDL2::SDL2main``

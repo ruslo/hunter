@@ -23,7 +23,3 @@ and upload binaries to public. So the question
 ``How to make Hunter interact with system libraries?`` should really be
 ``How to improve Hunter so it behaves like system package manager?``, e.g.
 add new packages that are currently missing.
-
-.. seealso::
-
-  * `Feature requests: use system packages <https://github.com/ruslo/hunter/issues/501>`__

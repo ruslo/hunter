@@ -34,16 +34,6 @@ Usage
 
     target_link_libraries(... PRIVATE OpenCL::OpenCL)
 
-or backwards compatible
-
-.. code-block:: cmake
-
-    hunter_add_package(OpenCL)
-    find_package(OpenCL REQUIRED)
-
-    include_directories(${OpenCL_INCLUDE_DIRS})
-    target_link_libraries(... PRIVATE ${OpenCL_LIBRARIES})
-
 Pitfalls
 --------
 

@@ -12,7 +12,7 @@ libyuv
 -  `Official <https://freeswitch.org/stash/scm/sd/libyuv.git>`__
 -  `Documentation <https://code.google.com/p/libyuv/w/list>`__
 -  `Hunterized <https://github.com/headupinclouds/libyuv/tree/hunter>`__
--  `Example <https://github.com/ruslo/hunter/blob/develop/examples/libyuv/CMakeLists.txt>`__
+-  `Example <https://github.com/ruslo/hunter/blob/master/examples/libyuv/CMakeLists.txt>`__
 
 .. code-block:: cmake
 

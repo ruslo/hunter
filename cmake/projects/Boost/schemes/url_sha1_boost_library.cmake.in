@@ -15,13 +15,15 @@ include(CheckSymbolExists) # check_symbol_exists
 include(hunter_boost_component_b2_args)
 include(hunter_dump_cmake_flags)
 include(hunter_fatal_error)
+include(hunter_get_boost_libs)
 include(hunter_install_boost_config)
 include(hunter_internal_error)
 include(hunter_pick_archiver)
 include(hunter_status_debug)
 include(hunter_status_print)
 include(hunter_test_string_not_empty)
-include(hunter_get_boost_libs)
+include(hunter_user_error)
+include(hunter_parse_boost_config_macros)
 
 hunter_status_debug("Scheme: url_sha1_boost_library")
 
@@ -37,11 +39,6 @@ hunter_test_string_not_empty("@CMAKE_CXX_COMPILER@")
 hunter_test_string_not_empty("@CMAKE_CXX_COMPILER_ID@")
 hunter_test_string_not_empty("@HUNTER_Boost_VERSION@")
 hunter_test_string_not_empty("@HUNTER_PACKAGE_SCRIPT_DIR@")
-
-if("@MSVC@")
-  hunter_test_string_not_empty("@HUNTER_MSVC_ARCH@")
-  hunter_test_string_not_empty("@HUNTER_MSVC_VCVARSALL@")
-endif()
 
 # get list of boost components for given version
 hunter_get_boost_libs(VERSION "@HUNTER_Boost_VERSION@" LIBS boost_libs)
@@ -104,13 +101,6 @@ if("@ANDROID@")
         "${CMAKE_CXX_FLAGS} ${CMAKE_INCLUDE_SYSTEM_FLAG_CXX} ${include_dir}"
     )
   endforeach()
-endif()
-
-if("@MSVC@")
-  set(env_cmd "@HUNTER_MSVC_VCVARSALL@" "@HUNTER_MSVC_ARCH@")
-else()
-  # Workaround for: http://public.kitware.com/Bug/view.php?id=15567
-  set(env_cmd "@CMAKE_COMMAND@" -E echo "configure")
 endif()
 
 if("@MSVC@")
@@ -193,6 +183,9 @@ endif()
 
 if(BOOST_BUILD_STATIC)
   set(link_opts link=static)
+  if("@MSVC@" AND NOT BOOST_BUILD_DYNAMIC_VSRUNTIME)
+    list(APPEND link_opts "runtime-link=static")
+  endif()
 else()
   set(link_opts link=shared)
 endif()
@@ -306,11 +299,22 @@ if(@HUNTER_STATUS_DEBUG@)
 endif()
 
 if(CMAKE_HOST_WIN32)
-  set(bootstrap_cmd "bootstrap.bat")
   set(b2_cmd "b2")
+  if("@MSVC@")
+    set(HUNTER_MSVC_VCVARSALL "@HUNTER_MSVC_VCVARSALL@")
+    set(HUNTER_MSVC_ARCH "@HUNTER_MSVC_ARCH@")
+    set(HUNTER_PACKAGE_SOURCE_DIR "@HUNTER_PACKAGE_SOURCE_DIR@")
+    configure_file("@HUNTER_PACKAGE_SCRIPT_DIR@/patched_boostrap.bat.in" "@HUNTER_PACKAGE_DOWNLOAD_DIR@/patched_boostrap.bat")
+    set(patch_cmd "@CMAKE_COMMAND@" -E copy "@HUNTER_PACKAGE_DOWNLOAD_DIR@/patched_boostrap.bat" "@HUNTER_PACKAGE_SOURCE_DIR@/patched_boostrap.bat")
+    set(bootstrap_cmd "patched_boostrap.bat")
+  else()
+    set(patch_cmd "@CMAKE_COMMAND@" -E echo "Dummy patch command")
+    set(bootstrap_cmd "bootstrap.bat")
+  endif()
 else()
-  set(bootstrap_cmd "./bootstrap.sh")
   set(b2_cmd "./b2")
+  set(bootstrap_cmd "./bootstrap.sh")
+  set(patch_cmd "@CMAKE_COMMAND@" -E echo "Dummy patch command")
 endif()
 
 if("@MINGW@")
@@ -342,6 +346,13 @@ else()
   set(log_opts "")
 endif()
 
+hunter_parse_boost_config_macros(BOOST_CONFIG_MACROS "@HUNTER_Boost_CMAKE_ARGS@")
+configure_file(
+  "@HUNTER_GLOBAL_SCRIPT_DIR@/append-boost-config-macros.cmake.in"
+  "@HUNTER_PACKAGE_BUILD_DIR@/append-boost-config-macros.cmake"
+  @ONLY
+)
+
 ExternalProject_Add(
     "@HUNTER_EP_NAME@"
     URL
@@ -350,13 +361,18 @@ ExternalProject_Add(
     SHA1=@HUNTER_PACKAGE_SHA1@
     DOWNLOAD_DIR
     "@HUNTER_PACKAGE_DOWNLOAD_DIR@"
+    TLS_VERIFY
+    ON
     SOURCE_DIR
     "@HUNTER_PACKAGE_SOURCE_DIR@"
     INSTALL_DIR
     "@HUNTER_PACKAGE_INSTALL_PREFIX@"
         # not used, just avoid creating Install/<name> empty directory
+    UPDATE_COMMAND
+    "@CMAKE_COMMAND@" -P
+    "@HUNTER_PACKAGE_BUILD_DIR@/append-boost-config-macros.cmake"
     CONFIGURE_COMMAND
-    ${env_cmd}
+    ${patch_cmd}
     ${copy_mpi_command}
     COMMAND
     ${bootstrap_cmd}

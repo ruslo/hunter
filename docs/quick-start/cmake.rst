@@ -37,6 +37,8 @@ Notes about version of CMake
     :doc:`protected sources </user-guides/cmake-user/protected-sources>`
   * ``USERPWD`` sub-option for ``file(DOWNLOAD|UPLOAD ...)`` (`change <https://github.com/Kitware/CMake/commit/e5ba1041be862212a3ad66bd51930fc7beeb8140>`__)
   * ``HTTP_{USERNAME|PASSWORD}`` sub-options for ``ExternalProject_Add`` (`change <https://github.com/Kitware/CMake/commit/e1ca117332fbf6adf3a467a420804e9cb1891582>`__)
+  * List of URLs can be passed to ``ExternalProject_Add``.
+    Used by :ref:`hunter download server`.
 
 * `3.7.1`_ **Minimum for Android projects**
 

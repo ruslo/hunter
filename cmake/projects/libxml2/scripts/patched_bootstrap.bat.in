@@ -1,0 +1,4 @@
+call "@HUNTER_MSVC_VCVARSALL@" @HUNTER_MSVC_ARCH@
+cd @HUNTER_PACKAGE_SOURCE_DIR@/win32
+cscript //B configure.js @shared@ compiler=msvc "cruntime=@LIBXML2_RUNTIME@" "prefix=@LIBXML2_INSTALL_DIR@" iconv=no debug=no zlib=no http=no ftp=no
+nmake /f Makefile.msvc libxml install-libs

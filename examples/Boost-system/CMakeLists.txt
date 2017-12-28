@@ -9,19 +9,8 @@ include("../common.cmake")
 
 project(download-boost)
 
-# download boost
 hunter_add_package(Boost COMPONENTS system)
-
-# now boost can be used
 find_package(Boost CONFIG REQUIRED system)
-add_executable(foo foo.cpp)
-target_link_libraries(foo Boost::system)
 
-# Compatibility mode
-set(Boost_USE_STATIC_LIBS ON)
-if(MSVC)
-  add_definitions(-DBOOST_ALL_NO_LIB=1)
-endif()
-find_package(Boost REQUIRED system)
-include_directories(${Boost_INCLUDE_DIRS})
-target_link_libraries(foo ${Boost_LIBRARIES})
+add_executable(foo foo.cpp)
+target_link_libraries(foo PUBLIC Boost::system)
