@@ -11,7 +11,7 @@ THIS_SCRIPT_DIR=`dirname "${BASH_SOURCE[0]}"`
 cd "${THIS_SCRIPT_DIR}/../../../.."
 
 # {
-export TOOLCHAIN=ios-nocodesign-9-3-wo-armv7s
+export TOOLCHAIN=ios-nocodesign-10-3-wo-armv7s
 PROJECT_DIR=examples/qt-widgets ./jenkins.py --clear-except-download
 PROJECT_DIR=examples/qt-camera ./jenkins.py --nocreate
 PROJECT_DIR=examples/qt-location ./jenkins.py --nocreate
