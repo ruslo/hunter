@@ -4,7 +4,7 @@
 # ************************* !!! WARNING !!! *************************
 #
 # You're using experimental feature. This may not work well
-# and can be removed anytime. It's a workaround for existsing
+# and can be removed anytime. It's a workaround for existing
 # feature request:
 #
 # https://github.com/ruslo/hunter/issues/495
@@ -29,7 +29,7 @@ function(hunter_experimental_add_host_project)
 ************************* !!! WARNING !!! *************************
 
 You're using experimental feature. This may not work well
-and can be removed anytime. It's a workaround for existsing
+and can be removed anytime. It's a workaround for existing
 feature request:
 
 https://github.com/ruslo/hunter/issues/495
