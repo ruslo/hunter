@@ -47,11 +47,8 @@ matrix:
       env: PROJECT_DIR=examples/foo TOOLCHAIN=sanitize-address
     - os: linux
       env: PROJECT_DIR=examples/foo TOOLCHAIN=sanitize-leak
-
-    # FIXME: https://github.com/ruslo/hunter/issues/718#issuecomment-290610583
-    # - os: linux
-    #   env: PROJECT_DIR=examples/foo TOOLCHAIN=sanitize-thread
-
+    - os: linux
+      env: PROJECT_DIR=examples/foo TOOLCHAIN=sanitize-thread
     # }
 
     # OSX {
