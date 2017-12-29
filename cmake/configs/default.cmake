@@ -119,7 +119,7 @@ else()
 endif()
 
 hunter_config(QtAndroidCMake VERSION 1.0.9)
-hunter_config(QtCMakeExtra VERSION 1.0.27)
+hunter_config(QtCMakeExtra VERSION 1.0.28)
 hunter_config(QtQmlManager VERSION 1.0.0)
 hunter_config(RapidJSON VERSION 1.1.0)
 hunter_config(RapidXML VERSION 1.13)
