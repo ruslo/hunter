@@ -13,6 +13,17 @@ hunter_add_version(
     PACKAGE_NAME
     log4cplus
     VERSION
+    "1.2.1-rc2"
+    URL
+    "https://github.com/log4cplus/log4cplus/archive/REL_1_2_1-RC2.tar.gz"
+    SHA1
+    4f17ea1ad8906fe9f77409f8d2a34e5e8d353db1
+)
+
+hunter_add_version(
+    PACKAGE_NAME
+    log4cplus
+    VERSION
     "1.2.0-p0"
     URL
     "https://github.com/hunter-packages/log4cplus/archive/v1.2.0-p0.tar.gz"
