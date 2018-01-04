@@ -39,6 +39,6 @@ hunter_cmake_args(
 )
 
 hunter_pick_scheme(DEFAULT url_sha1_cmake)
-# hunter_cacheable(range-v3)
+hunter_cacheable(range-v3)
 hunter_download(PACKAGE_NAME range-v3)
 
