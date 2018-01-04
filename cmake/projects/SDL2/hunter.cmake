@@ -105,6 +105,16 @@ hunter_add_version(
         a3550bae876c3b6ca7c160a2ee583f04cb38207a
 )
 
+hunter_add_version(
+        PACKAGE_NAME
+        SDL2
+        VERSION
+        "2.0.4-urho-p2"
+        URL
+        "https://github.com/hunter-packages/SDL2/archive/v2.0.4-urho-p2.tar.gz"
+        SHA1
+        0d78d5fa59fb009e3ce9125cc518891889d09451
+)
 
 hunter_pick_scheme(DEFAULT url_sha1_cmake)
 hunter_cacheable(SDL2)
