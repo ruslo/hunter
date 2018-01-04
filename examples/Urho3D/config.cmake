@@ -1,11 +1,6 @@
 # DOCUMENTATION_START {
 # config.cmake
 
-hunter_config(
-    Urho3D
-    VERSION ${HUNTER_Urho3D_VERSION}
-    CMAKE_ARGS URHO3D_LUA=ON
-)
-
 hunter_config(Lua VERSION 5.1.5-p1)
+hunter_config(SDL2 VERSION 2.0.4-urho-p2)
 # DOCUMENTATION_END }

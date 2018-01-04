@@ -172,5 +172,16 @@ hunter_add_version(
     f3ef23bdbacdc4881b2aaeadf433c87fee28ff04
 )
 
+hunter_add_version(
+    PACKAGE_NAME
+    Android-Apk
+    VERSION
+    "1.1.14"
+    URL
+    "https://github.com/hunter-packages/android-apk/archive/v1.1.14.tar.gz"
+    SHA1
+    cd7c8b2c38cd4545fd069451bfa318160b22cc99
+)
+
 hunter_pick_scheme(DEFAULT url_sha1_unpack)
 hunter_download(PACKAGE_NAME Android-Apk)
