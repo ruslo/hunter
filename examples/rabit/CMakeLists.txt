@@ -10,8 +10,10 @@ include("../common.cmake")
 
 project(download-rabit)
 
+# DOCUMENTATION_START {
 hunter_add_package(rabit)
 find_package(rabit CONFIG REQUIRED)
 
 add_executable(foo foo.cpp)
-target_link_libraries(foo rabit::rabit)
+target_link_libraries(foo PUBLIC rabit::rabit)
+# DOCUMENTATION_END }
