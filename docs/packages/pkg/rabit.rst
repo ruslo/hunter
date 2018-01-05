@@ -16,5 +16,5 @@ rabit
 .. code-block:: cmake
 
     hunter_add_package(rabit)
-    find_package(rabit REQUIRED)
+    find_package(rabit CONFIG REQUIRED)
     target_link_libraries(... rabit::rabit)
