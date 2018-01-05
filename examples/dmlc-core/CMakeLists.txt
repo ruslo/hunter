@@ -10,8 +10,10 @@ include("../common.cmake")
 
 project(download-dmlc-core)
 
+# DOCUMENTATION_START {
 hunter_add_package(dmlc-core)
 find_package(dmlc CONFIG REQUIRED)
 
 add_executable(foo foo.cpp)
-target_link_libraries(foo dmlc::dmlc)
+target_link_libraries(foo PUBLIC dmlc::dmlc)
+# DOCUMENTATION_END }
