@@ -1,0 +1,16 @@
+#!/bin/bash -e
+
+set -x
+
+[ "${GITHUB_USER_PASSWORD}" = "" ] && { echo "GITHUB_USER_PASSWORD is not set"; exit 1; }
+
+export GITHUB_USER_PASSWORD
+
+THIS_SCRIPT_DIR=`dirname "${BASH_SOURCE[0]}"`
+
+cd "${THIS_SCRIPT_DIR}/../../../.."
+
+# {
+export TOOLCHAIN=ios-nocodesign-10-3
+PROJECT_DIR=examples/Urho3D ./jenkins.py --clear-except-download --upload
+# }
