@@ -14,6 +14,7 @@ Urho3D
 -  `Official GitHub <https://github.com/urho3d/Urho3D>`__
 -  `Hunterized <https://github.com/hunter-packages/Urho3D>`__
 -  `Example <https://github.com/ruslo/hunter/blob/master/examples/Urho3D/CMakeLists.txt>`__
+-  `Stand-alone example (includes configuration for iOS and Android) <https://github.com/forexample/urho3d-with-hunter>`__
 
 You have to explicitly switch to these versions of dependencies:
 
@@ -23,8 +24,8 @@ You have to explicitly switch to these versions of dependencies:
   :end-before: # DOCUMENTATION_END }
 
 Because Urho3D is using custom version of :ref:`pkg.SDL2` which is not fully
-compatible with upstream and :ref:`pkg.toluapp` is not working with default
-:ref:`pkg.Lua` version.
+compatible with upstream official API and :ref:`pkg.toluapp` is not working with
+default :ref:`pkg.Lua` version.
 
 .. code-block:: cmake
 
