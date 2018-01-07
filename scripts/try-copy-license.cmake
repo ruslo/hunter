@@ -42,7 +42,7 @@ if(explicit_licenses)
 endif()
 
 # Try standard names
-foreach(x "LICENSE" "LICENSE.txt" "COPYING" "COPYING.txt" "license" "license.txt" "copying" "copying.txt")
+foreach(x "LICENSE" "LICENSE.txt" "License.txt" "COPYING" "COPYING.txt" "license" "license.txt" "copying" "copying.txt")
   if(EXISTS "${srcdir}/${x}")
     file(COPY "${srcdir}/${x}" DESTINATION "${dstdir}")
     return()
