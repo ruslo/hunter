@@ -54,6 +54,18 @@ hunter_add_version(
     5387f5408ce189b2b34741ab4b28c0936b6bcbe3
 )
 
+# NOTE: Test '5.1.*' version with 'toluapp' package (!)
+hunter_add_version(
+    PACKAGE_NAME
+    Lua
+    VERSION
+    "5.1.5-p2"
+    URL
+    "https://github.com/hunter-packages/lua/archive/v5.1.5-p2.tar.gz"
+    SHA1
+    cc804e53073686f31f59629dbc964538c60be521
+)
+
 hunter_cacheable(Lua)
 hunter_pick_scheme(DEFAULT url_sha1_cmake)
 hunter_download(PACKAGE_NAME Lua)

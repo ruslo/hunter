@@ -19,6 +19,17 @@ hunter_add_version(
     851dabf207286e232c7e9eb1c92c7e62314c0202
 )
 
+hunter_add_version(
+    PACKAGE_NAME
+    toluapp
+    VERSION
+    1.0.93-p1
+    URL
+    "https://github.com/hunter-packages/toluapp/archive/v1.0.93-p1.tar.gz"
+    SHA1
+    39429ce1b90ad12ed34aa366db587514a96c0c9d
+)
+
 hunter_pick_scheme(DEFAULT url_sha1_cmake)
 hunter_cacheable(toluapp)
 hunter_download(PACKAGE_NAME toluapp)

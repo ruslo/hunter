@@ -13,8 +13,13 @@ sudo:
 # * https://docs.travis-ci.com/user/migrating-from-legacy/#How-do-I-install-APT-sources-and-packages%3F
 addons:
   apt:
+    sources:
+      - ubuntu-toolchain-r-test
     packages:
       - python3-pip
+
+      - g++-5
+      - gcc-5
 
 dist:
   - trusty
@@ -35,7 +40,7 @@ matrix:
     - os: linux
       env: PROJECT_DIR=examples/dlib TOOLCHAIN=clang-libstdcxx
     - os: linux
-      env: PROJECT_DIR=examples/dlib TOOLCHAIN=gcc
+      env: PROJECT_DIR=examples/dlib TOOLCHAIN=gcc-5
 
     # Requires std::round or newer NDK
     # - os: linux
@@ -51,11 +56,8 @@ matrix:
       env: PROJECT_DIR=examples/dlib TOOLCHAIN=sanitize-address
     - os: linux
       env: PROJECT_DIR=examples/dlib TOOLCHAIN=sanitize-leak
-
-    # FIXME: https://github.com/ruslo/hunter/issues/718#issuecomment-290610583
-    # - os: linux
-    #   env: PROJECT_DIR=examples/dlib TOOLCHAIN=sanitize-thread
-
+    - os: linux
+      env: PROJECT_DIR=examples/dlib TOOLCHAIN=sanitize-thread
     # }
 
     # OSX {

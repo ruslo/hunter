@@ -9,7 +9,12 @@ project(SDL2-test)
 hunter_add_package(SDL2)
 find_package(SDL2 CONFIG REQUIRED)
 
-add_executable(main main.cpp)
+if(ANDROID)
+  add_library(main SHARED main.cpp)
+else()
+  add_executable(main main.cpp)
+endif()
+
 target_link_libraries(main
     SDL2::SDL2main
     SDL2::SDL2)
