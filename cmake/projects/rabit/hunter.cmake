@@ -20,6 +20,17 @@ hunter_add_version(
     SHA1
     f2bb803b381bebe42089acf9946848dd580d9470
     )
+
+hunter_add_version(
+    PACKAGE_NAME
+    rabit
+    VERSION
+    0.0.0-p0
+    URL
+    https://github.com/hunter-packages/rabit/archive/v0.0.0-p0.tar.gz
+    SHA1
+    4f0a65c6f1fcd6b7cce1618aa49faf25e8a8a337
+    )
   
 hunter_pick_scheme(DEFAULT url_sha1_cmake)
 hunter_cacheable(rabit)
