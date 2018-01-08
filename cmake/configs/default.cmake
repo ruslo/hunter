@@ -342,6 +342,7 @@ if(ANDROID)
     hunter_user_error("CMAKE_SYSTEM_VERSION is empty")
   endif()
 
+  string(COMPARE EQUAL "${CMAKE_SYSTEM_VERSION}" "24" _is_api_24)
   string(COMPARE EQUAL "${CMAKE_SYSTEM_VERSION}" "21" _is_api_21)
   string(COMPARE EQUAL "${CMAKE_SYSTEM_VERSION}" "19" _is_api_19)
   string(COMPARE EQUAL "${CMAKE_SYSTEM_VERSION}" "16" _is_api_16)
@@ -365,10 +366,17 @@ if(ANDROID)
     hunter_config(Android-SDK-Platform VERSION 16_r05)
     hunter_config(Sources-for-Android-SDK VERSION 16)
     hunter_config(Android-ARM-EABI-v7a-System-Image VERSION 16_r04)
+  elseif(_is_api_24)
+    hunter_config(Android-Google-APIs VERSION 24_r1)
+    hunter_config(Android-Google-APIs-Intel-x86-Atom-System-Image VERSION 24_r20)
+    hunter_config(Android-Intel-x86-Atom-System-Image VERSION 24_r08)
+    hunter_config(Android-SDK-Platform VERSION 24_r02)
+    hunter_config(Sources-for-Android-SDK VERSION 24)
+    hunter_config(Android-ARM-EABI-v7a-System-Image VERSION 24_r07)
   else()
     hunter_user_error(
         "Android API (CMAKE_SYSTEM_VERSION)"
-        " Expected: `21`, `19`, `16`"
+        " Expected: `24`, `21`, `19`, `16`"
         " Got: `${CMAKE_SYSTEM_VERSION}`"
     )
   endif()
