@@ -22,7 +22,7 @@ Examples of such packages:
 
   * https://github.com/facebook/rocksdb
   * See `rocksdb/hunter.cmake <https://github.com/ruslo/hunter/blob/08a6cbcf06bb5934b6b18aa1f2028cf56a1063b7/cmake/projects/rocksdb/hunter.cmake#L19-L23>`__
-  * Testing table: `Travis <https://travis-ci.org/ingenue/hunter/builds/326883065>`__
+  * Testing table: `Travis <https://travis-ci.org/ingenue/hunter/builds/326905326>`__
 
 * :ref:`pkg.nlohmann_json`
 
