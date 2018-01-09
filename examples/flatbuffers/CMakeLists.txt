@@ -13,7 +13,7 @@ project(download-flatbuffers)
 hunter_add_package(flatbuffers)
 
 # now flatbuffers can be used
-find_package(flatbuffers CONFIG REQUIRED)
+find_package(Flatbuffers CONFIG REQUIRED)
 
 add_executable(foo foo.cpp)
 target_link_libraries(foo flatbuffers::flatbuffers)
