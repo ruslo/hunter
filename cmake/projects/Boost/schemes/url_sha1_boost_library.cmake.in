@@ -289,6 +289,11 @@ if("@MSVC@" AND is_x64)
   list(APPEND build_opts "address-model=64")
 endif()
 
+string(COMPARE EQUAL "@HUNTER_MSVC_ARCH@" "x86" is_x86)
+if("@MSVC@" AND is_x86)
+  list(APPEND build_opts "address-model=32")
+endif()
+
 string(COMPARE NOTEQUAL "@HUNTER_JOBS_OPTION@" "" have_jobs)
 if(have_jobs)
   list(APPEND build_opts "-j" "@HUNTER_JOBS_OPTION@")
