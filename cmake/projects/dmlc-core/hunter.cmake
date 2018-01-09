@@ -14,6 +14,17 @@ hunter_add_version(
     PACKAGE_NAME
     dmlc-core
     VERSION
+    0.0.0-p1
+    URL
+    https://github.com/hunter-packages/dmlc-core/archive/v0.0.0-p1.tar.gz
+    SHA1
+    ba306bb39910c2bb635fb034150b1afde0a6660c
+    )
+
+hunter_add_version(
+    PACKAGE_NAME
+    dmlc-core
+    VERSION
     0.0.0-p0
     URL
     https://github.com/hunter-packages/dmlc-core/archive/v0.0.0-p0.tar.gz
