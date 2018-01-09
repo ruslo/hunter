@@ -14,6 +14,17 @@ hunter_add_version(
     PACKAGE_NAME
     rabit
     VERSION
+    0.0.0-p2
+    URL
+    https://github.com/hunter-packages/rabit/archive/v0.0.0-p2.tar.gz
+    SHA1
+    bdb425ca303e1b09bdf8245eed419834bc9b4752
+    )
+
+hunter_add_version(
+    PACKAGE_NAME
+    rabit
+    VERSION
     0.0.0-p1
     URL
     https://github.com/hunter-packages/rabit/archive/v0.0.0-p1.tar.gz
