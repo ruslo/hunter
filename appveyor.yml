@@ -40,11 +40,11 @@ environment:
     - TOOLCHAIN: "vs-14-2015-win64"
       PROJECT_DIR: examples\dlib
 
-    - TOOLCHAIN: "mingw"
-      PROJECT_DIR: examples\dlib
-
-    - TOOLCHAIN: "msys"
-      PROJECT_DIR: examples\dlib
+    # Gif dependency: https://ci.appveyor.com/project/ingenue/hunter/build/1.0.3220/job/c93qxjmy4x4x29an
+    # - TOOLCHAIN: "mingw"
+    #   PROJECT_DIR: examples\dlib
+    # - TOOLCHAIN: "msys"
+    #   PROJECT_DIR: examples\dlib
 
 install:
   # Python 3
