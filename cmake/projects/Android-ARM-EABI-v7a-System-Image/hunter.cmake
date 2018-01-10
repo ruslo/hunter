@@ -42,5 +42,16 @@ hunter_add_version(
     8c606f81306564b65e41303d2603e4c42ded0d10
 )
 
+hunter_add_version(
+    PACKAGE_NAME
+    Android-ARM-EABI-v7a-System-Image
+    VERSION
+    "24_r07"
+    URL
+    "https://dl.google.com/android/repository/sys-img/android/armeabi-v7a-24_r07.zip"
+    SHA1
+    3454546b4eed2d6c3dd06d47757d6da9f4176033
+)
+
 hunter_pick_scheme(DEFAULT url_sha1_unpack)
 hunter_download(PACKAGE_NAME Android-ARM-EABI-v7a-System-Image)

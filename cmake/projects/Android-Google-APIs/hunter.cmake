@@ -56,5 +56,16 @@ hunter_add_version(
     ee6acf1b01020bfa8a8e24725dbc4478bee5e792
 )
 
+hunter_add_version(
+    PACKAGE_NAME
+    Android-Google-APIs
+    VERSION
+    "24_r1"
+    URL
+    "https://dl.google.com/android/repository/google_apis-24_r1.zip"
+    SHA1
+    31361c2868f27343ee917fbd259c1463821b6145
+)
+
 hunter_pick_scheme(DEFAULT url_sha1_unpack)
 hunter_download(PACKAGE_NAME Android-Google-APIs)

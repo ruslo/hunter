@@ -64,5 +64,16 @@ hunter_add_version(
     12a5ce6235a76bc30f62c26bda1b680e336abd07
 )
 
+hunter_add_version(
+    PACKAGE_NAME
+    Android-SDK-Platform
+    VERSION
+    "24_r02"
+    URL
+    "http://dl-ssl.google.com/android/repository/platform-24_r02.zip"
+    SHA1
+    8912da3d4bfe7a9f28f0e5ce92d3a8dc96342aee
+)
+
 hunter_pick_scheme(DEFAULT url_sha1_unpack)
 hunter_download(PACKAGE_NAME Android-SDK-Platform)
