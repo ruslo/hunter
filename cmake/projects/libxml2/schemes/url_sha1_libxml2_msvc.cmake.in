@@ -64,7 +64,14 @@ foreach(build_config_type @HUNTER_PACKAGE_CONFIGURATION_TYPES@)
     endif()
 
     # Configure bootstrap with different MSVC runtime
-    set(LIBXML2_RUNTIME ${CMAKE_C_FLAGS_${build_config_type}})
+    if (LIBXML2_BUILD_DYNAMIC_VSRUNTIME)
+      set(LIBXML2_RUNTIME "/MD")
+    else()
+      set(LIBXML2_RUNTIME "/MT")
+    endif()
+    if (is_debug)
+      set(LIBXML2_RUNTIME "${LIBXML2_RUNTIME}d")
+    endif()
     configure_file("@HUNTER_PACKAGE_SCRIPT_DIR@/patched_bootstrap.bat.in" "@HUNTER_PACKAGE_DOWNLOAD_DIR@/patched_bootstrap.bat")
 
     set(current_project "@HUNTER_EP_NAME@${build_config_type}")
