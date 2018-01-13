@@ -41,7 +41,7 @@ hunter_config(Async++ VERSION 0.0.3-hunter)
 hunter_config(Avahi VERSION 0.6.31)
 hunter_config(Beast VERSION 1.0.0-b84-hunter-0)
 hunter_config(BZip2 VERSION 1.0.6-p3)
-if(MSVC OR MINGW)
+if(MINGW)
   # FIXME: https://ci.appveyor.com/project/ingenue/hunter/build/1.0.2229
   hunter_config(Boost VERSION 1.64.0)
 else()
