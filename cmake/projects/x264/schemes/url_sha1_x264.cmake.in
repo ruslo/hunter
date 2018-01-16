@@ -213,7 +213,7 @@ if(NOT is_ios)
     DOWNLOAD_DIR
       "@HUNTER_PACKAGE_DOWNLOAD_DIR@"
     TLS_VERIFY
-    ON
+      "@HUNTER_TLS_VERIFY@"
     SOURCE_DIR
       "@HUNTER_PACKAGE_SOURCE_DIR@"
     INSTALL_DIR
@@ -235,7 +235,7 @@ else()
       DOWNLOAD_COMMAND
         ""
       TLS_VERIFY
-      ON
+        "@HUNTER_TLS_VERIFY@"
       SOURCE_DIR
         "@HUNTER_PACKAGE_SOURCE_DIR@/universal"
       INSTALL_DIR
@@ -309,7 +309,7 @@ else()
         DOWNLOAD_DIR
           "@HUNTER_PACKAGE_DOWNLOAD_DIR@"
         TLS_VERIFY
-        ON
+          "@HUNTER_TLS_VERIFY@"
         SOURCE_DIR
           ${arch_source_dir}
         INSTALL_DIR

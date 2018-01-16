@@ -117,7 +117,7 @@ foreach(build_config_type @HUNTER_PACKAGE_CONFIGURATION_TYPES@)
         DOWNLOAD_DIR
             "@HUNTER_PACKAGE_DOWNLOAD_DIR@"
         TLS_VERIFY
-        ON
+            "@HUNTER_TLS_VERIFY@"
         SOURCE_DIR
             "@HUNTER_PACKAGE_SOURCE_DIR@"
         INSTALL_DIR

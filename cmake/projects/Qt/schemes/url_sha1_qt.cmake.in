@@ -437,7 +437,7 @@ ExternalProject_Add(
     DOWNLOAD_DIR
     "@HUNTER_PACKAGE_DOWNLOAD_DIR@"
     TLS_VERIFY
-    ON
+    "@HUNTER_TLS_VERIFY@"
     SOURCE_DIR
     "${qt_source_dir}"
     INSTALL_DIR
