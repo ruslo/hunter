@@ -13,6 +13,7 @@ include(hunter_user_error)
 
 function(hunter_download_cache_raw_file)
   hunter_test_string_not_empty("${HUNTER_CACHED_ROOT}")
+  hunter_test_string_not_empty("${HUNTER_TLS_VERIFY}")
 
   cmake_parse_arguments(x "" "LOCAL;SHA1;FROMSERVER" "" ${ARGV})
   # -> x_LOCAL

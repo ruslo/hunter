@@ -21,6 +21,7 @@ hunter_test_string_not_empty("@HUNTER_PACKAGE_DOWNLOAD_DIR@")
 hunter_test_string_not_empty("@HUNTER_PACKAGE_SOURCE_DIR@")
 hunter_test_string_not_empty("@HUNTER_PACKAGE_INSTALL_PREFIX@")
 hunter_test_string_not_empty("@HUNTER_PACKAGE_LICENSE_DIR@")
+hunter_test_string_not_empty("@HUNTER_TLS_VERIFY@")
 
 include(ExternalProject) # ExternalProject_Add
 

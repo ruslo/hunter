@@ -31,6 +31,7 @@ hunter_test_string_not_empty("@HUNTER_PACKAGE_INSTALL_PREFIX@")
 hunter_test_string_not_empty("@HUNTER_PACKAGE_CONFIGURATION_TYPES@")
 hunter_test_string_not_empty("@HUNTER_INSTALL_PREFIX@")
 hunter_test_string_not_empty("@HUNTER_GLOBAL_SCRIPT_DIR@")
+hunter_test_string_not_empty("@HUNTER_TLS_VERIFY@")
 
 if("@MSVC@")
   hunter_user_error("x264 building under MSVC needs to be implemented")
