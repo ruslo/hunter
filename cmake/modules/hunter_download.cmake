@@ -463,6 +463,11 @@ function(hunter_download)
       "${HUNTER_DOWNLOAD_TOOLCHAIN}"
       "set(HUNTER_DOWNLOAD_SERVER \"${HUNTER_DOWNLOAD_SERVER}\" CACHE INTERNAL \"\")\n"
   )
+  file(
+      APPEND
+      "${HUNTER_DOWNLOAD_TOOLCHAIN}"
+      "set(HUNTER_TLS_VERIFY \"${HUNTER_TLS_VERIFY}\" CACHE INTERNAL \"\")\n"
+  )
 
   string(COMPARE NOTEQUAL "${CMAKE_MAKE_PROGRAM}" "" has_make)
   if(has_make)
@@ -493,6 +498,7 @@ function(hunter_download)
         "Configuration types: ${HUNTER_PACKAGE_CONFIGURATION_TYPES}"
     )
   endif()
+  hunter_status_debug("HUNTER_TLS_VERIFY: ${HUNTER_TLS_VERIFY}")
 
   if(has_internal_deps_id)
     hunter_status_debug(

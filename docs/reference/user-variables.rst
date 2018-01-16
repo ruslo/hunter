@@ -268,6 +268,14 @@ To create new URLs the following template is used:
 
     This is the same structure as Hunter uses for its own :ref:`Download <layout deployed download>` directory.
 
+.. _hunter tls verify:
+
+HUNTER_TLS_VERIFY
+=================
+
+Define if ``ExternalProject_Add`` and ``file(DOWNLOAD)`` should verify the server
+certificate for ``https://`` URLs.
+
 
 Environment
 ~~~~~~~~~~~
