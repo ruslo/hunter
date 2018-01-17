@@ -10,6 +10,7 @@ BOOST_LIBS="
     coroutine
     date_time
     exception
+    fiber
     filesystem
     graph
     graph_parallel
