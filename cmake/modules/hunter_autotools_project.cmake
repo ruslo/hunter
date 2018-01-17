@@ -177,7 +177,7 @@ function(hunter_autotools_project target_name)
         DOWNLOAD_DIR
           ${PARAM_DOWNLOAD_DIR}
         TLS_VERIFY
-        ON
+          "${HUNTER_TLS_VERIFY}"
         SOURCE_DIR
           ${PARAM_SOURCE_DIR}
         INSTALL_DIR
@@ -201,7 +201,7 @@ function(hunter_autotools_project target_name)
         DOWNLOAD_COMMAND
           ""
         TLS_VERIFY
-        ON
+          "${HUNTER_TLS_VERIFY}"
         SOURCE_DIR
           ${PARAM_SOURCE_DIR}/universal
         INSTALL_DIR
@@ -288,7 +288,7 @@ function(hunter_autotools_project target_name)
           DOWNLOAD_DIR
             ${PARAM_DOWNLOAD_DIR}
           TLS_VERIFY
-          ON
+            "${HUNTER_TLS_VERIFY}"
           SOURCE_DIR
             ${arch_source_dir}
           INSTALL_DIR
