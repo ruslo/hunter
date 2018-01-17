@@ -19,4 +19,6 @@ TEST(Foo, Boo) {
 TEST(Foo, Mock) {
   MockTurtle turtle;
   EXPECT_CALL(turtle, GetX()).Times(::testing::AtLeast(1));
+
+  turtle.GetX();
 }
