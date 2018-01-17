@@ -46,7 +46,7 @@ and working correctly. Before reporting bugs please check:
   See :doc:`CMake version for Hunter </quick-start/cmake>`.
 
 * Verify CMake, build tools and C/C++ compilers you're planning to use.
-  Try to build simple CMake project (check
+  E.g. try to build simple CMake project (check
   `this document <http://cgold.readthedocs.io/en/latest/first-step.html>`__
   in case you have troubles):
 
@@ -69,23 +69,8 @@ and working correctly. Before reporting bugs please check:
       std::cout << "Hello world!" << std::endl;
     }
 
-* Most sources downloaded by HTTPS protocol so CMake should be build with
-  CURL with enabled OpenSSL. Without HTTPS support you will see this error:
-
-  .. code-block:: none
-
-    error: downloading
-    'https://...' failed
-
-      status_code: 1
-      status_string: "Unsupported protocol"
-      log: Protocol "https" not supported or disabled in libcurl
-
-    Closing connection -1
-
-  .. note::
-
-    * `Example of building CMake with CURL + OpenSSL <https://github.com/ruslo/hunter/issues/328#issuecomment-198672048>`__
+* If you are experiencing some download error please check F.A.Q.:
+  :doc:`How to fix download error? </faq/how-to-fix-download-error>`
 
 If everything seems OK:
 
