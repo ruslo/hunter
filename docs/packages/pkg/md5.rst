@@ -1,6 +1,6 @@
 .. spelling::
 
-    md5
+    md
 
 .. index:: unsorted ; md5
 

@@ -47,11 +47,8 @@ matrix:
       env: PROJECT_DIR=examples/Eigen TOOLCHAIN=sanitize-address
     - os: linux
       env: PROJECT_DIR=examples/Eigen TOOLCHAIN=sanitize-leak
-
-    # FIXME: https://github.com/ruslo/hunter/issues/718#issuecomment-290610583
-    # - os: linux
-    #   env: PROJECT_DIR=examples/Eigen TOOLCHAIN=sanitize-thread
-
+    - os: linux
+      env: PROJECT_DIR=examples/Eigen TOOLCHAIN=sanitize-thread
     # }
 
     # OSX {
@@ -103,6 +100,7 @@ install:
   - export ANDROID_NDK_r10e="`pwd`/_ci/android-ndk-r10e"
   - export ANDROID_NDK_r11c="`pwd`/_ci/android-ndk-r11c"
   - export ANDROID_NDK_r15c="`pwd`/_ci/android-ndk-r15c"
+  - export ANDROID_NDK_r16b="`pwd`/_ci/android-ndk-r16b"
 
 script:
   - python3 ./jenkins.py

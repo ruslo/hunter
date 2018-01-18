@@ -14,6 +14,18 @@ Urho3D
 -  `Official GitHub <https://github.com/urho3d/Urho3D>`__
 -  `Hunterized <https://github.com/hunter-packages/Urho3D>`__
 -  `Example <https://github.com/ruslo/hunter/blob/master/examples/Urho3D/CMakeLists.txt>`__
+-  `Stand-alone example (includes configuration for iOS and Android) <https://github.com/forexample/urho3d-with-hunter>`__
+
+You have to explicitly switch to these versions of dependencies:
+
+.. literalinclude:: /../examples/Urho3D/config.cmake
+  :language: cmake
+  :start-after: # DOCUMENTATION_START {
+  :end-before: # DOCUMENTATION_END }
+
+Because Urho3D is using custom version of :ref:`pkg.SDL2` which is not fully
+compatible with upstream official API and :ref:`pkg.toluapp` is not working with
+default :ref:`pkg.Lua` version.
 
 .. code-block:: cmake
 
@@ -28,13 +40,3 @@ Customization
   Package ``ODBC`` is not implemented in Hunter.
   ``URHO3D_DATABASE_SQLITE=ON`` will enable database support
   using :ref:`pkg.sqlite3` (this is a default).
-
-* Option ``URHO3D_LUA`` is ``OFF`` by default because it will turn
-  dependency on :ref:`pkg.toluapp` which is not working with default
-  :ref:`pkg.Lua` version. If you need Lua part you have to explicitly switch
-  to Lua ``5.1.*``:
-
-  .. literalinclude:: /../examples/Urho3D-Lua/config.cmake
-    :language: cmake
-    :start-after: # DOCUMENTATION_START {
-    :end-before: # DOCUMENTATION_END }

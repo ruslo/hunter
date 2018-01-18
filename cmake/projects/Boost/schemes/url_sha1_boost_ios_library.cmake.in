@@ -34,6 +34,7 @@ hunter_test_string_not_empty("@HUNTER_PACKAGE_INSTALL_PREFIX@")
 hunter_test_string_not_empty("@HUNTER_PACKAGE_COMPONENT@")
 hunter_test_string_not_empty("@HUNTER_GLOBAL_SCRIPT_DIR@")
 hunter_test_string_not_empty("@HUNTER_PACKAGE_SCRIPT_DIR@")
+hunter_test_string_not_empty("@HUNTER_TLS_VERIFY@")
 
 # Note: support for single architecture/native iOS builds (i.e., arm64)
 hunter_test_string_not_empty("@IPHONESIMULATOR_ARCHS@@IPHONEOS_ARCHS@")
@@ -192,7 +193,7 @@ if(has_iphoneos)
       DOWNLOAD_DIR
       "@HUNTER_PACKAGE_DOWNLOAD_DIR@"
       TLS_VERIFY
-      ON
+      "@HUNTER_TLS_VERIFY@"
       SOURCE_DIR
       "@HUNTER_PACKAGE_SOURCE_DIR@"
       INSTALL_DIR
@@ -220,7 +221,7 @@ else()
       DOWNLOAD_DIR
       "@HUNTER_PACKAGE_DOWNLOAD_DIR@"
       TLS_VERIFY
-      ON
+      "@HUNTER_TLS_VERIFY@"
       SOURCE_DIR
       "@HUNTER_PACKAGE_SOURCE_DIR@"
       INSTALL_DIR
@@ -245,7 +246,7 @@ if(has_isim)
       DOWNLOAD_DIR
       "@HUNTER_PACKAGE_DOWNLOAD_DIR@"
       TLS_VERIFY
-      ON
+      "@HUNTER_TLS_VERIFY@"
       SOURCE_DIR
       "@HUNTER_PACKAGE_SOURCE_DIR@"
       INSTALL_DIR
@@ -273,7 +274,7 @@ else()
       DOWNLOAD_DIR
       "@HUNTER_PACKAGE_DOWNLOAD_DIR@"
       TLS_VERIFY
-      ON
+      "@HUNTER_TLS_VERIFY@"
       SOURCE_DIR
       "@HUNTER_PACKAGE_SOURCE_DIR@"
       INSTALL_DIR
@@ -332,7 +333,7 @@ ExternalProject_Add(
     DOWNLOAD_COMMAND
     ""
     TLS_VERIFY
-    ON
+    "@HUNTER_TLS_VERIFY@"
     DOWNLOAD_DIR
     "@HUNTER_PACKAGE_DOWNLOAD_DIR@"
     SOURCE_DIR

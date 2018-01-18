@@ -31,6 +31,7 @@ companioning
 config
 configs
 customizable
+doesn
 embeddable
 hunterization
 hunterize
@@ -38,6 +39,7 @@ hunterized
 iOS
 internet
 login
+multi
 performant
 plugin
 plugins
@@ -52,4 +54,3 @@ subfolder
 submodules
 toolchain
 toolchains
-multi
