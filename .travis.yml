@@ -68,6 +68,15 @@ matrix:
     - os: linux
       env: PROJECT_DIR=examples/Eigen-Boost TOOLCHAIN=android-ndk-r10e-api-19-armeabi-v7a-neon
 
+    # Extra for OpenCV {
+    - os: osx
+      env: PROJECT_DIR=examples/Eigen TOOLCHAIN=ios-nocodesign-10-3-arm64
+    - os: osx
+      env: PROJECT_DIR=examples/Eigen TOOLCHAIN=ios-nocodesign-10-3-armv7
+    - os: osx
+      env: PROJECT_DIR=examples/Eigen TOOLCHAIN=ios-nocodesign-11-0-arm64-dep-9-0-device-libcxx-hid-sections
+    # }
+
 install:
   # Info about OS
   - uname -a
