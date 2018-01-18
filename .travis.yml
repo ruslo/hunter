@@ -63,12 +63,6 @@ matrix:
       env: PROJECT_DIR=examples/Eigen TOOLCHAIN=ios-nocodesign-10-3
     # }
 
-    # Test issue (DO NOT UPLOAD!) {
-    # * https://github.com/ruslo/hunter/issues/628
-    - os: linux
-      env: PROJECT_DIR=examples/Eigen-Boost TOOLCHAIN=android-ndk-r10e-api-19-armeabi-v7a-neon
-    # }
-
     # Extra for OpenCV {
     - os: osx
       env: PROJECT_DIR=examples/Eigen TOOLCHAIN=ios-nocodesign-10-3-arm64
