@@ -13,6 +13,28 @@ hunter_add_version(
     PACKAGE_NAME
     dlib
     VERSION
+    "19.8-p0"
+    URL
+    "https://github.com/hunter-packages/dlib/archive/v19.8-p0.tar.gz"
+    SHA1
+    42a19443f08d3015b105550db85b3161f1020325
+)
+
+hunter_add_version(
+    PACKAGE_NAME
+    dlib
+    VERSION
+    "19.6-p2"
+    URL
+    "https://github.com/hunter-packages/dlib/archive/v19.6-p2.tar.gz"
+    SHA1
+    2f763c72f9d7fc5f2d7120d775a37606a4b3b899
+)
+
+hunter_add_version(
+    PACKAGE_NAME
+    dlib
+    VERSION
     "19.6-p1"
     URL
     "https://github.com/hunter-packages/dlib/archive/v19.6-p1.tar.gz"
@@ -134,18 +156,21 @@ hunter_add_version(
     PACKAGE_NAME
     dlib
     VERSION
-    "19.6-p2"
+    "19.8-p1"
     URL
-    "https://github.com/hunter-packages/dlib/archive/v19.6-p2.tar.gz"
+    "https://github.com/hunter-packages/dlib/archive/v19.8-p1.tar.gz"
     SHA1
-    2f763c72f9d7fc5f2d7120d775a37606a4b3b899
+    83426cea82aad42a0f7b1d6bac42996c4f2b69ea
 )
 
 hunter_cmake_args(
     dlib
     CMAKE_ARGS
-      DLIB_HEADER_ONLY=ON #all previous builds were header on, so that is the default
-      DLIB_ENABLE_ASSERTS=OFF #must be set on/off or debug/release build will differ and config will not match one
+      DLIB_PNG_SUPPORT=ON
+      DLIB_GIF_SUPPORT=ON
+      DLIB_JPEG_SUPPORT=ON
+      DLIB_NO_GUI_SUPPORT=ON
+      DLIB_LINK_WITH_SQLITE3=ON
       HUNTER_INSTALL_LICENSE_FILES=dlib/LICENSE.txt
 )
 

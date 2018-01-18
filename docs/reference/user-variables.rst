@@ -268,6 +268,26 @@ To create new URLs the following template is used:
 
     This is the same structure as Hunter uses for its own :ref:`Download <layout deployed download>` directory.
 
+.. _hunter tls verify:
+
+HUNTER_TLS_VERIFY
+=================
+
+Define if
+`ExternalProject_Add <https://cmake.org/cmake/help/latest/module/ExternalProject.html>`__
+and
+`file(DOWNLOAD) <https://cmake.org/cmake/help/latest/command/file.html>`__
+should verify the server certificate for ``https://`` URLs.
+
+Default: ``ON``
+
+.. warning::
+
+  Value ``OFF`` will disable certificate verification. It means that the only
+  protection is SHA1 hash of sources which is `weak <http://shattered.io/>`__.
+  And if you're using binary servers (it's
+  :ref:`default <hunter_use_cache_servers>`) meta cache files like
+  ``cache.sha1`` will not be checked at all!
 
 Environment
 ~~~~~~~~~~~

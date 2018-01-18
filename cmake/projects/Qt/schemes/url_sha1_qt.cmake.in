@@ -31,6 +31,7 @@ hunter_test_string_not_empty("@HUNTER_PACKAGE_LICENSE_DIR@")
 hunter_test_string_not_empty("@HUNTER_Qt_VERSION@")
 hunter_test_string_not_empty("@HUNTER_PACKAGE_SETUP_DIR@")
 hunter_test_string_not_empty("@HUNTER_GLOBAL_SCRIPT_DIR@")
+hunter_test_string_not_empty("@HUNTER_TLS_VERIFY@")
 
 set(HUNTER_Qt_VERSION "@HUNTER_Qt_VERSION@")
 
@@ -437,7 +438,7 @@ ExternalProject_Add(
     DOWNLOAD_DIR
     "@HUNTER_PACKAGE_DOWNLOAD_DIR@"
     TLS_VERIFY
-    ON
+    "@HUNTER_TLS_VERIFY@"
     SOURCE_DIR
     "${qt_source_dir}"
     INSTALL_DIR

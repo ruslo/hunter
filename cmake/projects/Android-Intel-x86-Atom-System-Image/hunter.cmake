@@ -53,5 +53,16 @@ hunter_add_version(
     36c2a2e394bcb3290583ce09815eae7711d0b2c2
 )
 
+hunter_add_version(
+    PACKAGE_NAME
+    Android-Intel-x86-Atom-System-Image
+    VERSION
+    "24_r08"
+    URL
+    "https://dl.google.com/android/repository/sys-img/android/x86-24_r08.zip"
+    SHA1
+    c1cae7634b0216c0b5990f2c144eb8ca948e3511
+)
+
 hunter_pick_scheme(DEFAULT url_sha1_unpack)
 hunter_download(PACKAGE_NAME Android-Intel-x86-Atom-System-Image)

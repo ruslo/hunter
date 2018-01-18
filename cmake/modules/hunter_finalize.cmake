@@ -175,4 +175,11 @@ macro(hunter_finalize)
         " Please update your toolchain."
     )
   endif()
+
+  string(COMPARE EQUAL "${HUNTER_TLS_VERIFY}" "" _is_empty)
+  if(_is_empty)
+    hunter_user_error(
+        "HUNTER_TLS_VERIFY is empty, please update HunterGate module"
+    )
+  endif()
 endmacro()

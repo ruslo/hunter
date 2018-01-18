@@ -77,6 +77,7 @@ macro(hunter_initialize)
       set(HUNTER_CACHED_ROOT "${HUNTER_GATE_ROOT}" CACHE INTERNAL "")
       set(HUNTER_VERSION "${HUNTER_GATE_VERSION}" CACHE INTERNAL "")
       set(HUNTER_SHA1 "${HUNTER_GATE_SHA1}" CACHE INTERNAL "")
+      set(HUNTER_URL "${HUNTER_GATE_URL}" CACHE INTERNAL "")
 
       hunter_calculate_self(
           "${HUNTER_CACHED_ROOT}"
@@ -96,11 +97,14 @@ macro(hunter_initialize)
     set(HUNTER_CACHED_ROOT "${HUNTER_GATE_ROOT}" CACHE INTERNAL "")
     set(HUNTER_VERSION "${HUNTER_GATE_VERSION}" CACHE INTERNAL "")
     set(HUNTER_SHA1 "${HUNTER_GATE_SHA1}" CACHE INTERNAL "")
+    set(HUNTER_URL "${HUNTER_GATE_URL}" CACHE INTERNAL "")
   endif()
+
 
   hunter_test_string_not_empty("${HUNTER_CACHED_ROOT}")
   hunter_test_string_not_empty("${HUNTER_VERSION}")
   hunter_test_string_not_empty("${HUNTER_SHA1}")
+  hunter_test_string_not_empty("${HUNTER_URL}")
 
   # All variables are ready so let's set HUNTER_SELF here. Usually it's not
   # needed before 'hunter_finalize' but it some cases may be useful

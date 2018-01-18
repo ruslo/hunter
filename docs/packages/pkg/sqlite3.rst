@@ -13,8 +13,7 @@ sqlite3
 -  `Hunterized <https://github.com/hunter-packages/sqlite3>`__
 -  `Example <https://github.com/ruslo/hunter/blob/master/examples/sqlite3/CMakeLists.txt>`__
 
-.. code-block:: cmake
-
-    hunter_add_package(sqlite3)
-    find_package(sqlite3 REQUIRED)
-    target_link_libraries(boo PUBLIC sqlite3::sqlite3)
+.. literalinclude:: /../examples/sqlite3/CMakeLists.txt
+  :language: cmake
+  :start-after: # DOCUMENTATION_START {
+  :end-before: # DOCUMENTATION_END }
