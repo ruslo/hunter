@@ -1,4 +1,4 @@
-# Copyright (c) 2013, Ruslan Baratov
+# Copyright (c) 2013-2018, Ruslan Baratov
 # All rights reserved.
 
 # !!! DO NOT PLACE HEADER GUARDS HERE !!!
@@ -10,7 +10,7 @@ include(hunter_pick_scheme)
 
 hunter_add_version(
     PACKAGE_NAME
-    Sugar
+    sugar
     VERSION
     "1.3.0"
     URL
@@ -20,5 +20,5 @@ hunter_add_version(
 )
 
 hunter_pick_scheme(DEFAULT url_sha1_cmake)
-hunter_cacheable(Sugar)
-hunter_download(PACKAGE_NAME Sugar)
+hunter_cacheable(sugar)
+hunter_download(PACKAGE_NAME sugar)
