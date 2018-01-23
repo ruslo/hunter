@@ -1,20 +1,18 @@
 .. spelling::
 
-    Sugar
+    sugar
 
-.. index:: cmake_modules ; Sugar
+.. index:: cmake_modules ; sugar
 
-.. _pkg.Sugar:
+.. _pkg.sugar:
 
-Sugar
+sugar
 =====
 
--  `Project <https://github.com/ruslo/sugar>`__
--  `Dev branch <https://github.com/ruslo/hunter/tree/sugar>`__
--  `Versions <https://github.com/ruslo/hunter/blob/master/cmake/projects/Sugar/hunter.cmake>`__
--  `Example <https://github.com/ruslo/hunter/blob/master/examples/Sugar/CMakeLists.txt>`__
+-  `Official GitHub <https://github.com/ruslo/sugar>`__
+-  `Example <https://github.com/ruslo/hunter/blob/master/examples/sugar/CMakeLists.txt>`__
 
-.. code-block:: cmake
-
-    hunter_add_package(Sugar)
-    include("${SUGAR_ROOT}/cmake/Sugar")
+.. literalinclude:: /../examples/sugar/CMakeLists.txt
+  :language: cmake
+  :start-after: # DOCUMENTATION_START {
+  :end-before: # DOCUMENTATION_END }
