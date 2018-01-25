@@ -57,21 +57,6 @@ List of components (other libraries are header-only):
 - ``timer``
 - ``wave``
 
-Compatibility mode
-------------------
-
-.. code-block:: cmake
-
-    hunter_add_package(Boost COMPONENTS system filesystem)
-    set(Boost_USE_STATIC_LIBS ON)
-    find_package(Boost REQUIRED system filesystem)
-    if(MSVC)
-      add_definitions(-DBOOST_ALL_NO_LIB=1)
-    endif()
-
-    include_directories(${Boost_INCLUDE_DIRS})
-    target_link_libraries(... ${Boost_LIBRARIES})
-
 CMake options
 -------------
 
