@@ -13,5 +13,11 @@ project(download-GPUImage)
 hunter_add_package(GPUImage)
 find_package(GPUImage CONFIG REQUIRED)
 
-add_executable(foo foo.mm)
-target_link_libraries(foo GPUImage::gpuimage)
+if(NOT TARGET GPUImage::gpuimage)
+  message(FATAL_ERROR "Target not found")
+endif()
+
+if(APPLE)
+  add_executable(foo foo.mm)
+  target_link_libraries(foo GPUImage::gpuimage)
+endif()
