@@ -105,7 +105,7 @@ hunter_config(OpenCV-Extra VERSION 3.4.0)
 hunter_config(OpenNMTTokenizer VERSION 0.2.0-p1)
 hunter_config(OpenSSL VERSION 1.1.0g)
 hunter_config(PNG VERSION 1.6.26-p1)
-hunter_config(PocoCpp VERSION 1.7.9-p1)
+hunter_config(PocoCpp VERSION 1.8.1-p2)
 hunter_config(PostgreSQL VERSION 10.0.0)
 hunter_config(Protobuf VERSION 3.3.0)
 
