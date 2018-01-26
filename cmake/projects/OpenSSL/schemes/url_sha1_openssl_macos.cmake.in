@@ -30,8 +30,6 @@ hunter_test_string_not_empty("@HUNTER_PACKAGE_LICENSE_DIR@")
 hunter_test_string_not_empty("@HUNTER_GLOBAL_SCRIPT_DIR@")
 hunter_test_string_not_empty("@HUNTER_TLS_VERIFY@")
 
-hunter_test_string_not_empty("@CMAKE_OSX_ARCHITECTURES@")
-
 # Supported macOS configurations
 # darwin-i386-cc, darwin-ppc-cc, darwin64-ppc-cc, darwin64-x86_64-cc
 
