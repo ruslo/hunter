@@ -41,7 +41,7 @@ hunter_unsetvar(crypto_input_shared_libraries)
 set(configure_command "./Configure")
 
 # Replace spaces with ; to make a list.
-string(REPLACE " " ";" configure_architectures @CMAKE_OSX_ARCHITECTURES@)
+string(REPLACE " " ";" configure_architectures "@CMAKE_OSX_ARCHITECTURES@")
 
 if(NOT configure_architectures)
   hunter_status_debug("Using default macOS architecture: x86_64")
