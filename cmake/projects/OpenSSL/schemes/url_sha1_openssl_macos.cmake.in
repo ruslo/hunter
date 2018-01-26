@@ -14,6 +14,7 @@ include(hunter_dump_cmake_flags)
 include(hunter_status_debug)
 include(hunter_test_string_not_empty)
 include(hunter_unsetvar)
+include(hunter_user_error)
 
 hunter_status_debug("Scheme: url_sha1_openssl_macos")
 
