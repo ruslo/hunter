@@ -124,7 +124,7 @@ ExternalProject_Add(
 if(BUILD_SHARED_LIBS)
   # fuse shared libraries with 'lipo'
   ExternalProject_Add(
-      "@HUNTER_EP_NAME@-macos_universal"
+      "@HUNTER_EP_NAME@-macos_universal_shared"
       DOWNLOAD_COMMAND
       ""
       DOWNLOAD_DIR
@@ -152,6 +152,10 @@ if(BUILD_SHARED_LIBS)
       ${crypto_input_shared_libraries}
       -o
       "@HUNTER_PACKAGE_INSTALL_PREFIX@/lib/libcrypto.dylib"
+  )
+  add_dependencies(
+      "@HUNTER_EP_NAME@-macos_universal_shared"
+      "@HUNTER_EP_NAME@-macos_universal"
   )
 endif()
 
