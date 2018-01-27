@@ -31,7 +31,12 @@ hunter_add_version(
     180161389f017719380f344e09f76fd1cdae609d
 )
 
-hunter_cmake_args(drishti CMAKE_ARGS DRISHTI_BUILD_EXAMPLES=NO)
+hunter_cmake_args(
+    drishti
+    CMAKE_ARGS
+    DRISHTI_BUILD_EXAMPLES=NO
+    DRISHTI_BUILD_OGLES_GPGPU=ON
+)
 
 hunter_pick_scheme(DEFAULT url_sha1_cmake)
 hunter_cacheable(drishti)
