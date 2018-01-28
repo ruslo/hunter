@@ -10,8 +10,10 @@ include("../common.cmake")
 
 project(download-cvsteer)
 
+# DOCUMENTATION_START {
 hunter_add_package(cvsteer)
 find_package(cvsteer CONFIG REQUIRED)
 
 add_executable(foo foo.cpp)
-target_link_libraries(foo cvsteer::cvsteer)
+target_link_libraries(foo PUBLIC cvsteer::cvsteer)
+# DOCUMENTATION_END }
