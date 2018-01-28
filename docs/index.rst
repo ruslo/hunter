@@ -14,7 +14,7 @@ Hunter: organize freedom
 
 Welcome to the Hunter package manager documentation!
 
-Hunter is a CMake-driven cross-platform package manager for C++ [1]_ projects.
+Hunter is a CMake driven cross-platform package manager for C/C++ [1]_ projects.
 With the help of Hunter you can organize builds for **Linux**, **OS X**,
 **Windows**, **iOS**, **Android**, and **Raspberry Pi**. Third-party external
 projects are highly customizable, effectively allowing you to have myriad
