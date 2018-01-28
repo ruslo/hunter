@@ -20,6 +20,17 @@ hunter_add_version(
     SHA1
     b54b096910c0947e1af125e134b2511b25dc847d
     )
+
+hunter_add_version(
+    PACKAGE_NAME
+    cvsteer
+    VERSION
+    0.1.2
+    URL
+    "https://github.com/headupinclouds/cvsteer/archive/v0.1.2.tar.gz"
+    SHA1
+    a61ae7e1b965d47bca449721150576711f3f7f67
+    )
   
 hunter_pick_scheme(DEFAULT url_sha1_cmake)
 hunter_cacheable(cvsteer)
