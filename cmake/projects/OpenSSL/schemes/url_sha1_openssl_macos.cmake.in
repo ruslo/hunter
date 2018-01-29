@@ -48,7 +48,7 @@ endif()
 
 # OpenSSL appends the version number differently by version
 if("@HUNTER_OpenSSL_VERSION@" VERSION_LESS "1.0")
-  string(SUBSTRING "@HUNTER_OpenSSL_VERSION@" 0 -1 shared_library_version_extension)
+  string(REGEX MATCH "[0-9\\.]+" shared_library_version_extension "@HUNTER_OpenSSL_VERSION@")
 elseif("@HUNTER_OpenSSL_VERSION@" VERSION_LESS "1.1")
   set(shared_library_version_extension "1.0.0")
 else()
