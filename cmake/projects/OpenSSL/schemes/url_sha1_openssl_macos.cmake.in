@@ -33,10 +33,10 @@ hunter_test_string_not_empty("@HUNTER_TLS_VERIFY@")
 # Supported macOS configurations
 # darwin-i386-cc, darwin-ppc-cc, darwin64-ppc-cc, darwin64-x86_64-cc
 
-hunter_unsetvar(ssl_input_libraries)
-hunter_unsetvar(crypto_input_libraries)
-hunter_unsetvar(ssl_input_shared_libraries)
-hunter_unsetvar(crypto_input_shared_libraries)
+hunter_unsetvar(ssl_static_libraries)
+hunter_unsetvar(ssl_shared_libraries)
+hunter_unsetvar(crypto_static_libraries)
+hunter_unsetvar(crypto_shared_libraries)
 
 set(configure_command "./Configure")
 set(configure_architectures @CMAKE_OSX_ARCHITECTURES@)
@@ -46,13 +46,22 @@ if(NOT configure_architectures)
   set(configure_architectures "x86_64")
 endif()
 
+# OpenSSL appends the version number differently by version
+if("@HUNTER_OpenSSL_VERSION@" VERSION_LESS "1.0")
+  string(SUBSTRING "@HUNTER_OpenSSL_VERSION@" 0 -1 shared_library_version_extension)
+elseif("@HUNTER_OpenSSL_VERSION@" VERSION_LESS "1.1")
+  set(shared_library_version_extension "1.0.0")
+else()
+  set(shared_library_version_extension "1.1")
+endif()
+
 foreach(arch ${configure_architectures})
-  list(APPEND ssl_input_libraries "@HUNTER_PACKAGE_SOURCE_DIR@/${arch}/libssl.a")
-  list(APPEND crypto_input_libraries "@HUNTER_PACKAGE_SOURCE_DIR@/${arch}/libcrypto.a")
+  list(APPEND ssl_static_libraries "@HUNTER_PACKAGE_SOURCE_DIR@/${arch}/libssl.a")
+  list(APPEND crypto_static_libraries "@HUNTER_PACKAGE_SOURCE_DIR@/${arch}/libcrypto.a")
 
   if(BUILD_SHARED_LIBS)
-    list(APPEND ssl_input_shared_libraries "@HUNTER_PACKAGE_SOURCE_DIR@/${arch}/libssl.dylib")
-    list(APPEND crypto_input_shared_libraries "@HUNTER_PACKAGE_SOURCE_DIR@/${arch}/libcrypto.dylib")
+    list(APPEND ssl_shared_libraries "@HUNTER_PACKAGE_SOURCE_DIR@/${arch}/libssl.${shared_library_version_extension}.dylib")
+    list(APPEND crypto_shared_libraries "@HUNTER_PACKAGE_SOURCE_DIR@/${arch}/libcrypto.${shared_library_version_extension}.dylib")
   endif()
 endforeach()
 
@@ -108,13 +117,13 @@ ExternalProject_Add(
     INSTALL_COMMAND
     lipo
     -create
-    ${ssl_input_libraries}
+    ${ssl_static_libraries}
     -o
     "@HUNTER_PACKAGE_INSTALL_PREFIX@/lib/libssl.a"
     COMMAND
     lipo
     -create
-    ${crypto_input_libraries}
+    ${crypto_static_libraries}
     -o
     "@HUNTER_PACKAGE_INSTALL_PREFIX@/lib/libcrypto.a"
 )
@@ -141,15 +150,15 @@ if(BUILD_SHARED_LIBS)
       INSTALL_COMMAND
       lipo
       -create
-      ${ssl_input_shared_libraries}
+      ${ssl_shared_libraries}
       -o
-      "@HUNTER_PACKAGE_INSTALL_PREFIX@/lib/libssl.dylib"
+      "@HUNTER_PACKAGE_INSTALL_PREFIX@/lib/libssl.${shared_library_version_extension}.dylib"
       COMMAND
       lipo
       -create
-      ${crypto_input_shared_libraries}
+      ${crypto_shared_libraries}
       -o
-      "@HUNTER_PACKAGE_INSTALL_PREFIX@/lib/libcrypto.dylib"
+      "@HUNTER_PACKAGE_INSTALL_PREFIX@/lib/libcrypto.${shared_library_version_extension}.dylib"
   )
   add_dependencies(
       "@HUNTER_EP_NAME@-macos_universal_shared"
