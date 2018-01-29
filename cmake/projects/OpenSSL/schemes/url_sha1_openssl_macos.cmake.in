@@ -46,21 +46,13 @@ if(NOT configure_architectures)
   set(configure_architectures "x86_64")
 endif()
 
-if("@HUNTER_OpenSSL_VERSION@" VERSION_LESS "1.1")
-  set(ssl_library_name "ssleay32")
-  set(crypto_library_name "libeay32")
-else()
-  set(ssl_library_name "libssl")
-  set(crypto_library_name "libcrypto")
-endif()
-
 foreach(arch ${configure_architectures})
-  list(APPEND ssl_input_libraries "@HUNTER_PACKAGE_SOURCE_DIR@/${arch}/${ssl_library_name}.a")
-  list(APPEND crypto_input_libraries "@HUNTER_PACKAGE_SOURCE_DIR@/${arch}/${crypto_library_name}.a")
+  list(APPEND ssl_input_libraries "@HUNTER_PACKAGE_SOURCE_DIR@/${arch}/libssl.a")
+  list(APPEND crypto_input_libraries "@HUNTER_PACKAGE_SOURCE_DIR@/${arch}/libcrypto.a")
 
   if(BUILD_SHARED_LIBS)
-    list(APPEND ssl_input_shared_libraries "@HUNTER_PACKAGE_SOURCE_DIR@/${arch}/${ssl_library_name}.dylib")
-    list(APPEND crypto_input_shared_libraries "@HUNTER_PACKAGE_SOURCE_DIR@/${arch}/${crypto_library_name}.dylib")
+    list(APPEND ssl_input_shared_libraries "@HUNTER_PACKAGE_SOURCE_DIR@/${arch}/libssl.dylib")
+    list(APPEND crypto_input_shared_libraries "@HUNTER_PACKAGE_SOURCE_DIR@/${arch}/libcrypto.dylib")
   endif()
 endforeach()
 
@@ -118,13 +110,13 @@ ExternalProject_Add(
     -create
     ${ssl_input_libraries}
     -o
-    "@HUNTER_PACKAGE_INSTALL_PREFIX@/lib/${ssl_library_name}.a"
+    "@HUNTER_PACKAGE_INSTALL_PREFIX@/lib/libssl.a"
     COMMAND
     lipo
     -create
     ${crypto_input_libraries}
     -o
-    "@HUNTER_PACKAGE_INSTALL_PREFIX@/lib/${crypto_library_name}.a"
+    "@HUNTER_PACKAGE_INSTALL_PREFIX@/lib/libcrypto.a"
 )
 
 if(BUILD_SHARED_LIBS)
@@ -151,13 +143,13 @@ if(BUILD_SHARED_LIBS)
       -create
       ${ssl_input_shared_libraries}
       -o
-      "@HUNTER_PACKAGE_INSTALL_PREFIX@/lib/${ssl_library_name}.dylib"
+      "@HUNTER_PACKAGE_INSTALL_PREFIX@/lib/libssl.dylib"
       COMMAND
       lipo
       -create
       ${crypto_input_shared_libraries}
       -o
-      "@HUNTER_PACKAGE_INSTALL_PREFIX@/lib/${crypto_library_name}.dylib"
+      "@HUNTER_PACKAGE_INSTALL_PREFIX@/lib/libcrypto.dylib"
   )
   add_dependencies(
       "@HUNTER_EP_NAME@-macos_universal_shared"
