@@ -31,6 +31,7 @@ hunter_test_string_not_empty("@HUNTER_PACKAGE_LICENSE_DIR@")
 hunter_test_string_not_empty("@HUNTER_Qt_VERSION@")
 hunter_test_string_not_empty("@HUNTER_PACKAGE_SETUP_DIR@")
 hunter_test_string_not_empty("@HUNTER_GLOBAL_SCRIPT_DIR@")
+hunter_test_string_not_empty("@HUNTER_TLS_VERIFY@")
 
 set(HUNTER_Qt_VERSION "@HUNTER_Qt_VERSION@")
 
@@ -215,6 +216,9 @@ if(BUILD_SHARED_LIBS)
   list(APPEND configure_opts "-shared")
 else()
   list(APPEND configure_opts "-static")
+  if("@MSVC@" AND NOT QT_BUILD_DYNAMIC_VSRUNTIME)
+    list(APPEND configure_opts "-static-runtime")
+  endif()
 endif()
 
 list(APPEND configure_opts "-prefix" "@HUNTER_PACKAGE_INSTALL_PREFIX@")
@@ -433,6 +437,8 @@ ExternalProject_Add(
     SHA1=@HUNTER_PACKAGE_SHA1@
     DOWNLOAD_DIR
     "@HUNTER_PACKAGE_DOWNLOAD_DIR@"
+    TLS_VERIFY
+    "@HUNTER_TLS_VERIFY@"
     SOURCE_DIR
     "${qt_source_dir}"
     INSTALL_DIR

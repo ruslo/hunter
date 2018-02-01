@@ -33,6 +33,7 @@ hunter_test_string_not_empty("@HUNTER_PACKAGE_SHA1@")
 hunter_test_string_not_empty("@HUNTER_PACKAGE_DOWNLOAD_DIR@")
 hunter_test_string_not_empty("@HUNTER_PACKAGE_SOURCE_DIR@")
 hunter_test_string_not_empty("@HUNTER_PACKAGE_LICENSE_DIR@")
+hunter_test_string_not_empty("@HUNTER_TLS_VERIFY@")
 
 string(COMPARE EQUAL "@HUNTER_PACKAGE_PROTECTED_SOURCES@" "" is_empty)
 if(is_empty)
@@ -54,6 +55,8 @@ ExternalProject_Add(
     ${http_credentials}
     DOWNLOAD_DIR
     "@HUNTER_PACKAGE_DOWNLOAD_DIR@"
+    TLS_VERIFY
+    "@HUNTER_TLS_VERIFY@"
     SOURCE_DIR
     "@HUNTER_PACKAGE_SOURCE_DIR@"
     INSTALL_DIR

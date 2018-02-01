@@ -69,6 +69,28 @@ hunter_add_version(
     PACKAGE_NAME
     OpenSSL
     VERSION
+    "1.1.0g"
+    URL
+    "https://github.com/openssl/openssl/archive/OpenSSL_1_1_0g.tar.gz"
+    SHA1
+    07a8861dfb51d3ba983668f0f8daeac49bf3dbc3
+)
+
+hunter_add_version(
+    PACKAGE_NAME
+    OpenSSL
+    VERSION
+    "1.0.2n"
+    URL
+    "https://github.com/openssl/openssl/archive/OpenSSL_1_0_2n.tar.gz"
+    SHA1
+    6d507bb849c8156f14c2b6f3e269a5e782ff6b82
+)
+
+hunter_add_version(
+    PACKAGE_NAME
+    OpenSSL
+    VERSION
     "1.0.2l"
     URL
     "https://github.com/openssl/openssl/archive/OpenSSL_1_0_2l.tar.gz"
@@ -162,6 +184,17 @@ hunter_add_version(
     "https://github.com/openssl/openssl/archive/OpenSSL_1_0_2d.tar.gz"
     SHA1
     a233de65e91dc176f4e34be03899ae00eb1dd029
+)
+
+hunter_add_version(
+    PACKAGE_NAME
+    OpenSSL
+    VERSION
+    "1.0.2m"
+    URL
+    "https://github.com/openssl/openssl/archive/OpenSSL_1_0_2m.tar.gz"
+    SHA1
+    f0af7e246a677fd52945e5438eb11ce0de391a4c
 )
 
 hunter_add_version(
@@ -318,4 +351,4 @@ if(MINGW)
 endif()
 
 hunter_cacheable(OpenSSL)
-hunter_download(PACKAGE_NAME OpenSSL PACKAGE_INTERNAL_DEPS_ID "14")
+hunter_download(PACKAGE_NAME OpenSSL PACKAGE_INTERNAL_DEPS_ID "19")

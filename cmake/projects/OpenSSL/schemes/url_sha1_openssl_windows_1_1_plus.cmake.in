@@ -29,6 +29,7 @@ hunter_test_string_not_empty("@HUNTER_MSVC_ARCH@")
 hunter_test_string_not_empty("@HUNTER_MSVC_VCVARSALL@")
 hunter_test_string_not_empty("@HUNTER_PACKAGE_LICENSE_DIR@")
 hunter_test_string_not_empty("@HUNTER_GLOBAL_SCRIPT_DIR@")
+hunter_test_string_not_empty("@HUNTER_TLS_VERIFY@")
 
 # `find_package(Perl)` is not suitable because `perl` from
 # cygwin directory can be found
@@ -71,6 +72,15 @@ else()
   set(log_opts "")
 endif()
 
+if (BUILD_SHARED_LIBS)
+  set(shared "shared")
+else()
+  set(shared "no-shared")
+endif()
+
+set(openssl_dir "@HUNTER_PACKAGE_INSTALL_PREFIX@/ssl")
+file(MAKE_DIRECTORY "${openssl_dir}")
+
 ExternalProject_Add(
     "@HUNTER_EP_NAME@"
     URL
@@ -79,6 +89,8 @@ ExternalProject_Add(
     SHA1=@HUNTER_PACKAGE_SHA1@
     DOWNLOAD_DIR
     "@HUNTER_PACKAGE_DOWNLOAD_DIR@"
+    TLS_VERIFY
+    "@HUNTER_TLS_VERIFY@"
     SOURCE_DIR
     "@HUNTER_PACKAGE_SOURCE_DIR@"
     INSTALL_DIR
@@ -87,15 +99,16 @@ ExternalProject_Add(
     CONFIGURE_COMMAND
     "@HUNTER_MSVC_VCVARSALL@" "@HUNTER_MSVC_ARCH@"
     COMMAND
-    perl Configure "${opt}" "--prefix=@HUNTER_PACKAGE_INSTALL_PREFIX@"
+    perl Configure "${opt}" ${shared} no-asm "--prefix=@HUNTER_PACKAGE_INSTALL_PREFIX@" "--openssldir=${openssl_dir}"
     COMMAND
     nmake
+    COMMAND
+    nmake install
+    BUILD_COMMAND
+    "@CMAKE_COMMAND@" -E echo "Dummy build step"
     BUILD_IN_SOURCE
     1
     INSTALL_COMMAND
-    COMMAND
-    nmake install
-    COMMAND # Copy license files
     "@CMAKE_COMMAND@"
     "-C@HUNTER_ARGS_FILE@" # for 'HUNTER_INSTALL_LICENSE_FILES'
     "-Dsrcdir=@HUNTER_PACKAGE_SOURCE_DIR@"

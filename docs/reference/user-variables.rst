@@ -208,6 +208,87 @@ and have some usage peculiarities:
   for build. Combining with previous peculiarity it's expected that much
   more disk space will be used than usually.
 
+.. _hunter download server:
+
+HUNTER_DOWNLOAD_SERVER
+======================
+
+Define a list of servers to download from.
+
+We define the following packages for the examples:
+
+- Package 1 name: ``foo``
+- Package 1 SHA1: ``49dee30c5fedd8613a144f9bf6551fb46bb69e92``
+- Package 1 URL:  ``https://foo.com/downloads/foo-1.0.tar.gz``
+
+- Package 2 name: ``boo``
+- Package 2 SHA1: ``b1ec7331baf4c9996497851bfa2c847a73cd6085``
+- Package 2 URL:  ``https://server-2.com/downloads/boo-3.0.tar.gz``
+
+If ``HUNTER_DOWNLOAD_SERVER`` is empty nothing changes and the following URLs
+are used to download the sources:
+
+- ``foo``: ``https://foo.com/downloads/foo-1.0.tar.gz``
+- ``boo``: ``https://server-2.com/downloads/boo-3.0.tar.gz``
+
+If ``HUNTER_DOWNLOAD_SERVER`` is a list of servers like
+``https://server-1.com;https://server-2.com;https://server-3.com``
+then the original package URL is analyzed. If the original URL matches one of the
+defined servers we leave it untouched and set as a server with high priority.
+
+For package ``foo`` the following URLs are passed to ``ExternalProject_Add``
+(the original URL is not used):
+
+- ``https://server-1.com/foo/1.0/SHASUM/foo-1.0.tar.gz``
+- ``https://server-2.com/foo/1.0/SHASUM/foo-1.0.tar.gz``
+- ``https://server-3.com/foo/1.0/SHASUM/foo-1.0.tar.gz``
+
+For package ``boo`` the following URLs are passed to ``ExternalProject_Add``
+(the original URL has the highest priority):
+
+- ``https://server-2.com/downloads/boo-3.0.tar.gz`` (take priority, original URL used)
+- ``https://server-1.com/boo/3.0/SHASUM/boo-3.0.tar.gz``
+- ``https://server-3.com/boo/3.0/SHASUM/boo-3.0.tar.gz``
+
+.. note::
+
+    Multiple URLs are supported only with CMake 3.7+. For earlier versions
+    the first listed URL is passed to ``ExternalProject_Add``.
+
+The retry logic is implemented in the CMake function ``ExternalProject_Add``.
+
+To create new URLs the following template is used:
+
+    ``${HUNTER_DOWNLOAD_SERVER}/${PACKAGE_NAME}/${PACKAGE_VERSION}/${ARCHIVE_ID}/${filename}``
+
+- The characters ``!@#$%^&*?`` occurring in ``${filename}`` are replaced with ``_``.
+- ``${ARCHIVE_ID}`` is the first 7 characters of the package archive ``SHA1`` sum.
+
+.. note::
+
+    This is the same structure as Hunter uses for its own :ref:`Download <layout deployed download>` directory.
+
+.. _hunter tls verify:
+
+HUNTER_TLS_VERIFY
+=================
+
+Define if
+`ExternalProject_Add <https://cmake.org/cmake/help/latest/module/ExternalProject.html>`__
+and
+`file(DOWNLOAD) <https://cmake.org/cmake/help/latest/command/file.html>`__
+should verify the server certificate for ``https://`` URLs.
+
+Default: ``ON``
+
+.. warning::
+
+  Value ``OFF`` will disable certificate verification. It means that the only
+  protection is SHA1 hash of sources which is `weak <http://shattered.io/>`__.
+  And if you're using binary servers (it's
+  :ref:`default <hunter_use_cache_servers>`) meta cache files like
+  ``cache.sha1`` will not be checked at all!
+
 Environment
 ~~~~~~~~~~~
 

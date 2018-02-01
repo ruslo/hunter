@@ -18,11 +18,12 @@ macro(hunter_config)
         "error.unexpected.hunter_config"
     )
   endif()
+  set(_hunter_optional KEEP_PACKAGE_SOURCES)
   set(_hunter_one_value VERSION GIT_SUBMODULE GIT_SUBMODULE_DIR)
   set(_hunter_multiple_values CMAKE_ARGS CONFIGURATION_TYPES)
   cmake_parse_arguments(
       _hunter
-      ""
+      "${_hunter_optional}"
       "${_hunter_one_value}"
       "${_hunter_multiple_values}"
       ${ARGV}
@@ -87,4 +88,14 @@ macro(hunter_config)
   else()
     hunter_user_error("Expected VERSION option for 'hunter_config' command")
   endif()
+
+  if(_hunter_KEEP_PACKAGE_SOURCES)
+    set_property(
+      GLOBAL
+      PROPERTY
+      "HUNTER_${_hunter_current_project}_KEEP_PACKAGE_SOURCES"
+      ON
+      )
+  endif()
+
 endmacro()

@@ -160,6 +160,11 @@ function(hunter_create_cache_file cache_path)
   file(
       APPEND
       "${temp_path}"
+      "set(HUNTER_URL \"${HUNTER_URL}\" CACHE INTERNAL \"\")\n"
+  )
+  file(
+      APPEND
+      "${temp_path}"
       "set(HUNTER_CONFIG_SHA1 \"${HUNTER_CONFIG_SHA1}\" CACHE INTERNAL \"\")\n"
   )
   file(

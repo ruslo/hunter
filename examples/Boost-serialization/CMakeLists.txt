@@ -13,4 +13,4 @@ hunter_add_package(Boost COMPONENTS serialization)
 find_package(Boost CONFIG REQUIRED serialization)
 
 add_executable(foo foo.cpp)
-target_link_libraries(foo Boost::serialization)
+target_link_libraries(foo PUBLIC Boost::serialization)

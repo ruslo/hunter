@@ -176,6 +176,8 @@ function(hunter_autotools_project target_name)
           ${PARAM_URL_HASH}
         DOWNLOAD_DIR
           ${PARAM_DOWNLOAD_DIR}
+        TLS_VERIFY
+          "${HUNTER_TLS_VERIFY}"
         SOURCE_DIR
           ${PARAM_SOURCE_DIR}
         INSTALL_DIR
@@ -198,6 +200,8 @@ function(hunter_autotools_project target_name)
     ExternalProject_Add(${ios_universal_target}
         DOWNLOAD_COMMAND
           ""
+        TLS_VERIFY
+          "${HUNTER_TLS_VERIFY}"
         SOURCE_DIR
           ${PARAM_SOURCE_DIR}/universal
         INSTALL_DIR
@@ -283,6 +287,8 @@ function(hunter_autotools_project target_name)
             ${PARAM_URL_HASH}
           DOWNLOAD_DIR
             ${PARAM_DOWNLOAD_DIR}
+          TLS_VERIFY
+            "${HUNTER_TLS_VERIFY}"
           SOURCE_DIR
             ${arch_source_dir}
           INSTALL_DIR

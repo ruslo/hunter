@@ -255,6 +255,9 @@ def run():
         'TESTING_URL={}'.format(hunter_url),
         'TESTING_SHA1={}'.format(hunter_sha1)
     ]
+    if not verbose:
+      args += ['--discard', '10']
+      args += ['--tail', '200']
 
     print('Execute command: [')
     for i in args:

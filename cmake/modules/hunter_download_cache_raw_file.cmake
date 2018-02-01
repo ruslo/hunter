@@ -13,6 +13,7 @@ include(hunter_user_error)
 
 function(hunter_download_cache_raw_file)
   hunter_test_string_not_empty("${HUNTER_CACHED_ROOT}")
+  hunter_test_string_not_empty("${HUNTER_TLS_VERIFY}")
 
   cmake_parse_arguments(x "" "LOCAL;SHA1;FROMSERVER" "" ${ARGV})
   # -> x_LOCAL
@@ -88,7 +89,7 @@ function(hunter_download_cache_raw_file)
         set(showprogress "")
       endif()
 
-      file(DOWNLOAD "${url}" "${x_LOCAL}" STATUS status ${showprogress})
+      file(DOWNLOAD "${url}" "${x_LOCAL}" STATUS status ${showprogress} TLS_VERIFY "${HUNTER_TLS_VERIFY}")
       file(SHA1 "${x_LOCAL}" local_sha1)
       string(COMPARE EQUAL "${local_sha1}" "${x_SHA1}" sha1_is_good)
 

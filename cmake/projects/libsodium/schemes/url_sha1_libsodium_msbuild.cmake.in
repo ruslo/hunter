@@ -24,6 +24,7 @@ hunter_test_string_not_empty("@HUNTER_PACKAGE_SOURCE_DIR@")
 hunter_test_string_not_empty("@HUNTER_PACKAGE_INSTALL_PREFIX@")
 hunter_test_string_not_empty("@HUNTER_PACKAGE_CONFIGURATION_TYPES@")
 hunter_test_string_not_empty("@HUNTER_SELF@")
+hunter_test_string_not_empty("@HUNTER_TLS_VERIFY@")
 
 
 if(NOT "@MSVC@")
@@ -116,6 +117,8 @@ foreach(build_config_type @HUNTER_PACKAGE_CONFIGURATION_TYPES@)
             SHA1=@HUNTER_PACKAGE_SHA1@
         DOWNLOAD_DIR
             "@HUNTER_PACKAGE_DOWNLOAD_DIR@"
+        TLS_VERIFY
+            "@HUNTER_TLS_VERIFY@"
         SOURCE_DIR
             "@HUNTER_PACKAGE_SOURCE_DIR@"
         INSTALL_DIR

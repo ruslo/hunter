@@ -85,7 +85,7 @@ function(hunter_download_cache_meta_file)
       hunter_status_debug("  -> ${x_DONE}")
 
       hunter_sleep_before_download("${x}")
-      file(DOWNLOAD "${done_url}" "${done_temp}" STATUS status)
+      file(DOWNLOAD "${done_url}" "${done_temp}" STATUS status TLS_VERIFY "${HUNTER_TLS_VERIFY}")
 
       list(GET status 0 error_code)
       list(GET status 1 error_message)
@@ -121,7 +121,7 @@ function(hunter_download_cache_meta_file)
         hunter_status_debug("  -> ${x_LOCAL}")
 
         hunter_sleep_before_download("${x}")
-        file(DOWNLOAD "${local_url}" "${local_temp}" STATUS status)
+        file(DOWNLOAD "${local_url}" "${local_temp}" STATUS status TLS_VERIFY "${HUNTER_TLS_VERIFY}")
 
         list(GET status 0 error_code)
         list(GET status 1 error_message)

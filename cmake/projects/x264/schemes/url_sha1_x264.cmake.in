@@ -31,6 +31,7 @@ hunter_test_string_not_empty("@HUNTER_PACKAGE_INSTALL_PREFIX@")
 hunter_test_string_not_empty("@HUNTER_PACKAGE_CONFIGURATION_TYPES@")
 hunter_test_string_not_empty("@HUNTER_INSTALL_PREFIX@")
 hunter_test_string_not_empty("@HUNTER_GLOBAL_SCRIPT_DIR@")
+hunter_test_string_not_empty("@HUNTER_TLS_VERIFY@")
 
 if("@MSVC@")
   hunter_user_error("x264 building under MSVC needs to be implemented")
@@ -212,6 +213,8 @@ if(NOT is_ios)
       SHA1=@HUNTER_PACKAGE_SHA1@
     DOWNLOAD_DIR
       "@HUNTER_PACKAGE_DOWNLOAD_DIR@"
+    TLS_VERIFY
+      "@HUNTER_TLS_VERIFY@"
     SOURCE_DIR
       "@HUNTER_PACKAGE_SOURCE_DIR@"
     INSTALL_DIR
@@ -232,6 +235,8 @@ else()
   ExternalProject_Add(${ios_universal_target}
       DOWNLOAD_COMMAND
         ""
+      TLS_VERIFY
+        "@HUNTER_TLS_VERIFY@"
       SOURCE_DIR
         "@HUNTER_PACKAGE_SOURCE_DIR@/universal"
       INSTALL_DIR
@@ -304,6 +309,8 @@ else()
           SHA1=@HUNTER_PACKAGE_SHA1@
         DOWNLOAD_DIR
           "@HUNTER_PACKAGE_DOWNLOAD_DIR@"
+        TLS_VERIFY
+          "@HUNTER_TLS_VERIFY@"
         SOURCE_DIR
           ${arch_source_dir}
         INSTALL_DIR

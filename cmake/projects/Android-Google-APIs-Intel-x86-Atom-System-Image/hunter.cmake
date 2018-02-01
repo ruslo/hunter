@@ -45,5 +45,16 @@ hunter_add_version(
     b6a979f63c72e88142ea449b906e443f986a12cf
 )
 
+hunter_add_version(
+    PACKAGE_NAME
+    Android-Google-APIs-Intel-x86-Atom-System-Image
+    VERSION
+    "24_r20"
+    URL
+    "https://dl.google.com/android/repository/sys-img/google_apis/x86-24_r20.zip"
+    SHA1
+    c86cadee4e835eef8246bede3269133d06f34571
+)
+
 hunter_pick_scheme(DEFAULT url_sha1_unpack)
 hunter_download(PACKAGE_NAME Android-Google-APIs-Intel-x86-Atom-System-Image)

@@ -18,6 +18,7 @@ include(hunter_status_debug)
 include(hunter_test_string_not_empty)
 include(hunter_unsetvar)
 include(hunter_get_boost_libs)
+include(hunter_parse_boost_config_macros)
 
 hunter_status_debug("Scheme: url_sha1_boost_ios_library")
 
@@ -33,6 +34,7 @@ hunter_test_string_not_empty("@HUNTER_PACKAGE_INSTALL_PREFIX@")
 hunter_test_string_not_empty("@HUNTER_PACKAGE_COMPONENT@")
 hunter_test_string_not_empty("@HUNTER_GLOBAL_SCRIPT_DIR@")
 hunter_test_string_not_empty("@HUNTER_PACKAGE_SCRIPT_DIR@")
+hunter_test_string_not_empty("@HUNTER_TLS_VERIFY@")
 
 # Note: support for single architecture/native iOS builds (i.e., arm64)
 hunter_test_string_not_empty("@IPHONESIMULATOR_ARCHS@@IPHONEOS_ARCHS@")
@@ -44,6 +46,12 @@ hunter_test_string_not_empty("@HUNTER_Boost_VERSION@")
 
 # get list of boost components for given version
 hunter_get_boost_libs(VERSION "@HUNTER_Boost_VERSION@" LIBS boost_libs)
+
+if("@HUNTER_Boost_VERSION@" VERSION_LESS 1.66)
+  set(fatlib_script "@HUNTER_PACKAGE_SCRIPT_DIR@/create-boost-ios-fatlib.sh")
+else()
+  set(fatlib_script "@HUNTER_PACKAGE_SCRIPT_DIR@/create-boost-1-66-ios-fatlib.sh")
+endif()
 
 set(libfound NO)
 foreach(x ${boost_libs})
@@ -69,12 +77,15 @@ foreach(x @IPHONEOS_ARCHS@)
     # First goes to instruction-set option;
     # arm64 is not supported:
     #   * https://svn.boost.org/trac/boost/ticket/10910
+    # NOTE:
+    #   Being in instruction-set is not enough, should be
+    #   mentioned explicitly in C++ flags too (Boost 1.66)
     set(arm_instruction_set "${x}")
     set(is_first NO)
-  else()
-    # others go to the C++ flags directly
-    set(iphoneos_archs "${iphoneos_archs} -arch ${x}")
   endif()
+
+  set(iphoneos_archs "${iphoneos_archs} -arch ${x}")
+
   # Has at least one iPhoneOS architecture to build
   set(has_iphoneos TRUE)
 endforeach()
@@ -107,6 +118,9 @@ file(
      "    : <architecture>x86 <target-os>iphone\n"
      ";"
 )
+
+file(READ ${boost_user_jam} boost_user_jam_content)
+hunter_status_debug("boost.user.jam content:\n${boost_user_jam_content}")
 
 set(
     build_opts
@@ -178,6 +192,8 @@ if(has_iphoneos)
       SHA1=@HUNTER_PACKAGE_SHA1@
       DOWNLOAD_DIR
       "@HUNTER_PACKAGE_DOWNLOAD_DIR@"
+      TLS_VERIFY
+      "@HUNTER_TLS_VERIFY@"
       SOURCE_DIR
       "@HUNTER_PACKAGE_SOURCE_DIR@"
       INSTALL_DIR
@@ -204,6 +220,8 @@ else()
       SHA1=@HUNTER_PACKAGE_SHA1@
       DOWNLOAD_DIR
       "@HUNTER_PACKAGE_DOWNLOAD_DIR@"
+      TLS_VERIFY
+      "@HUNTER_TLS_VERIFY@"
       SOURCE_DIR
       "@HUNTER_PACKAGE_SOURCE_DIR@"
       INSTALL_DIR
@@ -227,6 +245,8 @@ if(has_isim)
       ""
       DOWNLOAD_DIR
       "@HUNTER_PACKAGE_DOWNLOAD_DIR@"
+      TLS_VERIFY
+      "@HUNTER_TLS_VERIFY@"
       SOURCE_DIR
       "@HUNTER_PACKAGE_SOURCE_DIR@"
       INSTALL_DIR
@@ -253,6 +273,8 @@ else()
       SHA1=@HUNTER_PACKAGE_SHA1@
       DOWNLOAD_DIR
       "@HUNTER_PACKAGE_DOWNLOAD_DIR@"
+      TLS_VERIFY
+      "@HUNTER_TLS_VERIFY@"
       SOURCE_DIR
       "@HUNTER_PACKAGE_SOURCE_DIR@"
       INSTALL_DIR
@@ -286,7 +308,7 @@ if(log_setup_target)
   set(
       extra_lib_command
       COMMAND
-      "@HUNTER_PACKAGE_SCRIPT_DIR@/create-boost-ios-fatlib.sh"
+      ${fatlib_script}
       "@HUNTER_PACKAGE_SOURCE_DIR@"
       "log_setup"
       "@HUNTER_PACKAGE_COMPONENT@"
@@ -296,6 +318,13 @@ else()
   set(extra_lib_command "")
 endif()
 
+hunter_parse_boost_config_macros(BOOST_CONFIG_MACROS "@HUNTER_Boost_CMAKE_ARGS@")
+configure_file(
+  "@HUNTER_GLOBAL_SCRIPT_DIR@/append-boost-config-macros.cmake.in"
+  "@HUNTER_PACKAGE_BUILD_DIR@/append-boost-config-macros.cmake"
+  @ONLY
+)
+
 ExternalProject_Add(
     "@HUNTER_EP_NAME@-ios_universal"
     DEPENDS
@@ -303,6 +332,8 @@ ExternalProject_Add(
     "@HUNTER_EP_NAME@-ios_sim"
     DOWNLOAD_COMMAND
     ""
+    TLS_VERIFY
+    "@HUNTER_TLS_VERIFY@"
     DOWNLOAD_DIR
     "@HUNTER_PACKAGE_DOWNLOAD_DIR@"
     SOURCE_DIR
@@ -310,6 +341,9 @@ ExternalProject_Add(
     INSTALL_DIR
     "@HUNTER_PACKAGE_INSTALL_PREFIX@"
         # not used, just avoid creating Install/<name> empty directory
+    UPDATE_COMMAND
+    "@CMAKE_COMMAND@" -P
+    "@HUNTER_PACKAGE_BUILD_DIR@/append-boost-config-macros.cmake"
     CONFIGURE_COMMAND
     ""
     BUILD_COMMAND
@@ -317,7 +351,7 @@ ExternalProject_Add(
     INSTALL_COMMAND
     "${CMAKE_COMMAND}" -E make_directory "@HUNTER_PACKAGE_INSTALL_PREFIX@/lib"
     COMMAND
-    "@HUNTER_PACKAGE_SCRIPT_DIR@/create-boost-ios-fatlib.sh"
+    ${fatlib_script}
     "@HUNTER_PACKAGE_SOURCE_DIR@"
     "${LIBNAME}"
     "@HUNTER_PACKAGE_COMPONENT@"

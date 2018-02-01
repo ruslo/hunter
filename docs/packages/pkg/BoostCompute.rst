@@ -15,7 +15,7 @@ BoostCompute
 
 -  `Official <https://github.com/boostorg/compute>`__
 -  `Hunterized <https://github.com/hunter-packages/boost-compute>`__
--  `Example <https://github.com/ruslo/hunter/blob/develop/examples/Boost-compute/CMakeLists.txt>`__
+-  `Example <https://github.com/ruslo/hunter/blob/master/examples/Boost-compute/CMakeLists.txt>`__
 - Available since |hunter|
 
 .. code-block:: cmake

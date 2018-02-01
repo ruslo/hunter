@@ -37,6 +37,7 @@ hunter_test_string_not_empty("@HUNTER_ARGS_FILE@")
 hunter_test_string_not_empty("@HUNTER_PACKAGE_LICENSE_DIR@")
 hunter_test_string_not_empty("@CMAKE_GENERATOR@")
 hunter_test_string_not_empty("${CMAKE_TOOLCHAIN_FILE}")
+hunter_test_string_not_empty("@HUNTER_TLS_VERIFY@")
 
 if(IOS)
   if(CMAKE_VERSION VERSION_LESS 3.5)
@@ -129,6 +130,8 @@ foreach(configuration @HUNTER_PACKAGE_CONFIGURATION_TYPES@)
       ${http_credentials}
       DOWNLOAD_DIR
       "@HUNTER_PACKAGE_DOWNLOAD_DIR@"
+      TLS_VERIFY
+      "@HUNTER_TLS_VERIFY@"
       SOURCE_DIR
       "@HUNTER_PACKAGE_SOURCE_DIR@"
       INSTALL_DIR

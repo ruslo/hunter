@@ -15,7 +15,7 @@ BZip2
 
 -  `Official <http://bzip.org>`__
 -  `Hunterized <https://github.com/hunter-packages/bzip2>`__
--  `Example <https://github.com/ruslo/hunter/blob/develop/examples/BZip2/CMakeLists.txt>`__
+-  `Example <https://github.com/ruslo/hunter/blob/master/examples/BZip2/CMakeLists.txt>`__
 - Available since |hunter|
 
 .. code-block:: cmake

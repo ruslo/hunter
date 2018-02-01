@@ -15,7 +15,7 @@ crashpad
 
 -  `Official <https://crashpad.chromium.org/index.html>`__
 -  `Hunterized <https://github.com/qedsoftware/crashpad>`__
--  `Example <https://github.com/ruslo/hunter/blob/develop/examples/crashpad/foo.cpp>`__
+-  `Example <https://github.com/ruslo/hunter/blob/master/examples/crashpad/foo.cpp>`__
 - Available since |hunter|
 
    .. code:: cmake
