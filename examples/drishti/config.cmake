@@ -6,8 +6,6 @@ hunter_config(
     CMAKE_ARGS XGBOOST_USE_HALF=ON XGBOOST_USE_CEREAL=ON XGBOOST_DO_LEAN=ON
 )
 
-hunter_config(ogles_gpgpu VERSION 0.2.8)
-
 hunter_config(
     acf
     VERSION ${HUNTER_acf_VERSION}
@@ -18,16 +16,20 @@ hunter_config(
 if(ANDROID)
   # https://travis-ci.org/ingenue/hunter/jobs/287844545
   # Will be fixed in Android NDK 17
-  hunter_config(dlib VERSION 19.2-p1)
+  set(drishti_dlib_version 19.2-p2)
+  # error: 'struct lconv' has no member named 'decimal_point' -/-
+  hunter_config(nlohmann_json VERSION 2.1.1-p1)
 else()
-  hunter_config(
-      dlib
-      VERSION 19.6-p2
-      CMAKE_ARGS
-      DLIB_USE_BLAS=OFF
-      DLIB_USE_LAPACK=OFF
-      DLIB_USE_MKL_FFT=OFF
-  )
+  set(drishti_dlib_version 19.6-p2)
 endif()
+
+hunter_config(
+    dlib
+    VERSION ${drishti_dlib_version}
+    CMAKE_ARGS
+    DLIB_USE_BLAS=OFF
+    DLIB_USE_LAPACK=OFF
+    DLIB_USE_MKL_FFT=OFF
+)
 
 # DOCUMENTATION_END }
