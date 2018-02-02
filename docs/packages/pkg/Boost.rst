@@ -37,6 +37,7 @@ List of components (other libraries are header-only):
 - ``coroutine``
 - ``date_time``
 - ``exception``
+- ``fiber``
 - ``filesystem``
 - ``graph``
 - ``graph_parallel``
