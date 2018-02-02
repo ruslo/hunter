@@ -11,8 +11,10 @@ include("../common.cmake")
 
 project(download-drishti)
 
+# DOCUMENTATION_START {
 hunter_add_package(drishti)
 find_package(drishti CONFIG REQUIRED)
 
 add_executable(drishti foo.cpp)
-target_link_libraries(drishti drishti::drishti)
+target_link_libraries(drishti PUBLIC drishti::drishti)
+# DOCUMENTATION_END }
