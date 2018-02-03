@@ -33,7 +33,7 @@ When contributing please follow the style guides:
     Before adding or updating a package in Hunter, the package is tested.
     Tests are done to check if the source can be downloaded, built and linked.
     Head over to our
-    `repository for per package CI testing contribution <https://github.com/ingenue/hunter>`__
+    `repository for per package CI testing contribution <https://github.com/ingenue/hunter/branches/all?utf8=%E2%9C%93&query=pkg.>`__
     to see more.
 
 Reporting bugs
