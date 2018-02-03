@@ -42,7 +42,7 @@ Binaries/headers stored in archives. Archives are the result of packing
 ``cmake --build _builds --target install`` command. Idea is similar to CPack
 functionality but extended for non-CMake packages too.
 
-.. code-block:: shell
+.. code-block:: none
   :emphasize-lines: 3, 6, 8
 
   > mkdir temp-dir
