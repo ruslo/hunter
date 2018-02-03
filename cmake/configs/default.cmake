@@ -333,6 +333,7 @@ hunter_config(xshmfence VERSION 1.2)
 hunter_config(xtrans VERSION 1.2.7)
 hunter_config(xxf86vm VERSION 1.1.2)
 hunter_config(yaml-cpp VERSION 0.5.3-plus-p0)
+hunter_config(SFML VERSION 2.4.2)
 
 if(MSVC80)
   hunter_config(GTest VERSION 1.7.0-hunter-6)
