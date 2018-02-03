@@ -129,8 +129,9 @@ Rejected/pending CMake patches
 ==============================
 
 Having CMake build instructions in package is the easiest way to integrate
-package into Hunter (but not the only one) however not all developers of
-the upstream projects are ready to accept CMake code because it may put burden
+package into Hunter (but not the only one) however
+`not all developers of the upstream projects are ready to accept CMake code <https://github.com/technion/libscrypt/pull/43>`__
+because it may put burden
 on maintaining another build system (if CMake added as extra build system),
 learning new build system (if you want to substitute existing system with CMake)
 or increase CMake minimum version to introduce new code.
