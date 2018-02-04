@@ -36,6 +36,11 @@ When contributing please follow the style guides:
     `repository for per package CI testing contribution <https://github.com/ingenue/hunter/branches/all?utf8=%E2%9C%93&query=pkg.>`__
     to see more.
 
+.. note::
+
+  If you're planning to introduce nontrivial feature it's better to
+  discuss design first, it will save a lot of time for both you and developers.
+
 Reporting bugs
 ~~~~~~~~~~~~~~
 
