@@ -16,6 +16,7 @@
 <!--- Remove next line if there is no corresponding "New package" issue. -->
 * My change will resolve this "New package" request: https://github.com/ruslo/hunter/issues/<number>
 
+---
 <!--- END -->
 
 <!--- Use this part of template if you're updating existing package. Remove the rest. -->
@@ -31,6 +32,7 @@
 * This update will break few old toolchains.
   They are excluded in this pull request: https://github.com/ingenue/hunter/pull/<number>
 
+---
 <!--- END -->
 
 <!--- Use this part of template for other type of changes. Remove the rest. -->
@@ -41,4 +43,5 @@
 * My change will work with CMake 3.0 (minimum requirement for Hunter). **[Yes|No]**
 * I will try to keep this pull request as small as possible and will try not to mix unrelated features. **[Yes|No]**
 
+---
 <!--- END -->
