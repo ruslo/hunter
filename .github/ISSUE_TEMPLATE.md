@@ -4,7 +4,9 @@
 
 * I've read [Brief overview section](https://docs.hunter.sh/en/latest/overview.html) and do understand basic concepts. **[Yes|No]**
 * I've read [F.A.Q. section](https://docs.hunter.sh/en/latest/faq.html) and haven't found an answer to my question. **[Yes|No]**
+* I've read [Code of Conduct](https://github.com/ruslo/hunter/blob/master/.github/CODE_OF_CONDUCT.md), I promise to be polite and will do my best at being constructive. **[Yes|No]**
 
+---
 <!--- END -->
 
 <!--- Use this part of template if you want to leave a package request. Remove the rest. -->
@@ -38,6 +40,7 @@
   * `<dependency-2>` (required, not available in Hunter, corresponding "New package" request: https://github.com/ruslo/hunter/issues/<number>)
   * `<dependency-3>` (optional, not available in Hunter, corresponding "New package" request: https://github.com/ruslo/hunter/issues/<number>)
 
+---
 <!--- END -->
 
 <!--- Use this part of template if you want to report bug. Remove the rest. -->
@@ -45,8 +48,9 @@
 
 * I've read [Brief overview section](https://docs.hunter.sh/en/latest/overview.html) and do understand basic concepts. **[Yes|No]**
 * I've read [F.A.Q. section](https://docs.hunter.sh/en/latest/faq.html) and there is no solution to my problem there. **[Yes|No]**
+* I've read [Code of Conduct](https://github.com/ruslo/hunter/blob/master/.github/CODE_OF_CONDUCT.md), I promise to be polite and will do my best at being constructive. **[Yes|No]**
 * I've read [Reporting bugs section](https://docs.hunter.sh/en/latest/contributing.html#reporting-bugs) carefully. **[Yes|No]**
-* I've checked that all the hunter_add_package/find_package API used by me in example is the same as in documentation. **[Yes|No]**
+* I've checked that all the `hunter_add_package`/`find_package` API used by me in example is the same as in [documentation](https://docs.hunter.sh/en/latest/packages.html). **[Yes|No]**
 * I'm using latest Hunter URL/SHA1. **[Yes|No]**
 
 <!--- If you can reproduce an issue using just one small CMakeLists.txt, paste it here. -->
@@ -81,11 +85,11 @@ Here is the log until first error reported by Hunter, option `HUNTER_STATUS_DEBU
 
 <!--- Check this document: https://github.com/ruslo/hunter/wiki/error.external.build.failed -->
 <!--- If you got `external.build.failed` -->
-I've checked that the first error in logs IS NOT `external.build.failed`. **[Yes|No]**
+I've checked that the first error in logs **IS NOT** `external.build.failed`. **[Yes|No]**
 
 <!--- Info about environment -->
 * I'm building on [Linux|OSX|Windows|...].
-* [I'm using system CMake|I'm using official CMake release|I've build CMake from sources myself]
+* [I'm using system CMake|I'm using official CMake release|I've built CMake from sources myself]
 * CMake version: <X.Y.Z>
 
 <!--- What toolchain you're using if any -->
@@ -99,4 +103,5 @@ I'm using next command line on generate step:
 cmake -H. -B_builds "-GVisual Studio 14 2015"
 ```
 
+---
 <!--- END -->
