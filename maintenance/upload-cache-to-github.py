@@ -100,7 +100,7 @@ class Github:
 
     r = requests.get(url, auth=self.auth)
     if r.status_code == 404:
-        raise Error('Release {} does not exist. Create a GitHub release for with this tag'.format(tagname))
+        raise Error('Release {} does not exist. Create a GitHub release with this tag'.format(tagname))
     if not r.ok:
         raise Exception(
             'Get release id failed. Status code: {}. Requested url: {}'.format(
