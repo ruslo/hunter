@@ -6,7 +6,7 @@
 
 * I've tested this package remotely and have excluded all broken builds.
   Here is the links to the Travis/AppVeyor with status "All passed":
-  
+
   * https://ci.appveyor.com/project/<username>/hunter/build/<build-number>
   * https://travis-ci.org/<username>/hunter/builds/<build-number>
 
@@ -24,10 +24,10 @@
 
 * I've tested this package remotely and have excluded all broken builds.
   Here is the links to the Travis/AppVeyor with status "All passed":
-  
+
   * https://ci.appveyor.com/project/<username>/hunter/build/<build-number>
   * https://travis-ci.org/<username>/hunter/builds/<build-number>
-  
+
 <!--- Remove next line if this update doesn't break old toolchains -->
 * This update will break few old toolchains.
   They are excluded in this pull request: https://github.com/ingenue/hunter/pull/<number>
