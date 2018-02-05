@@ -441,6 +441,12 @@ parser.add_argument(
 )
 
 parser.add_argument(
+    '--password',
+    required=True,
+    help='Password'
+)
+
+parser.add_argument(
     '--repo-owner',
     required=True,
     help='Repository owner'
@@ -482,10 +488,10 @@ if os.path.split(cache_dir)[1] != 'Cache':
 
 cache = Cache(cache_dir, args.temp_dir)
 
-password = os.getenv('GITHUB_USER_PASSWORD')
+password = args.password
 
 if password == '' or password is None:
-  raise Exception('Expected GITHUB_USER_PASSWORD environment variable')
+  raise Exception('No password provided')
 
 github = Github(
     username = args.username,
