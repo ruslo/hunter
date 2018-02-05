@@ -393,6 +393,9 @@ class CacheEntry:
           print('GitHub link: {}'.format(github_url))
           raise Exception('Hash mismatch')
 
+  def touch_from_server(self):
+    open(self.from_server, 'w')
+
 class Cache:
   def __init__(self, cache_dir, temp_dir):
     self.entries = self.create_entries(cache_dir, temp_dir)
@@ -429,6 +432,10 @@ class Cache:
   def upload_meta(self, github, cache_done):
     for i in self.entries:
       i.upload_meta(github, cache_done)
+
+  def touch_from_server(self):
+    for i in self.entries:
+      i.touch_from_server()
 
 parser = argparse.ArgumentParser(
     description='Script for uploading Hunter cache files to GitHub'
@@ -504,4 +511,6 @@ cache.upload_raw(github)
 
 cache.upload_meta(github, cache_done=False)
 print('Uploading DONE files')
-cache.upload_meta(github, cache_done=True) # Should be last
+cache.upload_meta(github, cache_done=True) # Should be last upload operation
+print('Touch from.server files')
+cache.touch_from_server()
