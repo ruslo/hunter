@@ -21,8 +21,10 @@ dependent projects will be built by ``g++ -std=c++11``. Information about
 toolchain has some internal representation (``toolchain.info``). As identifier
 (ID) the first 7 digits of the ``SHA1`` hash of this file are used.
 
-The toolchain file is the only way to apply global settings for 3rd party projects
-in Hunter. Only CMAKE_TOOLCHAIN_FILE will be forwarded for all packages,
+**The toolchain file is the only way to apply global settings for 3rd party
+projects in Hunter.**
+
+Only CMAKE_TOOLCHAIN_FILE will be forwarded for all packages,
 neither standard CMAKE_CXX_COMPILER/CMAKE_CXX_FLAGS nor custom variables
 like ANDROID_FOO=boo will be applied globally. First reason is the simplicity
 of forwarding logic, second reason is about distinguishing local and global
