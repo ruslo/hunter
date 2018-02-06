@@ -7,6 +7,44 @@ User variables
 CMake
 ~~~~~
 
+.. note::
+
+  All Hunter options should be set **to cache** and
+  **before HunterGate** so user will be able to set
+  `his own values <http://cgold.readthedocs.io/en/latest/tutorials/variables/cache.html#use-case>`__.
+  Also if package will be used as a third party project managed by Hunter, then
+  Hunter should be able to forward all values from by parent to child projects.
+  So **do not** set this variables with ``FORCE`` or as ``INTERNAL``, and don't
+  set them as a regular variables:
+
+  .. code-block:: cmake
+
+    set(HUNTER_ENABLED ON) # BAD!
+
+  .. code-block:: cmake
+
+    set(HUNTER_STATUS_PRINT OFF CACHE BOOL "..." FORCE) # BAD!
+
+  .. code-block:: cmake
+
+    set(HUNTER_STATUS_DEBUG ON CACHE INTERNAL "...") # BAD!
+
+  .. code-block:: cmake
+
+    option(HUNTER_STATUS_DEBUG "Print a lot of info" ON) # Good
+
+    # Good
+    set(
+        HUNTER_CACHE_SERVERS
+        "https://github.com/elucideye/hunter-cache"
+        CACHE
+        STRING
+        "Hunter cache servers"
+    )
+
+    # All user options before HunterGate
+    HunterGate(URL "..." SHA1 "...")
+
 HUNTER_ENABLED
 ==============
 
