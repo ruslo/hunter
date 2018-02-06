@@ -3,6 +3,8 @@
 
 include(CMakeParseArguments) # cmake_parse_arguments
 
+include(hunter_internal_error)
+
 function(hunter_http_password package_name)
   set(one USERNAME PASSWORD)
 
@@ -12,7 +14,7 @@ function(hunter_http_password package_name)
 
   string(COMPARE NOTEQUAL "${x_UNPARSED_ARGUMENTS}" "" has_unparsed)
   if(has_unparsed)
-    hunter_internale_error("Unparsed arguments: ${x_UNPARSED_ARGUMENTS}")
+    hunter_internal_error("Unparsed arguments: ${x_UNPARSED_ARGUMENTS}")
   endif()
 
   string(COMPARE EQUAL "${HUNTER_PACKAGE_NAME}" "${package_name}" hit)
