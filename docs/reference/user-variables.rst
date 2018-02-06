@@ -101,6 +101,20 @@ HUNTER_RUN_INSTALL
 Set this variable to ``ON`` to run auto-install procedure if it's disabled by
 :ref:`HUNTER_DISABLE_AUTOINSTALL <hunter disable install>` environment variable.
 
+.. _hunter_run_upload:
+
+HUNTER_RUN_UPLOAD
+=================
+
+Set this variable to ``YES`` to start
+:doc:`uploading procedure </user-guides/hunter-user/github-cache-server>`.
+
+* Default: ``NO``
+
+.. note::
+
+  Upload will start only after any real build triggered by Hunter.
+
 .. _hunter_disable_builds:
 
 HUNTER_DISABLE_BUILDS
@@ -178,10 +192,7 @@ HUNTER_USE_CACHE_SERVERS
 HUNTER_PASSWORDS_PATH
 =====================
 
-Path to file with passwords for packages with
-:doc:`protected sources </user-guides/cmake-user/protected-sources>`
-and for storing
-:doc:`uploading parameters </user-guides/hunter-user/github-cache-server>`.
+Path to :doc:`Hunter passwords file <terminology/hunter-passwords-file>`.
 
 HUNTER_KEEP_PACKAGE_SOURCES
 ===========================
