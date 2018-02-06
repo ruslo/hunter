@@ -63,9 +63,6 @@ def run():
       action='store_true',
       help='Upload cache to server and run checks (clean up will be triggered, same as --clear-except-download)'
   )
-  parser.add_argument(
-      '--skip-raw', action='store_true', help="Skip uploading of raw files"
-  )
 
   parsed_args = parser.parse_args()
 
@@ -218,9 +215,6 @@ def run():
         '--temp-dir',
         os.path.join(hunter_root, '__TEMP')
     ]
-
-    if parsed_args.skip_raw:
-      call_args.append('--skip-raw')
 
     subprocess.check_call(call_args)
 
