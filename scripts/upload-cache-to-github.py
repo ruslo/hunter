@@ -98,7 +98,22 @@ class Github:
 
     r = requests.get(url, auth=self.auth)
     if r.status_code == 404:
-        raise Error('Release {} does not exist. Create a GitHub release with this tag'.format(tagname))
+        # Create release if not exists
+        # https://developer.github.com/v3/repos/releases/#create-a-release
+        # POST /repos/:owner/:repo/releases
+
+        post_url = 'https://api.github.com/repos/{}/{}/releases'.format(
+            self.repo_owner,
+            self.repo,
+        )
+        tag_data = "{" + '"tag_name": "{}"'.format(tagname) + "}"
+        r = requests.post(post_url, data=tag_data, auth=self.auth)
+        if not r.status_code == 201:
+            raise Error("Unexpected status code: {}".format(r.status_code))
+        if not r.ok:
+            raise Error("Can't create release tag {}".format(tagname))
+        r = requests.get(url, auth=self.auth)
+
     if not r.ok:
         raise Exception(
             'Get release id failed. Status code: {}. Requested url: {}'.format(
@@ -190,15 +205,16 @@ class Github:
       raise exc
 
   def upload_raw_file(self, local_path):
-    tagname = 'cache'
+    asset_name = hashlib.sha1(open(local_path, 'rb').read()).hexdigest()
+
+    tagname = 'cache-{}'.format(asset_name[0:7])
+    asset_name = asset_name + '.tar.bz2'
+
     release_id, upload_url = self.get_release_by_tag(tagname)
 
     # https://developer.github.com/v3/repos/releases/#upload-a-release-asset
     # POST to upload_url received in the release description
     # in get_release_by_tag()
-
-    asset_name = hashlib.sha1(open(local_path, 'rb').read()).hexdigest()
-    asset_name = asset_name + '.tar.bz2'
 
     url = upload_url.format(asset_name)
     self.upload_bzip(url, local_path, release_id, asset_name)
