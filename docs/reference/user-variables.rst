@@ -179,7 +179,9 @@ HUNTER_PASSWORDS_PATH
 =====================
 
 Path to file with passwords for packages with
-:doc:`protected sources </user-guides/cmake-user/protected-sources>`.
+:doc:`protected sources </user-guides/cmake-user/protected-sources>`
+and for storing
+:doc:`uploading parameters </user-guides/hunter-user/github-cache-server>`.
 
 HUNTER_KEEP_PACKAGE_SOURCES
 ===========================
