@@ -1,10 +1,10 @@
 # Copyright (c) 2016, Ruslan Baratov
 # All rights reserved.
 
-include(hunter_http_password) # for included module
 include(hunter_get_passwords_path)
+include(hunter_http_password)
 include(hunter_status_debug)
-include(hunter_user_error)
+include(hunter_upload_password)
 
 # Read credentials for package HUNTER_PACKAGE_NAME and
 # save them in parent scope variables:
@@ -18,6 +18,10 @@ function(hunter_read_http_credentials)
   hunter_get_passwords_path(pass_path)
 
   hunter_status_debug("Including file '${pass_path}'")
+
+  # May use:
+  # * hunter_http_password
+  # * hunter_upload_password
   include("${pass_path}")
 
   set(
