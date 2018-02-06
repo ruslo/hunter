@@ -51,7 +51,7 @@ function(hunter_upload_cache)
     hunter_user_error("Upload: PASSWORD is missing")
   endif()
 
-  find_package(PythonInterp QUIET)
+  find_package(PythonInterp 3 QUIET)
 
   if(NOT PYTHONINTERP_FOUND)
     hunter_user_error("Python not found (required for uploading)")
