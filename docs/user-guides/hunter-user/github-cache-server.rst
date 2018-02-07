@@ -42,6 +42,11 @@ Uploading parameters can be set using
 Use :ref:`HUNTER_RUN_UPLOAD=YES <hunter_run_upload>` option to start upload
 procedure.
 
+.. warning::
+
+  **All entries** from ``Cache`` directory will be uploaded, not only cache for
+  the current build. Take this information into account while doing upload!
+
 Example
 ~~~~~~~
 
