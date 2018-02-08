@@ -31,6 +31,17 @@ hunter_add_version(
     a3f46eb24bc48cacee9f21b1ea4f4a0e3122b847
 )
 
+hunter_add_version(
+    PACKAGE_NAME
+    Assimp
+    VERSION
+    3.2-p2
+    URL
+    "https://github.com/hunter-packages/assimp/archive/v3.2-p2.tar.gz"
+    SHA1
+    7b745fc73c28073d7bdcaa18f994c39636c27776
+)
+
 hunter_cmake_args(
     Assimp
     CMAKE_ARGS
