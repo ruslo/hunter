@@ -26,21 +26,24 @@ branch ``master`` (directory layout matters) (see
   This limitation will be removed in future. Downloading from server done by
   ``file(DOWNLOAD ...)`` CMake commands, so client is still CMake-only based.
 
-List of servers that will be used for downloading binaries can be set in
-:ref:`HUNTER_CACHE_SERVERS <hunter_cache_servers>` variable.
+Variables and modules related to uploading:
 
-If you want to check that there is no 3rd party builds triggered by CMake and
-all packages downloaded from server you can use
-:ref:`HUNTER_DISABLE_BUILDS <hunter_disable_builds>` variable. Also variable
-:ref:`HUNTER_USE_CACHE_SERVERS <hunter_use_cache_servers>` can be used to specify
-downloading policy.
+* List of servers that will be used for **downloading binaries** can be set in
+  :ref:`HUNTER_CACHE_SERVERS <hunter_cache_servers>` variable
 
-Uploading parameters can be set using
-:ref:`hunter_upload_password <hunter_upload_password>` module in
-:doc:`Hunter passwords file </reference/terminology/hunter-passwords-file>`.
+* If you want to check that there is no third party **builds triggered** by
+  CMake and all packages downloaded from server you can use
+  :ref:`HUNTER_DISABLE_BUILDS <hunter_disable_builds>` variable
 
-Use :ref:`HUNTER_RUN_UPLOAD=YES <hunter_run_upload>` option to start upload
-procedure.
+* Variable :ref:`HUNTER_USE_CACHE_SERVERS <hunter_use_cache_servers>` can be
+  used to specify **downloading policy**
+
+* **Uploading parameters** can be set using
+  :ref:`hunter_upload_password <hunter_upload_password>` module in
+  :doc:`Hunter passwords file </reference/terminology/hunter-passwords-file>`
+
+* Use :ref:`HUNTER_RUN_UPLOAD=YES <hunter_run_upload>` option to **start
+  upload** procedure
 
 .. warning::
 
@@ -62,28 +65,49 @@ Cache will be uploaded for CI jobs in repository:
 
 * https://github.com/forexample/hunter-cache-use
 
-Any other repository can use https://github.com/forexample/hunter-cache too.
+Diagram:
 
-.. warning::
-
-  You should create at least one file in cache repository before running upload.
-  It's not possible to create tags for assets if repository is empty.
-
-Access
-~~~~~~
-
-Add ``ingenue`` bot as a collaborator to both ``hunter-cache`` and
-``hunter-cache-use``:
-
-.. image:: images/hunter-cache-use-collaborator.png
+.. image:: images/upload.png
   :align: center
-  :alt: Collaborator
+  :alt: Upload diagram
 
-GitHub token
-~~~~~~~~~~~~
+Workflow:
 
-Let's generate GitHub token which will be used for upload. Login
-to GitHub with the **bot** account, in our case it's ``ingenue``:
+* Users push code to ``hunter-cache-use`` repository
+* ``hunter-cache-use`` CI configs hold encrypted token
+* When encrypted token reach CI, CI knows how to decrypt it
+* Using decrypted token CI can act on bot behalf and upload binaries
+* Binaries can be reused by anybody who have added ``hunter-cache`` to the
+  ``HUNTER_CACHE_SERVERS``
+
+Setup
+~~~~~
+
+Direction of setup procedure is inversed:
+
+* Create cache server
+* Create bot account
+* Create token
+* Give bot write access to cache server
+* Encrypt token
+* Save token in CI configs
+
+Create cache server
+~~~~~~~~~~~~~~~~~~~
+
+Create repository with at least one file:
+
+.. image:: images/create-server.png
+  :align: center
+  :alt: Create server
+
+Note that if repository will be empty it will not be possible to create tags
+for assets.
+
+Create bot token
+~~~~~~~~~~~~~~~~
+
+Login to GitHub with the **bot** account, in our case it's ``ingenue``:
 
 .. image:: images/ingenue-login.png
   :align: center
@@ -109,11 +133,31 @@ Set ``public_repo`` check-box and create token:
 
   * `GitHub: creating token <https://help.github.com/articles/creating-an-access-token-for-command-line-use/>`__
 
-Now we will save this token as a secured environment variable
-``GITHUB_USER_PASSWORD`` in Travis and AppVeyor.
+Access
+~~~~~~
+
+Add ``ingenue`` bot as a collaborator to ``hunter-cache``:
+
+.. image:: images/hunter-cache-collaborator.png
+  :align: center
+  :alt: Collaborator
+
+.. note::
+
+  Bot doesn't interact with ``hunter-cache-use`` so there is no need
+  to set any permissions there.
+
+You should receive email about invitation. Login as **bot** and accept it:
+
+.. image:: images/accept-invitation.png
+  :align: center
+  :alt: Invitation
 
 Travis CI
 ~~~~~~~~~
+
+Now we will save token as a secured environment variable
+``GITHUB_USER_PASSWORD`` in Travis and AppVeyor.
 
 .. note::
 
@@ -135,31 +179,44 @@ If you have problems with installing ``travis`` try to install
 
   > brew install ruby
 
-Clone the repository **from where** upload will be triggered. In our case it's
-https://github.com/forexample/hunter-cache-use :
+Login with account with which you've registered repository for CI.
+In my case it's my personal account ``ruslo``:
+
+.. image:: images/travis-owner.png
+  :align: center
+  :alt: Travis owner
+
+Login with ``ruslo`` (add ``--pro`` if repository is private):
 
 .. code-block:: none
+  :emphasize-lines: 1, 8-10, 13-14
 
-  > git clone https://github.com/forexample/hunter-cache-use
-  > cd hunter-cache-use/
-  [hunter-cache-use]> travis login --pro # in case repository is private
+  > travis login
+  We need your GitHub login to identify you.
+  This information will not be sent to Travis CI, only to api.github.com.
+  The password will not be displayed.
 
-Check that login user is correct, in our case it should be **bot** account
-``ingenue``:
+  Try running with --github-token or --auto if you don't want to enter your password anyway.
 
-.. code-block:: none
+  Username: ruslo
+  Password for ruslo: xxxxxx
+  Two-factor authentication code for ruslo: xxxxxx
+  Successfully logged in as ruslo!
 
-  [hunter-cache-use]> travis whoami
-  You are ingenue
+  > travis whoami
+  You are ruslo (Ruslan Baratov)
 
 Encrypt token:
 
 .. code-block:: none
+  :emphasize-lines: 1, 4
 
-  > travis encrypt GITHUB_USER_PASSWORD=62xxxxxx2e
+  > travis encrypt -r forexample/hunter-cache-use GITHUB_USER_PASSWORD=62xxxxxx2e
   Please add the following to your .travis.yml file:
 
-    secure: "OVGj469eTxxxxxxG+3XtqcX+790Y="
+    secure: "EWdxxxxxxfkk="
+
+  Pro Tip: You can add it automatically by running with --add.
 
 And add it to ``.travis.yml``:
 
@@ -167,11 +224,11 @@ And add it to ``.travis.yml``:
 
   env:
     global:
-      - secure: "OVGj469eTxxxxxxG+3XtqcX+790Y="
+      - secure: "EWdxxxxxxfkk="
 
 .. seealso::
 
-  * `.travis.yml example <https://github.com/forexample/hunter-cache-use/blob/d4cd989dc7601abfe2d73aeeb7f5da1b883959c3/.travis.yml#L22-L24>`__
+  * `.travis.yml example <https://github.com/forexample/hunter-cache-use/blob/5b502a2a982d0e0de318e8789a50444b5f6dba2c/.travis.yml#L22-L24>`__
 
 AppVeyor
 ~~~~~~~~
@@ -187,8 +244,8 @@ AppVeyor
 
   * ``Enable secure variables in Pull Requests from the same repository only``
 
-Login to AppVeyor as an **owner** of repository. E.g. I have registered
-``hunter-cache-use`` repository with my ``ruslo`` account:
+Login with account with which you've registered repository for CI.
+In my case it's my personal account ``ruslo``:
 
 .. image:: images/appveyor-add.png
   :align: center
@@ -208,11 +265,11 @@ Add it to the ``appveyor.yml``:
   environment:
     global:
       GITHUB_USER_PASSWORD:
-        secure: 1NZhYxxxxxxIutaQG
+        secure: Ze5xxxxxxObq
 
 .. seealso::
 
-  * `appveyor.yml example <https://github.com/forexample/hunter-cache-use/blob/d4cd989dc7601abfe2d73aeeb7f5da1b883959c3/appveyor.yml#L3-L6>`__
+  * `appveyor.yml example <https://github.com/forexample/hunter-cache-use/blob/5b502a2a982d0e0de318e8789a50444b5f6dba2c/appveyor.yml#L3-L6>`__
 
 CMake code
 ~~~~~~~~~~
