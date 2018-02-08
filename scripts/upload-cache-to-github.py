@@ -68,6 +68,7 @@ class Github:
   def __init__(self, username, password, repo_owner, repo):
     self.repo_owner = repo_owner
     self.repo = repo
+    self.username = username
     self.auth = requests.auth.HTTPBasicAuth(username, password)
     self.simple_request()
 
@@ -108,6 +109,12 @@ class Github:
         )
         tag_data = "{" + '"tag_name": "{}"'.format(tagname) + "}"
         r = requests.post(post_url, data=tag_data, auth=self.auth)
+        if r.status_code == 404:
+            repo = "https://github.com/{}/{}".format(self.repo_owner, self.repo)
+            raise Error(
+                "Repository not found {} or user {} have no access to it".
+                    format(repo, self.username)
+            )
         if not r.status_code == 201:
             raise Error("Unexpected status code: {}".format(r.status_code))
         if not r.ok:
