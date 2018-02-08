@@ -59,6 +59,11 @@ Cache will be uploaded for CI jobs in repository:
 
 Any other repository can use https://github.com/forexample/hunter-cache too.
 
+.. warning::
+
+  You should create at least one file in cache repository before running upload.
+  It's not possible to create tags for assets if repository is empty.
+
 Access
 ~~~~~~
 
