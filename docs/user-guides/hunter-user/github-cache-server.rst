@@ -179,7 +179,7 @@ If you have problems with installing ``travis`` try to install
 
   > brew install ruby
 
-Login with account with which you've registered repository for CI.
+Login with account with which you have registered repository for CI.
 In my case it's my personal account ``ruslo``:
 
 .. image:: images/travis-owner.png
@@ -244,7 +244,7 @@ AppVeyor
 
   * ``Enable secure variables in Pull Requests from the same repository only``
 
-Login with account with which you've registered repository for CI.
+Login with account with which you have registered repository for CI.
 In my case it's my personal account ``ruslo``:
 
 .. image:: images/appveyor-add.png
