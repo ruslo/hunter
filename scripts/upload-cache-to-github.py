@@ -109,11 +109,18 @@ class Github:
         )
         tag_data = "{" + '"tag_name": "{}"'.format(tagname) + "}"
         r = requests.post(post_url, data=tag_data, auth=self.auth)
+        repo_name = "https://github.com/{}/{}".format(
+            self.repo_owner, self.repo
+        )
         if r.status_code == 404:
-            repo = "https://github.com/{}/{}".format(self.repo_owner, self.repo)
             raise Error(
-                "Repository not found {} or user {} have no access to it".
-                    format(repo, self.username)
+                "Repository not found '{}' or user '{}' has no access to it".
+                    format(repo_name, self.username)
+            )
+        if r.status_code == 422:
+            raise Error(
+                "Please create at least one file in repository '{}'".
+                    format(repo_name)
             )
         if not r.status_code == 201:
             raise Error("Unexpected status code: {}".format(r.status_code))
