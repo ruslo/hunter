@@ -21,6 +21,11 @@ Private file that is available without specifying password:
       LOCATION myfile_path
   )
 
+.. warning::
+
+  Changing name specified in ``FILE`` or enabling/disabling ``FILE`` is not
+  allowed after download done.
+
 Variable ``myfile_path`` can be used now, for example in test:
 
 .. code-block:: cmake
