@@ -3,6 +3,7 @@
 
 include(hunter_get_passwords_path)
 include(hunter_http_password)
+include(hunter_private_data_password)
 include(hunter_status_debug)
 include(hunter_upload_password)
 
@@ -21,6 +22,7 @@ function(hunter_read_http_credentials)
 
   # May use:
   # * hunter_http_password
+  # * hunter_private_data_password
   # * hunter_upload_password
   include("${pass_path}")
 

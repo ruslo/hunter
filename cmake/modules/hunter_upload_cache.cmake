@@ -3,6 +3,7 @@
 
 include(hunter_http_password)
 include(hunter_internal_error)
+include(hunter_private_data_password)
 include(hunter_test_string_not_empty)
 include(hunter_upload_password)
 include(hunter_user_error)
@@ -24,6 +25,7 @@ function(hunter_upload_cache)
 
   # May use:
   # * hunter_http_password
+  # * hunter_private_data_password
   # * hunter_upload_password
   include("${pass_path}")
 
