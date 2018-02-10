@@ -68,10 +68,9 @@ class Github:
   def __init__(self, username, password, repo_owner, repo):
     self.repo_owner = repo_owner
     self.repo = repo
+    self.username = username
     self.auth = requests.auth.HTTPBasicAuth(username, password)
     self.simple_request()
-    self.release_id = None
-    self.upload_url = None
 
   @retry
   def simple_request(self):
@@ -100,7 +99,35 @@ class Github:
 
     r = requests.get(url, auth=self.auth)
     if r.status_code == 404:
-        raise Error('Release {} does not exist. Create a GitHub release for with this tag'.format(tagname))
+        # Create release if not exists
+        # https://developer.github.com/v3/repos/releases/#create-a-release
+        # POST /repos/:owner/:repo/releases
+
+        post_url = 'https://api.github.com/repos/{}/{}/releases'.format(
+            self.repo_owner,
+            self.repo,
+        )
+        tag_data = "{" + '"tag_name": "{}"'.format(tagname) + "}"
+        r = requests.post(post_url, data=tag_data, auth=self.auth)
+        repo_name = "https://github.com/{}/{}".format(
+            self.repo_owner, self.repo
+        )
+        if r.status_code == 404:
+            raise Error(
+                "Repository not found '{}' or user '{}' has no access to it".
+                    format(repo_name, self.username)
+            )
+        if r.status_code == 422:
+            raise Error(
+                "Please create at least one file in repository '{}'".
+                    format(repo_name)
+            )
+        if not r.status_code == 201:
+            raise Error("Unexpected status code: {}".format(r.status_code))
+        if not r.ok:
+            raise Error("Can't create release tag {}".format(tagname))
+        r = requests.get(url, auth=self.auth)
+
     if not r.ok:
         raise Exception(
             'Get release id failed. Status code: {}. Requested url: {}'.format(
@@ -192,19 +219,19 @@ class Github:
       raise exc
 
   def upload_raw_file(self, local_path):
-    tagname = 'cache'
-    if self.release_id is None:
-        self.release_id, self.upload_url = self.get_release_by_tag(tagname)
+    asset_name = hashlib.sha1(open(local_path, 'rb').read()).hexdigest()
+
+    tagname = 'cache-{}'.format(asset_name[0:7])
+    asset_name = asset_name + '.tar.bz2'
+
+    release_id, upload_url = self.get_release_by_tag(tagname)
 
     # https://developer.github.com/v3/repos/releases/#upload-a-release-asset
     # POST to upload_url received in the release description
     # in get_release_by_tag()
 
-    asset_name = hashlib.sha1(open(local_path, 'rb').read()).hexdigest()
-    asset_name = asset_name + '.tar.bz2'
-
-    url = self.upload_url.format(asset_name)
-    self.upload_bzip(url, local_path, self.release_id, asset_name)
+    url = upload_url.format(asset_name)
+    self.upload_bzip(url, local_path, release_id, asset_name)
 
   @retry
   def create_new_file(self, local_path, github_path):
@@ -393,6 +420,9 @@ class CacheEntry:
           print('GitHub link: {}'.format(github_url))
           raise Exception('Hash mismatch')
 
+  def touch_from_server(self):
+    open(self.from_server, 'w')
+
 class Cache:
   def __init__(self, cache_dir, temp_dir):
     self.entries = self.create_entries(cache_dir, temp_dir)
@@ -430,6 +460,10 @@ class Cache:
     for i in self.entries:
       i.upload_meta(github, cache_done)
 
+  def touch_from_server(self):
+    for i in self.entries:
+      i.touch_from_server()
+
 parser = argparse.ArgumentParser(
     description='Script for uploading Hunter cache files to GitHub'
 )
@@ -438,6 +472,12 @@ parser.add_argument(
     '--username',
     required=True,
     help='Username'
+)
+
+parser.add_argument(
+    '--password',
+    required=True,
+    help='Password'
 )
 
 parser.add_argument(
@@ -464,10 +504,6 @@ parser.add_argument(
     help='Temporary directory where files will be downloaded for verification'
 )
 
-parser.add_argument(
-    '--skip-raw', action='store_true', help="Skip uploading of raw files"
-)
-
 args = parser.parse_args()
 
 cache_dir = os.path.normpath(args.cache_dir)
@@ -486,10 +522,10 @@ if os.path.split(cache_dir)[1] != 'Cache':
 
 cache = Cache(cache_dir, args.temp_dir)
 
-password = os.getenv('GITHUB_USER_PASSWORD')
+password = args.password
 
 if password == '' or password is None:
-  raise Exception('Expected GITHUB_USER_PASSWORD environment variable')
+  raise Exception('No password provided')
 
 github = Github(
     username = args.username,
@@ -498,11 +534,10 @@ github = Github(
     repo = args.repo
 )
 
-if args.skip_raw:
-  print('*** WARNING *** Skip uploading of raw files')
-else:
-  cache.upload_raw(github)
+cache.upload_raw(github)
 
 cache.upload_meta(github, cache_done=False)
 print('Uploading DONE files')
-cache.upload_meta(github, cache_done=True) # Should be last
+cache.upload_meta(github, cache_done=True) # Should be last upload operation
+print('Touch from.server files')
+cache.touch_from_server()

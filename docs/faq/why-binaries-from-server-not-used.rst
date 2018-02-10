@@ -4,6 +4,10 @@
 Why binaries from server not used?
 ==================================
 
+.. seealso::
+
+  * :ref:`Using GitHub cache server <uploading to server>`
+
 If settings and environment of your local project does not match environment
 of Travis/AppVeyor services (this is where binaries usually uploaded from)
 you will see ``Cache miss`` message and package will be build locally:
@@ -174,119 +178,3 @@ Compare both files to figure out what's wrong:
   > #define __GNUG__ 5
 
 It means that local GCC version is ``5.4.0`` and server version is ``4.8.1``.
-
-.. _uploading to server:
-
-Uploading to server
--------------------
-
-It is possible to upload Hunter binary cache to the server.
-Next shown an example of using GitHub as a hosting. All big raw ``*.tar.bz2`` archives
-uploaded as assets to release with name ``cache`` (directory layout does not
-matter) and all small text files with meta information uploaded directly to
-branch ``master`` (directory layout matters) (see
-`hunter-cache <https://github.com/ingenue/hunter-cache>`__ as example).
-
-.. note::
-
-  If you have shared folder in your network there is no need to use
-  any scripts, you can just set ``HUNTER_ROOT`` variable to location of this
-  directory.
-
-This job can be
-done using Python script ``maintenance/upload-cache-to-github.py`` (which may be
-called by ``jenkins.py --upload``). Note that downloading from server done by
-``file(DOWNLOAD ...)`` CMake commands, so client is still CMake-only based.
-
-List of servers can be set in
-:ref:`HUNTER_CACHE_SERVERS <hunter_cache_servers>` variable.
-
-If you want to check that there is no 3rd party builds triggered by CMake and
-all packages downloaded from server you can use
-:ref:`HUNTER_DISABLE_BUILDS <hunter_disable_builds>` variable. Also variable
-:ref:`HUNTER_USE_CACHE_SERVERS <hunter_use_cache_servers>` can be used to specify
-downloading policy.
-
-Uploading from CI servers like Travis or AppVeyor require to store password as
-an environment variable ``GITHUB_USER_PASSWORD`` (note that you can create
-separate "bot" account to manage all this stuff).
-
-Travis CI
-~~~~~~~~~
-
-Excerpts from documentation (`1 <https://docs.travis-ci.com/user/encryption-keys>`__
-and `2 <https://docs.travis-ci.com/user/environment-variables/#Encrypted-Variables>`__)
-for OS X  (see also `this repo <https://github.com/forexample/github-binary-release>`__):
-
-.. code-block:: shell
-
-  > git clone https://github.com/ingenue/hunter # your repository here
-      # note that this is repository where password **will be used** in .travis.yml
-      # this repository is a fork of https://github.com/ruslo/hunter
-  > cd hunter
-  > gem install travis # for Ubuntu it will be 'sudo gem install travis'
-  > travis login --pro # in case repository is private
-  > travis encrypt GITHUB_USER_PASSWORD=very-secured-password
-  ...
-  Please add the following to your .travis file:
-
-  secure: "..."
-
-If you have problems with installing ``travis`` try to install
-`ruby from brew <http://stackoverflow.com/questions/31972968/cant-install-gems-on-os-x-el-capitan>`__:
-
-.. code-block:: shell
-
-  > brew install ruby
-
-Now you can add secure variable to ``.travis.yml`` matrix:
-
-.. code-block:: yaml
-
-  env:
-    global:
-      - secure: "uTvW...TAE="
-    matrix:
-      - PROJECT_DIR=... TOOLCHAIN=...
-      - PROJECT_DIR=... TOOLCHAIN=...
-
-.. seealso::
-
-  * `.travis.yml example <https://github.com/ingenue/hunter/blob/4f3b76832d2404c90af98c2557ec06ec7da9eb06/.travis.yml>`__
-
-.. note::
-
-  Instead of a password you can use GitHub token. Follow
-  `those instructions <https://help.github.com/articles/creating-an-access-token-for-command-line-use/>`__
-  and under the ``Select scopes`` choose ``public_repo``
-  (``Access public repositories``).
-
-.. warning::
-
-  If you're planning to use "bot" account, login to GitHub with **bot**
-  credentials.
-
-AppVeyor
-~~~~~~~~
-
-Use `this form <https://ci.appveyor.com/tools/encrypt>`__ to encrypt your
-password. I.e. put ``very-secured-password`` to this form, run ``Encrypt`` and
-copy/paste results into your ``appveyor.yml`` (note that you should be logged in
-as an **owner** of repository):
-
-.. code-block:: yaml
-
-  environment:
-    global:
-      GITHUB_USER_PASSWORD:
-        secure: 2Sd...g==
-    matrix:
-      - TOOLCHAIN=...
-        PROJECT_DIR=...
-
-      - TOOLCHAIN=...
-        PROJECT_DIR=...
-
-.. seealso::
-
-  * `appveyor.yml example <https://github.com/ingenue/hunter/blob/4f3b76832d2404c90af98c2557ec06ec7da9eb06/appveyor.yml>`__
