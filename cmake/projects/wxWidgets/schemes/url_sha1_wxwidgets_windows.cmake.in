@@ -1,0 +1,150 @@
+cmake_minimum_required(VERSION 3.0)
+project(Hunter)
+
+include(ExternalProject) # ExternalProject_Add
+
+# Scheme for download and install wxWidgets library for Windows
+
+list(APPEND CMAKE_MODULE_PATH "@HUNTER_SELF@/cmake/modules")
+
+include(hunter_fatal_error)
+include(hunter_internal_error)
+include(hunter_status_debug)
+include(hunter_test_string_not_empty)
+include(hunter_user_error)
+include(hunter_install_project_config)
+
+hunter_status_debug("Scheme: url_sha1_wxwidgets_windows")
+
+# Check preconditions
+hunter_test_string_not_empty("@HUNTER_SELF@")
+hunter_test_string_not_empty("@HUNTER_EP_NAME@")
+hunter_test_string_not_empty("@HUNTER_PACKAGE_URL@")
+hunter_test_string_not_empty("@HUNTER_PACKAGE_SHA1@")
+hunter_test_string_not_empty("@HUNTER_PACKAGE_DOWNLOAD_DIR@")
+hunter_test_string_not_empty("@HUNTER_PACKAGE_SOURCE_DIR@")
+hunter_test_string_not_empty("@HUNTER_PACKAGE_INSTALL_PREFIX@")
+hunter_test_string_not_empty("@HUNTER_MSVC_ARCH@")
+hunter_test_string_not_empty("@HUNTER_MSVC_VCVARSALL@")
+hunter_test_string_not_empty("@HUNTER_PACKAGE_LICENSE_DIR@")
+hunter_test_string_not_empty("@HUNTER_GLOBAL_SCRIPT_DIR@")
+
+string(COMPARE EQUAL "@HUNTER_MSVC_ARCH@" "amd64" is_amd64)
+if(is_amd64)
+    set(opt_architecture "TARGET_CPU=X64")
+    set(X64Str "x64_")
+else()
+    set(opt_architecture "")
+    set(X64Str "")
+endif()
+if(BUILD_SHARED_LIBS)
+    set(WX_BUILD_SHARED_LIBS ON)
+    set(WX_BUILD_SHARED 1)
+    set(BUILDFILESTR "dll")
+else()
+    set(WX_BUILD_SHARED_LIBS OFF)
+    set(WX_BUILD_SHARED 0)
+    set(BUILDFILESTR "lib")
+endif()
+set(vc_dir "vc_${X64Str}${BUILDFILESTR}")
+   
+hunter_status_debug("HUNTER_PACKAGE_URL = @HUNTER_PACKAGE_URL@")
+hunter_status_debug("HUNTER_PACKAGE_PATCH_URL = ${HUNTER_PACKAGE_PATCH_URL}")
+hunter_status_debug("HUNTER_PACKAGE_DOWNLOAD_DIR = @HUNTER_PACKAGE_DOWNLOAD_DIR@")
+hunter_status_debug("HUNTER_PACKAGE_SOURCE_DIR = @HUNTER_PACKAGE_SOURCE_DIR@")
+hunter_status_debug("HUNTER_PACKAGE_INSTALL_PREFIX = @HUNTER_PACKAGE_INSTALL_PREFIX@")
+
+set(WX_LICENSE_FILES
+    "@HUNTER_PACKAGE_SOURCE_DIR@/docs/gpl.txt"
+    "@HUNTER_PACKAGE_SOURCE_DIR@/docs/lgpl.txt"
+    "@HUNTER_PACKAGE_SOURCE_DIR@/docs/licence.txt"
+    "@HUNTER_PACKAGE_SOURCE_DIR@/docs/licendoc.txt"
+)
+
+ExternalProject_Add(
+    "@HUNTER_EP_NAME@-release"
+    URL
+    @HUNTER_PACKAGE_URL@
+    URL_HASH
+    SHA1=@HUNTER_PACKAGE_SHA1@
+    DOWNLOAD_DIR
+    "@HUNTER_PACKAGE_DOWNLOAD_DIR@"
+    SOURCE_DIR
+    "@HUNTER_PACKAGE_SOURCE_DIR@"
+    INSTALL_DIR
+    "@HUNTER_PACKAGE_INSTALL_PREFIX@"
+        # not used, just avoid creating Install/<name> empty directory
+    CONFIGURE_COMMAND
+    "@HUNTER_MSVC_VCVARSALL@" "@HUNTER_MSVC_ARCH@"
+    BUILD_COMMAND
+    cd @HUNTER_PACKAGE_SOURCE_DIR@/build/msw/
+    COMMAND
+    nmake /f makefile.vc BUILD=release SHARED=${WX_BUILD_SHARED} ${opt_architecture}
+    BUILD_IN_SOURCE
+    1
+    INSTALL_COMMAND
+    COMMAND
+    "@CMAKE_COMMAND@" -E make_directory "@HUNTER_PACKAGE_INSTALL_PREFIX@/include"
+    COMMAND
+    "@CMAKE_COMMAND@" -E make_directory "@HUNTER_PACKAGE_INSTALL_PREFIX@/lib"
+    COMMAND
+    "@CMAKE_COMMAND@" -E make_directory "@HUNTER_PACKAGE_INSTALL_PREFIX@/bin"
+    COMMAND
+    "@CMAKE_COMMAND@" -E make_directory "@HUNTER_PACKAGE_INSTALL_PREFIX@/symbols"
+    COMMAND
+    "@CMAKE_COMMAND@" -E make_directory "@HUNTER_PACKAGE_INSTALL_PREFIX@/licenses/wxWidgets"
+    COMMAND
+    "@CMAKE_COMMAND@" -E copy_directory "@HUNTER_PACKAGE_SOURCE_DIR@/include" "@HUNTER_PACKAGE_INSTALL_PREFIX@/include"
+    COMMAND
+    "@CMAKE_COMMAND@" -E copy_directory "@HUNTER_PACKAGE_SOURCE_DIR@/lib/${vc_dir}" "@HUNTER_PACKAGE_INSTALL_PREFIX@/lib/${vc_dir}"
+    COMMAND 
+    "@CMAKE_COMMAND@" -E copy ${WX_LICENSE_FILES} "@HUNTER_PACKAGE_INSTALL_PREFIX@/licenses/wxWidgets" 
+)
+
+ExternalProject_Add(
+    "@HUNTER_EP_NAME@-debug"
+    URL
+    @HUNTER_PACKAGE_URL@
+    URL_HASH
+    SHA1=@HUNTER_PACKAGE_SHA1@
+    DOWNLOAD_DIR
+    "@HUNTER_PACKAGE_DOWNLOAD_DIR@"
+    SOURCE_DIR
+    "@HUNTER_PACKAGE_SOURCE_DIR@"
+    INSTALL_DIR
+    "@HUNTER_PACKAGE_INSTALL_PREFIX@"
+        # not used, just avoid creating Install/<name> empty directory
+    CONFIGURE_COMMAND
+    "@HUNTER_MSVC_VCVARSALL@" "@HUNTER_MSVC_ARCH@"
+    BUILD_COMMAND
+    cd @HUNTER_PACKAGE_SOURCE_DIR@/build/msw/
+    COMMAND
+    nmake /f makefile.vc BUILD=debug SHARED=${WX_BUILD_SHARED} ${opt_architecture}
+    BUILD_IN_SOURCE
+    1
+    INSTALL_COMMAND
+    COMMAND
+    "@CMAKE_COMMAND@" -E make_directory "@HUNTER_PACKAGE_INSTALL_PREFIX@/include"
+    COMMAND
+    "@CMAKE_COMMAND@" -E make_directory "@HUNTER_PACKAGE_INSTALL_PREFIX@/lib"
+    COMMAND
+    "@CMAKE_COMMAND@" -E make_directory "@HUNTER_PACKAGE_INSTALL_PREFIX@/bin"
+    COMMAND
+    "@CMAKE_COMMAND@" -E make_directory "@HUNTER_PACKAGE_INSTALL_PREFIX@/symbols"
+    COMMAND
+    "@CMAKE_COMMAND@" -E make_directory "@HUNTER_PACKAGE_INSTALL_PREFIX@/licenses/wxWidgets"
+    COMMAND
+    "@CMAKE_COMMAND@" -E copy_directory "@HUNTER_PACKAGE_SOURCE_DIR@/include" "@HUNTER_PACKAGE_INSTALL_PREFIX@/include"
+    COMMAND 
+    "@CMAKE_COMMAND@" -E copy_directory "@HUNTER_PACKAGE_SOURCE_DIR@/lib/${vc_dir}" "@HUNTER_PACKAGE_INSTALL_PREFIX@/lib/${vc_dir}"
+    COMMAND 
+    "@CMAKE_COMMAND@" -E copy ${WX_LICENSE_FILES} "@HUNTER_PACKAGE_INSTALL_PREFIX@/licenses/wxWidgets" 
+)
+
+# Forward some variables
+set(HUNTER_SELF "@HUNTER_SELF@")
+set(HUNTER_PACKAGE_INSTALL_PREFIX "@HUNTER_PACKAGE_INSTALL_PREFIX@")
+set(HUNTER_wxWidgets_VERSION "@HUNTER_wxWidgets_VERSION@")
+set(HUNTER_MSVC_ARCH "@HUNTER_MSVC_ARCH@")
+
+hunter_install_project_config("@HUNTER_EP_NAME@")
