@@ -6,7 +6,7 @@ project(Hunter)
 
 include(ExternalProject) # ExternalProject_Add
 
-# Scheme for download and install OpenSSL macOS library
+# Scheme for download and install OpenSSL macOS universal library
 
 list(APPEND CMAKE_MODULE_PATH "@HUNTER_SELF@/cmake/modules")
 
@@ -30,14 +30,8 @@ hunter_test_string_not_empty("@HUNTER_PACKAGE_LICENSE_DIR@")
 hunter_test_string_not_empty("@HUNTER_GLOBAL_SCRIPT_DIR@")
 hunter_test_string_not_empty("@HUNTER_TLS_VERIFY@")
 
-# Supported macOS configurations
-# darwin-i386-cc, darwin-ppc-cc, darwin64-ppc-cc, darwin64-x86_64-cc
-
-hunter_unsetvar(ssl_static_libraries)
-hunter_unsetvar(ssl_shared_libraries)
-hunter_unsetvar(crypto_static_libraries)
-hunter_unsetvar(crypto_shared_libraries)
-
+# Supported macOS architectures:
+# i386, x86_64, ppc, ppc64
 set(configure_command "./Configure")
 set(configure_architectures @CMAKE_OSX_ARCHITECTURES@)
 
@@ -55,14 +49,19 @@ else()
   set(shared_library_version_extension "1.1")
 endif()
 
-foreach(arch ${configure_architectures})
-  list(APPEND ssl_static_libraries "@HUNTER_PACKAGE_SOURCE_DIR@/${arch}/libssl.a")
-  list(APPEND crypto_static_libraries "@HUNTER_PACKAGE_SOURCE_DIR@/${arch}/libcrypto.a")
+if(BUILD_SHARED_LIBS)
+  set(libsuffix ".${shared_library_version_extension}.dylib")
+  set(shared_flag shared)
+else()
+  set(libsuffix ".a")
+  set(shared_flag no-shared)
+endif()
 
-  if(BUILD_SHARED_LIBS)
-    list(APPEND ssl_shared_libraries "@HUNTER_PACKAGE_SOURCE_DIR@/${arch}/libssl.${shared_library_version_extension}.dylib")
-    list(APPEND crypto_shared_libraries "@HUNTER_PACKAGE_SOURCE_DIR@/${arch}/libcrypto.${shared_library_version_extension}.dylib")
-  endif()
+hunter_unsetvar(ssl_libraries)
+hunter_unsetvar(crypto_libraries)
+foreach(arch ${configure_architectures})
+  list(APPEND ssl_libraries "@HUNTER_PACKAGE_SOURCE_DIR@/${arch}/libssl${libsuffix}")
+  list(APPEND crypto_libraries "@HUNTER_PACKAGE_SOURCE_DIR@/${arch}/libcrypto${libsuffix}")
 endforeach()
 
 # Skip position independent code flags for macOS
@@ -84,17 +83,11 @@ set(configure_command . "@HUNTER_GLOBAL_SCRIPT_DIR@/clear-all.sh" && "${configur
 set(build_command . "@HUNTER_GLOBAL_SCRIPT_DIR@/clear-all.sh" && make)
 
 # Configuration options
-if(BUILD_SHARED_LIBS)
-  set(shared_flag shared)
-else()
-  set(shared_flag no-shared)
-endif()
 set(configure_opts ${configure_opts} threads ${shared_flag})
 
 hunter_status_debug("Configure command: ${configure_command}")
 hunter_status_debug("Configure architectures: ${configure_architectures}")
 hunter_status_debug("Configure options: ${configure_opts}")
-
 
 # fuse all libraries with 'lipo'
 ExternalProject_Add(
@@ -117,21 +110,21 @@ ExternalProject_Add(
     INSTALL_COMMAND
     lipo
     -create
-    ${ssl_static_libraries}
+    ${ssl_libraries}
     -o
-    "@HUNTER_PACKAGE_INSTALL_PREFIX@/lib/libssl.a"
+    "@HUNTER_PACKAGE_INSTALL_PREFIX@/lib/libssl${libsuffix}"
     COMMAND
     lipo
     -create
-    ${crypto_static_libraries}
+    ${crypto_libraries}
     -o
-    "@HUNTER_PACKAGE_INSTALL_PREFIX@/lib/libcrypto.a"
+    "@HUNTER_PACKAGE_INSTALL_PREFIX@/lib/libcrypto${libsuffix}"
 )
 
 if(BUILD_SHARED_LIBS)
-  # fuse shared libraries with 'lipo'
+  # Fix the dylib loading paths
   ExternalProject_Add(
-      "@HUNTER_EP_NAME@-macos_universal_shared"
+      "@HUNTER_EP_NAME@-fix_install_name"
       DOWNLOAD_COMMAND
       "@CMAKE_COMMAND@" -E echo "Dummy download command"
       DOWNLOAD_DIR
@@ -148,20 +141,24 @@ if(BUILD_SHARED_LIBS)
       BUILD_COMMAND
       "@CMAKE_COMMAND@" -E echo "Dummy build command"
       INSTALL_COMMAND
-      lipo
-      -create
-      ${ssl_shared_libraries}
-      -o
-      "@HUNTER_PACKAGE_INSTALL_PREFIX@/lib/libssl.${shared_library_version_extension}.dylib"
+      install_name_tool
+      -id
+      "@loader_path/../lib/libssl${libsuffix}"
+      "@HUNTER_PACKAGE_INSTALL_PREFIX@/lib/libssl${libsuffix}"
       COMMAND
-      lipo
-      -create
-      ${crypto_shared_libraries}
-      -o
-      "@HUNTER_PACKAGE_INSTALL_PREFIX@/lib/libcrypto.${shared_library_version_extension}.dylib"
+      install_name_tool
+      -change
+      "@HUNTER_PACKAGE_INSTALL_PREFIX@/lib/libcrypto${libsuffix}"
+      "@loader_path/../lib/libcrypto${libsuffix}"
+      "@HUNTER_PACKAGE_INSTALL_PREFIX@/lib/libssl${libsuffix}"
+      COMMAND
+      install_name_tool
+      -id
+      "@loader_path/../lib/libcrypto${libsuffix}"
+      "@HUNTER_PACKAGE_INSTALL_PREFIX@/lib/libcrypto${libsuffix}"
   )
   add_dependencies(
-      "@HUNTER_EP_NAME@-macos_universal_shared"
+      "@HUNTER_EP_NAME@-fix_install_name"
       "@HUNTER_EP_NAME@-macos_universal"
   )
 endif()
