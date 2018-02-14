@@ -33,6 +33,7 @@ List of packages and usage instructions for each package.
    /packages/logging
    /packages/frameworks
    /packages/filesystem
+   /packages/machine-learning
    /packages/messaging
    /packages/math
    /packages/media
