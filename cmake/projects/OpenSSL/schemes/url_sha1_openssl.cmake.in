@@ -30,10 +30,7 @@ hunter_test_string_not_empty("@HUNTER_PACKAGE_LICENSE_DIR@")
 hunter_test_string_not_empty("@HUNTER_GLOBAL_SCRIPT_DIR@")
 hunter_test_string_not_empty("@HUNTER_TLS_VERIFY@")
 
-if(APPLE)
-  set(configure_command "./Configure")
-  set(configure_opts "darwin64-x86_64-cc")
-elseif(ANDROID OR RASPBERRY_PI OR OPENWRT)
+if(ANDROID OR RASPBERRY_PI OR OPENWRT)
   # -> CMAKE_AR
   # -> CMAKE_RANLIB
   hunter_pick_archiver()
@@ -53,19 +50,12 @@ else()
   set(configure_command "./config")
 endif()
 
-set(skip_pic "")
-if(APPLE)
-  # Apple cannot process `-fPIC` flag argument
-  # (https://github.com/ruslo/hunter/pull/1109#discussion_r146360981)
-  set(skip_pic SKIP_PIC)
-endif()
-
 set(skip_includes SKIP_INCLUDES)
 if(ANDROID)
   set(skip_includes "")
 endif()
 
-hunter_dump_cmake_flags(${skip_includes} ${skip_pic})
+hunter_dump_cmake_flags(${skip_includes})
 # -> CMAKE_CXX_FLAGS
 # -> CMAKE_C_FLAGS
 
