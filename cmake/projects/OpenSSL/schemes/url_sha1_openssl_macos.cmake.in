@@ -42,11 +42,12 @@ endif()
 
 # OpenSSL appends the version number differently by version
 if("@HUNTER_OpenSSL_VERSION@" VERSION_LESS "1.0")
-  string(REGEX MATCH "[0-9\\.]+" shared_library_version_extension "@HUNTER_OpenSSL_VERSION@")
-elseif("@HUNTER_OpenSSL_VERSION@" VERSION_LESS "1.1")
-  set(shared_library_version_extension "1.0.0")
+  string(REGEX MATCH "^[0-9\\.]+" shared_library_version_extension "@HUNTER_OpenSSL_VERSION@")
 else()
-  set(shared_library_version_extension "1.1")
+  string(REGEX MATCH "^[0-9]\\.[0-9]" shared_library_version_extension "@HUNTER_OpenSSL_VERSION@")
+  if("@HUNTER_OpenSSL_VERSION@" VERSION_LESS "1.1")
+    set(shared_library_version_extension "${shared_library_version_extension}.0")
+  endif()
 endif()
 
 if(BUILD_SHARED_LIBS)
@@ -89,7 +90,33 @@ hunter_status_debug("Configure command: ${configure_command}")
 hunter_status_debug("Configure architectures: ${configure_architectures}")
 hunter_status_debug("Configure options: ${configure_opts}")
 
+if(BUILD_SHARED_LIBS)
+  set(
+      extra_install_commands
+      # Fix shared library paths
+      COMMAND
+      install_name_tool
+      -id
+      "@loader_path/../lib/libssl${libsuffix}"
+      "@HUNTER_PACKAGE_INSTALL_PREFIX@/lib/libssl${libsuffix}"
+      COMMAND
+      install_name_tool
+      -change
+      "@HUNTER_PACKAGE_INSTALL_PREFIX@/lib/libcrypto${libsuffix}"
+      "@loader_path/../lib/libcrypto${libsuffix}"
+      "@HUNTER_PACKAGE_INSTALL_PREFIX@/lib/libssl${libsuffix}"
+      COMMAND
+      install_name_tool
+      -id
+      "@loader_path/../lib/libcrypto${libsuffix}"
+      "@HUNTER_PACKAGE_INSTALL_PREFIX@/lib/libcrypto${libsuffix}"
+  )
+else()
+  set(extra_install_commands "")
+endif()
+
 # fuse all libraries with 'lipo'
+list(GET configure_architectures 0 first_architecture)
 ExternalProject_Add(
     "@HUNTER_EP_NAME@-macos_universal"
     DOWNLOAD_COMMAND
@@ -119,49 +146,16 @@ ExternalProject_Add(
     ${crypto_libraries}
     -o
     "@HUNTER_PACKAGE_INSTALL_PREFIX@/lib/libcrypto${libsuffix}"
+    # Extra commands
+    ${extra_install_commands}
+    COMMAND # Copy license files
+    "@CMAKE_COMMAND@"
+    "-C@HUNTER_ARGS_FILE@" # for 'HUNTER_INSTALL_LICENSE_FILES'
+    "-Dsrcdir=@HUNTER_PACKAGE_SOURCE_DIR@/${first_architecture}"
+    "-Ddstdir=@HUNTER_PACKAGE_LICENSE_DIR@"
+    -P
+    "@HUNTER_SELF@/scripts/try-copy-license.cmake"
 )
-
-if(BUILD_SHARED_LIBS)
-  # Fix the dylib loading paths
-  ExternalProject_Add(
-      "@HUNTER_EP_NAME@-fix_install_name"
-      DOWNLOAD_COMMAND
-      "@CMAKE_COMMAND@" -E echo "Dummy download command"
-      DOWNLOAD_DIR
-      "@HUNTER_PACKAGE_DOWNLOAD_DIR@"
-      TLS_VERIFY
-      "@HUNTER_TLS_VERIFY@"
-      SOURCE_DIR
-      "@HUNTER_PACKAGE_SOURCE_DIR@/macos_universal"
-      INSTALL_DIR
-      "@HUNTER_PACKAGE_INSTALL_PREFIX@"
-          # not used, just avoid creating Install/<name> empty directory
-      CONFIGURE_COMMAND
-      "@CMAKE_COMMAND@" -E echo "Dummy configure command"
-      BUILD_COMMAND
-      "@CMAKE_COMMAND@" -E echo "Dummy build command"
-      INSTALL_COMMAND
-      install_name_tool
-      -id
-      "@loader_path/../lib/libssl${libsuffix}"
-      "@HUNTER_PACKAGE_INSTALL_PREFIX@/lib/libssl${libsuffix}"
-      COMMAND
-      install_name_tool
-      -change
-      "@HUNTER_PACKAGE_INSTALL_PREFIX@/lib/libcrypto${libsuffix}"
-      "@loader_path/../lib/libcrypto${libsuffix}"
-      "@HUNTER_PACKAGE_INSTALL_PREFIX@/lib/libssl${libsuffix}"
-      COMMAND
-      install_name_tool
-      -id
-      "@loader_path/../lib/libcrypto${libsuffix}"
-      "@HUNTER_PACKAGE_INSTALL_PREFIX@/lib/libcrypto${libsuffix}"
-  )
-  add_dependencies(
-      "@HUNTER_EP_NAME@-fix_install_name"
-      "@HUNTER_EP_NAME@-macos_universal"
-  )
-endif()
 
 foreach(arch ${configure_architectures})
   if("${arch}" STREQUAL "x86_64")
@@ -204,13 +198,6 @@ foreach(arch ${configure_architectures})
       make install_sw
           # installed libraries will be rewrited,
           # other files are equal
-      COMMAND # Copy license files
-      "@CMAKE_COMMAND@"
-      "-C@HUNTER_ARGS_FILE@" # for 'HUNTER_INSTALL_LICENSE_FILES'
-      "-Dsrcdir=@HUNTER_PACKAGE_SOURCE_DIR@/${arch}"
-      "-Ddstdir=@HUNTER_PACKAGE_LICENSE_DIR@"
-      -P
-      "@HUNTER_SELF@/scripts/try-copy-license.cmake"
   )
 
   add_dependencies(
