@@ -10,8 +10,10 @@ include("../common.cmake")
 
 project(download-dynalo)
 
+# DOCUMENTATION_START {
 hunter_add_package(dynalo)
 find_package(dynalo CONFIG REQUIRED)
 
 add_executable(dynalo-example-loader dynalo-example-loader.cpp)
 target_link_libraries(dynalo-example-loader dynalo)
+# DOCUMENTATION_END }
