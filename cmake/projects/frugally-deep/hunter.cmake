@@ -32,7 +32,6 @@ hunter_cmake_args(
     CMAKE_ARGS
       FDEEP_USE_TOOLCHAIN=ON
       FDEEP_BUILD_UNITTEST=OFF
-      HUNTER_ENABLED=ON
 )
 
 hunter_pick_scheme(DEFAULT url_sha1_cmake)
