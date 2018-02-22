@@ -4,7 +4,11 @@
 
 cmake_minimum_required(VERSION 3.0)
 
+variable_watch(HUNTER_TCLAP_VERSION)
+
 include("../common.cmake")
+
+project(example-TCLAP)
 
 hunter_add_package(TCLAP)
 find_package(TCLAP CONFIG REQUIRED)
