@@ -18,5 +18,5 @@ hunter_download(
     Boost
     PACKAGE_COMPONENT
     thread
-    PACKAGE_INTERNAL_DEPS_ID "24"
+    PACKAGE_INTERNAL_DEPS_ID "25"
 )
