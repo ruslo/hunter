@@ -53,6 +53,13 @@ function(hunter_upload_cache)
     hunter_user_error("Upload: PASSWORD is missing")
   endif()
 
+  if(ANDROID)
+    # Emulate find_host_program
+    set(CMAKE_FIND_ROOT_PATH_MODE_PROGRAM NEVER)
+    set(CMAKE_FIND_ROOT_PATH_MODE_LIBRARY NEVER)
+    set(CMAKE_FIND_ROOT_PATH_MODE_INCLUDE NEVER)
+  endif()
+
   find_package(PythonInterp 3 QUIET)
 
   if(NOT PYTHONINTERP_FOUND)
