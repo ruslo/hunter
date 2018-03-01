@@ -347,7 +347,11 @@ class CacheEntry:
   def upload_raw(self, github):
     sha1 = open(self.cache_sha1, 'r').read()
     raw = os.path.join(self.cache_raw, sha1 + '.tar.bz2')
-    github.upload_raw_file(raw)
+    if os.path.exists(raw):
+      github.upload_raw_file(raw)
+    else:
+      # FIXME: https://travis-ci.org/ingenue/hunter/jobs/347888167
+      print("Skipping '{}' (not exist)".format(raw))
 
   def upload_meta(self, github, cache_done):
     self.upload_files_from_common_dir(github, self.cache_done_dir, cache_done)
