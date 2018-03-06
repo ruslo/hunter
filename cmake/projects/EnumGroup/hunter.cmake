@@ -21,7 +21,7 @@ hunter_add_version(
 )
 
 hunter_cmake_args(
-	Foo
+	EnumGroup
 	CMAKE_ARGS
 	ENUM_GROUP_WITH_TESTS=OFF
 	)
