@@ -1,6 +1,7 @@
 .. spelling::
 
   cctz
+  Datetime
 
 Datetime
 --------
