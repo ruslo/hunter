@@ -17,6 +17,9 @@ ChaiScript
 
 .. literalinclude:: /../examples/chaiscript/CMakeLists.txt
   :language: cmake
+  :start-after: # DOCUMENTATION_START {
+  :end-before: # DOCUMENTATION_END }
+
 
 Requirements
 ============
