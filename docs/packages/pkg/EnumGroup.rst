@@ -7,10 +7,9 @@
 .. _pkg.EnumGroup:
 
 EnumGroup
-==========
+=========
 
 -  `Official <https://github.com/Person-93/EnumGroup>`__
--  `Hunterized <https://github.com/hunter-packages/EnumGroup>`__
 -  `Example <https://github.com/ruslo/hunter/blob/master/examples/EnumGroup/CMakeLists.txt>`__
 -  Added by `EnumGroup_developer <https://github.com/Person-93>`__ (`pr-1368 <https://github.com/ruslo/hunter/pull/1368>`__)
 

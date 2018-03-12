@@ -21,10 +21,10 @@ hunter_add_version(
 )
 
 hunter_cmake_args(
-	EnumGroup
-	CMAKE_ARGS
-	ENUM_GROUP_WITH_TESTS=OFF
-	)
+    EnumGroup
+    CMAKE_ARGS
+    ENUM_GROUP_WITH_TESTS=OFF
+)
 
 hunter_pick_scheme(DEFAULT url_sha1_cmake)
 hunter_cacheable(EnumGroup)
