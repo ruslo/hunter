@@ -13,3 +13,4 @@ Media
  - :ref:`pkg.TIFF`
  - :ref:`pkg.giflib` - library for reading and writing gif images.
  - :ref:`pkg.libyuv` - YUV scaling and conversion functionality.
+ - :ref:`pkg.WebP` - library to encode and decode images in WebP format.
