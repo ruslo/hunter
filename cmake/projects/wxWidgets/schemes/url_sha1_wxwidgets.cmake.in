@@ -1,0 +1,132 @@
+cmake_minimum_required(VERSION 3.0)
+project(Hunter)
+
+include(ExternalProject) # ExternalProject_Add
+
+# Scheme for download and install wxWidgets library
+
+list(APPEND CMAKE_MODULE_PATH "@HUNTER_SELF@/cmake/modules")
+
+include(hunter_fatal_error)
+include(hunter_internal_error)
+include(hunter_status_debug)
+include(hunter_test_string_not_empty)
+include(hunter_user_error)
+include(hunter_install_project_config)
+
+hunter_status_debug("Scheme: url_sha1_wxwidgets")
+
+# Check preconditions
+hunter_test_string_not_empty("@HUNTER_SELF@")
+hunter_test_string_not_empty("@HUNTER_EP_NAME@")
+hunter_test_string_not_empty("@HUNTER_PACKAGE_URL@")
+hunter_test_string_not_empty("@HUNTER_PACKAGE_SHA1@")
+hunter_test_string_not_empty("@HUNTER_PACKAGE_DOWNLOAD_DIR@")
+hunter_test_string_not_empty("@HUNTER_PACKAGE_SOURCE_DIR@")
+hunter_test_string_not_empty("@HUNTER_PACKAGE_INSTALL_PREFIX@")
+hunter_test_string_not_empty("@HUNTER_PACKAGE_LICENSE_DIR@")
+hunter_test_string_not_empty("@HUNTER_GLOBAL_SCRIPT_DIR@")
+
+if(BUILD_SHARED_LIBS)
+    set(WX_BUILD_SHARED_LIBS ON)
+    set(WX_BUILD_SHARED "")
+else()    
+    set(WX_BUILD_SHARED_LIBS OFF)
+    set(WX_BUILD_SHARED "--disable-shared")
+endif()
+
+hunter_status_debug("HUNTER_PACKAGE_URL = @HUNTER_PACKAGE_URL@")
+hunter_status_debug("HUNTER_PACKAGE_PATCH_URL = ${HUNTER_PACKAGE_PATCH_URL}")
+hunter_status_debug("HUNTER_PACKAGE_DOWNLOAD_DIR = @HUNTER_PACKAGE_DOWNLOAD_DIR@")
+hunter_status_debug("HUNTER_PACKAGE_SOURCE_DIR = @HUNTER_PACKAGE_SOURCE_DIR@")
+hunter_status_debug("HUNTER_PACKAGE_INSTALL_PREFIX = @HUNTER_PACKAGE_INSTALL_PREFIX@")
+
+set(WXVERSIONSHORT 3.0)
+set(WX_SO_VER 3.0.so.0.3.0)
+set(WXBASE libwx_baseu)
+set(WXGTK libwx_gtk2u)
+set(WX_LIB_DIRECTORY @HUNTER_PACKAGE_SOURCE_DIR@/gtk-build/lib)
+
+set(WX_LIB_RELEASE_FILES
+    "${WX_LIB_DIRECTORY}/${WXBASE}-${WX_SO_VER}"
+    "${WX_LIB_DIRECTORY}/${WXBASE}_net-${WX_SO_VER}"
+    "${WX_LIB_DIRECTORY}/${WXBASE}_xml-${WX_SO_VER}"
+    "${WX_LIB_DIRECTORY}/${WXGTK}_adv-${WX_SO_VER}"
+    "${WX_LIB_DIRECTORY}/${WXGTK}_aui-${WX_SO_VER}"
+    "${WX_LIB_DIRECTORY}/${WXGTK}_core-${WX_SO_VER}"
+#   "${WX_LIB_DIRECTORY}/${WXGTK}_gl-${WX_SO_VER}"
+    "${WX_LIB_DIRECTORY}/${WXGTK}_html-${WX_SO_VER}"
+    "${WX_LIB_DIRECTORY}/${WXGTK}_propgrid-${WX_SO_VER}"
+    "${WX_LIB_DIRECTORY}/${WXGTK}_qa-${WX_SO_VER}"
+    "${WX_LIB_DIRECTORY}/${WXGTK}_ribbon-${WX_SO_VER}"
+    "${WX_LIB_DIRECTORY}/${WXGTK}_richtext-${WX_SO_VER}"
+    "${WX_LIB_DIRECTORY}/${WXGTK}_stc-${WX_SO_VER}"
+    "${WX_LIB_DIRECTORY}/${WXGTK}_xrc-${WX_SO_VER}"
+    "${WX_LIB_DIRECTORY}/libwxexpat-${WXVERSIONSHORT}.a"
+    "${WX_LIB_DIRECTORY}/libwxjpeg-${WXVERSIONSHORT}.a"
+    "${WX_LIB_DIRECTORY}/libwxregexu-${WXVERSIONSHORT}.a"
+    "${WX_LIB_DIRECTORY}/libwxscintilla-${WXVERSIONSHORT}.a"
+    "${WX_LIB_DIRECTORY}/libwxtiff-${WXVERSIONSHORT}.a"
+)
+ 
+set(WX_LICENSE_FILES
+    "@HUNTER_PACKAGE_SOURCE_DIR@/docs/gpl.txt"
+    "@HUNTER_PACKAGE_SOURCE_DIR@/docs/lgpl.txt"
+    "@HUNTER_PACKAGE_SOURCE_DIR@/docs/licence.txt"
+    "@HUNTER_PACKAGE_SOURCE_DIR@/docs/licendoc.txt"
+)
+
+ExternalProject_Add(
+    "@HUNTER_EP_NAME@-release"
+    URL
+    @HUNTER_PACKAGE_URL@
+    URL_HASH
+    SHA1=@HUNTER_PACKAGE_SHA1@
+    DOWNLOAD_DIR
+    "@HUNTER_PACKAGE_DOWNLOAD_DIR@"
+    SOURCE_DIR
+    "@HUNTER_PACKAGE_SOURCE_DIR@"
+    INSTALL_DIR
+    "@HUNTER_PACKAGE_INSTALL_PREFIX@"
+        # not used, just avoid creating Install/<name> empty directory
+    CONFIGURE_COMMAND
+    mkdir @HUNTER_PACKAGE_SOURCE_DIR@/gtk-build
+    COMMAND
+    cd @HUNTER_PACKAGE_SOURCE_DIR@/gtk-build && unset PKG_CONFIG_LIBDIR && ../configure ${WX_BUILD_SHARED}
+    BUILD_COMMAND
+    COMMAND
+    cd @HUNTER_PACKAGE_SOURCE_DIR@/gtk-build && make 
+    BUILD_IN_SOURCE
+    1
+    INSTALL_COMMAND
+    COMMAND 
+    "@CMAKE_COMMAND@" -E make_directory "@HUNTER_PACKAGE_INSTALL_PREFIX@/include"
+    COMMAND
+    "@CMAKE_COMMAND@" -E make_directory "@HUNTER_PACKAGE_INSTALL_PREFIX@/lib"
+    COMMAND
+    "@CMAKE_COMMAND@" -E make_directory "@HUNTER_PACKAGE_INSTALL_PREFIX@/bin"
+    COMMAND
+    "@CMAKE_COMMAND@" -E make_directory "@HUNTER_PACKAGE_INSTALL_PREFIX@/licenses/wxWidgets"
+    COMMAND
+    "@CMAKE_COMMAND@" -E copy_directory "@HUNTER_PACKAGE_SOURCE_DIR@/include" "@HUNTER_PACKAGE_INSTALL_PREFIX@/include"
+    COMMAND 
+    "@CMAKE_COMMAND@" -E copy_directory "@HUNTER_PACKAGE_SOURCE_DIR@/gtk-build/lib/wx" "@HUNTER_PACKAGE_INSTALL_PREFIX@/lib/wx"
+    COMMAND
+    "@CMAKE_COMMAND@" -E copy ${WX_LIB_RELEASE_FILES} "@HUNTER_PACKAGE_INSTALL_PREFIX@/lib"
+    COMMAND 
+    "@CMAKE_COMMAND@" -E copy ${WX_LICENSE_FILES} "@HUNTER_PACKAGE_INSTALL_PREFIX@/licenses/wxWidgets" 
+)
+
+# About the Linux Debug version:
+#     since 2.9 there is none because basically there is not much difference.
+#     the configure --enable-debug switch is still there but the files are built with NDEBUG and do not have a "d" in the name
+#     therefore there is no point building it
+
+
+# Forward some variables
+set(HUNTER_SELF "@HUNTER_SELF@")
+set(HUNTER_PACKAGE_INSTALL_PREFIX "@HUNTER_PACKAGE_INSTALL_PREFIX@")
+set(HUNTER_wxWidgets_VERSION "@HUNTER_wxWidgets_VERSION@")
+set(HUNTER_MSVC_ARCH "@HUNTER_MSVC_ARCH@")
+
+hunter_install_project_config("@HUNTER_EP_NAME@")

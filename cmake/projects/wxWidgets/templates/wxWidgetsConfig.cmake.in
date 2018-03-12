@@ -1,0 +1,370 @@
+# wxWidgets 3.0.3
+#----------------------------------------------
+message("[hunter] wxWidgets module (config)")
+
+add_library(wxWidgets::base STATIC IMPORTED)
+add_library(wxWidgets::net STATIC IMPORTED)
+add_library(wxWidgets::xml STATIC IMPORTED)
+add_library(wxWidgets::adv STATIC IMPORTED)
+add_library(wxWidgets::aui STATIC IMPORTED)
+add_library(wxWidgets::core STATIC IMPORTED)
+add_library(wxWidgets::html STATIC IMPORTED)
+add_library(wxWidgets::gl STATIC IMPORTED)
+add_library(wxWidgets::propgrid STATIC IMPORTED)
+add_library(wxWidgets::qa STATIC IMPORTED)
+add_library(wxWidgets::ribbon STATIC IMPORTED)
+add_library(wxWidgets::richtext STATIC IMPORTED)
+add_library(wxWidgets::stc STATIC IMPORTED)
+add_library(wxWidgets::xrc STATIC IMPORTED)
+
+string(COMPARE EQUAL "@HUNTER_MSVC_ARCH@" "amd64" is_amd64)
+if(is_amd64)
+    set(X64Str "x64_")
+else()
+    set(X64Str "")
+endif()
+if(@WX_BUILD_SHARED_LIBS@)
+    set(WXUSEDLL "WXUSINGDLL")
+    set(BUILDFILESTR "dll")
+else()
+    set(WXUSEDLL "")
+    set(BUILDFILESTR "lib")
+endif()
+set(vc_dir "vc_${X64Str}${BUILDFILESTR}")
+
+set(WXVERSIONSHORT 30)
+
+if(WIN32)
+
+    #-----------------------------------------
+    # Windows
+    #-----------------------------------------
+
+    add_library(wxWidgets::media STATIC IMPORTED)
+    add_library(wxWidgets::webview STATIC IMPORTED)
+
+    add_library(wxWidgets::expat STATIC IMPORTED)
+    add_library(wxWidgets::jpeg STATIC IMPORTED)
+    add_library(wxWidgets::png STATIC IMPORTED)
+    add_library(wxWidgets::regex STATIC IMPORTED)
+    add_library(wxWidgets::scintilla STATIC IMPORTED)
+    add_library(wxWidgets::tiff STATIC IMPORTED)
+    add_library(wxWidgets::zlib STATIC IMPORTED)
+
+    get_filename_component(WX_INSTALL_DIR "${CMAKE_CURRENT_LIST_DIR}/../../.." ABSOLUTE)
+
+    set(WXBASE wxbase${WXVERSIONSHORT}u)
+    set(WXMSW wxmsw${WXVERSIONSHORT}u)
+    set(WX_LIB_DIRECTORY ${WX_INSTALL_DIR}/lib/${vc_dir})
+    set(WXWIDGETS_INTERFACE_INCLUDE_DIRECTORIES "${WX_INSTALL_DIR}/include" "${WX_INSTALL_DIR}/include/msvc")
+    
+    # NO default linking of everything in windows!
+    set(WXWIDGETS_NO_LIB_LINK wxNO_NET_LIB wxNO_XML_LIB wxNO_REGEX_LIB wxNO_EXPAT_LIB wxNO_JPEG_LIB wxNO_PNG_LIB wxNO_TIFF_LIB wxNO_ZLIB_LIB wxNO_ADV_LIB wxNO_HTML_LIB wxNO_GL_LIB wxNO_QA_LIB wxNO_XRC_LIB wxNO_AUI_LIB wxNO_PROPGRID_LIB wxNO_RIBBON_LIB wxNO_RICHTEXT_LIB wxNO_MEDIA_LIB wxNO_STC_LIB wxNO_WEBVIEW_LIB)
+
+    set(WXWIDGETS_INTERFACE_COMPILE_DEFINITIONS wxUSE_UNICODE __WXMSW__ ${WXUSEDLL} ${WXWIDGETS_NO_LIB_LINK})
+    set(wxWidgets_LIBRARIES
+            # base libs
+            wxWidgets::base         # ${WX_LIB_DIRECTORY}/${WXBASE}.lib
+            wxWidgets::net          # ${WX_LIB_DIRECTORY}/${WXBASE}_net.lib
+            wxWidgets::xml          # ${WX_LIB_DIRECTORY}/${WXBASE}_xml.lib
+            # msw libs
+            wxWidgets::adv          # ${WX_LIB_DIRECTORY}/${WXMSW}_adv.lib
+            wxWidgets::aui          # ${WX_LIB_DIRECTORY}/${WXMSW}_aui.lib
+            wxWidgets::core         # ${WX_LIB_DIRECTORY}/${WXMSW}_core.lib
+            #wxWidgets::gl           # ${WX_LIB_DIRECTORY}/${WXMSW}_gl.lib
+            wxWidgets::html         # ${WX_LIB_DIRECTORY}/${WXMSW}_html.lib
+            wxWidgets::media        # ${WX_LIB_DIRECTORY}/${WXMSW}_media.lib
+            wxWidgets::propgrid     # ${WX_LIB_DIRECTORY}/${WXMSW}_propgrid.lib
+            wxWidgets::qa           # ${WX_LIB_DIRECTORY}/${WXMSW}_qa.lib
+            wxWidgets::ribbon       # ${WX_LIB_DIRECTORY}/${WXMSW}_ribbon.lib
+            wxWidgets::richtext     # ${WX_LIB_DIRECTORY}/${WXMSW}_richtext.lib
+            wxWidgets::stc          # ${WX_LIB_DIRECTORY}/${WXMSW}_stc.lib
+            wxWidgets::webview      # ${WX_LIB_DIRECTORY}/${WXMSW}_webview.lib
+            wxWidgets::xrc          # ${WX_LIB_DIRECTORY}/${WXMSW}_xrc.lib
+            # external libs
+            wxWidgets::expat        # ${WX_LIB_DIRECTORY}/wxexpat.lib
+            wxWidgets::jpeg         # ${WX_LIB_DIRECTORY}/wxjpeg.lib
+            wxWidgets::png          # ${WX_LIB_DIRECTORY}/wxpng.lib
+            wxWidgets::regex        # ${WX_LIB_DIRECTORY}/wxregexu.lib
+            wxWidgets::scintilla    # ${WX_LIB_DIRECTORY}/scintilla.lib
+            wxWidgets::tiff         # ${WX_LIB_DIRECTORY}/wxtiff.lib
+            wxWidgets::zlib         # ${WX_LIB_DIRECTORY}/wxzlib.lib
+        )
+
+    set_target_properties(wxWidgets::base PROPERTIES
+        IMPORTED_CONFIGURATIONS "Release;Debug"
+        IMPORTED_LOCATION_RELEASE "${WX_LIB_DIRECTORY}/${WXBASE}.lib"
+        IMPORTED_LOCATION_DEBUG "${WX_LIB_DIRECTORY}/${WXBASE}d.lib"
+        INTERFACE_INCLUDE_DIRECTORIES "${WXWIDGETS_INTERFACE_INCLUDE_DIRECTORIES}"
+        INTERFACE_COMPILE_DEFINITIONS "${WXWIDGETS_INTERFACE_COMPILE_DEFINITIONS}"
+    )
+    set_target_properties(wxWidgets::net PROPERTIES
+        IMPORTED_CONFIGURATIONS "Release;Debug"
+        IMPORTED_LOCATION_RELEASE "${WX_LIB_DIRECTORY}/${WXBASE}_net.lib"
+        IMPORTED_LOCATION_DEBUG "${WX_LIB_DIRECTORY}/${WXBASE}d_net.lib"
+        INTERFACE_INCLUDE_DIRECTORIES "${WXWIDGETS_INTERFACE_INCLUDE_DIRECTORIES}"
+    )
+    set_target_properties(wxWidgets::xml PROPERTIES
+        IMPORTED_CONFIGURATIONS "Release;Debug"
+        IMPORTED_LOCATION_RELEASE "${WX_LIB_DIRECTORY}/${WXBASE}_xml.lib"
+        IMPORTED_LOCATION_DEBUG "${WX_LIB_DIRECTORY}/${WXBASE}d_xml.lib"
+        INTERFACE_INCLUDE_DIRECTORIES "${WXWIDGETS_INTERFACE_INCLUDE_DIRECTORIES}"
+    )
+    set_target_properties(wxWidgets::gl PROPERTIES
+        IMPORTED_CONFIGURATIONS "Release;Debug"
+        IMPORTED_LOCATION_RELEASE "${WX_LIB_DIRECTORY}/${WXMSW}_gl.lib"
+        IMPORTED_LOCATION_DEBUG "${WX_LIB_DIRECTORY}/${WXMSW}d_gl.lib"
+        INTERFACE_INCLUDE_DIRECTORIES "${WXWIDGETS_INTERFACE_INCLUDE_DIRECTORIES}"
+    )
+    set_target_properties(wxWidgets::adv PROPERTIES
+        IMPORTED_CONFIGURATIONS "Release;Debug"
+        IMPORTED_LOCATION_RELEASE "${WX_LIB_DIRECTORY}/${WXMSW}_adv.lib"
+        IMPORTED_LOCATION_DEBUG "${WX_LIB_DIRECTORY}/${WXMSW}d_adv.lib"
+        INTERFACE_INCLUDE_DIRECTORIES "${WXWIDGETS_INTERFACE_INCLUDE_DIRECTORIES}"
+    )
+    set_target_properties(wxWidgets::aui PROPERTIES
+        IMPORTED_CONFIGURATIONS "Release;Debug"
+        IMPORTED_LOCATION_RELEASE "${WX_LIB_DIRECTORY}/${WXMSW}_aui.lib"
+        IMPORTED_LOCATION_DEBUG "${WX_LIB_DIRECTORY}/${WXMSW}d_aui.lib"
+        INTERFACE_INCLUDE_DIRECTORIES "${WXWIDGETS_INTERFACE_INCLUDE_DIRECTORIES}"
+    )
+    set_target_properties(wxWidgets::core PROPERTIES
+        IMPORTED_CONFIGURATIONS "Release;Debug"
+        IMPORTED_LOCATION_RELEASE "${WX_LIB_DIRECTORY}/${WXMSW}_core.lib"
+        IMPORTED_LOCATION_DEBUG "${WX_LIB_DIRECTORY}/${WXMSW}d_core.lib"
+        INTERFACE_INCLUDE_DIRECTORIES "${WXWIDGETS_INTERFACE_INCLUDE_DIRECTORIES}"
+    )
+    set_target_properties(wxWidgets::html PROPERTIES
+        IMPORTED_CONFIGURATIONS "Release;Debug"
+        IMPORTED_LOCATION_RELEASE "${WX_LIB_DIRECTORY}/${WXMSW}_html.lib"
+        IMPORTED_LOCATION_DEBUG "${WX_LIB_DIRECTORY}/${WXMSW}d_html.lib"
+        INTERFACE_INCLUDE_DIRECTORIES "${WXWIDGETS_INTERFACE_INCLUDE_DIRECTORIES}"
+    )
+    set_target_properties(wxWidgets::gl PROPERTIES
+        IMPORTED_CONFIGURATIONS "Release;Debug"
+        IMPORTED_LOCATION_RELEASE "${WX_LIB_DIRECTORY}/${WXMSW}_gl.lib"
+        IMPORTED_LOCATION_DEBUG "${WX_LIB_DIRECTORY}/${WXMSW}d_gl.lib"
+        INTERFACE_INCLUDE_DIRECTORIES "${WXWIDGETS_INTERFACE_INCLUDE_DIRECTORIES}"
+    )
+    set_target_properties(wxWidgets::media PROPERTIES
+        IMPORTED_CONFIGURATIONS "Release;Debug"
+        IMPORTED_LOCATION_RELEASE "${WX_LIB_DIRECTORY}/${WXMSW}_media.lib"
+        IMPORTED_LOCATION_DEBUG "${WX_LIB_DIRECTORY}/${WXMSW}d_media.lib"
+        INTERFACE_INCLUDE_DIRECTORIES "${WXWIDGETS_INTERFACE_INCLUDE_DIRECTORIES}"
+    )
+    set_target_properties(wxWidgets::propgrid PROPERTIES
+        IMPORTED_CONFIGURATIONS "Release;Debug"
+        IMPORTED_LOCATION_RELEASE "${WX_LIB_DIRECTORY}/${WXMSW}_propgrid.lib"
+        IMPORTED_LOCATION_DEBUG "${WX_LIB_DIRECTORY}/${WXMSW}d_propgrid.lib"
+        INTERFACE_INCLUDE_DIRECTORIES "${WXWIDGETS_INTERFACE_INCLUDE_DIRECTORIES}"
+    )
+    set_target_properties(wxWidgets::qa PROPERTIES
+        IMPORTED_CONFIGURATIONS "Release;Debug"
+        IMPORTED_LOCATION_RELEASE "${WX_LIB_DIRECTORY}/${WXMSW}_qa.lib"
+        IMPORTED_LOCATION_DEBUG "${WX_LIB_DIRECTORY}/${WXMSW}d_qa.lib"
+        INTERFACE_INCLUDE_DIRECTORIES "${WXWIDGETS_INTERFACE_INCLUDE_DIRECTORIES}"
+    )
+    set_target_properties(wxWidgets::ribbon PROPERTIES
+        IMPORTED_CONFIGURATIONS "Release;Debug"
+        IMPORTED_LOCATION_RELEASE "${WX_LIB_DIRECTORY}/${WXMSW}_ribbon.lib"
+        IMPORTED_LOCATION_DEBUG "${WX_LIB_DIRECTORY}/${WXMSW}d_ribbon.lib"
+        INTERFACE_INCLUDE_DIRECTORIES "${WXWIDGETS_INTERFACE_INCLUDE_DIRECTORIES}"
+    )
+    set_target_properties(wxWidgets::richtext PROPERTIES
+        IMPORTED_CONFIGURATIONS "Release;Debug"
+        IMPORTED_LOCATION_RELEASE "${WX_LIB_DIRECTORY}/${WXMSW}_richtext.lib"
+        IMPORTED_LOCATION_DEBUG "${WX_LIB_DIRECTORY}/${WXMSW}d_richtext.lib"
+        INTERFACE_INCLUDE_DIRECTORIES "${WXWIDGETS_INTERFACE_INCLUDE_DIRECTORIES}"
+    )
+    set_target_properties(wxWidgets::stc PROPERTIES
+        IMPORTED_CONFIGURATIONS "Release;Debug"
+        IMPORTED_LOCATION_RELEASE "${WX_LIB_DIRECTORY}/${WXMSW}_stc.lib"
+        IMPORTED_LOCATION_DEBUG "${WX_LIB_DIRECTORY}/${WXMSW}d_stc.lib"
+        INTERFACE_INCLUDE_DIRECTORIES "${WXWIDGETS_INTERFACE_INCLUDE_DIRECTORIES}"
+    )
+    set_target_properties(wxWidgets::webview PROPERTIES
+        IMPORTED_CONFIGURATIONS "Release;Debug"
+        IMPORTED_LOCATION_RELEASE "${WX_LIB_DIRECTORY}/${WXMSW}_webview.lib"
+        IMPORTED_LOCATION_DEBUG "${WX_LIB_DIRECTORY}/${WXMSW}d_webview.lib"
+        INTERFACE_INCLUDE_DIRECTORIES "${WXWIDGETS_INTERFACE_INCLUDE_DIRECTORIES}"
+    )
+    set_target_properties(wxWidgets::xrc PROPERTIES
+        IMPORTED_CONFIGURATIONS "Release;Debug"
+        IMPORTED_LOCATION_RELEASE "${WX_LIB_DIRECTORY}/${WXMSW}_xrc.lib"
+        IMPORTED_LOCATION_DEBUG "${WX_LIB_DIRECTORY}/${WXMSW}d_xrc.lib"
+        INTERFACE_INCLUDE_DIRECTORIES "${WXWIDGETS_INTERFACE_INCLUDE_DIRECTORIES}"
+    )
+
+    set_target_properties(wxWidgets::expat PROPERTIES
+        IMPORTED_CONFIGURATIONS "Release;Debug"
+        IMPORTED_LOCATION_RELEASE "${WX_LIB_DIRECTORY}/wxexpat.lib"
+        IMPORTED_LOCATION_DEBUG "${WX_LIB_DIRECTORY}/wxexpatd.lib"
+        INTERFACE_INCLUDE_DIRECTORIES "${WXWIDGETS_INTERFACE_INCLUDE_DIRECTORIES}"
+    )
+    set_target_properties(wxWidgets::jpeg PROPERTIES
+        IMPORTED_CONFIGURATIONS "Release;Debug"
+        IMPORTED_LOCATION_RELEASE "${WX_LIB_DIRECTORY}/wxjpeg.lib"
+        IMPORTED_LOCATION_DEBUG "${WX_LIB_DIRECTORY}/wxjpegd.lib"
+        INTERFACE_INCLUDE_DIRECTORIES "${WXWIDGETS_INTERFACE_INCLUDE_DIRECTORIES}"
+    )
+    set_target_properties(wxWidgets::png PROPERTIES
+        IMPORTED_CONFIGURATIONS "Release;Debug"
+        IMPORTED_LOCATION_RELEASE "${WX_LIB_DIRECTORY}/wxpng.lib"
+        IMPORTED_LOCATION_DEBUG "${WX_LIB_DIRECTORY}/wxpngd.lib"
+        INTERFACE_INCLUDE_DIRECTORIES "${WXWIDGETS_INTERFACE_INCLUDE_DIRECTORIES}"
+    )
+    set_target_properties(wxWidgets::regex PROPERTIES
+        IMPORTED_CONFIGURATIONS "Release;Debug"
+        IMPORTED_LOCATION_RELEASE "${WX_LIB_DIRECTORY}/wxregexu.lib"
+        IMPORTED_LOCATION_DEBUG "${WX_LIB_DIRECTORY}/wxregexud.lib"
+        INTERFACE_INCLUDE_DIRECTORIES "${WXWIDGETS_INTERFACE_INCLUDE_DIRECTORIES}"
+    )
+    set_target_properties(wxWidgets::scintilla PROPERTIES
+        IMPORTED_CONFIGURATIONS "Release;Debug"
+        IMPORTED_LOCATION_RELEASE "${WX_LIB_DIRECTORY}/wxscintilla.lib"
+        IMPORTED_LOCATION_DEBUG "${WX_LIB_DIRECTORY}/wxscintillad.lib"
+        INTERFACE_INCLUDE_DIRECTORIES "${WXWIDGETS_INTERFACE_INCLUDE_DIRECTORIES}"
+    )
+    set_target_properties(wxWidgets::tiff PROPERTIES
+        IMPORTED_CONFIGURATIONS "Release;Debug"
+        IMPORTED_LOCATION_RELEASE "${WX_LIB_DIRECTORY}/wxtiff.lib"
+        IMPORTED_LOCATION_DEBUG "${WX_LIB_DIRECTORY}/wxtiffd.lib"
+        INTERFACE_INCLUDE_DIRECTORIES "${WXWIDGETS_INTERFACE_INCLUDE_DIRECTORIES}"
+    )
+    set_target_properties(wxWidgets::zlib PROPERTIES
+        IMPORTED_CONFIGURATIONS "Release;Debug"
+        IMPORTED_LOCATION_RELEASE "${WX_LIB_DIRECTORY}/wxzlib.lib"
+        IMPORTED_LOCATION_DEBUG "${WX_LIB_DIRECTORY}/wxzlibd.lib"
+        INTERFACE_INCLUDE_DIRECTORIES "${WXWIDGETS_INTERFACE_INCLUDE_DIRECTORIES}"
+    )
+    
+else()
+
+    #-----------------------------------------
+    # Linux
+    #-----------------------------------------
+
+    get_filename_component(WX_INSTALL_DIR "${CMAKE_CURRENT_LIST_DIR}/../../.." ABSOLUTE)
+
+    set(WXVERSIONSHORT 3.0)
+    set(WX_SO_VER ${WXVERSIONSHORT}.so.0.3.0)
+    set(WXBASE libwx_baseu)
+    set(WXGTK libwx_gtk2u)
+    set(WX_LIB_DIRECTORY ${WX_INSTALL_DIR}/lib)
+    set(WXWIDGETS_INTERFACE_COMPILE_DEFINITIONS wxUSE_UNICODE __WXGTK__ ${WXUSEDLL} ${WXWIDGETS_NO_LIB_LINK})
+    set(WXWIDGETS_INTERFACE_INCLUDE_DIRECTORIES ${WX_LIB_DIRECTORY}/wx/include/gtk2-unicode-${WXVERSIONSHORT} ${WX_INSTALL_DIR}/include)
+    
+    set(wxWidgets_LIBRARIES
+            # base libs
+            wxWidgets::base         # ${WX_LIB_DIRECTORY}/${WXBASE}-${WX_SO_VER}
+            wxWidgets::net          # ${WX_LIB_DIRECTORY}/${WXBASE}_net-${WX_SO_VER}
+            wxWidgets::xml          # ${WX_LIB_DIRECTORY}/${WXBASE}_xml-${WX_SO_VER}
+            # gtk libs
+            wxWidgets::adv          # ${WX_LIB_DIRECTORY}/${WXGTK}_adv_${WX_SO_VER}
+            wxWidgets::aui          # ${WX_LIB_DIRECTORY}/${WXGTK}_aui-${WX_SO_VER}
+            wxWidgets::core         # ${WX_LIB_DIRECTORY}/${WXGTK}_core-${WX_SO_VER}
+            #wxWidgets::gl           # ${WX_LIB_DIRECTORY}/${WXGTK}_gl-${WX_SO_VER}
+            wxWidgets::html         # ${WX_LIB_DIRECTORY}/${WXGTK}_html-${WX_SO_VER}
+            wxWidgets::propgrid     # ${WX_LIB_DIRECTORY}/${WXGTK}_propgrid-${WX_SO_VER}
+            wxWidgets::qa           # ${WX_LIB_DIRECTORY}/${WXGTK}_qa-${WX_SO_VER}
+            wxWidgets::ribbon       # ${WX_LIB_DIRECTORY}/${WXGTK}_ribbon-${WX_SO_VER}
+            wxWidgets::richtext     # ${WX_LIB_DIRECTORY}/${WXGTK}_richtext-${WX_SO_VER}
+            wxWidgets::stc          # ${WX_LIB_DIRECTORY}/${WXGTK}_stc-${WX_SO_VER}
+            wxWidgets::xrc          # ${WX_LIB_DIRECTORY}/${WXGTK}_xrc-${WX_SO_VER}
+            # external libs
+            #wxWidgets::expat        # ${WX_LIB_DIRECTORY}/libwxexpat-${WXVERSIONSHORT}.a
+            #wxWidgets::jpeg         # ${WX_LIB_DIRECTORY}/wxjpeg-${WXVERSIONSHORT}.a
+            #wxWidgets::regex        # ${WX_LIB_DIRECTORY}/wxregexu-${WXVERSIONSHORT}.a
+            #wxWidgets::scintilla    # ${WX_LIB_DIRECTORY}/scintilla-${WXVERSIONSHORT}.a
+            #wxWidgets::tiff         # ${WX_LIB_DIRECTORY}/wxtiff-${WXVERSIONSHORT}.a
+    )
+    
+    set_target_properties(wxWidgets::base PROPERTIES
+        IMPORTED_CONFIGURATIONS "Release;Debug"
+        IMPORTED_LOCATION_RELEASE "${WX_LIB_DIRECTORY}/${WXBASE}-${WX_SO_VER}"
+        IMPORTED_LOCATION_DEBUG "${WX_LIB_DIRECTORY}/${WXBASE}-${WX_SO_VER}"
+        INTERFACE_INCLUDE_DIRECTORIES "${WXWIDGETS_INTERFACE_INCLUDE_DIRECTORIES}"
+        INTERFACE_COMPILE_DEFINITIONS "${WXWIDGETS_INTERFACE_COMPILE_DEFINITIONS}"
+    )
+    set_target_properties(wxWidgets::net PROPERTIES
+        IMPORTED_CONFIGURATIONS "Release;Debug"
+        IMPORTED_LOCATION_RELEASE "${WX_LIB_DIRECTORY}/${WXBASE}_net-${WX_SO_VER}"
+        IMPORTED_LOCATION_DEBUG "${WX_LIB_DIRECTORY}/${WXBASE}_net-${WX_SO_VER}"
+        INTERFACE_INCLUDE_DIRECTORIES "${WXWIDGETS_INTERFACE_INCLUDE_DIRECTORIES}"
+    )
+    set_target_properties(wxWidgets::xml PROPERTIES
+        IMPORTED_CONFIGURATIONS "Release;Debug"
+        IMPORTED_LOCATION_RELEASE "${WX_LIB_DIRECTORY}/${WXBASE}_xml-${WX_SO_VER}"
+        IMPORTED_LOCATION_DEBUG "${WX_LIB_DIRECTORY}/${WXBASE}_xml-${WX_SO_VER}"
+        INTERFACE_INCLUDE_DIRECTORIES "${WXWIDGETS_INTERFACE_INCLUDE_DIRECTORIES}"
+    )
+    
+    set_target_properties(wxWidgets::adv PROPERTIES
+        IMPORTED_CONFIGURATIONS "Release;Debug"
+        IMPORTED_LOCATION_RELEASE "${WX_LIB_DIRECTORY}/${WXGTK}_adv-${WX_SO_VER}"
+        IMPORTED_LOCATION_DEBUG "${WX_LIB_DIRECTORY}/${WXGTK}_adv-${WX_SO_VER}"
+        INTERFACE_INCLUDE_DIRECTORIES "${WXWIDGETS_INTERFACE_INCLUDE_DIRECTORIES}"
+    )
+    set_target_properties(wxWidgets::aui PROPERTIES
+        IMPORTED_CONFIGURATIONS "Release;Debug"
+        IMPORTED_LOCATION_RELEASE "${WX_LIB_DIRECTORY}/${WXGTK}_aui-${WX_SO_VER}"
+        IMPORTED_LOCATION_DEBUG "${WX_LIB_DIRECTORY}/${WXGTK}_aui-${WX_SO_VER}"
+        INTERFACE_INCLUDE_DIRECTORIES "${WXWIDGETS_INTERFACE_INCLUDE_DIRECTORIES}"
+    )
+    set_target_properties(wxWidgets::core PROPERTIES
+        IMPORTED_CONFIGURATIONS "Release;Debug"
+        IMPORTED_LOCATION_RELEASE "${WX_LIB_DIRECTORY}/${WXGTK}_core-${WX_SO_VER}"
+        IMPORTED_LOCATION_DEBUG "${WX_LIB_DIRECTORY}/${WXGTK}_core-${WX_SO_VER}"
+        INTERFACE_INCLUDE_DIRECTORIES "${WXWIDGETS_INTERFACE_INCLUDE_DIRECTORIES}"
+        INTERFACE_COMPILE_DEFINITIONS "${WXWIDGETS_INTERFACE_COMPILE_DEFINITIONS}"
+    )
+    set_target_properties(wxWidgets::gl PROPERTIES
+        IMPORTED_CONFIGURATIONS "Release;Debug"
+        IMPORTED_LOCATION_RELEASE "${WX_LIB_DIRECTORY}/${WXGTK}_gl-${WX_SO_VER}"
+        IMPORTED_LOCATION_DEBUG "${WX_LIB_DIRECTORY}/${WXGTK}_gl-${WX_SO_VER}"
+        INTERFACE_INCLUDE_DIRECTORIES "${WXWIDGETS_INTERFACE_INCLUDE_DIRECTORIES}"
+    )
+    set_target_properties(wxWidgets::html PROPERTIES
+        IMPORTED_CONFIGURATIONS "Release;Debug"
+        IMPORTED_LOCATION_RELEASE "${WX_LIB_DIRECTORY}/${WXGTK}_html-${WX_SO_VER}"
+        IMPORTED_LOCATION_DEBUG "${WX_LIB_DIRECTORY}/${WXGTK}_html-${WX_SO_VER}"
+        INTERFACE_INCLUDE_DIRECTORIES "${WXWIDGETS_INTERFACE_INCLUDE_DIRECTORIES}"
+    )
+    set_target_properties(wxWidgets::propgrid PROPERTIES
+        IMPORTED_CONFIGURATIONS "Release;Debug"
+        IMPORTED_LOCATION_RELEASE "${WX_LIB_DIRECTORY}/${WXGTK}_propgrid-${WX_SO_VER}"
+        IMPORTED_LOCATION_DEBUG "${WX_LIB_DIRECTORY}/${WXGTK}_propgrid-${WX_SO_VER}"
+        INTERFACE_INCLUDE_DIRECTORIES "${WXWIDGETS_INTERFACE_INCLUDE_DIRECTORIES}"
+    )
+    set_target_properties(wxWidgets::qa PROPERTIES
+        IMPORTED_CONFIGURATIONS "Release;Debug"
+        IMPORTED_LOCATION_RELEASE "${WX_LIB_DIRECTORY}/${WXGTK}_qa-${WX_SO_VER}"
+        IMPORTED_LOCATION_DEBUG "${WX_LIB_DIRECTORY}/${WXGTK}_qa-${WX_SO_VER}"
+        INTERFACE_INCLUDE_DIRECTORIES "${WXWIDGETS_INTERFACE_INCLUDE_DIRECTORIES}"
+    )
+    set_target_properties(wxWidgets::richtext PROPERTIES
+        IMPORTED_CONFIGURATIONS "Release;Debug"
+        IMPORTED_LOCATION_RELEASE "${WX_LIB_DIRECTORY}/${WXGTK}_richtext-${WX_SO_VER}"
+        IMPORTED_LOCATION_DEBUG "${WX_LIB_DIRECTORY}/${WXGTK}_richtext-${WX_SO_VER}"
+        INTERFACE_INCLUDE_DIRECTORIES "${WXWIDGETS_INTERFACE_INCLUDE_DIRECTORIES}"
+    )
+    set_target_properties(wxWidgets::stc PROPERTIES
+        IMPORTED_CONFIGURATIONS "Release;Debug"
+        IMPORTED_LOCATION_RELEASE "${WX_LIB_DIRECTORY}/${WXGTK}_stc-${WX_SO_VER}"
+        IMPORTED_LOCATION_DEBUG "${WX_LIB_DIRECTORY}/${WXGTK}_stc-${WX_SO_VER}"
+        INTERFACE_INCLUDE_DIRECTORIES "${WXWIDGETS_INTERFACE_INCLUDE_DIRECTORIES}"
+    )
+    set_target_properties(wxWidgets::xrc PROPERTIES
+        IMPORTED_CONFIGURATIONS "Release;Debug"
+        IMPORTED_LOCATION_RELEASE "${WX_LIB_DIRECTORY}/${WXGTK}_xrc-${WX_SO_VER}"
+        IMPORTED_LOCATION_DEBUG "${WX_LIB_DIRECTORY}/${WXGTK}_xrc-${WX_SO_VER}"
+        INTERFACE_INCLUDE_DIRECTORIES "${WXWIDGETS_INTERFACE_INCLUDE_DIRECTORIES}"
+    )
+    set_target_properties(wxWidgets::ribbon PROPERTIES
+        IMPORTED_CONFIGURATIONS "Release;Debug"
+        IMPORTED_LOCATION_RELEASE "${WX_LIB_DIRECTORY}/${WXGTK}_ribbon-${WX_SO_VER}"
+        IMPORTED_LOCATION_DEBUG "${WX_LIB_DIRECTORY}/${WXGTK}_ribbon-${WX_SO_VER}"
+        INTERFACE_INCLUDE_DIRECTORIES "${WXWIDGETS_INTERFACE_INCLUDE_DIRECTORIES}"
+    )
+
+endif()
