@@ -10,7 +10,7 @@ ChaiScript
 ==========
 
 -  `Official <https://chaiscript.com>`__
--  `Offical Github: <https://github.com/ChaiScript/ChaiScript>`__
+-  `Offical Github <https://github.com/ChaiScript/ChaiScript>`__
 -  `Hunterized <https://github.com/hunter-packages/chaiscript>`__
 -  `Example <https://github.com/ruslo/hunter/blob/master/examples/chaiscript/CMakeLists.txt>`__
 -  Added by `Chris Kaminski <https://github.com/ckaminski>`__ (`pr-1351 <https://github.com/ruslo/hunter/pull/1351>`__)
