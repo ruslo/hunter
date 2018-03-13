@@ -3,7 +3,6 @@
 set -x
 
 [ "${GITHUB_USER_PASSWORD}" = "" ] && { echo "GITHUB_USER_PASSWORD is not set"; exit 1; }
-[ "${ANDROID_NDK_r10e}" = "" ] && { echo "ANDROID_NDK_r10e is not set"; exit 1; }
 
 export GITHUB_USER_PASSWORD
 
