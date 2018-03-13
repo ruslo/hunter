@@ -19,8 +19,3 @@ if (CYGWIN OR MINGW)
     set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -O3")
 endif()
 
-get_property(chaiscript_so_path TARGET chaiscript::chaiscript PROPERTY LOCATION)
-message("Chaiscript PATH:  ${chaiscript_so_path}")
-
-enable_testing()
-add_test(chaitest chaitest)
