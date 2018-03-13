@@ -17,9 +17,7 @@ addons:
       - ubuntu-toolchain-r-test
     packages:
       - python3-pip
-
-      - g++-5
-      - gcc-5
+      - g++-7
 
 dist:
   - trusty
@@ -31,33 +29,44 @@ env:
 matrix:
   include:
     # Linux {
+
     - os: linux
-      env: PROJECT_DIR=examples/foo TOOLCHAIN=default
+      env: PROJECT_DIR=examples/foo TOOLCHAIN=clang-cxx17
+
     - os: linux
-      env: PROJECT_DIR=examples/foo TOOLCHAIN=clang-libstdcxx
+      env: PROJECT_DIR=examples/foo TOOLCHAIN=gcc-7-cxx17
+
     - os: linux
-      env: PROJECT_DIR=examples/foo TOOLCHAIN=gcc-5
+      env: PROJECT_DIR=examples/foo TOOLCHAIN=android-ndk-r16b-api-24-arm64-v8a-clang-libcxx14
+
     - os: linux
-      env: PROJECT_DIR=examples/foo TOOLCHAIN=android-ndk-r10e-api-19-armeabi-v7a-neon
+      env: PROJECT_DIR=examples/foo TOOLCHAIN=analyze-cxx17
+
     - os: linux
-      env: PROJECT_DIR=examples/foo TOOLCHAIN=android-ndk-r15c-api-21-armeabi-v7a-neon-clang-libcxx
+      env: PROJECT_DIR=examples/foo TOOLCHAIN=sanitize-address-cxx17
+
     - os: linux
-      env: PROJECT_DIR=examples/foo TOOLCHAIN=analyze
+      env: PROJECT_DIR=examples/foo TOOLCHAIN=sanitize-leak-cxx17
+
     - os: linux
-      env: PROJECT_DIR=examples/foo TOOLCHAIN=sanitize-address
-    - os: linux
-      env: PROJECT_DIR=examples/foo TOOLCHAIN=sanitize-leak
-    - os: linux
-      env: PROJECT_DIR=examples/foo TOOLCHAIN=sanitize-thread
+      env: PROJECT_DIR=examples/foo TOOLCHAIN=sanitize-thread-cxx17
+
     # }
 
     # OSX {
+
     - os: osx
-      env: PROJECT_DIR=examples/foo TOOLCHAIN=libcxx
+      osx_image: xcode9.2
+      env: PROJECT_DIR=examples/foo TOOLCHAIN=osx-10-13-make-cxx14
+
     - os: osx
-      env: PROJECT_DIR=examples/foo TOOLCHAIN=osx-10-12
+      osx_image: xcode9.2
+      env: PROJECT_DIR=examples/foo TOOLCHAIN=osx-10-13-cxx14
+
     - os: osx
-      env: PROJECT_DIR=examples/foo TOOLCHAIN=ios-nocodesign-10-3
+      osx_image: xcode9.2
+      env: PROJECT_DIR=examples/foo TOOLCHAIN=ios-nocodesign-11-2-dep-9-3
+
     # }
 
 install:
