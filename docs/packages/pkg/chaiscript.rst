@@ -20,20 +20,23 @@ ChaiScript
   :start-after: # DOCUMENTATION_START {
   :end-before: # DOCUMENTATION_END }
 
-
 Requirements
 ============
 - C++14 
-- Boost : Threads 
 
-Options
-=======
 
+Options (Set by Chaiscript)
+=======================
 - MULTITHREAD_SUPPORT_ENABLED: TRUE
 - BUILD_MODULES:  TRUE
 - USE_STD_MAKE_SHARED: FALSE
 - BUILD_SAMPLES:  FALSE
 - RUN_FUZZY_TESTS: FALSE
 - RUN_PERFORMANCE_TESTS: FALSE
+
+Options (Set by Hunter) 
+=======================
+- BUILD_TESTING:  OFF
+
 
 

@@ -11,7 +11,7 @@ hunter_add_package(chaiscript)
 find_package(chaiscript CONFIG REQUIRED)
 
 add_executable(chaitest main.cpp)
-target_link_libraries(chaitest chaiscript::chaiscript) #parser chaiscript::stdlib chaiscript::stl_extra)
+target_link_libraries(chaitest chaiscript::chaiscript) 
 # DOCUMENTATION_END }
 
 if (CYGWIN OR MINGW)
@@ -22,7 +22,5 @@ endif()
 get_property(chaiscript_so_path TARGET chaiscript::chaiscript PROPERTY LOCATION)
 message("Chaiscript PATH:  ${chaiscript_so_path}")
 
-
 enable_testing()
-#file(COPY ${chaiscript_so_path} DESTINATION ${CMAKE_BINARY_DIR})
 add_test(chaitest chaitest)

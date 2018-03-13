@@ -4,6 +4,8 @@
 
 using namespace chaiscript;
 
+using namespace chaiscript;
+
 int main(int argc, char ** argv) { 
   ChaiScript_Basic chai(
           std::make_unique<parser::ChaiScript_Parser<eval::Noop_Tracer,
