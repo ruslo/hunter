@@ -10,11 +10,11 @@ hunter_add_version(
   PACKAGE_NAME
   chaiscript
   VERSION
-  "v6.0.0"
+  "v6.0.0-p0"
   URL
-  https://github.com/hunter-packages/ChaiScript/archive/v6.0.0.zip
+  https://github.com/hunter-packages/ChaiScript/archive/v6.0.0-p0.zip
   SHA1
-  007c2b38f726576be2b9f7e614155153503c659e
+  a0fd0a07c46a3d05b5772b2032c442d2473794ee
   )
 
 hunter_cmake_args(
