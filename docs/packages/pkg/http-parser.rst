@@ -1,6 +1,6 @@
 .. spelling::
 
-    http-parser
+    http
 
 .. index:: networking ; http-parser
 
