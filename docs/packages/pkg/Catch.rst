@@ -17,8 +17,7 @@ Catch
 -  `Hunterized <https://github.com/hunter-packages/Catch>`__
 - Available since |hunter|
 
-.. code-block:: cmake
-
-    hunter_add_package(Catch)
-    find_package(Catch CONFIG REQUIRED)
-    target_link_libraries(... Catch::Catch)
+.. literalinclude:: /../examples/Catch/CMakeLists.txt
+  :language: cmake
+  :start-after: # DOCUMENTATION_START {
+  :end-before: # DOCUMENTATION_END }
