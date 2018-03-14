@@ -14,6 +14,6 @@ cd "${THIS_SCRIPT_DIR}/../../../.."
 export TOOLCHAIN=ios-nocodesign-11-2-dep-9-3-armv7
 PROJECT_DIR=examples/qt-widgets ./jenkins.py --clear-except-download
 PROJECT_DIR=examples/qt-camera ./jenkins.py --nocreate
-PROJECT_DIR=examples/qt-location ./jenkins.py --nocreate
-PROJECT_DIR=examples/qt-qml ./jenkins.py --upload --nocreate
+PROJECT_DIR=examples/qt-qml ./jenkins.py --nocreate
+PROJECT_DIR=examples/qt-location ./jenkins.py --upload --nocreate
 # }
