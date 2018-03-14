@@ -9,8 +9,8 @@ include(hunter_pick_scheme)
 hunter_add_version(
     PACKAGE_NAME http-parser
     VERSION "2.8.0"
-    URL "https://github.com/isaachier/http-parser/archive/hunter-2.8.0-p0.tar.gz"
-    SHA1 "3ae0cbc6eb5d1e013b19718235bf0feb0182f661")
+    URL "https://github.com/hunter-packages/http-parser/archive/v2.8.0-p0.tar.gz"
+    SHA1 "3ef5048ecc6625f75a8c756026f501ebd5f3f388")
 
 hunter_pick_scheme(DEFAULT url_sha1_cmake)
 hunter_cacheable(http-parser)
