@@ -22,7 +22,7 @@ ChaiScript
 
 Requirements
 ============
-- C++14 
+- C++14 (v6.0.0-p0 does not support C++17) 
 
 
 Options (Set by Chaiscript)
