@@ -11,6 +11,10 @@ sudo:
 
 # Install packages differs for container-based infrastructure
 # * https://docs.travis-ci.com/user/migrating-from-legacy/#How-do-I-install-APT-sources-and-packages%3F
+# List of available packages:
+# * https://github.com/travis-ci/apt-package-whitelist/blob/master/ubuntu-trusty
+# List of available sources:
+# * https://github.com/travis-ci/apt-source-whitelist/blob/master/ubuntu.json
 addons:
   apt:
     sources:
