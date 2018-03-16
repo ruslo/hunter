@@ -1,6 +1,7 @@
 .. spelling::
 
     WebP
+    codec
 
 .. index:: media ; WebP
 
@@ -9,7 +10,7 @@
 WebP
 ====
 
-WebP codec: library to encode and decode images in WebP format. This package contains the library that can be used in other programs to add WebP support, as well as the command line tools 'cwebp' and 'dwebp'.
+WebP codec: library to encode and decode images in WebP format. This package contains the library that can be used in other programs to add WebP support, as well as the command line tools ``cwebp`` and ``dwebp``.
 
 -  `Official <https://chromium.googlesource.com/webm/libwebp>`__
 -  `Hunterized <https://github.com/hunter-packages/libwebp>`__
