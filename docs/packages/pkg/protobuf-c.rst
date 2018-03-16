@@ -1,6 +1,6 @@
 .. spelling::
 
-    protobuf-c
+    protobuf
 
 .. index:: serialize ; protobuf-c
 
