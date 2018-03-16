@@ -2,6 +2,7 @@
 
     OpenAL
     gif
+    WebP
 
 Media
 -----
