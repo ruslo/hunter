@@ -1,0 +1,7 @@
+syntax = "proto3";
+
+message Person {
+    string first_name = 1;
+    string last_name = 2;
+    uint32 age = 3;
+}

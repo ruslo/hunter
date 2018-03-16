@@ -283,6 +283,7 @@ hunter_config(libpcre VERSION 8.41)
 hunter_config(poly2tri VERSION 1.0.0)
 hunter_config(polyclipping VERSION 4.8.8-p0) # for Assimp
 hunter_config(presentproto VERSION 1.0)
+hunter_config(protobuf-c VERSION 1.3.0-p0)
 hunter_config(pthread-stubs VERSION 0.3)
 hunter_config(pugixml VERSION 1.8.1)
 hunter_config(pybind11 VERSION 2.2.1)
