@@ -156,6 +156,12 @@ cpp_head = """
 #if defined(_MSC_VER)
 # include <SdkDdkVer.h> // Header with _WIN32_WINNT
 #endif
+
+#if defined(__APPLE__)
+// https://developer.apple.com/library/content/documentation/DeveloperTools/Conceptual/cross_development/Using/using.html
+# include <Availability.h>
+#endif
+
 """
 
 cpp_one_check = """
