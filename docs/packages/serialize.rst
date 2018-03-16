@@ -19,6 +19,7 @@ Serialize
  * :ref:`pkg.nlohmann_json` - JSON for Modern C++
  * :ref:`pkg.openddlparser` - A simple and fast OpenDDL Parser. OpenDDL is the shortcut for Open Data Description Language.
  * :ref:`pkg.Protobuf` - Protocol Buffers - Google's data interchange format
+ * :ref:`pkg.protobuf-c` - Protocol Buffers implementation in C
  * :ref:`pkg.RapidJSON` - A fast JSON parser/generator for C++ with both SAX/DOM style API
  * :ref:`pkg.RapidXML` - attempt to create the fastest XML parser possible, while retaining usability, portability and reasonable W3C compatibility.
  * :ref:`pkg.thrift` - software framework for scalable cross-language services development
