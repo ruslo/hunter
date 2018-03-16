@@ -19,6 +19,12 @@
 # include <SdkDdkVer.h> // Header with _WIN32_WINNT
 #endif
 
+#if defined(__APPLE__)
+// https://developer.apple.com/library/content/documentation/DeveloperTools/Conceptual/cross_development/Using/using.html#//apple_ref/doc/uid/20     002000-1114741-CJADDEIB
+# include <Availability.h>
+#endif
+
+
 #if defined(_ABI64)
 # pragma message(HUNTER_INFO(_ABI64))
 #endif
@@ -691,6 +697,14 @@
 # pragma message(HUNTER_INFO(__BORLANDC__))
 #endif
 
+#if defined(__BRIDGE_OS_VERSION_MAX_ALLOWED)
+# pragma message(HUNTER_INFO(__BRIDGE_OS_VERSION_MAX_ALLOWED))
+#endif
+
+#if defined(__BRIDGE_OS_VERSION_MIN_REQUIRED)
+# pragma message(HUNTER_INFO(__BRIDGE_OS_VERSION_MIN_REQUIRED))
+#endif
+
 #if defined(__BYTE_ORDER)
 # pragma message(HUNTER_INFO(__BYTE_ORDER))
 #endif
@@ -973,14 +987,6 @@
 
 #if defined(__ELF__)
 # pragma message(HUNTER_INFO(__ELF__))
-#endif
-
-#if defined(__ENVIRONMENT_IPHONE_OS_VERSION_MIN_REQUIRED__)
-# pragma message(HUNTER_INFO(__ENVIRONMENT_IPHONE_OS_VERSION_MIN_REQUIRED__))
-#endif
-
-#if defined(__ENVIRONMENT_MAC_OS_X_VERSION_MIN_REQUIRED__)
-# pragma message(HUNTER_INFO(__ENVIRONMENT_MAC_OS_X_VERSION_MIN_REQUIRED__))
 #endif
 
 #if defined(__EXCEPTIONS)
@@ -1503,6 +1509,14 @@
 # pragma message(HUNTER_INFO(__INT_MAX__))
 #endif
 
+#if defined(__IPHONE_OS_VERSION_MAX_ALLOWED)
+# pragma message(HUNTER_INFO(__IPHONE_OS_VERSION_MAX_ALLOWED))
+#endif
+
+#if defined(__IPHONE_OS_VERSION_MIN_REQUIRED)
+# pragma message(HUNTER_INFO(__IPHONE_OS_VERSION_MIN_REQUIRED))
+#endif
+
 #if defined(__KCC)
 # pragma message(HUNTER_INFO(__KCC))
 #endif
@@ -1669,6 +1683,14 @@
 
 #if defined(__MACH__)
 # pragma message(HUNTER_INFO(__MACH__))
+#endif
+
+#if defined(__MAC_OS_X_VERSION_MAX_ALLOWED)
+# pragma message(HUNTER_INFO(__MAC_OS_X_VERSION_MAX_ALLOWED))
+#endif
+
+#if defined(__MAC_OS_X_VERSION_MIN_REQUIRED)
+# pragma message(HUNTER_INFO(__MAC_OS_X_VERSION_MIN_REQUIRED))
 #endif
 
 #if defined(__MIC__)
@@ -2263,6 +2285,14 @@
 # pragma message(HUNTER_INFO(__TQ_IBIT__))
 #endif
 
+#if defined(__TV_OS_VERSION_MAX_ALLOWED)
+# pragma message(HUNTER_INFO(__TV_OS_VERSION_MAX_ALLOWED))
+#endif
+
+#if defined(__TV_OS_VERSION_MIN_REQUIRED)
+# pragma message(HUNTER_INFO(__TV_OS_VERSION_MIN_REQUIRED))
+#endif
+
 #if defined(__TenDRA__)
 # pragma message(HUNTER_INFO(__TenDRA__))
 #endif
@@ -2669,6 +2699,14 @@
 
 #if defined(__VSX__)
 # pragma message(HUNTER_INFO(__VSX__))
+#endif
+
+#if defined(__WATCH_OS_VERSION_MAX_ALLOWED)
+# pragma message(HUNTER_INFO(__WATCH_OS_VERSION_MAX_ALLOWED))
+#endif
+
+#if defined(__WATCH_OS_VERSION_MIN_REQUIRED)
+# pragma message(HUNTER_INFO(__WATCH_OS_VERSION_MIN_REQUIRED))
 #endif
 
 #if defined(__WATCOMC__)
