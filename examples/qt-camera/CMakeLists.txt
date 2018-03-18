@@ -16,6 +16,16 @@ hunter_add_package(Qt COMPONENTS qtmultimedia) # Qt5MultimediaWidgets
 find_package(Qt5MultimediaWidgets REQUIRED) # Qt5::MultimediaWidgets
 find_package(Qt5PrintSupport REQUIRED) # Qt5::PrintSupport
 
+if(APPLE)
+  # Travis error:
+  # * https://travis-ci.org/ingenue/hunter/jobs/354713684
+  # * You can't use this version of (null) with this version of macOS. You have macOS 10.12.6. Qt requires macOS 10.13.0 or later.
+  if(NOT TARGET Qt5::MultimediaWidgets)
+    message(FATAL_ERROR "No Qt5::Widgets target")
+  endif()
+  return()
+endif()
+
 set(CMAKE_AUTOMOC ON)
 set(CMAKE_AUTOUIC ON)
 set(CMAKE_AUTORCC ON)
