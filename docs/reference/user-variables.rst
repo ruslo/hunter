@@ -7,6 +7,44 @@ User variables
 CMake
 ~~~~~
 
+.. note::
+
+  All Hunter options should be set **to cache** and
+  **before HunterGate** so user will be able to set
+  `his own values <http://cgold.readthedocs.io/en/latest/tutorials/variables/cache.html#use-case>`__.
+  Also if package will be used as a third party project managed by Hunter, then
+  Hunter should be able to forward all values from by parent to child projects.
+  So **do not** set this variables with ``FORCE`` or as ``INTERNAL``, and don't
+  set them as a regular variables:
+
+  .. code-block:: cmake
+
+    set(HUNTER_ENABLED ON) # BAD!
+
+  .. code-block:: cmake
+
+    set(HUNTER_STATUS_PRINT OFF CACHE BOOL "..." FORCE) # BAD!
+
+  .. code-block:: cmake
+
+    set(HUNTER_STATUS_DEBUG ON CACHE INTERNAL "...") # BAD!
+
+  .. code-block:: cmake
+
+    option(HUNTER_STATUS_DEBUG "Print a lot of info" ON) # Good
+
+    # Good
+    set(
+        HUNTER_CACHE_SERVERS
+        "https://github.com/elucideye/hunter-cache"
+        CACHE
+        STRING
+        "Hunter cache servers"
+    )
+
+    # All user options before HunterGate
+    HunterGate(URL "..." SHA1 "...")
+
 HUNTER_ENABLED
 ==============
 
@@ -101,6 +139,20 @@ HUNTER_RUN_INSTALL
 Set this variable to ``ON`` to run auto-install procedure if it's disabled by
 :ref:`HUNTER_DISABLE_AUTOINSTALL <hunter disable install>` environment variable.
 
+.. _hunter_run_upload:
+
+HUNTER_RUN_UPLOAD
+=================
+
+Set this variable to ``YES`` to start
+:doc:`uploading procedure </user-guides/hunter-user/github-cache-server>`.
+
+* Default: ``NO``
+
+.. note::
+
+  Upload will start only after any real build triggered by Hunter.
+
 .. _hunter_disable_builds:
 
 HUNTER_DISABLE_BUILDS
@@ -178,8 +230,7 @@ HUNTER_USE_CACHE_SERVERS
 HUNTER_PASSWORDS_PATH
 =====================
 
-Path to file with passwords for packages with
-:doc:`protected sources </user-guides/cmake-user/protected-sources>`.
+Path to :doc:`Hunter passwords file <terminology/hunter-passwords-file>`.
 
 HUNTER_KEEP_PACKAGE_SOURCES
 ===========================
@@ -268,6 +319,26 @@ To create new URLs the following template is used:
 
     This is the same structure as Hunter uses for its own :ref:`Download <layout deployed download>` directory.
 
+.. _hunter tls verify:
+
+HUNTER_TLS_VERIFY
+=================
+
+Define if
+`ExternalProject_Add <https://cmake.org/cmake/help/latest/module/ExternalProject.html>`__
+and
+`file(DOWNLOAD) <https://cmake.org/cmake/help/latest/command/file.html>`__
+should verify the server certificate for ``https://`` URLs.
+
+Default: ``ON``
+
+.. warning::
+
+  Value ``OFF`` will disable certificate verification. It means that the only
+  protection is SHA1 hash of sources which is `weak <http://shattered.io/>`__.
+  And if you're using binary servers (it's
+  :ref:`default <hunter_use_cache_servers>`) meta cache files like
+  ``cache.sha1`` will not be checked at all!
 
 Environment
 ~~~~~~~~~~~

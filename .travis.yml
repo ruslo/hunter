@@ -2,7 +2,7 @@
 
 # Workaround for https://github.com/travis-ci/travis-ci/issues/8363
 language:
-  - minimal
+  - cpp
 
 # Container-based infrastructure (Linux)
 # * https://docs.travis-ci.com/user/migrating-from-legacy/#How-can-I-use-container-based-infrastructure%3F
@@ -11,15 +11,17 @@ sudo:
 
 # Install packages differs for container-based infrastructure
 # * https://docs.travis-ci.com/user/migrating-from-legacy/#How-do-I-install-APT-sources-and-packages%3F
+# List of available packages:
+# * https://github.com/travis-ci/apt-package-whitelist/blob/master/ubuntu-trusty
+# List of available sources:
+# * https://github.com/travis-ci/apt-source-whitelist/blob/master/ubuntu.json
 addons:
   apt:
     sources:
       - ubuntu-toolchain-r-test
     packages:
       - python3-pip
-
-      - g++-5
-      - gcc-5
+      - g++-7
 
 dist:
   - trusty
@@ -32,42 +34,44 @@ matrix:
   include:
     # Linux {
 
-    # c++11 needed:
-    # * https://travis-ci.org/ingenue/hunter/jobs/188517427
-    # - os: linux
-    #   env: PROJECT_DIR=examples/dlib TOOLCHAIN=default
+    - os: linux
+      env: PROJECT_DIR=examples/dlib TOOLCHAIN=clang-cxx17
 
     - os: linux
-      env: PROJECT_DIR=examples/dlib TOOLCHAIN=clang-libstdcxx
-    - os: linux
-      env: PROJECT_DIR=examples/dlib TOOLCHAIN=gcc-5
+      env: PROJECT_DIR=examples/dlib TOOLCHAIN=gcc-7-cxx17
 
     # Requires std::round or newer NDK
     # - os: linux
-    #   env: PROJECT_DIR=examples/dlib TOOLCHAIN=android-ndk-r10e-api-19-armeabi-v7a-neon
-    # - os: linux
-    #   env: PROJECT_DIR=examples/dlib TOOLCHAIN=android-ndk-r15c-api-21-armeabi-v7a-neon-clang-libcxx
+    #   env: PROJECT_DIR=examples/dlib TOOLCHAIN=android-ndk-r16b-api-24-arm64-v8a-clang-libcxx14
 
     # FIXME: https://travis-ci.org/ingenue/hunter/jobs/152423598
     # - os: linux
-    #   env: PROJECT_DIR=examples/dlib TOOLCHAIN=analyze
+    #   env: PROJECT_DIR=examples/dlib TOOLCHAIN=analyze-cxx17
 
     - os: linux
-      env: PROJECT_DIR=examples/dlib TOOLCHAIN=sanitize-address
+      env: PROJECT_DIR=examples/dlib TOOLCHAIN=sanitize-address-cxx17
+
     - os: linux
-      env: PROJECT_DIR=examples/dlib TOOLCHAIN=sanitize-leak
+      env: PROJECT_DIR=examples/dlib TOOLCHAIN=sanitize-leak-cxx17
+
     - os: linux
-      env: PROJECT_DIR=examples/dlib TOOLCHAIN=sanitize-thread
+      env: PROJECT_DIR=examples/dlib TOOLCHAIN=sanitize-thread-cxx17
+
     # }
 
     # OSX {
 
     - os: osx
-      env: PROJECT_DIR=examples/dlib TOOLCHAIN=libcxx
+      osx_image: xcode9.2
+      env: PROJECT_DIR=examples/dlib TOOLCHAIN=osx-10-13-make-cxx14
+
     - os: osx
-      env: PROJECT_DIR=examples/dlib TOOLCHAIN=osx-10-12
+      osx_image: xcode9.2
+      env: PROJECT_DIR=examples/dlib TOOLCHAIN=osx-10-13-cxx14
+
     - os: osx
-      env: PROJECT_DIR=examples/dlib TOOLCHAIN=ios-nocodesign-10-3
+      osx_image: xcode9.2
+      env: PROJECT_DIR=examples/dlib TOOLCHAIN=ios-nocodesign-11-2-dep-9-3
 
     # }
 

@@ -4,29 +4,14 @@
 Protected sources
 -----------------
 
-.. warning::
-
-  This feature is available only if version of
-  :doc:`CMake is 3.7+ </quick-start/cmake>`
-
 Hunter can manage access to the package with sources protected by HTTP
 user-name/password credentials. Such packages should be
 :doc:`marked as protected </reference/user-modules/hunter_protected_sources>`
-in corresponding ``hunter.cmake`` file. Passwords for protected sources can be
-set by file with :doc:`/reference/user-modules/hunter_http_password` commands.
-Next paths will be checked (sorted by priority):
-
-* Path specified by :ref:`HUNTER_PASSWORDS_PATH <hunter passwords path>`
-  CMake variable
-
-* Path specified by :ref:`HUNTER_PASSWORDS_PATH <hunter passwords path env>`
-  environment variable
-
-* Path based on ``HOME`` environment variable:
-  ``$ENV{HOME}/.config/Hunter/passwords.cmake`` (including Windows hosts)
-
-* Path based on ``USERPROFILE`` environment variable:
-  ``$ENV{USERPROFILE}/.config/Hunter/passwords.cmake`` (Windows only hosts)
+in corresponding ``hunter.cmake`` file. Passwords should be set in
+:doc:`Hunter passwords file </reference/terminology/hunter-passwords-file>`
+using
+:doc:`hunter_http_password </reference/user-modules/hunter_http_password>`
+function.
 
 Hint for GitHub users
 =====================

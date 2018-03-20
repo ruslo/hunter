@@ -33,8 +33,13 @@ When contributing please follow the style guides:
     Before adding or updating a package in Hunter, the package is tested.
     Tests are done to check if the source can be downloaded, built and linked.
     Head over to our
-    `repository for per package CI testing contribution <https://github.com/ingenue/hunter>`__
+    `repository for per package CI testing contribution <https://github.com/ingenue/hunter/branches/all?utf8=%E2%9C%93&query=pkg.>`__
     to see more.
+
+.. note::
+
+  If you're planning to introduce nontrivial feature it's better to
+  discuss design first, it will save a lot of time for both you and developers.
 
 Reporting bugs
 ~~~~~~~~~~~~~~
@@ -46,7 +51,7 @@ and working correctly. Before reporting bugs please check:
   See :doc:`CMake version for Hunter </quick-start/cmake>`.
 
 * Verify CMake, build tools and C/C++ compilers you're planning to use.
-  Try to build simple CMake project (check
+  E.g. try to build simple CMake project (check
   `this document <http://cgold.readthedocs.io/en/latest/first-step.html>`__
   in case you have troubles):
 
@@ -69,23 +74,8 @@ and working correctly. Before reporting bugs please check:
       std::cout << "Hello world!" << std::endl;
     }
 
-* Most sources downloaded by HTTPS protocol so CMake should be build with
-  CURL with enabled OpenSSL. Without HTTPS support you will see this error:
-
-  .. code-block:: none
-
-    error: downloading
-    'https://...' failed
-
-      status_code: 1
-      status_string: "Unsupported protocol"
-      log: Protocol "https" not supported or disabled in libcurl
-
-    Closing connection -1
-
-  .. note::
-
-    * `Example of building CMake with CURL + OpenSSL <https://github.com/ruslo/hunter/issues/328#issuecomment-198672048>`__
+* If you are experiencing some download error please check F.A.Q.:
+  :doc:`How to fix download error? </faq/how-to-fix-download-error>`
 
 If everything seems OK:
 
@@ -94,10 +84,32 @@ If everything seems OK:
   of errors the last error you see is **not relevant**!
 * Update to `latest Hunter URL/SHA1 <https://github.com/ruslo/hunter/releases>`__
   and check that issue you have hit is not already fixed/reported
+* Check this document if the first error you see is ``external.build.failed``:
+
+  * https://github.com/ruslo/hunter/wiki/error.external.build.failed
+* Remove irrelevant code from your example and report one problem at a time.
+  Try to construct `SSCCE <http://www.sscce.org/>`__. If you need more files
+  than just ``CMakeLists.txt`` it's better to create separate GitHub repository
+  for easy copying of your example. It will be nice if you can reproduce the
+  issue with the CI system like AppVeyor/Travis.
+
+* **Do not remove** ``~/.hunter`` repository to try to fix the issue! Hunter
+  designed to be correct and reproducible, there should be no stale/rotten
+  artifacts inside that can affect his work. If the ``rm -rf ~/.hunter`` step
+  fix the issue for you it means that either you are using Hunter wrongly or
+  there is a bug somewhere. If you want to figure out what is the origin
+  of the problem please do keep ``~/.hunter`` directory.
+
 * Open an `issue <https://github.com/ruslo/hunter/issues/new>`__ and provide
   next info:
 
   * CMake version you're using ``cmake --version``. CMake build from source?
   * OS (Linux, OSX, Windows)
-  * Command line you're using on generate step (e.g. ``cmake -H. -B_builds "-GVisual Studio 14 2015"``)
+  * Command line you're using on generate step, e.g.
+
+    .. code-block:: none
+
+      cmake -H. -B_builds "-GVisual Studio 14 2015"
+
+  * Are you using toolchain?
   * Add log until **first error** reported by Hunter

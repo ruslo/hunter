@@ -11,7 +11,8 @@ project(download-Catch)
 
 hunter_add_package(Catch)
 
-find_package(Catch CONFIG REQUIRED)
+# DOCUMENTATION_START {
+find_package(Catch2 CONFIG REQUIRED)
 
 set(SOURCES main.cpp
             foo_test.cpp
@@ -19,4 +20,5 @@ set(SOURCES main.cpp
 set(HEADERS foo.hpp)
 
 add_executable(foo_test ${SOURCES} ${HEADERS})
-target_link_libraries(foo_test PUBLIC Catch::Catch)
+target_link_libraries(foo_test PUBLIC Catch2::Catch)
+# DOCUMENTATION_END }

@@ -130,6 +130,8 @@ compiler id, platforms, generators, architectures: ``WIN32``, ``IOS``,
 
   * `Depending on environment variable <http://cgold.readthedocs.io/en/latest/tutorials/variables/environment.html#no-tracking>`__
 
+.. _create new install xxxconfig:
+
 Install XXXConfig.cmake
 =======================
 

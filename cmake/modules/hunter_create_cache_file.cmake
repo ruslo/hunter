@@ -196,6 +196,25 @@ function(hunter_create_cache_file cache_path)
       "set(CMAKE_POLICY_DEFAULT_CMP0069 NEW CACHE INTERNAL \"\")\n"
   )
 
+  # Disable package registry {
+  ### http://www.cmake.org/cmake/help/v3.1/manual/cmake-packages.7.html#disabling-the-package-registry
+  file(
+      APPEND
+      "${temp_path}"
+      "set(CMAKE_EXPORT_NO_PACKAGE_REGISTRY ON CACHE INTERNAL \"\")\n"
+  )
+  file(
+      APPEND
+      "${temp_path}"
+      "set(CMAKE_FIND_PACKAGE_NO_PACKAGE_REGISTRY ON CACHE INTERNAL \"\")\n"
+  )
+  file(
+      APPEND
+      "${temp_path}"
+      "set(CMAKE_FIND_PACKAGE_NO_SYSTEM_PACKAGE_REGISTRY ON CACHE INTERNAL \"\")\n"
+  )
+  # }
+
   # Atomic operation
   file(RENAME "${temp_path}" "${cache_path}")
 endfunction()
