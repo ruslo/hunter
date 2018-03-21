@@ -1,11 +1,8 @@
 Using Nexus Repository manager as binary cache server
 -----------------------------------------------------
 
-Hunter allows to upload binary cache to any server. If you want to use `GitHub <https://github.com>`__
-as a cache server, then you can execute
-`python script <https://github.com/ruslo/hunter/blob/master/maintenance/upload-cache-to-github.py>`__
-which is uploading cache binaries to `GitHub <https://github.com>`__
-directly. As an alternative you can also use ``Nexus Repository Manager``.
+It is possible to use ``Nexus Repository Manager`` as a binary cache server
+instead of GitHub.
 
 .. seealso::
 

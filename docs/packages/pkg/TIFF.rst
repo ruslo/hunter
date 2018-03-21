@@ -18,12 +18,3 @@ TIFF
     hunter_add_package(TIFF)
     find_package(TIFF CONFIG REQUIRED)
     target_link_libraries(... TIFF::libtiff)
-
-Compatibility mode:
-
-.. code-block:: cmake
-
-    hunter_add_package(TIFF)
-    find_package(TIFF REQUIRED)
-    include_directories(${TIFF_INCLUDE_DIR})
-    target_link_libraries(... ${TIFF_LIBRARIES})

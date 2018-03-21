@@ -3,7 +3,7 @@ Hunter
 
 |gitter| |rtfd| |travis| |appveyor| |license|
 
-CMake-driven cross-platform package manager for C++.
+CMake driven cross-platform package manager for C/C++.
 Supported platforms: **Linux**, **Mac**, **Windows**, **iOS**, **Android**, **Raspberry Pi**.
 
 * Documentation: https://docs.hunter.sh

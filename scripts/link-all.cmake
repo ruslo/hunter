@@ -45,7 +45,7 @@ if(NOT EXISTS "${PYTHON_LINK_SCRIPT}")
   message(FATAL_ERROR "File not exists: ${PYTHON_LINK_SCRIPT}")
 endif()
 
-find_package(PythonInterp 3)
+find_package(PythonInterp 3 QUIET)
 if(PYTHONINTERP_FOUND)
   message("Link files using Python: ${PYTHON_EXECUTABLE}")
   set(

@@ -227,6 +227,17 @@ hunter_add_version(
     b1bc254e688426316b55115adddd13e4a10115b2
 )
 
+hunter_add_version(
+    PACKAGE_NAME
+    Qt
+    VERSION
+    "5.10.1"
+    URL
+    "http://download.qt.io/official_releases/qt/5.10/5.10.1/single/qt-everywhere-src-5.10.1.tar.xz"
+    SHA1
+    3d71e887287bdea664ac6f8db4aaa4a7d913be59
+)
+
 hunter_cacheable(Qt)
 
 if(NOT APPLE AND NOT WIN32)

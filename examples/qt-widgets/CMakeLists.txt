@@ -21,6 +21,16 @@ set(CMAKE_AUTOUIC ON)
 # Find the QtWidgets library
 find_package(Qt5Widgets REQUIRED)
 
+if(APPLE)
+  # Travis error:
+  # * https://travis-ci.org/ingenue/hunter/jobs/354713684
+  # * You can't use this version of (null) with this version of macOS. You have macOS 10.12.6. Qt requires macOS 10.13.0 or later.
+  if(NOT TARGET Qt5::Widgets)
+    message(FATAL_ERROR "No Qt5::Widgets target")
+  endif()
+  return()
+endif()
+
 # Tell CMake to create the helloworld executable
 add_executable(
     helloworld

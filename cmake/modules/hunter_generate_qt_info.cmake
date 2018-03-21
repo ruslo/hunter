@@ -4,6 +4,7 @@
 include(hunter_generate_qt_5_5_info)
 include(hunter_generate_qt_5_6_info)
 include(hunter_generate_qt_5_9_info)
+include(hunter_generate_qt_5_10_info)
 include(hunter_test_string_not_empty)
 include(hunter_user_error)
 
@@ -47,6 +48,14 @@ function(
     )
   elseif(qt_version MATCHES "^5\\.9\\.")
     hunter_generate_qt_5_9_info(
+        "${component_name}"
+        toskip
+        depends_on
+        "${is_android}"
+        "${is_win32}"
+    )
+  elseif(qt_version MATCHES "^5\\.10\\.")
+    hunter_generate_qt_5_10_info(
         "${component_name}"
         toskip
         depends_on

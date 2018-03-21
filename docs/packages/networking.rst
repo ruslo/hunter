@@ -20,6 +20,7 @@ Networking
  - :ref:`pkg.cpr` - C++ Requests: Curl for People, a spiritual port of Python Requests
  - :ref:`pkg.CURL` - A command line tool and library for transferring data with URL syntax
  - :ref:`pkg.gRPC` - A high performance, open-source universal RPC framework
+ - :ref:`pkg.http-parser` - HTTP request/response parser for C
  - :ref:`pkg.Libevent` - An event notification library for developing scalable network servers.
  - :ref:`pkg.kNet` - Low-level networking protocol library.
  - :ref:`pkg.mongoose` - Embedded Web Server Library.
