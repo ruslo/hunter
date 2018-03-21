@@ -20,7 +20,7 @@
 #endif
 
 #if defined(__APPLE__)
-// https://developer.apple.com/library/content/documentation/DeveloperTools/Conceptual/cross_development/Using/using.html#//apple_ref/doc/uid/20     002000-1114741-CJADDEIB
+// https://developer.apple.com/library/content/documentation/DeveloperTools/Conceptual/cross_development/Using/using.html
 # include <Availability.h>
 #endif
 
@@ -497,6 +497,10 @@
 # pragma message(HUNTER_INFO(__ARM_ACLE))
 #endif
 
+#if defined(__ARM_ALIGN_MAX_PWR)
+# pragma message(HUNTER_INFO(__ARM_ALIGN_MAX_PWR))
+#endif
+
 #if defined(__ARM_ALIGN_MAX_STACK_PWR)
 # pragma message(HUNTER_INFO(__ARM_ALIGN_MAX_STACK_PWR))
 #endif
@@ -511,6 +515,10 @@
 
 #if defined(__ARM_ARCH_7S__)
 # pragma message(HUNTER_INFO(__ARM_ARCH_7S__))
+#endif
+
+#if defined(__ARM_ARCH_8A)
+# pragma message(HUNTER_INFO(__ARM_ARCH_8A))
 #endif
 
 #if defined(__ARM_ARCH_EXT_IDIV__)
@@ -561,8 +569,16 @@
 # pragma message(HUNTER_INFO(__ARM_FEATURE_FMA))
 #endif
 
+#if defined(__ARM_FEATURE_IDIV)
+# pragma message(HUNTER_INFO(__ARM_FEATURE_IDIV))
+#endif
+
 #if defined(__ARM_FEATURE_LDREX)
 # pragma message(HUNTER_INFO(__ARM_FEATURE_LDREX))
+#endif
+
+#if defined(__ARM_FEATURE_NUMERIC_MAXMIN)
+# pragma message(HUNTER_INFO(__ARM_FEATURE_NUMERIC_MAXMIN))
 #endif
 
 #if defined(__ARM_FEATURE_QBIT)
@@ -583,6 +599,10 @@
 
 #if defined(__ARM_FP)
 # pragma message(HUNTER_INFO(__ARM_FP))
+#endif
+
+#if defined(__ARM_FP16_ARGS)
+# pragma message(HUNTER_INFO(__ARM_FP16_ARGS))
 #endif
 
 #if defined(__ARM_FP16_FORMAT_IEEE)
