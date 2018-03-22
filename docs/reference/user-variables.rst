@@ -42,6 +42,9 @@ CMake
         "Hunter cache servers"
     )
 
+    # Good
+    set(HUNTER_JOBS_NUMBER 6 CACHE STRING "Hunter jobs number")
+
     # All user options before HunterGate
     HunterGate(URL "..." SHA1 "...")
 
