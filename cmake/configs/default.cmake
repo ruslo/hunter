@@ -92,7 +92,7 @@ hunter_config(Leptonica VERSION 1.74.2-p4)
 hunter_config(LibCDS VERSION 2.3.1)
 hunter_config(Libcxx VERSION 3.6.2) # Clang
 hunter_config(Libcxxabi VERSION 3.6.2) # Clang
-hunter_config(Libevent VERSION 2.1.8-p3)
+hunter_config(Libevent VERSION 2.1.8-p4)
 hunter_config(lcms VERSION 2.9-p0)
 hunter_config(libffi VERSION 3.2.1)
 hunter_config(librtmp VERSION 2.4.0-p0)
