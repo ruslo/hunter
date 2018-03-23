@@ -2,10 +2,7 @@
 
 # Workaround for https://github.com/travis-ci/travis-ci/issues/8363
 language:
-  - minimal
-
-os:
-  - linux
+  - cpp
 
 # Container-based infrastructure (Linux)
 # * https://docs.travis-ci.com/user/migrating-from-legacy/#How-can-I-use-container-based-infrastructure%3F
@@ -14,21 +11,77 @@ sudo:
 
 # Install packages differs for container-based infrastructure
 # * https://docs.travis-ci.com/user/migrating-from-legacy/#How-do-I-install-APT-sources-and-packages%3F
+# List of available packages:
+# * https://github.com/travis-ci/apt-package-whitelist/blob/master/ubuntu-trusty
+# List of available sources:
+# * https://github.com/travis-ci/apt-source-whitelist/blob/master/ubuntu.json
 addons:
   apt:
+    sources:
+      - ubuntu-toolchain-r-test
     packages:
       - python3-pip
-      - enchant # for documentation
+      - g++-7
 
 dist:
   - trusty
 
 env:
-  - TOOLCHAIN=generate-documentation-test
+  global:
+    - secure: "fVN184/3nwAB7opE8h3rhBwWrMeX7LW15b4IJQE2zDW9MYfm6BW/S1fPdniyRiFQbW6fNK9m6IKtjmk0xjOq2f4Wu9ULfMu+AgnCwlX6aV7s8bA2mRBqtL9zNTAAX3XHzTMwHx9nCJjYyYScIq7ApJ68et88lCaWwGn+kLdE2AOuOZY/msE+W9SgTotXV6aBK2l0oXuT4ph+ysfT7n3kaSPDBG//amhCSGDnkjBdEA0cw6tdwfsY2gdQfdUGyzC77c5NegYQmu86MnLVT7VQwfn4/av59grCLHQ5xn7IDJitTrcM7njCsfJEAjAGCGjPOYj9PT6btMbBf3iMWp9PPRY7uiLCt07yVgyplBbvrJKHgXwqyo5uK6ei4oc2NdfYZ9vkAbzKFY+U2d27yX5iIBrXYaMQ3aD04rFGJ+Xvo3i70AMTqM3Tmy2/WC1KkIOngfM9g1+PjazHHgz7PyrQlhbOZmYpM0F82qzjVkrZA81ujBrQ1KMST9ZVJicxE3zNeuJjLAQhFerMLgJc3ntudmwxi8UqoGKKlazO6qdJT7VLITJ9gVB3m+1LRQzo6ZDqs9V9RCMaGIy2t4bN3PAgMWdEJDoU1zhuy2V2AgeQGFzG4eanpYZQqAp6poV02DjegvkXC7cA5QrIcGZKdrIXLQk4TBXx2ZVigDio5gYLyrY="
+
+matrix:
+  include:
+    # Linux {
+
+    - os: linux
+      env: PROJECT_DIR=examples/dlib TOOLCHAIN=clang-cxx17
+
+    - os: linux
+      env: PROJECT_DIR=examples/dlib TOOLCHAIN=gcc-7-cxx17
+
+    # Requires std::round or newer NDK
+    # - os: linux
+    #   env: PROJECT_DIR=examples/dlib TOOLCHAIN=android-ndk-r16b-api-24-arm64-v8a-clang-libcxx14
+
+    # FIXME: https://travis-ci.org/ingenue/hunter/jobs/152423598
+    # - os: linux
+    #   env: PROJECT_DIR=examples/dlib TOOLCHAIN=analyze-cxx17
+
+    - os: linux
+      env: PROJECT_DIR=examples/dlib TOOLCHAIN=sanitize-address-cxx17
+
+    - os: linux
+      env: PROJECT_DIR=examples/dlib TOOLCHAIN=sanitize-leak-cxx17
+
+    - os: linux
+      env: PROJECT_DIR=examples/dlib TOOLCHAIN=sanitize-thread-cxx17
+
+    # }
+
+    # OSX {
+
+    - os: osx
+      osx_image: xcode9.2
+      env: PROJECT_DIR=examples/dlib TOOLCHAIN=osx-10-13-make-cxx14
+
+    - os: osx
+      osx_image: xcode9.2
+      env: PROJECT_DIR=examples/dlib TOOLCHAIN=osx-10-13-cxx14
+
+    - os: osx
+      osx_image: xcode9.2
+      env: PROJECT_DIR=examples/dlib TOOLCHAIN=ios-nocodesign-11-2-dep-9-3
+
+    # }
 
 install:
   # Info about OS
   - uname -a
+
+  # Disable autoupdate
+  # * https://github.com/Homebrew/brew/blob/7d31a70373edae4d8e78d91a4cbc05324bebc3ba/Library/Homebrew/manpages/brew.1.md.erb#L202
+  - export HOMEBREW_NO_AUTO_UPDATE=1
 
   # Install Python 3
   - if [[ "`uname`" == "Darwin" ]]; then travis_retry brew install python3; fi
@@ -53,12 +106,16 @@ install:
   # Installed if toolchain is Android (otherwise directory doesn't exist)
   - export ANDROID_NDK_r10e="`pwd`/_ci/android-ndk-r10e"
   - export ANDROID_NDK_r11c="`pwd`/_ci/android-ndk-r11c"
+  - export ANDROID_NDK_r15c="`pwd`/_ci/android-ndk-r15c"
+  - export ANDROID_NDK_r16b="`pwd`/_ci/android-ndk-r16b"
 
 script:
-  - cd docs
-  - ./jenkins.sh
+  - python3 ./jenkins.py
 
+# https://docs.travis-ci.com/user/customizing-the-build/#Whitelisting-or-blacklisting-branches
+# Exclude branch 'pkg.template'. Nothing to build there.
 branches:
   except:
+    - pkg.template
     - /^pr\..*/
     - /^v[0-9]+\.[0-9]+\.[0-9]+$/

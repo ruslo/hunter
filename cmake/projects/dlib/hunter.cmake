@@ -13,6 +13,17 @@ hunter_add_version(
     PACKAGE_NAME
     dlib
     VERSION
+    "19.10-xsacha1"
+    URL
+    "https://github.com/xsacha/dlib/archive/v19.10-xsacha1.tar.gz"
+    SHA1
+    4ea94bc082e7c88913e1f8d2deb2bb42606f2166
+)
+
+hunter_add_version(
+    PACKAGE_NAME
+    dlib
+    VERSION
     "19.8-p0"
     URL
     "https://github.com/hunter-packages/dlib/archive/v19.8-p0.tar.gz"
