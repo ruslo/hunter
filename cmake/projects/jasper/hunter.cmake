@@ -20,6 +20,17 @@ hunter_add_version(
     e443966cfacdad2e3f975ba31d72333e06b433b4
 )
 
+hunter_add_version(
+    PACKAGE_NAME
+    jasper
+    VERSION
+    2.0.14-p1
+    URL
+    "https://github.com/hunter-packages/jasper/archive/v2.0.14-p1.tar.gz"
+    SHA1
+    0ff33939db0b90d8666755a87d692182916c9774
+)
+
 hunter_cmake_args(
     jasper
     CMAKE_ARGS
