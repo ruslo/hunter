@@ -31,6 +31,17 @@ hunter_add_version(
     7093e4ea2701834ff858aa3441294edbbf83c4b1
 )
 
+hunter_add_version(
+    PACKAGE_NAME
+    mng
+    VERSION
+    2.0.3-p2
+    URL
+    https://github.com/hunter-packages/mng/archive/v2.0.3-p2.tar.gz
+    SHA1
+    54d8034ced87b6411df40d0f3cfd5724257e9b00
+)
+
 hunter_cmake_args(mng CMAKE_ARGS MNG_INSTALL_LIB_DIR=lib)
 
 hunter_pick_scheme(DEFAULT url_sha1_cmake)
