@@ -7,7 +7,7 @@
 .. _pkg.oniguruma:
 
 oniguruma
-===
+=========
 
 -  `Official <https://github.com/kkos/oniguruma>`__
 -  `Hunterized <https://github.com/hunter-packages/oniguruma>`__
