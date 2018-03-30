@@ -60,7 +60,7 @@ hunter_config(ClangToolsExtra VERSION 4.0.1) # Clang
 hunter_config(Comet VERSION 4.0.2)
 hunter_config(cpr VERSION 1.3.0)
 hunter_config(CppNetlib VERSION 0.10.1-hunter-3)
-hunter_config(CppNetlibUri VERSION 1.0.4-hunter)
+hunter_config(CppNetlibUri VERSION 1.0.5-hunter)
 hunter_config(crc32c VERSION 1.0.5)
 hunter_config(CsvParserCPlusPlus VERSION 1.0.1)
 hunter_config(Eigen VERSION 3.3.4-p1)
@@ -406,4 +406,3 @@ hunter_config(zookeeper VERSION 3.4.9-p2)
 hunter_config(tacopie VERSION 2.4.0-h1)
 hunter_config(cpp_redis VERSION 3.5.0-h1)
 hunter_config(IF97 VERSION 2.1.2)
-
