@@ -8,6 +8,13 @@ include(hunter_pick_scheme)
 
 hunter_add_version(
     PACKAGE_NAME benchmark
+    VERSION "1.4.0"
+    URL "https://github.com/google/benchmark/archive/v1.4.0.tar.gz"
+    SHA1 "7d3c1379319d1c1c74e0854d023a0bf16f0cc978"
+)
+
+hunter_add_version(
+    PACKAGE_NAME benchmark
     VERSION "1.3.0"
     URL "https://github.com/google/benchmark/archive/v1.3.0.tar.gz"
     SHA1 "ea74b9d99327f7ef8150dc7c683e6155fa29ef3c")
