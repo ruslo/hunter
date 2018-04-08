@@ -104,3 +104,14 @@ If new version broke some toolchain:
 * Disable toolchains in ``pkg.hunter_box_1``
 * Add new version to ``master``
 * Tests against **new** set of toolchains without broken
+
+Submit the pull request to Hunter
+=================================
+
+Once the tests are passing, and all required toolchain modifications have been applied to the ``ci`` fork in ``pkg.hunter_box_1`` via pull requests (see above), the original package update in ``pr.hunter_box_1`` should then be pushed to your Hunter fork (``origin`` in above discussions):
+
+.. code-block:: none
+    
+    [hunter]> git push -u origin pr.hunter_box_1
+
+Finally, a pull request should be opened to send the package update to the main Hunter repository, as illustrated in the previous section pull request `screen shot <https://docs.hunter.sh/en/latest/creating-new/create/cmake.html#pull-requests>`__.
