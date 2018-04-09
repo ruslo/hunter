@@ -2,6 +2,7 @@
 
   libpcre
   oniguruma
+  Regex
 
 Regex
 -----
