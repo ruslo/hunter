@@ -9,7 +9,7 @@ include(hunter_cacheable)
 include(hunter_cmake_args)
 include(hunter_download)
 include(hunter_pick_scheme)
-
+  
 hunter_add_version(
     PACKAGE_NAME
     acf
@@ -31,6 +31,17 @@ hunter_add_version(
     SHA1
     0b2c6a2584539f1825eabc928e4b2abc7d16bbac
     )
+
+hunter_add_version(
+    PACKAGE_NAME
+    acf
+    VERSION
+    0.1.3
+    URL
+    "https://github.com/elucideye/acf/archive/v0.1.3.tar.gz"
+    SHA1
+    7df65c31312e6f364895dae249bb4fc9f20a8d7c
+)
 
 hunter_cmake_args(acf CMAKE_ARGS 
   ACF_BUILD_OGLES_GPGPU=OFF # optional opengl shaders off
