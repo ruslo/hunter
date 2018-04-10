@@ -16,6 +16,17 @@ hunter_add_version(
     PACKAGE_NAME
     OpenCV
     VERSION
+    "3.4.1-p1"
+    URL
+    "https://github.com/hunter-packages/opencv/archive/v3.4.1-p1.tar.gz"
+    SHA1
+    a3f4f0a29e14eb3ff4ebf834f5505ff63b384332
+)
+
+hunter_add_version(
+    PACKAGE_NAME
+    OpenCV
+    VERSION
     "3.4.1-p0"
     URL
     "https://github.com/hunter-packages/opencv/archive/v3.4.1-p0.tar.gz"
@@ -353,14 +364,6 @@ hunter_add_version(
     a0c2d5944364fc4f26b6160b33c03082b1fa08c1
 )
 
-string(COMPARE EQUAL "${CMAKE_OSX_SYSROOT}" "iphoneos" _is_ios)
-
-if(_is_ios)
-  set(_ios_args BUILD_WEBP=ON)
-else()
-  set(_ios_args "")
-endif()
-
 if(ANDROID)
   # This feature doesn't work with new CMake 3.7+ toolchains
   set(_android_args ENABLE_PRECOMPILED_HEADERS=OFF)
@@ -379,13 +382,14 @@ hunter_cmake_args(
         BUILD_opencv_apps=OFF
         INSTALL_PYTHON_EXAMPLES=OFF
         BUILD_WITH_STATIC_CRT=OFF # Fix https://github.com/ruslo/hunter/issues/177
-        ${_ios_args}
         ${_android_args}
         # Find packages in Hunter (instead of building from OpenCV sources)
         BUILD_ZLIB=OFF
         BUILD_TIFF=OFF
         BUILD_PNG=OFF
         BUILD_JPEG=OFF
+        BUILD_JASPER=OFF
+        BUILD_WEBP=OFF
         # This stuff will build shared libraries. Build with PIC required for dependencies.
         BUILD_opencv_java=OFF
         BUILD_opencv_python2=OFF
