@@ -63,6 +63,12 @@ Fetch latest CI configs, you may need to run ``git pull`` if you have
   [hunter]> git checkout pkg.hunter_box_1
   [hunter]> git pull
 
+If the package has not been updated in some time, the CI toolchains may have fallen out of date.  It is preferable to keep the CI configuration in sync with the working defaults from ``pkg.template`` to make sure the package will build with recent compilers and to help ensure cache hits for any required Hunter managed dependencies. 
+
+.. code-block:: none
+  
+  [hunter]> git pull ci pkg.template 
+
 Create temporary branch ``test.hunter_box_1`` for testing basing on
 ``pkg.hunter_box_1``:
 
