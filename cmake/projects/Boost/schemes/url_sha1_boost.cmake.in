@@ -80,16 +80,16 @@ if(APPLE)
   )
 endif()
 
-if("@MSVC@")
-  # Logging as Workaround for VS_UNICODE_OUTPUT issue:
-  # https://public.kitware.com/Bug/view.php?id=14266
-  set(log_opts LOG_CONFIGURE 1 LOG_BUILD 1 LOG_INSTALL 1 LOG_DOWNLOAD 1)
-  get_filename_component(x "@HUNTER_PACKAGE_SOURCE_DIR@/.." ABSOLUTE)
-  hunter_status_print(
-      "For progress check log files in directory: ${x}"
-  )
+if("@HUNTER_PACKAGE_LOG_BUILD@")
+  set(log_build 1)
 else()
-  set(log_opts "")
+  set(log_build 0)
+endif()
+
+if("@HUNTER_PACKAGE_LOG_INSTALL@" OR "@HUNTER_SUPPRESS_LIST_OF_FILES@")
+  set(log_install 1)
+else()
+  set(log_install 0)
 endif()
 
 hunter_parse_boost_config_macros(BOOST_CONFIG_MACROS "@HUNTER_Boost_CMAKE_ARGS@")
@@ -140,7 +140,9 @@ ExternalProject_Add(
     "-Ddstdir=@HUNTER_PACKAGE_LICENSE_DIR@"
     -P
     "@HUNTER_SELF@/scripts/try-copy-license.cmake"
-    ${log_opts}
+    LOG_CONFIGURE ${log_build}
+    LOG_BUILD ${log_build}
+    LOG_INSTALL ${log_install}
 )
 
 # Forward some variables
