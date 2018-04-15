@@ -70,8 +70,14 @@ https://github.com/ruslo/hunter/issues/495
   # invoke cmake for host project
   include(${HUNTER_SELF}/scripts/clear-all.cmake)
   execute_process(
-      COMMAND "${CMAKE_COMMAND}" "-H${home_directory}" "-B${binary_directory}"
-        "-DHUNTER_HOST_URL=${HUNTER_URL}" "-DHUNTER_HOST_SHA1=${HUNTER_SHA1}" "-DHUNTER_ROOT=${HUNTER_CACHED_ROOT}"
+      COMMAND
+          "${CMAKE_COMMAND}"
+          "-H${home_directory}"
+          "-B${binary_directory}"
+          "-DHUNTER_HOST_URL=${HUNTER_URL}"
+          "-DHUNTER_HOST_SHA1=${HUNTER_SHA1}"
+          "-DHUNTER_ROOT=${HUNTER_CACHED_ROOT}"
+          "-DHUNTER_ALREADY_LOCKED_DIRECTORIES=${HUNTER_ALREADY_LOCKED_DIRECTORIES}"
       RESULT_VARIABLE exit_code
   )
   string(COMPARE EQUAL "${exit_code}" "0" success)
