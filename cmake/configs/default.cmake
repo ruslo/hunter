@@ -45,7 +45,7 @@ if(MINGW)
   # FIXME: https://ci.appveyor.com/project/ingenue/hunter/build/1.0.2229
   hunter_config(Boost VERSION 1.64.0)
 else()
-  hunter_config(Boost VERSION 1.66.0)
+  hunter_config(Boost VERSION 1.67.0)
 endif()
 hunter_config(BoostCompute VERSION 0.5-p0)
 hunter_config(BoostProcess VERSION 0.5)
