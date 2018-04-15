@@ -35,25 +35,39 @@ matrix:
     # Linux {
 
     - os: linux
-      env: PROJECT_DIR=examples/foo TOOLCHAIN=clang-cxx17
+      env: >
+        TOOLCHAIN=clang-cxx17
+        PROJECT_DIR=examples/foo
 
     - os: linux
-      env: PROJECT_DIR=examples/foo TOOLCHAIN=gcc-7-cxx17
+      env: >
+        TOOLCHAIN=gcc-7-cxx17
+        PROJECT_DIR=examples/foo
 
     - os: linux
-      env: PROJECT_DIR=examples/foo TOOLCHAIN=android-ndk-r16b-api-24-arm64-v8a-clang-libcxx14
+      env: >
+        TOOLCHAIN=android-ndk-r16b-api-24-arm64-v8a-clang-libcxx14
+        PROJECT_DIR=examples/foo
 
     - os: linux
-      env: PROJECT_DIR=examples/foo TOOLCHAIN=analyze-cxx17
+      env: >
+        TOOLCHAIN=analyze-cxx17
+        PROJECT_DIR=examples/foo
 
     - os: linux
-      env: PROJECT_DIR=examples/foo TOOLCHAIN=sanitize-address-cxx17
+      env: >
+        TOOLCHAIN=sanitize-address-cxx17
+        PROJECT_DIR=examples/foo
 
     - os: linux
-      env: PROJECT_DIR=examples/foo TOOLCHAIN=sanitize-leak-cxx17
+      env: >
+        TOOLCHAIN=sanitize-leak-cxx17
+        PROJECT_DIR=examples/foo
 
     - os: linux
-      env: PROJECT_DIR=examples/foo TOOLCHAIN=sanitize-thread-cxx17
+      env: >
+        TOOLCHAIN=sanitize-thread-cxx17
+        PROJECT_DIR=examples/foo
 
     # }
 
@@ -61,15 +75,21 @@ matrix:
 
     - os: osx
       osx_image: xcode9.3
-      env: PROJECT_DIR=examples/foo TOOLCHAIN=osx-10-13-make-cxx14
+      env: >
+        TOOLCHAIN=osx-10-13-make-cxx14
+        PROJECT_DIR=examples/foo
 
     - os: osx
       osx_image: xcode9.3
-      env: PROJECT_DIR=examples/foo TOOLCHAIN=osx-10-13-cxx14
+      env: >
+        TOOLCHAIN=osx-10-13-cxx14
+        PROJECT_DIR=examples/foo
 
     - os: osx
       osx_image: xcode9.3
-      env: PROJECT_DIR=examples/foo TOOLCHAIN=ios-nocodesign-11-3-dep-9-3
+      env: >
+        TOOLCHAIN=ios-nocodesign-11-3-dep-9-3
+        PROJECT_DIR=examples/foo
 
     # }
 
