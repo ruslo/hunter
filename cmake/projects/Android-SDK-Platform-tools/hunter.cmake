@@ -15,6 +15,17 @@ if(CMAKE_HOST_APPLE)
       PACKAGE_NAME
       Android-SDK-Platform-tools
       VERSION
+      "r27.0.1"
+      URL
+      "http://dl-ssl.google.com/android/repository/platform-tools_r27.0.1-darwin.zip"
+      SHA1
+      d7b60f4022ee90e647af0c2ac605f2f99b4164c5
+  )
+
+  hunter_add_version(
+      PACKAGE_NAME
+      Android-SDK-Platform-tools
+      VERSION
       "r25.0.5"
       URL
       "http://dl-ssl.google.com/android/repository/platform-tools_r25.0.5-darwin.zip"
@@ -81,6 +92,17 @@ elseif(CMAKE_HOST_UNIX)
       PACKAGE_NAME
       Android-SDK-Platform-tools
       VERSION
+      "r27.0.1"
+      URL
+      "http://dl-ssl.google.com/android/repository/platform-tools_r27.0.1-linux.zip"
+      SHA1
+      ca04b0a50700ac988a3a5423fcd61904124ce423
+  )
+
+  hunter_add_version(
+      PACKAGE_NAME
+      Android-SDK-Platform-tools
+      VERSION
       "r25.0.5"
       URL
       "http://dl-ssl.google.com/android/repository/platform-tools_r25.0.5-linux.zip"
@@ -143,6 +165,17 @@ elseif(CMAKE_HOST_UNIX)
       2502ade68af9f6288c4dd7726796599e8d9a4337
   )
 elseif(CMAKE_HOST_WIN32)
+  hunter_add_version(
+      PACKAGE_NAME
+      Android-SDK-Platform-tools
+      VERSION
+      "r27.0.1"
+      URL
+      "http://dl-ssl.google.com/android/repository/platform-tools_r27.0.1-windows.zip"
+      SHA1
+      11505582e66ef81730cc5150a7566a3ca5c677b7
+  )
+
   hunter_add_version(
       PACKAGE_NAME
       Android-SDK-Platform-tools
