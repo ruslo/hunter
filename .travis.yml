@@ -60,16 +60,16 @@ matrix:
     # OSX {
 
     - os: osx
-      osx_image: xcode9.2
+      osx_image: xcode9.3
       env: PROJECT_DIR=examples/foo TOOLCHAIN=osx-10-13-make-cxx14
 
     - os: osx
-      osx_image: xcode9.2
+      osx_image: xcode9.3
       env: PROJECT_DIR=examples/foo TOOLCHAIN=osx-10-13-cxx14
 
     - os: osx
-      osx_image: xcode9.2
-      env: PROJECT_DIR=examples/foo TOOLCHAIN=ios-nocodesign-11-2-dep-9-3
+      osx_image: xcode9.3
+      env: PROJECT_DIR=examples/foo TOOLCHAIN=ios-nocodesign-11-3-dep-9-3
 
     # }
 
@@ -82,6 +82,7 @@ install:
   - export HOMEBREW_NO_AUTO_UPDATE=1
 
   # Install Python 3
+  - if [[ "`uname`" == "Darwin" ]]; then travis_retry brew upgrade python; fi
   - if [[ "`uname`" == "Darwin" ]]; then travis_retry brew install python3; fi
 
   # Install Python package 'requests'
