@@ -7,10 +7,10 @@ cmake_minimum_required(VERSION 3.0)
 # * https://github.com/hunter-packages/gate
 include("../common.cmake")
 
-project(download-ros-console_bridge)
+project(download-ros_console_bridge)
 
 # DOCUMENTATION_START {
-hunter_add_package(ros-console_bridge)
+hunter_add_package(ros_console_bridge)
 find_package(console_bridge CONFIG REQUIRED)
 
 add_executable(boo boo.cpp)
