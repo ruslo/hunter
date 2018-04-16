@@ -47,10 +47,10 @@ hunter_test_string_not_empty("@HUNTER_Boost_VERSION@")
 # get list of boost components for given version
 hunter_get_boost_libs(VERSION "@HUNTER_Boost_VERSION@" LIBS boost_libs)
 
-if("@HUNTER_Boost_VERSION@" VERSION_LESS 1.66)
-  set(fatlib_script "@HUNTER_PACKAGE_SCRIPT_DIR@/create-boost-ios-fatlib.sh")
-else()
+if("@HUNTER_Boost_VERSION@" VERSION_EQUAL 1.66.0)
   set(fatlib_script "@HUNTER_PACKAGE_SCRIPT_DIR@/create-boost-1-66-ios-fatlib.sh")
+else()
+  set(fatlib_script "@HUNTER_PACKAGE_SCRIPT_DIR@/create-boost-ios-fatlib.sh")
 endif()
 
 set(libfound NO)
