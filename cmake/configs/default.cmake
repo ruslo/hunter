@@ -41,12 +41,14 @@ hunter_config(Async++ VERSION 0.0.3-hunter)
 hunter_config(Avahi VERSION 0.6.31)
 hunter_config(Beast VERSION 1.0.0-b84-hunter-0)
 hunter_config(BZip2 VERSION 1.0.6-p3)
-if(MINGW)
-  # FIXME: https://ci.appveyor.com/project/ingenue/hunter/build/1.0.2229
-  hunter_config(Boost VERSION 1.64.0)
+
+if(MSVC)
+  # https://github.com/boostorg/build/issues/299
+  hunter_config(Boost VERSION 1.66.0)
 else()
   hunter_config(Boost VERSION 1.67.0)
 endif()
+
 hunter_config(BoostCompute VERSION 0.5-p0)
 hunter_config(BoostProcess VERSION 0.5)
 hunter_config(BoringSSL VERSION 1.0.0)
