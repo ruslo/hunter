@@ -28,35 +28,14 @@ Examples:
 - `Boost-iostreams <https://github.com/ruslo/hunter/blob/master/examples/Boost-iostreams/CMakeLists.txt>`__
 - `Boost-filesystem <https://github.com/ruslo/hunter/blob/master/examples/Boost-filesystem/CMakeLists.txt>`__
 - `Boost-math <https://github.com/ruslo/hunter/blob/master/examples/Boost-math/CMakeLists.txt>`__
+- `Boost-contract <https://github.com/ruslo/hunter/blob/master/examples/Boost-contract/CMakeLists.txt>`__
 
-List of components (other libraries are header-only):
+List of components and availability (other libraries are header-only):
 
-- ``atomic``
-- ``chrono``
-- ``context``
-- ``coroutine``
-- ``date_time``
-- ``exception``
-- ``fiber``
-- ``filesystem``
-- ``graph``
-- ``graph_parallel``
-- ``iostreams``
-- ``locale``
-- ``log``
-- ``math``
-- ``mpi``
-- ``program_options``
-- ``python``
-- ``random``
-- ``regex``
-- ``serialization``
-- ``signals``
-- ``system``
-- ``test``
-- ``thread``
-- ``timer``
-- ``wave``
+.. literalinclude:: /../cmake/modules/hunter_get_boost_libs.cmake
+  :language: cmake
+  :start-after: # DOCUMENTATION_START {
+  :end-before: # DOCUMENTATION_END }
 
 CMake options
 -------------
