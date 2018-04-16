@@ -49,6 +49,8 @@ function(hunter_get_boost_libs)
   set(boost_libs)
   # common arguments for hunter_append_component
   set(common_args LIST boost_libs VERSION ${x_VERSION})
+
+  # DOCUMENTATION_START {
   hunter_append_component(${common_args} COMPONENT atomic          SINCE 1.53.0)
   hunter_append_component(${common_args} COMPONENT chrono          SINCE 1.47.0)
   hunter_append_component(${common_args} COMPONENT container       SINCE 1.56.0)
@@ -81,6 +83,7 @@ function(hunter_get_boost_libs)
   hunter_append_component(${common_args} COMPONENT timer           SINCE 1.9.0)
   hunter_append_component(${common_args} COMPONENT type_erasure    SINCE 1.60.0)
   hunter_append_component(${common_args} COMPONENT wave            SINCE 1.33.0)
+  # DOCUMENTATION_END }
 
   # set output_var to found definition
   set(${x_LIBS} ${boost_libs} PARENT_SCOPE)
