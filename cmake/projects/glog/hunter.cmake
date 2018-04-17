@@ -54,7 +54,7 @@ hunter_add_version(
 )
 
 # explicitly remove dependency on gflags (only needed for tests)
-hunter_cmake_args(glog CMAKE_ARGS WITH_GFLAGS=OFF)
+hunter_cmake_args(glog CMAKE_ARGS WITH_GFLAGS=OFF BUILD_TESTING=OFF)
 
 hunter_pick_scheme(DEFAULT url_sha1_cmake)
 hunter_cacheable(glog)
