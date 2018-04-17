@@ -18,5 +18,5 @@ hunter_download(
     Boost
     PACKAGE_COMPONENT
     wave
-    PACKAGE_INTERNAL_DEPS_ID "26"
+    PACKAGE_INTERNAL_DEPS_ID "27"
 )

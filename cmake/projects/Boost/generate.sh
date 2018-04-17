@@ -25,6 +25,7 @@ BOOST_LIBS="
     random
     regex
     serialization
+    stacktrace
     signals
     system
     test
