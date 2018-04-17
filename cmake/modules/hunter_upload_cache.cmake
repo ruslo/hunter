@@ -53,20 +53,21 @@ function(hunter_upload_cache)
     hunter_user_error("Upload: PASSWORD is missing")
   endif()
 
-  if(ANDROID)
-    # Emulate find_host_program
-    set(CMAKE_FIND_ROOT_PATH_MODE_PROGRAM NEVER)
-    set(CMAKE_FIND_ROOT_PATH_MODE_LIBRARY NEVER)
-    set(CMAKE_FIND_ROOT_PATH_MODE_INCLUDE NEVER)
-  endif()
+  # Run isolated script to aviod cross-compiling issues and
+  # other variables effects
+  execute_process(
+      COMMAND ${CMAKE_COMMAND} -P ${HUNTER_SELF}/scripts/find_python.cmake
+      RESULT_VARIABLE result
+      OUTPUT_VARIABLE python_path
+      ERROR_VARIABLE python_path
+      OUTPUT_STRIP_TRAILING_WHITESPACE
+  )
 
-  find_package(PythonInterp 3 QUIET)
-
-  if(NOT PYTHONINTERP_FOUND)
+  if(result EQUAL "0")
+    hunter_status_debug("Upload using Python: '${python_path}'")
+  else()
     hunter_user_error("Python not found (required for uploading)")
   endif()
-
-  hunter_status_debug("Upload using Python: ${PYTHON_EXECUTABLE}")
 
   set(upload_script "${HUNTER_SELF}/scripts/upload-cache-to-github.py")
   if(NOT EXISTS "${upload_script}")
@@ -80,7 +81,7 @@ function(hunter_upload_cache)
 
   execute_process(
       COMMAND
-      "${PYTHON_EXECUTABLE}"
+      "${python_path}"
       "${upload_script}"
       --repo-owner "${HUNTER_UPLOAD_REPO_OWNER}"
       --repo "${HUNTER_UPLOAD_REPO}"
