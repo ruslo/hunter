@@ -128,7 +128,6 @@ function(hunter_download)
       HUNTER_PACKAGE_DOWNLOAD_DIR
   )
 
-
   # Check that only one scheme is set to 1
   set(all_schemes "")
   set(all_schemes "${all_schemes}${HUNTER_PACKAGE_SCHEME_DOWNLOAD}")
@@ -170,9 +169,14 @@ function(hunter_download)
     )
   endif()
   if(hunter_has_binary_dir)
+    # When cross-compiling we may need two build directories for
+    # the package - one for host and one for target. To avoid conflicts
+    # add random string.
+    string(RANDOM random)
+    set(helper_dir_to_remove "${HUNTER_BINARY_DIR}/${random}")
     set(
         HUNTER_PACKAGE_BUILD_DIR
-        "${HUNTER_BINARY_DIR}/${HUNTER_PACKAGE_NAME}"
+        "${helper_dir_to_remove}/${HUNTER_PACKAGE_NAME}"
     )
     if(hunter_has_component)
       set(
@@ -180,8 +184,12 @@ function(hunter_download)
           "${HUNTER_PACKAGE_BUILD_DIR}/__${HUNTER_PACKAGE_COMPONENT}"
       )
     endif()
+    if(EXISTS ${HUNTER_PACKAGE_BUILD_DIR})
+      hunter_internal_error("Not so random...")
+    endif()
   else()
     set(HUNTER_PACKAGE_BUILD_DIR "${HUNTER_PACKAGE_HOME_DIR}/Build")
+    set(helper_dir_to_remove "${HUNTER_PACKAGE_BUILD_DIR}")
   endif()
 
   if(HUNTER_PACKAGE_CACHEABLE)
@@ -672,6 +680,8 @@ function(hunter_download)
   hunter_save_to_cache()
 
   hunter_status_debug("Cleaning up build directories...")
+
+  file(REMOVE_RECURSE "${helper_dir_to_remove}")
 
   file(REMOVE_RECURSE "${HUNTER_PACKAGE_BUILD_DIR}")
   if(HUNTER_PACKAGE_SCHEME_INSTALL)
