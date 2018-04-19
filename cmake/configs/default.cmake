@@ -49,7 +49,7 @@ elseif(MINGW)
   # https://github.com/boostorg/build/issues/301
   hunter_config(Boost VERSION 1.64.0)
 else()
-  hunter_config(Boost VERSION 1.67.0)
+  hunter_config(Boost VERSION 1.67.0-p0)
 endif()
 
 hunter_config(BoostCompute VERSION 0.5-p0)
