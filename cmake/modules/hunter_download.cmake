@@ -298,11 +298,6 @@ function(hunter_download)
   hunter_lock_directory(
       "${HUNTER_CONFIG_ID_PATH}" HUNTER_ALREADY_LOCKED_DIRECTORIES
   )
-  if(hunter_has_binary_dir)
-    hunter_lock_directory(
-        "${HUNTER_BINARY_DIR}" HUNTER_ALREADY_LOCKED_DIRECTORIES
-    )
-  endif()
   if(hunter_lock_sources)
     hunter_lock_directory(
         "${hunter_lock_sources_dir}" HUNTER_ALREADY_LOCKED_DIRECTORIES
