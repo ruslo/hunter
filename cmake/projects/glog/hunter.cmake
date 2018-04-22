@@ -13,6 +13,17 @@ hunter_add_version(
     PACKAGE_NAME
     glog
     VERSION
+    "0.3.5-p2"
+    URL
+    "https://github.com/hunter-packages/glog/archive/v0.3.5-p2.tar.gz"
+    SHA1
+    3e95e5bcfb5c9d20c3391b72f831a285a3fc238f
+)
+
+hunter_add_version(
+    PACKAGE_NAME
+    glog
+    VERSION
     "0.3.5-p1"
     URL
     "https://github.com/hunter-packages/glog/archive/v0.3.5-p1.tar.gz"
