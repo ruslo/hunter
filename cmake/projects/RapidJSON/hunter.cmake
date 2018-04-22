@@ -57,6 +57,17 @@ hunter_add_version(
     PACKAGE_NAME
     RapidJSON
     VERSION
+    "0.11-p2"
+    URL
+    "https://github.com/hunter-packages/rapidjson/archive/v0.11-p2.tar.gz"
+    SHA1
+    bb0bfb8ad5cf2b575b57efbf2957619735a1696e
+)
+
+hunter_add_version(
+    PACKAGE_NAME
+    RapidJSON
+    VERSION
     "0.11-p1"
     URL
     "https://github.com/hunter-packages/rapidjson/archive/v0.11-p1.tar.gz"
