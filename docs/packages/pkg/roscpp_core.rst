@@ -15,7 +15,7 @@ roscpp_core
 -  `Hunterized <https://github.com/hunter-packages/roscpp_core>`__
 -  `Example <https://github.com/ruslo/hunter/blob/master/examples/roscpp_core/CMakeLists.txt>`__
 -  Added by
-    - `Lukas Solanka <https://github.com/lsolanka>`__ (`pr-N <https://github.com/ruslo/hunter/pull/N>`__)
+    - `Lukas Solanka <https://github.com/lsolanka>`__ (`pr-1412 <https://github.com/ruslo/hunter/pull/1412>`__)
     - Contribution partially as part of work at `SeeByte Ltd. <http://www.seebyte.com>`__
 
 .. literalinclude:: /../examples/roscpp_core/CMakeLists.txt
