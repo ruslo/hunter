@@ -5,7 +5,7 @@
     geneus
     genlisp
     genmsg
-    ros_genmsg
+    gennodejs
     ros
 
 Robotics
@@ -20,4 +20,5 @@ ROS
  * :ref:`pkg.ros_geneus` - ROS geneus package - EusLisp ROS message and service generators
  * :ref:`pkg.ros_genlisp` - ROS genlisp package - Lisp message generation for ROS
  * :ref:`pkg.ros_genmsg` - ROS genmsg package - message and service data structure generation
+ * :ref:`pkg.ros_gennodejs` - ROS gennodejs package - ROS JavaScript message definition and serialization generators
  * :ref:`pkg.roscpp_core` - ROS C++ core package
