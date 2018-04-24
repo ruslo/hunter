@@ -11,5 +11,4 @@ project(download-android_sdk_tools_packer)
 
 # DOCUMENTATION_START {
 hunter_add_package(android_sdk_tools_packer)
-find_package(android_sdk_tools_packer CONFIG REQUIRED)
 # DOCUMENTATION_END }
