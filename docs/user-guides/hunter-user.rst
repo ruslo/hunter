@@ -10,6 +10,7 @@ Hunter user
    /user-guides/hunter-user/git-submodule
    /user-guides/hunter-user/github-cache-server
    /user-guides/hunter-user/nexus-cache-server
+   /user-guides/hunter-user/artifactory-cache-server
 
 TODO
 ====
