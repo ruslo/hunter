@@ -104,7 +104,7 @@ function(hunter_download_cache_meta_file)
         string(
             REGEX
             REPLACE
-            "/cache\.sha1$"
+            "/cache\\.sha1$"
             "/cache_sha1"
             local_url
             "${local_url}"

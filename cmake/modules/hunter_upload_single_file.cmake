@@ -25,7 +25,7 @@ function(hunter_upload_single_file filename)
     string(
         REGEX
         REPLACE
-        "/cache\.sha1$"
+        "/cache\\.sha1$"
         "/cache_sha1"
         upload_url
         "${upload_url}"
