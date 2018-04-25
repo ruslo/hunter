@@ -1,6 +1,8 @@
 # Copyright (c) 2018, Ruslan Baratov
 # All rights reserved.
 
+include(hunter_cache_server_password)
+include(hunter_get_passwords_path)
 include(hunter_http_password)
 include(hunter_internal_error)
 include(hunter_private_data_password)
@@ -27,6 +29,7 @@ function(hunter_upload_cache)
   # * hunter_http_password
   # * hunter_private_data_password
   # * hunter_upload_password
+  # * hunter_cache_server_password
   include("${pass_path}")
 
   string(COMPARE EQUAL "${HUNTER_UPLOAD_REPO_OWNER}" "" empty_repo_owner)
