@@ -214,6 +214,10 @@ if("@MINGW@")
   set(build_opts target-os=windows ${build_opts})
 endif()
 
+set(BOOST_VERSION "@HUNTER_Boost_VERSION@")
+
+# Use:
+# * BOOST_VERSION
 hunter_boost_component_b2_args(
     "@HUNTER_PACKAGE_COMPONENT@"
     "@HUNTER_Boost_CMAKE_ARGS@"

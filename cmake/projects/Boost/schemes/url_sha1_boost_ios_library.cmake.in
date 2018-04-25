@@ -133,6 +133,10 @@ set(
     --user-config="${boost_user_jam}"
 )
 
+set(BOOST_VERSION "@HUNTER_Boost_VERSION@")
+
+# Use:
+# * BOOST_VERSION
 hunter_boost_component_b2_args(
   "@HUNTER_PACKAGE_COMPONENT@"
   "@HUNTER_Boost_CMAKE_ARGS@"
