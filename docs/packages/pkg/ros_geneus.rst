@@ -15,7 +15,7 @@ ros_geneus
 -  `Hunterized <https://github.com/hunter-packages/ros_geneus>`__
 -  `Example <https://github.com/ruslo/hunter/blob/master/examples/ros_geneus/CMakeLists.txt>`__
 -  Added by
-    - `Lukas Solanka <https://github.com/lsolanka>`__ (`pr-N <https://github.com/ruslo/hunter/pull/N>`__)
+    - `Lukas Solanka <https://github.com/lsolanka>`__ (`pr-1416 <https://github.com/ruslo/hunter/pull/1416>`__)
     - Contribution partially as part of work at `SeeByte Ltd. <http://www.seebyte.com>`__
 
 .. literalinclude:: /../examples/ros_geneus/CMakeLists.txt
