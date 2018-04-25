@@ -48,6 +48,9 @@ function(hunter_dump_cmake_flags)
       set(android_sysroot "${CMAKE_SYSROOT}")
     else()
       set(android_sysroot "${CMAKE_SYSROOT_COMPILE}")
+
+      hunter_test_string_not_empty("${CMAKE_SYSROOT}")
+      set(CMAKE_EXE_LINKER_FLAGS "${CMAKE_EXE_LINKER_FLAGS} --sysroot=${CMAKE_SYSROOT}")
     endif()
 
     set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} --sysroot=${android_sysroot}")

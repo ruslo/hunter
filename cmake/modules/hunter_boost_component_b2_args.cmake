@@ -10,16 +10,38 @@ include(hunter_report_broken_package)
 include("${CMAKE_CURRENT_LIST_DIR}/../Hunter")
 
 function(hunter_boost_component_b2_args compName boostCmakeArgs outList)
+  hunter_test_string_not_empty("${BOOST_VERSION}")
+
+  string(COMPARE EQUAL "${BOOST_VERSION}" "1.64.0" is_boost_1_64)
+  string(COMPARE EQUAL "${CMAKE_HOST_SYSTEM_NAME}" "Linux" host_is_linux)
+
+  set(lib_detect_broken_message "")
+
   if(ANDROID)
-    set(lib_detect_broken YES)
+    if(host_is_linux)
+      set(lib_detect_broken YES)
+      set(
+          lib_detect_broken_message
+          "ZLIB/BZip2 detection broken for Android if host is Linux."
+          " As a workaround you can build package on OSX host and upload binaries"
+          " to server. See details: https://github.com/ruslo/hunter/issues/417#issuecomment-220563231"
+      )
+    else()
+      if(is_boost_1_64)
+        set(lib_detect_broken NO)
+      else()
+        set(lib_detect_broken YES)
+        set(
+            lib_detect_broken_message
+            "ZLIB/BZip2 detection broken for Android."
+            " As a workaround you can use Boost 1.64.0."
+            " See issue: https://github.com/boostorg/build/issues/300"
+        )
+      endif()
+    endif()
   else()
     set(lib_detect_broken NO)
   endif()
-  set(
-      lib_detect_broken_message
-      "ZLIB/BZip2 detection broken for Android."
-      "See issue: https://github.com/boostorg/build/issues/300"
-  )
 
   string(TOUPPER ${compName} upperCompName)
   set(myList "")#empty
