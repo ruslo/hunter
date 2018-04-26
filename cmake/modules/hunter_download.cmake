@@ -449,15 +449,18 @@ function(hunter_download)
       "${HUNTER_DOWNLOAD_TOOLCHAIN}"
       "set(HUNTER_CACHE_SERVERS \"${HUNTER_CACHE_SERVERS}\" CACHE INTERNAL \"\")\n"
   )
-  # Fix Windows slashes
-  get_filename_component(
-      passwords_path "${HUNTER_PASSWORDS_PATH}" ABSOLUTE
-  )
-  file(
-      APPEND
-      "${HUNTER_DOWNLOAD_TOOLCHAIN}"
-      "set(HUNTER_PASSWORDS_PATH \"${passwords_path}\" CACHE INTERNAL \"\")\n"
-  )
+  string(COMPARE NOTEQUAL "${HUNTER_PASSWORDS_PATH}" "" has_passwords)
+  if(has_passwords)
+    # Fix Windows slashes
+    get_filename_component(
+        passwords_path "${HUNTER_PASSWORDS_PATH}" ABSOLUTE
+    )
+    file(
+        APPEND
+        "${HUNTER_DOWNLOAD_TOOLCHAIN}"
+        "set(HUNTER_PASSWORDS_PATH \"${passwords_path}\" CACHE INTERNAL \"\")\n"
+    )
+  endif()
   file(
       APPEND
       "${HUNTER_DOWNLOAD_TOOLCHAIN}"
