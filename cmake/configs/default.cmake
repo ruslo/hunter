@@ -426,6 +426,7 @@ if(ANDROID)
     hunter_config(Android-SDK-Platform VERSION 24_r02)
     hunter_config(Sources-for-Android-SDK VERSION 24)
     hunter_config(Android-ARM-EABI-v7a-System-Image VERSION 24_r07)
+    hunter_config(Android-ARM64-v8a-System-Image VERSION 24_r07)
   else()
     hunter_user_error(
         "Android API (CMAKE_SYSTEM_VERSION)"
