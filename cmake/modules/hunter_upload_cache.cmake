@@ -1,11 +1,14 @@
 # Copyright (c) 2018, Ruslan Baratov
 # All rights reserved.
 
+include(hunter_cache_server_password)
+include(hunter_get_passwords_path)
 include(hunter_http_password)
 include(hunter_internal_error)
 include(hunter_private_data_password)
 include(hunter_test_string_not_empty)
 include(hunter_upload_password)
+include(hunter_upload_to_custom_server)
 include(hunter_user_error)
 
 function(hunter_upload_cache)
@@ -27,6 +30,7 @@ function(hunter_upload_cache)
   # * hunter_http_password
   # * hunter_private_data_password
   # * hunter_upload_password
+  # * hunter_cache_server_password
   include("${pass_path}")
 
   string(COMPARE EQUAL "${HUNTER_UPLOAD_REPO_OWNER}" "" empty_repo_owner)
@@ -34,23 +38,41 @@ function(hunter_upload_cache)
   string(COMPARE EQUAL "${HUNTER_UPLOAD_USERNAME}" "" empty_username)
   string(COMPARE EQUAL "${HUNTER_UPLOAD_PASSWORD}" "" empty_password)
 
-  if(empty_repo_owner AND empty_repo AND empty_username AND empty_password)
+  string(COMPARE EQUAL "${HUNTER_UPLOAD_SERVER}" "" empty_server)
+  string(COMPARE EQUAL "${HUNTER_UPLOAD_SUB_SHA1_SUFFIX}" "" empty_sub_sha1_suffix)
+  string(COMPARE EQUAL "${HUNTER_UPLOAD_HTTPHEADER}" "" empty_httpheader)
+
+  if(
+      empty_repo_owner
+      AND empty_repo
+      AND empty_username
+      AND empty_password
+      AND empty_server
+      AND empty_sub_sha1_suffix
+      AND empty_httpheader
+  )
     hunter_user_error(
         "Upload parameters are empty, 'hunter_upload_password' is missing?"
     )
   endif()
 
-  if(empty_repo_owner)
-    hunter_user_error("Upload: REPO_OWNER is missing")
-  endif()
-  if(empty_repo)
-    hunter_user_error("Upload: REPO is missing")
-  endif()
-  if(empty_username)
-    hunter_user_error("Upload: USERNAME is missing")
-  endif()
-  if(empty_password)
-    hunter_user_error("Upload: PASSWORD is missing")
+  if(empty_server)
+    if(empty_repo_owner)
+      hunter_user_error("Upload: REPO_OWNER is missing")
+    endif()
+    if(empty_repo)
+      hunter_user_error("Upload: REPO is missing")
+    endif()
+    if(empty_username)
+      hunter_user_error("Upload: USERNAME is missing")
+    endif()
+    if(empty_password)
+      hunter_user_error("Upload: PASSWORD is missing")
+    endif()
+  else()
+    hunter_upload_to_custom_server()
+    file(REMOVE_RECURSE "${HUNTER_PACKAGE_BUILD_DIR}")
+    return()
   endif()
 
   # Run isolated script to aviod cross-compiling issues and
