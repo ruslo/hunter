@@ -87,7 +87,7 @@ function(hunter_download_cache_raw_file)
       # * hunter_private_data_password
       # * hunter_upload_password
       # * hunter_cache_server_password
-      include("${pass_path}")
+      include("${pass_path}" OPTIONAL)
 
       string(REGEX MATCH "^https://github.com/" is_github "${server}")
       if(NOT is_github)
