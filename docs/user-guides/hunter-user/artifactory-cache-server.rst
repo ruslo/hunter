@@ -67,7 +67,7 @@ Click ``Add User``:
   :align: center
   :alt: Add User
 
-Enter ``reader`` name and password, click ``Finish`` :
+Enter ``reader`` name and password, click ``Save`` :
 
 .. image:: images-artifactory/07-create-reader.png
   :align: center
