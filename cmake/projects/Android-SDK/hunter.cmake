@@ -64,6 +64,17 @@ hunter_add_version(
     3b151f3cb559dc2ae1d0df85155e9cae5a33958d
 )
 
+hunter_add_version(
+    PACKAGE_NAME
+    Android-SDK
+    VERSION
+    "0.0.6"
+    URL
+    "https://github.com/hunter-packages/android-sdk/archive/v0.0.6.tar.gz"
+    SHA1
+    8919cea855831de723c7966a2624cd9ac2d256ab
+)
+
 # This is unpack-like package. No need to install variants
 hunter_configuration_types(Android-SDK CONFIGURATION_TYPES Release)
 
