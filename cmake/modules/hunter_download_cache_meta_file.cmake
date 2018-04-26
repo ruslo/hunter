@@ -66,6 +66,7 @@ function(hunter_download_cache_meta_file)
   )
 
   hunter_get_passwords_path(pass_path)
+  string(COMPARE NOTEQUAL "${pass_path}" "" has_pass)
 
   set(total_retry 10)
   foreach(x RANGE ${total_retry})
@@ -76,12 +77,14 @@ function(hunter_download_cache_meta_file)
       set(HUNTER_CACHE_SERVER_HTTPHEADER "")
       set(HUNTER_CACHE_SERVER_SUB_SHA1_SUFFIX FALSE)
 
-      # May use:
-      # * hunter_http_password
-      # * hunter_private_data_password
-      # * hunter_upload_password
-      # * hunter_cache_server_password
-      include("${pass_path}" OPTIONAL)
+      if(has_pass)
+        # May use:
+        # * hunter_http_password
+        # * hunter_private_data_password
+        # * hunter_upload_password
+        # * hunter_cache_server_password
+        include("${pass_path}")
+      endif()
 
       string(REGEX MATCH "^https://github.com/" is_github "${server}")
       if(NOT is_github)
