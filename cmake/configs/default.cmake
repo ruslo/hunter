@@ -174,6 +174,7 @@ hunter_config(android_google_apis_intel_x86_atom_system_image_packer VERSION 1.0
 hunter_config(android_google_apis_packer VERSION 1.0.0)
 hunter_config(android_google_repository_packer VERSION 1.0.0)
 hunter_config(android_intel_x86_atom_system_image_packer VERSION 1.0.0)
+hunter_config(android_mips_system_image_packer VERSION 1.0.0)
 hunter_config(android_sdk_packer VERSION 1.0.0)
 hunter_config(android_sdk_platform_packer VERSION 1.0.0)
 hunter_config(android_sdk_platform_tools_packer VERSION 1.0.0)
