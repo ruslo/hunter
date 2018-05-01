@@ -54,13 +54,39 @@ hunter_add_version(
     4d4cb6e5faebfceaafa152bb3572c4760f1745cf
 )
 
+hunter_add_version(
+    PACKAGE_NAME
+    CURL
+    VERSION
+    "7.59.0-p0"
+    URL
+    "https://github.com/hunter-packages/curl/archive/v7.59.0-p0.tar.gz"
+    SHA1
+    55c76e06ec28c5641cd5c2f9d1b6666d25362c5b
+)
+
+hunter_add_version(
+    PACKAGE_NAME
+    CURL
+    VERSION
+    "7.59.0-p1"
+    URL
+    "https://github.com/hunter-packages/curl/archive/v7.59.0-p1.tar.gz"
+    SHA1
+    7d8190ad978591d621db1066b96f90722d68a00d
+)
+
 if (ANDROID OR IOS OR RASPBERRY_PI OR OPENWRT)
   set(_curl_cmake_args
+      HAVE_FSETXATTR_5=0
+      HAVE_FSETXATTR_5__TRYRUN_OUTPUT=""
+      HAVE_FSETXATTR_6=0
+      HAVE_FSETXATTR_6__TRYRUN_OUTPUT=""
       HAVE_GLIBC_STRERROR_R=1
       HAVE_GLIBC_STRERROR_R__TRYRUN_OUTPUT=""
+      HAVE_POLL_FINE_EXITCODE=0
       HAVE_POSIX_STRERROR_R=0
       HAVE_POSIX_STRERROR_R__TRYRUN_OUTPUT=""
-      HAVE_POLL_FINE_EXITCODE=0
   )
 else()
   set(_curl_cmake_args "")
@@ -73,6 +99,7 @@ hunter_cmake_args(
         BUILD_CURL_EXE=OFF
         CMAKE_USE_OPENSSL=ON
         CMAKE_USE_LIBSSH2=OFF
+        BUILD_TESTING=OFF
         ${_curl_cmake_args}
 )
 

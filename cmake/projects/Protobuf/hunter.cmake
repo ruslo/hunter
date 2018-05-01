@@ -72,6 +72,22 @@ hunter_add_version(
     8815a6be8188b2d6c8002924e752018b64658748
 )
 
+hunter_add_version(
+    PACKAGE_NAME Protobuf
+    VERSION "3.5.2-p0"
+    URL "https://github.com/hunter-packages/protobuf/archive/v3.5.2-p0.tar.gz"
+    SHA1 "0c1eacb460266dea7cd18c2009642fa192c15b70")
+
+hunter_add_version(
+    PACKAGE_NAME Protobuf
+    VERSION "2.4.1-p0"
+    URL "https://github.com/hunter-packages/protobuf/archive/v2.4.1-p0.tar.gz"
+    SHA1 "c57c846131f804622057d83bf44144c179613e44")
+
+string(
+    COMPARE EQUAL "${CMAKE_SYSTEM_NAME}" "WindowsStore" _hunter_windows_store
+)
+
 if(ANDROID OR IOS)
   hunter_cmake_args(
       Protobuf
@@ -79,12 +95,20 @@ if(ANDROID OR IOS)
         protobuf_BUILD_TESTS=OFF
         protobuf_BUILD_PROTOC=OFF
   )
+elseif(_hunter_windows_store)
+  hunter_cmake_args(
+      Protobuf
+      CMAKE_ARGS
+        protobuf_BUILD_TESTS=OFF
+        protobuf_BUILD_PROTOC=OFF
+        protobuf_MSVC_STATIC_RUNTIME=OFF # Do not force static runtime
+  )
 elseif(MSVC)
   hunter_cmake_args(
       Protobuf
       CMAKE_ARGS
         protobuf_BUILD_TESTS=OFF
-        protobuf_MSVC_STATIC_RUNTIME=OFF # Do not forece static runtime
+        protobuf_MSVC_STATIC_RUNTIME=OFF # Do not force static runtime
   )
 else()
   hunter_cmake_args(
@@ -93,6 +117,7 @@ else()
         protobuf_BUILD_TESTS=OFF
   )
 endif()
+
 hunter_pick_scheme(DEFAULT url_sha1_cmake)
 hunter_cacheable(Protobuf)
 hunter_download(PACKAGE_NAME Protobuf)

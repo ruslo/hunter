@@ -3,12 +3,17 @@
 
 include(CMakeParseArguments) # cmake_parse_arguments
 
+include(hunter_cache_server_password)
 include(hunter_check_download_error_message)
+include(hunter_get_passwords_path)
+include(hunter_http_password)
 include(hunter_init_not_found_counter)
 include(hunter_internal_error)
+include(hunter_private_data_password)
 include(hunter_sleep_before_download)
 include(hunter_status_debug)
 include(hunter_test_string_not_empty)
+include(hunter_upload_password)
 include(hunter_user_error)
 
 function(hunter_download_cache_raw_file)
@@ -67,9 +72,26 @@ function(hunter_download_cache_raw_file)
       NOT_FOUND_NEEDED not_found_counter "${number_of_servers}"
   )
 
+  hunter_get_passwords_path(pass_path)
+  string(COMPARE NOTEQUAL "${pass_path}" "" has_pass)
+
   set(total_retry 10)
   foreach(x RANGE ${total_retry})
     foreach(server ${HUNTER_CACHE_SERVERS})
+      set(HUNTER_CACHE_SERVER_NAME "${server}")
+
+      set(HUNTER_CACHE_SERVER_USERPWD "")
+      set(HUNTER_CACHE_SERVER_HTTPHEADER "")
+
+      if(has_pass)
+        # May use:
+        # * hunter_http_password
+        # * hunter_private_data_password
+        # * hunter_upload_password
+        # * hunter_cache_server_password
+        include("${pass_path}")
+      endif()
+
       string(REGEX MATCH "^https://github.com/" is_github "${server}")
       if(NOT is_github)
         set(url "${server}/raw/${suffix}")
@@ -78,7 +100,7 @@ function(hunter_download_cache_raw_file)
         set(url "${server}/releases/download/cache-${cache_tag}/${suffix}")
       endif()
 
-      hunter_status_debug("Downloading file (try #${x} of ${total_retry}):")
+      hunter_status_debug("Downloading raw file (try #${x} of ${total_retry}):")
       hunter_status_debug("  ${url}")
       hunter_status_debug("  -> ${x_LOCAL}")
 
@@ -90,7 +112,15 @@ function(hunter_download_cache_raw_file)
         set(showprogress "")
       endif()
 
-      file(DOWNLOAD "${url}" "${x_LOCAL}" STATUS status ${showprogress} TLS_VERIFY "${HUNTER_TLS_VERIFY}")
+      file(
+          DOWNLOAD "${url}" "${x_LOCAL}"
+          STATUS status
+          ${showprogress}
+          TLS_VERIFY "${HUNTER_TLS_VERIFY}"
+          ${HUNTER_CACHE_SERVER_USERPWD}
+          ${HUNTER_CACHE_SERVER_HTTPHEADER}
+      )
+
       file(SHA1 "${x_LOCAL}" local_sha1)
       string(COMPARE EQUAL "${local_sha1}" "${x_SHA1}" sha1_is_good)
 

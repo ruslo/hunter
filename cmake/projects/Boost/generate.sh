@@ -8,6 +8,7 @@ BOOST_LIBS="
     chrono
     context
     coroutine
+    contract
     date_time
     exception
     fiber

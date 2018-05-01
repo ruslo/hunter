@@ -4,10 +4,6 @@ Using Nexus Repository manager as binary cache server
 It is possible to use ``Nexus Repository Manager`` as a binary cache server
 instead of GitHub.
 
-.. seealso::
-
-  :doc:`/faq/why-binaries-from-server-not-used`
-
 Nexus installation
 ==================
 
