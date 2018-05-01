@@ -29,14 +29,16 @@ if(_is_qtquickcontrols2 OR _is_qtwebview)
   if(HUNTER_Qt_VERSION MATCHES "^5\\.6\\.")
     # Qt 5.6.*
   elseif(HUNTER_Qt_VERSION MATCHES "^5\\.9\\.")
-    # Qt 5.6.*
+    # Qt 5.9.*
+  elseif(HUNTER_Qt_VERSION MATCHES "^5\\.10\\.")
+    # Qt 5.10.*
   else()
     return()
   endif()
 endif()
 ## -- end
 
-## 5.9 only --
+## 5.9+ only --
 string(COMPARE EQUAL "qtvirtualkeyboard" "qtcharts" _is_qtcharts)
 string(COMPARE EQUAL "qtvirtualkeyboard" "qtdatavis3d" _is_qtdatavis3d)
 string(COMPARE EQUAL "qtvirtualkeyboard" "qtdocgallery" _is_qtdocgallery)
@@ -72,7 +74,11 @@ if(
     _is_qtsystems OR
     _is_qtvirtualkeyboard
 )
-  if(NOT HUNTER_Qt_VERSION MATCHES "^5\\.9\\.")
+  if(HUNTER_Qt_VERSION MATCHES "^5\\.9\\.")
+    # Qt 5.9.*
+  elseif(HUNTER_Qt_VERSION MATCHES "^5\\.10\\.")
+    # Qt 5.10.*
+  else()
     return()
   endif()
 endif()

@@ -13,6 +13,17 @@ hunter_add_version(
     PACKAGE_NAME
     Android-Google-Repository
     VERSION
+    "58"
+    URL
+    "https://dl.google.com/android/repository/google_m2repository_gms_v11_3_rc05_wear_2_0_5.zip"
+    SHA1
+    05086add9e3a0eb1b67111108d7757a4337c3f10
+)
+
+hunter_add_version(
+    PACKAGE_NAME
+    Android-Google-Repository
+    VERSION
     "47"
     URL
     "https://dl.google.com/android/repository/android_m2repository_r47.zip"

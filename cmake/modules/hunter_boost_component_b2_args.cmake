@@ -10,18 +10,38 @@ include(hunter_report_broken_package)
 include("${CMAKE_CURRENT_LIST_DIR}/../Hunter")
 
 function(hunter_boost_component_b2_args compName boostCmakeArgs outList)
+  hunter_test_string_not_empty("${BOOST_VERSION}")
+
+  string(COMPARE EQUAL "${BOOST_VERSION}" "1.64.0" is_boost_1_64)
   string(COMPARE EQUAL "${CMAKE_HOST_SYSTEM_NAME}" "Linux" host_is_linux)
-  if(ANDROID AND host_is_linux)
-    set(lib_detect_broken YES)
+
+  set(lib_detect_broken_message "")
+
+  if(ANDROID)
+    if(host_is_linux)
+      set(lib_detect_broken YES)
+      set(
+          lib_detect_broken_message
+          "ZLIB/BZip2 detection broken for Android if host is Linux."
+          " As a workaround you can build package on OSX host and upload binaries"
+          " to server. See details: https://github.com/ruslo/hunter/issues/417#issuecomment-220563231"
+      )
+    else()
+      if(is_boost_1_64)
+        set(lib_detect_broken NO)
+      else()
+        set(lib_detect_broken YES)
+        set(
+            lib_detect_broken_message
+            "ZLIB/BZip2 detection broken for Android."
+            " As a workaround you can use Boost 1.64.0."
+            " See issue: https://github.com/boostorg/build/issues/300"
+        )
+      endif()
+    endif()
   else()
     set(lib_detect_broken NO)
   endif()
-  set(
-      lib_detect_broken_message
-      "ZLIB/BZip2 detection broken for Android if host is Linux."
-      " As a workaround you can build package on OSX host and upload binaries"
-      " to server. See details: https://github.com/ruslo/hunter/issues/417#issuecomment-220563231"
-  )
 
   string(TOUPPER ${compName} upperCompName)
   set(myList "")#empty
@@ -113,8 +133,8 @@ function(hunter_boost_component_b2_args compName boostCmakeArgs outList)
         endif()
         get_filename_component(zlib_dir ${zlib_path} DIRECTORY)
         get_filename_component(zlib_name ${zlib_path} NAME_WE)
-        if(NOT WIN32)
-          string(REPLACE "lib" "" zlib_name ${zlib_name})
+        if(NOT WIN32 OR MINGW)
+          string(REGEX REPLACE "^lib" "" zlib_name ${zlib_name})
         endif()
         list(APPEND myList "-s" "ZLIB_INCLUDE=${zlib_include}" "-s" "ZLIB_LIBPATH=${zlib_dir}" "-s" "ZLIB_BINARY=${zlib_name}")
         set(BOOST_CONFIG_LINK_ZLIB 1 PARENT_SCOPE)
@@ -143,8 +163,8 @@ function(hunter_boost_component_b2_args compName boostCmakeArgs outList)
         endif()
         get_filename_component(bzip2_dir ${bzip2_path} DIRECTORY)
         get_filename_component(bzip2_name ${bzip2_path} NAME_WE)
-        if(NOT WIN32)
-          string(REPLACE "lib" "" bzip2_name ${bzip2_name})
+        if(NOT WIN32 OR MINGW)
+          string(REGEX REPLACE "^lib" "" bzip2_name ${bzip2_name})
         endif()
         list(APPEND myList "-s" "BZIP2_INCLUDE=${bzip2_include}" "-s" "BZIP2_LIBPATH=${bzip2_dir}" "-s" "BZIP2_BINARY=${bzip2_name}")
         set(BOOST_CONFIG_LINK_BZIP2 1 PARENT_SCOPE)

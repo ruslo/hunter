@@ -49,6 +49,28 @@ hunter_add_version(
     075d0b43980614054b1f1bafd189f863bba6600e
 )
 
+hunter_add_version(
+    PACKAGE_NAME
+    Boost
+    VERSION
+    "1.67.0"
+    URL
+    "${_hunter_boost_base_url}/1.67.0/source/boost_1_67_0.7z"
+    SHA1
+    64c278c23defe155e630a307ae2c0615348b14b3
+)
+
+hunter_add_version(
+    PACKAGE_NAME
+    Boost
+    VERSION
+    "1.67.0-p0"
+    URL
+    "https://github.com/hunter-packages/boost/archive/v1.67.0-p0.tar.gz"
+    SHA1
+    e56a5fbafa31683047f92850e05735dfcde084aa
+)
+
 # up until 1.63 sourcefourge was used
 set(_hunter_boost_base_url "https://downloads.sourceforge.net/project/boost/boost/")
 hunter_add_version(
@@ -301,4 +323,4 @@ endif()
 
 hunter_pick_scheme(DEFAULT url_sha1_boost)
 hunter_cacheable(Boost)
-hunter_download(PACKAGE_NAME Boost PACKAGE_INTERNAL_DEPS_ID "24")
+hunter_download(PACKAGE_NAME Boost PACKAGE_INTERNAL_DEPS_ID "27")

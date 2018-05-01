@@ -9,11 +9,10 @@ include("../common.cmake")
 
 project(download-jpeg)
 
-# download gtest
+# DOCUMENTATION_START {
 hunter_add_package(Jpeg)
-
-# now gtest can be used
 find_package(JPEG CONFIG REQUIRED)
 
 add_executable(foo foo.cpp)
-target_link_libraries(foo JPEG::jpeg)
+target_link_libraries(foo PUBLIC JPEG::jpeg)
+# DOCUMENTATION_END }
