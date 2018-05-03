@@ -9,5 +9,10 @@ include("../common.cmake")
 
 project(download-leathers)
 
+# DOCUMENTATION_START {
 hunter_add_package(Leathers)
 find_package(Leathers CONFIG REQUIRED)
+
+add_executable(boo boo.cpp)
+target_link_libraries(boo PUBLIC Leathers::leathers)
+# DOCUMENTATION_END }

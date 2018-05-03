@@ -3,8 +3,8 @@
 
 # !!! DO NOT PLACE HEADER GUARDS HERE !!!
 
-include(hunter_add_package)
 include(hunter_add_version)
+include(hunter_cacheable)
 include(hunter_download)
 include(hunter_pick_scheme)
 
@@ -74,5 +74,17 @@ hunter_add_version(
     390df257a5b22087c96f67a08b52902e7dea1bc2
 )
 
+hunter_add_version(
+    PACKAGE_NAME
+    Leathers
+    VERSION
+    "0.1.8"
+    URL
+    "https://github.com/ruslo/leathers/archive/v0.1.8.tar.gz"
+    SHA1
+    04800eba37499e5a14532ccaff239911adff3a6c
+)
+
+hunter_cacheable(Leathers)
 hunter_pick_scheme(DEFAULT url_sha1_cmake)
 hunter_download(PACKAGE_NAME Leathers)

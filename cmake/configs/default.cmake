@@ -94,7 +94,7 @@ endif()
 hunter_config(LAPACK VERSION 3.7.1)
 hunter_config(LLVM VERSION 4.0.1-p0) # Clang
 hunter_config(LLVMCompilerRT VERSION 4.0.1-patched) # Clang
-hunter_config(Leathers VERSION 0.1.6)
+hunter_config(Leathers VERSION 0.1.8)
 hunter_config(Leptonica VERSION 1.74.2-p4)
 hunter_config(LibCDS VERSION 2.3.1)
 hunter_config(Libcxx VERSION 3.6.2) # Clang
