@@ -11,8 +11,7 @@ Leathers
 
 -  `Official <https://github.com/ruslo/leathers>`__
 
-.. code-block:: cmake
-
-    hunter_add_package(Leathers)
-    find_package(Leathers CONFIG REQUIRED)
-    target_link_libraries(... leathers)
+.. literalinclude:: /../examples/Leathers/CMakeLists.txt
+  :language: cmake
+  :start-after: # DOCUMENTATION_START {
+  :end-before: # DOCUMENTATION_END }
