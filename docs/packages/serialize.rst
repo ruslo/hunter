@@ -23,5 +23,6 @@ Serialize
  * :ref:`pkg.RapidJSON` - A fast JSON parser/generator for C++ with both SAX/DOM style API
  * :ref:`pkg.RapidXML` - attempt to create the fastest XML parser possible, while retaining usability, portability and reasonable W3C compatibility.
  * :ref:`pkg.thrift` - software framework for scalable cross-language services development
+ * :ref:`pkg.tinyxml2` - TinyXML2 is a simple, small, efficient, C++ XML parser that can be easily integrated into other programs. 
  * :ref:`pkg.yaml-cpp` - human friendly data serialization standard for all programming languages.
  * :ref:`pkg.jsoncpp` - A library that allows manipulating JSON values, including serialization and deserialization to and from strings.
