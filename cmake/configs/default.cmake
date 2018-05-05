@@ -119,6 +119,7 @@ hunter_config(OpenSSL VERSION 1.1.0h)
 hunter_config(PNG VERSION 1.6.26-p3)
 hunter_config(PocoCpp VERSION 1.7.9-p1)
 hunter_config(PostgreSQL VERSION 10.0.0)
+hunter_config(PROJ4 VERSION 5.0.0)
 hunter_config(Protobuf VERSION 3.5.2-p0)
 
 string(COMPARE EQUAL "${CMAKE_SYSTEM_NAME}" "Linux" _is_linux)
