@@ -7,6 +7,7 @@
     genmsg
     gennodejs
     genpy
+    message_generation
     ros
 
 Robotics
@@ -23,4 +24,5 @@ ROS
  * :ref:`pkg.ros_genmsg` - ROS genmsg package - message and service data structure generation
  * :ref:`pkg.ros_gennodejs` - ROS gennodejs package - ROS JavaScript message definition and serialization generators
  * :ref:`pkg.ros_genpy` - ROS genpy package - Python ROS message and service generator
+ * :ref:`pkg.ros_message_generation` - ROS `message_generation` package.
  * :ref:`pkg.roscpp_core` - ROS C++ core package
