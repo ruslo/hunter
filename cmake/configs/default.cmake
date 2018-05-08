@@ -44,12 +44,12 @@ hunter_config(BZip2 VERSION 1.0.6-p3)
 
 if(MSVC)
   # https://github.com/boostorg/build/issues/299
-  hunter_config(Boost VERSION 1.66.0)
+  hunter_config(Boost VERSION 1.66.0-p0)
 elseif(MINGW)
   # https://github.com/boostorg/build/issues/301
   hunter_config(Boost VERSION 1.64.0)
 else()
-  hunter_config(Boost VERSION 1.67.0-p0)
+  hunter_config(Boost VERSION 1.67.0-p1)
 endif()
 
 hunter_config(BoostCompute VERSION 0.5-p0)
