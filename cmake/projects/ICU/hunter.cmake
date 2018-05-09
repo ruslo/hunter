@@ -30,6 +30,17 @@ hunter_add_version(
     fe7aef7858fbd3bcc951ebb1e427d20d03c7cbde
 )
 
+hunter_add_version(
+    PACKAGE_NAME
+    ICU
+    VERSION
+    55.1-p3
+    URL
+    "https://github.com/hunter-packages/icu/archive/v55.1-p3.tar.gz"
+    SHA1
+    0e9f4d37b1601a0a2947fe3abb7d6945df9e5ea4
+)
+
 hunter_pick_scheme(DEFAULT url_sha1_cmake)
 hunter_cacheable(ICU)
 hunter_download(PACKAGE_NAME ICU)
