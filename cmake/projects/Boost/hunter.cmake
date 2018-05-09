@@ -53,6 +53,17 @@ hunter_add_version(
     PACKAGE_NAME
     Boost
     VERSION
+    "1.66.0-p0"
+    URL
+    "https://github.com/hunter-packages/boost/releases/download/v1.66.0-p0/hunter-1.66.0.7z"
+    SHA1
+    8c9829ce5e8f0b2b582f8ee1a6103c037a154aa3
+)
+
+hunter_add_version(
+    PACKAGE_NAME
+    Boost
+    VERSION
     "1.67.0"
     URL
     "${_hunter_boost_base_url}/1.67.0/source/boost_1_67_0.7z"
@@ -69,6 +80,17 @@ hunter_add_version(
     "https://github.com/hunter-packages/boost/archive/v1.67.0-p0.tar.gz"
     SHA1
     e56a5fbafa31683047f92850e05735dfcde084aa
+)
+
+hunter_add_version(
+    PACKAGE_NAME
+    Boost
+    VERSION
+    "1.67.0-p1"
+    URL
+    "https://github.com/hunter-packages/boost/releases/download/v1.67.0-p1/hunter-1.67.0.7z"
+    SHA1
+    26fcf19a79d013a318562435cef2829ea6bf29a4
 )
 
 # up until 1.63 sourcefourge was used
