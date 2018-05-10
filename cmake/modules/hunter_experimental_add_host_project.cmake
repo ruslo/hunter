@@ -87,6 +87,7 @@ https://github.com/ruslo/hunter/issues/495
           "-DHUNTER_HOST_SHA1=${HUNTER_SHA1}"
           "-DHUNTER_ROOT=${HUNTER_CACHED_ROOT}"
           "-DHUNTER_ALREADY_LOCKED_DIRECTORIES=${HUNTER_ALREADY_LOCKED_DIRECTORIES}"
+          "-DHUNTER_CACHE_SERVERS=${HUNTER_CACHE_SERVERS}"
           ${host_generator}
       RESULT_VARIABLE exit_code
   )
