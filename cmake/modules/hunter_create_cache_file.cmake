@@ -117,13 +117,6 @@ function(hunter_create_cache_file cache_path)
     )
   endif()
 
-  # Let all project build with the same number of jobs
-  file(
-      APPEND
-      "${temp_path}"
-      "set(HUNTER_JOBS_NUMBER \"${HUNTER_JOBS_NUMBER}\" CACHE INTERNAL \"\")\n"
-  )
-
   # Let all projects have same postfixes
   foreach(configuration ${HUNTER_CACHED_CONFIGURATION_TYPES})
     string(TOUPPER "${configuration}" configuration_upper)

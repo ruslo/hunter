@@ -486,6 +486,11 @@ function(hunter_download)
       "${HUNTER_DOWNLOAD_TOOLCHAIN}"
       "set(HUNTER_RUN_UPLOAD \"${HUNTER_RUN_UPLOAD}\" CACHE INTERNAL \"\")\n"
   )
+  file(
+      APPEND
+      "${HUNTER_DOWNLOAD_TOOLCHAIN}"
+      "set(HUNTER_JOBS_NUMBER \"${HUNTER_JOBS_NUMBER}\" CACHE INTERNAL \"\")\n"
+  )
 
   string(COMPARE NOTEQUAL "${CMAKE_MAKE_PROGRAM}" "" has_make)
   if(has_make)
