@@ -4,7 +4,7 @@ environment:
   global:
     # This variable used only if '--upload' added to 'jenkins.py'
     GITHUB_USER_PASSWORD:
-      secure: 9/qGB8wlVXAbzkn7xyfK4JJbaRJ/Uh8UwYXX0DcFqzTFDjc1aSGK5eNtyxWIpvmt
+      secure: qQvNsrf+SWY9hg8/7HmsJzE9m4S0phUeVaWk+wyrQe3aNsWLazFXzCsBsu4EBBvc
 
   matrix:
 
