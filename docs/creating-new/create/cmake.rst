@@ -393,8 +393,16 @@ the project name (for example ``hunter_box_1``):
 Open file ``docs/packages/pkg/hunter_box_1.rst`` and tweak all entries.
 
 Substitute ``unsorted`` with some tag in directive
-``.. index:: unsorted ; foo``. This tag will be used on
+``single: unsorted ; foo``. This tag will be used on
 :ref:`this page <genindex>`.
+
+If you want to have two tags add another line with ``single``:
+
+.. code-block:: none
+
+  .. index::
+    single: category_1 ; foo
+    single: category_2 ; foo
 
 .. seealso::
 
