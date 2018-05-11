@@ -45,7 +45,7 @@ matrix:
 
     - os: linux
       env: >
-        TOOLCHAIN=android-ndk-r16b-api-24-arm64-v8a-clang-libcxx14
+        TOOLCHAIN=android-ndk-r17-api-24-arm64-v8a-clang-libcxx14
         PROJECT_DIR=examples/foo
 
     - os: linux
@@ -126,6 +126,7 @@ install:
   - export ANDROID_NDK_r11c="`pwd`/_ci/android-ndk-r11c"
   - export ANDROID_NDK_r15c="`pwd`/_ci/android-ndk-r15c"
   - export ANDROID_NDK_r16b="`pwd`/_ci/android-ndk-r16b"
+  - export ANDROID_NDK_r17="`pwd`/_ci/android-ndk-r17"
 
 script:
   - python3 ./jenkins.py
