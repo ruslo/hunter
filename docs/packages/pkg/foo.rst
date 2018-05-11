@@ -2,7 +2,8 @@
 
     foo
 
-.. index:: unsorted ; foo
+.. index::
+  single: unsorted ; foo
 
 .. _pkg.foo:
 
