@@ -2,7 +2,7 @@
 
     Snappy
 
-.. index:: unsorted ; Snappy
+.. index:: compression ; Snappy
 
 .. _pkg.Snappy:
 
