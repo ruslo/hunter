@@ -22,6 +22,17 @@ hunter_add_version(
     533f0f09be3134dd8c3d76be267bef56d1a1f4a2
 )
 
+hunter_add_version(
+    PACKAGE_NAME
+    WebP
+    VERSION
+    "0.6.1-p3"
+    URL
+    "https://github.com/hunter-packages/libwebp/archive/v0.6.1-p3.tar.gz"
+    SHA1
+    bcce817366c9ba5f42d36130d973dc2f072e2862
+)
+
 if(ANDROID OR IOS)
     hunter_cmake_args(
         WebP
