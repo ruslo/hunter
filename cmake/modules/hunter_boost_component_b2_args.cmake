@@ -6,42 +6,10 @@ cmake_minimum_required(VERSION 3.0)
 
 # for iostreams dependency on ZLIB and BZIP2
 include(hunter_add_package)
-include(hunter_report_broken_package)
 include("${CMAKE_CURRENT_LIST_DIR}/../Hunter")
 
 function(hunter_boost_component_b2_args compName boostCmakeArgs outList)
   hunter_test_string_not_empty("${BOOST_VERSION}")
-
-  string(COMPARE EQUAL "${BOOST_VERSION}" "1.64.0" is_boost_1_64)
-  string(COMPARE EQUAL "${CMAKE_HOST_SYSTEM_NAME}" "Linux" host_is_linux)
-
-  set(lib_detect_broken_message "")
-
-  if(ANDROID)
-    if(host_is_linux)
-      set(lib_detect_broken YES)
-      set(
-          lib_detect_broken_message
-          "ZLIB/BZip2 detection broken for Android if host is Linux."
-          " As a workaround you can build package on OSX host and upload binaries"
-          " to server. See details: https://github.com/ruslo/hunter/issues/417#issuecomment-220563231"
-      )
-    else()
-      if(is_boost_1_64)
-        set(lib_detect_broken NO)
-      else()
-        set(lib_detect_broken YES)
-        set(
-            lib_detect_broken_message
-            "ZLIB/BZip2 detection broken for Android."
-            " As a workaround you can use Boost 1.64.0."
-            " See issue: https://github.com/boostorg/build/issues/300"
-        )
-      endif()
-    endif()
-  else()
-    set(lib_detect_broken NO)
-  endif()
 
   string(TOUPPER ${compName} upperCompName)
   set(myList "")#empty
@@ -111,9 +79,6 @@ function(hunter_boost_component_b2_args compName boostCmakeArgs outList)
 
     if(NOT is_nocompress)
       if(NOT is_nozlib)
-        if(lib_detect_broken)
-          hunter_report_broken_package(${lib_detect_broken_message})
-        endif()
         # download ZLIB and set ZLIB_INCLUDE, ZLIB_LIBPATH
         hunter_add_package(ZLIB)
         find_package(ZLIB REQUIRED CONFIG)
@@ -141,9 +106,6 @@ function(hunter_boost_component_b2_args compName boostCmakeArgs outList)
       endif()
 
       if(NOT is_nobzip2)
-        if(lib_detect_broken)
-          hunter_report_broken_package(${lib_detect_broken_message})
-        endif()
         # download BZIP2 and set BZIP2_INCLUDE, BZIP2_LIBPATH
         hunter_add_package(BZip2)
         find_package(BZip2 REQUIRED CONFIG)
