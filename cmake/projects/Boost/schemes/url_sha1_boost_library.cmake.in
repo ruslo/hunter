@@ -328,10 +328,6 @@ if(CMAKE_HOST_WIN32)
     set(patch_cmd "@CMAKE_COMMAND@" -E copy "@HUNTER_PACKAGE_DOWNLOAD_DIR@/patched_boostrap.bat" "@HUNTER_PACKAGE_SOURCE_DIR@/patched_boostrap.bat")
     set(bootstrap_cmd "patched_boostrap.bat")
   else()
-    if ("@ANDROID@")
-      # cross compile from "windows" to "android"
-      set(build_opts target-os=android ${build_opts})
-    endif()
     set(patch_cmd "@CMAKE_COMMAND@" -E echo "Dummy patch command")
     set(bootstrap_cmd "bootstrap.bat")
   endif()
@@ -343,6 +339,10 @@ endif()
 
 if("@MINGW@")
   list(APPEND bootstrap_cmd "gcc")
+endif()
+
+if("@ANDROID@")
+  list(APPEND build_opts target-os=android)
 endif()
 
 if(HUNTER_STATUS_DEBUG)
