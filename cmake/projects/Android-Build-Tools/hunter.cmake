@@ -7,7 +7,20 @@ include(hunter_add_version)
 include(hunter_download)
 include(hunter_pick_scheme)
 
+# https://dl.google.com/android/repository/repository-11.xml
+
 if(CMAKE_HOST_APPLE)
+  hunter_add_version(
+      PACKAGE_NAME
+      Android-Build-Tools
+      VERSION
+      "27.0.3"
+      URL
+      "https://dl-ssl.google.com/android/repository/build-tools_r27.0.3-macosx.zip"
+      SHA1
+      61d9fb18790c68d66ff73bf1e7ad56bc1f1eef2d
+  )
+
   hunter_add_version(
       PACKAGE_NAME
       Android-Build-Tools
@@ -45,6 +58,17 @@ elseif(CMAKE_HOST_UNIX)
       PACKAGE_NAME
       Android-Build-Tools
       VERSION
+      "27.0.3"
+      URL
+      "https://dl-ssl.google.com/android/repository/build-tools_r27.0.3-linux.zip"
+      SHA1
+      d85e7a6320eddffe7eeace3437605079dac938ca
+  )
+
+  hunter_add_version(
+      PACKAGE_NAME
+      Android-Build-Tools
+      VERSION
       "22.0.1"
       URL
       "https://dl-ssl.google.com/android/repository/build-tools_r22.0.1-linux.zip"
@@ -74,6 +98,17 @@ elseif(CMAKE_HOST_UNIX)
       f11618492b0d2270c332325d45d752d3656a9640
   )
 elseif(CMAKE_HOST_WIN32)
+  hunter_add_version(
+      PACKAGE_NAME
+      Android-Build-Tools
+      VERSION
+      "27.0.3"
+      URL
+      "https://dl-ssl.google.com/android/repository/build-tools_r27.0.3-windows.zip"
+      SHA1
+      0df61e11713a2838d2cc9a911219dddf5e6a2749
+  )
+
   hunter_add_version(
       PACKAGE_NAME
       Android-Build-Tools
