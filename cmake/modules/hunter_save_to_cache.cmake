@@ -114,6 +114,7 @@ function(hunter_save_to_cache)
 
   ### create cache.sha1 file in home (before saving dependencies)
   hunter_status_debug("Saving cache file: ${cache_file}")
+  hunter_status_debug("With SHA1: ${archive_sha1}")
   file(WRITE "${cache_file}" "${archive_sha1}")
 
   # Get dependencies (non-recursively)
