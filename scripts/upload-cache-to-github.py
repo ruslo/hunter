@@ -346,6 +346,8 @@ class CacheEntry:
 
   def upload_raw(self, github):
     sha1 = open(self.cache_sha1, 'r').read()
+    if sha1 == '':
+      sys.exit('File with no content: {}'.format(self.cache_sha1))
     raw = os.path.join(self.cache_raw, sha1 + '.tar.bz2')
     if os.path.exists(raw):
       github.upload_raw_file(raw)

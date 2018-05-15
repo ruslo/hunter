@@ -117,6 +117,18 @@ function(hunter_save_to_cache)
   hunter_status_debug("With SHA1: ${archive_sha1}")
   file(WRITE "${cache_file}" "${archive_sha1}")
 
+  # Sanity check
+  file(READ "${cache_file}" archive_sha1_check)
+
+  string(COMPARE EQUAL "${archive_sha1}" "${archive_sha1_check}" is_ok)
+  if(NOT is_ok)
+    hunter_internal_error(
+        "Sanity check failed (${cache_file}):"
+        " * '${archive_sha1}'"
+        " * '${archive_sha1_check}'"
+    )
+  endif()
+
   # Get dependencies (non-recursively)
   if(has_component)
     hunter_get_package_deps(
@@ -201,4 +213,16 @@ function(hunter_save_to_cache)
 
   file(WRITE "${cache_meta_dir}/cache.sha1" "${archive_sha1}")
   file(WRITE "${cache_meta_dir}/CACHE.DONE" "")
+
+  # Sanity check
+  file(READ "${cache_meta_dir}/cache.sha1" archive_sha1_check)
+
+  string(COMPARE EQUAL "${archive_sha1}" "${archive_sha1_check}" is_ok)
+  if(NOT is_ok)
+    hunter_internal_error(
+        "Sanity check failed (${cache_meta_dir}):"
+        " * '${archive_sha1}'"
+        " * '${archive_sha1_check}'"
+    )
+  endif()
 endfunction()
