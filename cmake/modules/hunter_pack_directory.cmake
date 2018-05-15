@@ -5,6 +5,7 @@ include(hunter_internal_error)
 include(hunter_print_cmd)
 include(hunter_status_debug)
 include(hunter_status_print)
+include(hunter_test_string_not_empty)
 
 function(hunter_pack_directory dir_to_pack dest_dir result_sha1)
   file(MAKE_DIRECTORY "${dest_dir}")
@@ -56,7 +57,14 @@ function(hunter_pack_directory dir_to_pack dest_dir result_sha1)
     )
   endif()
 
+  if(NOT EXISTS "${temp}")
+    hunter_internal_error("File not found: '${temp}'")
+  endif()
+
   file(SHA1 "${temp}" archive_sha1)
+
+  hunter_test_string_not_empty("${archive_sha1}")
+
   set(dest_archive "${dest_dir}/${archive_sha1}.tar.bz2")
   file(RENAME "${temp}" "${dest_archive}")
 
