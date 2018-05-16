@@ -384,3 +384,10 @@ HUNTER_PASSWORDS_PATH
 
 Environment variable with functionality similar to CMake variable with
 :ref:`the same name <hunter passwords path>`.
+
+.. _hunter git executable env:
+
+HUNTER_GIT_EXECUTABLE
+=====================
+
+Path to Git executable
