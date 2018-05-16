@@ -33,7 +33,31 @@ function(hunter_pack_git_submodule)
     hunter_internal_error("GIT_SUBMODULE is empty")
   endif()
 
-  find_package(Git REQUIRED)
+  string(COMPARE EQUAL "$ENV{HUNTER_GIT_EXECUTABLE}" "" is_empty)
+
+  if(is_empty)
+    find_package(Git REQUIRED)
+  else()
+    set(GIT_EXECUTABLE "$ENV{HUNTER_GIT_EXECUTABLE}")
+    execute_process(
+        COMMAND
+        ${GIT_EXECUTABLE} --version
+        RESULT_VARIABLE result
+        OUTPUT_VARIABLE output
+        ERROR_VARIABLE output
+        OUTPUT_STRIP_TRAILING_WHITESPACES
+        ERROR_STRIP_TRAILING_WHITESPACES
+    )
+    if(result EQUAL "0")
+      if(output MATCHES "^git version [0-9]")
+        string(REPLACE "git version " "" GIT_VERSION_STRING "${output}")
+      else()
+        hunter_internal_error("Unexpected output: ${output}")
+      endif()
+    else()
+      hunter_internal_error("Can't get Git version: ${result} ${output}")
+    endif()
+  endif()
   hunter_status_debug("Using git executable: ${GIT_EXECUTABLE}")
 
   # For '--git-path':

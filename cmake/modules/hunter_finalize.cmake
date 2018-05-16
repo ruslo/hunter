@@ -22,7 +22,7 @@ macro(hunter_finalize)
   string(COMPARE EQUAL "${HUNTER_CACHE_SERVERS}" "" _is_empty)
   if(_is_empty)
     hunter_status_debug("Using default cache server")
-    set(HUNTER_CACHE_SERVERS "https://github.com/ingenue/hunter-cache")
+    set(HUNTER_CACHE_SERVERS "https://github.com/ingenue/hunter-cache-2")
   endif()
 
   hunter_status_debug("List of cache servers:")

@@ -22,9 +22,13 @@ branch ``master`` (directory layout matters) (see
 .. note::
 
   Currently upload procedure is implemented using Python script with
-  ``requests`` module, check that you have Python installed in your system.
-  This limitation will be removed in future. Downloading from server done by
-  ``file(DOWNLOAD ...)`` CMake commands, so client is still CMake-only based.
+  ``requests`` and ``gitpython`` modules, check that you have Python installed
+  in your system.  This limitation will be removed in future. Downloading from
+  server done by ``file(DOWNLOAD ...)`` CMake commands, so client is still
+  CMake-only based.  Module ``gitpython`` expects Git executable installed in
+  system.  You can use environment variable
+  :ref:`HUNTER_GIT_EXECUTABLE <hunter git executable env>`
+  to specify custom path.
 
 Example
 ~~~~~~~
