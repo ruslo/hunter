@@ -96,9 +96,6 @@ function(hunter_upload_cache)
     hunter_internal_error("Script not found: ${upload_script}")
   endif()
 
-  set(temp_dir "${HUNTER_PACKAGE_BUILD_DIR}/__temp")
-  file(MAKE_DIRECTORY "${temp_dir}")
-
   set(cache_directory "${HUNTER_CACHED_ROOT}/_Base/Cache")
 
   execute_process(
@@ -110,7 +107,6 @@ function(hunter_upload_cache)
       --username "${HUNTER_UPLOAD_USERNAME}"
       --password "${HUNTER_UPLOAD_PASSWORD}"
       --cache-dir "${cache_directory}"
-      --temp-dir "${temp_dir}"
       WORKING_DIRECTORY "${CELLAR_RAW_DIRECTORY}"
       RESULT_VARIABLE result
   )
