@@ -432,6 +432,8 @@ class Cache:
           to_add = True
         elif x.endswith('CACHE.DONE'):
           to_add = True
+        elif x.endswith('SHA1'):
+          to_add = True
 
         if to_add:
           print(' * {}'.format(x))
