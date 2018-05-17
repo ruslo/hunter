@@ -96,6 +96,9 @@ install:
   # Info about OS
   - uname -a
 
+  # Info about available disk space
+  - df -h $HOME
+
   # Disable autoupdate
   # * https://github.com/Homebrew/brew/blob/7d31a70373edae4d8e78d91a4cbc05324bebc3ba/Library/Homebrew/manpages/brew.1.md.erb#L202
   - export HOMEBREW_NO_AUTO_UPDATE=1
