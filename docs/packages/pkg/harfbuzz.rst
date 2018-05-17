@@ -7,7 +7,7 @@
 .. _pkg.harfbuzz:
 
 harfbuzz
-===
+========
 
 -  `Official <http://harfbuzz.org/>`__
 -  `Hunterized <https://github.com/hunter-packages/harfbuzz>`__
