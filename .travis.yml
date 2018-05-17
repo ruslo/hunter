@@ -121,7 +121,7 @@ install:
   - export PATH="${POLLY_ROOT}/bin:${PATH}"
 
   # Install dependencies (CMake, Android NDK)
-  - install-ci-dependencies.py
+  - install-ci-dependencies.py --prune-archives
 
   # Tune locations
   - export PATH="`pwd`/_ci/cmake/bin:${PATH}"
