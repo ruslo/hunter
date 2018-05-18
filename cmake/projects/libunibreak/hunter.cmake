@@ -4,7 +4,6 @@
 # !!! DO NOT PLACE HEADER GUARDS HERE !!!
 
 include(hunter_add_version)
-include(hunter_cacheable)
 include(hunter_download)
 include(hunter_pick_scheme)
 include(hunter_cmake_args)
@@ -29,8 +28,4 @@ hunter_cmake_args(
 
 hunter_configuration_types(libunibreak CONFIGURATION_TYPES Release)
 hunter_pick_scheme(DEFAULT url_sha1_autotools)
-hunter_cacheable(libunibreak)
-hunter_download(PACKAGE_NAME libunibreak
-    PACKAGE_INTERNAL_DEPS_ID "1"  # Increment for each new pull request
-    PACKAGE_UNRELOCATABLE_TEXT_FILES lib/pkgconfig/libunibreak.pc
-)
+hunter_download(PACKAGE_NAME libunibreak)
