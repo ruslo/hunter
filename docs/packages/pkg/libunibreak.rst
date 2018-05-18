@@ -11,7 +11,7 @@ libunibreak
 
 -  `Official <https://github.com/adah1972/libunibreak>`__
 -  `Example <https://github.com/ruslo/hunter/blob/master/examples/libunibreak/CMakeLists.txt>`__
--  Added by `Jon Spencer <https://github.com/jhs67>`__ (`pr-N <https://github.com/ruslo/hunter/pull/N>`__)
+-  Added by `Jon Spencer <https://github.com/jhs67>`__ (`pr-1443 <https://github.com/ruslo/hunter/pull/1443>`__)
 
 .. literalinclude:: /../examples/libunibreak/CMakeLists.txt
   :language: cmake
