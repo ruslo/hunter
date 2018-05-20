@@ -24,6 +24,7 @@ ROS
 ---
 
  * :ref:`pkg.catkin` - ROS catkin build system
+ * :ref:`pkg.ros` - Core ROS packages
  * :ref:`pkg.ros_comm_msgs` - ROS `ros_comm_msgs` package
  * :ref:`pkg.ros_common_msgs` - ROS `common_msgs` package - commonly used messages in ROS
  * :ref:`pkg.ros_console_bridge` - ROS console bridge package (logging, ...)
