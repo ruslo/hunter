@@ -45,8 +45,8 @@ function(hunter_pack_git_submodule)
         RESULT_VARIABLE result
         OUTPUT_VARIABLE output
         ERROR_VARIABLE output
-        OUTPUT_STRIP_TRAILING_WHITESPACES
-        ERROR_STRIP_TRAILING_WHITESPACES
+        OUTPUT_STRIP_TRAILING_WHITESPACE
+        ERROR_STRIP_TRAILING_WHITESPACE
     )
     if(result EQUAL "0")
       if(output MATCHES "^git version [0-9]")
