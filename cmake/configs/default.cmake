@@ -60,6 +60,7 @@ hunter_config(CapnProto VERSION 0.6.1)
 hunter_config(catkin VERSION 0.7.11-p2)
 hunter_config(cctz VERSION 2.2.0)
 hunter_config(CLAPACK VERSION 3.2.1)
+hunter_config(CLI11 VERSION 1.5.3)
 hunter_config(CURL VERSION 7.59.0-p1)
 hunter_config(Clang VERSION 4.0.1-p0)
 hunter_config(ClangToolsExtra VERSION 4.0.1) # Clang
