@@ -126,6 +126,8 @@ HUNTER_BUILD_SHARED_LIBS
   `BUILD_SHARED_LIBS <https://cmake.org/cmake/help/latest/variable/BUILD_SHARED_LIBS.html>`__
   for 3rd party packages
 
+.. _hunter jobs number:
+
 HUNTER_JOBS_NUMBER
 ==================
 
@@ -391,3 +393,8 @@ HUNTER_GIT_EXECUTABLE
 =====================
 
 Path to Git executable
+
+HUNTER_JOBS_NUMBER
+==================
+
+See :ref:`HUNTER_JOBS_NUMBER <hunter jobs number>` CMake variable

@@ -8,8 +8,20 @@ function(hunter_jobs_number jobs_options_varname toolchain_path)
     return()
   endif()
 
-  string(COMPARE EQUAL "${HUNTER_JOBS_NUMBER}" "" use_default_jobs)
-  if(use_default_jobs)
+  string(COMPARE EQUAL "$ENV{HUNTER_JOBS_NUMBER}" "0" disable_jobs)
+  if(disable_jobs)
+    set("${jobs_options_varname}" "" PARENT_SCOPE)
+    return()
+  endif()
+
+  string(COMPARE NOTEQUAL "${HUNTER_JOBS_NUMBER}" "" has_cmake_var)
+  string(COMPARE NOTEQUAL "$ENV{HUNTER_JOBS_NUMBER}" "" has_env_var)
+
+  if(has_cmake_var)
+    set(jobs_number "${HUNTER_JOBS_NUMBER}")
+  elseif(has_env_var)
+    set(jobs_number "$ENV{HUNTER_JOBS_NUMBER}")
+  else()
     cmake_host_system_information(
         RESULT l_cores
         QUERY NUMBER_OF_LOGICAL_CORES
@@ -33,8 +45,6 @@ function(hunter_jobs_number jobs_options_varname toolchain_path)
     endif()
 
     hunter_status_debug("Number of jobs: ${jobs_number}")
-  else()
-    set(jobs_number "${HUNTER_JOBS_NUMBER}")
   endif()
 
   string(COMPARE NOTEQUAL "${XCODE_VERSION}" "" is_xcode)

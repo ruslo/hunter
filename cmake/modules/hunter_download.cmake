@@ -414,6 +414,7 @@ function(hunter_download)
 
   hunter_jobs_number(HUNTER_JOBS_OPTION "${HUNTER_DOWNLOAD_TOOLCHAIN}")
   hunter_status_debug("HUNTER_JOBS_NUMBER: ${HUNTER_JOBS_NUMBER}")
+  hunter_status_debug("HUNTER_JOBS_NUMBER (env): $ENV{HUNTER_JOBS_NUMBER}")
   hunter_status_debug("HUNTER_JOBS_OPTION: ${HUNTER_JOBS_OPTION}")
 
   # support for toolchain file forwarding
