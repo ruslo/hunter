@@ -2,27 +2,20 @@
 
     libogg
 
-.. index:: unsorted ; libogg
+.. index::
+  single: media ; libogg
 
 .. _pkg.libogg:
 
 libogg
 ======
 
-.. warning::
+-  `Official <https://xiph.org/ogg/>`__
+-  `Hunterized <https://github.com/hunter-packages/libogg>`__
+-  `Example <https://github.com/ruslo/hunter/blob/master/examples/libogg/CMakeLists.txt>`__
+-  Added by `Meralis40 <https://github.com/Meralis40>`__ (`pr-1451 <https://github.com/ruslo/hunter/pull/1451>`__)
 
-    This page is a template and contains no real information.
-    Please send pull request with real description.
-
--  `__FIXME__ Official <https://__FIXME__>`__
--  `__FIXME__ Hunterized <https://github.com/hunter-packages/__FIXME__>`__
--  `__FIXME__ Example <https://github.com/ruslo/hunter/blob/master/examples/__FIXME__/CMakeLists.txt>`__
--  Available since `__FIXME__ vX.Y.Z <https://github.com/ruslo/hunter/releases/tag/vX.Y.Z>`__
--  Added by `__FIXME__ <https://github.com/__FIXME__>`__ (`__FIXME__ pr-N <https://github.com/ruslo/hunter/pull/N>`__)
-
-.. code-block:: cmake
-
-    hunter_add_package(__FIXME__)
-    find_package(__FIXME__ CONFIG REQUIRED)
-    target_link_libraries(foo __FIXME__::__FIXME__)
-
+.. literalinclude:: /../examples/libogg/CMakeLists.txt
+  :language: cmake
+  :start-after: # DOCUMENTATION_START {
+  :end-before: # DOCUMENTATION_END }
