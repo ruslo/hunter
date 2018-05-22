@@ -1,6 +1,7 @@
 .. spelling::
 
     catkin
+    filesystem
     gencpp
     geneus
     genlisp
@@ -11,6 +12,7 @@
     message_runtime
     ros
     rospack
+    ros_environment
 
 Robotics
 ========
@@ -20,6 +22,7 @@ ROS
 
  * :ref:`pkg.catkin` - ROS catkin build system
  * :ref:`pkg.ros_console_bridge` - ROS console bridge package (logging, ...)
+ * :ref:`pkg.ros_environment` - ROS `ros_environment` package
  * :ref:`pkg.ros_gencpp` - ROS gencpp package - C++ message and service data structure generation
  * :ref:`pkg.ros_geneus` - ROS geneus package - EusLisp ROS message and service generators
  * :ref:`pkg.ros_genlisp` - ROS genlisp package - Lisp message generation for ROS
