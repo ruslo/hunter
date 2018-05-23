@@ -30,6 +30,17 @@ hunter_add_version(
     262f0926ccd2f1dc09541c013f257248da976e14
 )
 
+hunter_add_version(
+    PACKAGE_NAME
+    ethash
+    VERSION
+    0.3.0
+    URL
+    https://github.com/chfast/ethash/archive/v0.3.0.tar.gz
+    SHA1
+    42597f359c25018e058289652caed8475b6fc1e5
+)
+
 hunter_cmake_args(
     ethash
     CMAKE_ARGS
