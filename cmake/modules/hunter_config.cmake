@@ -4,10 +4,11 @@
 include(CMakeParseArguments) # cmake_parse_arguments
 
 include(hunter_fatal_error)
+include(hunter_pack_git_self)
 include(hunter_pack_git_submodule)
+include(hunter_parse_cmake_args_for_keyword)
 include(hunter_unsetvar)
 include(hunter_user_error)
-include(hunter_parse_cmake_args_for_keyword)
 
 macro(hunter_config)
   if(NOT HUNTER_ALLOW_CONFIG_LOADING)
@@ -18,7 +19,7 @@ macro(hunter_config)
         "error.unexpected.hunter_config"
     )
   endif()
-  set(_hunter_optional KEEP_PACKAGE_SOURCES)
+  set(_hunter_optional KEEP_PACKAGE_SOURCES GIT_SELF)
   set(_hunter_one_value VERSION GIT_SUBMODULE GIT_SUBMODULE_DIR)
   set(_hunter_multiple_values CMAKE_ARGS CONFIGURATION_TYPES)
   cmake_parse_arguments(
@@ -45,6 +46,11 @@ macro(hunter_config)
   hunter_unsetvar(${_hunter_root})
 
   string(COMPARE NOTEQUAL "${_hunter_GIT_SUBMODULE}" "" _hunter_submodule_create)
+
+  if(_hunter_GIT_SELF AND _hunter_submodule_create)
+    hunter_user_error("GIT_SELF can't be used with GIT_SUBMODULE")
+  endif()
+
   if(_hunter_submodule_create)
     # get HUNTER_SUBMODULE_SOURCE_SUBDIR from CMAKE_ARGS
     hunter_parse_cmake_args_for_keyword(
@@ -58,6 +64,8 @@ macro(hunter_config)
         VERSION _hunter_VERSION
         SUBMODULE_SOURCE_SUBDIR "${_source_subdir}"
     )
+  elseif(_hunter_GIT_SELF)
+    hunter_pack_git_self(VERSION _hunter_VERSION)
   endif()
 
   string(COMPARE NOTEQUAL "${_hunter_GIT_SUBMODULE_DIR}" "" _hunter_submodule_consume)
