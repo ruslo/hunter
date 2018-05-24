@@ -20,6 +20,17 @@ hunter_add_version(
     5b326dd4e4792e63d9261682205f32944719bed0
 )
 
+hunter_add_version(
+    PACKAGE_NAME
+    tacopie
+    VERSION
+    "3.2.0-h1"
+    URL
+    "https://github.com/hunter-packages/tacopie/archive/3.2.0-h1.tar.gz"
+    SHA1
+    04a8953bf69f1fa26b68dd76df4b4baea291ab34
+)
+
 # Pick a download scheme
 hunter_pick_scheme(DEFAULT url_sha1_cmake) # use scheme for cmake projects
 
