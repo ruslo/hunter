@@ -465,12 +465,27 @@ class Cache:
     if not main_remote_found:
       main_remote = self.repo.create_remote('origin', main_remote_url_pull)
 
-    print('Fetch remote')
-    sys.stdout.flush()
-    main_remote.fetch(depth=1)
+    retry_max = 10
+
+    fetch_ok = False
+
+    for i in range(1, retry_max):
+      try:
+        if fetch_ok:
+          break
+        print('Fetch remote (attempt #{})'.format(i))
+        sys.stdout.flush()
+
+        main_remote.fetch(depth=1)
+        fetch_ok = True
+      except Exception as exc:
+        print('Exception {}'.format(exc))
+
+    if not fetch_ok:
+      sys.exit('Fetch failed')
+
     self.repo.heads.master.set_tracking_branch(main_remote.refs.master)
 
-    retry_max = 10
     success = False
 
     for i in range(1, retry_max):
