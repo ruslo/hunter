@@ -8,6 +8,7 @@ Hunter user
    :maxdepth: 1
 
    /user-guides/hunter-user/git-submodule
+   /user-guides/hunter-user/git-self
 
 Uploading binaries
 ==================
