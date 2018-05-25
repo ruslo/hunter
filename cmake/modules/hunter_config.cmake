@@ -4,6 +4,7 @@
 include(CMakeParseArguments) # cmake_parse_arguments
 
 include(hunter_fatal_error)
+include(hunter_inject_url_sha1_package)
 include(hunter_pack_git_self)
 include(hunter_pack_git_submodule)
 include(hunter_parse_cmake_args_for_keyword)
@@ -20,7 +21,7 @@ macro(hunter_config)
     )
   endif()
   set(_hunter_optional KEEP_PACKAGE_SOURCES GIT_SELF)
-  set(_hunter_one_value VERSION GIT_SUBMODULE GIT_SUBMODULE_DIR)
+  set(_hunter_one_value VERSION GIT_SUBMODULE GIT_SUBMODULE_DIR URL SHA1)
   set(_hunter_multiple_values CMAKE_ARGS CONFIGURATION_TYPES)
   cmake_parse_arguments(
       _hunter
@@ -37,6 +38,45 @@ macro(hunter_config)
     )
   endif()
 
+  string(COMPARE NOTEQUAL "${_hunter_VERSION}" "" _hunter_has_version)
+  string(COMPARE NOTEQUAL "${_hunter_GIT_SUBMODULE}" "" _hunter_has_git_submodule)
+  string(COMPARE NOTEQUAL "${_hunter_URL}" "" _hunter_has_url)
+  string(COMPARE NOTEQUAL "${_hunter_SHA1}" "" _hunter_has_sha1)
+
+  set(_hunter_has_git_self ${_hunter_GIT_SELF})
+
+  if(_hunter_has_version)
+    if(_hunter_has_git_self)
+      hunter_user_error("VERSION can't be used with GIT_SELF")
+    elseif(_hunter_has_git_submodule)
+      hunter_user_error("VERSION can't be used with GIT_SUBMODULE")
+    elseif(_hunter_has_url)
+      hunter_user_error("VERSION can't be used with URL")
+    elseif(_hunter_has_sha1)
+      hunter_user_error("VERSION can't be used with SHA1")
+    endif()
+  elseif(_hunter_has_git_self)
+    if(_hunter_has_git_submodule)
+      hunter_user_error("GIT_SELF can't be used with GIT_SUBMODULE")
+    elseif(_hunter_has_url)
+      hunter_user_error("GIT_SELF can't be used with URL")
+    elseif(_hunter_has_sha1)
+      hunter_user_error("GIT_SELF can't be used with SHA1")
+    endif()
+  elseif(_hunter_has_git_submodule)
+    if(_hunter_has_url)
+      hunter_user_error("GIT_SUBMODULE can't be used with URL")
+    elseif(_hunter_has_sha1)
+      hunter_user_error("GIT_SUBMODULE can't be used with SHA1")
+    endif()
+  elseif(_hunter_has_url)
+    if(NOT _hunter_has_sha1)
+      hunter_user_error("URL can't be used without SHA1")
+    endif()
+  else()
+    hunter_user_error("VERSION, GIT_SELF, GIT_SUBMODULE or URL should be set")
+  endif()
+
   # calc <NAME>_ROOT
   list(GET _hunter_UNPARSED_ARGUMENTS 0 _hunter_current_project)
   string(TOUPPER "${_hunter_current_project}" _hunter_root)
@@ -45,13 +85,7 @@ macro(hunter_config)
   # clear all
   hunter_unsetvar(${_hunter_root})
 
-  string(COMPARE NOTEQUAL "${_hunter_GIT_SUBMODULE}" "" _hunter_submodule_create)
-
-  if(_hunter_GIT_SELF AND _hunter_submodule_create)
-    hunter_user_error("GIT_SELF can't be used with GIT_SUBMODULE")
-  endif()
-
-  if(_hunter_submodule_create)
+  if(_hunter_has_git_submodule)
     # get HUNTER_SUBMODULE_SOURCE_SUBDIR from CMAKE_ARGS
     hunter_parse_cmake_args_for_keyword(
       CMAKE_ARGS ${_hunter_CMAKE_ARGS}
@@ -66,6 +100,12 @@ macro(hunter_config)
     )
   elseif(_hunter_GIT_SELF)
     hunter_pack_git_self(VERSION _hunter_VERSION)
+  elseif(_hunter_has_sha1)
+    hunter_inject_url_sha1_package(
+        VERSION _hunter_VERSION
+        URL "${_hunter_URL}"
+        SHA1 "${_hunter_SHA1}"
+    )
   endif()
 
   string(COMPARE NOTEQUAL "${_hunter_GIT_SUBMODULE_DIR}" "" _hunter_submodule_consume)
