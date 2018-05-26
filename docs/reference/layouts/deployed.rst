@@ -174,7 +174,7 @@ arguments, dependencies, etc.).
   ├─ raw/
   │  └─ <cache>.tar.bz2
   └─ meta/
-     └─ <toolchain-id>/
+     └─ <Toolchain-ID>/
         ├─ cmake.lock
         ├─ SHA1                                   # SHA1 of toolchain.info
         ├─ DONE
