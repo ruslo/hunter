@@ -7,6 +7,14 @@ else()
   set(HUNTER_CMAKE_HUNTER_ 1)
 endif()
 
+if(CMAKE_VERSION VERSION_LESS "3.2")
+  message(
+      FATAL_ERROR
+      "At least CMake version 3.2 required for Hunter dependency management."
+      " Update CMake or set HUNTER_ENABLED to OFF."
+  )
+endif()
+
 option(HUNTER_ENABLED "Enable Hunter package manager support" ON)
 option(HUNTER_STATUS_PRINT "Print working status" ON)
 option(HUNTER_STATUS_DEBUG "Print a lot info" OFF)
