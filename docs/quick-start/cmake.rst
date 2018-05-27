@@ -8,7 +8,6 @@ Notes about version of CMake
 
   * New ``continue`` command
   * New synchronization command ``file(LOCK ...)`` (`change <https://github.com/Kitware/CMake/commit/e6db4c5a4ede8039ed525e3facebd7e0eb7ec1b7>`__)
-  * `HUNTER_SKIP_LOCK`_
 
 * `3.4.1`_
 
@@ -51,7 +50,6 @@ Notes about version of CMake
 
 .. _issue #405: https://github.com/ruslo/hunter/issues/405
 
-.. _HUNTER_SKIP_LOCK: https://github.com/ruslo/hunter/wiki/error.can.not.lock
 .. _CMAKE_IOS_INSTALL_COMBINED: https://cmake.org/cmake/help/v3.5/variable/CMAKE_IOS_INSTALL_COMBINED.html
 
 .. _iOS toolchains: https://github.com/ruslo/polly/wiki/Toolchain-list#ios
