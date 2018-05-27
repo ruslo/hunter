@@ -114,7 +114,7 @@ foreach(configuration @HUNTER_PACKAGE_CONFIGURATION_TYPES@)
   endif()
 
   set(current_project "@HUNTER_EP_NAME@-${configuration}")
-  
+
   if(is_single)
     set(build_type_opts "-DCMAKE_BUILD_TYPE=${configuration}")
   else()
