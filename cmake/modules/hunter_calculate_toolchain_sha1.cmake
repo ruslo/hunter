@@ -133,7 +133,8 @@ function(hunter_calculate_toolchain_sha1 hunter_self hunter_base)
     return()
   endif()
 
-  configure_file("${local_toolchain_info}" "${global_toolchain_info}" COPYONLY)
+  file(RENAME "${local_toolchain_info}" "${global_toolchain_info}")
+
   hunter_status_debug("Toolchain info: ${global_toolchain_info}")
   hunter_status_debug("Toolchain SHA1: ${HUNTER_GATE_TOOLCHAIN_SHA1}")
 
