@@ -5,11 +5,13 @@
 
 include(CMakeParseArguments) # cmake_parse_arguments
 
+include(hunter_assert_not_empty_string)
 include(hunter_create_args_file)
 include(hunter_download_server_url)
 include(hunter_find_licenses)
 include(hunter_find_stamps)
 include(hunter_get_cacheable)
+include(hunter_get_configuration_types)
 include(hunter_internal_error)
 include(hunter_jobs_number)
 include(hunter_load_from_cache)
@@ -19,7 +21,6 @@ include(hunter_register_dependency)
 include(hunter_save_to_cache)
 include(hunter_status_debug)
 include(hunter_status_print)
-include(hunter_assert_not_empty_string)
 include(hunter_upload_cache)
 include(hunter_user_error)
 
@@ -90,14 +91,11 @@ function(hunter_download)
     URL     "${HUNTER_${h_name}_URL}"
     OUTPUT  HUNTER_PACKAGE_URL
   )
-  set(
-      HUNTER_PACKAGE_CONFIGURATION_TYPES
-      "${HUNTER_${h_name}_CONFIGURATION_TYPES}"
+
+  hunter_get_configuration_types(
+      PACKAGE "${h_name}"
+      OUT HUNTER_PACKAGE_CONFIGURATION_TYPES
   )
-  string(COMPARE EQUAL "${HUNTER_PACKAGE_CONFIGURATION_TYPES}" "" no_types)
-  if(no_types)
-    set(HUNTER_PACKAGE_CONFIGURATION_TYPES ${HUNTER_CACHED_CONFIGURATION_TYPES})
-  endif()
 
   hunter_get_cacheable(
       PACKAGE "${h_name}"
@@ -106,8 +104,6 @@ function(hunter_download)
   )
 
   set(HUNTER_PACKAGE_PROTECTED_SOURCES "${HUNTER_${h_name}_PROTECTED_SOURCES}")
-
-  hunter_assert_not_empty_string("${HUNTER_PACKAGE_CONFIGURATION_TYPES}")
 
   string(COMPARE EQUAL "${HUNTER_PACKAGE_URL}" "" hunter_no_url)
 
@@ -509,11 +505,6 @@ function(hunter_download)
   hunter_status_debug("Download scheme: ${HUNTER_DOWNLOAD_SCHEME}")
   hunter_status_debug("Url: ${HUNTER_PACKAGE_URL}")
   hunter_status_debug("SHA1: ${HUNTER_PACKAGE_SHA1}")
-  if(HUNTER_PACKAGE_SCHEME_INSTALL)
-    hunter_status_debug(
-        "Configuration types: ${HUNTER_PACKAGE_CONFIGURATION_TYPES}"
-    )
-  endif()
   hunter_status_debug("HUNTER_TLS_VERIFY: ${HUNTER_TLS_VERIFY}")
 
   if(has_internal_deps_id)
