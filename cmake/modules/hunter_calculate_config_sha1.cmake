@@ -3,12 +3,13 @@
 
 cmake_minimum_required(VERSION 3.0)
 
+include(hunter_assert_not_empty_string)
+include(hunter_config)
 include(hunter_internal_error)
 include(hunter_lock_directory)
 include(hunter_make_directory)
 include(hunter_print_cmd)
 include(hunter_status_debug)
-include(hunter_assert_not_empty_string)
 include(hunter_user_error)
 
 function(hunter_calculate_config_sha1 hunter_self hunter_base user_config)
@@ -25,17 +26,20 @@ function(hunter_calculate_config_sha1 hunter_self hunter_base user_config)
   if(NOT EXISTS "${default_config}")
     hunter_internal_error("File `${default_config}` not exists")
   endif()
-  set(HUNTER_ALLOW_CONFIG_LOADING YES)
-  include("${default_config}")
-  set(HUNTER_ALLOW_CONFIG_LOADING NO)
 
-  # Include user_config
-  if(NOT EXISTS "${user_config}")
-    hunter_internal_error("Hunter config not exists")
+  set(__HUNTER_ALLOW_DEFAULT_VERSION_LOADING YES)
+  include("${default_config}")
+  set(__HUNTER_ALLOW_DEFAULT_VERSION_LOADING NO)
+
+  if(NOT user_config STREQUAL default_config)
+    # Include user_config
+    if(NOT EXISTS "${user_config}")
+      hunter_internal_error("Hunter config not exists")
+    endif()
+    set(HUNTER_ALLOW_CONFIG_LOADING YES)
+    include("${user_config}") # Use 'hunter_config'
+    set(HUNTER_ALLOW_CONFIG_LOADING NO)
   endif()
-  set(HUNTER_ALLOW_CONFIG_LOADING YES)
-  include("${user_config}")
-  set(HUNTER_ALLOW_CONFIG_LOADING NO)
 
   # Create list of the projects
   set(directory_with_projects "${hunter_self}/cmake/projects")

@@ -42,7 +42,7 @@ function(hunter_add_version)
     hunter_internal_error(
         "HUNTER_<name>_VERSION can't be empty "
         "(${h_PACKAGE_NAME})"
-        "(probably `hunter_config(...)` missing in config file)"
+        "(probably hunter_default_version/hunter_config call is missing)"
     )
   endif()
   string(COMPARE NOTEQUAL "${${expected_version}}" "${h_VERSION}" version_diff)
