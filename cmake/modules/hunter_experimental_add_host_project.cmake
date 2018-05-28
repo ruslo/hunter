@@ -22,13 +22,13 @@ include(CMakeParseArguments) # cmake_parse_arguments
 
 include(hunter_status_debug)
 include(hunter_status_print)
-include(hunter_test_string_not_empty)
+include(hunter_assert_not_empty_string)
 include(hunter_user_error)
 
 function(hunter_experimental_add_host_project)
-  hunter_test_string_not_empty("${HUNTER_CACHED_ROOT}")
-  hunter_test_string_not_empty("${HUNTER_SHA1}")
-  hunter_test_string_not_empty("${HUNTER_URL}")
+  hunter_assert_not_empty_string("${HUNTER_CACHED_ROOT}")
+  hunter_assert_not_empty_string("${HUNTER_SHA1}")
+  hunter_assert_not_empty_string("${HUNTER_URL}")
 
   hunter_status_print("
 ************************* !!! WARNING !!! *************************

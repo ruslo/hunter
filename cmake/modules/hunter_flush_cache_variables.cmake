@@ -2,11 +2,11 @@
 # All rights reserved.
 
 include(hunter_status_debug)
-include(hunter_test_string_not_empty)
+include(hunter_assert_not_empty_string)
 include(hunter_unsetvar)
 
 function(hunter_flush_cache_variables hunter_self)
-  hunter_test_string_not_empty("${hunter_self}")
+  hunter_assert_not_empty_string("${hunter_self}")
 
   hunter_status_debug("Flushing cache")
 

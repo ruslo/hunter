@@ -1,13 +1,13 @@
 include(CMakeParseArguments) # cmake_parse_arguments
 
-include(hunter_test_string_not_empty)
+include(hunter_assert_not_empty_string)
 include(hunter_internal_error)
 include(hunter_status_debug)
 
 set(_HUNTER_TEMPLATE_SCHEME_DIR "${CMAKE_CURRENT_LIST_DIR}/../templates")
 
 function(hunter_pack_git_self)
-  hunter_test_string_not_empty("${HUNTER_GATE_LOCATION}")
+  hunter_assert_not_empty_string("${HUNTER_GATE_LOCATION}")
 
   set(PACKAGE_NAME "${_hunter_current_project}")
   string(COMPARE EQUAL "${PACKAGE_NAME}" "" is_empty)

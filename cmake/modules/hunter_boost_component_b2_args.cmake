@@ -9,7 +9,7 @@ include(hunter_add_package)
 include("${CMAKE_CURRENT_LIST_DIR}/../Hunter")
 
 function(hunter_boost_component_b2_args compName boostCmakeArgs outList)
-  hunter_test_string_not_empty("${BOOST_VERSION}")
+  hunter_assert_not_empty_string("${BOOST_VERSION}")
 
   string(TOUPPER ${compName} upperCompName)
   set(myList "")#empty

@@ -4,7 +4,7 @@
 include(CMakeParseArguments) # cmake_parse_arguments
 
 include(hunter_internal_error)
-include(hunter_test_string_not_empty)
+include(hunter_assert_not_empty_string)
 
 # Get list of dependencies sorted alphabetically in format:
 #   <package> <component>
@@ -33,10 +33,10 @@ function(hunter_get_package_deps)
     hunter_internal_error("Unparsed: ${x_UNPARSED_ARGUMENTS}")
   endif()
 
-  hunter_test_string_not_empty("${x_PACKAGE}")
-  hunter_test_string_not_empty("${x_RESULT}")
+  hunter_assert_not_empty_string("${x_PACKAGE}")
+  hunter_assert_not_empty_string("${x_RESULT}")
 
-  hunter_test_string_not_empty("${HUNTER_CONFIG_ID_PATH}")
+  hunter_assert_not_empty_string("${HUNTER_CONFIG_ID_PATH}")
 
   # Go to directory '<toolchain-id>/Build/<package>/__<component>/Dependencies'
   # and find all `__dep` files.

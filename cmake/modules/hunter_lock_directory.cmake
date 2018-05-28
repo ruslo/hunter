@@ -5,10 +5,10 @@ cmake_minimum_required(VERSION 3.0)
 
 include(hunter_fatal_error)
 include(hunter_status_debug)
-include(hunter_test_string_not_empty)
+include(hunter_assert_not_empty_string)
 
 macro(hunter_lock_directory dir already_locked_varname)
-  hunter_test_string_not_empty("${dir}")
+  hunter_assert_not_empty_string("${dir}")
 
   set(_hunter_already_locked FALSE)
   foreach(_hunter_locked_dir ${${already_locked_varname}})

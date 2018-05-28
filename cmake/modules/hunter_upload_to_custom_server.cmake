@@ -2,11 +2,11 @@
 # All rights reserved.
 
 include(hunter_internal_error)
-include(hunter_test_string_not_empty)
+include(hunter_assert_not_empty_string)
 include(hunter_upload_single_file)
 
 function(hunter_upload_to_custom_server)
-  hunter_test_string_not_empty("${HUNTER_CACHED_ROOT}")
+  hunter_assert_not_empty_string("${HUNTER_CACHED_ROOT}")
 
   set(cache_root_dir "${HUNTER_CACHED_ROOT}/_Base/Cache")
   if(NOT EXISTS ${cache_root_dir})

@@ -4,7 +4,7 @@
 include(CMakeParseArguments) # cmake_parse_arguments
 
 include(hunter_internal_error)
-include(hunter_test_string_not_empty)
+include(hunter_assert_not_empty_string)
 
 # Set variable:
 #     * HUNTER_DOWNLOAD_SCHEME
@@ -13,7 +13,7 @@ include(hunter_test_string_not_empty)
 #     * HUNTER_PACKAGE_SCHEME_UNPACK
 #     * HUNTER_PACKAGE_SCHEME_INSTALL
 function(hunter_pick_scheme)
-  hunter_test_string_not_empty("${CMAKE_GENERATOR}")
+  hunter_assert_not_empty_string("${CMAKE_GENERATOR}")
 
   # parse args
   set(one DEFAULT IPHONEOS WINDOWS)

@@ -5,7 +5,7 @@ include(CMakeParseArguments) # cmake_parse_arguments
 
 include(hunter_assert_empty_string)
 include(hunter_status_debug)
-include(hunter_test_string_not_empty)
+include(hunter_assert_not_empty_string)
 include(hunter_user_error)
 
 function(hunter_get_cacheable)
@@ -21,8 +21,8 @@ function(hunter_get_cacheable)
 
   hunter_assert_empty_string("${x_UNPARSED_ARGUMENTS}")
 
-  hunter_test_string_not_empty("${x_PACKAGE}")
-  hunter_test_string_not_empty("${x_OUT}")
+  hunter_assert_not_empty_string("${x_PACKAGE}")
+  hunter_assert_not_empty_string("${x_OUT}")
 
   if(__HUNTER_CACHEABLE_${x_PACKAGE})
     set(cacheable YES)

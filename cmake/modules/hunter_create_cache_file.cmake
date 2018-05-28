@@ -2,17 +2,17 @@
 # All rights reserved.
 
 include(hunter_status_debug)
-include(hunter_test_string_not_empty)
+include(hunter_assert_not_empty_string)
 
 function(hunter_create_cache_file cache_path)
-  hunter_test_string_not_empty("${cache_path}")
+  hunter_assert_not_empty_string("${cache_path}")
 
-  hunter_test_string_not_empty("${HUNTER_CACHED_ROOT}")
-  hunter_test_string_not_empty("${HUNTER_SHA1}")
-  hunter_test_string_not_empty("${HUNTER_CONFIG_SHA1}")
-  hunter_test_string_not_empty("${HUNTER_CONFIG_ID_PATH}")
-  hunter_test_string_not_empty("${HUNTER_VERSION}")
-  hunter_test_string_not_empty("${HUNTER_TOOLCHAIN_SHA1}")
+  hunter_assert_not_empty_string("${HUNTER_CACHED_ROOT}")
+  hunter_assert_not_empty_string("${HUNTER_SHA1}")
+  hunter_assert_not_empty_string("${HUNTER_CONFIG_SHA1}")
+  hunter_assert_not_empty_string("${HUNTER_CONFIG_ID_PATH}")
+  hunter_assert_not_empty_string("${HUNTER_VERSION}")
+  hunter_assert_not_empty_string("${HUNTER_TOOLCHAIN_SHA1}")
 
   if(EXISTS "${cache_path}")
     return()

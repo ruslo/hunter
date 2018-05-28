@@ -8,7 +8,7 @@ include(hunter_finalize)
 include(hunter_get_project_files_to_load)
 include(hunter_internal_error)
 include(hunter_status_debug)
-include(hunter_test_string_not_empty)
+include(hunter_assert_not_empty_string)
 
 # internal variables: _hunter_ap_*
 macro(hunter_add_package)

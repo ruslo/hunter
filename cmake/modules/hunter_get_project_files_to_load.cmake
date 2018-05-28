@@ -4,10 +4,10 @@
 include(CMakeParseArguments) # cmake_parse_arguments
 
 include(hunter_internal_error)
-include(hunter_test_string_not_empty)
+include(hunter_assert_not_empty_string)
 
 function(hunter_get_project_files_to_load)
-  hunter_test_string_not_empty("${HUNTER_SELF}")
+  hunter_assert_not_empty_string("${HUNTER_SELF}")
 
   set(optional "")
   set(one PROJECT_NAME FILES)

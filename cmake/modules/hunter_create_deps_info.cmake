@@ -4,10 +4,10 @@
 include(hunter_create_dependency_entry)
 include(hunter_get_package_deps_recurse)
 include(hunter_internal_error)
-include(hunter_test_string_not_empty)
+include(hunter_assert_not_empty_string)
 
 function(hunter_create_deps_info temp_deps_info)
-  hunter_test_string_not_empty("${HUNTER_PACKAGE_NAME}")
+  hunter_assert_not_empty_string("${HUNTER_PACKAGE_NAME}")
   string(COMPARE NOTEQUAL "${HUNTER_PACKAGE_COMPONENT}" "" has_component)
 
   if(has_component)

@@ -3,14 +3,14 @@
 
 include(CMakeParseArguments) # cmake_parse_arguments
 
-include(hunter_test_string_not_empty)
+include(hunter_assert_not_empty_string)
 include(hunter_internal_error)
 
 set(_HUNTER_TEMPLATE_SCHEME_DIR "${CMAKE_CURRENT_LIST_DIR}/../templates")
 
 function(hunter_inject_url_sha1_package)
   set(PACKAGE_NAME "${_hunter_current_project}")
-  hunter_test_string_not_empty("${PACKAGE_NAME}")
+  hunter_assert_not_empty_string("${PACKAGE_NAME}")
 
   set(optional "")
   set(one VERSION URL SHA1)
@@ -30,9 +30,9 @@ function(hunter_inject_url_sha1_package)
   set(PACKAGE_SHA1 "${x_SHA1}")
   set(PACKAGE_URL "${x_URL}")
 
-  hunter_test_string_not_empty("${x_VERSION}")
-  hunter_test_string_not_empty("${PACKAGE_URL}")
-  hunter_test_string_not_empty("${PACKAGE_SHA1}")
+  hunter_assert_not_empty_string("${x_VERSION}")
+  hunter_assert_not_empty_string("${PACKAGE_URL}")
+  hunter_assert_not_empty_string("${PACKAGE_SHA1}")
 
   set(archives_directory "${CMAKE_CURRENT_BINARY_DIR}/_3rdParty/Hunter/git-archives")
   file(MAKE_DIRECTORY "${archives_directory}")

@@ -1,12 +1,12 @@
 # Copyright (c) 2015, Ruslan Baratov
 # All rights reserved.
 
-include(hunter_test_string_not_empty)
+include(hunter_assert_not_empty_string)
 
 function(hunter_install_boost_config)
-  hunter_test_string_not_empty("${HUNTER_SELF}")
-  hunter_test_string_not_empty("${HUNTER_PACKAGE_INSTALL_PREFIX}")
-  hunter_test_string_not_empty("${HUNTER_Boost_VERSION}")
+  hunter_assert_not_empty_string("${HUNTER_SELF}")
+  hunter_assert_not_empty_string("${HUNTER_PACKAGE_INSTALL_PREFIX}")
+  hunter_assert_not_empty_string("${HUNTER_Boost_VERSION}")
 
   set(templates "${HUNTER_SELF}/cmake/templates")
   set(configs "${HUNTER_PACKAGE_INSTALL_PREFIX}/lib/cmake/Boost")

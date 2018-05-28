@@ -12,13 +12,13 @@ include(hunter_internal_error)
 include(hunter_private_data_password)
 include(hunter_sleep_before_download)
 include(hunter_status_debug)
-include(hunter_test_string_not_empty)
+include(hunter_assert_not_empty_string)
 include(hunter_upload_password)
 include(hunter_user_error)
 
 function(hunter_download_cache_raw_file)
-  hunter_test_string_not_empty("${HUNTER_CACHED_ROOT}")
-  hunter_test_string_not_empty("${HUNTER_TLS_VERIFY}")
+  hunter_assert_not_empty_string("${HUNTER_CACHED_ROOT}")
+  hunter_assert_not_empty_string("${HUNTER_TLS_VERIFY}")
 
   cmake_parse_arguments(x "" "LOCAL;SHA1;FROMSERVER" "" ${ARGV})
   # -> x_LOCAL

@@ -19,7 +19,7 @@ include(hunter_register_dependency)
 include(hunter_save_to_cache)
 include(hunter_status_debug)
 include(hunter_status_print)
-include(hunter_test_string_not_empty)
+include(hunter_assert_not_empty_string)
 include(hunter_upload_cache)
 include(hunter_user_error)
 
@@ -43,13 +43,13 @@ function(hunter_download)
       "${HUNTER_PACKAGE_NAME} versions available: ${versions}"
   )
 
-  hunter_test_string_not_empty("${HUNTER_DOWNLOAD_SCHEME}")
-  hunter_test_string_not_empty("${HUNTER_SELF}")
+  hunter_assert_not_empty_string("${HUNTER_DOWNLOAD_SCHEME}")
+  hunter_assert_not_empty_string("${HUNTER_SELF}")
 
-  hunter_test_string_not_empty("${HUNTER_INSTALL_PREFIX}")
-  hunter_test_string_not_empty("${HUNTER_PACKAGE_NAME}")
-  hunter_test_string_not_empty("${HUNTER_CONFIG_ID_PATH}")
-  hunter_test_string_not_empty("${HUNTER_CACHE_FILE}")
+  hunter_assert_not_empty_string("${HUNTER_INSTALL_PREFIX}")
+  hunter_assert_not_empty_string("${HUNTER_PACKAGE_NAME}")
+  hunter_assert_not_empty_string("${HUNTER_CONFIG_ID_PATH}")
+  hunter_assert_not_empty_string("${HUNTER_CACHE_FILE}")
 
   string(COMPARE NOTEQUAL "${HUNTER_BINARY_DIR}" "" hunter_has_binary_dir)
   string(COMPARE NOTEQUAL "${HUNTER_PACKAGE_COMPONENT}" "" hunter_has_component)
@@ -107,12 +107,12 @@ function(hunter_download)
 
   set(HUNTER_PACKAGE_PROTECTED_SOURCES "${HUNTER_${h_name}_PROTECTED_SOURCES}")
 
-  hunter_test_string_not_empty("${HUNTER_PACKAGE_CONFIGURATION_TYPES}")
+  hunter_assert_not_empty_string("${HUNTER_PACKAGE_CONFIGURATION_TYPES}")
 
   string(COMPARE EQUAL "${HUNTER_PACKAGE_URL}" "" hunter_no_url)
 
-  hunter_test_string_not_empty("${HUNTER_PACKAGE_URL}")
-  hunter_test_string_not_empty("${HUNTER_PACKAGE_SHA1}")
+  hunter_assert_not_empty_string("${HUNTER_PACKAGE_URL}")
+  hunter_assert_not_empty_string("${HUNTER_PACKAGE_SHA1}")
 
   hunter_make_directory(
       "${HUNTER_CACHED_ROOT}/_Base/Download/${HUNTER_PACKAGE_NAME}/${ver}"
