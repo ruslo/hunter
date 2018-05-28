@@ -9,6 +9,7 @@ include(hunter_create_args_file)
 include(hunter_download_server_url)
 include(hunter_find_licenses)
 include(hunter_find_stamps)
+include(hunter_get_cacheable)
 include(hunter_internal_error)
 include(hunter_jobs_number)
 include(hunter_load_from_cache)
@@ -60,13 +61,6 @@ function(hunter_download)
       ""
       has_internal_deps_id
   )
-  string(
-      COMPARE
-      NOTEQUAL
-      "${HUNTER_PACKAGE_UNRELOCATABLE_TEXT_FILES}"
-      ""
-      has_unrelocatable_text_files
-  )
 
   if(hunter_has_component)
     set(HUNTER_EP_NAME "${HUNTER_PACKAGE_NAME}-${HUNTER_PACKAGE_COMPONENT}")
@@ -105,15 +99,13 @@ function(hunter_download)
     set(HUNTER_PACKAGE_CONFIGURATION_TYPES ${HUNTER_CACHED_CONFIGURATION_TYPES})
   endif()
 
-  set(HUNTER_PACKAGE_CACHEABLE "${HUNTER_${h_name}_CACHEABLE}")
-  set(HUNTER_PACKAGE_PROTECTED_SOURCES "${HUNTER_${h_name}_PROTECTED_SOURCES}")
+  hunter_get_cacheable(
+      PACKAGE "${h_name}"
+      UNRELOCATABLE "${HUNTER_PACKAGE_UNRELOCATABLE_TEXT_FILES}"
+      OUT HUNTER_PACKAGE_CACHEABLE
+  )
 
-  if(has_unrelocatable_text_files AND NOT HUNTER_PACKAGE_CACHEABLE)
-    hunter_user_error(
-        "PACKAGE_UNRELOCATABLE_TEXT_FILES for uncacheable package:"
-        "  please add hunter_cacheable to hunter.cmake"
-    )
-  endif()
+  set(HUNTER_PACKAGE_PROTECTED_SOURCES "${HUNTER_${h_name}_PROTECTED_SOURCES}")
 
   hunter_test_string_not_empty("${HUNTER_PACKAGE_CONFIGURATION_TYPES}")
 
