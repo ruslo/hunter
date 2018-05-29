@@ -355,12 +355,12 @@ User can overwrite this default by using
 Set default version
 ===================
 
-Add ``hunter_config`` directive with default version to
+Add ``hunter_default_version`` directive with default version to
 ``cmake/configs/default.cmake``:
 
 .. code-block:: cmake
 
-  hunter_config(hunter_box_1 VERSION 1.0.0)
+  hunter_default_version(hunter_box_1 VERSION 1.0.0)
 
 Create example
 ==============

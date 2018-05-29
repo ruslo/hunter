@@ -5,6 +5,7 @@ include(CMakeParseArguments) # cmake_parse_arguments
 
 include(hunter_internal_error)
 include(hunter_status_debug)
+include(hunter_user_error)
 
 # If 'HUNTER_<name>_VERSION' is equal to 'h_VERSION', then
 # this function will set 'HUNTER_<name>_URL' and 'HUNTER_<name>_SHA1'.
@@ -48,6 +49,16 @@ function(hunter_add_version)
   string(COMPARE NOTEQUAL "${${expected_version}}" "${h_VERSION}" version_diff)
   if(version_diff)
     return()
+  endif()
+
+  set(user_url "${__HUNTER_FINAL_URL_${h_PACKAGE_NAME}}")
+  set(user_sha1 "${__HUNTER_FINAL_SHA1_${h_PACKAGE_NAME}}")
+
+  if(NOT user_url STREQUAL "" OR NOT user_sha1 STREQUAL "")
+    hunter_user_error(
+        "${h_VERSION} already used in 'hunter.cmake'."
+        " Please specify another version in hunter_config(${h_PACKAGE_NAME})."
+    )
   endif()
 
   # HUNTER_<name>_VERSION found

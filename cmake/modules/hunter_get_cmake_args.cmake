@@ -23,7 +23,7 @@ function(hunter_get_cmake_args)
   hunter_assert_not_empty_string("${x_OUT}")
 
   set(default_args "${__HUNTER_DEFAULT_CMAKE_ARGS_${x_PACKAGE}}")
-  set(user_args "${HUNTER_${x_PACKAGE}_CMAKE_ARGS}")
+  set(user_args "${__HUNTER_FINAL_CMAKE_ARGS_${x_PACKAGE}}")
 
   set(cmake_args "")
 

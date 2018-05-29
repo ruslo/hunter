@@ -5,14 +5,17 @@
 
 include(CMakeParseArguments) # cmake_parse_arguments
 
+include(hunter_assert_empty_string)
 include(hunter_assert_not_empty_string)
 include(hunter_create_args_file)
-include(hunter_download_server_url)
 include(hunter_find_licenses)
 include(hunter_find_stamps)
 include(hunter_get_cacheable)
 include(hunter_get_cmake_args)
 include(hunter_get_configuration_types)
+include(hunter_get_keep_package_sources)
+include(hunter_get_package_sha1)
+include(hunter_get_package_url)
 include(hunter_internal_error)
 include(hunter_jobs_number)
 include(hunter_load_from_cache)
@@ -36,9 +39,7 @@ function(hunter_download)
   # -> HUNTER_PACKAGE_INTERNAL_DEPS_ID
   # -> HUNTER_PACKAGE_UNRELOCATABLE_TEXT_FILES
 
-  if(HUNTER_UNPARSED_ARGUMENTS)
-    hunter_internal_error("Unparsed: ${HUNTER_UNPARSED_ARGUMENTS}")
-  endif()
+  hunter_assert_empty_string("${HUNTER_UNPARSED_ARGUMENTS}")
 
   set(versions "[${HUNTER_${HUNTER_PACKAGE_NAME}_VERSIONS}]")
   hunter_status_debug(
@@ -53,9 +54,9 @@ function(hunter_download)
   hunter_assert_not_empty_string("${HUNTER_CONFIG_ID_PATH}")
   hunter_assert_not_empty_string("${HUNTER_CACHE_FILE}")
 
-  string(COMPARE NOTEQUAL "${HUNTER_BINARY_DIR}" "" hunter_has_binary_dir)
-  string(COMPARE NOTEQUAL "${HUNTER_PACKAGE_COMPONENT}" "" hunter_has_component)
-  string(COMPARE NOTEQUAL "${CMAKE_TOOLCHAIN_FILE}" "" hunter_has_toolchain)
+  string(COMPARE NOTEQUAL "${HUNTER_BINARY_DIR}" "" has_binary_dir)
+  string(COMPARE NOTEQUAL "${HUNTER_PACKAGE_COMPONENT}" "" has_component)
+  string(COMPARE NOTEQUAL "${CMAKE_TOOLCHAIN_FILE}" "" has_toolchain)
   string(
       COMPARE
       NOTEQUAL
@@ -64,49 +65,46 @@ function(hunter_download)
       has_internal_deps_id
   )
 
-  if(hunter_has_component)
+  if(has_component)
     set(HUNTER_EP_NAME "${HUNTER_PACKAGE_NAME}-${HUNTER_PACKAGE_COMPONENT}")
   else()
     set(HUNTER_EP_NAME "${HUNTER_PACKAGE_NAME}")
   endif()
 
   # Set <LIB>_ROOT variables
-  set(h_name "${HUNTER_PACKAGE_NAME}") # Foo
+  set(package "${HUNTER_PACKAGE_NAME}") # Foo
   string(TOUPPER "${HUNTER_PACKAGE_NAME}" root_name) # FOO
   set(root_name "${root_name}_ROOT") # FOO_ROOT
 
-  set(HUNTER_PACKAGE_VERSION "${HUNTER_${h_name}_VERSION}")
+  set(HUNTER_PACKAGE_VERSION "${HUNTER_${package}_VERSION}")
   set(ver "${HUNTER_PACKAGE_VERSION}")
-  set(HUNTER_PACKAGE_SHA1 "${HUNTER_${h_name}_SHA1}")
 
-  string(COMPARE EQUAL "${HUNTER_PACKAGE_SHA1}" "" version_not_found)
-  if(version_not_found)
-    hunter_user_error("Version not found: ${ver}. See 'hunter_config' command.")
-  endif()
+  hunter_get_package_sha1(
+      PACKAGE "${package}"
+      VERSION "${ver}"
+      AVAILABLE_VERSIONS "${HUNTER_${package}_VERSIONS}"
+      OUT HUNTER_PACKAGE_SHA1
+  )
 
-  # set download URL, either direct download or redirected if HUNTER_DOWNLOAD_SERVER is set
-  hunter_download_server_url(
-    PACKAGE "${HUNTER_PACKAGE_NAME}"
-    VERSION "${HUNTER_PACKAGE_VERSION}"
-    SHA1    "${HUNTER_PACKAGE_SHA1}"
-    URL     "${HUNTER_${h_name}_URL}"
-    OUTPUT  HUNTER_PACKAGE_URL
+  hunter_get_package_url(
+      PACKAGE "${package}"
+      VERSION "${ver}"
+      SHA1 "${HUNTER_PACKAGE_SHA1}"
+      OUT HUNTER_PACKAGE_URL
   )
 
   hunter_get_configuration_types(
-      PACKAGE "${h_name}"
+      PACKAGE "${package}"
       OUT HUNTER_PACKAGE_CONFIGURATION_TYPES
   )
 
   hunter_get_cacheable(
-      PACKAGE "${h_name}"
+      PACKAGE "${package}"
       UNRELOCATABLE "${HUNTER_PACKAGE_UNRELOCATABLE_TEXT_FILES}"
       OUT HUNTER_PACKAGE_CACHEABLE
   )
 
-  set(HUNTER_PACKAGE_PROTECTED_SOURCES "${HUNTER_${h_name}_PROTECTED_SOURCES}")
-
-  string(COMPARE EQUAL "${HUNTER_PACKAGE_URL}" "" hunter_no_url)
+  set(HUNTER_PACKAGE_PROTECTED_SOURCES "${HUNTER_${package}_PROTECTED_SOURCES}")
 
   hunter_assert_not_empty_string("${HUNTER_PACKAGE_URL}")
   hunter_assert_not_empty_string("${HUNTER_PACKAGE_SHA1}")
@@ -151,13 +149,13 @@ function(hunter_download)
       HUNTER_PACKAGE_HOME_DIR
       "${HUNTER_PACKAGE_HOME_DIR}/${HUNTER_PACKAGE_NAME}"
   )
-  if(hunter_has_component)
+  if(has_component)
     set(
         HUNTER_PACKAGE_HOME_DIR
         "${HUNTER_PACKAGE_HOME_DIR}/__${HUNTER_PACKAGE_COMPONENT}"
     )
   endif()
-  if(hunter_has_binary_dir)
+  if(has_binary_dir)
     # When cross-compiling we may need two build directories for
     # the package - one for host and one for target. To avoid conflicts
     # add random string.
@@ -167,7 +165,7 @@ function(hunter_download)
         HUNTER_PACKAGE_BUILD_DIR
         "${helper_dir_to_remove}/${HUNTER_PACKAGE_NAME}"
     )
-    if(hunter_has_component)
+    if(has_component)
       set(
           HUNTER_PACKAGE_BUILD_DIR
           "${HUNTER_PACKAGE_BUILD_DIR}/__${HUNTER_PACKAGE_COMPONENT}"
@@ -213,7 +211,7 @@ function(hunter_download)
     set(${root_name} "${HUNTER_INSTALL_PREFIX}")
     hunter_status_debug("Install to: ${HUNTER_INSTALL_PREFIX}")
   else()
-    if(hunter_has_component)
+    if(has_component)
       hunter_internal_error(
           "Component for non-install package:"
           " ${HUNTER_PACKAGE_NAME} ${HUNTER_PACKAGE_COMPONENT}"
@@ -259,7 +257,7 @@ function(hunter_download)
 
   if(EXISTS "${HUNTER_PACKAGE_DONE_STAMP}")
     hunter_status_debug("Package already installed: ${HUNTER_PACKAGE_NAME}")
-    if(hunter_has_component)
+    if(has_component)
       hunter_status_debug("Component: ${HUNTER_PACKAGE_COMPONENT}")
     endif()
 
@@ -291,7 +289,7 @@ function(hunter_download)
   # While locking other instance can finish package building
   if(EXISTS "${HUNTER_PACKAGE_DONE_STAMP}")
     hunter_status_debug("Package already installed: ${HUNTER_PACKAGE_NAME}")
-    if(hunter_has_component)
+    if(has_component)
       hunter_status_debug("Component: ${HUNTER_PACKAGE_COMPONENT}")
     endif()
 
@@ -308,7 +306,7 @@ function(hunter_download)
     return()
   endif()
 
-  hunter_get_cmake_args(PACKAGE "${h_name}" OUT package_cmake_args)
+  hunter_get_cmake_args(PACKAGE "${package}" OUT package_cmake_args)
 
   file(REMOVE "${HUNTER_ARGS_FILE}")
   hunter_create_args_file("${package_cmake_args}" "${HUNTER_ARGS_FILE}")
@@ -329,7 +327,7 @@ function(hunter_download)
 
   if(EXISTS "${HUNTER_PACKAGE_DONE_STAMP}")
     hunter_status_debug("Package installed from cache: ${HUNTER_PACKAGE_NAME}")
-    if(hunter_has_component)
+    if(has_component)
       hunter_status_debug("Component: ${HUNTER_PACKAGE_COMPONENT}")
     endif()
 
@@ -365,19 +363,7 @@ function(hunter_download)
   file(REMOVE "${HUNTER_PACKAGE_HOME_DIR}/CMakeLists.txt")
   file(REMOVE "${HUNTER_DOWNLOAD_TOOLCHAIN}")
 
-  get_property(
-    keep_sources
-    GLOBAL
-    PROPERTY
-    "HUNTER_${h_name}_KEEP_PACKAGE_SOURCES"
-    )
-
-  if(HUNTER_KEEP_PACKAGE_SOURCES OR keep_sources)
-    set(_hunter_keep_package_sources ON)
-  else()
-    set(_hunter_keep_package_sources OFF)
-  endif()
-  hunter_status_debug("Keep package sources: ${_hunter_keep_package_sources}")
+  hunter_get_keep_package_sources(PACKAGE "${package}" OUT keep_sources)
 
   file(WRITE "${HUNTER_DOWNLOAD_TOOLCHAIN}" "")
 
@@ -387,7 +373,7 @@ function(hunter_download)
   hunter_status_debug("HUNTER_JOBS_OPTION: ${HUNTER_JOBS_OPTION}")
 
   # support for toolchain file forwarding
-  if(hunter_has_toolchain)
+  if(has_toolchain)
     # Fix windows path
     get_filename_component(x "${CMAKE_TOOLCHAIN_FILE}" ABSOLUTE)
     file(APPEND "${HUNTER_DOWNLOAD_TOOLCHAIN}" "include(\"${x}\")\n")
@@ -471,16 +457,9 @@ function(hunter_download)
     )
   endif()
 
-  if(hunter_no_url)
-    set(avail ${HUNTER_${h_name}_VERSIONS})
-    hunter_internal_error(
-        "${h_name} version(${ver}) not found. Available: [${avail}]"
-    )
-  endif()
-
   # print info before start generation/run
   hunter_status_debug("Add package: ${HUNTER_PACKAGE_NAME}")
-  if(hunter_has_component)
+  if(has_component)
     hunter_status_debug("Component: ${HUNTER_PACKAGE_COMPONENT}")
   endif()
   hunter_status_debug("Download scheme: ${HUNTER_DOWNLOAD_SCHEME}")
@@ -524,7 +503,7 @@ function(hunter_download)
   )
 
   set(build_message "Building ${HUNTER_PACKAGE_NAME}")
-  if(hunter_has_component)
+  if(has_component)
     set(
         build_message
         "${build_message} (component: ${HUNTER_PACKAGE_COMPONENT})"
@@ -539,18 +518,6 @@ function(hunter_download)
   string(COMPARE EQUAL "${HUNTER_USE_CACHE_SERVERS}" "ONLY" only_server)
   if(only_server)
     set(allow_builds FALSE)
-  endif()
-
-  # Always allow builds of submodules
-  get_property(submodule_projects GLOBAL PROPERTY HUNTER_SUBMODULE_PROJECTS)
-  if(submodule_projects)
-    list(FIND submodule_projects "${HUNTER_PACKAGE_NAME}" submodule_found)
-    if(NOT submodule_found EQUAL -1)
-      set(allow_builds TRUE)
-      if(hunter_has_component)
-        hunter_internal_error("Submodule with components")
-      endif()
-    endif()
   endif()
 
   if(NOT allow_builds AND HUNTER_PACKAGE_SCHEME_INSTALL)
@@ -653,8 +620,10 @@ function(hunter_download)
 
   file(REMOVE_RECURSE "${HUNTER_PACKAGE_BUILD_DIR}")
   if(HUNTER_PACKAGE_SCHEME_INSTALL)
-    if(_hunter_keep_package_sources)
-      hunter_status_debug("Keep source directory '${HUNTER_PACKAGE_SOURCE_DIR}'")
+    if(keep_sources)
+      hunter_status_debug(
+          "Keep source directory '${HUNTER_PACKAGE_SOURCE_DIR}'"
+      )
     else()
       # Unpacked directory not needed (save some disk space)
       file(REMOVE_RECURSE "${HUNTER_PACKAGE_SOURCE_DIR}")

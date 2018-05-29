@@ -36,9 +36,9 @@ function(hunter_calculate_config_sha1 hunter_self hunter_base user_config)
     if(NOT EXISTS "${user_config}")
       hunter_internal_error("Hunter config not exists")
     endif()
-    set(HUNTER_ALLOW_CONFIG_LOADING YES)
+    set(__HUNTER_ALLOW_CONFIG_LOADING YES)
     include("${user_config}") # Use 'hunter_config'
-    set(HUNTER_ALLOW_CONFIG_LOADING NO)
+    set(__HUNTER_ALLOW_CONFIG_LOADING NO)
   endif()
 
   # Create list of the projects
@@ -74,11 +74,6 @@ function(hunter_calculate_config_sha1 hunter_self hunter_base user_config)
   endif()
 
   set(projects "${real_projects}")
-  get_property(submodule_projects GLOBAL PROPERTY HUNTER_SUBMODULE_PROJECTS)
-  if(submodule_projects)
-    list(APPEND projects "${submodule_projects}")
-  endif()
-  list(REMOVE_DUPLICATES projects)
   list(SORT projects)
 
   # Create unified version
@@ -87,53 +82,57 @@ function(hunter_calculate_config_sha1 hunter_self hunter_base user_config)
   file(MAKE_DIRECTORY "${work_dir}")
 
   set(input_file "${work_dir}/config.cmake")
-  file(WRITE "${input_file}" "include(hunter_config)\n")
+  file(WRITE "${input_file}" "include(hunter_final_config)\n")
   foreach(x ${projects})
     set(version "${HUNTER_${x}_VERSION}")
-    if(version)
+    if("${version}" STREQUAL "")
+      # Not a real project or not a project directory
+      continue()
+    endif()
+
+    file(
+        APPEND
+        "${input_file}"
+        "hunter_final_config(\n"
+        "    PACKAGE \"${x}\"\n"
+        "    VERSION \"${version}\"\n"
+    )
+
+    set(sha1 "${__HUNTER_USER_SHA1_${x}}")
+    set(cmake_args "${__HUNTER_USER_CMAKE_ARGS_${x}}")
+    set(configuration_types "${__HUNTER_USER_CONFIGURATION_TYPES_${x}}")
+    set(url "${__HUNTER_USER_URL_${x}}")
+    set(keep_package_sources "${__HUNTER_USER_KEEP_PACKAGE_SOURCES_${x}}")
+
+    if(NOT sha1 STREQUAL "")
+      file(APPEND "${input_file}" "    SHA1 \"${sha1}\"\n")
+    endif()
+
+    if(NOT cmake_args STREQUAL "")
+      file(APPEND "${input_file}" "    CMAKE_ARGS \"${cmake_args}\"\n")
+    endif()
+
+    if(NOT configuration_types STREQUAL "")
       file(
           APPEND
           "${input_file}"
-          "hunter_config(${x} "
-          "VERSION ${version}"
+          "    CONFIGURATION_TYPES \"${configuration_types}\"\n"
       )
-
-      string(COMPARE NOTEQUAL "${HUNTER_${x}_CMAKE_ARGS}" "" have_args)
-      if(have_args)
-        file(APPEND "${input_file}" " CMAKE_ARGS")
-        foreach(y ${HUNTER_${x}_CMAKE_ARGS})
-          file(APPEND "${input_file}" " \"${y}\"")
-        endforeach()
-      endif()
-
-      string(COMPARE NOTEQUAL "${HUNTER_${x}_CONFIGURATION_TYPES}" "" have_types)
-      if(have_types)
-        file(APPEND "${input_file}" " CONFIGURATION_TYPES")
-        foreach(y ${HUNTER_${x}_CONFIGURATION_TYPES})
-          file(APPEND "${input_file}" " ${y}")
-        endforeach()
-      endif()
-
-      list(FIND submodule_projects "${x}" submodule_found)
-      if(NOT submodule_found EQUAL -1)
-        get_property(
-            git_submodule_dir
-            GLOBAL
-            PROPERTY
-            "HUNTER_${x}_GIT_SUBMODULE_DIR"
-        )
-        if(NOT EXISTS "${git_submodule_dir}")
-          hunter_internal_error("Property not found")
-        endif()
-        file(
-            APPEND
-            "${input_file}"
-            " GIT_SUBMODULE_DIR \"${git_submodule_dir}\""
-        )
-      endif()
-
-      file(APPEND "${input_file}" ")\n")
     endif()
+
+    if(NOT url STREQUAL "")
+      file(APPEND "${input_file}" "    URL \"${url}\"\n")
+    endif()
+
+    if(NOT keep_package_sources STREQUAL "")
+      if(keep_package_sources STREQUAL "TRUE")
+        file(APPEND "${input_file}" "    KEEP_PACKAGE_SOURCES\n")
+      else()
+        hunter_internal_error("Unexpected value: '${keep_package_sources}'")
+      endif()
+    endif()
+
+    file(APPEND "${input_file}" ")\n")
   endforeach()
 
   file(SHA1 "${work_dir}/config.cmake" HUNTER_GATE_CONFIG_SHA1)
@@ -151,7 +150,6 @@ function(hunter_calculate_config_sha1 hunter_self hunter_base user_config)
       "${HUNTER_GATE_CONFIG_SHA1}"
       hunter_config_id_path
   )
-
 
   set(dst "${hunter_config_id_path}/config.cmake")
 

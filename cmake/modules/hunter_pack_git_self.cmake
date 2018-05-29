@@ -4,69 +4,28 @@ include(hunter_assert_not_empty_string)
 include(hunter_internal_error)
 include(hunter_status_debug)
 
-set(_HUNTER_TEMPLATE_SCHEME_DIR "${CMAKE_CURRENT_LIST_DIR}/../templates")
-
 function(hunter_pack_git_self)
   hunter_assert_not_empty_string("${HUNTER_GATE_LOCATION}")
 
-  set(PACKAGE_NAME "${_hunter_current_project}")
-  string(COMPARE EQUAL "${PACKAGE_NAME}" "" is_empty)
-  if(is_empty)
-    hunter_internal_error("_hunter_current_project is empty")
-  endif()
-
   set(optional "")
-  set(one VERSION)
+  set(one PACKAGE URL_OUT SHA1_OUT)
   set(multiple "")
 
   # Introduce:
-  # * x_VERSION
+  # * x_PACKAGE
+  # * x_URL_OUT
+  # * x_SHA1_OUT
   cmake_parse_arguments(x "${optional}" "${one}" "${multiple}" "${ARGV}")
 
-  string(COMPARE NOTEQUAL "${x_UNPARSED_ARGUMENTS}" "" has_unparsed)
-  if(has_unparsed)
-    hunter_internal_error("Unparsed arguments: ${x_UNPARSED_ARGUMENTS}")
-  endif()
+  hunter_assert_empty_string("${x_UNPARSED_ARGUMENTS}")
 
-  string(COMPARE EQUAL "${x_VERSION}" "" is_empty)
-  if(is_empty)
-    hunter_internal_error("VERSION is empty")
-  endif()
+  hunter_assert_not_empty_string("${x_PACKAGE}")
+  hunter_assert_not_empty_string("${x_URL_OUT}")
+  hunter_assert_not_empty_string("${x_SHA1_OUT}")
 
-  string(COMPARE EQUAL "$ENV{HUNTER_GIT_EXECUTABLE}" "" is_empty)
+  hunter_get_git_executabe(git_executable)
 
-  if(is_empty)
-    find_package(Git REQUIRED)
-  else()
-    set(GIT_EXECUTABLE "$ENV{HUNTER_GIT_EXECUTABLE}")
-    execute_process(
-        COMMAND
-        ${GIT_EXECUTABLE} --version
-        RESULT_VARIABLE result
-        OUTPUT_VARIABLE output
-        ERROR_VARIABLE output
-        OUTPUT_STRIP_TRAILING_WHITESPACE
-        ERROR_STRIP_TRAILING_WHITESPACE
-    )
-    if(result EQUAL "0")
-      if(output MATCHES "^git version [0-9]")
-        string(REPLACE "git version " "" GIT_VERSION_STRING "${output}")
-      else()
-        hunter_internal_error("Unexpected output: ${output}")
-      endif()
-    else()
-      hunter_internal_error("Can't get Git version: ${result} ${output}")
-    endif()
-  endif()
-  hunter_status_debug("Using git executable: ${GIT_EXECUTABLE}")
-
-  # For '--git-path':
-  # * https://git-scm.com/docs/git-rev-parse/2.5.0
-  if(GIT_VERSION_STRING VERSION_LESS "2.5.0")
-    hunter_user_error("At least Git 2.5.0 required")
-  endif()
-
-  set(cmd "${GIT_EXECUTABLE}" rev-parse --show-toplevel)
+  set(cmd "${git_executable}" rev-parse --show-toplevel)
   execute_process(
       COMMAND ${cmd}
       WORKING_DIRECTORY "${PROJECT_SOURCE_DIR}"
@@ -77,7 +36,7 @@ function(hunter_pack_git_self)
       ERROR_STRIP_TRAILING_WHITESPACE
   )
 
-  if(NOT result EQUAL 0)
+  if(NOT result EQUAL "0")
     hunter_internal_error(
         "Command failed: ${cmd} (${result}, ${output}, ${error})"
     )
@@ -93,7 +52,7 @@ function(hunter_pack_git_self)
     hunter_internal_error("Not a directory: ${top_git_directory}")
   endif()
 
-  set(cmd "${GIT_EXECUTABLE}" status --porcelain)
+  set(cmd "${git_executable}" status --porcelain)
   execute_process(
       COMMAND ${cmd}
       WORKING_DIRECTORY "${top_git_directory}"
@@ -104,7 +63,7 @@ function(hunter_pack_git_self)
       ERROR_STRIP_TRAILING_WHITESPACE
   )
 
-  if(NOT result EQUAL 0)
+  if(NOT result EQUAL "0")
     hunter_internal_error(
         "Command failed: ${cmd} (${result}, ${output}, ${error})"
     )
@@ -227,7 +186,7 @@ function(hunter_pack_git_self)
     endforeach()
   endforeach()
 
-  set(cmd "${GIT_EXECUTABLE}" rev-parse --git-path HEAD)
+  set(cmd "${git_executable}" rev-parse --git-path HEAD)
   execute_process(
       COMMAND ${cmd}
       WORKING_DIRECTORY "${top_git_directory}"
@@ -238,7 +197,7 @@ function(hunter_pack_git_self)
       ERROR_STRIP_TRAILING_WHITESPACE
   )
 
-  if(NOT result EQUAL 0)
+  if(NOT result EQUAL "0")
     hunter_internal_error(
         "Command failed: ${cmd} (${result}, ${output}, ${error})"
     )
@@ -256,7 +215,7 @@ function(hunter_pack_git_self)
       DIRECTORY APPEND PROPERTY CMAKE_CONFIGURE_DEPENDS "${head_file}"
   )
 
-  set(cmd "${GIT_EXECUTABLE}" rev-parse --symbolic-full-name HEAD)
+  set(cmd "${git_executable}" rev-parse --symbolic-full-name HEAD)
   execute_process(
       COMMAND ${cmd}
       WORKING_DIRECTORY "${top_git_directory}"
@@ -267,14 +226,14 @@ function(hunter_pack_git_self)
       ERROR_STRIP_TRAILING_WHITESPACE
   )
 
-  if(NOT result EQUAL 0)
+  if(NOT result EQUAL "0")
     hunter_internal_error(
         "Command failed: ${cmd} (${result}, ${output}, ${error})"
     )
   endif()
 
   set(head_ref "${output}")
-  set(cmd "${GIT_EXECUTABLE}" rev-parse --git-path "${head_ref}")
+  set(cmd "${git_executable}" rev-parse --git-path "${head_ref}")
   execute_process(
       COMMAND ${cmd}
       WORKING_DIRECTORY "${top_git_directory}"
@@ -285,7 +244,7 @@ function(hunter_pack_git_self)
       ERROR_STRIP_TRAILING_WHITESPACE
   )
 
-  if(NOT result EQUAL 0)
+  if(NOT result EQUAL "0")
     hunter_internal_error(
         "Command failed: ${cmd} (${result}, ${output}, ${error})"
     )
@@ -303,13 +262,16 @@ function(hunter_pack_git_self)
       DIRECTORY APPEND PROPERTY CMAKE_CONFIGURE_DEPENDS "${ref_file}"
   )
 
-  set(archives_directory "${CMAKE_CURRENT_BINARY_DIR}/_3rdParty/Hunter/git-archives")
+  set(
+      archives_directory
+      "${CMAKE_CURRENT_BINARY_DIR}/_3rdParty/Hunter/git-archives"
+  )
   file(MAKE_DIRECTORY "${archives_directory}")
 
-  set(archive "${archives_directory}/${PACKAGE_NAME}.tar")
+  set(archive "${archives_directory}/${x_PACKAGE}.tar")
   hunter_status_debug("Creating archive '${archive}'")
 
-  set(cmd "${GIT_EXECUTABLE}" archive HEAD -o "${archive}")
+  set(cmd "${git_executable}" archive HEAD -o "${archive}")
   execute_process(
       COMMAND ${cmd}
       WORKING_DIRECTORY "${top_git_directory}"
@@ -320,51 +282,15 @@ function(hunter_pack_git_self)
       ERROR_STRIP_TRAILING_WHITESPACE
   )
 
-  if(NOT result EQUAL 0)
+  if(NOT result EQUAL "0")
     hunter_internal_error(
         "Command failed: ${cmd} (${result}, ${output}, ${error})"
     )
   endif()
 
-  set(version_file "${archives_directory}/${PACKAGE_NAME}-version.cmake")
-  set(download_file "${archives_directory}/${PACKAGE_NAME}-download.cmake")
+  file(SHA1 "${archive}" package_sha1)
+  set(package_url "file://${archive}")
 
-  file(SHA1 "${archive}" PACKAGE_SHA1)
-  set(PACKAGE_URL "file://${archive}")
-
-  # Use:
-  # * PACKAGE_NAME
-  configure_file(
-      "${_HUNTER_TEMPLATE_SCHEME_DIR}/package-download.cmake.in"
-      "${download_file}"
-      @ONLY
-  )
-
-  # Use:
-  # * PACKAGE_NAME
-  # * PACKAGE_SHA1
-  # * PACKAGE_URL
-  configure_file(
-      "${_HUNTER_TEMPLATE_SCHEME_DIR}/package-version.cmake.in"
-      "${version_file}"
-      @ONLY
-  )
-
-  # Note: SUBMODULE is not relevant in property name, just use same facility
-  set_property(
-      GLOBAL
-      PROPERTY
-      "HUNTER_${PACKAGE_NAME}_GIT_SUBMODULE_DIR"
-      "${archives_directory}"
-  )
-
-  set_property(
-      GLOBAL
-      APPEND
-      PROPERTY
-      HUNTER_SUBMODULE_PROJECTS
-      "${PACKAGE_NAME}"
-  )
-
-  set("${x_VERSION}" "${PACKAGE_SHA1}" PARENT_SCOPE)
+  set("${x_URL_OUT}" "${package_url}" PARENT_SCOPE)
+  set("${x_SHA1_OUT}" "${package_sha1}" PARENT_SCOPE)
 endfunction()

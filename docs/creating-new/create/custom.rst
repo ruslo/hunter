@@ -143,7 +143,7 @@ Next steps are similar to :ref:`cmake-simple`.
 .. code-block:: bash
 
     > grep ios_sim cmake/config/default.cmake
-    hunter_config(ios_sim VERSION 1.8.2)
+    hunter_default_version(ios_sim VERSION 1.8.2)
 
 Using
 =====

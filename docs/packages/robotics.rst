@@ -32,6 +32,6 @@ ROS
  * :ref:`pkg.ros_genpy` - ROS genpy package - Python ROS message and service generator
  * :ref:`pkg.ros_message_generation` - ROS `message_generation` package
  * :ref:`pkg.ros_message_runtime` - ROS `message_runtime` package
- * :ref:`pkg.ros_std_msgs` - ROS `std_msgs` package - Contains minimal messages of primitive data types and multiarrays
+ * :ref:`pkg.ros_std_msgs` - ROS `std_msgs` package - Contains minimal messages of primitive data types and multi-arrays
  * :ref:`pkg.roscpp_core` - ROS C++ core package
  * :ref:`pkg.rospack` - ROS rospack package - a command-line tool for retrieving information about ROS packages available on the filesystem

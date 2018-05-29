@@ -27,7 +27,7 @@ function(hunter_get_configuration_types)
     return()
   endif()
 
-  set(user_types "${HUNTER_${x_PACKAGE}_CONFIGURATION_TYPES}")
+  set(user_types "${__HUNTER_FINAL_CONFIGURATION_TYPES_${x_PACKAGE}}")
   set(
       package_default_types
       "${__HUNTER_DEFAULT_CONFIGURATION_TYPES_${x_PACKAGE}}"
