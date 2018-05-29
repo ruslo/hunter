@@ -24,7 +24,6 @@ function(hunter_get_package_sha1)
 
   hunter_assert_not_empty_string("${x_PACKAGE}")
   hunter_assert_not_empty_string("${x_VERSION}")
-  hunter_assert_not_empty_string("${x_AVAILABLE_VERSIONS}")
   hunter_assert_not_empty_string("${x_OUT}")
 
   set(user_sha1 "${__HUNTER_FINAL_SHA1_${x_PACKAGE}}")
@@ -39,10 +38,12 @@ function(hunter_get_package_sha1)
   elseif(NOT hunter_sha1 STREQUAL "")
     set("${x_OUT}" "${hunter_sha1}" PARENT_SCOPE)
   else()
-    hunter_status_debug("Available versions:")
-    foreach(version ${x_AVAILABLE_VERSIONS})
-      hunter_status_debug("* ${version}")
-    endforeach()
+    if(NOT "${x_AVAILABLE_VERSIONS}" STREQUAL "")
+      hunter_status_debug("Available versions:")
+      foreach(version ${x_AVAILABLE_VERSIONS})
+        hunter_status_debug("* ${version}")
+      endforeach()
+    endif()
 
     hunter_user_error(
         "Version not found: ${x_VERSION}. Please check 'hunter_config' command."
