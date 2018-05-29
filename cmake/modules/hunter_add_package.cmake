@@ -44,6 +44,7 @@ macro(hunter_add_package)
   )
 
   if(_hunter_ap_new_injected_package)
+    hunter_status_debug("Injected package '${_hunter_ap_project}'")
     include(hunter_cacheable)
     include(hunter_download)
     include(hunter_pick_scheme)

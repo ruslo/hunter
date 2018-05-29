@@ -31,6 +31,7 @@ function(hunter_get_project_files_to_load)
   set(hunter_cmake "${project_dir}/hunter.cmake")
 
   if(NOT EXISTS "${hunter_cmake}")
+    hunter_status_debug("File not found (injected package): ${hunter_cmake}")
     set("${x_NEW_INJECTED_PACKAGE}" "TRUE" PARENT_SCOPE)
     return()
   endif()
