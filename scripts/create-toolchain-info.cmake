@@ -28,8 +28,8 @@ if(EXISTS "${TOOLCHAIN_INFO_FILE}")
   hunter_internal_error("${TOOLCHAIN_INFO_FILE} already exists")
 endif()
 
-include(hunter_test_string_not_empty)
-hunter_test_string_not_empty("${HUNTER_CONFIGURATION_TYPES}")
+include(hunter_assert_not_empty_string)
+hunter_assert_not_empty_string("${HUNTER_CONFIGURATION_TYPES}")
 
 file(
     WRITE

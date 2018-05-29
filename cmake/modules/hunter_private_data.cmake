@@ -19,7 +19,7 @@ include(hunter_user_error)
 function(hunter_private_data)
   set(func "'hunter_private_data'")
 
-  hunter_test_string_not_empty("${HUNTER_CACHED_ROOT}")
+  hunter_assert_not_empty_string("${HUNTER_CACHED_ROOT}")
 
   set(one URL SHA1 CREDENTIALS LOCATION FILE)
   set(multiple HTTPHEADER)

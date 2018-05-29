@@ -1,0 +1,21 @@
+.. Copyright (c) 2018, Ruslan Baratov
+.. All rights reserved.
+
+v0.21.X
+-------
+
+* New :ref:`HUNTER_GIT_EXECUTABLE <hunter git executable env>` environment variable
+* :doc:`Private data download </user-guides/cmake-user/private-data>`
+* :doc:`Download private GitHub asset </faq/how-to-download-private-github-asset>`
+* Requirements for uploading to GitHub updated, check
+  :doc:`documentation </user-guides/hunter-user/github-cache-server>`
+  for details
+* :doc:`Uploading to Artifactory server </user-guides/hunter-user/artifactory-cache-server>`
+
+New packages and updates
+========================
+
+``git diff v0.20.0..v0.21.0 -- cmake/configs/default.cmake``:
+
+.. literalinclude:: 20..21.diff
+  :language: diff

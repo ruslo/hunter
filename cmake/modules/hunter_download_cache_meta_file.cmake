@@ -12,12 +12,12 @@ include(hunter_internal_error)
 include(hunter_private_data_password)
 include(hunter_sleep_before_download)
 include(hunter_status_debug)
-include(hunter_test_string_not_empty)
+include(hunter_assert_not_empty_string)
 include(hunter_upload_password)
 include(hunter_user_error)
 
 function(hunter_download_cache_meta_file)
-  hunter_test_string_not_empty("${HUNTER_CACHED_ROOT}")
+  hunter_assert_not_empty_string("${HUNTER_CACHED_ROOT}")
 
   cmake_parse_arguments(x "" "LOCAL;DONE" "" ${ARGV})
   # -> x_LOCAL

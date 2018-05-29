@@ -7,13 +7,13 @@ include(hunter_make_directory)
 include(hunter_print_cmd)
 include(hunter_status_debug)
 include(hunter_status_print)
-include(hunter_test_string_not_empty)
+include(hunter_assert_not_empty_string)
 
 function(hunter_calculate_toolchain_sha1 hunter_self hunter_base)
-  hunter_test_string_not_empty("${hunter_self}")
-  hunter_test_string_not_empty("${hunter_base}")
-  hunter_test_string_not_empty("${CMAKE_BINARY_DIR}")
-  hunter_test_string_not_empty("${CMAKE_GENERATOR}")
+  hunter_assert_not_empty_string("${hunter_self}")
+  hunter_assert_not_empty_string("${hunter_base}")
+  hunter_assert_not_empty_string("${CMAKE_BINARY_DIR}")
+  hunter_assert_not_empty_string("${CMAKE_GENERATOR}")
 
   if(CMAKE_TOOLCHAIN_FILE)
     set(use_toolchain "-DCMAKE_TOOLCHAIN_FILE=${CMAKE_TOOLCHAIN_FILE}")
@@ -133,7 +133,11 @@ function(hunter_calculate_toolchain_sha1 hunter_self hunter_base)
     return()
   endif()
 
-  configure_file("${local_toolchain_info}" "${global_toolchain_info}" COPYONLY)
+  set(temp "${hunter_toolchain_id_path}/toolchain.info.TEMP")
+  configure_file("${local_toolchain_info}" "${temp}" COPYONLY)
+
+  file(RENAME "${temp}" "${global_toolchain_info}")
+
   hunter_status_debug("Toolchain info: ${global_toolchain_info}")
   hunter_status_debug("Toolchain SHA1: ${HUNTER_GATE_TOOLCHAIN_SHA1}")
 

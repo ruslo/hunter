@@ -1,16 +1,32 @@
-# Copyright (c) 2013-2015, Ruslan Baratov
+# Copyright (c) 2013-2018, Ruslan Baratov
 # All rights reserved.
 
 include(CMakeParseArguments) # cmake_parse_arguments
 
+include(hunter_assert_empty_string)
+include(hunter_assert_not_empty_string)
 include(hunter_fatal_error)
+include(hunter_pack_git_self)
 include(hunter_pack_git_submodule)
-include(hunter_unsetvar)
-include(hunter_user_error)
 include(hunter_parse_cmake_args_for_keyword)
+include(hunter_user_error)
 
-macro(hunter_config)
-  if(NOT HUNTER_ALLOW_CONFIG_LOADING)
+# Usage:
+# * hunter_config(${package} GIT_SELF)
+# * hunter_config(${package} GIT_SUBMODULE "...")
+# * hunter_config(${package} VERSION "...")
+# * hunter_config(${package} URL "..." SHA1 "...")
+
+# All variants accepts extra:
+# * KEEP_PACKAGE_SOURCES
+# * VERSION
+# * CMAKE_ARGS
+# * CONFIGURATION_TYPES
+
+function(hunter_config package)
+  hunter_assert_not_empty_string("${package}")
+
+  if(NOT __HUNTER_ALLOW_CONFIG_LOADING)
     hunter_fatal_error(
         "Unexpected 'hunter_config' usage from:"
         "  ${CMAKE_CURRENT_LIST_FILE}:${CMAKE_CURRENT_LIST_LINE}"
@@ -18,84 +34,114 @@ macro(hunter_config)
         "error.unexpected.hunter_config"
     )
   endif()
-  set(_hunter_optional KEEP_PACKAGE_SOURCES)
-  set(_hunter_one_value VERSION GIT_SUBMODULE GIT_SUBMODULE_DIR)
-  set(_hunter_multiple_values CMAKE_ARGS CONFIGURATION_TYPES)
-  cmake_parse_arguments(
-      _hunter
-      "${_hunter_optional}"
-      "${_hunter_one_value}"
-      "${_hunter_multiple_values}"
-      ${ARGV}
-  )
-  list(LENGTH _hunter_UNPARSED_ARGUMENTS _hunter_len)
-  if(NOT ${_hunter_len} EQUAL 1)
+
+  set(optional KEEP_PACKAGE_SOURCES GIT_SELF)
+  set(one VERSION GIT_SUBMODULE URL SHA1)
+  set(multiple CMAKE_ARGS CONFIGURATION_TYPES)
+
+  # Introduce:
+  # * x_KEEP_PACKAGE_SOURCES
+  # * x_GIT_SELF
+  # * x_VERSION
+  # * x_GIT_SUBMODULE
+  # * x_URL
+  # * x_SHA1
+  # * x_CMAKE_ARGS
+  # * x_CONFIGURATION_TYPES
+  cmake_parse_arguments(x "${optional}" "${one}" "${multiple}" "${ARGN}")
+
+  hunter_assert_empty_string("${x_UNPARSED_ARGUMENTS}")
+
+  if(x_GIT_SELF)
+    if(NOT "${x_GIT_SUBMODULE}" STREQUAL "")
+      hunter_user_error("GIT_SUBMODULE can't be used with GIT_SELF")
+    endif()
+    if(NOT "${x_URL}" STREQUAL "")
+      hunter_user_error("URL can't be used with GIT_SELF")
+    endif()
+    if(NOT "${x_SHA1}" STREQUAL "")
+      hunter_user_error("SHA1 can't be used with GIT_SELF")
+    endif()
+  elseif(NOT "${x_GIT_SUBMODULE}" STREQUAL "")
+    if(NOT "${x_URL}" STREQUAL "")
+      hunter_user_error("URL can't be used with GIT_SUBMODULE")
+    endif()
+    if(NOT "${x_SHA1}" STREQUAL "")
+      hunter_user_error("SHA1 can't be used with GIT_SUBMODULE")
+    endif()
+  elseif(NOT "${x_URL}" STREQUAL "")
+    if("${x_SHA1}" STREQUAL "")
+      hunter_user_error("Expected SHA1")
+    endif()
+  elseif(NOT "${x_SHA1}" STREQUAL "")
+    if("${x_URL}" STREQUAL "")
+      hunter_user_error("Expected URL")
+    endif()
+  elseif("${x_VERSION}" STREQUAL "")
     hunter_user_error(
-        "Unparsed arguments for 'hunter_config' command: "
-        "${_hunter_UNPARSED_ARGUMENTS}"
+        "No VERSION, GIT_SELF, GIT_SUBMODULE or URL/SHA1 specified"
     )
   endif()
 
-  # calc <NAME>_ROOT
-  list(GET _hunter_UNPARSED_ARGUMENTS 0 _hunter_current_project)
-  string(TOUPPER "${_hunter_current_project}" _hunter_root)
-  set(_hunter_root "${_hunter_root}_ROOT")
-
-  # clear all
-  hunter_unsetvar(${_hunter_root})
-
-  string(COMPARE NOTEQUAL "${_hunter_GIT_SUBMODULE}" "" _hunter_submodule_create)
-  if(_hunter_submodule_create)
+  if(NOT "${x_GIT_SUBMODULE}" STREQUAL "")
     # get HUNTER_SUBMODULE_SOURCE_SUBDIR from CMAKE_ARGS
     hunter_parse_cmake_args_for_keyword(
-      CMAKE_ARGS ${_hunter_CMAKE_ARGS}
-      KEYWORD HUNTER_SUBMODULE_SOURCE_SUBDIR
-      OUTPUT _source_subdir
+        CMAKE_ARGS ${x_CMAKE_ARGS}
+        KEYWORD HUNTER_SUBMODULE_SOURCE_SUBDIR
+        OUTPUT subdir
     )
 
     hunter_pack_git_submodule(
-        GIT_SUBMODULE "${_hunter_GIT_SUBMODULE}"
-        VERSION _hunter_VERSION
-        SUBMODULE_SOURCE_SUBDIR "${_source_subdir}"
+        PACKAGE "${package}"
+        GIT_SUBMODULE "${x_GIT_SUBMODULE}"
+        SUBMODULE_SOURCE_SUBDIR "${subdir}"
+        URL_OUT x_URL
+        SHA1_OUT x_SHA1
+    )
+  elseif(x_GIT_SELF)
+    hunter_pack_git_self(
+        PACKAGE "${package}"
+        URL_OUT x_URL
+        SHA1_OUT x_SHA1
     )
   endif()
 
-  string(COMPARE NOTEQUAL "${_hunter_GIT_SUBMODULE_DIR}" "" _hunter_submodule_consume)
-  if(_hunter_submodule_consume)
-    set_property(
-        GLOBAL
-        PROPERTY
-        "HUNTER_${_hunter_current_project}_GIT_SUBMODULE_DIR"
-        "${_hunter_GIT_SUBMODULE_DIR}"
-    )
-
-    set_property(
-        GLOBAL
-        APPEND
-        PROPERTY
-        HUNTER_SUBMODULE_PROJECTS
-        "${_hunter_current_project}"
-    )
+  if("${x_VERSION}" STREQUAL "")
+    # GIT_SELF, GIT_SUBMODULE or URL/SHA1 variant may not provide version.
+    # Use SHA1 or packge in this case
+    set(x_VERSION "${x_SHA1}")
   endif()
 
-  if(_hunter_VERSION)
-    set(HUNTER_${_hunter_current_project}_VERSION ${_hunter_VERSION})
-    set(HUNTER_${_hunter_current_project}_CMAKE_ARGS ${_hunter_CMAKE_ARGS})
+  hunter_assert_not_empty_string("${x_VERSION}")
+  set("HUNTER_${package}_VERSION" "${x_VERSION}" PARENT_SCOPE)
+
+  set(
+      __HUNTER_USER_PACKAGES
+      "${__HUNTER_USER_PACKAGES};${package}"
+      PARENT_SCOPE
+  )
+
+  if(NOT "${x_SHA1}" STREQUAL "")
+    set("__HUNTER_USER_SHA1_${package}" "${x_SHA1}" PARENT_SCOPE)
+  endif()
+
+  if(NOT "${x_CMAKE_ARGS}" STREQUAL "")
+    set("__HUNTER_USER_CMAKE_ARGS_${package}" "${x_CMAKE_ARGS}" PARENT_SCOPE)
+  endif()
+
+  if(NOT "${x_CONFIGURATION_TYPES}" STREQUAL "")
     set(
-        HUNTER_${_hunter_current_project}_CONFIGURATION_TYPES
-        ${_hunter_CONFIGURATION_TYPES}
+        "__HUNTER_USER_CONFIGURATION_TYPES_${package}"
+        "${x_CONFIGURATION_TYPES}"
+        PARENT_SCOPE
     )
-  else()
-    hunter_user_error("Expected VERSION option for 'hunter_config' command")
   endif()
 
-  if(_hunter_KEEP_PACKAGE_SOURCES)
-    set_property(
-      GLOBAL
-      PROPERTY
-      "HUNTER_${_hunter_current_project}_KEEP_PACKAGE_SOURCES"
-      ON
-      )
+  if(NOT "${x_URL}" STREQUAL "")
+    set("__HUNTER_USER_URL_${package}" "${x_URL}" PARENT_SCOPE)
   endif()
 
-endmacro()
+  if(x_KEEP_PACKAGE_SOURCES)
+    set("__HUNTER_USER_KEEP_PACKAGE_SOURCES_${package}" "TRUE" PARENT_SCOPE)
+  endif()
+endfunction()

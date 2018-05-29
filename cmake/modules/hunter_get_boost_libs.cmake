@@ -3,7 +3,7 @@
 
 include(CMakeParseArguments) # cmake_parse_arguments
 
-include(hunter_test_string_not_empty)
+include(hunter_assert_not_empty_string)
 include(hunter_append_component)
 
 function(hunter_get_boost_libs)

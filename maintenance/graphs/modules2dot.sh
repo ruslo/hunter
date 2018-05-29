@@ -23,7 +23,7 @@ excluded_modules=(
 	hunter_internal_error
 	hunter_fatal_error
 	hunter_wiki
-	hunter_test_string_not_empty
+	hunter_assert_not_empty_string
 )
 
 

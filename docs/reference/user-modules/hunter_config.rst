@@ -39,4 +39,17 @@ Instead of using ``VERSION`` you can create source archive by packing
 
   hunter_config(<PackageName> GIT_SUBMODULE "3rdparty/<PackageName>")
 
+Or packing
+:doc:`Current Git repository itself </user-guides/hunter-user/git-self>`:
+
+.. code-block:: cmake
+
+  hunter_config(<PackageName> GIT_SELF)
+
+Or specifying ``URL``/``SHA1`` of package explicitly:
+
+.. code-block:: cmake
+
+  hunter_config(<PackageName> URL "..." SHA1 "...")
+
 .. _ExternalProject_Add: http://www.cmake.org/cmake/help/v3.0/module/ExternalProject.html

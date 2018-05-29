@@ -9,7 +9,7 @@ include(hunter_make_directory)
 include(hunter_pack_directory)
 include(hunter_patch_unrelocatable_text_files)
 include(hunter_status_debug)
-include(hunter_test_string_not_empty)
+include(hunter_assert_not_empty_string)
 include(hunter_unpack_directory)
 
 # Save results of install
@@ -20,11 +20,11 @@ include(hunter_unpack_directory)
 #  4. Unpack archive from Cache to HUNTER_INSTALL_PREFIX
 #  5. Save cache.sha1 file
 function(hunter_save_to_cache)
-  hunter_test_string_not_empty("${HUNTER_CACHED_ROOT}")
-  hunter_test_string_not_empty("${HUNTER_INSTALL_PREFIX}")
-  hunter_test_string_not_empty("${HUNTER_PACKAGE_HOME_DIR}")
-  hunter_test_string_not_empty("${HUNTER_PACKAGE_INSTALL_PREFIX}")
-  hunter_test_string_not_empty("${HUNTER_PACKAGE_NAME}")
+  hunter_assert_not_empty_string("${HUNTER_CACHED_ROOT}")
+  hunter_assert_not_empty_string("${HUNTER_INSTALL_PREFIX}")
+  hunter_assert_not_empty_string("${HUNTER_PACKAGE_HOME_DIR}")
+  hunter_assert_not_empty_string("${HUNTER_PACKAGE_INSTALL_PREFIX}")
+  hunter_assert_not_empty_string("${HUNTER_PACKAGE_NAME}")
 
   string(COMPARE NOTEQUAL "${HUNTER_PACKAGE_COMPONENT}" "" has_component)
   string(
@@ -97,7 +97,7 @@ function(hunter_save_to_cache)
       archive_sha1
   )
 
-  hunter_test_string_not_empty("${archive_sha1}")
+  hunter_assert_not_empty_string("${archive_sha1}")
 
   ### Install to global directory from cache archive
   hunter_unpack_directory(${archive_sha1})
@@ -110,7 +110,7 @@ function(hunter_save_to_cache)
 
   ### Save cache meta-data
   hunter_create_cache_meta_directory("${cache_directory}" cache_meta_dir)
-  hunter_test_string_not_empty("${cache_meta_dir}")
+  hunter_assert_not_empty_string("${cache_meta_dir}")
 
   ### create cache.sha1 file in home (before saving dependencies)
   hunter_status_debug("Saving cache file: ${cache_file}")

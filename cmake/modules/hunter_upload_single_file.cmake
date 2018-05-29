@@ -6,8 +6,8 @@ include(hunter_sleep_before_download)
 include(hunter_status_debug)
 
 function(hunter_upload_single_file filename)
-  hunter_test_string_not_empty("${HUNTER_CACHED_ROOT}")
-  hunter_test_string_not_empty("${HUNTER_UPLOAD_SERVER}")
+  hunter_assert_not_empty_string("${HUNTER_CACHED_ROOT}")
+  hunter_assert_not_empty_string("${HUNTER_UPLOAD_SERVER}")
 
   set(cache_root_dir "${HUNTER_CACHED_ROOT}/_Base/Cache")
   if(NOT EXISTS ${cache_root_dir})
