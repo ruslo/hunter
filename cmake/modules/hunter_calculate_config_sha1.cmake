@@ -162,7 +162,10 @@ function(hunter_calculate_config_sha1 hunter_self hunter_base user_config)
     return()
   endif()
 
-  file(RENAME "${work_dir}/config.cmake" "${dst}")
+  set(temp "${hunter_config_id_path}/config.cmake.TEMP")
+  configure_file("${work_dir}/config.cmake" "${temp}" COPYONLY)
+
+  file(RENAME "${temp}" "${dst}")
   hunter_status_debug("Config: ${dst}")
   hunter_status_debug("Config sha1: ${HUNTER_GATE_CONFIG_SHA1}")
 endfunction()
