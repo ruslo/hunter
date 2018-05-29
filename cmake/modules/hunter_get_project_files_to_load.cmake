@@ -36,6 +36,8 @@ function(hunter_get_project_files_to_load)
     return()
   endif()
 
+  set("${x_NEW_INJECTED_PACKAGE}" "FALSE" PARENT_SCOPE)
+
   set(result_list "")
   list(APPEND result_list "${hunter_cmake}")
 
