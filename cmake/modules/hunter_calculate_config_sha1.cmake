@@ -74,6 +74,8 @@ function(hunter_calculate_config_sha1 hunter_self hunter_base user_config)
   endif()
 
   set(projects "${real_projects}")
+  list(APPEND projects ${__HUNTER_USER_PACKAGES})
+  list(REMOVE_DUPLICATES projects)
   list(SORT projects)
 
   # Create unified version

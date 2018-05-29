@@ -115,6 +115,12 @@ function(hunter_config package)
   hunter_assert_not_empty_string("${x_VERSION}")
   set("HUNTER_${package}_VERSION" "${x_VERSION}" PARENT_SCOPE)
 
+  set(
+      __HUNTER_USER_PACKAGES
+      "${__HUNTER_USER_PACKAGES};${package}"
+      PARENT_SCOPE
+  )
+
   if(NOT "${x_SHA1}" STREQUAL "")
     set("__HUNTER_USER_SHA1_${package}" "${x_SHA1}" PARENT_SCOPE)
   endif()
