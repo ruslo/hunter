@@ -70,6 +70,8 @@ hunter_dump_cmake_flags(SKIP_INCLUDES SKIP_PIC)
 # -> CMAKE_CXX_FLAGS
 # -> CMAKE_C_FLAGS
 
+string(REGEX REPLACE "^ " "" CMAKE_C_FLAGS "${CMAKE_C_FLAGS}")
+
 # Pass C compiler through
 set(configure_command
     MACHINE=${CMAKE_SYSTEM_PROCESSOR}
