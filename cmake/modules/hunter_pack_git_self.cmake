@@ -1,6 +1,7 @@
 include(CMakeParseArguments) # cmake_parse_arguments
 
 include(hunter_assert_not_empty_string)
+include(hunter_get_git_executable)
 include(hunter_internal_error)
 include(hunter_status_debug)
 
@@ -23,7 +24,7 @@ function(hunter_pack_git_self)
   hunter_assert_not_empty_string("${x_URL_OUT}")
   hunter_assert_not_empty_string("${x_SHA1_OUT}")
 
-  hunter_get_git_executabe(git_executable)
+  hunter_get_git_executable(git_executable)
 
   set(cmd "${git_executable}" rev-parse --show-toplevel)
   execute_process(
