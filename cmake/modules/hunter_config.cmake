@@ -132,7 +132,7 @@ function(hunter_config package)
   if(NOT "${x_CONFIGURATION_TYPES}" STREQUAL "")
     set(
         "__HUNTER_USER_CONFIGURATION_TYPES_${package}"
-        "${x_CMAKE_ARGS}"
+        "${x_CONFIGURATION_TYPES}"
         PARENT_SCOPE
     )
   endif()
