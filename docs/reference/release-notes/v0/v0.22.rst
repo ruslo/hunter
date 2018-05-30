@@ -1,8 +1,8 @@
 .. Copyright (c) 2018, Ruslan Baratov
 .. All rights reserved.
 
-Next
-----
+v0.22.X
+-------
 
 * CMake 3.2 :doc:`required </quick-start/cmake>`
 * ``hunter_config``: ``VERSION`` can be combined with ``GIT_SELF``,
