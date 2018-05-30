@@ -23,9 +23,8 @@ Copy `HunterGate`_ module to your project and include it:
 
 .. code-block:: none
 
-  > wget https://raw.githubusercontent.com/hunter-packages/gate/master/cmake/HunterGate.cmake
   > mkdir cmake
-  > mv HunterGate.cmake cmake/
+  > wget https://raw.githubusercontent.com/hunter-packages/gate/master/cmake/HunterGate.cmake -O cmake/HunterGate.cmake
 
 .. code-block:: cmake
 
