@@ -8,12 +8,8 @@ cmake_minimum_required(VERSION 3.0)
 include("../common.cmake")
 
 project(download-cxxopts)
-
-
 hunter_add_package(cxxopts)
 find_package(cxxopts CONFIG REQUIRED)
 string(REPLACE "." ";" VERSION_LIST ${HUNTER_cxxopts_VERSION})
-list(GET VERSION_LIST 0 CXXOPTS_MAJOR)
 add_executable(foo ./v${HUNTER_cxxopts_VERSION}/example.cpp)
-
 target_link_libraries(foo PUBLIC cxxopts::cxxopts)
