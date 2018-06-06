@@ -68,12 +68,13 @@ if(PYTHONINTERP_FOUND)
   )
   if(NOT result EQUAL 0)
     message(
-        FATAL_ERROR
+        WARNING
         "Python script failed: ${cmd}, ${result}, ${output}, ${error}"
         "(may help: https://stackoverflow.com/a/2009505/2288008)"
     )
+  else()
+    return()
   endif()
-  return()
 endif()
 
 set(shell "/bin/bash")
