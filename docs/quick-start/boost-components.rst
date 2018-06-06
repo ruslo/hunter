@@ -68,7 +68,7 @@ Summarize:
 .. code-block:: cmake
   :emphasize-lines: 5-6, 11
 
-  cmake_minimum_required(VERSION 3.0)
+  cmake_minimum_required(VERSION 3.2)
 
   include("cmake/HunterGate.cmake")
   HunterGate(
