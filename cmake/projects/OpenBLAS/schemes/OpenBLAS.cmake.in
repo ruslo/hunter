@@ -55,7 +55,7 @@ endif()
 set(compiler_arg "@CMAKE_C_COMPILER@")
 
 
-if(CMAKE_CROSSCOMPILING)
+if(CMAKE_CROSSCOMPILING OR ANDROID)
   # Tells OpenBLAS where to find host CC (HOSTCC=)
   # and not to run tests (CROSS=1)
   # and not to use fortran (NOFORTRAN=1)
