@@ -416,6 +416,7 @@ if(ANDROID)
   endif()
 
   string(COMPARE EQUAL "${CMAKE_SYSTEM_VERSION}" "24" _is_api_24)
+  string(COMPARE EQUAL "${CMAKE_SYSTEM_VERSION}" "22" _is_api_22)
   string(COMPARE EQUAL "${CMAKE_SYSTEM_VERSION}" "21" _is_api_21)
   string(COMPARE EQUAL "${CMAKE_SYSTEM_VERSION}" "19" _is_api_19)
   string(COMPARE EQUAL "${CMAKE_SYSTEM_VERSION}" "16" _is_api_16)
@@ -442,6 +443,13 @@ if(ANDROID)
     hunter_default_version(Android-MIPS-System-Image VERSION 16_r04)
     hunter_default_version(Android-SDK-Platform VERSION 16_r05)
     hunter_default_version(Sources-for-Android-SDK VERSION 16)
+  elseif(_is_api_22)
+    hunter_default_version(Android-ARM-EABI-v7a-System-Image VERSION 22_r02)
+    hunter_default_version(Android-Google-APIs VERSION 22_r01)
+    hunter_default_version(Android-Google-APIs-Intel-x86-Atom-System-Image VERSION 22_r21)
+    hunter_default_version(Android-Intel-x86-Atom-System-Image VERSION 22)
+    hunter_default_version(Android-SDK-Platform VERSION 22_r02)
+    hunter_default_version(Sources-for-Android-SDK VERSION 22)
   elseif(_is_api_24)
     hunter_default_version(Android-ARM-EABI-v7a-System-Image VERSION 24_r07)
     hunter_default_version(Android-ARM64-v8a-System-Image VERSION 24_r07)
@@ -451,10 +459,6 @@ if(ANDROID)
     hunter_default_version(Android-SDK-Platform VERSION 24_r02)
     hunter_default_version(Sources-for-Android-SDK VERSION 24)
   else()
-    hunter_user_error(
-        "Android API (CMAKE_SYSTEM_VERSION)"
-        " Expected: `24`, `21`, `19`, `16`"
-        " Got: `${CMAKE_SYSTEM_VERSION}`"
-    )
+    # TODO: Add more versions
   endif()
 endif()
