@@ -208,6 +208,13 @@ function(hunter_create_cache_file cache_path)
   )
   # }
 
+  # Package can use this variable to check if it's building by Hunter
+  file(
+      APPEND
+      "${temp_path}"
+      "set(HUNTER_PACKAGE_BUILD ON CACHE INTERNAL \"\")\n"
+  )
+
   # Atomic operation
   file(RENAME "${temp_path}" "${cache_path}")
 endfunction()
