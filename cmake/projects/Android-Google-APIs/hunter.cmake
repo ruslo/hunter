@@ -60,6 +60,17 @@ hunter_add_version(
     PACKAGE_NAME
     Android-Google-APIs
     VERSION
+    "22_r01"
+    URL
+    "https://dl.google.com/android/repository/google_apis-22_r01.zip"
+    SHA1
+    5def0f42160cba8acff51b9c0c7e8be313de84f5
+)
+
+hunter_add_version(
+    PACKAGE_NAME
+    Android-Google-APIs
+    VERSION
     "24_r1"
     URL
     "https://dl.google.com/android/repository/google_apis-24_r1.zip"

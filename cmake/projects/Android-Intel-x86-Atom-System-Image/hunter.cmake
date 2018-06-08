@@ -24,6 +24,17 @@ hunter_add_version(
     PACKAGE_NAME
     Android-Intel-x86-Atom-System-Image
     VERSION
+    "22_r06"
+    URL
+    "https://dl.google.com/android/repository/sys-img/android/x86-22_r06.zip"
+    SHA1
+    e33e2a6cc3f1cc56b2019dbef3917d2eeb26f54e
+)
+
+hunter_add_version(
+    PACKAGE_NAME
+    Android-Intel-x86-Atom-System-Image
+    VERSION
     "21"
     URL
     "https://dl.google.com/android/repository/sys-img/android/sysimg_x86-21_r03.zip"
