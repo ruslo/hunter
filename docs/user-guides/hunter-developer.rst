@@ -4,5 +4,10 @@
 Hunter developer
 ----------------
 
+.. toctree::
+   :maxdepth: 1
+
+   /user-guides/hunter-developer/cmake-launch
+
 * reference to modules
 * layout guide
