@@ -13,8 +13,11 @@ find_package(cxxopts CONFIG REQUIRED)
 
 if(HUNTER_cxxopts_VERSION VERSION_LESS "2.0.0")
   set(source_dir "v1.x.x")
+elseif(HUNTER_cxxopts_VERSION VERSION_EQUAL "2.1.1-pre")
+  set(source_dir "v2.0.0")
 else()
   set(source_dir "v${HUNTER_cxxopts_VERSION}")
 endif()
+
 add_executable(foo "${source_dir}/example.cpp")
 target_link_libraries(foo PUBLIC cxxopts::cxxopts)
