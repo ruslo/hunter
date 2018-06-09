@@ -9,5 +9,7 @@ Hunter developer
 
    /user-guides/hunter-developer/cmake-launch
 
-* reference to modules
-* layout guide
+.. seealso::
+
+  * :doc:`Layouts </reference/layouts>`
+  * :doc:`Internal modules </reference/internal-modules>`
