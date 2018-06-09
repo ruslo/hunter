@@ -8,6 +8,7 @@ Hunter developer
    :maxdepth: 1
 
    /user-guides/hunter-developer/cmake-launch
+   /user-guides/hunter-developer/binary-formula
 
 .. seealso::
 
