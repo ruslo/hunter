@@ -252,7 +252,7 @@ hunter_default_version(ippicv VERSION 20151201)
 hunter_default_version(irrXML VERSION 1.2)
 hunter_default_version(jaegertracing VERSION 0.4.1)
 hunter_default_version(jansson VERSION 2.11.0)
-hunter_default_version(jasper VERSION 2.0.14-p2)
+hunter_default_version(jasper VERSION 2.0.14-p3)
 hunter_default_version(jo_jpeg VERSION 0.0.1)
 
 if(MSVC_VERSION LESS 1600)
