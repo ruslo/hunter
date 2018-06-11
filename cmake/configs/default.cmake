@@ -141,7 +141,7 @@ hunter_default_version(ZLIB VERSION 1.2.8-p3)
 hunter_default_version(ZMQPP VERSION 4.1.2)
 hunter_default_version(ZeroMQ VERSION 4.2.3-p1)
 
-hunter_default_version(acf VERSION 0.1.3)
+hunter_default_version(acf VERSION 0.1.14)
 hunter_default_version(aes VERSION 0.0.1-p1)
 hunter_default_version(aglet VERSION 1.2.2)
 hunter_default_version(android_arm64_v8a_system_image_packer VERSION 1.0.0)
