@@ -54,6 +54,10 @@ function(hunter_pack_git_self)
   endif()
 
   set(cmd "${git_executable}" status --porcelain)
+  hunter_status_debug(
+      "Run command '${cmd}' in '${top_git_directory}' directory"
+  )
+  hunter_status_debug("HUNTER_GATE_LOCATION: ${HUNTER_GATE_LOCATION}")
   execute_process(
       COMMAND ${cmd}
       WORKING_DIRECTORY "${top_git_directory}"
