@@ -40,6 +40,21 @@ function(hunter_dump_cmake_flags)
     endif()
   endif()
 
+  if(APPLE AND NOT IOS)
+    if(NOT "${CMAKE_OSX_SYSROOT}" STREQUAL "")
+      if(NOT EXISTS "${CMAKE_OSX_SYSROOT}")
+        hunter_internal_error("Not exists: '${CMAKE_OSX_SYSROOT}'")
+      endif()
+      set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -isysroot \"${CMAKE_OSX_SYSROOT}\"")
+      set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -isysroot \"${CMAKE_OSX_SYSROOT}\"")
+    endif()
+
+    if(NOT "${CMAKE_OSX_DEPLOYMENT_TARGET}" STREQUAL "")
+      set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -mmacosx-version-min=${CMAKE_OSX_DEPLOYMENT_TARGET}")
+      set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -mmacosx-version-min=${CMAKE_OSX_DEPLOYMENT_TARGET}")
+    endif()
+  endif()
+
   set(cppflags "")
 
   if(ANDROID)
