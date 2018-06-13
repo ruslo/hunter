@@ -20,11 +20,20 @@ hunter_add_version(
     44d6157e5bf6005f1f611bcea323488e6268d9c9
 )
 
+if(IOS)
+hunter_cmake_args(
+    glslang
+    CMAKE_ARGS
+        ENABLE_HLSL=OFF
+        ENABLE_GLSLANG_BINARIES=OFF
+)
+else()
 hunter_cmake_args(
     glslang
     CMAKE_ARGS
         ENABLE_HLSL=OFF
 )
+endif()
 
 hunter_pick_scheme(DEFAULT url_sha1_cmake)
 hunter_cacheable(glslang)
