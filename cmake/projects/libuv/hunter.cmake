@@ -11,6 +11,18 @@ hunter_add_version(
   PACKAGE_NAME
   libuv
   VERSION
+  1.21.0-p0
+  URL
+  "https://github.com/hunter-packages/libuv/archive/v1.21.0-p0.tar.gz"
+  SHA1
+  c5fbbe3cfd17c7816d0d063e090c33fae9e1cb32
+  )
+
+# 2.0.0 is not an upstream tag
+hunter_add_version(
+  PACKAGE_NAME
+  libuv
+  VERSION
   2.0.0
   URL
   https://github.com/hunter-packages/libuv/archive/v2.0.0-hunter-release.tar.gz
