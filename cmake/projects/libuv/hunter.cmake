@@ -2,6 +2,7 @@
 
 include(hunter_add_version)
 include(hunter_cacheable)
+include(hunter_cmake_args)
 include(hunter_download)
 include(hunter_pick_scheme)
 include(hunter_report_broken_package)
@@ -51,6 +52,8 @@ hunter_add_version(
 )
 
 hunter_pick_scheme(DEFAULT url_sha1_cmake)
+
+hunter_cmake_args(libuv CMAKE_ARGS BUILD_TESTING=OFF)
 
 hunter_cacheable(libuv)
 hunter_download(PACKAGE_NAME libuv)
