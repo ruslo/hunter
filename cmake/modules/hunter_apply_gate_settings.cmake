@@ -108,15 +108,38 @@ function(hunter_apply_gate_settings)
     endif()
   endforeach()
 
-  # * defines: HUNTER_GATE_TOOLCHAIN_SHA1
-  # * needs: HUNTER_CONFIGURATION_TYPES
-  # * needs: HUNTER_BUILD_SHARED_LIBS
-  # * creates: global_toolchain_info at
-  #   "${hunter_base}/${HUNTER_GATE_SHA1}/${HUNTER_GATE_TOOLCHAIN_SHA1}/toolchain.info"
-  hunter_calculate_toolchain_sha1("${hunter_self}" "${hunter_base}")
+  hunter_make_directory("${hunter_base}" "${HUNTER_GATE_SHA1}" hunter_id_path)
+
+  if("${HUNTER_TOOLCHAIN_SHA1}" STREQUAL "")
+    set(skip_toolchain_calculation NO)
+  elseif(HUNTER_NO_TOOLCHAIN_ID_RECALCULATION)
+    hunter_make_directory(
+        "${hunter_id_path}"
+        "${HUNTER_TOOLCHAIN_SHA1}"
+        hunter_toolchain_id_path
+    )
+    if(EXISTS "${hunter_toolchain_id_path}/toolchain.info")
+      set(skip_toolchain_calculation YES)
+    else()
+      set(skip_toolchain_calculation NO)
+    endif()
+  else()
+    set(skip_toolchain_calculation NO)
+  endif()
+
+  if(skip_toolchain_calculation)
+    hunter_status_debug("Toolchain-ID recalculation will be skipped")
+    set(HUNTER_GATE_TOOLCHAIN_SHA1 "${HUNTER_TOOLCHAIN_SHA1}")
+  else()
+    # * defines: HUNTER_GATE_TOOLCHAIN_SHA1
+    # * needs: HUNTER_CONFIGURATION_TYPES
+    # * needs: HUNTER_BUILD_SHARED_LIBS
+    # * creates: global_toolchain_info at
+    #   "${hunter_base}/${HUNTER_GATE_SHA1}/${HUNTER_GATE_TOOLCHAIN_SHA1}/toolchain.info"
+    hunter_calculate_toolchain_sha1("${hunter_self}" "${hunter_base}")
+  endif()
 
   # set PATH variables for hunter and toolchain
-  hunter_make_directory("${hunter_base}" "${HUNTER_GATE_SHA1}" hunter_id_path)
   hunter_make_directory(
       "${hunter_id_path}"
       "${HUNTER_GATE_TOOLCHAIN_SHA1}"
