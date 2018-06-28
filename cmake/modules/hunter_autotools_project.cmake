@@ -57,7 +57,7 @@ include(ExternalProject) # ExternalProject_Add
 include(CMakeParseArguments) # cmake_parse_arguments
 
 include(hunter_autotools_configure_command)
-include(hunter_fatal_error)
+include(hunter_user_error)
 include(hunter_status_debug)
 include(hunter_assert_not_empty_string)
 
@@ -142,7 +142,7 @@ function(hunter_autotools_project target_name)
   if(is_ios)
     hunter_status_debug("Autotools iOS IPHONEOS_ARCHS: ${IPHONEOS_ARCHS} IPHONESIMULATOR_ARCHS: ${IPHONESIMULATOR_ARCHS}")
     if(BUILD_SHARED_LIBS)
-      hunter_fatal_error("Autotools: building iOS libraries as shared is not supported")
+      hunter_user_error("Autotools: building iOS libraries as shared is not supported")
     endif()
     set(ios_architectures)
     list(APPEND ios_architectures ${IPHONEOS_ARCHS} ${IPHONESIMULATOR_ARCHS})
@@ -238,7 +238,7 @@ function(hunter_autotools_project target_name)
         set(configure_host "x86_64-apple-darwin")
         set(is_simulator TRUE)
       else()
-        hunter_fatal_error("iOS architecture: ${ios_architecture} not supported")
+        hunter_user_error("iOS architecture: ${ios_architecture} not supported")
       endif()
 
       set(arch_flags)
