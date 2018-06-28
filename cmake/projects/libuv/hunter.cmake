@@ -2,10 +2,23 @@
 
 include(hunter_add_version)
 include(hunter_cacheable)
+include(hunter_cmake_args)
 include(hunter_download)
 include(hunter_pick_scheme)
 include(hunter_report_broken_package)
 
+hunter_add_version(
+  PACKAGE_NAME
+  libuv
+  VERSION
+  1.21.0-p0
+  URL
+  "https://github.com/hunter-packages/libuv/archive/v1.21.0-p0.tar.gz"
+  SHA1
+  c5fbbe3cfd17c7816d0d063e090c33fae9e1cb32
+  )
+
+# 2.0.0 is not an upstream tag
 hunter_add_version(
   PACKAGE_NAME
   libuv
@@ -51,6 +64,8 @@ hunter_add_version(
 )
 
 hunter_pick_scheme(DEFAULT url_sha1_cmake)
+
+hunter_cmake_args(libuv CMAKE_ARGS BUILD_TESTING=OFF)
 
 hunter_cacheable(libuv)
 hunter_download(PACKAGE_NAME libuv)
