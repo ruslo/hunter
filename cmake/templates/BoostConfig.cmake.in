@@ -151,7 +151,7 @@ if(TARGET Boost::chrono)
   hunter_add_rt_library(Boost::chrono)
 endif()
 
-if(TARGET Boost::log AND NOT Boost_USE_STATIC_LIBS)
+if(TARGET Boost::log AND "@BUILD_SHARED_LIBS@")
   set_property(
     TARGET "Boost::log"
     APPEND PROPERTY INTERFACE_COMPILE_DEFINITIONS BOOST_LOG_DYN_LINK
