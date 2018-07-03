@@ -14,6 +14,17 @@ hunter_add_version(
     PACKAGE_NAME
     OpenBLAS
     VERSION
+    0.3.1-p0
+    URL
+    "https://github.com/hunter-packages/OpenBLAS/archive/v0.3.1-p0.tar.gz"
+    SHA1
+    b525caa851e9cfb9e1756e42c8b4ee4877e98b9f
+)
+
+hunter_add_version(
+    PACKAGE_NAME
+    OpenBLAS
+    VERSION
     0.3.0-p2
     URL
     "https://github.com/hunter-packages/OpenBLAS/archive/v0.3.0-p2.tar.gz"
