@@ -241,13 +241,22 @@ function(hunter_autotools_project target_name)
         hunter_user_error("iOS architecture: ${ios_architecture} not supported")
       endif()
 
+      string(COMPARE NOTEQUAL "${CMAKE_XCODE_ATTRIBUTE_IPHONEOS_DEPLOYMENT_TARGET}" "" is_deployment_version_set)
       set(arch_flags)
       # Extra space at the end of the arch_flags is needed below when appending
       # to configure_opts, please do not remove!
       if(is_simulator)
-        set(arch_flags "-arch ${ios_architecture} -isysroot ${IPHONESIMULATOR_SDK_ROOT} -miphoneos-version-min=${CMAKE_XCODE_ATTRIBUTE_IPHONEOS_DEPLOYMENT_TARGET} ")
+        if(is_deployment_version_set)
+          set(arch_flags "-arch ${ios_architecture} -isysroot ${IPHONESIMULATOR_SDK_ROOT} -miphoneos-version-min=${CMAKE_XCODE_ATTRIBUTE_IPHONEOS_DEPLOYMENT_TARGET} ")
+        else()
+          set(arch_flags "-arch ${ios_architecture} -isysroot ${IPHONESIMULATOR_SDK_ROOT} -miphoneos-version-min=${IOS_SDK_VERSION} ")
+        endif()
       else()
-        set(arch_flags "-arch ${ios_architecture} -isysroot ${IPHONEOS_SDK_ROOT} -miphoneos-version-min=${CMAKE_XCODE_ATTRIBUTE_IPHONEOS_DEPLOYMENT_TARGET} ")
+        if(is_deployment_version_set)
+          set(arch_flags "-arch ${ios_architecture} -isysroot ${IPHONEOS_SDK_ROOT} -miphoneos-version-min=${CMAKE_XCODE_ATTRIBUTE_IPHONEOS_DEPLOYMENT_TARGET} ")
+        else()
+          set(arch_flags "-arch ${ios_architecture} -isysroot ${IPHONEOS_SDK_ROOT} -miphoneos-version-min=${IOS_SDK_VERSION} ")
+        endif()
       endif()
       set(arch_install_dir
           ${multi_arch_install_root}/${ios_architecture}
