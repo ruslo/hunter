@@ -73,6 +73,34 @@ macro(hunter_initialize)
       set(_flush TRUE)
     endif()
 
+    string(
+        COMPARE
+        EQUAL
+        "${HUNTER_CACHED_CONFIGURATION_TYPES}"
+        "${HUNTER_CONFIGURATION_TYPES}"
+        _is_ok
+    )
+    if(NOT _is_ok)
+      hunter_status_debug("HUNTER_CONFIGURATION_TYPES changed:")
+      hunter_status_debug("  ${HUNTER_CACHED_CONFIGURATION_TYPES}")
+      hunter_status_debug("  ${HUNTER_CONFIGURATION_TYPES}")
+      set(_flush TRUE)
+    endif()
+
+    string(
+        COMPARE
+        EQUAL
+        "${HUNTER_CACHED_BUILD_SHARED_LIBS}"
+        "${HUNTER_BUILD_SHARED_LIBS}"
+        _is_ok
+    )
+    if(NOT _is_ok)
+      hunter_status_debug("HUNTER_BUILD_SHARED_LIBS changed:")
+      hunter_status_debug("  ${HUNTER_CACHED_BUILD_SHARED_LIBS}")
+      hunter_status_debug("  ${HUNTER_BUILD_SHARED_LIBS}")
+      set(_flush TRUE)
+    endif()
+
     if(_flush)
       set(HUNTER_CACHED_ROOT "${HUNTER_GATE_ROOT}" CACHE INTERNAL "")
       set(HUNTER_VERSION "${HUNTER_GATE_VERSION}" CACHE INTERNAL "")
