@@ -15,6 +15,8 @@ include(hunter_status_debug)
 include(hunter_assert_not_empty_string)
 
 function(hunter_apply_gate_settings)
+  hunter_assert_not_empty_string("${HUNTER_CONFIGURATION_TYPES}")
+
   get_property(gate_done GLOBAL PROPERTY HUNTER_GATE_SETTINGS_APPLIED SET)
   set_property(GLOBAL PROPERTY HUNTER_GATE_SETTINGS_APPLIED YES)
 
@@ -83,12 +85,6 @@ function(hunter_apply_gate_settings)
   hunter_set_config_location("${hunter_self}" config_location)
 
   set(hunter_base "${HUNTER_GATE_ROOT}/_Base")
-
-  # define configuration type variables
-  string(COMPARE EQUAL "${HUNTER_CONFIGURATION_TYPES}" "" use_default)
-  if(use_default)
-    set(HUNTER_CONFIGURATION_TYPES "Release;Debug")
-  endif()
 
   foreach(configuration ${HUNTER_CONFIGURATION_TYPES})
     string(TOUPPER "${configuration}" configuration_upper)
