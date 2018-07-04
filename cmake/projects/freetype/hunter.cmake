@@ -29,6 +29,17 @@ hunter_add_version(
     6623f3b91b921c71c4b4485f67b252a7025eb18e
 )
 
+hunter_add_version(
+    PACKAGE_NAME
+    freetype
+    VERSION
+    "2.4.12-p1"
+    URL
+    "https://github.com/hunter-packages/freetype/archive/v2.4.12-p1.tar.gz"
+    SHA1
+    7f172287e594c916150f1b2a2882a188f945e969
+)
+
 hunter_pick_scheme(DEFAULT url_sha1_cmake)
 hunter_cacheable(freetype)
 hunter_download(PACKAGE_NAME freetype)
