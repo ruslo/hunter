@@ -34,7 +34,7 @@ hunter_cmake_args(
 hunter_cacheable(libpcre)
 hunter_download(
     PACKAGE_NAME libpcre
-    PACKAGE_INTERNAL_DEPS_ID "1"
+    PACKAGE_INTERNAL_DEPS_ID "2"
     PACKAGE_UNRELOCATABLE_TEXT_FILES
     "lib/libpcre.la"
     "lib/libpcrecpp.la"
