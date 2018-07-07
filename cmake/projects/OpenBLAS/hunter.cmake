@@ -55,7 +55,7 @@ hunter_add_version(
 )
 
 hunter_configuration_types(OpenBLAS CONFIGURATION_TYPES Release)
-if(HUNTER_OpenBLAS_VERSION VERSION_LESS 0.3.0)
+if(HUNTER_OpenBLAS_VERSION VERSION_LESS 0.3.1)
   hunter_pick_scheme(DEFAULT OpenBLAS)
   set(
       _openblas_unrelocatable_text_files
