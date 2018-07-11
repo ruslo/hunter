@@ -97,7 +97,7 @@ hunter_add_version(
     URL
     "https://github.com/hunter-packages/opencv/archive/v3.2.0-p2.tar.gz"
     SHA1
-    99219206c4fb9b5b6f60e03112746461baf6c9ab
+    ea8f612eea55dfa6d2f3669d5e9eb4240417444b
 )
 
 hunter_add_version(
