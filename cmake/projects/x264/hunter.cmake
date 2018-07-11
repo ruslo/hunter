@@ -25,6 +25,7 @@ hunter_cmake_args(x264 CMAKE_ARGS PKGCONFIG_EXPORT_TARGETS=x264)
 hunter_cacheable(x264)
 hunter_download(
     PACKAGE_NAME x264
+    PACKAGE_INTERNAL_DEPS_ID "1"
     PACKAGE_UNRELOCATABLE_TEXT_FILES "lib/pkgconfig/x264.pc"
 )
 
