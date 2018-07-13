@@ -50,13 +50,14 @@ function(hunter_jobs_number jobs_options_varname toolchain_path)
   string(COMPARE NOTEQUAL "${XCODE_VERSION}" "" is_xcode)
   string(COMPARE EQUAL "${CMAKE_GENERATOR}" "MSYS Makefiles" is_msys)
   string(COMPARE EQUAL "${CMAKE_GENERATOR}" "Unix Makefiles" is_makefiles)
+  string(COMPARE EQUAL "${CMAKE_GENERATOR}" "Ninja" is_ninja)
 
   if(MSVC_IDE AND (MSVC_VERSION VERSION_LESS 1800))
     # No /maxcpucount:N support
     set(jobs_number "")
   endif()
 
-  if(MINGW OR is_msys OR is_xcode OR is_makefiles OR MSVC_IDE)
+  if(MINGW OR is_msys OR is_xcode OR is_makefiles OR MSVC_IDE OR is_ninja)
     set("${jobs_options_varname}" "${jobs_number}" PARENT_SCOPE)
     return()
   endif()
