@@ -76,6 +76,17 @@ hunter_add_version(
     7d8190ad978591d621db1066b96f90722d68a00d
 )
 
+hunter_add_version(
+    PACKAGE_NAME
+    CURL
+    VERSION
+    "7.60.0-p0"
+    URL
+    "https://github.com/hunter-packages/curl/archive/v7.60.0-p0.tar.gz"
+    SHA1
+    53b5065094322323ed38840012eee42c5d4d1640
+)
+
 if (ANDROID OR IOS OR RASPBERRY_PI OR OPENWRT)
   set(_curl_cmake_args
       HAVE_FSETXATTR_5=0
