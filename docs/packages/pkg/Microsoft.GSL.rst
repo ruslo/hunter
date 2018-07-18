@@ -8,7 +8,7 @@
 .. _pkg.Microsoft.GSL:
 
 Microsoft.GSL
-===
+=============
 
 -  `Official <https://github.com/Microsoft/GSL>`__
 -  `Hunterized <https://github.com/ithron/GSL/tree/v1.0.0-h>`__
