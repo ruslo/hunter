@@ -80,6 +80,7 @@ and working correctly. Before reporting bugs please check:
 If everything seems OK:
 
 * Run build again with :ref:`HUNTER_STATUS_DEBUG=ON <hunter_status_debug>`
+* Make sure you're not using :ref:`HUNTER_NO_TOOLCHAIN_ID_RECALCULATION <hunter no toolchain id recalculation>`
 * Take a look at **first** error reported by Hunter. If Hunter reports chain
   of errors the last error you see is **not relevant**!
 * Update to `latest Hunter URL/SHA1 <https://github.com/ruslo/hunter/releases>`__

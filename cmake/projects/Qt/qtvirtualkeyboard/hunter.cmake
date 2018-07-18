@@ -78,6 +78,8 @@ if(
     # Qt 5.9.*
   elseif(HUNTER_Qt_VERSION MATCHES "^5\\.10\\.")
     # Qt 5.10.*
+  elseif(HUNTER_Qt_VERSION MATCHES "^5\\.11\\.")
+    # Qt 5.11.*
   else()
     return()
   endif()

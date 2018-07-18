@@ -19,6 +19,14 @@ option(HUNTER_ENABLED "Enable Hunter package manager support" ON)
 option(HUNTER_STATUS_PRINT "Print working status" ON)
 option(HUNTER_STATUS_DEBUG "Print a lot info" OFF)
 
+set(
+    HUNTER_CONFIGURATION_TYPES
+    "Release;Debug"
+    CACHE
+    STRING
+    "Hunter configuration types"
+)
+
 ### add cmake modules to search path
 list(APPEND CMAKE_MODULE_PATH "${CMAKE_CURRENT_LIST_DIR}/modules")
 list(APPEND CMAKE_MODULE_PATH "${CMAKE_CURRENT_LIST_DIR}/find")
