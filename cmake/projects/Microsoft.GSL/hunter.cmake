@@ -13,7 +13,7 @@ hunter_add_version(
     PACKAGE_NAME
     Microsoft.GSL
     VERSION
-    1.0.0
+    1.0.0-p0
     URL
     "https://github.com/hunter-packages/Microsoft.GSL/archive/v1.0.0-p0.tar.gz"
     SHA1
