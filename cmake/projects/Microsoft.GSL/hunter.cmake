@@ -15,9 +15,9 @@ hunter_add_version(
     VERSION
     1.0.0
     URL
-    "https://github.com/ithron/GSL/archive/v1.0.0-h.tar.gz"
+    "https://github.com/hunter-packages/Microsoft.GSL/archive/v1.0.0-p0.tar.gz"
     SHA1
-    1a549e0261a10484f8e5a8d9c691c62b5b9aa639
+    3cc3b9f2f7e5cde7827b8793ab6b4a8717511c9a
 )
 
 hunter_cmake_args(
