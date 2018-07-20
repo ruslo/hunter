@@ -71,14 +71,28 @@ function(hunter_create_cache_meta_directory cache_directory result)
 
   # }
 
-  # Save internal-dependencies information
+  # Save internal-dependencies information {
+
   set(internal_deps_id "${HUNTER_PACKAGE_HOME_DIR}/internal_deps.id")
-  file(WRITE "${internal_deps_id}" "${HUNTER_PACKAGE_INTERNAL_DEPS_ID}")
+  set(internal_deps_id_nolf "${internal_deps_id}.NOLF")
+  file(WRITE "${internal_deps_id_nolf}" "${HUNTER_PACKAGE_INTERNAL_DEPS_ID}")
+
+  # About '@ONLY': no substitutions expected but COPYONLY can't be
+  # used with NEWLINE_STYLE
+  configure_file(
+      "${internal_deps_id_nolf}"
+      "${internal_deps_id}"
+      @ONLY
+      NEWLINE_STYLE LF
+  )
+
   file(SHA1 "${internal_deps_id}" internal_deps_sha1)
   hunter_make_directory(
       "${cache_meta_dir}" "${internal_deps_sha1}" cache_meta_dir
   )
   file(COPY "${internal_deps_id}" DESTINATION "${cache_meta_dir}")
+
+  # }
 
   set("${result}" "${cache_meta_dir}" PARENT_SCOPE)
 endfunction()
