@@ -1,0 +1,26 @@
+.. Copyright (c) 2018, Ruslan Baratov
+.. All rights reserved.
+
+v0.23.X
+-------
+
+* Ninja generator learn to use :ref:`HUNTER_JOBS_NUMBER <hunter jobs number>`
+
+* New variable
+  :ref:`HUNTER_NO_TOOLCHAIN_ID_RECALCULATION <hunter no toolchain id recalculation>`
+
+Internal changes
+================
+
+* Internal cache files forced to use ``LF`` line ending. Effectively it means
+  that cache files built on Windows now will use ``LF`` instead of ``CRLF``
+  and **all cache from Windows became invalid**. Unified ``LF`` line ending
+  allow to share cache between macOS/Linux and Windows platforms.
+
+New packages and updates
+========================
+
+``git diff v0.22.0..v0.23.0 -- cmake/configs/default.cmake``:
+
+.. literalinclude:: 22..23.diff
+  :language: diff
