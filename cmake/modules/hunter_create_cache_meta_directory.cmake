@@ -49,12 +49,27 @@ function(hunter_create_cache_meta_directory cache_directory result)
   hunter_make_directory("${cache_meta_dir}" "${args_sha1}" cache_meta_dir)
   file(COPY "${HUNTER_ARGS_FILE}" DESTINATION "${cache_meta_dir}")
 
-  # Save package configuration types
+  # Save package configuration types {
+
   set(types_info "${HUNTER_PACKAGE_HOME_DIR}/types.info")
-  file(WRITE "${types_info}" "${HUNTER_PACKAGE_CONFIGURATION_TYPES}")
+  set(types_info_nolf "${types_info}.NOLF")
+
+  file(WRITE "${types_info_nolf}" "${HUNTER_PACKAGE_CONFIGURATION_TYPES}")
+
+  # About '@ONLY': no substitutions expected but COPYONLY can't be
+  # used with NEWLINE_STYLE
+  configure_file(
+      "${types_info_nolf}"
+      "${types_info}"
+      @ONLY
+      NEWLINE_STYLE LF
+  )
+
   file(SHA1 "${types_info}" types_sha1)
   hunter_make_directory("${cache_meta_dir}" "${types_sha1}" cache_meta_dir)
   file(COPY "${types_info}" DESTINATION "${cache_meta_dir}")
+
+  # }
 
   # Save internal-dependencies information
   set(internal_deps_id "${HUNTER_PACKAGE_HOME_DIR}/internal_deps.id")
