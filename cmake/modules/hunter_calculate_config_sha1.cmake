@@ -83,8 +83,10 @@ function(hunter_calculate_config_sha1 hunter_self hunter_base user_config)
   file(REMOVE_RECURSE "${work_dir}")
   file(MAKE_DIRECTORY "${work_dir}")
 
-  set(input_file "${work_dir}/config.cmake")
-  file(WRITE "${input_file}" "include(hunter_final_config)\n")
+  set(config_cmake_nolf "${work_dir}/config.cmake.NOLF")
+  set(config_cmake_local "${work_dir}/config.cmake")
+
+  file(WRITE "${config_cmake_nolf}" "include(hunter_final_config)\n")
   foreach(x ${projects})
     set(version "${HUNTER_${x}_VERSION}")
     if("${version}" STREQUAL "")
@@ -94,7 +96,7 @@ function(hunter_calculate_config_sha1 hunter_self hunter_base user_config)
 
     file(
         APPEND
-        "${input_file}"
+        "${config_cmake_nolf}"
         "hunter_final_config(\n"
         "    PACKAGE \"${x}\"\n"
         "    VERSION \"${version}\"\n"
@@ -107,37 +109,47 @@ function(hunter_calculate_config_sha1 hunter_self hunter_base user_config)
     set(keep_package_sources "${__HUNTER_USER_KEEP_PACKAGE_SOURCES_${x}}")
 
     if(NOT sha1 STREQUAL "")
-      file(APPEND "${input_file}" "    SHA1 \"${sha1}\"\n")
+      file(APPEND "${config_cmake_nolf}" "    SHA1 \"${sha1}\"\n")
     endif()
 
     if(NOT cmake_args STREQUAL "")
-      file(APPEND "${input_file}" "    CMAKE_ARGS \"${cmake_args}\"\n")
+      file(APPEND "${config_cmake_nolf}" "    CMAKE_ARGS \"${cmake_args}\"\n")
     endif()
 
     if(NOT configuration_types STREQUAL "")
       file(
           APPEND
-          "${input_file}"
+          "${config_cmake_nolf}"
           "    CONFIGURATION_TYPES \"${configuration_types}\"\n"
       )
     endif()
 
     if(NOT url STREQUAL "")
-      file(APPEND "${input_file}" "    URL \"${url}\"\n")
+      file(APPEND "${config_cmake_nolf}" "    URL \"${url}\"\n")
     endif()
 
     if(NOT keep_package_sources STREQUAL "")
       if(keep_package_sources STREQUAL "TRUE")
-        file(APPEND "${input_file}" "    KEEP_PACKAGE_SOURCES\n")
+        file(APPEND "${config_cmake_nolf}" "    KEEP_PACKAGE_SOURCES\n")
       else()
         hunter_internal_error("Unexpected value: '${keep_package_sources}'")
       endif()
     endif()
 
-    file(APPEND "${input_file}" ")\n")
+    file(APPEND "${config_cmake_nolf}" ")\n")
   endforeach()
 
-  file(SHA1 "${work_dir}/config.cmake" HUNTER_GATE_CONFIG_SHA1)
+  # About '@ONLY': no substitutions expected but COPYONLY can't be
+  # used with NEWLINE_STYLE
+  configure_file(
+      "${config_cmake_nolf}"
+      "${config_cmake_local}"
+      @ONLY
+      NEWLINE_STYLE LF
+  )
+
+  file(SHA1 "${config_cmake_local}" HUNTER_GATE_CONFIG_SHA1)
+
   set(HUNTER_GATE_CONFIG_SHA1 "${HUNTER_GATE_CONFIG_SHA1}" PARENT_SCOPE)
   hunter_make_directory("${hunter_base}" "${HUNTER_GATE_SHA1}" hunter_id_path)
 
@@ -153,21 +165,21 @@ function(hunter_calculate_config_sha1 hunter_self hunter_base user_config)
       hunter_config_id_path
   )
 
-  set(dst "${hunter_config_id_path}/config.cmake")
+  set(config_cmake_global "${hunter_config_id_path}/config.cmake")
 
-  if(EXISTS "${dst}")
+  if(EXISTS "${config_cmake_global}")
     return()
   endif()
 
   hunter_lock_directory("${hunter_config_id_path}" "")
-  if(EXISTS "${dst}")
+  if(EXISTS "${config_cmake_global}")
     return()
   endif()
 
-  set(temp "${hunter_config_id_path}/config.cmake.TEMP")
-  configure_file("${work_dir}/config.cmake" "${temp}" COPYONLY)
+  set(config_cmake_torename "${hunter_config_id_path}/config.cmake.TORENAME")
+  configure_file("${config_cmake_local}" "${config_cmake_torename}" COPYONLY)
 
-  file(RENAME "${temp}" "${dst}")
-  hunter_status_debug("Config: ${dst}")
+  file(RENAME "${config_cmake_torename}" "${config_cmake_global}")
+  hunter_status_debug("Config: ${config_cmake_global}")
   hunter_status_debug("Config sha1: ${HUNTER_GATE_CONFIG_SHA1}")
 endfunction()
