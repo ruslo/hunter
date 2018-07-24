@@ -1,6 +1,6 @@
 .. spelling::
 
-    Microsoft.GSL
+    GSL
 
 .. index::
   single: unsorted ; Microsoft.GSL

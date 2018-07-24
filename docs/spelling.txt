@@ -41,6 +41,7 @@ hunterized
 iOS
 internet
 login
+macOS
 multi
 performant
 plugin
