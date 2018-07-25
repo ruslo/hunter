@@ -20,6 +20,17 @@ hunter_add_version(
     3cc3b9f2f7e5cde7827b8793ab6b4a8717511c9a
 )
 
+hunter_add_version(
+    PACKAGE_NAME
+    Microsoft.GSL
+    VERSION
+    1.0.0-p1
+    URL
+    "https://github.com/hunter-packages/Microsoft.GSL/archive/v1.0.0-p1.tar.gz"
+    SHA1
+    d38a9e318a1ad1d96d169cd91f0909f1dc85e0d7
+)
+
 hunter_cmake_args(
     Microsoft.GSL
     CMAKE_ARGS
