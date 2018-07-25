@@ -25,9 +25,11 @@ function(hunter_calculate_toolchain_sha1 hunter_self hunter_base)
 
   set(temp_project_dir "${CMAKE_BINARY_DIR}/_3rdParty/Hunter/toolchain")
   set(create_script "${hunter_self}/scripts/create-toolchain-info.cmake")
-  set(local_toolchain_info "${temp_project_dir}/toolchain.info")
 
-  file(REMOVE_RECURSE "${local_toolchain_info}")
+  set(toolchain_info_nolf "${temp_project_dir}/toolchain.info.NOLF")
+  set(toolchain_info_local "${temp_project_dir}/toolchain.info")
+
+  file(REMOVE_RECURSE "${toolchain_info_nolf}")
 
   if(HUNTER_BINARY_DIR)
     hunter_lock_directory("${HUNTER_BINARY_DIR}" "")
@@ -56,7 +58,7 @@ function(hunter_calculate_toolchain_sha1 hunter_self hunter_base)
   set(
       cmd
       "${CMAKE_COMMAND}"
-      "-DTOOLCHAIN_INFO_FILE=${local_toolchain_info}"
+      "-DTOOLCHAIN_INFO_FILE=${toolchain_info_nolf}"
       "${use_toolchain}"
       "-DHUNTER_SELF=${hunter_self}"
       "-G${CMAKE_GENERATOR}"
@@ -110,7 +112,16 @@ function(hunter_calculate_toolchain_sha1 hunter_self hunter_base)
     )
   endif()
 
-  file(SHA1 "${local_toolchain_info}" HUNTER_GATE_TOOLCHAIN_SHA1)
+  # About '@ONLY': no substitutions expected but COPYONLY can't be
+  # used with NEWLINE_STYLE
+  configure_file(
+      "${toolchain_info_nolf}"
+      "${toolchain_info_local}"
+      @ONLY
+      NEWLINE_STYLE LF
+  )
+
+  file(SHA1 "${toolchain_info_local}" HUNTER_GATE_TOOLCHAIN_SHA1)
   set(HUNTER_GATE_TOOLCHAIN_SHA1 "${HUNTER_GATE_TOOLCHAIN_SHA1}" PARENT_SCOPE)
 
   hunter_make_directory("${hunter_base}" "${HUNTER_GATE_SHA1}" hunter_id_path)
@@ -121,24 +132,31 @@ function(hunter_calculate_toolchain_sha1 hunter_self hunter_base)
       hunter_toolchain_id_path
   )
 
-  set(global_toolchain_info "${hunter_toolchain_id_path}/toolchain.info")
-  if(EXISTS "${global_toolchain_info}")
-    hunter_status_debug("Already exists: ${global_toolchain_info}")
+  set(toolchain_info_global "${hunter_toolchain_id_path}/toolchain.info")
+  if(EXISTS "${toolchain_info_global}")
+    hunter_status_debug("Already exists: ${toolchain_info_global}")
     return()
   endif()
 
   hunter_lock_directory("${hunter_toolchain_id_path}" "")
-  if(EXISTS "${global_toolchain_info}")
-    hunter_status_debug("Already exists: ${global_toolchain_info}")
+  if(EXISTS "${toolchain_info_global}")
+    hunter_status_debug("Already exists: ${toolchain_info_global}")
     return()
   endif()
 
-  set(temp "${hunter_toolchain_id_path}/toolchain.info.TEMP")
-  configure_file("${local_toolchain_info}" "${temp}" COPYONLY)
+  set(
+      toolchain_info_torename
+      "${hunter_toolchain_id_path}/toolchain.info.TORENAME"
+  )
+  configure_file(
+      "${toolchain_info_local}"
+      "${toolchain_info_torename}"
+      COPYONLY
+  )
 
-  file(RENAME "${temp}" "${global_toolchain_info}")
+  file(RENAME "${toolchain_info_torename}" "${toolchain_info_global}")
 
-  hunter_status_debug("Toolchain info: ${global_toolchain_info}")
+  hunter_status_debug("Toolchain info: ${toolchain_info_global}")
   hunter_status_debug("Toolchain SHA1: ${HUNTER_GATE_TOOLCHAIN_SHA1}")
 
   file(REMOVE_RECURSE "${temp_build_dir}")

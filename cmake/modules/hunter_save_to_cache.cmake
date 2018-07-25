@@ -144,9 +144,10 @@ function(hunter_save_to_cache)
   endif()
   set(basic_deps_info "${cache_meta_dir}/basic-deps.info")
   set(basic_deps_done "${cache_meta_dir}/basic-deps.DONE")
-  set(basic_deps_info_temp "${cache_meta_dir}/basic-deps.info-TEMP")
+  set(basic_deps_info_nolf "${cache_meta_dir}/basic-deps.info.NOLF")
+  set(basic_deps_info_temp "${cache_meta_dir}/basic-deps.info.TEMP")
 
-  file(WRITE "${basic_deps_info_temp}" "")
+  file(WRITE "${basic_deps_info_nolf}" "")
   list(LENGTH basic_dependencies len)
   if(len EQUAL 0)
     hunter_status_debug("No basic dependencies for package: ${human_readable}")
@@ -154,9 +155,18 @@ function(hunter_save_to_cache)
     hunter_status_debug("Basic dependencies for package: ${human_readable}")
     foreach(x ${basic_dependencies})
       hunter_status_debug("  ${x}")
-      file(APPEND "${basic_deps_info_temp}" "${x}\n")
+      file(APPEND "${basic_deps_info_nolf}" "${x}\n")
     endforeach()
   endif()
+
+  # About '@ONLY': no substitutions expected but COPYONLY can't be
+  # used with NEWLINE_STYLE
+  configure_file(
+      "${basic_deps_info_nolf}"
+      "${basic_deps_info_temp}"
+      @ONLY
+      NEWLINE_STYLE LF
+  )
 
   if(EXISTS "${basic_deps_info}")
     if(NOT EXISTS "${basic_deps_done}")
