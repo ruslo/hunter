@@ -15,11 +15,11 @@ Hunter: organize freedom
 Welcome to the Hunter package manager documentation!
 
 Hunter is a CMake driven cross-platform package manager for C/C++ [1]_ projects.
-With the help of Hunter you can organize builds for **Linux**, **OS X**,
-**Windows**, **iOS**, **Android**, and **Raspberry Pi**. Third-party external
-projects are highly customizable, effectively allowing you to have myriad
-variants of directories with them based on combinations of version to build,
-static/shared, CMake ``-D`` options, Release/Debug, etc.
+With the help of Hunter you can organize builds for **Linux**, **Windows**,
+**macOS**, **iOS**, **Android**, **Raspberry Pi** and other platforms.
+Third-party external projects are highly customizable, effectively allowing you
+to have myriad variants of directories with them based on combinations of
+version to build, static/shared, CMake ``-D`` options, Release/Debug, etc.
 
 Separate root directories will be created for each variant, so they all
 can be used simultaneously on one machine without conflicts
@@ -41,8 +41,8 @@ but non-CMake packages are also supported too using custom templates
 The Hunter client is a collection of CMake-only modules
 (i.e. it's **not a binary** like ``apt-get`` or script like ``brew``)
 so it supports out-of-the-box all platforms/generators/IDEs which CMake can
-handle, like Visual Studio, Xcode, QtCreator, NMake, Ninja, Cygwin or MinGW.
-It works fine with CMake-GUI too.
+handle, like Visual Studio, Xcode, :doc:`Android Studio </faq/android-studio>`,
+QtCreator, NMake, Ninja, Cygwin or MinGW.  It works fine with CMake-GUI too.
 
 The prime directive used for adding package to the current root is
 ``hunter_add_package`` which companioning CMake's ``find_package``. For
