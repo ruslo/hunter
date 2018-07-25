@@ -69,9 +69,10 @@ it may take much longer then with Makefile generator:
 
   > rm -rf _builds
 
-.. code-block:: none
+.. code-block:: cmake
 
-  > cat CMakeLists.txt
+  # CMakeLists.txt
+
   cmake_minimum_required(VERSION 3.2)
   project(foo)
 
@@ -109,10 +110,11 @@ option:
 
   > rm -rf _builds
 
-.. code-block:: none
-  :emphasize-lines: 4-8
+.. code-block:: cmake
+  :emphasize-lines: 5-9
 
-  > cat CMakeLists.txt
+  # CMakeLists.txt
+
   cmake_minimum_required(VERSION 3.2)
 
   option(
@@ -163,9 +165,10 @@ local project.
 
 As an example here are actions that can lead to incorrect cache state:
 
-.. code-block:: none
+.. code-block:: cmake
 
-  > cat CMakeLists.txt
+  # CMakeLists.txt
+
   cmake_minimum_required(VERSION 3.2)
 
   option(
@@ -191,9 +194,10 @@ As an example here are actions that can lead to incorrect cache state:
 
   hunter_add_package(gflags)
 
-.. code-block:: none
+.. code-block:: cmake
 
-  > cat toolchain.cmake
+  # toolchain.cmake
+
   set(CMAKE_CXX_STANDARD 11)
 
 Run configure stage to build ``gflags``:
@@ -210,17 +214,19 @@ Toolchain with C++11 standard will have ID ``385a6e9``.
 
 Now set standard to 14:
 
-.. code-block:: none
+.. code-block:: cmake
 
-  > cat toolchain.cmake
+  # toolchain.cmake
+
   set(CMAKE_CXX_STANDARD 14)
 
 And add "GTest" to CMakeLists.txt:
 
-.. code-block:: none
-  :emphasize-lines: 26
+.. code-block:: cmake
+  :emphasize-lines: 27
 
-  > cat CMakeLists.txt
+  # CMakeLists.txt
+
   cmake_minimum_required(VERSION 3.2)
 
   option(
