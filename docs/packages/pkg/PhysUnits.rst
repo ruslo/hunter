@@ -8,7 +8,7 @@
 .. _pkg.PhysUnits:
 
 PhysUnits
-===
+=========
 
 -  `Official <https://github.com/martinmoene/PhysUnits-CT-Cpp11>`__
 -  `Example <https://github.com/ruslo/hunter/blob/master/examples/PhysUnits/CMakeLists.txt>`__
