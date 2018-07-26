@@ -242,6 +242,8 @@ HUNTER_PASSWORDS_PATH
 
 Path to :doc:`Hunter passwords file <terminology/hunter-passwords-file>`.
 
+.. _hunter keep package sources:
+
 HUNTER_KEEP_PACKAGE_SOURCES
 ===========================
 

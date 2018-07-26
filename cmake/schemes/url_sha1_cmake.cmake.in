@@ -52,6 +52,22 @@ else()
   set(ios_opts "")
 endif()
 
+# https://cmake.org/cmake/help/v3.4/release/3.4.html#modules
+# https://cmake.org/cmake/help/v3.4/module/ExternalProject.html
+if(CMAKE_VERSION VERSION_LESS 3.4)
+  set(uses_terminal "")
+else()
+  set(
+      uses_terminal
+      USES_TERMINAL_DOWNLOAD 1
+      USES_TERMINAL_UPDATE 1
+      USES_TERMINAL_CONFIGURE 1
+      USES_TERMINAL_BUILD 1
+      USES_TERMINAL_TEST 1
+      USES_TERMINAL_INSTALL 1
+  )
+endif()
+
 string(COMPARE NOTEQUAL "@HUNTER_JOBS_OPTION@" "" have_jobs)
 if(have_jobs)
   string(COMPARE NOTEQUAL "@XCODE_VERSION@" "" is_xcode)
@@ -169,6 +185,7 @@ foreach(configuration @HUNTER_PACKAGE_CONFIGURATION_TYPES@)
           "@HUNTER_SELF@/scripts/try-copy-license.cmake"
       LOG_BUILD ${log_build}
       LOG_INSTALL ${log_install}
+      ${uses_terminal}
   )
 
   # Each external project must depends on previous one since they all use
