@@ -42,6 +42,17 @@ hunter_add_version(
     7f8ba49a04f04d7f121ec358521a5d7a8f5039dd
 )
 
+hunter_add_version(
+    PACKAGE_NAME
+    type_safe
+    VERSION
+    "0.2-p1"
+    URL
+    "https://github.com/hunter-packages/type_safe/archive/v0.2-p1.tar.gz"
+    SHA1
+    d051bec1db05d0623b6e8a6fd2805e70ba914713
+)
+
 # Pick a download scheme
 hunter_pick_scheme(DEFAULT url_sha1_cmake) # use scheme for cmake projects
 hunter_cacheable(type_safe)
