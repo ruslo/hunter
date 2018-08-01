@@ -1,6 +1,11 @@
 .. spelling::
 
+    Vulkan
     VulkanMemoryAllocator
+    debian
+    dev
+    libvulkan
+    vulkan
 
 .. index::
   single: graphics ; VulkanMemoryAllocator
