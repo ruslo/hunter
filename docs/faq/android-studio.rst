@@ -145,7 +145,29 @@ Or even start CMake build without using Gradle:
 .. note::
 
   Not all CMake files necessary for build will be created if initial
-  configure step will fail.
+  configure step will fail. In this case you can add ``return()`` command
+  right **after first hunter_add_package** call (this is where initialization
+  is happening and all ``*-ID`` calculated) to mimic successful CMake
+  configure step:
+
+  .. code-block:: cmake
+    :emphasize-lines: 3
+
+    # ...
+    hunter_add_package(md5)
+    return() # Early exit
+
+  Run Gradle again:
+
+  .. code-block:: none
+
+    [android-studio-with-hunter/android-studio]> ./gradlew asDebug -Parch=arm64-v8a
+
+  Remove ``return()`` from CMake code, now you will be able to run CMake:
+
+  .. code-block:: none
+
+    [android-studio-with-hunter/android-studio]> cmake --build app/.externalNativeBuild/cmake/debug/arm64-v8a
 
 .. note::
 
