@@ -653,6 +653,39 @@ Example:
   :align: center
   :alt: Pull request
 
+.. note::
+
+  If you see error
+
+  .. code-block:: none
+
+    -- The C compiler identification is unknown
+    -- The CXX compiler identification is unknown
+
+  or
+
+  .. code-block:: none
+
+    ...: error MSB3491: Could not write lines to file "...".
+    The specified path, file name, or both are too long. The fully qualified file
+    name must be less than 260 characters, and the directory name must be less than
+    248 characters
+
+  on Windows build, adding :ref:`HUNTER_BINARY_DIR <env hunter binary dir>`
+  environment variable should help:
+
+  .. code-block:: yaml
+    :emphasize-lines: 4
+
+    - TOOLCHAIN: "vs-15-2017-win64-cxx17"
+      PROJECT_DIR: examples\SuiteSparse
+      APPVEYOR_BUILD_WORKER_IMAGE: Visual Studio 2017
+      HUNTER_BINARY_DIR: C:\__BIN
+
+  Example:
+
+  * https://github.com/ingenue/hunter/blob/05bd9cdbd03a5772302c65abb9119722b9b8e08c/appveyor.yml#L21-L24
+
 Excluding tests
 ===============
 
