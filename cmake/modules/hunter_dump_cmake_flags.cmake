@@ -9,6 +9,7 @@ include(hunter_assert_not_empty_string)
 
 # Packages to test this function:
 # * Boost
+# * libxml2
 # * OpenSSL
 # * odb-boost
 function(hunter_dump_cmake_flags)
@@ -66,7 +67,7 @@ function(hunter_dump_cmake_flags)
       set(android_sysroot "${CMAKE_SYSROOT_COMPILE}")
 
       hunter_assert_not_empty_string("${CMAKE_SYSROOT}")
-      set(CMAKE_EXE_LINKER_FLAGS "${CMAKE_EXE_LINKER_FLAGS} --sysroot=${CMAKE_SYSROOT}")
+      set(CMAKE_EXE_LINKER_FLAGS "--sysroot=${CMAKE_SYSROOT} ${CMAKE_EXE_LINKER_FLAGS}")
     endif()
 
     set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} --sysroot=${android_sysroot}")
