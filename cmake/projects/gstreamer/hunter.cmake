@@ -35,7 +35,7 @@ hunter_cmake_args(
 hunter_cacheable(gstreamer)
 hunter_download(
     PACKAGE_NAME gstreamer
-    PACKAGE_INTERNAL_DEPS_ID "2"
+    PACKAGE_INTERNAL_DEPS_ID "3"
     PACKAGE_UNRELOCATABLE_TEXT_FILES
     "lib/gstreamer-1.0/libgstcoreelements.la"
     "lib/gstreamer-1.0/libgstcoretracers.la"
