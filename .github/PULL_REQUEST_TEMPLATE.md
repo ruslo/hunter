@@ -40,7 +40,7 @@
 
 * I've checked this [Git style guide](https://0.readthedocs.io/en/latest/git.html). **[Yes|No]**
 * I've checked this [CMake style guide](https://0.readthedocs.io/en/latest/cmake.html). **[Yes|No]**
-* My change will work with CMake 3.0 (minimum requirement for Hunter). **[Yes|No]**
+* My change will work with CMake 3.2 (minimum requirement for Hunter). **[Yes|No]**
 * I will try to keep this pull request as small as possible and will try not to mix unrelated features. **[Yes|No]**
 
 ---
