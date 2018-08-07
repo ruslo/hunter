@@ -12,7 +12,7 @@ tcl
 
 -  `Official <https://www.tcl.tk>`__
 -  `Example <https://github.com/ruslo/hunter/blob/master/examples/tcl/CMakeLists.txt>`__
--  Added by `drodin <https://github.com/drodin>`__ (`pr-N <https://github.com/ruslo/hunter/pull/N>`__)
+-  Added by `drodin <https://github.com/drodin>`__ (`pr-1515 <https://github.com/ruslo/hunter/pull/1515>`__)
 
 .. literalinclude:: /../examples/tcl/CMakeLists.txt
   :language: cmake
