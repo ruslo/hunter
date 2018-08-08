@@ -23,19 +23,17 @@ else()
   list(APPEND interface_libraries dl pthread)
 endif()
 
-if(NOT TARGET "tcl")
+if(NOT TARGET "tcl::tcl")
   if(NOT TCL_LIBRARY)
     message(FATAL_ERROR "TCL_LIBRARY not found!")
   endif()
-  add_library("tcl" UNKNOWN IMPORTED)
+  add_library("tcl::tcl" UNKNOWN IMPORTED)
   set_target_properties(
-      "tcl"
+      "tcl::tcl"
       PROPERTIES
         INTERFACE_INCLUDE_DIRECTORIES "${TCL_INCLUDE_DIR}"
         IMPORTED_LOCATION "${TCL_LIBRARY}"
         IMPORTED_LINK_INTERFACE_LIBRARIES "${interface_libraries}"
   )
-  get_filename_component(TCL_LIB_DIR "${TCL_ORIG_LIBRARY}" DIRECTORY CACHE)
   set(TCL_FOUND TRUE)
 endif()
-

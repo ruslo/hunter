@@ -14,5 +14,5 @@ hunter_add_package(tcl)
 find_package(tcl REQUIRED)
 
 add_executable(tcl_test tcl_test.c)
-target_link_libraries(tcl_test PUBLIC tcl)
+target_link_libraries(tcl_test PUBLIC tcl::tcl)
 # DOCUMENTATION_END }

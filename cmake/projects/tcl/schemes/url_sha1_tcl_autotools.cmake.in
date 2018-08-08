@@ -9,7 +9,7 @@ include("@HUNTER_SELF@/cmake/Hunter")
 include(hunter_user_error)
 include(hunter_status_debug)
 include(hunter_assert_not_empty_string)
-include("@HUNTER_PACKAGE_SETUP_DIR@/schemes/hunter_autotools_project.cmake")
+include(hunter_autotools_project)
 
 hunter_status_debug("Scheme: url_sha1_autotools")
 
@@ -48,8 +48,8 @@ if(ANDROID)
   list(APPEND cflags "--include android_def.h")
   list(APPEND extra_flags "--enable-langinfo=no")
   list(APPEND patch_command
-    && ${CMAKE_COMMAND} -E copy "@HUNTER_PACKAGE_SCRIPT_DIR@/android_def.h" "@HUNTER_PACKAGE_SOURCE_DIR@"
-    && ${CMAKE_COMMAND} -E copy "@HUNTER_PACKAGE_DOWNLOAD_DIR@/uname" "@HUNTER_PACKAGE_SOURCE_DIR@"
+    COMMAND ${CMAKE_COMMAND} -E copy "@HUNTER_PACKAGE_SCRIPT_DIR@/android_def.h" "@HUNTER_PACKAGE_SOURCE_DIR@"
+    COMMAND ${CMAKE_COMMAND} -E copy "@HUNTER_PACKAGE_DOWNLOAD_DIR@/uname" "@HUNTER_PACKAGE_SOURCE_DIR@"
   )
 elseif(APPLE)
   list(APPEND extra_flags "--enable-corefoundation=no")
@@ -81,7 +81,7 @@ hunter_autotools_project("@HUNTER_EP_NAME@"
     EXTRA_FLAGS
       ${extra_flags}
     PATCH_COMMAND
-      ${patch_command}      
+      ${patch_command}
 )
 
 string(COMPARE EQUAL "${DEPENDS_ON_PKGCONFIGS}" "" default_pkgconfig)
