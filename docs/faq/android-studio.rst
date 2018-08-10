@@ -42,6 +42,19 @@ Check you have at least CMake 3.9.2. Such requirement needed to work with
 
   CMake suite maintained and supported by Kitware (kitware.com/cmake).
 
+Check you have Ninja build tool installed:
+
+.. code-block:: none
+
+  > which ninja
+  /usr/bin/ninja
+
+You can use your system package manager
+(e.g. on Ubuntu do ``sudo apt-get install ninja-build``)
+or download it from GitHub releases, unpack and add to ``PATH``:
+
+* https://github.com/ninja-build/ninja/releases
+
 Get the sources:
 
 .. code-block:: none
