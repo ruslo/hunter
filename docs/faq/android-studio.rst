@@ -72,7 +72,9 @@ and add ``cmake.dir`` entry there.
 
   * `Android Studio: Use CMake 3.7 or higher <https://developer.android.com/studio/projects/add-native-code#vanilla_cmake>`__
 
-You may want to add the paths to Android NDK/SDK as well:
+You may want to add the paths to Android NDK/SDK as well (if ``ndk.dir`` and
+``sdk.dir`` not present in ``local.properties`` then they will be set by
+Android Studio to default locations):
 
 .. code-block:: none
   :emphasize-lines: 6
@@ -83,6 +85,12 @@ You may want to add the paths to Android NDK/SDK as well:
   ndk.dir=/home/your/path/to/android-sdk/ndk-bundle
   sdk.dir=/home/your/path/to/android-sdk
   cmake.dir=/home/your/path/to/cmake
+
+.. hint::
+
+  Since ``local.properties`` contains information about local machine
+  you should add it to
+  `.gitignore <https://github.com/forexample/android-studio-with-hunter/blob/2639b6732a0d4ffe7608839c60911cc3364b4ca0/.gitignore#L20-L21>`__.
 
 Please check that ``cmake.dir`` has such value that ``<cmake.dir>/bin/cmake``
 executable exists.
