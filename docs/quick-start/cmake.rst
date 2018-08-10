@@ -32,9 +32,16 @@ Notes about version of CMake
   * CMake now supports Cross Compiling for Android with simple toolchain files
   * `Polly Android toolchains <http://polly.readthedocs.io/en/latest/toolchains/android.html#android-ndk-x-api-y>`__
 
+* `3.9.2`_ **Minimum for Android NDK r16+**
+
 .. tip::
 
   * `CMake milestones <https://gitlab.kitware.com/cmake/cmake/milestones?state=all>`__ (`old version <https://cmake.org/Bug/changelog_page.php>`__)
+
+.. note::
+
+  If you're building CMake from sources please make sure that
+  :doc:`HTTPS support is enabled in CURL </faq/how-to-fix-download-error>`.
 
 .. note::
 
@@ -52,3 +59,4 @@ Notes about version of CMake
 .. _3.5.0: https://www.cmake.org/cmake/help/v3.5/release/3.5.html#platforms
 .. _3.7.0: https://cmake.org/cmake/help/latest/release/3.7.html#commands
 .. _3.7.1: https://cmake.org/cmake/help/latest/release/3.7.html#platforms
+.. _3.9.2: https://gitlab.kitware.com/cmake/cmake/issues/17253

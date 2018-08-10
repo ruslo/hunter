@@ -4,6 +4,30 @@
 How to fix hash mismatch error?
 -------------------------------
 
+da39a3ee5e6b4b0d3255bfef95601890afd80709
+========================================
+
+If you see error like this:
+
+.. code-block:: none
+
+  does not match expected value
+  expected: '...'
+  actual: 'da39a3ee5e6b4b0d3255bfef95601890afd80709'
+
+It means you're experiencing some
+:doc:`download error </faq/how-to-fix-download-error>`.
+
+``da39a3ee5e6b4b0d3255bfef95601890afd80709`` is a hash of an empty file:
+
+.. code-block:: none
+
+  > echo -n "" | openssl sha1
+  (stdin)= da39a3ee5e6b4b0d3255bfef95601890afd80709
+
+Other
+=====
+
 GitHub creates release archives on-the-fly and they are not guaranteed to be
 stable. This fact was discovered after few years of relying on the assumption
 of stability of such archives :)
