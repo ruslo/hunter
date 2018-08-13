@@ -88,6 +88,14 @@ function(hunter_pack_git_self)
       hunter_internal_error("Unexpected status format: '${status_full_line}'")
     endif()
 
+    if(HUNTER_GIT_SELF_IGNORE_UNTRACKED)
+      string(REGEX MATCH "^\\?\\? " status_only "${status_full_line}")
+      if(status_only STREQUAL "?? ")
+        hunter_status_debug("File will be ignored: '${status_full_line}'")
+        continue()
+      endif()
+    endif()
+
     # no_status_line can be:
     # * 'PATH'
     # * 'ORIG_PATH -> PATH'
