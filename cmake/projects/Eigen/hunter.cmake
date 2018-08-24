@@ -17,7 +17,7 @@ hunter_add_version(
     PACKAGE_NAME
     Eigen
     VERSION
-    "3.3.5-p0"
+    "3.3.5"
     URL
     "https://github.com/eigenteam/eigen-git-mirror/archive/3.3.5.tar.gz"
     SHA1
