@@ -25,6 +25,7 @@ Stackoverflow
 Toolchain
 Uninstall
 Wget
+Workflow
 Xcode
 cacheable
 companioning
@@ -33,12 +34,14 @@ configs
 customizable
 doesn
 embeddable
+geospatial
 hunterization
 hunterize
 hunterized
 iOS
 internet
 login
+macOS
 multi
 performant
 plugin

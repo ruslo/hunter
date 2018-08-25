@@ -7,6 +7,17 @@ hunter_add_version(
 	PACKAGE_NAME
 	libogg
 	VERSION
+	"1.3.3-p0"
+	URL
+	"https://github.com/hunter-packages/ogg/archive/v1.3.3-p0.tar.gz"
+	SHA1
+	1c83a80374670c6c3cd2ffba59397a0329b69544
+)
+
+hunter_add_version(
+	PACKAGE_NAME
+	libogg
+	VERSION
 	"1.3.2-cmake3"
 	URL
 	"https://github.com/Meralis40/ogg/archive/v1.3.2-cmake3.tar.gz"

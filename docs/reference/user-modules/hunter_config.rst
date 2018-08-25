@@ -5,11 +5,11 @@
 
   config
 
+.. _hunter_config:
+
 hunter_config
 -------------
 
-* `Source <https://github.com/ruslo/hunter/blob/master/cmake/modules/hunter_config.cmake>`__
-* `Example <https://github.com/ruslo/hunter/blob/master/cmake/configs/default.cmake>`__
 * `Usage example <https://github.com/ruslo/hunter/wiki/example.custom.config.id>`__
 
 This command will choose which version of package to build exactly:
@@ -17,9 +17,13 @@ This command will choose which version of package to build exactly:
 .. code-block:: cmake
 
   hunter_config(
-      <PackageName>
-      VERSION 1.2.8-hunter # Version from "project/<ProjectName>/hunter.cmake"
-      CMAKE_ARGS OPTION1=OFF OPTION2=ON # Arguments that will be forwarded to CMake build command (optional)
+      ${package}
+
+      # Version from "project/${package}/hunter.cmake"
+      VERSION 1.2.8-hunter
+
+      # Arguments that will be forwarded to CMake build command (optional)
+      CMAKE_ARGS OPTION1=OFF OPTION2=ON
   )
 
 ``OPTION1=OFF`` and ``OPTION2=ON`` will be used to build your third-party
@@ -37,6 +41,26 @@ Instead of using ``VERSION`` you can create source archive by packing
 
 .. code-block:: cmake
 
-  hunter_config(<PackageName> GIT_SUBMODULE "3rdparty/<PackageName>")
+  hunter_config(${package} GIT_SUBMODULE "3rdparty/${package}")
+
+Or packing
+:doc:`Current Git repository itself </user-guides/hunter-user/git-self>`:
+
+.. code-block:: cmake
+
+  hunter_config(${package} GIT_SELF)
+
+Or specifying ``URL``/``SHA1`` of package explicitly:
+
+.. code-block:: cmake
+
+  hunter_config(${package} URL "..." SHA1 "...")
+
+All variants support specifying extra:
+
+* ``VERSION`` (e.g. ``VERSION 4.5.6``)
+* ``CMAKE_ARGS`` (e.g. ``CMAKE_ARGS A=4 "B=5;6"``)
+* ``CONFIGURATION_TYPES`` (e.g. ``CONFIGURATION_TYPES Release MinSizeRel``)
+* ``KEEP_PACKAGE_SOURCES``
 
 .. _ExternalProject_Add: http://www.cmake.org/cmake/help/v3.0/module/ExternalProject.html

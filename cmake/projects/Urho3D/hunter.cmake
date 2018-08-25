@@ -108,6 +108,17 @@ hunter_add_version(
     9dc5df770d7b454feb880ada76bcc0868879adfb
 )
 
+hunter_add_version(
+    PACKAGE_NAME
+    Urho3D
+    VERSION
+    1.7-p15
+    URL
+    "https://github.com/hunter-packages/Urho3D/archive/v1.7-p15.tar.gz"
+    SHA1
+    2413d786c419845fdcb062c102f810503ddd09d4
+)
+
 hunter_cmake_args(
     Urho3D
     CMAKE_ARGS

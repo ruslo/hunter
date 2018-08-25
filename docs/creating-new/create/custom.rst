@@ -78,19 +78,19 @@ First, custom build scheme need to be added to ``cmake/schemes`` directory:
     list(APPEND CMAKE_MODULE_PATH "@HUNTER_SELF@/cmake/modules")
 
     include(hunter_status_debug)
-    include(hunter_test_string_not_empty)
+    include(hunter_assert_not_empty_string)
 
     # print this message if HUNTER_STATUS_DEBUG option is ON
     hunter_status_debug("Scheme: url_sha1_ios_sim")
 
     # Check variables is not empty
-    hunter_test_string_not_empty("@HUNTER_SELF@")
-    hunter_test_string_not_empty("@HUNTER_EP_NAME@")
-    hunter_test_string_not_empty("@HUNTER_PACKAGE_URL@")
-    hunter_test_string_not_empty("@HUNTER_PACKAGE_SHA1@")
-    hunter_test_string_not_empty("@HUNTER_PACKAGE_DOWNLOAD_DIR@")
-    hunter_test_string_not_empty("@HUNTER_PACKAGE_SOURCE_DIR@")
-    hunter_test_string_not_empty("@HUNTER_INSTALL_PREFIX@")
+    hunter_assert_not_empty_string("@HUNTER_SELF@")
+    hunter_assert_not_empty_string("@HUNTER_EP_NAME@")
+    hunter_assert_not_empty_string("@HUNTER_PACKAGE_URL@")
+    hunter_assert_not_empty_string("@HUNTER_PACKAGE_SHA1@")
+    hunter_assert_not_empty_string("@HUNTER_PACKAGE_DOWNLOAD_DIR@")
+    hunter_assert_not_empty_string("@HUNTER_PACKAGE_SOURCE_DIR@")
+    hunter_assert_not_empty_string("@HUNTER_INSTALL_PREFIX@")
 
     ExternalProject_Add(
         @HUNTER_EP_NAME@ # Name of the external project. Actually not used set for beautify logging messages
@@ -143,7 +143,7 @@ Next steps are similar to :ref:`cmake-simple`.
 .. code-block:: bash
 
     > grep ios_sim cmake/config/default.cmake
-    hunter_config(ios_sim VERSION 1.8.2)
+    hunter_default_version(ios_sim VERSION 1.8.2)
 
 Using
 =====

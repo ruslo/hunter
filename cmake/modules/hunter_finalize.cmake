@@ -10,7 +10,7 @@ include(hunter_internal_error)
 include(hunter_sanity_checks)
 include(hunter_status_debug)
 include(hunter_status_print)
-include(hunter_test_string_not_empty)
+include(hunter_assert_not_empty_string)
 
 # Continue initialization of key variables (also see 'hunter_initialize')
 #   * calculate toolchain-id
@@ -133,12 +133,12 @@ macro(hunter_finalize)
 
   ### 1. Clear all '<NAME>_ROOT' variables (cache, environment, ...)
   ### 2. Set '<NAME>_ROOT' or 'HUNTER_<name>_VERSION' variables
-  set(HUNTER_ALLOW_CONFIG_LOADING YES)
+  set(__HUNTER_ALLOW_FINAL_CONFIG_LOADING YES)
   include("${HUNTER_CONFIG_ID_PATH}/config.cmake")
-  set(HUNTER_ALLOW_CONFIG_LOADING NO)
+  set(__HUNTER_ALLOW_FINAL_CONFIG_LOADING NO)
 
-  hunter_test_string_not_empty("${HUNTER_INSTALL_PREFIX}")
-  hunter_test_string_not_empty("${CMAKE_BINARY_DIR}")
+  hunter_assert_not_empty_string("${HUNTER_INSTALL_PREFIX}")
+  hunter_assert_not_empty_string("${CMAKE_BINARY_DIR}")
 
   file(
       WRITE

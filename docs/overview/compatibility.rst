@@ -33,7 +33,7 @@ by default this code will trigger download and build of OpenSSL:
       /.../_Base/a9bd96a/e8394c3/dd69ac4/Install/lib/libcrypto.a
       -ldl
 
-but adding ``HUNTER_ENABLED=NO`` make it skip all Hunter instructions and
+but adding ``HUNTER_ENABLED=NO`` make it **skip all Hunter instructions** and
 system library will be used instead:
 
 .. code-block:: bash
@@ -49,6 +49,19 @@ system library will be used instead:
       -rdynamic
       /usr/lib/x86_64-linux-gnu/libssl.so
       /usr/lib/x86_64-linux-gnu/libcrypto.so
+
+.. note::
+
+  As you can see ``hunter_add_package`` has no effect when ``HUNTER_ENABLED``
+  is ``OFF`` hence such code is redundant:
+
+  .. code-block:: cmake
+
+    if(HUNTER_ENABLED)
+      hunter_add_package(foo)
+    endif()
+
+  It will behave in the same way as just ``hunter_add_package(foo)`` alone.
 
 ``HUNTER_ENABLED=NO`` can be set by default using CMake ``option``:
 

@@ -12,6 +12,10 @@ include(FindPkgConfig)
 include(hunter_internal_error)
 include(hunter_status_debug)
 
+# Packages to test this function:
+# * x11
+# * x264
+# * xcb
 function(hunter_pkgconfig_export_target PKG_CONFIG_MODULE)
   set(target_name "PkgConfig::${PKG_CONFIG_MODULE}")
   if(TARGET "${target_name}")

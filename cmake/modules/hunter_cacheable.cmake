@@ -1,9 +1,11 @@
 # Copyright (c) 2015, Ruslan Baratov
 # All rights reserved.
 
-include(hunter_test_string_not_empty)
+include(hunter_assert_empty_string)
 
-macro(hunter_cacheable package)
-  hunter_test_string_not_empty("${package}")
-  set(HUNTER_${package}_CACHEABLE TRUE)
-endmacro()
+function(hunter_cacheable package)
+  hunter_assert_empty_string("${ARGN}")
+  hunter_assert_not_empty_string("${package}")
+
+  set("__HUNTER_CACHEABLE_${package}" TRUE PARENT_SCOPE)
+endfunction()

@@ -5,7 +5,7 @@ include(CMakeParseArguments) # cmake_parse_arguments
 
 include(hunter_add_package)
 include(hunter_internal_error)
-include(hunter_test_string_not_empty)
+include(hunter_assert_not_empty_string)
 
 # Do not install any packages.
 # Check cache and load cache.sha1 to home directory on hit.
@@ -15,7 +15,7 @@ function(hunter_cache_run)
   # -> x_PACKAGE
   # -> x_COMPONENT
 
-  hunter_test_string_not_empty("${x_PACKAGE}")
+  hunter_assert_not_empty_string("${x_PACKAGE}")
 
   string(COMPARE NOTEQUAL "${x_COMPONENT}" "" has_component)
   string(COMPARE NOTEQUAL "${x_UNPARSED_ARGUMENTS}" "" has_unparsed)

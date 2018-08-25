@@ -23,12 +23,11 @@ You can manage anything that can be downloaded by ``URL`` and checked with
 * CMake modules
 
 .. code-block:: cmake
-  :emphasize-lines: 2
+  :emphasize-lines: 4
 
-  hunter_add_package(Sugar)
-  include("${SUGAR_ROOT}/cmake/Sugar")
+  hunter_add_package(sugar)
+  find_package(sugar CONFIG REQUIRED)
 
-  include(sugar_files)
   sugar_files(...)
 
 * Additional sources (`OpenCV example <https://github.com/hunter-packages/opencv/blob/e91796b4c52994fcec5a8eafeacc618d54d31d8d/CMakeLists.txt#L449>`__):
@@ -52,3 +51,7 @@ You can manage anything that can be downloaded by ``URL`` and checked with
   add_test(NAME FooTest1 COMMAND foo --use-data "${MYDATA_ROOT}/case-1.png")
   add_test(NAME FooTest2 COMMAND foo --use-data "${MYDATA_ROOT}/case-2.png")
   # ...
+
+.. note::
+
+  * See :doc:`alternative approach </user-guides/cmake-user/private-data>`

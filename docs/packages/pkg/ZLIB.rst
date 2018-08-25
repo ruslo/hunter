@@ -18,12 +18,3 @@ ZLIB
     hunter_add_package(ZLIB)
     find_package(ZLIB CONFIG REQUIRED)
     target_link_libraries(... ZLIB::zlib)
-
-Compatibility mode:
-
-.. code-block:: cmake
-
-    hunter_add_package(ZLIB)
-    find_package(ZLIB REQUIRED)
-    include_directories(${ZLIB_INCLUDE_DIRS})
-    target_link_libraries(... ${ZLIB_LIBRARIES})

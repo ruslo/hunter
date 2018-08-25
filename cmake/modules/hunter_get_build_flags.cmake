@@ -129,7 +129,7 @@ function(hunter_get_build_flags)
     )
     string(STRIP "${cxxflags}" cxxflags)
     hunter_status_debug("  CXXFLAGS=${cxxflags}")
-    set(${PARAM_OUT_CXXFLAGS} ${cflags} PARENT_SCOPE)
+    set(${PARAM_OUT_CXXFLAGS} ${cxxflags} PARENT_SCOPE)
   endif()
 
   if(has_out_ldflags)

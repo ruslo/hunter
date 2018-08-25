@@ -84,7 +84,7 @@ for development.
   │           ├── cmake.lock
   │           ├── SHA1                         # SHA1 of 'config.cmake'
   │           ├── DONE
-  │           ├── config.cmake                 # CMake file with unified hunter_config commands
+  │           ├── config.cmake                 # CMake file with unified hunter_final_config commands
   │           ├── cache.cmake
   │           ├── Install/                     # Main directory with installed packages (global)
   │           │   ├── include/
@@ -174,7 +174,7 @@ arguments, dependencies, etc.).
   ├─ raw/
   │  └─ <cache>.tar.bz2
   └─ meta/
-     └─ <toolchain-id>/
+     └─ <Toolchain-ID>/
         ├─ cmake.lock
         ├─ SHA1                                   # SHA1 of toolchain.info
         ├─ DONE
@@ -237,3 +237,41 @@ Cellar directory consists of unpacked raw cache archives and source archives of
         ├─ link-all.sh                            # link script
         ├─ licenses/
         └─ raw/                                   # directory with unpacked files
+
+.. _layout deployed private data:
+
+PrivateData
+===========
+
+Directory with
+:doc:`downloaded private data </user-guides/cmake-user/private-data>`.
+
+If ``FILE`` specified (download only):
+
+.. code-block:: none
+  :emphasize-lines: 2,4,6,8
+
+  PrivateData/
+  └─ <sha1>/                 # SHA1 of downloaded file
+     └─ <id>/                # first 7 digits of SHA1
+        ├─ cmake.lock
+        ├─ SHA1
+        ├─ DONE
+        ├─ unpack.DONE       # stamp: download operation finished
+        ├─ param.file        # value specified in `FILE`
+        └─ raw/<filename>    # downloaded file
+
+If ``FILE`` not specified (download archive and unpack):
+
+.. code-block:: none
+  :emphasize-lines: 2,4,6,8
+
+  PrivateData/
+  └─ <sha1>/                 # SHA1 of downloaded file
+     └─ <id>/                # first 7 digits of SHA1
+        ├─ cmake.lock
+        ├─ SHA1
+        ├─ DONE
+        ├─ unpack.DONE       # stamp: download and unpack operation finished
+        ├─ archive.file      # downloaded archive
+        └─ raw/*             # unpacked directory

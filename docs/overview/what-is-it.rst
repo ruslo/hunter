@@ -83,7 +83,7 @@ Default version from `default.cmake`_
 
 .. code-block:: cmake
 
-  hunter_config(OpenSSL VERSION 1.0.2g)
+  hunter_default_version(OpenSSL VERSION 1.0.2g)
 
 .. seealso::
 

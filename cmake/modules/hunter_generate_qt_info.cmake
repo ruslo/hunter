@@ -4,7 +4,9 @@
 include(hunter_generate_qt_5_5_info)
 include(hunter_generate_qt_5_6_info)
 include(hunter_generate_qt_5_9_info)
-include(hunter_test_string_not_empty)
+include(hunter_generate_qt_5_10_info)
+include(hunter_generate_qt_5_11_info)
+include(hunter_assert_not_empty_string)
 include(hunter_user_error)
 
 # See cmake/projects/Qt/generate.sh
@@ -23,11 +25,11 @@ function(
     is_android
     is_win32
 )
-  hunter_test_string_not_empty("${component_name}")
-  hunter_test_string_not_empty("${skip_components_varname}")
-  hunter_test_string_not_empty("${component_depends_on_varname}")
-  hunter_test_string_not_empty("${nobuild_varname}")
-  hunter_test_string_not_empty("${qt_version}")
+  hunter_assert_not_empty_string("${component_name}")
+  hunter_assert_not_empty_string("${skip_components_varname}")
+  hunter_assert_not_empty_string("${component_depends_on_varname}")
+  hunter_assert_not_empty_string("${nobuild_varname}")
+  hunter_assert_not_empty_string("${qt_version}")
 
   if(qt_version MATCHES "^5\\.5\\.")
     hunter_generate_qt_5_5_info(
@@ -47,6 +49,22 @@ function(
     )
   elseif(qt_version MATCHES "^5\\.9\\.")
     hunter_generate_qt_5_9_info(
+        "${component_name}"
+        toskip
+        depends_on
+        "${is_android}"
+        "${is_win32}"
+    )
+  elseif(qt_version MATCHES "^5\\.10\\.")
+    hunter_generate_qt_5_10_info(
+        "${component_name}"
+        toskip
+        depends_on
+        "${is_android}"
+        "${is_win32}"
+    )
+  elseif(qt_version MATCHES "^5\\.11\\.")
+    hunter_generate_qt_5_11_info(
         "${component_name}"
         toskip
         depends_on

@@ -5,7 +5,7 @@ include(CMakeParseArguments) # cmake_parse_arguments
 
 include(hunter_get_package_deps)
 include(hunter_internal_error)
-include(hunter_test_string_not_empty)
+include(hunter_assert_not_empty_string)
 
 # Get list of dependencies sorted alphabetically in format:
 #   <package> <component>
@@ -29,8 +29,8 @@ function(hunter_get_package_deps_recurse)
     hunter_internal_error("Unparsed: ${x_UNPARSED_ARGUMENTS}")
   endif()
 
-  hunter_test_string_not_empty("${x_PACKAGE}")
-  hunter_test_string_not_empty("${x_RESULT}")
+  hunter_assert_not_empty_string("${x_PACKAGE}")
+  hunter_assert_not_empty_string("${x_RESULT}")
 
   set(basic_dependencies "")
 

@@ -3,7 +3,7 @@
 
 include(hunter_internal_error)
 include(hunter_qt_add_module)
-include(hunter_test_string_not_empty)
+include(hunter_assert_not_empty_string)
 
 # See cmake/projects/Qt/generate.sh
 
@@ -18,9 +18,9 @@ function(
     is_android
     is_win32
 )
-  hunter_test_string_not_empty("${component_name}")
-  hunter_test_string_not_empty("${skip_components_varname}")
-  hunter_test_string_not_empty("${component_depends_on_varname}")
+  hunter_assert_not_empty_string("${component_name}")
+  hunter_assert_not_empty_string("${skip_components_varname}")
+  hunter_assert_not_empty_string("${component_depends_on_varname}")
 
   string(COMPARE NOTEQUAL "${ARGN}" "" has_unparsed)
   if(has_unparsed)

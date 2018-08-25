@@ -3,10 +3,10 @@
 
 include(hunter_internal_error)
 include(hunter_status_debug)
-include(hunter_test_string_not_empty)
+include(hunter_assert_not_empty_string)
 
 function(hunter_apply_copy_rules)
-  hunter_test_string_not_empty("${HUNTER_INSTALL_PREFIX}")
+  hunter_assert_not_empty_string("${HUNTER_INSTALL_PREFIX}")
 
   get_property(copy_list GLOBAL PROPERTY HUNTER_COPY_FILES)
 

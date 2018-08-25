@@ -3,7 +3,7 @@
 
 include(CMakeParseArguments) # cmake_parse_arguments
 
-include(hunter_test_string_not_empty)
+include(hunter_assert_not_empty_string)
 
 # We must use macro to set variable to parent scope of the caller.
 #
@@ -16,8 +16,8 @@ include(hunter_test_string_not_empty)
 # Out:
 # * ${HUNTER_PACKAGE_NAME}_LICENSES (parent scope)
 macro(hunter_find_licenses)
-  hunter_test_string_not_empty("${HUNTER_PACKAGE_LICENSE_SEARCH_DIR}")
-  hunter_test_string_not_empty("${HUNTER_PACKAGE_NAME}")
+  hunter_assert_not_empty_string("${HUNTER_PACKAGE_LICENSE_SEARCH_DIR}")
+  hunter_assert_not_empty_string("${HUNTER_PACKAGE_NAME}")
 
   file(GLOB _licenses "${HUNTER_PACKAGE_LICENSE_SEARCH_DIR}/*")
 
@@ -25,8 +25,8 @@ macro(hunter_find_licenses)
 
   # HACK (to refactor) {
   if(HUNTER_PACKAGE_SCHEME_UNPACK)
-    hunter_test_string_not_empty("${HUNTER_PACKAGE_HOME_DIR}")
-    hunter_test_string_not_empty("${HUNTER_PACKAGE_SHA1}")
+    hunter_assert_not_empty_string("${HUNTER_PACKAGE_HOME_DIR}")
+    hunter_assert_not_empty_string("${HUNTER_PACKAGE_SHA1}")
     file(
         WRITE
         "${HUNTER_PACKAGE_HOME_DIR}/cache.sha1"

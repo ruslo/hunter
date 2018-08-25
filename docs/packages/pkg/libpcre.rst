@@ -2,7 +2,7 @@
 
     libpcre
 
-.. index:: development ; libpcre
+.. index:: regex ; libpcre
 
 .. _pkg.libpcre:
 

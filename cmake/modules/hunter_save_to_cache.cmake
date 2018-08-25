@@ -9,7 +9,7 @@ include(hunter_make_directory)
 include(hunter_pack_directory)
 include(hunter_patch_unrelocatable_text_files)
 include(hunter_status_debug)
-include(hunter_test_string_not_empty)
+include(hunter_assert_not_empty_string)
 include(hunter_unpack_directory)
 
 # Save results of install
@@ -20,11 +20,11 @@ include(hunter_unpack_directory)
 #  4. Unpack archive from Cache to HUNTER_INSTALL_PREFIX
 #  5. Save cache.sha1 file
 function(hunter_save_to_cache)
-  hunter_test_string_not_empty("${HUNTER_CACHED_ROOT}")
-  hunter_test_string_not_empty("${HUNTER_INSTALL_PREFIX}")
-  hunter_test_string_not_empty("${HUNTER_PACKAGE_HOME_DIR}")
-  hunter_test_string_not_empty("${HUNTER_PACKAGE_INSTALL_PREFIX}")
-  hunter_test_string_not_empty("${HUNTER_PACKAGE_NAME}")
+  hunter_assert_not_empty_string("${HUNTER_CACHED_ROOT}")
+  hunter_assert_not_empty_string("${HUNTER_INSTALL_PREFIX}")
+  hunter_assert_not_empty_string("${HUNTER_PACKAGE_HOME_DIR}")
+  hunter_assert_not_empty_string("${HUNTER_PACKAGE_INSTALL_PREFIX}")
+  hunter_assert_not_empty_string("${HUNTER_PACKAGE_NAME}")
 
   string(COMPARE NOTEQUAL "${HUNTER_PACKAGE_COMPONENT}" "" has_component)
   string(
@@ -97,7 +97,7 @@ function(hunter_save_to_cache)
       archive_sha1
   )
 
-  hunter_test_string_not_empty("${archive_sha1}")
+  hunter_assert_not_empty_string("${archive_sha1}")
 
   ### Install to global directory from cache archive
   hunter_unpack_directory(${archive_sha1})
@@ -110,11 +110,24 @@ function(hunter_save_to_cache)
 
   ### Save cache meta-data
   hunter_create_cache_meta_directory("${cache_directory}" cache_meta_dir)
-  hunter_test_string_not_empty("${cache_meta_dir}")
+  hunter_assert_not_empty_string("${cache_meta_dir}")
 
   ### create cache.sha1 file in home (before saving dependencies)
   hunter_status_debug("Saving cache file: ${cache_file}")
+  hunter_status_debug("With SHA1: ${archive_sha1}")
   file(WRITE "${cache_file}" "${archive_sha1}")
+
+  # Sanity check
+  file(READ "${cache_file}" archive_sha1_check)
+
+  string(COMPARE EQUAL "${archive_sha1}" "${archive_sha1_check}" is_ok)
+  if(NOT is_ok)
+    hunter_internal_error(
+        "Sanity check failed (${cache_file}):"
+        " * '${archive_sha1}'"
+        " * '${archive_sha1_check}'"
+    )
+  endif()
 
   # Get dependencies (non-recursively)
   if(has_component)
@@ -131,9 +144,10 @@ function(hunter_save_to_cache)
   endif()
   set(basic_deps_info "${cache_meta_dir}/basic-deps.info")
   set(basic_deps_done "${cache_meta_dir}/basic-deps.DONE")
-  set(basic_deps_info_temp "${cache_meta_dir}/basic-deps.info-TEMP")
+  set(basic_deps_info_nolf "${cache_meta_dir}/basic-deps.info.NOLF")
+  set(basic_deps_info_temp "${cache_meta_dir}/basic-deps.info.TEMP")
 
-  file(WRITE "${basic_deps_info_temp}" "")
+  file(WRITE "${basic_deps_info_nolf}" "")
   list(LENGTH basic_dependencies len)
   if(len EQUAL 0)
     hunter_status_debug("No basic dependencies for package: ${human_readable}")
@@ -141,9 +155,18 @@ function(hunter_save_to_cache)
     hunter_status_debug("Basic dependencies for package: ${human_readable}")
     foreach(x ${basic_dependencies})
       hunter_status_debug("  ${x}")
-      file(APPEND "${basic_deps_info_temp}" "${x}\n")
+      file(APPEND "${basic_deps_info_nolf}" "${x}\n")
     endforeach()
   endif()
+
+  # About '@ONLY': no substitutions expected but COPYONLY can't be
+  # used with NEWLINE_STYLE
+  configure_file(
+      "${basic_deps_info_nolf}"
+      "${basic_deps_info_temp}"
+      @ONLY
+      NEWLINE_STYLE LF
+  )
 
   if(EXISTS "${basic_deps_info}")
     if(NOT EXISTS "${basic_deps_done}")
@@ -200,4 +223,16 @@ function(hunter_save_to_cache)
 
   file(WRITE "${cache_meta_dir}/cache.sha1" "${archive_sha1}")
   file(WRITE "${cache_meta_dir}/CACHE.DONE" "")
+
+  # Sanity check
+  file(READ "${cache_meta_dir}/cache.sha1" archive_sha1_check)
+
+  string(COMPARE EQUAL "${archive_sha1}" "${archive_sha1_check}" is_ok)
+  if(NOT is_ok)
+    hunter_internal_error(
+        "Sanity check failed (${cache_meta_dir}):"
+        " * '${archive_sha1}'"
+        " * '${archive_sha1_check}'"
+    )
+  endif()
 endfunction()
