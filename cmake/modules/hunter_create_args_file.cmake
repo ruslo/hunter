@@ -1,4 +1,4 @@
-# Copyright (c) 2015, Ruslan Baratov
+# Copyright (c) 2015, 2018 Ruslan Baratov
 # All rights reserved.
 
 include(hunter_status_debug)
@@ -26,8 +26,9 @@ function(hunter_create_args_file args filename)
   #       "A", "B", "C"
   #   'var_value' will have values:
   #       "value1", "value2", "value3", "value4"
-  file(REMOVE "${filename}")
-  file(WRITE "${filename}" "") # create empty file if no option
+  set(filename_nolf "${filename}.NOLF")
+  file(REMOVE "${filename_nolf}")
+  file(WRITE "${filename_nolf}" "") # create empty file if no option
   set(var_name "")
   foreach(entry ${args})
     string(FIND "${entry}" "=" update_var)
@@ -53,13 +54,13 @@ function(hunter_create_args_file args filename)
         )
       endif()
       ### -- end
-      file(APPEND "${filename}" "set(")
+      file(APPEND "${filename_nolf}" "set(")
       file(
           APPEND
-          "${filename}"
+          "${filename_nolf}"
           "\"${var_name}\" \"\${${var_name}}\" \"${var_value}\""
       )
-      file(APPEND "${filename}" " CACHE INTERNAL \"\")\n")
+      file(APPEND "${filename_nolf}" " CACHE INTERNAL \"\")\n")
       hunter_status_debug(
           "Add extra CMake args: '${var_name}' += '${var_value}'"
       )
@@ -97,12 +98,27 @@ function(hunter_create_args_file args filename)
       endif()
       ### -- end
 
-      file(APPEND "${filename}" "set(")
-      file(APPEND "${filename}" "\"${var_name}\" \"${var_value}\"")
-      file(APPEND "${filename}" " CACHE INTERNAL \"\")\n")
+      file(APPEND "${filename_nolf}" "set(")
+
+      if("${var_value}" STREQUAL "\"\"")
+        file(APPEND "${filename_nolf}" "\"${var_name}\" \"\"")
+      else()
+        file(APPEND "${filename_nolf}" "\"${var_name}\" \"${var_value}\"")
+      endif()
+
+      file(APPEND "${filename_nolf}" " CACHE INTERNAL \"\")\n")
       hunter_status_debug(
           "Add extra CMake args: '${var_name}' = '${var_value}'"
       )
     endif()
   endforeach()
+
+  # About '@ONLY': no substitutions expected but COPYONLY can't be
+  # used with NEWLINE_STYLE
+  configure_file(
+      "${filename_nolf}"
+      "${filename}"
+      @ONLY
+      NEWLINE_STYLE LF
+  )
 endfunction()

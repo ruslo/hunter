@@ -15,10 +15,10 @@ function(hunter_check_download_error_message)
   # x_NOT_FOUND_COUNTER
   # x_UNPARSED_ARGUMENTS
 
-  hunter_test_string_not_empty("${x_ERROR_CODE}")
-  hunter_test_string_not_empty("${x_ERROR_MESSAGE}")
-  hunter_test_string_not_empty("${x_REMOVE_ON_ERROR}")
-  hunter_test_string_not_empty("${x_NOT_FOUND_COUNTER}")
+  hunter_assert_not_empty_string("${x_ERROR_CODE}")
+  hunter_assert_not_empty_string("${x_ERROR_MESSAGE}")
+  hunter_assert_not_empty_string("${x_REMOVE_ON_ERROR}")
+  hunter_assert_not_empty_string("${x_NOT_FOUND_COUNTER}")
 
   string(COMPARE NOTEQUAL "${x_UNPARSED_ARGUMENTS}" "" has_unparsed)
   if(has_unparsed)

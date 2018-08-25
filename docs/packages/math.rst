@@ -13,5 +13,6 @@ Math
  - :ref:`pkg.gemmlowp` - Low-precision matrix multiplication.
  - :ref:`pkg.glm` - header only C++ mathematics library for graphics software based on the OpenGL Shading Language (GLSL) specifications.
  - :ref:`pkg.half` - Half-precision floating point library
+ - :ref:`pkg.h3` - Hexagonal hierarchical geospatial indexing system
  - :ref:`pkg.poly2tri` - 2D constrained Delaunay triangulation library
  - :ref:`pkg.polyclipping` - Polygon and line clipping and offsetting library

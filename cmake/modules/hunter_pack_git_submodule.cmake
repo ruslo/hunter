@@ -2,47 +2,31 @@ include(CMakeParseArguments) # cmake_parse_arguments
 
 include(hunter_internal_error)
 include(hunter_status_debug)
-
-set(_HUNTER_TEMPLATE_SCHEME_DIR "${CMAKE_CURRENT_LIST_DIR}/../templates")
+include(hunter_user_error)
 
 function(hunter_pack_git_submodule)
-  set(PACKAGE_NAME "${_hunter_current_project}")
-  string(COMPARE EQUAL "${PACKAGE_NAME}" "" is_empty)
-  if(is_empty)
-    hunter_internal_error("_hunter_current_project is empty")
-  endif()
-
   set(optional "")
-  set(one GIT_SUBMODULE PROJECT_FILE VERSION SUBMODULE_SOURCE_SUBDIR)
+  set(one PACKAGE GIT_SUBMODULE SUBMODULE_SOURCE_SUBDIR URL_OUT SHA1_OUT)
   set(multiple "")
 
   # Introduce:
+  # * x_PACKAGE
   # * x_GIT_SUBMODULE
-  # * x_PROJECT_FILE
-  # * x_VERSION
   # * x_SUBMODULE_SOURCE_SUBDIR
+  # * x_URL_OUT
+  # * x_SHA1_OUT
   cmake_parse_arguments(x "${optional}" "${one}" "${multiple}" "${ARGV}")
 
-  string(COMPARE NOTEQUAL "${x_UNPARSED_ARGUMENTS}" "" has_unparsed)
-  if(has_unparsed)
-    hunter_internal_error("Unparsed arguments: ${x_UNPARSED_ARGUMENTS}")
-  endif()
+  hunter_assert_empty_string("${x_UNPARSED_ARGUMENTS}")
 
-  string(COMPARE EQUAL "${x_GIT_SUBMODULE}" "" is_empty)
-  if(is_empty)
-    hunter_internal_error("GIT_SUBMODULE is empty")
-  endif()
+  hunter_assert_not_empty_string("${x_PACKAGE}")
+  hunter_assert_not_empty_string("${x_GIT_SUBMODULE}")
+  hunter_assert_not_empty_string("${x_URL_OUT}")
+  hunter_assert_not_empty_string("${x_SHA1_OUT}")
 
-  find_package(Git REQUIRED)
-  hunter_status_debug("Using git executable: ${GIT_EXECUTABLE}")
+  hunter_get_git_executable(git_executable)
 
-  # For '--git-path':
-  # * https://git-scm.com/docs/git-rev-parse/2.5.0
-  if(GIT_VERSION_STRING VERSION_LESS "2.5.0")
-    hunter_user_error("At least Git 2.5.0 required")
-  endif()
-
-  set(cmd "${GIT_EXECUTABLE}" rev-parse --show-toplevel)
+  set(cmd "${git_executable}" rev-parse --show-toplevel)
   execute_process(
       COMMAND ${cmd}
       WORKING_DIRECTORY "${PROJECT_SOURCE_DIR}"
@@ -53,7 +37,7 @@ function(hunter_pack_git_submodule)
       ERROR_STRIP_TRAILING_WHITESPACE
   )
 
-  if(NOT result EQUAL 0)
+  if(NOT result EQUAL "0")
     hunter_internal_error(
         "Command failed: ${cmd} (${result}, ${output}, ${error})"
     )
@@ -61,7 +45,7 @@ function(hunter_pack_git_submodule)
 
   set(top_git_directory "${output}")
 
-  set(cmd "${GIT_EXECUTABLE}" submodule status "${x_GIT_SUBMODULE}")
+  set(cmd "${git_executable}" submodule status "${x_GIT_SUBMODULE}")
   execute_process(
       COMMAND ${cmd}
       WORKING_DIRECTORY "${top_git_directory}"
@@ -72,7 +56,7 @@ function(hunter_pack_git_submodule)
       ERROR_STRIP_TRAILING_WHITESPACE
   )
 
-  if(NOT result EQUAL 0)
+  if(NOT result EQUAL "0")
     string(REPLACE ";" " " cmd "${cmd}")
     hunter_internal_error(
         "Command failed: '${cmd}' (${result}, ${output}, ${error})"
@@ -94,7 +78,7 @@ function(hunter_pack_git_submodule)
     hunter_internal_error("Directory not exist: '${submodule_dir}'")
   endif()
 
-  set(cmd "${GIT_EXECUTABLE}" status --porcelain)
+  set(cmd "${git_executable}" status --porcelain)
   execute_process(
       COMMAND ${cmd}
       WORKING_DIRECTORY "${submodule_dir}"
@@ -105,21 +89,20 @@ function(hunter_pack_git_submodule)
       ERROR_STRIP_TRAILING_WHITESPACE
   )
 
-  if(NOT result EQUAL 0)
+  if(NOT result EQUAL "0")
     hunter_internal_error(
         "Command failed: ${cmd} (${result}, ${output}, ${error})"
     )
   endif()
 
-  string(COMPARE EQUAL "${output}" "" is_empty)
-  if(NOT is_empty)
+  if(NOT "${output}" STREQUAL "")
     hunter_user_error(
         "Git directory '${submodule_dir}' is dirty."
         "Please commit or stash changes."
     )
   endif()
 
-  set(cmd "${GIT_EXECUTABLE}" rev-parse --git-path HEAD)
+  set(cmd "${git_executable}" rev-parse --git-path HEAD)
   execute_process(
       COMMAND ${cmd}
       WORKING_DIRECTORY "${submodule_dir}"
@@ -130,7 +113,7 @@ function(hunter_pack_git_submodule)
       ERROR_STRIP_TRAILING_WHITESPACE
   )
 
-  if(NOT result EQUAL 0)
+  if(NOT result EQUAL "0")
     hunter_internal_error(
         "Command failed: ${cmd} (${result}, ${output}, ${error})"
     )
@@ -144,7 +127,7 @@ function(hunter_pack_git_submodule)
       DIRECTORY APPEND PROPERTY CMAKE_CONFIGURE_DEPENDS "${head_file}"
   )
 
-  set(cmd "${GIT_EXECUTABLE}" rev-parse --symbolic-full-name HEAD)
+  set(cmd "${git_executable}" rev-parse --symbolic-full-name HEAD)
   execute_process(
       COMMAND ${cmd}
       WORKING_DIRECTORY "${submodule_dir}"
@@ -162,7 +145,7 @@ function(hunter_pack_git_submodule)
   endif()
 
   set(head_ref "${output}")
-  set(cmd "${GIT_EXECUTABLE}" rev-parse --git-path "${head_ref}")
+  set(cmd "${git_executable}" rev-parse --git-path "${head_ref}")
   execute_process(
       COMMAND ${cmd}
       WORKING_DIRECTORY "${submodule_dir}"
@@ -173,7 +156,7 @@ function(hunter_pack_git_submodule)
       ERROR_STRIP_TRAILING_WHITESPACE
   )
 
-  if(NOT result EQUAL 0)
+  if(NOT result EQUAL "0")
     hunter_internal_error(
         "Command failed: ${cmd} (${result}, ${output}, ${error})"
     )
@@ -181,30 +164,38 @@ function(hunter_pack_git_submodule)
 
   set(ref_file "${output}")
   if(NOT EXISTS "${ref_file}")
-    hunter_internal_error("File not fond: ${ref_file}")
+    hunter_internal_error("File not found: ${ref_file}")
   endif()
 
   set_property(
       DIRECTORY APPEND PROPERTY CMAKE_CONFIGURE_DEPENDS "${ref_file}"
   )
 
-  set(archives_directory "${CMAKE_CURRENT_BINARY_DIR}/_3rdParty/Hunter/git-archives")
+  set(
+      archives_directory
+      "${CMAKE_CURRENT_BINARY_DIR}/_3rdParty/Hunter/git-archives"
+  )
+
   file(MAKE_DIRECTORY "${archives_directory}")
 
-  set(archive "${archives_directory}/${PACKAGE_NAME}.tar")
+  set(archive "${archives_directory}/${x_PACKAGE}.tar")
   hunter_status_debug("Creating archive '${archive}'")
 
   # check if whole submodule or just a subfolder is to be archived
-  string(COMPARE EQUAL "${x_SUBMODULE_SOURCE_SUBDIR}" "" is_empty)
-  if(is_empty)
-    hunter_status_debug("No SUBMODULE_SOURCE_SUBDIR specified, archive whole submodule")
+  if("${x_SUBMODULE_SOURCE_SUBDIR}" STREQUAL "")
+    hunter_status_debug(
+        "No SUBMODULE_SOURCE_SUBDIR specified, archive whole submodule"
+    )
     set(source_flag)
   else()
-    hunter_status_debug("SUBMODULE_SOURCE_SUBDIR specified, only archive subfolder: ${x_SUBMODULE_SOURCE_SUBDIR}")
+    hunter_status_debug(
+        "SUBMODULE_SOURCE_SUBDIR specified, only archive subfolder:"
+        " * ${x_SUBMODULE_SOURCE_SUBDIR}"
+    )
     set(source_flag "/${x_SUBMODULE_SOURCE_SUBDIR}")
   endif()
 
-  set(cmd "${GIT_EXECUTABLE}" archive HEAD -o "${archive}")
+  set(cmd "${git_executable}" archive HEAD -o "${archive}")
   execute_process(
       COMMAND ${cmd}
       WORKING_DIRECTORY "${submodule_dir}${source_flag}"
@@ -215,50 +206,15 @@ function(hunter_pack_git_submodule)
       ERROR_STRIP_TRAILING_WHITESPACE
   )
 
-  if(NOT result EQUAL 0)
+  if(NOT result EQUAL "0")
     hunter_internal_error(
         "Command failed: ${cmd} (${result}, ${output}, ${error})"
     )
   endif()
 
-  set(version_file "${archives_directory}/${PACKAGE_NAME}-version.cmake")
-  set(download_file "${archives_directory}/${PACKAGE_NAME}-download.cmake")
+  file(SHA1 "${archive}" package_sha1)
+  set(package_url "file://${archive}")
 
-  file(SHA1 "${archive}" PACKAGE_SHA1)
-  set(PACKAGE_URL "file://${archive}")
-
-  # Use:
-  # * PACKAGE_NAME
-  configure_file(
-      "${_HUNTER_TEMPLATE_SCHEME_DIR}/package-download.cmake.in"
-      "${download_file}"
-      @ONLY
-  )
-
-  # Use:
-  # * PACKAGE_NAME
-  # * PACKAGE_SHA1
-  # * PACKAGE_URL
-  configure_file(
-      "${_HUNTER_TEMPLATE_SCHEME_DIR}/package-version.cmake.in"
-      "${version_file}"
-      @ONLY
-  )
-
-  set_property(
-      GLOBAL
-      PROPERTY
-      "HUNTER_${PACKAGE_NAME}_GIT_SUBMODULE_DIR"
-      "${archives_directory}"
-  )
-
-  set_property(
-      GLOBAL
-      APPEND
-      PROPERTY
-      HUNTER_SUBMODULE_PROJECTS
-      "${PACKAGE_NAME}"
-  )
-
-  set("${x_VERSION}" "${PACKAGE_SHA1}" PARENT_SCOPE)
+  set("${x_URL_OUT}" "${package_url}" PARENT_SCOPE)
+  set("${x_SHA1_OUT}" "${package_sha1}" PARENT_SCOPE)
 endfunction()

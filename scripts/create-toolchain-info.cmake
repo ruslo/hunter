@@ -28,13 +28,13 @@ if(EXISTS "${TOOLCHAIN_INFO_FILE}")
   hunter_internal_error("${TOOLCHAIN_INFO_FILE} already exists")
 endif()
 
-include(hunter_test_string_not_empty)
-hunter_test_string_not_empty("${HUNTER_CONFIGURATION_TYPES}")
+include(hunter_assert_not_empty_string)
+hunter_assert_not_empty_string("${HUNTER_CONFIGURATION_TYPES}")
 
 file(
     WRITE
     "${TOOLCHAIN_INFO_FILE}"
-    "Cache version: 5\n"
+    "Cache version: 6\n"
     "Polly toolchains:\n"
     "    IPHONEOS_ARCHS: ${IPHONEOS_ARCHS}\n"
     "    IPHONESIMULATOR_ARCHS: ${IPHONESIMULATOR_ARCHS}\n"

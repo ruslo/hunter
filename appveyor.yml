@@ -4,41 +4,41 @@ environment:
   global:
     # This variable used only if '--upload' added to 'jenkins.py'
     GITHUB_USER_PASSWORD:
-      secure: 9/qGB8wlVXAbzkn7xyfK4JJbaRJ/Uh8UwYXX0DcFqzTFDjc1aSGK5eNtyxWIpvmt
+      secure: tzWauRyJgacWahxWX5cKP+rnnczqdEXAIzP7ayUgt16GfoGKpkqa/QvDJYxLKM6Q
 
   matrix:
-    # Note: 'default' toolchain is the same as 'vs-14-2015'
 
-    - TOOLCHAIN: "ninja-vs-12-2013-win64"
+    - TOOLCHAIN: "ninja-vs-15-2017-win64-cxx17"
       PROJECT_DIR: examples\Eigen
+      APPVEYOR_BUILD_WORKER_IMAGE: Visual Studio 2017
 
-    - TOOLCHAIN: "nmake-vs-12-2013-win64"
+    - TOOLCHAIN: "nmake-vs-15-2017-win64-cxx17"
       PROJECT_DIR: examples\Eigen
+      APPVEYOR_BUILD_WORKER_IMAGE: Visual Studio 2017
 
-    - TOOLCHAIN: "vs-12-2013-win64"
+    - TOOLCHAIN: "vs-15-2017-win64-cxx17"
       PROJECT_DIR: examples\Eigen
+      APPVEYOR_BUILD_WORKER_IMAGE: Visual Studio 2017
 
-    - TOOLCHAIN: "vs-12-2013-xp"
+    - TOOLCHAIN: "vs-14-2015-sdk-8-1"
       PROJECT_DIR: examples\Eigen
+      APPVEYOR_BUILD_WORKER_IMAGE: Visual Studio 2015
 
-    - TOOLCHAIN: "vs-12-2013"
+    - TOOLCHAIN: "mingw-cxx17"
       PROJECT_DIR: examples\Eigen
+      APPVEYOR_BUILD_WORKER_IMAGE: Visual Studio 2015
 
-    - TOOLCHAIN: "vs-14-2015"
+    - TOOLCHAIN: "msys-cxx17"
       PROJECT_DIR: examples\Eigen
-
-    - TOOLCHAIN: "mingw"
-      PROJECT_DIR: examples\Eigen
-
-    - TOOLCHAIN: "msys"
-      PROJECT_DIR: examples\Eigen
+      APPVEYOR_BUILD_WORKER_IMAGE: Visual Studio 2015
 
 install:
   # Python 3
   - cmd: set PATH=C:\Python34-x64;C:\Python34-x64\Scripts;%PATH%
 
-  # Install Python package 'requests'
+  # Install Python package 'requests', 'gitpython'
   - cmd: pip install requests
+  - cmd: pip install gitpython
 
   # Install latest Polly toolchains and scripts
   - cmd: appveyor DownloadFile https://github.com/ruslo/polly/archive/master.zip
@@ -59,12 +59,18 @@ install:
   # * http://stackoverflow.com/a/3870338/2288008
   - cmd: set PATH=%PATH:C:\Program Files\Git\usr\bin;=%
 
-  # Use MinGW from Qt tools because version is higher
-  # * http://www.appveyor.com/docs/installed-software#qt
-  - cmd: set MINGW_PATH=C:\Qt\Tools\mingw492_32\bin
+  # Save git.exe in HUNTER_GIT_EXECUTABLE for upload
+  # * https://docs.hunter.sh/en/latest/reference/user-variables.html#hunter-git-executable
+  # Variable will be used in CMake so it's okay to use Unix style '/'
+  - cmd: set HUNTER_GIT_EXECUTABLE=C:/Program Files/Git/bin/git.exe
+
+  - cmd: set MINGW_PATH=C:\mingw-w64\x86_64-7.2.0-posix-seh-rt_v5-rev1\mingw64\bin
 
   # MSYS2 location
   - cmd: set MSYS_PATH=C:\msys64\usr\bin
+
+  # Visual Studio 15 2017: Mimic behavior of older versions
+  - cmd: set VS150COMNTOOLS=C:\Program Files (x86)\Microsoft Visual Studio\2017\Community\Common7\Tools
 
 build_script:
   - cmd: python .\jenkins.py

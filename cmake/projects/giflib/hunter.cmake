@@ -20,6 +20,17 @@ hunter_add_version(
     SHA1
     d93b71a805de3c24316e55164828fe687527a8f4
     )
+
+hunter_add_version(
+    PACKAGE_NAME
+    giflib
+    VERSION
+    5.1.4-p1
+    URL
+    "https://github.com/hunter-packages/giflib/archive/v5.1.4-p1.tar.gz"
+    SHA1
+    886897af5b36a5d3179e31cf2c1f2d83170eae52
+    )
   
 hunter_pick_scheme(DEFAULT url_sha1_cmake)
 hunter_cacheable(giflib)

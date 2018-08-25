@@ -21,25 +21,25 @@ include(hunter_internal_error)
 include(hunter_pick_archiver)
 include(hunter_status_debug)
 include(hunter_status_print)
-include(hunter_test_string_not_empty)
+include(hunter_assert_not_empty_string)
 include(hunter_user_error)
 include(hunter_parse_boost_config_macros)
 
 hunter_status_debug("Scheme: url_sha1_boost_library")
 
 # Check preconditions
-hunter_test_string_not_empty("@HUNTER_SELF@")
-hunter_test_string_not_empty("@HUNTER_EP_NAME@")
-hunter_test_string_not_empty("@HUNTER_PACKAGE_DOWNLOAD_DIR@")
-hunter_test_string_not_empty("@HUNTER_PACKAGE_SOURCE_DIR@")
-hunter_test_string_not_empty("@HUNTER_PACKAGE_BUILD_DIR@")
-hunter_test_string_not_empty("@HUNTER_PACKAGE_INSTALL_PREFIX@")
-hunter_test_string_not_empty("@HUNTER_PACKAGE_COMPONENT@")
-hunter_test_string_not_empty("@CMAKE_CXX_COMPILER@")
-hunter_test_string_not_empty("@CMAKE_CXX_COMPILER_ID@")
-hunter_test_string_not_empty("@HUNTER_Boost_VERSION@")
-hunter_test_string_not_empty("@HUNTER_PACKAGE_SCRIPT_DIR@")
-hunter_test_string_not_empty("@HUNTER_TLS_VERIFY@")
+hunter_assert_not_empty_string("@HUNTER_SELF@")
+hunter_assert_not_empty_string("@HUNTER_EP_NAME@")
+hunter_assert_not_empty_string("@HUNTER_PACKAGE_DOWNLOAD_DIR@")
+hunter_assert_not_empty_string("@HUNTER_PACKAGE_SOURCE_DIR@")
+hunter_assert_not_empty_string("@HUNTER_PACKAGE_BUILD_DIR@")
+hunter_assert_not_empty_string("@HUNTER_PACKAGE_INSTALL_PREFIX@")
+hunter_assert_not_empty_string("@HUNTER_PACKAGE_COMPONENT@")
+hunter_assert_not_empty_string("@CMAKE_CXX_COMPILER@")
+hunter_assert_not_empty_string("@CMAKE_CXX_COMPILER_ID@")
+hunter_assert_not_empty_string("@HUNTER_Boost_VERSION@")
+hunter_assert_not_empty_string("@HUNTER_PACKAGE_SCRIPT_DIR@")
+hunter_assert_not_empty_string("@HUNTER_TLS_VERIFY@")
 
 # get list of boost components for given version
 hunter_get_boost_libs(VERSION "@HUNTER_Boost_VERSION@" LIBS boost_libs)
@@ -214,6 +214,10 @@ if("@MINGW@")
   set(build_opts target-os=windows ${build_opts})
 endif()
 
+set(BOOST_VERSION "@HUNTER_Boost_VERSION@")
+
+# Use:
+# * BOOST_VERSION
 hunter_boost_component_b2_args(
     "@HUNTER_PACKAGE_COMPONENT@"
     "@HUNTER_Boost_CMAKE_ARGS@"
@@ -285,19 +289,29 @@ if(CMAKE_EXE_LINKER_FLAGS)
   list(APPEND build_opts "linkflags=${CMAKE_EXE_LINKER_FLAGS}")
 endif()
 
-string(COMPARE EQUAL "@HUNTER_MSVC_ARCH@" "amd64" is_x64)
-if("@MSVC@" AND is_x64)
-  list(APPEND build_opts "address-model=64")
-endif()
-
-string(COMPARE EQUAL "@HUNTER_MSVC_ARCH@" "x86" is_x86)
-if("@MSVC@" AND is_x86)
-  list(APPEND build_opts "address-model=32")
+if("@ANDROID@")
+  if("@CMAKE_ANDROID_ARCH@" MATCHES "^(arm|mips|x86)$")
+    list(APPEND build_opts "address-model=32")
+  else()
+    list(APPEND build_opts "address-model=64")
+  endif()
+elseif("@MSVC@")
+  string(COMPARE EQUAL "@HUNTER_MSVC_ARCH@" "x86" is_x86)
+  string(COMPARE EQUAL "@HUNTER_MSVC_ARCH@" "amd64" is_x64)
+  if(is_x86)
+    list(APPEND build_opts "address-model=32")
+  elseif(is_x64)
+    list(APPEND build_opts "address-model=64")
+  endif()
 endif()
 
 string(COMPARE NOTEQUAL "@HUNTER_JOBS_OPTION@" "" have_jobs)
 if(have_jobs)
-  list(APPEND build_opts "-j" "@HUNTER_JOBS_OPTION@")
+  if("@HUNTER_JOBS_OPTION@" GREATER "256")
+    list(APPEND build_opts "-j" 256)
+  else()
+    list(APPEND build_opts "-j" "@HUNTER_JOBS_OPTION@")
+  endif()
 endif()
 
 if(@HUNTER_STATUS_DEBUG@)
@@ -327,6 +341,10 @@ if("@MINGW@")
   list(APPEND bootstrap_cmd "gcc")
 endif()
 
+if("@ANDROID@")
+  list(APPEND build_opts target-os=android)
+endif()
+
 if(HUNTER_STATUS_DEBUG)
   file(READ "${boost_user_jam}" USER_JAM_CONTENT)
   hunter_status_debug("Build options:")
@@ -340,16 +358,16 @@ if(HUNTER_STATUS_DEBUG)
   hunter_status_debug("------")
 endif()
 
-if("@MSVC@")
-  # Logging as Workaround for VS_UNICODE_OUTPUT issue:
-  # https://public.kitware.com/Bug/view.php?id=14266
-  set(log_opts LOG_CONFIGURE 1 LOG_BUILD 1 LOG_INSTALL 1 LOG_DOWNLOAD 1)
-  get_filename_component(x "@HUNTER_PACKAGE_SOURCE_DIR@/.." ABSOLUTE)
-  hunter_status_print(
-      "For progress check log files in directory: ${x}"
-  )
+if("@HUNTER_PACKAGE_LOG_BUILD@")
+  set(log_build 1)
 else()
-  set(log_opts "")
+  set(log_build 0)
+endif()
+
+if("@HUNTER_PACKAGE_LOG_INSTALL@" OR "@HUNTER_SUPPRESS_LIST_OF_FILES@")
+  set(log_install 1)
+else()
+  set(log_install 0)
 endif()
 
 hunter_parse_boost_config_macros(BOOST_CONFIG_MACROS "@HUNTER_Boost_CMAKE_ARGS@")
@@ -396,7 +414,9 @@ ExternalProject_Add(
     stage # install only libraries, headers installed in `url_sha1_boost`
     "--stagedir=@HUNTER_PACKAGE_INSTALL_PREFIX@"
     --ignore-site-config # Ignore Gentoo specific optimization "none" in site config that only the patched bjam of Gentoo can understand.
-    ${log_opts}
+    LOG_CONFIGURE ${log_build}
+    LOG_BUILD ${log_build}
+    LOG_INSTALL ${log_install}
 )
 
 # Forward some variables

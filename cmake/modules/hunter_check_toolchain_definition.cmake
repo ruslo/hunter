@@ -3,7 +3,7 @@
 
 include(CMakeParseArguments) # cmake_parse_arguments
 
-include(hunter_test_string_not_empty)
+include(hunter_assert_not_empty_string)
 
 function(hunter_check_toolchain_definition)
   set(function_name "hunter_check_toolchain_definition")
@@ -43,7 +43,7 @@ function(hunter_check_toolchain_definition)
   set(definition "${hunter_ct_arg_NAME}")
 
   # the toolchain path must be set
-  hunter_test_string_not_empty("${HUNTER_TOOLCHAIN_ID_PATH}")
+  hunter_assert_not_empty_string("${HUNTER_TOOLCHAIN_ID_PATH}")
   set(TOOLCHAIN_INFO_FILE "${HUNTER_TOOLCHAIN_ID_PATH}/toolchain.info")
 
   # read toolchain.info file into memory, each line a entry in a list

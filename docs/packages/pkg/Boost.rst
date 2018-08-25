@@ -28,49 +28,14 @@ Examples:
 - `Boost-iostreams <https://github.com/ruslo/hunter/blob/master/examples/Boost-iostreams/CMakeLists.txt>`__
 - `Boost-filesystem <https://github.com/ruslo/hunter/blob/master/examples/Boost-filesystem/CMakeLists.txt>`__
 - `Boost-math <https://github.com/ruslo/hunter/blob/master/examples/Boost-math/CMakeLists.txt>`__
+- `Boost-contract <https://github.com/ruslo/hunter/blob/master/examples/Boost-contract/CMakeLists.txt>`__
 
-List of components (other libraries are header-only):
+List of components and availability (other libraries are header-only):
 
-- ``atomic``
-- ``chrono``
-- ``context``
-- ``coroutine``
-- ``date_time``
-- ``exception``
-- ``filesystem``
-- ``graph``
-- ``graph_parallel``
-- ``iostreams``
-- ``locale``
-- ``log``
-- ``math``
-- ``mpi``
-- ``program_options``
-- ``python``
-- ``random``
-- ``regex``
-- ``serialization``
-- ``signals``
-- ``system``
-- ``test``
-- ``thread``
-- ``timer``
-- ``wave``
-
-Compatibility mode
-------------------
-
-.. code-block:: cmake
-
-    hunter_add_package(Boost COMPONENTS system filesystem)
-    set(Boost_USE_STATIC_LIBS ON)
-    find_package(Boost REQUIRED system filesystem)
-    if(MSVC)
-      add_definitions(-DBOOST_ALL_NO_LIB=1)
-    endif()
-
-    include_directories(${Boost_INCLUDE_DIRS})
-    target_link_libraries(... ${Boost_LIBRARIES})
+.. literalinclude:: /../cmake/modules/hunter_get_boost_libs.cmake
+  :language: cmake
+  :start-after: # DOCUMENTATION_START {
+  :end-before: # DOCUMENTATION_END }
 
 CMake options
 -------------
@@ -135,21 +100,3 @@ If you are using only the header-only parts of Boost::Math then the libraries ca
 
     hunter_add_package(Boost COMPONENTS math)
     find_package(Boost CONFIG REQUIRED)
-
-Bugs
-----
-
--  `Only static libs supported for
-   now <https://github.com/ruslo/hunter/issues/130>`__
--  `boost.system analyzer <https://github.com/ruslo/hunter/issues/26>`__
--  `boost.filesystem
-   analyzer <https://github.com/ruslo/hunter/issues/25>`__
--  `boost mingw <https://github.com/ruslo/hunter/issues/27>`__
--  `arm64 unknown <https://svn.boost.org/trac/boost/ticket/10910>`__
-    -  workaround: set additional ``armv7``, i.e. when ``arm64`` build alone - result will be universal library ``armv7`` + ``arm64``
-- `VSCMD_START_DIR issue <https://github.com/ruslo/hunter/issues/745#issuecomment-316629752>`__
-
-CI
---
-
--  Testing branch: https://github.com/ingenue/hunter/tree/pkg.boost

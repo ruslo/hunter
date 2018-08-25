@@ -10,7 +10,7 @@ include(hunter_download_cache_raw_file)
 include(hunter_internal_error)
 include(hunter_patch_unrelocatable_text_files)
 include(hunter_status_debug)
-include(hunter_test_string_not_empty)
+include(hunter_assert_not_empty_string)
 include(hunter_unpack_directory)
 
 # Try to load package from cache
@@ -21,14 +21,14 @@ include(hunter_unpack_directory)
 #   3. Toolchain-ID directory already locked
 #   4. Cache directory is not locked
 function(hunter_load_from_cache)
-  hunter_test_string_not_empty("${HUNTER_CACHED_ROOT}")
-  hunter_test_string_not_empty("${HUNTER_INSTALL_PREFIX}")
-  hunter_test_string_not_empty("${HUNTER_PACKAGE_DONE_STAMP}")
-  hunter_test_string_not_empty("${HUNTER_PACKAGE_HOME_DIR}")
-  hunter_test_string_not_empty("${HUNTER_PACKAGE_NAME}")
-  hunter_test_string_not_empty("${HUNTER_PACKAGE_SHA1}")
+  hunter_assert_not_empty_string("${HUNTER_CACHED_ROOT}")
+  hunter_assert_not_empty_string("${HUNTER_INSTALL_PREFIX}")
+  hunter_assert_not_empty_string("${HUNTER_PACKAGE_DONE_STAMP}")
+  hunter_assert_not_empty_string("${HUNTER_PACKAGE_HOME_DIR}")
+  hunter_assert_not_empty_string("${HUNTER_PACKAGE_NAME}")
+  hunter_assert_not_empty_string("${HUNTER_PACKAGE_SHA1}")
 
-  hunter_test_string_not_empty("${CMAKE_BINARY_DIR}")
+  hunter_assert_not_empty_string("${CMAKE_BINARY_DIR}")
 
   set(human_readable "${HUNTER_PACKAGE_NAME}")
   string(COMPARE NOTEQUAL "${HUNTER_PACKAGE_COMPONENT}" "" has_component)

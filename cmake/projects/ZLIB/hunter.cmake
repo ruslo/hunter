@@ -54,4 +54,9 @@ hunter_add_version(
 
 hunter_pick_scheme(DEFAULT url_sha1_cmake)
 hunter_cacheable(ZLIB)
-hunter_download(PACKAGE_NAME ZLIB)
+hunter_download(PACKAGE_NAME ZLIB 
+    PACKAGE_INTERNAL_DEPS_ID "1"
+    PACKAGE_UNRELOCATABLE_TEXT_FILES 
+    "share/pkgconfig/zlib.pc"
+)
+

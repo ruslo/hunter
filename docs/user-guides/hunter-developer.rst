@@ -4,5 +4,13 @@
 Hunter developer
 ----------------
 
-* reference to modules
-* layout guide
+.. toctree::
+   :maxdepth: 1
+
+   /user-guides/hunter-developer/cmake-launch
+   /user-guides/hunter-developer/binary-formula
+
+.. seealso::
+
+  * :doc:`Layouts </reference/layouts>`
+  * :doc:`Internal modules </reference/internal-modules>`

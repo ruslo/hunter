@@ -4,13 +4,13 @@
 include(hunter_internal_error)
 include(hunter_print_cmd)
 include(hunter_status_debug)
-include(hunter_test_string_not_empty)
+include(hunter_assert_not_empty_string)
 
 function(hunter_unpack_directory cache_sha1)
-  hunter_test_string_not_empty("${HUNTER_SELF}")
-  hunter_test_string_not_empty("${HUNTER_CACHED_ROOT}")
-  hunter_test_string_not_empty("${HUNTER_INSTALL_PREFIX}")
-  hunter_test_string_not_empty("${cache_sha1}")
+  hunter_assert_not_empty_string("${HUNTER_SELF}")
+  hunter_assert_not_empty_string("${HUNTER_CACHED_ROOT}")
+  hunter_assert_not_empty_string("${HUNTER_INSTALL_PREFIX}")
+  hunter_assert_not_empty_string("${cache_sha1}")
 
   set(cache_directory "${HUNTER_CACHED_ROOT}/_Base/Cache")
   set(cellar_directory "${HUNTER_CACHED_ROOT}/_Base/Cellar")
