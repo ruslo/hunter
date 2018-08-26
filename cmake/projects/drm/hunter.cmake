@@ -22,6 +22,17 @@ hunter_add_version(
     21d43437219ddd1e409fb4b7d77254cd129e8075
 )
 
+hunter_add_version(
+    PACKAGE_NAME
+    drm
+    VERSION
+    "2.4.94"
+    URL
+    "https://dri.freedesktop.org/libdrm/libdrm-2.4.94.tar.bz2"
+    SHA1
+    f8daee6cc2e7d2c9eb2dd062a2712172fb9f4e18
+)
+
 hunter_configuration_types(drm CONFIGURATION_TYPES Release)
 hunter_pick_scheme(DEFAULT url_sha1_autotools)
 set(drm_dependencies
