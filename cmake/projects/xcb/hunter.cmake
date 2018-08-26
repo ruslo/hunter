@@ -45,8 +45,15 @@ hunter_add_version(
     98199b6054750a06cddd4e77baa4354af547ce6f
 )
 
+list(APPEND _xcb_text_file_tpl composite damage dpms dri2 dri3 glx present randr record render res screensaver shape shm sync xf86dri xfixes xinerama xkb xtest xv xvmc)
+
+# xcb 1.8.* or 1.11.*
+if(HUNTER_xcb_VERSION MATCHES "^1\\.11\\." OR HUNTER_xcb_VERSION MATCHES "^1\\.8\\.")
+    list(APPEND _xcb_text_file_tpl xevie xprint)
+endif()
+
 set(_xcb_text_files "")
-foreach(_x composite damage dpms dri2 dri3 glx present randr record render res screensaver shape shm sync xf86dri xfixes xinerama xkb xtest xv xvmc)
+foreach(_x ${_xcb_text_file_tpl})
   list(APPEND _xcb_text_files "lib/libxcb-${_x}.la" "lib/pkgconfig/xcb-${_x}.pc")
 endforeach()
 
