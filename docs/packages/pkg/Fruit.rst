@@ -17,6 +17,8 @@ Fruit
 -  `Added by Alexey Shevchenko <https://github.com/FelikZ>`__
    (`pr-1527 <https://github.com/ruslo/hunter/pull/1527>`__)
 
+Note: boost disabled by default since it has issues on some platforms. Use `CMAKE_ARGS FRUIT_USES_BOOST=ON` to enable it.
+
 .. code-block:: cmake
 
     find_package(Fruit 3.1 QUIET)
