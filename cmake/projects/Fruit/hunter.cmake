@@ -14,13 +14,16 @@ hunter_add_version(
 	URL
 	"https://github.com/FelikZ/fruit/archive/v3.1.1-p0.tar.gz"
 	SHA1
-	bb97494359ccddb3ec55f564ef828c3b3293eb82
+	02bb6bb367495edb0c19f456e8b76087bb66b8d2
 )
 
 hunter_cmake_args(
 	Fruit
 	CMAKE_ARGS
 	FRUIT_USES_BOOST=OFF
+	FRUIT_BUILD_TESTS=OFF
+	FRUIT_BUILD_EXAMPLES=OFF
+	FRUIT_BUILD_EXTRAS=OFF
 )
 
 hunter_pick_scheme(DEFAULT url_sha1_cmake)
