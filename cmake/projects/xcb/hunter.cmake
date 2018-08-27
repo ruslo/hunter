@@ -14,6 +14,17 @@ hunter_add_version(
     PACKAGE_NAME
     xcb
     VERSION
+    "1.13"
+    URL
+    "https://xcb.freedesktop.org/dist/libxcb-1.13.tar.bz2"
+    SHA1
+    212ad5f1f80def80536d78e3d20354a0370e7fe9
+)
+
+hunter_add_version(
+    PACKAGE_NAME
+    xcb
+    VERSION
     "1.11.1"
     URL
     "https://xcb.freedesktop.org/dist/libxcb-1.11.1.tar.bz2"
@@ -34,8 +45,14 @@ hunter_add_version(
     98199b6054750a06cddd4e77baa4354af547ce6f
 )
 
+set(_xcb_text_file_tpl composite damage dpms dri2 dri3 glx present randr record render res screensaver shape shm sync xf86dri xfixes xinerama xkb xtest xv xvmc)
+
+if(HUNTER_xcb_VERSION VERSION_LESS "1.13")
+    list(APPEND _xcb_text_file_tpl xevie xprint)
+endif()
+
 set(_xcb_text_files "")
-foreach(_x composite damage dpms dri2 dri3 glx present randr record render res screensaver shape shm sync xevie xf86dri xfixes xinerama xkb xprint xtest xv xvmc)
+foreach(_x ${_xcb_text_file_tpl})
   list(APPEND _xcb_text_files "lib/libxcb-${_x}.la" "lib/pkgconfig/xcb-${_x}.pc")
 endforeach()
 

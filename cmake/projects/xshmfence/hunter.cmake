@@ -22,6 +22,17 @@ hunter_add_version(
     a2ebe90e5595afca4db93a4359732af43b2b8c69
 )
 
+hunter_add_version(
+    PACKAGE_NAME
+    xshmfence
+    VERSION
+    "1.3"
+    URL
+    "http://www.x.org/releases/individual/lib/libxshmfence-1.3.tar.bz2"
+    SHA1
+    3472218fc0e8ee8183533d22dbcd4bbe90bf3ab8
+)
+
 hunter_configuration_types(xshmfence CONFIGURATION_TYPES Release)
 hunter_pick_scheme(DEFAULT url_sha1_autotools)
 set(xshmfence_dependencies
