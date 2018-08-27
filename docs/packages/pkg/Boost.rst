@@ -52,8 +52,13 @@ config file (``boost/config/user.hpp``):
 
   .. code-block:: cmake
 
-    hunter_config(Boost ${HUNTER_Boost_VERSION} CMAKE_ARGS IOSTREAMS_NO_BZIP2=1)
-    # add NO_BZIP2=1 to the b2 build of iostreams library, i.e. `b2 -s NO_BZIP2=1`
+    # Add 'NO_BZIP2=1' to the b2 build of iostreams library,
+    # i.e. `b2 -s NO_BZIP2=1`
+    hunter_config(
+        Boost
+        VERSION ${HUNTER_Boost_VERSION}
+        CMAKE_ARGS IOSTREAMS_NO_BZIP2=1
+    )
 
 -  `boost.iostreams
    options <http://www.boost.org/doc/libs/1_57_0/libs/iostreams/doc/index.html?path=7>`__
@@ -66,14 +71,21 @@ config file (``boost/config/user.hpp``):
 
   .. code-block:: cmake
 
-    hunter_config(Boost ${HUNTER_Boost_VERSION} CMAKE_ARGS
+    hunter_config(
+        Boost
+        VERSION ${HUNTER_Boost_VERSION}
+        CMAKE_ARGS
         CONFIG_MACRO=BOOST_REGEX_MATCH_EXTRA;BOOST_MPL_CFG_NO_PREPROCESSED_HEADERS
         CONFIG_MACRO_BOOST_MPL_LIMIT_LIST_SIZE=3
     )
-    # append the next lines to boost/config/user.hpp:
-    # #define BOOST_REGEX_MATCH_EXTRA
-    # #define BOOST_MPL_CFG_NO_PREPROCESSED_HEADERS
-    # #define CONFIG_MACRO_BOOST_MPL_LIMIT_LIST_SIZE 3
+
+  Will append the next lines to ``boost/config/user.hpp``:
+
+  .. code-block:: cpp
+
+    #define BOOST_REGEX_MATCH_EXTRA
+    #define BOOST_MPL_CFG_NO_PREPROCESSED_HEADERS
+    #define BOOST_MPL_LIMIT_LIST_SIZE 3
 
 Math
 ----
