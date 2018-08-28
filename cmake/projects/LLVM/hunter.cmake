@@ -34,6 +34,17 @@ hunter_add_version(
 )
 
 hunter_add_version(
+        PACKAGE_NAME
+        LLVM
+        VERSION
+        "3.8.0"
+        URL
+        "http://www.llvm.org/releases/3.8.0/llvm-3.8.0.src.tar.xz"
+        SHA1
+        723ac918979255706434a05f5af34b71c49c9971
+)
+
+hunter_add_version(
     PACKAGE_NAME
     LLVM
     VERSION

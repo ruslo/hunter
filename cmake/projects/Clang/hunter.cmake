@@ -7,6 +7,9 @@ include(hunter_add_version)
 include(hunter_download)
 include(hunter_pick_scheme)
 
+
+
+
 hunter_add_version(
     PACKAGE_NAME
     Clang
@@ -18,6 +21,16 @@ hunter_add_version(
     cc2e74c852f57c946a4337812c73ce1bc97d639f
 )
 
+hunter_add_version(
+        PACKAGE_NAME
+        Clang
+        VERSION
+        "3.8.0"
+        URL
+        "http://releases.llvm.org/3.8.0/cfe-3.8.0.src.tar.xz"
+        SHA1
+        2230ef962f2df3c13ec93f5b04b0e3cdff94b2ce
+)
 hunter_add_version(
     PACKAGE_NAME
     Clang

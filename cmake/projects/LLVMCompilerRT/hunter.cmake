@@ -17,7 +17,16 @@ hunter_add_version(
     SHA1
     561c29f1595c29f1d083567a7e669fec30cdfa44
 )
-
+hunter_add_version(
+        PACKAGE_NAME
+        LLVMCompilerRT
+        VERSION
+        "3.8.0"
+        URL
+        "http://releases.llvm.org/3.8.0/compiler-rt-3.8.0.src.tar.xz"
+        SHA1
+        480ea09e369dac6de1f3759b27fa19417b26b69e
+)
 hunter_add_version(
     PACKAGE_NAME
     LLVMCompilerRT
