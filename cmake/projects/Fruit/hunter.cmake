@@ -10,7 +10,7 @@ hunter_add_version(
 	PACKAGE_NAME
 	Fruit
 	VERSION
-	"3.1.1"
+	"3.1.1-p0"
 	URL
 	"https://github.com/FelikZ/fruit/archive/v3.1.1-p0.tar.gz"
 	SHA1

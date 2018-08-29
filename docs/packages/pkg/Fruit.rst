@@ -1,6 +1,6 @@
 .. spelling::
 
-    Google Fruit
+    Fruit
 
 .. index:: testing ; Fruit
 
@@ -17,27 +17,22 @@ Fruit
 -  `Added by Alexey Shevchenko <https://github.com/FelikZ>`__
    (`pr-1527 <https://github.com/ruslo/hunter/pull/1527>`__)
 
-.. code-block:: cmake
-
-    hunter_add_package(Fruit)
-    find_package(Fruit CONFIG REQUIRED)
-
-    add_executable(foo foo.cpp)
-
-    target_link_libraries(foo PRIVATE Fruit::fruit)
+.. literalinclude:: /../examples/Fruit/CMakeLists.txt
+  :language: cmake
+  :start-after: # DOCUMENTATION_START {
+  :end-before: # DOCUMENTATION_END }
 
 .. note::
 
     Boost disabled by default since it has issues on some platforms.
 
-Use ``FRUIT_USES_BOOST=ON`` to enable it.
+    Use ``FRUIT_USES_BOOST=ON`` to enable it.
 
-.. code-block:: cmake
+    .. code-block:: cmake
 
-    # hunter.cmake
-    hunter_config(Fruit
-        VERSION 3.1.1
-        CMAKE_ARGS
-            CMAKE_CXX_STANDARD=17
-            FRUIT_USES_BOOST=ON
-    )
+        # config.cmake
+        hunter_config(Fruit
+            VERSION ${HUNTER_Fruit_VERSION}
+            CMAKE_ARGS
+                FRUIT_USES_BOOST=ON
+        )
