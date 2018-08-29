@@ -1,3 +1,7 @@
+.. spelling::
+
+  rebase
+
 Why do we need forks?
 ---------------------
 
