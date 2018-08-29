@@ -20,12 +20,11 @@ Fruit
 .. code-block:: cmake
 
     hunter_add_package(Fruit)
-    find_package(Fruit 3.1 REQUIRED)
-    MESSAGE(STATUS "Fruit_VERSION: ${Fruit_VERSION}")
+    find_package(Fruit CONFIG REQUIRED)
 
-    target_link_libraries(foo
-        Fruit::fruit
-    )
+    add_executable(foo foo.cpp)
+
+    target_link_libraries(foo PRIVATE Fruit::fruit)
 
 .. note::
 
