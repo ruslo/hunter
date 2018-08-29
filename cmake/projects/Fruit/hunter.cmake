@@ -12,9 +12,9 @@ hunter_add_version(
 	VERSION
 	"3.1.1-p0"
 	URL
-	"https://github.com/FelikZ/fruit/archive/v3.1.1-p0.tar.gz"
+	"https://github.com/hunter-packages/fruit/archive/v3.1.1-p0.tar.gz"
 	SHA1
-	02bb6bb367495edb0c19f456e8b76087bb66b8d2
+	f406060a51ee80e14fc34ba9242a230182ac2b12
 )
 
 hunter_cmake_args(

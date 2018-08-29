@@ -11,7 +11,6 @@ Fruit
 
 -  `Official <https://github.com/google/fruit>`__
 -  `Hunterized <https://github.com/hunter-packages/fruit>`__
--  `Dev branch <https://github.com/ruslo/hunter/tree/Fruit>`__
 -  `Versions <https://github.com/ruslo/hunter/blob/master/cmake/projects/Fruit/hunter.cmake>`__
 -  `Example <https://github.com/ruslo/hunter/blob/master/examples/Fruit/CMakeLists.txt>`__
 -  `Added by Alexey Shevchenko <https://github.com/FelikZ>`__
