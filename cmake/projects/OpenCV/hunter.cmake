@@ -386,6 +386,7 @@ hunter_cmake_args(
     OpenCV
     CMAKE_ARGS
         BUILD_ANDROID_EXAMPLES=OFF
+        BUILD_JAVA=OFF
         BUILD_DOCS=OFF
         BUILD_EXAMPLES=OFF
         BUILD_PERF_TESTS=OFF
