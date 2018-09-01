@@ -10,12 +10,9 @@ cxxopts
 =======
 
 -  `Official <https://github.com/jarro2783/cxxopts>`__
--  `Hunterized <https://github.com/hunter-packages/cxxopts>`__
 -  `Example <https://github.com/ruslo/hunter/blob/master/examples/cxxopts/CMakeLists.txt>`__
 
-.. code-block:: cmake
-
-    hunter_add_package(cxxopts)
-    find_package(cxxopts CONFIG REQUIRED)
-
-    target_link_libraries(... PUBLIC cxxopts::cxxopts)
+.. literalinclude:: /../examples/cxxopts/CMakeLists.txt
+  :language: cmake
+  :start-after: # DOCUMENTATION_START {
+  :end-before: # DOCUMENTATION_END }
