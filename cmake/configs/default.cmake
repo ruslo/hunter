@@ -33,14 +33,11 @@ hunter_default_version(Avahi VERSION 0.6.31)
 hunter_default_version(BZip2 VERSION 1.0.6-p3)
 hunter_default_version(Beast VERSION 1.0.0-b84-hunter-0)
 
-if(MSVC)
-  # https://github.com/boostorg/build/issues/299
-  hunter_default_version(Boost VERSION 1.66.0-p0)
-elseif(MINGW)
+if(MINGW)
   # https://github.com/boostorg/build/issues/301
   hunter_default_version(Boost VERSION 1.64.0)
 else()
-  hunter_default_version(Boost VERSION 1.68.0-p0)
+  hunter_default_version(Boost VERSION 1.68.0-p1)
 endif()
 
 hunter_default_version(BoostCompute VERSION 0.5-p0)
