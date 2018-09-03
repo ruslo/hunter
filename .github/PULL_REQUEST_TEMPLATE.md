@@ -22,6 +22,9 @@
 <!--- Use this part of template if you're updating existing package. Remove the rest. -->
 <!--- BEGIN -->
 
+* I've followed [this guide](https://docs.hunter.sh/en/latest/creating-new/update.html)
+  step by step carefully. **[Yes|No]**
+
 * I've tested this package remotely and have excluded all broken builds.
   Here is the links to the Travis/AppVeyor with status "All passed":
 
