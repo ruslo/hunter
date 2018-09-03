@@ -419,7 +419,7 @@ hunter_default_version(xrender VERSION 0.9.7)
 hunter_default_version(xshmfence VERSION 1.3)
 hunter_default_version(xtrans VERSION 1.2.7)
 hunter_default_version(xxf86vm VERSION 1.1.2)
-hunter_default_version(yaml-cpp VERSION 0.5.3-plus-p0)
+hunter_default_version(yaml-cpp VERSION 0.5.3-p4)
 hunter_default_version(zookeeper VERSION 3.4.9-p2)
 
 if(ANDROID)
