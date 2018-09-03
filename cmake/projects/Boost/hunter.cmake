@@ -110,9 +110,9 @@ hunter_add_version(
     VERSION
     "1.68.0-p1"
     URL
-    "https://github.com/nxxm/boost/archive/v1.68.0-p1.tar.gz"
+    "https://github.com/hunter-packages/boost/archive/v1.68.0-p1.tar.gz"
     SHA1
-    48ba32d027334de6bead48ff20b17695cb54be5d 
+    0bb10b0a0fdc196646c87e0143c0290baa32357d 
 )
 
 # up until 1.63 sourcefourge was used
