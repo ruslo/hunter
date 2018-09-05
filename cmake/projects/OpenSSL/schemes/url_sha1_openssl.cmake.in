@@ -98,10 +98,10 @@ if(ANDROID)
   # compiler.
   #
   # Tested:
-  # * android-ndk-r10e-api-19-armeabi-v7a-neon
-  # * android-ndk-r15c-api-21-armeabi-v7a-neon-clang-libcxx
-  # * android-ndk-r16-api-21-armeabi-v7a-neon-clang-libcxx
-  list(APPEND configure_opts "-latomic --sysroot=${CMAKE_SYSROOT}")
+  # * android-ndk-r16b-api-21-armeabi-v7a-neon-clang-libcxx
+  # * android-ndk-r17-api-24-arm64-v8a-clang-libcxx14
+  # * android-ndk-r18-api-24-arm64-v8a-clang-libcxx14
+  list(APPEND configure_opts "-latomic ${CMAKE_EXE_LINKER_FLAGS}")
 elseif(RASPBERRY_PI)
   set(configure_opts "linux-generic32")
 elseif(OPENWRT)
