@@ -18,3 +18,4 @@ Computer Vision
  - :ref:`pkg.drishti` - Real time eye tracking for embedded and mobile devices.
  - :ref:`pkg.eos` - A lightweight 3D Morphable Face Model fitting library in modern C++11/14
  - :ref:`pkg.OpenCV` - Open Source Computer Vision Library
+ - :ref:`pkg.Tesseract` - Open Source OCR Engine
