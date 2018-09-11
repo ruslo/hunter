@@ -6,3 +6,7 @@ Works everywhere!
 
 Hunter works everywhere: CMake-GUI, Qt Creator, Visual Studio, Xcode, Cygwin,
 MinGW, Jenkins, Travis etc.
+
+.. seealso::
+
+  * :doc:`F.A.Q.: How to use Hunter in Android Studio? </faq/android-studio>`

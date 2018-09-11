@@ -48,6 +48,9 @@
 #       --enable-feature
 #       --disable-other
 #       --with-library
+#     PATCH_COMMAND                           # add a patch command
+#       ${CMAKE_COMMAND} -E copy "@HUNTER_PACKAGE_SCRIPT_DIR@/patch.sh" "@HUNTER_PACKAGE_SOURCE_DIR@"
+#       COMMAND "./patch.sh"
 #     BOOTSTRAP                               # add a bootstrap command to be run
 #       "./autogen.sh"                        # before ./configure such as 
 #                                             # ./autogen.sh or ./bootstrap
@@ -64,6 +67,7 @@ include(hunter_assert_not_empty_string)
 # Packages to test this function:
 # * xau
 # * gstreamer
+# * libxml2
 function(hunter_autotools_project target_name)
   set(optional_params)
   set(one_value_params
@@ -85,6 +89,7 @@ function(hunter_autotools_project target_name)
   set(multi_value_params
       PACKAGE_CONFIGURATION_TYPES
       EXTRA_FLAGS
+      PATCH_COMMAND
   )
   cmake_parse_arguments(
       PARAM
@@ -184,6 +189,8 @@ function(hunter_autotools_project target_name)
         INSTALL_DIR
           ${PARAM_INSTALL_DIR}
           # not used, just avoid creating Install/<name> empty directory
+        PATCH_COMMAND
+          ${PARAM_PATCH_COMMAND}
         CONFIGURE_COMMAND
           "${PARAM_BOOTSTRAP}"
         COMMAND
@@ -295,6 +302,8 @@ function(hunter_autotools_project target_name)
           INSTALL_DIR
             ${arch_install_dir}
             # not used, just avoid creating Install/<name> empty directory
+          PATCH_COMMAND
+            ${PARAM_PATCH_COMMAND}
           CONFIGURE_COMMAND
             "${PARAM_BOOTSTRAP}"
           COMMAND

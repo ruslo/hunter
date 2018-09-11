@@ -49,7 +49,8 @@ function(hunter_get_toolchain_binaries)
         "${CMAKE_C_ANDROID_TOOLCHAIN_PREFIX}cpp${CMAKE_C_ANDROID_TOOLCHAIN_SUFFIX}"
     )
     if(NOT EXISTS "${CMAKE_C_PREPROCESSOR}")
-      hunter_internal_error("File not found: ${CMAKE_C_PREPROCESSOR}")
+      # GCC has been removed from NDK r18.
+      set(CMAKE_C_PREPROCESSOR "")
     endif()
   endif()
 
@@ -57,7 +58,6 @@ function(hunter_get_toolchain_binaries)
     hunter_assert_not_empty_string("${CMAKE_C_FLAGS}")
     hunter_assert_not_empty_string("${CMAKE_CXX_FLAGS}")
     hunter_assert_not_empty_string("${CMAKE_AR}")
-    hunter_assert_not_empty_string("${CMAKE_C_PREPROCESSOR}")
     hunter_assert_not_empty_string("${CMAKE_C_COMPILER}")
     hunter_assert_not_empty_string("${CMAKE_CXX_COMPILER}")
     hunter_assert_not_empty_string("${CMAKE_LINKER}")

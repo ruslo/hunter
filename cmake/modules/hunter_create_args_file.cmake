@@ -99,7 +99,13 @@ function(hunter_create_args_file args filename)
       ### -- end
 
       file(APPEND "${filename_nolf}" "set(")
-      file(APPEND "${filename_nolf}" "\"${var_name}\" \"${var_value}\"")
+
+      if("${var_value}" STREQUAL "\"\"")
+        file(APPEND "${filename_nolf}" "\"${var_name}\" \"\"")
+      else()
+        file(APPEND "${filename_nolf}" "\"${var_name}\" \"${var_value}\"")
+      endif()
+
       file(APPEND "${filename_nolf}" " CACHE INTERNAL \"\")\n")
       hunter_status_debug(
           "Add extra CMake args: '${var_name}' = '${var_value}'"

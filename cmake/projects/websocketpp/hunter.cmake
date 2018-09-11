@@ -38,6 +38,17 @@ hunter_add_version(
   8ca868bd8c5290643574632aa72931280e497ce6
   )
 
+hunter_add_version(
+  PACKAGE_NAME
+  websocketpp
+  VERSION
+  "0.8.1-p0"
+  URL
+  "https://github.com/hunter-packages/websocketpp/archive/v0.8.1-p0.tar.gz"
+  SHA1
+  def22a3337b9f4022b7ad3004782be4be38f17e3
+  )
+
 hunter_pick_scheme(DEFAULT url_sha1_cmake)
 hunter_cacheable(websocketpp)
 hunter_download(PACKAGE_NAME websocketpp)

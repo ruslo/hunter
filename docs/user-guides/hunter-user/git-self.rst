@@ -101,3 +101,6 @@ Local ``config.cmake`` file:
   to ``GIT_SUBMODULE`` feature. But unlike ``GIT_SUBMODULE`` feature not all
   the dirty files will be checked. While using ``GIT_SELF`` the dirty files
   inside ``fruits/example`` directory will be ignored (check log messages).
+  Also if you want to ignore **any** untracked file, you can use the
+  :ref:`HUNTER_GIT_SELF_IGNORE_UNTRACKED <hunter git self ignore untracked>`
+  option.
