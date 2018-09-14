@@ -5,6 +5,7 @@ CMake
 CPack
 Cap'n
 Config
+Ctrl
 Cygwin
 GCC
 GTest
@@ -28,6 +29,7 @@ Wget
 Workflow
 Xcode
 cacheable
+cancelled
 companioning
 config
 configs
