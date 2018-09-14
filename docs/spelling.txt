@@ -5,6 +5,7 @@ CMake
 CPack
 Cap'n
 Config
+CMakeLists
 Cygwin
 GCC
 GTest
@@ -40,6 +41,7 @@ hunterize
 hunterized
 iOS
 internet
+isn
 login
 macOS
 multi
