@@ -1,6 +1,7 @@
 .. spelling::
 
     OpenTracing
+    Jaeger
 
 Frameworks
 ----------
