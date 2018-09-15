@@ -6,7 +6,7 @@ Manage anything
 
 .. _manage-anything:
 
-You can manage anything that can be downloaded by ``URL`` and checked with
+You can manage anything that can be downloaded by ``URL`` and checked with an
 ``SHA1`` hash:
 
 * C/C++ packages
