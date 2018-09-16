@@ -27,11 +27,14 @@ Uninstall
 Wget
 Workflow
 Xcode
+breakpoint
 cacheable
 companioning
 config
 configs
 customizable
+decrypt
+decrypted
 doesn
 embeddable
 geospatial
@@ -39,7 +42,9 @@ hunterization
 hunterize
 hunterized
 iOS
+injectable
 internet
+inversed
 login
 macOS
 multi
@@ -53,7 +58,9 @@ reproducibility
 runtime
 sanitizers
 shareable
+subdirectory
 subfolder
 submodules
 toolchain
 toolchains
+untracked

@@ -1,6 +1,7 @@
 .. spelling::
 
     ctti
+    optimizations
 
 .. index:: compiler ; ctti
 
