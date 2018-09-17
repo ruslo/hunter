@@ -5,6 +5,7 @@ CMake
 CPack
 Cap'n
 Config
+Ctrl
 Cygwin
 GCC
 GTest
@@ -29,6 +30,7 @@ Workflow
 Xcode
 breakpoint
 cacheable
+cancelled
 companioning
 config
 configs
