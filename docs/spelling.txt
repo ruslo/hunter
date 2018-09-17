@@ -6,6 +6,7 @@ CPack
 Cap'n
 Config
 CMakeLists
+Ctrl
 Cygwin
 GCC
 GTest
@@ -28,11 +29,15 @@ Uninstall
 Wget
 Workflow
 Xcode
+breakpoint
 cacheable
+cancelled
 companioning
 config
 configs
 customizable
+decrypt
+decrypted
 doesn
 embeddable
 geospatial
@@ -40,7 +45,9 @@ hunterization
 hunterize
 hunterized
 iOS
+injectable
 internet
+inversed
 isn
 login
 macOS
@@ -55,7 +62,9 @@ reproducibility
 runtime
 sanitizers
 shareable
+subdirectory
 subfolder
 submodules
 toolchain
 toolchains
+untracked
