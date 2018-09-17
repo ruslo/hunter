@@ -73,14 +73,14 @@ It's simply:
 Compared to a 'requirements.txt' style approach
 ===============================================
 
-Note that hunter's approach differs from a
+Note that Hunter's approach differs from a
 `requirements.txt-like approach <https://pip.readthedocs.org/en/1.1/requirements.html>`__
-(i.e. when external packages are specified in a separate file). This allows hunter to avoid
+(i.e. when external packages are specified in a separate file). This allows Hunter to avoid
 duplication of logic in many cases, even if the ``requirements.txt`` style approach also automatically downloads
 dependencies too.
 
 Imagine that we have to specify dependencies in some kind of ``requirements.cmake``
-file and there is a user option 'BUID_WITH_BAR':
+file and there is a user option ``BUILD_WITH_BAR``:
 
 .. code-block:: cmake
   :emphasize-lines: 3
