@@ -71,7 +71,9 @@ function(hunter_pkgconfig_export_target PKG_CONFIG_MODULE)
       has_ldflags_other
   )
   if(has_ldflags_other)
-    list(APPEND link_libs ${${PKG_CONFIG_MODULE}_LDFLAGS_OTHER})
+    # turn "-framework;A;-framework;B" into "-framework A;-framework B"
+    string(REPLACE "-framework;" "-framework " ldflags_other "${${PKG_CONFIG_MODULE}_LDFLAGS_OTHER}")
+    list(APPEND link_libs ${ldflags_other})
   endif()
 
   # No need to treat the pkg-config module's _LIBRARY_DIRS and _LIBRARIES
