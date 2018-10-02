@@ -7,11 +7,11 @@ include("../../examples/common.cmake")
 
 project(TestsSimple)
 
-include(hunter_config)
+include(hunter_default_version)
 
-set(HUNTER_ALLOW_CONFIG_LOADING YES)
+set(__HUNTER_ALLOW_DEFAULT_VERSION_LOADING YES)
 set(HUNTER_Foo_VERSION "")
-hunter_config(Foo VERSION 1.2.3)
+hunter_default_version(Foo VERSION 1.2.3)
 
 string(COMPARE EQUAL "${HUNTER_Foo_VERSION}" "1.2.3" is_correct)
 if(NOT is_correct)
