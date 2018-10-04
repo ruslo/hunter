@@ -1,0 +1,290 @@
+cmake_minimum_required(VERSION 3.0)
+
+project(Hunter)
+
+include("@HUNTER_SELF@/cmake/Hunter")
+
+include(ExternalProject) # ExternalProject_Add
+
+# some Hunter modules will be used
+list(APPEND CMAKE_MODULE_PATH "@HUNTER_SELF@/cmake/modules")
+
+include(hunter_status_debug)
+include(hunter_assert_not_empty_string)
+include(hunter_get_toolchain_binaries)
+include(hunter_get_build_flags)
+include(hunter_setup_msvc)
+
+# print this message if HUNTER_STATUS_DEBUG option is ON
+hunter_status_debug("Scheme: url_sha1_botan_win")
+
+# Check variables is not empty
+hunter_assert_not_empty_string("@HUNTER_SELF@")
+hunter_assert_not_empty_string("@HUNTER_EP_NAME@")
+hunter_assert_not_empty_string("@HUNTER_PACKAGE_URL@")
+hunter_assert_not_empty_string("@HUNTER_PACKAGE_SHA1@")
+hunter_assert_not_empty_string("@HUNTER_PACKAGE_DOWNLOAD_DIR@")
+hunter_assert_not_empty_string("@HUNTER_PACKAGE_SOURCE_DIR@")
+hunter_assert_not_empty_string("@HUNTER_PACKAGE_INSTALL_PREFIX@")
+# TODO These properties are not set in msys-cxx17 build
+#hunter_assert_not_empty_string("@HUNTER_MSVC_ARCH@")
+#hunter_assert_not_empty_string("@HUNTER_MSVC_VCVARSALL@")
+hunter_assert_not_empty_string("@HUNTER_INSTALL_PREFIX@")
+hunter_assert_not_empty_string("@HUNTER_TLS_VERIFY@")
+
+# Build command and options
+
+hunter_get_toolchain_binaries(
+    OUT_AR
+      ar
+    OUT_AS
+      as
+    OUT_LD
+      ld
+    OUT_NM
+      nm
+    OUT_OBJCOPY
+      objcopy
+    OUT_OBJDUMP
+      objdump
+    OUT_RANLIB
+      ranlib
+    OUT_STRIP
+      strip
+    OUT_CPP
+      cpp
+    OUT_CC
+      cc
+    OUT_CXX
+      cxx
+)
+
+hunter_get_build_flags(
+    INSTALL_DIR
+      "@HUNTER_PACKAGE_INSTALL_PREFIX@"
+    PACKAGE_CONFIGURATION_TYPES
+      "@HUNTER_PACKAGE_CONFIGURATION_TYPES@"
+    OUT_CPPFLAGS
+      cppflags
+    OUT_CFLAGS
+      cflags
+    OUT_CXXFLAGS
+      cxxflags
+    OUT_LDFLAGS
+      ldflags
+)
+
+hunter_setup_msvc()
+
+# Usage: configure.py [options]
+# 
+# Options:
+#   --version                         show program's version number and exit
+#   -h, --help                        show this help message and exit
+#   --verbose                         Show debug messages
+#   --quiet                           Show only warnings and errors
+# 
+#   Target options:
+#     --cpu=CPU                       set the target CPU architecture
+#     --os=OS                         set the target operating system
+#     --cc=COMPILER                   set the desired build compiler
+#     --cc-min-version=MAJOR.MINOR    Set the minimal version of the target
+#                                     compiler. Use --cc-min-version=0.0 to
+#                                     support all compiler versions. Default is
+#                                     auto detection.
+#     --cc-bin=BINARY                 set path to compiler binary
+#     --cc-abi-flags=FLAGS            set compiler ABI flags
+#     --cxxflags=FLAGS                override all compiler flags
+#     --extra-cxxflags=FLAGS          set extra compiler flags
+#     --ldflags=FLAGS                 set linker flags
+#     --ar-command=AR                 set path to static archive creator
+#     --ar-options=AR_OPTIONS         set options for ar
+#     --msvc-runtime=RT               specify MSVC runtime (MT, MD, MTd, MDd)
+#     --with-endian=ORDER             override byte order guess
+#     --with-os-features=FEAT         specify OS features to use
+#     --without-os-features=FEAT      specify OS features to disable
+#     --disable-sse2                  disable SSE2 intrinsics
+#     --disable-ssse3                 disable SSSE3 intrinsics
+#     --disable-sse4.1                disable SSE4.1 intrinsics
+#     --disable-sse4.2                disable SSE4.2 intrinsics
+#     --disable-avx2                  disable AVX2 intrinsics
+#     --disable-bmi2                  disable BMI2 intrinsics
+#     --disable-rdrand                disable RDRAND intrinsics
+#     --disable-rdseed                disable RDSEED intrinsics
+#     --disable-aes-ni                disable AES-NI intrinsics
+#     --disable-sha-ni                disable SHA-NI intrinsics
+#     --disable-altivec               disable AltiVec intrinsics
+#     --disable-neon                  disable NEON intrinsics
+#     --disable-armv8crypto           disable ARMv8Crypto intrinsics
+# 
+#   Build options:
+#     --with-debug-info               include debug symbols
+#     --with-sanitizers               enable ASan/UBSan checks
+#     --enable-sanitizers=SAN         enable specific sanitizers
+#     --without-stack-protector       disable stack smashing protections
+#     --with-coverage                 add coverage info and disable opts
+#     --with-coverage-info            add coverage info
+#     --disable-shared-library        disable building shared library
+#     --disable-static-library        disable building static library
+#     --optimize-for-size             optimize for code size
+#     --no-optimizations              disable all optimizations (for debugging)
+#     --debug-mode                    enable debug info, disable optimizations
+#     --amalgamation                  use amalgamation to build
+#     --single-amalgamation-file      build single file instead of splitting on
+#                                     ABI
+#     --with-build-dir=DIR            setup the build in DIR
+#     --with-external-includedir=DIR  use DIR for external includes
+#     --with-external-libdir=DIR      use DIR for external libs
+#     --with-sysroot-dir=DIR          use DIR for system root while cross-
+#                                     compiling
+#     --with-openmp                   enable use of OpenMP
+#     --link-method=METHOD            choose how links to include headers are
+#                                     created (symlink, hardlink, copy)
+#     --with-local-config=FILE        include the contents of FILE into build.h
+#     --distribution-info=STRING      distribution specific version
+#     --maintainer-mode               Enable extra warnings
+#     --with-python-versions=N.M      where to install botan2.py (def 2.7)
+#     --with-valgrind                 use valgrind API
+#     --unsafe-fuzzer-mode            Disable essential checks for testing
+#     --build-fuzzers=TYPE            Build fuzzers (afl, libfuzzer, klee, test)
+#     --with-fuzzer-lib=LIB           additionally link in LIB
+# 
+#   Documentation Options:
+#     --without-documentation         Skip building/installing documentation
+#     --with-sphinx                   Use Sphinx
+#     --with-pdf                      Use Sphinx to generate PDF doc
+#     --with-rst2man                  Use rst2man to generate man page
+#     --with-doxygen                  Use Doxygen
+# 
+#   Module selection:
+#     --module-policy=POL             module policy file (see src/build-
+#                                     data/policy)
+#     --enable-modules=MODS           enable specific modules
+#     --disable-modules=MODS          disable specific modules
+#     --minimized-build               minimize build
+#     --with-bearssl                  use bearssl
+#     --with-boost                    use boost
+#     --with-bzip2                    use bzip2
+#     --with-lzma                     use lzma
+#     --with-openssl                  use openssl
+#     --with-commoncrypto             use commoncrypto
+#     --with-sqlite3                  use sqlite3
+#     --with-zlib                     use zlib
+#     --with-tpm                      use tpm
+# 
+#   Installation options:
+#     --program-suffix=SUFFIX         append string to program names
+#     --library-suffix=SUFFIX         append string to library names
+#     --prefix=DIR                    set the install prefix
+#     --docdir=DIR                    set the doc install dir
+#     --bindir=DIR                    set the binary install dir
+#     --libdir=DIR                    set the library install dir
+#     --mandir=DIR                    set the install dir for man pages
+#     --includedir=DIR                set the include file install dir
+# 
+#   Informational:
+#     --list-modules                  list available modules and exit
+#     --list-os-features              list available OS features and exit
+#
+if("@HUNTER_PACKAGE_CONFIGURATION_TYPES@" STREQUAL "Debug")
+  list(APPEND configure_opts --debug-mode)
+endif()
+
+if(HUNTER_STATUS_DEBUG)
+   list(APPEND configure_opts --verbose)
+endif()
+
+if(BUILD_SHARED_LIBS)
+  list(APPEND configure_opt --disable-static-library)
+else()
+  list(APPEND configure_opts --disable-shared-library)
+endif()
+
+if(WITH_ZLIB)
+  list(APPEND configure_opts --with-zlib)
+  hunter_add_package(ZLIB)
+endif()
+
+if(WITH_BZIP2)
+  list(APPEND configure_opts --with-bzip2)
+  hunter_add_package(BZip2)
+endif()
+
+if(ENABLE_MODULES)
+  list(APPEND configure_opts --enable-modules=${ENABLE_MODULES})
+endif()
+
+if("${HUNTER_MSVC_ARCH}" STREQUAL "amd64")
+  list(APPEND configure_opts --cpu=x64)
+else()
+  list(APPEND configure_opts --cpu=x86)
+endif()
+
+# file(TO_NATIVE_PATH "${cxx}" CXX_BIN)
+
+# list(APPEND configure_opts
+#   #--cc-bin=${cxx}
+#   #"--cc-bin=${CXX_BIN}"
+#   "--extra-cxxflags=${cxxflags}"
+#   "--ldflags=${ldflags}"
+#   #--amalgamation --single-amalgamation-file
+# )
+
+if(NOT "${ar}" STREQUAL "")
+  list(APPEND configure_opts --ar-command=${ar})
+endif()
+
+# MSVS="2015" PLATFORM="x86_amd64" TARGET="shared"
+#.\configure.py 
+#--prefix=c:\users\appveyor\appdata\local\temp\1\botan-install 
+#--cc=msvc 
+#--os=windows 
+#--cpu=x64 or --cpu=x86
+#--cc-bin=sccache cl --no-store-vc-rev
+
+if(NOT "@HUNTER_MSVC_VCVARSALL@" STREQUAL "")
+  file(TO_NATIVE_PATH "@HUNTER_MSVC_VCVARSALL@" RUN_MSVC_VCVARSALL)
+endif()
+file(TO_NATIVE_PATH "@HUNTER_PACKAGE_INSTALL_PREFIX@" INSTALL_PATH)
+file(TO_NATIVE_PATH "@HUNTER_PACKAGE_INSTALL_PREFIX@/include" EXTERNAL_INCLUDE)
+file(TO_NATIVE_PATH "@HUNTER_PACKAGE_INSTALL_PREFIX@/lib" EXTERNAL_LIB)
+
+ExternalProject_Add(
+    @HUNTER_EP_NAME@ # Name of the external project. Actually not used set for beautify logging messages
+    URL
+    @HUNTER_PACKAGE_URL@ # URL of the package to download
+    URL_HASH
+    SHA1=@HUNTER_PACKAGE_SHA1@ # SHA1 hash
+    DOWNLOAD_DIR
+    "@HUNTER_PACKAGE_DOWNLOAD_DIR@" # Archive destination location
+    TLS_VERIFY
+    "@HUNTER_TLS_VERIFY@"
+    SOURCE_DIR
+    "@HUNTER_PACKAGE_SOURCE_DIR@" # Unpack directory
+    INSTALL_DIR
+    "@HUNTER_INSTALL_PREFIX@" # not used actually (see install command)
+    CONFIGURE_COMMAND
+    "${RUN_MSVC_VCVARSALL}" "@HUNTER_MSVC_ARCH@"
+    COMMAND
+    "./configure.py"
+    "--os=windows"
+    "--cc=msvc"
+    "--without-documentation"
+    "--prefix=${INSTALL_PATH}"
+    "--with-external-includedir=${EXTERNAL_INCLUDE}"
+    "--with-external-libdir=${EXTERNAL_LIB}"
+    ${configure_opts}
+    BUILD_COMMAND
+    nmake libs
+    BUILD_IN_SOURCE
+    1
+    INSTALL_COMMAND
+    nmake install
+    COMMAND # Copy license files
+    "@CMAKE_COMMAND@"
+    "-C@HUNTER_ARGS_FILE@" # for 'HUNTER_INSTALL_LICENSE_FILES'
+    "-Dsrcdir=@HUNTER_PACKAGE_SOURCE_DIR@"
+    "-Ddstdir=@HUNTER_PACKAGE_LICENSE_DIR@"
+    -P
+    "@HUNTER_SELF@/scripts/try-copy-license.cmake"
+)
