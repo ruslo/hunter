@@ -23,7 +23,7 @@ hunter_add_version(
     PACKAGE_NAME
     tommath
     VERSION
-    "1.0.1"
+    "1.0.1-p0"
     URL
     "https://github.com/hunter-packages/libtommath/archive/v1.0.1-p0.tar.gz"
     SHA1
