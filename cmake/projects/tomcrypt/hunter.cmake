@@ -49,7 +49,7 @@ hunter_add_version(
     URL
     "https://github.com/hunter-packages/libtomcrypt/archive/v1.18.2-p0.tar.gz"
     SHA1
-    8acf74d6a3af6c4360e665a5df0ba84ca3568d0e
+    279cef2e513d09cfd5c7b9a2326447bf9e57d909
 )
 
 # Pick a download scheme
