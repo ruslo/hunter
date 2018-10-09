@@ -42,13 +42,13 @@ hunter_add_version(
     69b882eff5bf69a5a4e0e9169cc9b9c0ea5b9d71
 )
 hunter_add_version(
-    PACKAGE_NAME
+    package_name
     tomcrypt
-    VERSION
-    "1.18.2"
-    URL
+    version
+    "1.18.2-p0"
+    url
     "https://github.com/hunter-packages/libtomcrypt/archive/v1.18.2-p0.tar.gz"
-    SHA1
+    sha1
     8ACF74D6A3AF6C4360E665A5DF0BA84CA3568D0E
 )
 
