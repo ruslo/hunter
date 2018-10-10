@@ -47,9 +47,9 @@ hunter_add_version(
     VERSION
     "1.18.2-p1"
     URL
-    "https://github.com/t0p4/libtomcrypt/archive/v1.18.2-p1.tar.gz"
+    "https://github.com/hunter-packages/libtomcrypt/archive/v1.18.2-p1.tar.gz"
     SHA1
-    cb496a56d45acdac50422b9bd9c8696b5ac0a038
+    15a37f1bb33b8dd0d2c568c2cec32966def681ef
 )
 # Pick a download scheme
 hunter_pick_scheme(DEFAULT url_sha1_cmake) # use scheme for cmake projects
