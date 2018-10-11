@@ -5,6 +5,7 @@ CMake
 CPack
 Cap'n
 Config
+CMakeLists
 Ctrl
 Cygwin
 GCC
@@ -48,6 +49,7 @@ iOS
 injectable
 internet
 inversed
+isn
 login
 macOS
 multi

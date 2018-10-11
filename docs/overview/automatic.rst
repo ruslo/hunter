@@ -11,8 +11,8 @@ Automatic builds
 No dependencies in README
 =========================
 
-Build instructions from Hunter archive triggered automatically when
-``hunter_add_package`` function called. Hence there is no need to specify
+Build instructions from the Hunter archive are triggered automatically when
+the ``hunter_add_package`` function called, hence there is no need to specify
 dependencies in a raw ``README`` file like:
 
 .. code-block:: none
@@ -40,7 +40,7 @@ Now it's simply:
 Optional dependencies
 =====================
 
-Optional dependency? No problems, expressed in a pretty clean way:
+Optional dependency? No problem, optional dependencies are expressed in a straightforward way:
 
 .. code-block:: cmake
   :emphasize-lines: 4
@@ -52,13 +52,7 @@ Optional dependency? No problems, expressed in a pretty clean way:
     hunter_add_package(bar)
   endif()
 
-Same commands:
-
-::
-
-  > cmake -H. -B_builds -DBUILD_WITH_BAR=YES # + install bar
-
-instead of:
+Now instead of:
 
 .. code-block:: none
   :emphasize-lines: 2, 3, 6
@@ -70,17 +64,23 @@ instead of:
   Then run build:
   > cmake -H. -B_builds -DBUILD_WITH_BAR=YES
 
-Vs. 'requirements.txt' style
-============================
+It's simply:
 
-Note that such approach differs from
+::
+
+  > cmake -H. -B_builds -DBUILD_WITH_BAR=YES # + install bar
+
+Compared to a 'requirements.txt' style approach
+===============================================
+
+Note that Hunter's approach differs from a
 `requirements.txt-like approach <https://pip.readthedocs.org/en/1.1/requirements.html>`__
-(i.e. when external packages specified by separate file). This allow to avoid
-duplication of logic in many cases even if ``requirements.txt`` do downloads
-automatically too.
+(i.e. when external packages are specified in a separate file). This allows Hunter to avoid
+duplication of logic in many cases, even if the ``requirements.txt`` style approach also automatically downloads
+dependencies too.
 
-Imagine we have to specify dependencies in some kind of ``requirements.cmake``
-file and there is user's option:
+Imagine that we have to specify dependencies in some kind of ``requirements.cmake``
+file and there is a user option ``BUILD_WITH_BAR``:
 
 .. code-block:: cmake
   :emphasize-lines: 3
@@ -91,7 +91,7 @@ file and there is user's option:
     command_to_install(Bar)
   endif()
 
-In case it's not CMake code this will look even fancy, say ``requirements.json``:
+Or, in the case that it isn't CMake code, this might by something fancy like ``requirements.json``:
 
 .. code-block:: json
 
@@ -104,7 +104,7 @@ In case it's not CMake code this will look even fancy, say ``requirements.json``
     }
   }
 
-You have to repeat same condition in ``CMakeLists.txt`` file:
+You would have to repeat the same condition in the ``CMakeLists.txt`` file:
 
 .. code-block:: cmake
   :emphasize-lines: 3
@@ -125,8 +125,8 @@ You have to repeat same condition in ``CMakeLists.txt`` file:
     target_compile_definitions(... PUBLIC "WITH_BAR")
   endif()
 
-In case when this part will change you must not to forget to modify ``requirements``
-accordingly too. And real world libraries can have nontrivial chain of conditions, e.g.
+Later, when you need to change this dependency in ``CMakeLists.txt``, you'd better not forget to also modify ``requirements.cmake``
+accordingly. Remember real world libraries can have nontrivial chain of conditions, e.g.
 `OpenCV components <https://github.com/Itseez/opencv/blob/ec63343f34658d9b0ec94dc15e1b71e8f7d1d553/CMakeLists.txt#L170>`__.
 
 .. admonition:: Stackoverflow
