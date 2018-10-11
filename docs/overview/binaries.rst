@@ -8,13 +8,13 @@
 Binaries from server
 --------------------
 
-Hunter has internal mechanism of saving binaries of installed packages along
-with meta information about toolchain, build options and dependencies.
-This allow to not trigger same build on creation of new root directory.
-For example when user change version of ``OpenSSL`` from ``1.0.1`` to ``1.0.2``
-it does affect ``Config-ID`` so new root will be created. But it will not affect
-how ``GTest`` builds (if it's not a dependency) so ``GTest`` archive can be
-unpacked from cache. Such cache can be used locally or uploaded to server.
+Hunter has an internal mechanism that saves the binaries of installed packages along
+with meta-data about the toolchain, build options, and dependencies.
+This allows Hunter to avoid triggering the same build when a new root directory is created.
+For example, when a user changes the version of ``OpenSSL`` from ``1.0.1`` to ``1.0.2``
+it will affect ``Config-ID``, so a new root will be created. However, it will not affect
+how ``GTest`` builds (if it's not a dependency), so the ``GTest`` archive can be
+unpacked from the local cache. The cache can be kept local or uploaded to a Hunter cache server.
 
 
 .. seealso::
@@ -24,23 +24,24 @@ unpacked from cache. Such cache can be used locally or uploaded to server.
 Details
 =======
 
-Default server with binaries is
+The default server with cached binaries is
 `ingenue/hunter-cache <https://github.com/ingenue/hunter-cache>`__.
-Archives saved as assets to `cache tag <https://github.com/ingenue/hunter-cache/releases/tag/cache>`__.
-Uploaded packages can be found by ``upload.*`` query on page with branches:
+Archives are saved as GitHub `release assets <https://github.com/ingenue/hunter-cache/releases>`__
+and each is associated with a git `tag <https://github.com/ingenue/hunter-cache/tags>`__.
+Available packages can be queried using an ``upload.*`` HTTP query from the GitHub branches URL:
 
 * `ingenue/hunter@upload. <https://github.com/ingenue/hunter/branches/all?utf8=%E2%9C%93&query=upload.>`__
 
-Note that some toolchains may not work for the specific packages. Check
-status in job details. E.g. Qt is broken for iOS armv7s architecture, so
-we have to use ``ios-*-wo-armv7s`` toolchains:
+Note that some toolchains may not work for specific packages. Check the
+status in the Travis CI job details. For example, Qt is broken for the iOS armv7s architecture, so
+we have to use the ``ios-*-wo-armv7s`` toolchains:
 
 * https://travis-ci.org/ingenue/hunter/builds/140158080
 
-Binaries/headers stored in archives. Archives are the result of packing
-``CMAKE_INSTALL_PREFIX`` directory produced by
-``cmake --build _builds --target install`` command. Idea is similar to CPack
-functionality but extended for non-CMake packages too.
+Binaries/headers are stored in archives and archives are the result of packing the
+``CMAKE_INSTALL_PREFIX`` directory produced by the
+``cmake --build _builds --target install`` command. The idea is similar to CPack
+functionality but is extended for non-CMake packages too.
 
 .. code-block:: none
   :emphasize-lines: 3, 6, 8

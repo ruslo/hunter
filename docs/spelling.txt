@@ -8,6 +8,7 @@ Config
 Ctrl
 Cygwin
 GCC
+GitHub
 GTest
 Google
 Hunterize
