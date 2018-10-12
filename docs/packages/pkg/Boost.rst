@@ -29,6 +29,7 @@ Examples:
 - `Boost-filesystem <https://github.com/ruslo/hunter/blob/master/examples/Boost-filesystem/CMakeLists.txt>`__
 - `Boost-math <https://github.com/ruslo/hunter/blob/master/examples/Boost-math/CMakeLists.txt>`__
 - `Boost-contract <https://github.com/ruslo/hunter/blob/master/examples/Boost-contract/CMakeLists.txt>`__
+- `Boost-stacktrace <https://github.com/ruslo/hunter/blob/master/examples/Boost-stacktrace/CMakeLists.txt>`__
 
 List of components and availability (other libraries are header-only):
 
