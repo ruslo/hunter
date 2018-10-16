@@ -1,0 +1,58 @@
+# Distributed under the OSI-approved BSD 3-Clause License.  See accompanying
+# file Copyright.txt or https://cmake.org/licensing for details.
+
+#.rst:
+# FindFoo
+# -------
+#
+# Finds the Foo library
+#
+# This will define the following variables::
+#
+#   Foo_FOUND    - True if the system has the Foo library
+#   Foo_VERSION  - The version of the Foo library which was found
+#
+# and the following imported targets::
+#
+#   Foo::Foo   - The Foo library
+
+find_path(Foo_INCLUDE_DIR
+  NAMES foo.h
+  PATHS ${FOO_ROOT}/include
+  PATH_SUFFIXES Foo
+)
+find_library(Foo_LIBRARY
+  NAMES foo
+  PATHS ${FOO_ROOT}/lib
+)
+
+set(Foo_VERSION ${PC_Foo_VERSION})
+
+include(FindPackageHandleStandardArgs)
+find_package_handle_standard_args(Foo
+  FOUND_VAR Foo_FOUND
+  REQUIRED_VARS
+    Foo_LIBRARY
+    Foo_INCLUDE_DIR
+  VERSION_VAR Foo_VERSION
+)
+
+if(Foo_FOUND)
+  set(Foo_LIBRARIES ${Foo_LIBRARY})
+  set(Foo_INCLUDE_DIRS ${Foo_INCLUDE_DIR})
+  set(Foo_DEFINITIONS ${PC_Foo_CFLAGS_OTHER})
+endif()
+
+if(Foo_FOUND AND NOT TARGET Foo::Foo)
+  add_library(Foo::Foo UNKNOWN IMPORTED)
+  set_target_properties(Foo::Foo PROPERTIES
+    IMPORTED_LOCATION "${Foo_LIBRARY}"
+    INTERFACE_COMPILE_OPTIONS "${PC_Foo_CFLAGS_OTHER}"
+    INTERFACE_INCLUDE_DIRECTORIES "${Foo_INCLUDE_DIR}"
+  )
+endif()
+
+mark_as_advanced(
+  Foo_INCLUDE_DIR
+  Foo_LIBRARY
+)
