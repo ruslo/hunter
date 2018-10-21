@@ -5,9 +5,11 @@ CMake
 CPack
 Cap'n
 Config
+CMakeLists
 Ctrl
 Cygwin
 GCC
+GitHub
 GTest
 Google
 Hunterize
@@ -47,6 +49,7 @@ iOS
 injectable
 internet
 inversed
+isn
 login
 macOS
 multi
