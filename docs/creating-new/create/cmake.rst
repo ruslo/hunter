@@ -218,7 +218,7 @@ CMake with Hunter:
 
 .. code-block:: cmake
 
-  hunter_add_package(hunter_box_1) 
+  hunter_add_package(hunter_box_1)
   find_package(hunter_box_1 CONFIG REQUIRED)
   target_link_libraries(... hunter_box_1::hunter_box_1)
 
@@ -309,7 +309,7 @@ CMake options
 
 Note that it does not make sense to build and install stuff like examples,
 tests or documentation. Please check that your package has CMake options to
-disable those. If such an option is not disabled by default use 
+disable those. If such an option is not disabled by default use
 ``hunter_cmake_args``:
 
 .. code-block:: cmake
@@ -429,7 +429,7 @@ Now save all changes by doing a commit:
 
 .. code-block:: none
 
-  [hunter]> git branch 
+  [hunter]> git branch
     master
   * pr.hunter_box_1
 
@@ -613,7 +613,7 @@ Fetch the branch ``pkg.template`` and substitute all ``foo`` strings with
   [hunter]> git checkout pkg.template
   [hunter]> git checkout -b pr.pkg.hunter_box_1
 
-  [hunter]> sed -i 's,foo,hunter_box_1,g' .travis.yml 
+  [hunter]> sed -i 's,foo,hunter_box_1,g' .travis.yml
   [hunter]> sed -i 's,foo,hunter_box_1,g' appveyor.yml
 
   [hunter]> git add .travis.yml appveyor.yml
@@ -743,7 +743,7 @@ branch:
 
 .. image:: /creating-new/images/pr-with-tests.png
   :align: center
-  :alt: Pull request with tests 
+  :alt: Pull request with tests
 
 I will create ``pkg.hunter_box_1`` and change branch before merging:
 
@@ -786,7 +786,7 @@ tested automatically:
 
 .. image:: /creating-new/images/package-testing.png
   :align: center
-  :alt: Package testing 
+  :alt: Package testing
 
 Branch ``pkg.hunter_box_1.pr-N`` will be created from ``pkg.hunter_box_1``
 to test package:
