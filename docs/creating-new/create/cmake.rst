@@ -687,6 +687,30 @@ Example:
 
 * https://github.com/ingenue/hunter/blob/05bd9cdbd03a5772302c65abb9119722b9b8e08c/appveyor.yml#L21-L24
 
+Fix Travis log too long error
+=============================
+
+If you see error
+
+.. code-block:: none
+
+  The job exceeded the maximum log length, and has been terminated.
+
+Adding ``VERBOSE=0`` environment variable should help:
+
+.. code-block:: yaml
+  :emphasize-lines: 5
+
+  - os: linux
+    env: >
+      TOOLCHAIN=android-ndk-r17-api-24-arm64-v8a-clang-libcxx14
+      PROJECT_DIR=examples/OpenCV
+      VERBOSE=0
+
+Example:
+
+* https://github.com/ingenue/hunter/blob/92cb26bd0bc5eeb14525f56b3a068fb072e2e5a1/.travis.yml#L55-L59
+
 Excluding tests
 ===============
 
