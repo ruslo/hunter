@@ -16,7 +16,7 @@ hunter_add_version(
     URL
     "https://github.com/hunter-packages/qhull/archive/v7.2.0-p0.tar.gz"
     SHA1
-    45a920a4318698276d8c3cb9f39401091afce0fa
+    17ee22ce8b2814aecb300f31cecf3fb4971b2f1f
 )
 
 hunter_pick_scheme(DEFAULT url_sha1_cmake)
