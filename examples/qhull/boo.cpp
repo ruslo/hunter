@@ -1,4 +1,4 @@
-#include <string.h>
+#include <libqhull.h>
 
 int main() {
 }
