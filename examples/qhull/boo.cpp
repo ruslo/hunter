@@ -1,4 +1,4 @@
-#include <libqhull.h>
+#include <libqhull/libqhull.h>
 
 int main() {
 }
