@@ -8,7 +8,7 @@
 .. _pkg.qhull:
 
 qhull
-===
+=====
 
 -  `Official <https://github.com/qhull/qhull>`__
 -  `Hunterized <https://github.com/hunter-packages/qhull>`__
