@@ -557,6 +557,7 @@ function(hunter_download)
   )
   string(COMPARE NOTEQUAL "${CMAKE_GENERATOR_TOOLSET}" "" has_toolset)
   if(has_toolset)
+    hunter_status_debug("Add toolset: '${CMAKE_GENERATOR_TOOLSET}'")
     list(APPEND cmd "-T" "${CMAKE_GENERATOR_TOOLSET}")
   endif()
 

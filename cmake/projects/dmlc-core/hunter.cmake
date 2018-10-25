@@ -32,6 +32,17 @@ hunter_add_version(
     f2fbfca630b897e75507e8d3e9e05cc00eee6e8e
     )
 
+hunter_add_version(
+    PACKAGE_NAME
+    dmlc-core
+    VERSION
+    0.0.0-mxnet-0a0e8ad-p0
+    URL
+    https://github.com/hunter-packages/dmlc-core/archive/0.0.0-mxnet-0a0e8ad-p0.tar.gz
+    SHA1
+    551ef4e0e51dfd6cdf79d766fe37e64a3a90d3e0
+    )
+
 hunter_cmake_args(
   dmlc-core
   CMAKE_ARGS
@@ -41,4 +52,3 @@ hunter_cmake_args(
 hunter_pick_scheme(DEFAULT url_sha1_cmake)
 hunter_cacheable(dmlc-core)
 hunter_download(PACKAGE_NAME dmlc-core)
-
