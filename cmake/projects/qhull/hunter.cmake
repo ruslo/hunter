@@ -14,7 +14,7 @@ hunter_add_version(
     VERSION
     7.2.0-p0
     URL
-    "https://github.com/t0p4/qhull/archive/v7.2.0-p0.tar.gz"
+    "https://github.com/hunter-packages/qhull/archive/v7.2.0-p0.tar.gz"
     SHA1
     45a920a4318698276d8c3cb9f39401091afce0fa
 )
