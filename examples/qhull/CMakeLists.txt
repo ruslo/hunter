@@ -14,5 +14,5 @@ hunter_add_package(qhull)
 find_package(qhull CONFIG REQUIRED)
 
 add_executable(boo boo.cpp)
-#target_link_libraries(boo qhull::libqhull)
+target_link_libraries(boo qhull::libqhull)
 # DOCUMENTATION_END }
