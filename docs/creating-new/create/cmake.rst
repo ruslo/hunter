@@ -711,6 +711,33 @@ Example:
 
 * https://github.com/ingenue/hunter/blob/92cb26bd0bc5eeb14525f56b3a068fb072e2e5a1/.travis.yml#L55-L59
 
+Workaround for GCC internal error
+=================================
+
+Travis machines have 32 logical cores and Hunter will use all of them by default
+(e.g. build with ``make -j32``). Sometimes It may cause an internal GCC
+compiler error:
+
+.. code-block:: none
+
+  g++-7: internal compiler error: Killed (program cc1plus)
+
+As a workaround you can limit number of jobs explicitly by adding
+the :ref:`HUNTER_JOBS_NUMBER <hunter jobs number env>` environment variable:
+
+.. code-block:: yaml
+  :emphasize-lines: 5
+
+  - os: linux
+    env: >
+      TOOLCHAIN=gcc-7-cxx17
+      PROJECT_DIR=examples/mkldnn
+      HUNTER_JOBS_NUMBER=4
+
+Example:
+
+* https://github.com/ingenue/hunter/blob/c1e12ba21940b8418d1e3d596b653ad3bf588e11/.travis.yml#L41-L45
+
 Excluding tests
 ===============
 
