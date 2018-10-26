@@ -70,6 +70,7 @@ else()
   hunter_default_version(GTest VERSION 1.8.0-hunter-p11)
 endif()
 
+hunter_default_version(HalideIR VERSION 0.0-2f3ecdf-p0)
 hunter_default_version(ICU VERSION 55.1-p3)
 hunter_default_version(IF97 VERSION 2.1.2)
 hunter_default_version(Igloo VERSION 1.1.1-hunter)
