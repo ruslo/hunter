@@ -430,6 +430,8 @@ HUNTER_GIT_EXECUTABLE
 
 Path to Git executable
 
+.. _hunter jobs number env:
+
 HUNTER_JOBS_NUMBER
 ==================
 
