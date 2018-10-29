@@ -1,6 +1,7 @@
 .. spelling::
 
     termcolor
+    Termcolor
 
 .. index::
   single: commandline tools ; termcolor
