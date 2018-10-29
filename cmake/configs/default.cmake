@@ -378,7 +378,7 @@ if(MSVC_VERSION LESS 1800)
   # for VS12 - version without support C++11
   hunter_default_version(spdlog VERSION 1.0.0-p0)
 else()
-  hunter_default_version(spdlog VERSION 0.16.3-p1)
+  hunter_default_version(spdlog VERSION 1.2.1-p0)
 endif()
 
 hunter_default_version(sqlite3 VERSION 3.24.0-p0)
