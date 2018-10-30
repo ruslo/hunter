@@ -3,7 +3,7 @@
 
 int main()
 {
-  std::cout << "Latest available gl version: "
-            << glbinding::Version::latest()
+  std::cout << "OpenGL version: "
+            << glbinding::Version().toString()
             << std::endl;
 }
