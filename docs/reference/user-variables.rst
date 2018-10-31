@@ -121,6 +121,8 @@ HUNTER_CONFIGURATION_TYPES
 * See `example <https://github.com/ruslo/hunter/wiki/example.hunter_configuration_types>`__
 * Default: ``Release``, ``Debug``
 
+.. _hunter build shared libs:
+
 HUNTER_BUILD_SHARED_LIBS
 ========================
 

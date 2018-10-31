@@ -92,6 +92,8 @@ Message in logs:
 
   * `Collection of toolchains <https://github.com/ruslo/polly>`__
 
+.. _simple toolchains:
+
 Simple toolchains
 =================
 
