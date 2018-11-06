@@ -715,8 +715,8 @@ Workaround for GCC internal error
 =================================
 
 Travis machines have 32 logical cores and Hunter will use all of them by default
-(e.g. build with ``make -j32``). Sometimes It may cause an internal GCC
-compiler error:
+(e.g. build with ``make -j32``). Because of this system may run out of memory
+and GCC may get killed:
 
 .. code-block:: none
 
@@ -737,6 +737,10 @@ the :ref:`HUNTER_JOBS_NUMBER <hunter jobs number env>` environment variable:
 Example:
 
 * https://github.com/ingenue/hunter/blob/c1e12ba21940b8418d1e3d596b653ad3bf588e11/.travis.yml#L41-L45
+
+.. admonition:: Stackoverflow
+
+  * https://stackoverflow.com/a/35011967
 
 Excluding tests
 ===============
