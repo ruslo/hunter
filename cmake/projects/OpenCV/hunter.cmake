@@ -11,7 +11,19 @@ include(hunter_cmake_args)
 include(hunter_download)
 include(hunter_pick_scheme)
 
+
 # List of versions here...
+hunter_add_version(
+    PACKAGE_NAME
+    OpenCV
+    VERSION                                                     "3.4.3-p1"
+    URL
+    "https://github.com/hunter-packages/opencv/archive/v3.4.
+3-p1.tar.gz"
+    SHA1
+    3589a7f19fdaef200091231c4255c5e5bb70b217
+)
+
 hunter_add_version(
     PACKAGE_NAME
     OpenCV
