@@ -272,6 +272,14 @@ and have some usage peculiarities:
   track what files was the original sources/what is temporary files
   for build. Combining with previous peculiarity it's expected that much
   more disk space will be used than usually.
+* If package is already installed before ``HUNTER_KEEP_PACKAGE_SOURCES`` set
+  to ``ON`` there will be no build triggered, hence there will be no sources
+  kept. To re-trigger the build you can add some dummy parameter to
+  ``CMAKE_ARGS``, for example:
+
+  .. code-block:: cmake
+
+    hunter_config(foo VERSION ${HUNTER_foo_VERSION} CMAKE_ARGS DUMMY=1)
 
 .. _hunter download server:
 
