@@ -398,6 +398,10 @@ hunter_cmake_args(
         #  it might pick up the host version
         WITH_CUDA=OFF
         WITH_CUFFT=OFF
+        # Fix for https://travis-ci.org/xsacha/hunter/jobs/347083573
+        BUILD_opencv_dnn=OFF
+        # Fix for https://travis-ci.org/ingenue/hunter/builds/452039597
+        WITH_OPENEXR=OFF
 )
 
 # Pick a download scheme
