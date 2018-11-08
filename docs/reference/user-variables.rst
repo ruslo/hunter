@@ -281,6 +281,10 @@ and have some usage peculiarities:
 
     hunter_config(foo VERSION ${HUNTER_foo_VERSION} CMAKE_ARGS DUMMY=1)
 
+.. seealso::
+
+  * :ref:`hunter_config(... KEEP_PACKAGE_SOURCES) <hunter_config>`
+
 .. _hunter download server:
 
 HUNTER_DOWNLOAD_SERVER
