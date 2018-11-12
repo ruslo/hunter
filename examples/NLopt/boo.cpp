@@ -1,4 +1,4 @@
-#include <NLopt/nlopt.hpp>
+#include <NLopt/nlopt.h>
 
 int main() {
 }
