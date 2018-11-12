@@ -14,5 +14,5 @@ hunter_add_package(NLopt)
 find_package(NLopt CONFIG REQUIRED)
 
 add_executable(boo boo.cpp)
-target_link_libraries(boo PUBLIC NLopt::NLopt)
+target_link_libraries(boo NLopt::nlopt)
 # DOCUMENTATION_END }
