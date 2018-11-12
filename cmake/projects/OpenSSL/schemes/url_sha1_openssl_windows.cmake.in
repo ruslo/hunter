@@ -66,6 +66,10 @@ else()
   set(do_ms do_ms.bat)
 endif()
 
+if(NOT ASM_SUPPORT)
+  list(APPEND opt " no-asm")
+endif()
+
 if("@MSVC@")
   # Logging as Workaround for VS_UNICODE_OUTPUT issue:
   # https://public.kitware.com/Bug/view.php?id=14266
@@ -98,7 +102,7 @@ ExternalProject_Add(
     CONFIGURE_COMMAND
     "@HUNTER_MSVC_VCVARSALL@" "@HUNTER_MSVC_ARCH@"
     COMMAND
-    perl Configure "${opt}" no-asm "--prefix=@HUNTER_PACKAGE_INSTALL_PREFIX@"
+    perl Configure "${opt}" "--prefix=@HUNTER_PACKAGE_INSTALL_PREFIX@"
     COMMAND
     "ms\\${do_ms}"
     BUILD_COMMAND
