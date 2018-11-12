@@ -1,4 +1,4 @@
-#include <foo/foo.hpp>
+#include <NLopt/NLopt.hpp>
 
 int main() {
 }
