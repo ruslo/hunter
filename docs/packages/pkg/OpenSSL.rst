@@ -30,4 +30,4 @@ Fixed/workaround
 Using ASM optimization on Windows
 ---------------------------------
 
-To be able to use ASM optimization on Windows, you need to get NASM and set the ASM_SUPPORT option.
+To be able to use ASM optimization on Windows, you need to get NASM and set the ``ASM_SUPPORT`` option.
