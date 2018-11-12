@@ -20,6 +20,17 @@ hunter_add_version(
     8b7d898d2f474bef2ca436cca2c2ab15483535cd
 )
 
+hunter_add_version(
+    PACKAGE_NAME
+    mxnet
+    VERSION
+    0.0.0-5b86701f2-p1
+    URL
+    "https://github.com/hunter-packages/mxnet/archive/0.0.0-5b86701f2-p1.tar.gz"
+    SHA1
+    71c01aaa65448f4826e2ec4cadb44987370d664f
+)
+
 hunter_cmake_args(
     mxnet
     CMAKE_ARGS
@@ -28,7 +39,6 @@ hunter_cmake_args(
     USE_CPP_PACKAGE=ON
     USE_GPERFTOOLS=OFF
     USE_JEMALLOC=OFF
-    USE_OPENCV=OFF
     USE_OPENMP=OFF
 )
 
