@@ -25,3 +25,9 @@ Fixed/workaround
    `related <https://github.com/ruslo/hunter/wiki/error.spaces.in.hunter.root>`__
 -  Can't be build with ``make -jN``:
    https://github.com/ruslo/hunter/issues/87
+
+
+Using ASM optimisation on Windows
+---------------------------------
+
+To be able to use ASM optimisation on Windows, you need to get NASM and set the ASM_SUPPORT option.
