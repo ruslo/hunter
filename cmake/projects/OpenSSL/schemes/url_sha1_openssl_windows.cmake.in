@@ -69,7 +69,6 @@ else()
 endif()
 
 if(ASM_SUPPORT)
-  project(download-NASM)
   hunter_add_package(NASM)
 else()
   list(APPEND opt " no-asm")
