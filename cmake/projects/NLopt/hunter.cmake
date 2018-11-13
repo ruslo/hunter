@@ -15,9 +15,9 @@ hunter_add_version(
     VERSION
     2.5.0
     URL
-    "https://github.com/t0p4/nlopt/archive/v2.5.0-p12.tar.gz"
+    "https://github.com/t0p4/nlopt/archive/v2.5.0-p13.tar.gz"
     SHA1
-    8743ed0f3fa342c924a5a4cddd6997740d6aaf20
+    7f77de623145ef1ed537ea4a732f23ff0abae83d
 )
 
 hunter_cmake_args(
