@@ -13,7 +13,7 @@ hunter_add_version(
     PACKAGE_NAME
     NLopt
     VERSION
-    2.5.0
+    2.5.0-p0
     URL
     "https://github.com/t0p4/nlopt/archive/v2.5.0-p0.tar.gz"
     SHA1
