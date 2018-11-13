@@ -66,32 +66,11 @@ else()
   set(opt "VC-WIN32")
 endif()
 
-if(NOT ASM_SUPPORT)
-  list(APPEND opt " no-asm")
-else()
+if(ASM_SUPPORT)
   project(download-NASM)
-
   hunter_add_package(NASM)
-
-  find_program(NASM_EXECUTABLE
-    nasm
-    HINTS
-    ${NASM_ROOT}/bin
-    NO_DEFAULT_PATH
-    )
-
-  execute_process(
-    COMMAND "${NASM_EXECUTABLE}" -v
-    RESULT_VARIABLE result
-    OUTPUT_VARIABLE output
-    OUTPUT_STRIP_TRAILING_WHITESPACE
-    )
-
-  if(NOT result EQUAL 0)
-    message(FATAL_ERROR "NASM failed")
-  endif()
-  
-  message("NASM version: ${output}")
+else()
+  list(APPEND opt " no-asm")
 endif()
 
 if("@MSVC@")
