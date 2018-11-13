@@ -71,7 +71,7 @@ endif()
 if(ASM_SUPPORT)
   hunter_add_package(NASM)
 else()
-  list(APPEND opt " no-asm")
+  list(APPEND opt "no-asm")
 endif()
 
 if("@MSVC@")

@@ -68,8 +68,16 @@ endif()
 
 if(ASM_SUPPORT)
   hunter_add_package(NASM)
+
+  find_program(NASM_EXECUTABLE
+    nasm
+    HINTS
+    ${NASM_ROOT}/bin
+    NO_DEFAULT_PATH
+  )
+  set(shell_env_path "PATH=${NASM_EXECUTABLE}:${default_path}")
 else()
-  list(APPEND opt " no-asm")
+  list(APPEND opt "no-asm")
 endif()
 
 if("@MSVC@")
