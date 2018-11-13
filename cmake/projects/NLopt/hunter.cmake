@@ -22,7 +22,6 @@ hunter_add_version(
 
 hunter_cmake_args(NLopt CMAKE_ARGS
 		NLOPT_CXX=OFF
-		BUILD_SHARED_LIBS=OFF
 		NLOPT_PYTHON=OFF
 		NLOPT_OCTAVE=OFF
 		NLOPT_MATLAB=OFF
