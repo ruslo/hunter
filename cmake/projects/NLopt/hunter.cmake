@@ -15,14 +15,12 @@ hunter_add_version(
     VERSION
     2.5.0
     URL
-    "https://github.com/t0p4/nlopt/archive/v2.5.0-p13.tar.gz"
+    "https://github.com/t0p4/nlopt/archive/v2.5.0-p0.tar.gz"
     SHA1
-    7f77de623145ef1ed537ea4a732f23ff0abae83d
+    8b131a76bf1cad6af4a87c53c149d5e2e4d6c430
 )
 
-hunter_cmake_args(
-	NLopt
-	CMAKE_ARGS
+hunter_cmake_args(NLopt CMAKE_ARGS
 		NLOPT_CXX=ON
 		BUILD_SHARED_LIBS=ON
 		NLOPT_PYTHON=OFF
