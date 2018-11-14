@@ -88,6 +88,13 @@ else()
     set(nt_makefile "ms\\nt.mak")
 endif()
 
+set(openssl_install_dir "@HUNTER_PACKAGE_INSTALL_PREFIX@")
+
+configure_file(
+    "@HUNTER_PACKAGE_SETUP_DIR@/externals/nasm_path_configure.cmake.in"
+    "@HUNTER_PACKAGE_BUILD_DIR@/nasm_path_configure.cmake"
+    @ONLY)
+
 ExternalProject_Add(
     "@HUNTER_EP_NAME@"
     URL
@@ -106,9 +113,7 @@ ExternalProject_Add(
     CONFIGURE_COMMAND
     "@HUNTER_MSVC_VCVARSALL@" "@HUNTER_MSVC_ARCH@"
     COMMAND
-    perl Configure "${opt}" "--prefix=@HUNTER_PACKAGE_INSTALL_PREFIX@"
-    COMMAND
-    "ms\\${do_ms}"
+      "@CMAKE_COMMAND@" -P "@HUNTER_PACKAGE_BUILD_DIR@/nasm_path_configure.cmake"
     BUILD_COMMAND
     nmake -f "${nt_makefile}"
     BUILD_IN_SOURCE

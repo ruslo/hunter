@@ -75,9 +75,9 @@ endif()
 #if("@MSVC@")
   # Logging as Workaround for VS_UNICODE_OUTPUT issue:
   # https://public.kitware.com/Bug/view.php?id=14266
-#  set(log_opts LOG_CONFIGURE 1)
+  set(log_opts LOG_CONFIGURE 1)
 #else()
-#  set(log_opts "")
+  set(log_opts "")
 #endif()
 
 if (BUILD_SHARED_LIBS)
@@ -90,8 +90,8 @@ set(openssl_dir "@HUNTER_PACKAGE_INSTALL_PREFIX@/ssl")
 set(openssl_install_dir "@HUNTER_PACKAGE_INSTALL_PREFIX@")
 
 configure_file(
-    "@HUNTER_PACKAGE_SETUP_DIR@/externals/nasm_path_configure.cmake.in"
-    "@HUNTER_PACKAGE_BUILD_DIR@/nasm_path_configure.cmake"
+    "@HUNTER_PACKAGE_SETUP_DIR@/externals/nasm_path_configure_1_1_plus.cmake.in"
+    "@HUNTER_PACKAGE_BUILD_DIR@/nasm_path_configure_1_1_plus.cmake"
     @ONLY)
 
 file(MAKE_DIRECTORY "${openssl_dir}")
@@ -114,9 +114,7 @@ ExternalProject_Add(
     CONFIGURE_COMMAND
     "@HUNTER_MSVC_VCVARSALL@" "@HUNTER_MSVC_ARCH@"
     COMMAND
-        "@CMAKE_COMMAND@" -P "@HUNTER_PACKAGE_BUILD_DIR@/nasm_path_configure.cmake"
-    COMMAND
-    nmake
+        "@CMAKE_COMMAND@" -P "@HUNTER_PACKAGE_BUILD_DIR@/nasm_path_configure_1_1_plus.cmake"
     COMMAND
     nmake install
     BUILD_COMMAND

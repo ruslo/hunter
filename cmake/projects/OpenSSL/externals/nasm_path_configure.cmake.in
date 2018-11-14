@@ -8,13 +8,17 @@ if("@openssl_install_dir@" STREQUAL "")
   message(FATAL_ERROR "openssl_install_dir is empty")
 endif()
 
-if("@openssl_dir@" STREQUAL "")
-  message(FATAL_ERROR "openssl_dir is empty")
+execute_process(COMMAND
+    perl Configure "@opt@" "--prefix=@openssl_install_dir@" RESULT_VARIABLE result)
+
+if(NOT result EQUAL 0)
+  message(FATAL_ERROR "OpenSSL configure failed: ${result}")
 endif()
 
 execute_process(COMMAND
-    perl Configure "@opt@" @shared@ "--prefix=@openssl_install_dir@" "--openssldir=@openssl_dir@" RESULT_VARIABLE result)
+    "ms\\@do_ms@" RESULT_VARIABLE result)
 
 if(NOT result EQUAL 0)
-  message(FATAL_ERROR "OpenSSL configure fails: ${result}")
+  message(FATAL_ERROR "OpenSSL do_ms failed: ${result}")
 endif()
+
