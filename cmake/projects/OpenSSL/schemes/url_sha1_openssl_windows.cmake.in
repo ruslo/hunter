@@ -69,7 +69,7 @@ else()
 endif()
 
 if(ASM_SUPPORT)
-  hunter_add_package(NASM)
+  hunter_add_package(NASM) # set NASM_ROOT
 else()
   list(APPEND opt "no-asm")
 endif()
@@ -95,8 +95,8 @@ set(openssl_install_dir "@HUNTER_PACKAGE_INSTALL_PREFIX@")
 #   * opt
 #   * NASM_ROOT
 configure_file(
-    "@HUNTER_PACKAGE_SETUP_DIR@/externals/nasm_path_configure.cmake.in"
-    "@HUNTER_PACKAGE_BUILD_DIR@/nasm_path_configure.cmake"
+    "@HUNTER_PACKAGE_SETUP_DIR@/ep-stages/configure.cmake.in"
+    "@HUNTER_PACKAGE_BUILD_DIR@/configure.cmake"
     @ONLY)
 
 ExternalProject_Add(
@@ -117,7 +117,7 @@ ExternalProject_Add(
     CONFIGURE_COMMAND
     "@HUNTER_MSVC_VCVARSALL@" "@HUNTER_MSVC_ARCH@"
     COMMAND
-      "@CMAKE_COMMAND@" -P "@HUNTER_PACKAGE_BUILD_DIR@/nasm_path_configure.cmake"
+    "@CMAKE_COMMAND@" -P "@HUNTER_PACKAGE_BUILD_DIR@/configure.cmake"
     BUILD_COMMAND
     nmake -f "${nt_makefile}"
     BUILD_IN_SOURCE

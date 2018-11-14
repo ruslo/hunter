@@ -1,24 +1,23 @@
 cmake_minimum_required(VERSION 3.2)
 
-message("################################")
-set(ENV{PATH} "@NASM_ROOT@/bin;$ENV{PATH}")
-message(STATUS "$ENV{PATH}")
+if("@NASM_ROOT@" NOT STREQUAL "")
+  set(ENV{PATH} "@NASM_ROOT@/bin;$ENV{PATH}")
+endif()
 
 if("@openssl_install_dir@" STREQUAL "")
   message(FATAL_ERROR "openssl_install_dir is empty")
 endif()
 
 execute_process(COMMAND
-    perl Configure "@opt@" "--prefix=@openssl_install_dir@" RESULT_VARIABLE result)
+  perl Configure "@opt@" "--prefix=@openssl_install_dir@" RESULT_VARIABLE result)
 
 if(NOT result EQUAL 0)
   message(FATAL_ERROR "OpenSSL configure failed: ${result}")
 endif()
 
 execute_process(COMMAND
-    "ms\\@do_ms@" RESULT_VARIABLE result)
+  "ms\\@do_ms@" RESULT_VARIABLE result)
 
 if(NOT result EQUAL 0)
   message(FATAL_ERROR "OpenSSL do_ms failed: ${result}")
 endif()
-
