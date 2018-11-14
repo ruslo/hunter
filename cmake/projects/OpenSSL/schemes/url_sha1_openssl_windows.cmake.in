@@ -90,6 +90,10 @@ endif()
 
 set(openssl_install_dir "@HUNTER_PACKAGE_INSTALL_PREFIX@")
 
+# Used variables:
+#   * openssl_install_dir
+#   * opt
+#   * NASM_ROOT
 configure_file(
     "@HUNTER_PACKAGE_SETUP_DIR@/externals/nasm_path_configure.cmake.in"
     "@HUNTER_PACKAGE_BUILD_DIR@/nasm_path_configure.cmake"
