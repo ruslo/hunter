@@ -4,12 +4,12 @@ message("################################")
 set(ENV{PATH} "@NASM_ROOT@/bin;$ENV{PATH}")
 message(STATUS "$ENV{PATH}")
 
-if("@HUNTER_PACKAGE_INSTALL_PREFIX@" STREQUAL "")
-  message(FATAL_ERROR "HUNTER_PACKAGE_INSTALL_PREFIX is empty")
+if("@openssl_install_dir@" STREQUAL "")
+  message(FATAL_ERROR "openssl_install_dir is empty")
 endif()
 
 execute_process(COMMAND
-    perl Configure "@opt@" @shared@ "--prefix=@HUNTER_PACKAGE_INSTALL_PREFIX@" "--openssldir=@openssl_dir@" RESULT_VARIABLE result)
+    perl Configure "@opt@" @shared@ "--prefix=@openssl_install_dir@" "--openssldir=@openssl_dir@" RESULT_VARIABLE result)
 
 if(NOT result EQUAL 0)
   message(FATAL_ERROR "Qt configure failed: ${result}")
