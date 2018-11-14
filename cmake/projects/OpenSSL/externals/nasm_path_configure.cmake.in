@@ -5,12 +5,12 @@ set(ENV{PATH} "@NASM_ROOT@/bin;$ENV{PATH}")
 message(STATUS "$ENV{PATH}")
 
 if("@openssl_install_dir@" STREQUAL "")
-  message(FATAL_ERROR "openssl_install_dir is empty")
+ # message(FATAL_ERROR "openssl_install_dir is empty")
 endif()
 
 execute_process(COMMAND
     perl Configure "@opt@" @shared@ "--prefix=@openssl_install_dir@" "--openssldir=@openssl_dir@" RESULT_VARIABLE result)
 
 if(NOT result EQUAL 0)
-  message(FATAL_ERROR "Qt configure failed: ${result}")
+  message(FATAL_ERROR "OpenSSL configure fails: ${result}")
 endif()
