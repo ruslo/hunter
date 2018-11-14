@@ -1,11 +1,15 @@
-cmake_minimum_required(VERSION 3.0)
+cmake_minimum_required(VERSION 3.2)
 
 message("################################")
 set(ENV{PATH} "@NASM_ROOT@/bin;$ENV{PATH}")
 message(STATUS "$ENV{PATH}")
 
 if("@openssl_install_dir@" STREQUAL "")
- # message(FATAL_ERROR "openssl_install_dir is empty")
+  message(FATAL_ERROR "openssl_install_dir is empty")
+endif()
+
+if("@openssl_dir@" STREQUAL "")
+  message(FATAL_ERROR "openssl_dir is empty")
 endif()
 
 execute_process(COMMAND
