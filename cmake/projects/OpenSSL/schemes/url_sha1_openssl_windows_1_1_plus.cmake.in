@@ -77,13 +77,13 @@ else()
   list(APPEND opt "no-asm")
 endif()
 
-if("@MSVC@")
+#if("@MSVC@")
   # Logging as Workaround for VS_UNICODE_OUTPUT issue:
   # https://public.kitware.com/Bug/view.php?id=14266
-  set(log_opts LOG_CONFIGURE 1)
-else()
-  set(log_opts "")
-endif()
+#  set(log_opts LOG_CONFIGURE 1)
+#else()
+#  set(log_opts "")
+#endif()
 
 if (BUILD_SHARED_LIBS)
   set(shared "shared")
@@ -112,12 +112,7 @@ ExternalProject_Add(
     CONFIGURE_COMMAND
     "@HUNTER_MSVC_VCVARSALL@" "@HUNTER_MSVC_ARCH@"
     COMMAND
-        "@CMAKE_COMMAND@"
-        -E copy
-        "@HUNTER_PACKAGE_BUILD_DIR@/nasm_path_configure.cmake"
-        "${openssl_dir}/nasm_path_configure.cmake"
-    COMMAND
-        "@CMAKE_COMMAND@" -P "${openssl_dir}/nasm_path_configure.cmake"
+        "@CMAKE_COMMAND@" -P "@HUNTER_PACKAGE_BUILD_DIR@/nasm_path_configure.cmake"
     COMMAND
     perl Configure "${opt}" ${shared} "--prefix=@HUNTER_PACKAGE_INSTALL_PREFIX@" "--openssldir=${openssl_dir}"
     COMMAND
