@@ -4,3 +4,6 @@ message("################################")
 set(ENV{PATH} "@NASM_ROOT@/bin;$ENV{PATH}")
 message(STATUS "$ENV{PATH}")
 
+execute_process(COMMAND
+    perl Configure "${opt}" ${shared} "--prefix=@HUNTER_PACKAGE_INSTALL_PREFIX@" "--openssldir=${openssl_dir}")
+

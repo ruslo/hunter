@@ -114,8 +114,6 @@ ExternalProject_Add(
     COMMAND
         "@CMAKE_COMMAND@" -P "@HUNTER_PACKAGE_BUILD_DIR@/nasm_path_configure.cmake"
     COMMAND
-    perl Configure "${opt}" ${shared} "--prefix=@HUNTER_PACKAGE_INSTALL_PREFIX@" "--openssldir=${openssl_dir}"
-    COMMAND
     nmake
     COMMAND
     nmake install
