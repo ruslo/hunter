@@ -1,0 +1,6 @@
+cmake_minimum_required(VERSION 3.0)
+
+message("################################")
+set(ENV{PATH} "$ENV{NASM_ROOT}/bin;$ENV{PATH}")
+message(STATUS "$ENV{PATH}")
+
