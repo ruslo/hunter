@@ -9,7 +9,7 @@ if("@openssl_install_dir@" STREQUAL "")
 endif()
 
 execute_process(COMMAND
-  perl Configure "@opt@" "--prefix=@openssl_install_dir@" RESULT_VARIABLE result)
+  perl Configure @arch@ @opt@ "--prefix=@openssl_install_dir@" RESULT_VARIABLE result)
 
 if(NOT result EQUAL 0)
   message(FATAL_ERROR "OpenSSL configure failed: ${result}")
