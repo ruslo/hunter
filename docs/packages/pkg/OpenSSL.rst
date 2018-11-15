@@ -26,7 +26,6 @@ Fixed/workaround
 -  Can't be build with ``make -jN``:
    https://github.com/ruslo/hunter/issues/87
 
-
 Using ASM optimization on Windows
 ---------------------------------
 
