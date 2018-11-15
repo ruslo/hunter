@@ -1,6 +1,6 @@
 cmake_minimum_required(VERSION 3.2)
 
-if("@NASM_ROOT@" NOT STREQUAL "")
+if(NOT "@NASM_ROOT@" STREQUAL "")
   set(ENV{PATH} "@NASM_ROOT@/bin;$ENV{PATH}")
 endif()
 
