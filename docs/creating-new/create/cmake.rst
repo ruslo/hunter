@@ -315,8 +315,8 @@ disable those. If such an option is not disabled by default use
 .. code-block:: cmake
   :emphasize-lines: 3, 6-8
 
-  # bottom of cmake/projects/Foo/hunter.cmake
-
+  include(hunter_cmake_args)
+  # bottom of cmake/projects/hunter_box_1/hunter.cmake
   hunter_cmake_args(
       Foo
       CMAKE_ARGS
