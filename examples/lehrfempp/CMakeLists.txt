@@ -13,9 +13,6 @@ project(download-lehrfempp)
 hunter_add_package(lehrfempp)
 find_package(lehrfempp CONFIG REQUIRED)
 
-find_package(Boost CONFIG REQUIRED chrono timer system filesystem program_options)
-find_package(Eigen3 CONFIG REQUIRED)
-
 add_executable(boo boo.cpp)
 target_link_libraries(boo PUBLIC lf::base)
 # DOCUMENTATION_END }
