@@ -5,6 +5,7 @@
 
 include(hunter_add_version)
 include(hunter_cacheable)
+include(hunter_cmake_args)
 include(hunter_download)
 include(hunter_pick_scheme)
 
@@ -14,9 +15,9 @@ hunter_add_version(
     VERSION
     0.7.0
     URL
-    "https://github.com/craffael/lehrfempp/archive/release-0.7.0.tar.gz"
+    "https://github.com/craffael/lehrfempp/archive/release-0.7.1.tar.gz"
     SHA1
-    f537c03de5180e56fbf9b8abd85e40f48ad770a7
+    4460d8a14f529226e68ceee1fd3bebab04aa6b9d
 )
 
 hunter_cmake_args(

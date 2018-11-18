@@ -81,7 +81,6 @@ hunter_default_version(LLVM VERSION 4.0.1-p0) # Clang
 hunter_default_version(LLVMCompilerRT VERSION 4.0.1-patched) # Clang
 hunter_default_version(Leathers VERSION 0.1.8)
 hunter_default_version(Leptonica VERSION 1.74.2-p4)
-hunter_default_version(lehrfempp VERSION 0.7.0)
 hunter_default_version(LibCDS VERSION 2.3.1)
 hunter_default_version(Libcxx VERSION 3.6.2) # Clang
 hunter_default_version(Libcxxabi VERSION 3.6.2) # Clang
@@ -282,6 +281,7 @@ endif()
 hunter_default_version(kNet VERSION 2.7-p1)
 hunter_default_version(kbproto VERSION 1.0.6)
 hunter_default_version(lcms VERSION 2.9-p0)
+hunter_default_version(lehrfempp VERSION 0.7.1)
 hunter_default_version(leveldb VERSION 1.20)
 hunter_default_version(libcpuid VERSION 0.4.0)
 hunter_default_version(libdaemon VERSION 0.14)
