@@ -13,7 +13,7 @@ hunter_add_version(
     PACKAGE_NAME
     lehrfempp
     VERSION
-    0.7.0
+    0.7.1
     URL
     "https://github.com/craffael/lehrfempp/archive/release-0.7.1.tar.gz"
     SHA1
