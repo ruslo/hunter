@@ -47,7 +47,7 @@ hunter_default_version(Box2D VERSION 2.3.1-p0)
 hunter_default_version(CLAPACK VERSION 3.2.1)
 hunter_default_version(CLI11 VERSION 1.6.1)
 hunter_default_version(CURL VERSION 7.60.0-p0)
-hunter_default_version(CapnProto VERSION 0.6.1)
+hunter_default_version(CapnProto VERSION 0.7.0)
 hunter_default_version(Catch VERSION 2.2.2)
 hunter_default_version(Clang VERSION 4.0.1-p0)
 hunter_default_version(ClangToolsExtra VERSION 4.0.1) # Clang
