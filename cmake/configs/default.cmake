@@ -79,7 +79,7 @@ hunter_default_version(Jpeg VERSION 9b-p3)
 hunter_default_version(JsonSpirit VERSION 0.0.4-hunter)
 hunter_default_version(LAPACK VERSION 3.7.1)
 hunter_default_version(LLVM VERSION 4.0.1-p0) # Clang
-hunter_default_version(LLVMCompilerRT VERSION 4.0.1-patched) # Clang
+hunter_default_version(LLVMCompilerRT VERSION 6.0.1) # Clang
 hunter_default_version(Leathers VERSION 0.1.8)
 hunter_default_version(Leptonica VERSION 1.74.2-p4)
 hunter_default_version(LibCDS VERSION 2.3.1)
