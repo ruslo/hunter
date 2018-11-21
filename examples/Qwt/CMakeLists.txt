@@ -16,6 +16,3 @@ find_package(Qwt CONFIG REQUIRED)
 add_executable(boo boo.cpp)
 target_link_libraries(boo PUBLIC Qwt::qwt)
 # DOCUMENTATION_END }
-
-
-
