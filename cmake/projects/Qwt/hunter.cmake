@@ -15,7 +15,7 @@ hunter_add_version(
     VERSION
     6.1-p3
     URL
-    https://github.com/t0p4/Qwt/archive/6.1-p3tar.gz
+    https://github.com/t0p4/Qwt/archive/6.1-p3.tar.gz
     SHA1
     9db2e7c254c181b43de414b05cca38152e4b6f88
 )
