@@ -3,6 +3,8 @@
 
 cmake_minimum_required(VERSION 3.2)
 
+option(HUNTER_BUILD_SHARED_LIBS "..." ON)
+
 # Emulate HunterGate:
 # * https://github.com/hunter-packages/gate
 include("../common.cmake")
