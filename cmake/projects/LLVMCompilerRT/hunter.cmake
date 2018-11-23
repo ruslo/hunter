@@ -1,4 +1,4 @@
-# Copyright (c) 2014, Ruslan Baratov
+# Copyright (c) 2014-2018, Ruslan Baratov
 # All rights reserved.
 
 # !!! DO NOT PLACE HEADER GUARDS HERE !!!
@@ -6,6 +6,17 @@
 include(hunter_add_version)
 include(hunter_download)
 include(hunter_pick_scheme)
+
+hunter_add_version(
+    PACKAGE_NAME
+    LLVMCompilerRT
+    VERSION
+    "6.0.1"
+    URL
+    "http://releases.llvm.org/6.0.1/compiler-rt-6.0.1.src.tar.xz"
+    SHA1
+    4a61bd09f31d3079e921205bb93fb7d05a95946b
+)
 
 hunter_add_version(
     PACKAGE_NAME
