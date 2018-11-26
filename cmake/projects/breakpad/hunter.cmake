@@ -16,7 +16,7 @@ hunter_add_version(
     URL
     "https://github.com/t0p4/breakpad/archive/v1.0-p0.tar.gz"
     SHA1
-    23ffc31cee03188a1b3ea1f4b47f92a6d29babb7
+    409820f2d111add1220a034e668d74de23ff182b
 )
 
 hunter_pick_scheme(DEFAULT url_sha1_cmake)
