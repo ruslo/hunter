@@ -1,7 +1,6 @@
 .. spelling::
-
-    LehrFEMpp
-
+    lehrfempp
+    
 .. index::
   single: math ; lehrfempp
 
