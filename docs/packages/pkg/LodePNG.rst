@@ -2,8 +2,7 @@
 
     LodePNG
 
-.. index::
-  single: unsorted ; LodePNG
+.. index:: media ; LodePNG
 
 .. _pkg.LodePNG:
 
