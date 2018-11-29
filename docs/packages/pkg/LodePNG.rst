@@ -7,7 +7,7 @@
 .. _pkg.LodePNG:
 
 LodePNG
-===
+=======
 
 -  `Official <https://github.com/lvandeve/lodepng>`__
 -  `Hunterized <https://github.com/hunter-packages/lodepng>`__
