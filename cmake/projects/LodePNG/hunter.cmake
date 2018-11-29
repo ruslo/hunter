@@ -20,5 +20,5 @@ hunter_add_version(
 )
 
 hunter_pick_scheme(DEFAULT url_sha1_cmake)
-hunter_cacheable(foo)
-hunter_download(PACKAGE_NAME foo)
+hunter_cacheable(LodePNG)
+hunter_download(PACKAGE_NAME LodePNG)
