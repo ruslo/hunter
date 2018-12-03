@@ -31,10 +31,22 @@ hunter_add_version(
     7c721091b437ccbe20c706f194b68dbff3acd712
 )
 
+hunter_add_version(
+    PACKAGE_NAME
+    tvm
+    VERSION
+    0.4-0f053c8-p4
+    URL
+    "https://github.com/hunter-packages/tvm/archive/v0.4-0f053c8-p4.tar.gz"
+    SHA1
+    3cdbec21b8766f7f51abc78d957fe398c70470a5
+)
+
 hunter_cmake_args(
     tvm
     CMAKE_ARGS
     INSTALL_DEV=ON
+    INSTALL_NNVM_SOURCES=ON
 )
 
 hunter_pick_scheme(DEFAULT url_sha1_cmake)
