@@ -38,7 +38,7 @@ magnum is a lightweight and modular C++11/C++14 graphics middleware for games an
 Known issues
 ------------
 
-Cross compilation to iOS and Androïd might fail since the build require to find `corrade-rc` (native executable)
+Cross compilation to iOS and Android might fail since the build require to find `corrade-rc` (native executable)
 in your path.
 
-In order to build an iOS or Androïd package, first compile `corrade-rc` natively, and add it to your path.
+In order to build an iOS or Android package, first compile `corrade-rc` natively, and add it to your path.
