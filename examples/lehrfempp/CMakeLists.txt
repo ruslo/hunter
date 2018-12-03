@@ -14,5 +14,5 @@ hunter_add_package(lehrfempp)
 find_package(lehrfempp CONFIG REQUIRED)
 
 add_executable(boo boo.cpp)
-target_link_libraries(boo PUBLIC lf::base)
+target_link_libraries(boo PUBLIC LF::lf.base)
 # DOCUMENTATION_END }
