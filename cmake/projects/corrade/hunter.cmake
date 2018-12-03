@@ -8,6 +8,19 @@ include(hunter_pick_scheme)
 include(hunter_cmake_args)
 
 # List of versions here...
+
+
+hunter_add_version(
+    PACKAGE_NAME
+    corrade
+    VERSION
+    hunter_rc1
+    URL
+    "https://github.com/pthom/corrade/archive/hunter_rc1.tar.gz"
+    SHA1
+    1a6ba9b925eb2c01e6e91d9c7e2c029d4572d57d
+)
+  
 hunter_add_version(
     PACKAGE_NAME
     corrade
