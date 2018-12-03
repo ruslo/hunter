@@ -23,7 +23,7 @@ addons:
       - g++-7
 
 dist:
-  - trusty
+  - xenial
 
 env:
   global:
