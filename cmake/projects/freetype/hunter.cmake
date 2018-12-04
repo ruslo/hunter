@@ -11,6 +11,17 @@ hunter_add_version(
     PACKAGE_NAME
     freetype
     VERSION
+    "2.9.1"
+    URL
+    "http://download.savannah.gnu.org/releases/freetype/freetype-2.9.1.tar.gz"
+    SHA1
+    7498739e34e5dca4c61d05efdde6191ba69a2df0
+)
+
+hunter_add_version(
+    PACKAGE_NAME
+    freetype
+    VERSION
     "2.6.2"
     URL
     "https://github.com/hunter-packages/freetype/archive/v2.6.2-p0.tar.gz"

@@ -13,7 +13,7 @@ project(download-freetype)
 hunter_add_package(freetype)
 
 # now freetype can be used
-find_package(freetype CONFIG REQUIRED)
+find_package(Freetype CONFIG REQUIRED)
 
 add_executable(foo foo.cpp)
-target_link_libraries(foo freetype::freetype)
+target_link_libraries(foo freetype)
