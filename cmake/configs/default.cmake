@@ -87,6 +87,7 @@ hunter_default_version(Libcxx VERSION 3.6.2) # Clang
 hunter_default_version(Libcxxabi VERSION 3.6.2) # Clang
 hunter_default_version(Libevent VERSION 2.1.8-p4)
 hunter_default_version(Libssh2 VERSION 1.7.0)
+hunter_default_version(LodePNG VERSION 0.0.0-p1)
 hunter_default_version(Lua VERSION 5.3.2-p2)
 hunter_default_version(Microsoft.GSL VERSION 2.0.0-p0)
 hunter_default_version(MySQL-client VERSION 6.1.9-p1)
