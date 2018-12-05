@@ -33,3 +33,10 @@ About
 corrade is a C++11/C++14 multiplatform utility library, which is needed by `magnum<https://github.com/mosra/magnum>`.
 
 magnum is a lightweight and modular C++11/C++14 graphics middleware for games and data visualization
+
+
+Known issues
+------------
+
+Cross compilation to iOS and Android might fail since the build require to find `corrade-rc` (native executable)
+in your path. In order to build an iOS or Android package, first compile `corrade-rc` natively, and add it to your path.
