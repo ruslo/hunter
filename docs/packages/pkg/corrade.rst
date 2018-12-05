@@ -18,14 +18,10 @@ corrade
 usage
 -----
 
-.. code-block:: cmake
-
-    hunter_add_package(corrade)
-    find_package(corrade CONFIG REQUIRED TestSuite Utility PluginManager Containers)
-    target_link_libraries(...
-      Corrade::Containers Corrade::Interconnect Corrade::PluginManager
-      Corrade::TestSuite Corrade::Utility
-      )
+.. literalinclude:: /../examples/corrade/CMakeLists.txt
+  :language: cmake
+  :start-after: # DOCUMENTATION_START {
+  :end-before: # DOCUMENTATION_END }
 
 About
 -----

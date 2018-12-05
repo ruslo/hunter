@@ -9,26 +9,16 @@ include("../common.cmake")
 
 project(download-corrade)
 
-set(_CORRADE_LIBRARY_COMPONENTS Containers Interconnect PluginManager TestSuite Utility)
+# DOCUMENTATION_START {
+set(components Containers Interconnect PluginManager TestSuite Utility)
 
-hunter_add_package(corrade)
-
-find_package(Corrade CONFIG REQUIRED COMPONENTS ${_CORRADE_LIBRARY_COMPONENTS})
-
-message("CORRADE_INCLUDE_DIR: ${CORRADE_INCLUDE_DIR}")
-message("CORRADE_LIB_SUFFIX_MODULE: ${CORRADE_LIB_SUFFIX_MODULE}")
-
-foreach(_component ${_CORRADE_LIBRARY_COMPONENTS})
-    string(TOUPPER ${_component} _COMPONENT)
-    message("CORRADE_${_COMPONENT}_LIBRARY_DEBUG: ${CORRADE_${_COMPONENT}_LIBRARY_DEBUG}")
-    message("CORRADE_${_COMPONENT}_LIBRARY_RELEASE: ${CORRADE_${_COMPONENT}_LIBRARY_RELEASE}")
+foreach(comp ${components})
+  list(APPEND components_with_prefix Corrade::${comp})
 endforeach()
 
+hunter_add_package(corrade)
+find_package(Corrade CONFIG REQUIRED COMPONENTS ${components})
+
 add_executable(foo foo.cpp)
-target_link_libraries(foo PRIVATE
-  Corrade::Containers
-  Corrade::Interconnect
-  Corrade::PluginManager
-  Corrade::TestSuite
-  Corrade::Utility
-  )
+target_link_libraries(foo PRIVATE ${components_with_prefix})
+# DOCUMENTATION_END }
