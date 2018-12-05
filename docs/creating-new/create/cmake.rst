@@ -188,8 +188,9 @@ Installation after fix:
 Add package to Hunter
 =====================
 
-Next let's assume user ``hunterbox`` is trying to add ``hunter_box_1`` project
-to Hunter.
+Next let's assume user `hunterbox <https://github.com/hunterbox>`__ is
+trying to add `hunter_box_1 <https://github.com/hunterbox/hunter_box_1>`__
+project to Hunter.
 
 .. admonition:: Examples on GitHub
 
@@ -201,7 +202,7 @@ C++:
 
 .. code-block:: cpp
 
-  #include <hunter_box_1.hpp>
+  #include <hunter_box_1/hunter_box_1.hpp>
 
   int main() {
     hunter_box_1::foo();
@@ -313,12 +314,15 @@ disable those. If such an option is not disabled by default use
 ``hunter_cmake_args``:
 
 .. code-block:: cmake
-  :emphasize-lines: 3, 6-8
+  :emphasize-lines: 1, 6, 9-11
 
   include(hunter_cmake_args)
-  # bottom of cmake/projects/hunter_box_1/hunter.cmake
+
+  # ...
+
+  # bottom of cmake/projects/foo/hunter.cmake
   hunter_cmake_args(
-      Foo
+      foo
       CMAKE_ARGS
           FOO_BUILD_EXAMPLES=OFF
           FOO_BUILD_TESTS=OFF
@@ -326,7 +330,7 @@ disable those. If such an option is not disabled by default use
   )
 
   hunter_pick_scheme(DEFAULT url_sha1_cmake)
-  hunter_download(PACKAGE_NAME Foo)
+  hunter_download(PACKAGE_NAME foo)
 
 Options set by ``hunter_cmake_args`` have lower precedence than options set
 by ``hunter_config(... CMAKE_ARGS ...)`` (see
@@ -345,8 +349,8 @@ Default build type(s) can be set by ``hunter_configuration_types``:
 
 .. code-block:: cmake
 
-  hunter_configuration_types(Foo CONFIGURATION_TYPES Release)
-  hunter_download(PACKAGE_NAME Foo)
+  hunter_configuration_types(foo CONFIGURATION_TYPES Release)
+  hunter_download(PACKAGE_NAME foo)
 
 User can overwrite this default by using
 `custom <https://github.com/ruslo/hunter/wiki/example.custom.config.id>`__
@@ -421,6 +425,25 @@ To locally check if the documentation is still building you can run:
   [hunter]> cd docs
   [hunter/docs]> source ./jenkins.sh
   (_venv) [hunter/docs]> ./make.sh
+
+Common mistake
+==============
+
+Please do not forget to substitute ``===``.
+
+Good:
+
+.. code-block:: none
+
+  hunter_box_1
+  ============
+
+Bad:
+
+.. code-block:: none
+
+  hunter_box_1
+  ===
 
 Commit
 ======
@@ -510,7 +533,7 @@ and platforms. Hunter uses `AppVeyor <https://appveyor.com>`__ to test for
 Windows (Visual Studio, NMake, Ninja, MinGW, MSYS) and
 `Travis <https://travis-ci.org>`__ to test
 for Linux (GCC, Clang, Android, Clang Analyzer, Sanitize Address, Sanitize Leak)
-and for OSX (Clang + Makefile, Xcode, iOS).
+and for macOS (Clang + Makefile, Xcode, iOS).
 
 Register your Hunter fork:
 
@@ -557,7 +580,7 @@ Branch for testing package ``<name>``.
 
 * Name: ``pkg.<name>``
 * Repository: https://github.com/ingenue/hunter
-* Testing: Package ``<name>`` on Windows/Linux/OSX hosts
+* Testing: Package ``<name>`` on Windows/Linux/macOS hosts
 
 Real testing happens in ``pkg.<name>`` branch of ``ingenue/hunter`` repository.
 E.g. branch ``pkg.gtest``:
