@@ -11,7 +11,7 @@ hunter_add_version(
     PACKAGE_NAME
     EnTT
     VERSION
-    3.0.0-WIP
+    v3.x.y-WIP
     URL
     "https://github.com/skypjack/entt/archive/v3.x.y-WIP.tar.gz"
     SHA1
@@ -19,7 +19,7 @@ hunter_add_version(
 )
 
 hunter_cmake_args(
-	EnTT
+    EnTT
     CMAKE_ARGS
         BUILD_TESTING=OFF
 )

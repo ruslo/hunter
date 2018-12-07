@@ -10,10 +10,6 @@ include("../common.cmake")
 project(download-EnTT)
 
 # DOCUMENTATION_START {
-# EnTT requires at minimum C++17
-set(CMAKE_CXX_STANDARD 17)
-set(CMAKE_CXX_STANDARD_REQUIRED on)
-
 hunter_add_package(EnTT)
 find_package(EnTT CONFIG REQUIRED)
 
