@@ -1,3 +1,5 @@
+#include <cstdio>
+
 #define NANOSVG_IMPLEMENTATION
 #include <nanosvg/nanosvg.h>
 
