@@ -28,3 +28,11 @@ About
 
 EnTT is a modern C++ fast and reliable header-only entity-component-system (ECS) with much more.
 
+Notes
+-----
+
+Be certain to choose an appropriate toolchain based on:
+
+* EnTT v3+ requires C++17 or higher.
+* EnTT v2+ requires C++14 or higher.
+
