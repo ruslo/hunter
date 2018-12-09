@@ -13,7 +13,7 @@ EnTT
 -  `Official <https://github.com/skypjack/entt>`__
 -  `Example <https://github.com/ruslo/hunter/blob/master/examples/EnTT/CMakeLists.txt>`__
 -  Developed by `Michele Caini <https://github.com/skypjack>`__
--  Added by `Gabriel Robertson <https://github.com/overminddl1>`__ (`pr-1646 <https://github.com/ruslo/hunter/pull/1646>`__)
+-  Added by `Gabriel Robertson <https://github.com/overminddl1>`__ (`pr-1654 <https://github.com/ruslo/hunter/pull/1654>`__)
 
 Usage
 -----
