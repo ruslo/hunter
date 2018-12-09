@@ -22,6 +22,7 @@ hunter_cmake_args(
     EnTT
     CMAKE_ARGS
         BUILD_TESTING=OFF
+        USE_LIBCPP=OFF
 )
 
 hunter_pick_scheme(DEFAULT url_sha1_cmake)
