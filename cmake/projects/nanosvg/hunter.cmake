@@ -12,7 +12,7 @@ include(hunter_pick_scheme)
     PACKAGE_NAME
     nanosvg
     VERSION
-    "0.0.0-p0"
+    "v0.0.0-2b08dee-p0"
     URL
     "https://github.com/hunter-packages/nanosvg/archive/v0.0.0-2b08dee-p0.tar.gz"
     SHA1
