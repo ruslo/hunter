@@ -11,6 +11,17 @@ hunter_add_version(
     PACKAGE_NAME
     Clang
     VERSION
+    "6.0.1-p0"
+    URL
+    "https://github.com/hunter-packages/clang/archive/v6.0.1-p0.tar.gz"
+    SHA1
+    b74a5f7b4fe4308d3c67413d2826aa3adf44411a
+)
+
+hunter_add_version(
+    PACKAGE_NAME
+    Clang
+    VERSION
     "4.0.1-p0"
     URL
     "https://github.com/hunter-packages/clang/archive/v4.0.1-p0.tar.gz"

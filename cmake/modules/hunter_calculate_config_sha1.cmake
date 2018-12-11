@@ -113,6 +113,10 @@ function(hunter_calculate_config_sha1 hunter_self hunter_base user_config)
     endif()
 
     if(NOT cmake_args STREQUAL "")
+      # " (double quotes) symbol should be escaped,
+      # if cmake_args equals to 'FOO=""' then it should be written as 'FOO=\"\"'
+      string(REPLACE "\"" "\\\"" cmake_args "${cmake_args}")
+
       file(APPEND "${config_cmake_nolf}" "    CMAKE_ARGS \"${cmake_args}\"\n")
     endif()
 

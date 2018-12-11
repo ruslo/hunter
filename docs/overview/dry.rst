@@ -4,17 +4,17 @@
 Don't Repeat Yourself
 ---------------------
 
-If you already familiar with `ExternalProject_Add`_ and have wrote some
-super-build projects before you probably already aware that writing complete
+If you are already familiar with `ExternalProject_Add`_ and have written some
+super-build projects before, you are probably already aware that writing a complete
 solution with toolchains, build types, build options, parallel jobs,
-forwarding of compiler flags and making it works correctly for all generators
+forwarding of compiler flags, and making it work correctly for all generators
 is not a trivial task.
 
-Hunter store `ExternalProject_Add`_ recipes as a set of templates. Once
-written formula (`build scheme`_) can be reused by other projects without
-copying of collection of super-build files (`DRY principle`_).
-When new package with new scheme introduced all you need to do is just update
-``SHA1``/``URL`` of ``HunterGate`` command.
+Hunter stores `ExternalProject_Add`_ recipes as a set of templates. Once
+written, formula (`build scheme`_) can be reused by other projects without
+copying the collection of super-build files (`DRY principle`_).
+When a new package with a new scheme is introduced, all you need to do is just update
+the ``SHA1``/``URL`` of ``HunterGate`` command.
 
 .. admonition:: Stackoverflow
 

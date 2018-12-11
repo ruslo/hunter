@@ -9,8 +9,10 @@ include("../common.cmake")
 
 project(download-Tesseract)
 
+# DOCUMENTATION_START {
 hunter_add_package(Tesseract)
 find_package(Tesseract CONFIG REQUIRED)
 
 add_executable(example example.cpp)
 target_link_libraries(example Tesseract::libtesseract)
+# DOCUMENTATION_END }

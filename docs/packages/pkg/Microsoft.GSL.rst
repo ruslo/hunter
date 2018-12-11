@@ -3,7 +3,7 @@
     GSL
 
 .. index::
-  single: unsorted ; Microsoft.GSL
+  single: frameworks ; Microsoft.GSL
 
 .. _pkg.Microsoft.GSL:
 

@@ -5,6 +5,7 @@ include(hunter_boost_component_b2_args)
 
 project(TestIssue109Unit)
 
+set(BOOST_VERSION "dummy")
 hunter_boost_component_b2_args(
   "bar"
   "FOO_OPT=1"

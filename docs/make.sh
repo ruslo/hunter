@@ -4,7 +4,7 @@ set -x
 
 mkdir -p _static
 
-sphinx-build -v . _build
+sphinx-build -W -v . _build
 
 set +x
 

@@ -114,7 +114,7 @@ endfunction()
 
 split_string("${outresult}" list_of_strings)
 
-set(macroses "")
+set(macros_list "")
 foreach(x ${list_of_strings})
   string(
       REGEX
@@ -132,13 +132,22 @@ foreach(x ${list_of_strings})
         result_x
         "${x}"
     )
-    set(macroses "${macroses}${result_x}\n")
+
+    string(FIND "${result_x}" ";" semicolon_pos)
+    if(NOT semicolon_pos EQUAL "-1")
+      hunter_internal_error("Semicolon in string: '${result_x}'")
+    endif()
+
+    list(APPEND macros_list "${result_x}")
   endif()
 endforeach()
 
-string(COMPARE EQUAL "${macroses}" "" is_empty)
+list(REMOVE_DUPLICATES macros_list)
+string(REPLACE ";" "\n" macros_string "${macros_list}")
+
+string(COMPARE EQUAL "${macros_string}" "" is_empty)
 if(is_empty)
   hunter_fatal_error("No toolchain info generated" WIKI error.no.toolchain.info)
 endif()
 
-file(APPEND "${TOOLCHAIN_INFO_FILE}" "Predefined macroses:\n${macroses}")
+file(APPEND "${TOOLCHAIN_INFO_FILE}" "Predefined macroses:\n${macros_string}")
