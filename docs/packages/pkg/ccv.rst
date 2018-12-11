@@ -10,12 +10,10 @@ ccv
 ===
 
 -  `Official <https://github.com/liuliu/ccv>`__
--  `Hunterized <https://github.com/headupinclouds/ccv>`__
+-  `Hunterized <https://github.com/hunter-packages/ccv>`__
 -  `Example <https://github.com/ruslo/hunter/blob/master/examples/ccv/CMakeLists.txt>`__
 
-.. code-block:: cmake
-
-    hunter_add_package(ccv)
-    find_package(ccv REQUIRED CONFIG)
-
-    target_link_libraries(... ccv::ccv)
+.. literalinclude:: /../examples/ccv/CMakeLists.txt
+  :language: cmake
+  :start-after: # DOCUMENTATION_START {
+  :end-before: # DOCUMENTATION_END }

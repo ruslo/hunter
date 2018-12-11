@@ -5,9 +5,9 @@ What is it?
 -----------
 
 Every Hunter `release`_ (`Atom feed`_) archive is a meta-package with build
-instructions and URLs of real packages.  Archive will be downloaded and
-unpacked automatically by ``HunterGate`` CMake module. You only need to set
-``URL`` and ``SHA1``:
+instructions and URLs of real packages.  The archive will be downloaded and
+unpacked automatically by the ``HunterGate`` CMake module. You only need to set
+the ``URL`` and ``SHA1``:
 
 .. code-block:: cmake
   :emphasize-lines: 2-3
@@ -17,7 +17,7 @@ unpacked automatically by ``HunterGate`` CMake module. You only need to set
       SHA1 "f2c3de6d13baf8c5d2aa77bdc47c516e668c677e"
   )
 
-Here is content of the archive in simplified form:
+Here is the content of the archive in simplified form:
 
 .. code-block:: none
 
@@ -29,7 +29,7 @@ Here is content of the archive in simplified form:
       ...
   }
 
-If you download and unpack it you can view some internals. Let's see OpenSSL
+If you download and unpack it, you can view some internals. Let's look at the OpenSSL
 package properties:
 
 .. literalinclude:: what-is-it.sh
@@ -37,7 +37,7 @@ package properties:
   :start-after: # doc: download-start
   :end-before: # doc: download-end
 
-`hunter.cmake`_ holds list of available versions:
+`hunter.cmake`_ holds the list of available versions:
 
 .. literalinclude:: what-is-it.sh
   :language: shell

@@ -91,3 +91,28 @@ Message in logs:
 .. admonition:: Polly
 
   * `Collection of toolchains <https://github.com/ruslo/polly>`__
+
+.. _simple toolchains:
+
+Simple toolchains
+=================
+
+Building with ``-fPIC``:
+
+.. code-block:: cmake
+
+  # toolchain.cmake
+  set(CMAKE_POSITION_INDEPENDENT_CODE TRUE)
+
+Building with ``-std=c++11``:
+
+.. code-block:: cmake
+
+  # toolchain.cmake
+  set(CMAKE_CXX_STANDARD 11)
+  set(CMAKE_CXX_STANDARD_REQUIRED YES)
+
+.. admonition:: CGold
+
+  * `C++11 toolchain <https://cgold.readthedocs.io/en/latest/tutorials/toolchain/globals/cxx-standard.html#toolchain>`__
+  * `Set default toolchain <https://cgold.readthedocs.io/en/latest/tutorials/toolchain/globals/cxx-standard.html#defaults>`__

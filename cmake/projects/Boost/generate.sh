@@ -26,6 +26,7 @@ BOOST_LIBS="
     regex
     serialization
     signals
+    stacktrace
     system
     test
     thread
