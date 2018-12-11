@@ -340,6 +340,10 @@ else()
   set(patch_cmd "@CMAKE_COMMAND@" -E echo "Dummy patch command")
 endif()
 
+if(compiler_is_clang AND NOT CMAKE_CROSSCOMPILING)
+  list(APPEND bootstrap_cmd "--with-toolset=clang")
+endif()
+
 if("@MINGW@")
   list(APPEND bootstrap_cmd "gcc")
 endif()
