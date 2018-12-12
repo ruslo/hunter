@@ -1030,6 +1030,19 @@ foreach(COMPONENT ${Boost_FIND_COMPONENTS})
     ${Boost_LIB_PREFIX}${Boost_NAMESPACE}_${COMPONENT}${_boost_MULTITHREADED}${_boost_RELEASE_ABI_TAG}-${Boost_LIB_VERSION}
     ${Boost_LIB_PREFIX}${Boost_NAMESPACE}_${COMPONENT}${_boost_MULTITHREADED}${_boost_RELEASE_ABI_TAG}
     ${Boost_LIB_PREFIX}${Boost_NAMESPACE}_${COMPONENT} )
+
+  # In Hunter it's possible to have only one variant in root,
+  # so it's okay to add all of them to search.
+  foreach(__type i x a m)
+    foreach(__bit 32 64)
+      list(
+          APPEND
+          _boost_RELEASE_NAMES
+          ${Boost_LIB_PREFIX}${Boost_NAMESPACE}_${COMPONENT}${_boost_MULTITHREADED}${_boost_RELEASE_ABI_TAG}-${__type}${__bit}
+      )
+    endforeach()
+  endforeach()
+
   if(_boost_STATIC_RUNTIME_WORKAROUND)
     set(_boost_RELEASE_STATIC_ABI_TAG "-s${_boost_RELEASE_ABI_TAG}")
     list(APPEND _boost_RELEASE_NAMES
@@ -1072,6 +1085,19 @@ foreach(COMPONENT ${Boost_FIND_COMPONENTS})
     ${Boost_LIB_PREFIX}${Boost_NAMESPACE}_${COMPONENT}${_boost_MULTITHREADED}${_boost_DEBUG_ABI_TAG}
     ${Boost_LIB_PREFIX}${Boost_NAMESPACE}_${COMPONENT}${_boost_MULTITHREADED}
     ${Boost_LIB_PREFIX}${Boost_NAMESPACE}_${COMPONENT} )
+
+  # In Hunter it's possible to have only one variant in root,
+  # so it's okay to add all of them to search.
+  foreach(__type i x a m)
+    foreach(__bit 32 64)
+      list(
+          APPEND
+          _boost_DEBUG_NAMES
+          ${Boost_LIB_PREFIX}${Boost_NAMESPACE}_${COMPONENT}${_boost_MULTITHREADED}${_boost_DEBUG_ABI_TAG}-${__type}${__bit}
+      )
+    endforeach()
+  endforeach()
+
   if(_boost_STATIC_RUNTIME_WORKAROUND)
     set(_boost_DEBUG_STATIC_ABI_TAG "-s${_boost_DEBUG_ABI_TAG}")
     list(APPEND _boost_DEBUG_NAMES
