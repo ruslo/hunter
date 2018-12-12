@@ -69,6 +69,9 @@ elseif("@APPLE@")
   # Using CMAKE_AR on OSX leads to error (b2 use 'libtool'):
   # * https://travis-ci.org/ingenue/hunter/jobs/204617507
   set(use_cmake_archiver FALSE)
+elseif("@QNX@")
+  set(toolset_name "qcc")
+  set(toolset_version "")
 elseif("@CMAKE_COMPILER_IS_GNUCXX@")
   set(toolset_name "gcc")
   set(toolset_version "")
@@ -335,6 +338,10 @@ else()
   set(b2_cmd "./b2")
   set(bootstrap_cmd "./bootstrap.sh")
   set(patch_cmd "@CMAKE_COMMAND@" -E echo "Dummy patch command")
+endif()
+
+if(compiler_is_clang AND NOT CMAKE_CROSSCOMPILING)
+  list(APPEND bootstrap_cmd "--with-toolset=clang")
 endif()
 
 if("@MINGW@")

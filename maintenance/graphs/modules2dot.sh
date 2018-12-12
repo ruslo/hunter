@@ -19,11 +19,16 @@ PNG_FILE="${PNG_DIR}/${dot_basename}.png"
 excluded_modules=(
 	hunter_status_print
 	hunter_status_debug
+	hunter_print_cmd
 	hunter_user_error
 	hunter_internal_error
 	hunter_fatal_error
 	hunter_wiki
 	hunter_assert_not_empty_string
+	hunter_assert_empty_string
+	hunter_lock_directory
+	hunter_make_directory
+	hunter_sleep_before_download
 )
 
 

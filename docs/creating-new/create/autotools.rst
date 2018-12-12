@@ -104,3 +104,43 @@ libraries. In this case, dependent projects will use code similar to the followi
     find_package(foo REQUIRED)
     add_executable(bar ${BAR_SOURCES})
     target_link_libraries(bar PUBLIC foo::foo)
+
+Extra flags for configure
+-------------------------
+
+It is possible to add extra flags for ``./configure`` step both globally
+in ``cmake/projects/<package>/hunter.cmake``:
+
+.. code-block:: cmake
+
+    hunter_cmake_args(
+        foo
+        CMAKE_ARGS
+            EXTRA_FLAGS=--enable-x
+    )
+
+and locally in ``cmake/Hunter/config.cmake``:
+
+.. code-block:: cmake
+
+    hunter_config(
+        foo
+        VERSION
+            ${HUNTER_foo_VERSION}
+        CMAKE_ARGS
+            EXTRA_FLAGS=--enable-y
+    )
+
+If you use local approach then any flags from global configuration will be
+ignored, i.e. if you want to have both global ``--enable-x`` and local
+``--enable-y`` then you have to set them explicitly:
+
+.. code-block:: cmake
+
+    hunter_config(
+        foo
+        VERSION
+            ${HUNTER_foo_VERSION}
+        CMAKE_ARGS
+            EXTRA_FLAGS=--enable-x --enable-y
+    )

@@ -9,8 +9,10 @@ include("../common.cmake")
 
 project(download-ccv)
 
+# DOCUMENTATION_START {
 hunter_add_package(ccv)
 find_package(ccv REQUIRED CONFIG)
 
 add_executable(foo test.c)
 target_link_libraries(foo PRIVATE ccv::ccv)
+# DOCUMENTATION_END }

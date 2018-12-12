@@ -6,6 +6,8 @@ project(Hunter)
 
 include(ExternalProject) # ExternalProject_Add
 
+include("@HUNTER_SELF@/cmake/Hunter")
+
 # Scheme for download and install OpenSSL library for Windows
 
 list(APPEND CMAKE_MODULE_PATH "@HUNTER_SELF@/cmake/modules")
@@ -59,11 +61,19 @@ endif()
 
 string(COMPARE EQUAL "@HUNTER_MSVC_ARCH@" "amd64" is_amd64)
 if(is_amd64)
-  set(opt "VC-WIN64A")
+  set(arch "VC-WIN64A")
   set(do_ms do_win64a.bat)
 else()
-  set(opt "VC-WIN32")
+  set(arch "VC-WIN32")
   set(do_ms do_ms.bat)
+endif()
+
+if(ASM_SUPPORT)
+  hunter_add_package(NASM) # set NASM_ROOT
+  set(opt "")
+else()
+  set(NASM_ROOT "")
+  set(opt "no-asm")
 endif()
 
 if("@MSVC@")
@@ -79,6 +89,19 @@ if(BUILD_SHARED_LIBS)
 else()
     set(nt_makefile "ms\\nt.mak")
 endif()
+
+set(openssl_install_dir "@HUNTER_PACKAGE_INSTALL_PREFIX@")
+
+# Used variables:
+#   * openssl_install_dir
+#   * arch
+#   * opt
+#   * NASM_ROOT
+#   * do_ms
+configure_file(
+    "@HUNTER_PACKAGE_SETUP_DIR@/ep-stages/configure.cmake.in"
+    "@HUNTER_PACKAGE_BUILD_DIR@/configure.cmake"
+    @ONLY)
 
 ExternalProject_Add(
     "@HUNTER_EP_NAME@"
@@ -98,9 +121,7 @@ ExternalProject_Add(
     CONFIGURE_COMMAND
     "@HUNTER_MSVC_VCVARSALL@" "@HUNTER_MSVC_ARCH@"
     COMMAND
-    perl Configure "${opt}" no-asm "--prefix=@HUNTER_PACKAGE_INSTALL_PREFIX@"
-    COMMAND
-    "ms\\${do_ms}"
+    "@CMAKE_COMMAND@" -P "@HUNTER_PACKAGE_BUILD_DIR@/configure.cmake"
     BUILD_COMMAND
     nmake -f "${nt_makefile}"
     BUILD_IN_SOURCE

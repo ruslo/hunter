@@ -31,4 +31,4 @@ rm -rf _build _static _spelling
 mkdir _static
 
 sphinx-build -v -W . _build
-sphinx-build -b spelling . _spelling
+sphinx-build -b spelling -W . _spelling

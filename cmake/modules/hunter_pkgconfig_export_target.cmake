@@ -33,12 +33,7 @@ function(hunter_pkgconfig_export_target PKG_CONFIG_MODULE)
   hunter_status_debug(
       "PKG_CONFIG_MODULE ${PKG_CONFIG_MODULE} INCLUDE_DIRS: ${${PKG_CONFIG_MODULE}_INCLUDE_DIRS}"
   )
-  string(COMPARE NOTEQUAL
-      "${${PKG_CONFIG_MODULE}_INCLUDE_DIRS}"
-      ""
-      has_include_dirs
-  )
-  if(has_include_dirs)
+  if(NOT "${${PKG_CONFIG_MODULE}_INCLUDE_DIRS}" STREQUAL "")
     set_target_properties("${target_name}"
         PROPERTIES
           INTERFACE_INCLUDE_DIRECTORIES
@@ -53,35 +48,22 @@ function(hunter_pkgconfig_export_target PKG_CONFIG_MODULE)
   hunter_status_debug(
       "PKG_CONFIG_MODULE ${PKG_CONFIG_MODULE} LDFLAGS: ${${PKG_CONFIG_MODULE}_LDFLAGS}"
   )
-  string(COMPARE NOTEQUAL
-      "${${PKG_CONFIG_MODULE}_LDFLAGS}"
-      ""
-      has_ldflags
-  )
-  if(has_ldflags)
+  if(NOT "${${PKG_CONFIG_MODULE}_LDFLAGS}" STREQUAL "")
     list(APPEND link_libs ${${PKG_CONFIG_MODULE}_LDFLAGS})
   endif()
 
   hunter_status_debug(
       "PKG_CONFIG_MODULE ${PKG_CONFIG_MODULE} LDFLAGS_OTHER: ${${PKG_CONFIG_MODULE}_LDFLAGS_OTHER}"
   )
-  string(COMPARE NOTEQUAL
-      "${${PKG_CONFIG_MODULE}_LDFLAGS_OTHER}"
-      ""
-      has_ldflags_other
-  )
-  if(has_ldflags_other)
-    list(APPEND link_libs ${${PKG_CONFIG_MODULE}_LDFLAGS_OTHER})
+  if(NOT "${${PKG_CONFIG_MODULE}_LDFLAGS_OTHER}" STREQUAL "")
+    # turn "-framework;A;-framework;B" into "-framework A;-framework B"
+    string(REPLACE "-framework;" "-framework " ldflags_other "${${PKG_CONFIG_MODULE}_LDFLAGS_OTHER}")
+    list(APPEND link_libs ${ldflags_other})
   endif()
 
   # No need to treat the pkg-config module's _LIBRARY_DIRS and _LIBRARIES
   # as they are already included in LD_FLAGS
-  string(COMPARE NOTEQUAL
-      "${link_libs}"
-      ""
-      has_link_libs
-  )
-  if(has_link_libs)
+  if(NOT "${link_libs}" STREQUAL "")
     set_target_properties("${target_name}"
         PROPERTIES
           INTERFACE_LINK_LIBRARIES
@@ -96,32 +78,18 @@ function(hunter_pkgconfig_export_target PKG_CONFIG_MODULE)
   hunter_status_debug(
       "PKG_CONFIG_MODULE ${PKG_CONFIG_MODULE} CFLAGS: ${${PKG_CONFIG_MODULE}_CFLAGS}"
   )
-  string(COMPARE NOTEQUAL
-      "${${PKG_CONFIG_MODULE}_CFLAGS}"
-      ""
-      has_cflags)
-  if(has_cflags)
+  if(NOT "${${PKG_CONFIG_MODULE}_CFLAGS}" STREQUAL "")
     list(APPEND compile_opts ${${PKG_CONFIG_MODULE}_CFLAGS})
   endif()
 
   hunter_status_debug(
       "PKG_CONFIG_MODULE ${PKG_CONFIG_MODULE} CFLAGS_OTHER: ${${PKG_CONFIG_MODULE}_CFLAGS_OTHER}"
   )
-  string(COMPARE NOTEQUAL
-      "${${PKG_CONFIG_MODULE}_CFLAGS_OTHER}"
-      ""
-      has_cflags_other
-  )
-  if(has_cflags_other)
+  if(NOT "${${PKG_CONFIG_MODULE}_CFLAGS_OTHER}" STREQUAL "")
     list(APPEND compile_opts ${${PKG_CONFIG_MODULE}_CFLAGS_OTHER})
   endif()
 
-  string(COMPARE NOTEQUAL
-     "${compile_opts}"
-     ""
-     has_compile_opts
-  )
-  if(has_compile_opts)
+  if(NOT "${compile_opts}" STREQUAL "")
       set_target_properties("${target_name}"
           PROPERTIES
             INTERFACE_COMPILE_OPTIONS

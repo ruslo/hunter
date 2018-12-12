@@ -9,20 +9,18 @@
 LLVM
 ====
 
-LLVM (Clang)
-
 -  `Official <http://llvm.org/releases/download.html>`__
+-  `Hunterized <https://github.com/hunter-packages/LLVM>`__
+-  `Example <https://github.com/ruslo/hunter/blob/master/examples/LLVM/CMakeLists.txt>`__
 
-.. code-block:: cmake
+.. literalinclude:: /../examples/LLVM/CMakeLists.txt
+  :language: cmake
+  :start-after: # DOCUMENTATION_START {
+  :end-before: # DOCUMENTATION_END }
 
-    hunter_add_package(LLVM)
-    message("Clang++: ${LLVM_ROOT}/bin/clang++")
+.. seealso::
 
-Build issues
-------------
-
--  Can't build with ``-stdlib=libstdc++ -std=c++11`` (Ubuntu Linux)
--  Can't build with ``-std=c++11`` (MinGW)
+  * http://llvm.org/docs/CMake.html#embedding-llvm-in-your-project
 
 Usage issues
 ------------
@@ -30,4 +28,3 @@ Usage issues
 -  Exceptions are not available, need to build with
    `_HAS_EXCEPTION=0 <http://stackoverflow.com/a/24750725/2288008>`__
    (Visual Studio)
--  Call to ``std::endl`` lead to crash (MinGW)

@@ -9,11 +9,17 @@ include("../common.cmake")
 
 project(download-LLVM)
 
-# download LLVM
+# DOCUMENTATION_START {
 hunter_add_package(LLVM)
-
-# now LLVM can be used
 find_package(LLVM CONFIG REQUIRED)
+
+include_directories(${LLVM_INCLUDE_DIRS})
+add_definitions(${LLVM_DEFINITIONS})
+llvm_map_components_to_libnames(llvm_libs support core)
+
+add_executable(boo boo.cpp)
+target_link_libraries(boo PUBLIC ${llvm_libs})
+# DOCUMENTATION_END }
 
 if(NOT TARGET llvm-ar)
   message(FATAL_ERROR "llvm-ar target not exists")

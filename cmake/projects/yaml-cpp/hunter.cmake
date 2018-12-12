@@ -28,6 +28,17 @@ hunter_add_version(
   3f612ceea5c983748368b6a543678f3d77e5ecc8
   )
 
+hunter_add_version(
+  PACKAGE_NAME
+  yaml-cpp
+  VERSION
+  "0.5.3-p4"
+  URL
+  "https://github.com/hunter-packages/yaml-cpp/archive/v0.5.3-p4.zip"
+  SHA1
+  b8de7495113c6462216ebb6b123f1b71ea761bc9
+  )
+
 
 hunter_cmake_args(yaml-cpp CMAKE_ARGS YAML_CPP_BUILD_TOOLS=OFF)
 hunter_pick_scheme(DEFAULT url_sha1_cmake)
