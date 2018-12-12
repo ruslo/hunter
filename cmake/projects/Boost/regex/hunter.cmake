@@ -18,5 +18,5 @@ hunter_download(
     Boost
     PACKAGE_COMPONENT
     regex
-    PACKAGE_INTERNAL_DEPS_ID "36"
+    PACKAGE_INTERNAL_DEPS_ID "37"
 )
