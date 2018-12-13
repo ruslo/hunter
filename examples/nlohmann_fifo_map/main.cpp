@@ -1,4 +1,5 @@
 #include <nlohmann/fifo_map.hpp>
+#include <string>
 
 // for convenience
 using nlohmann::fifo_map;
