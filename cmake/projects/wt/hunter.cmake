@@ -31,7 +31,9 @@ hunter_cmake_args(
         ENABLE_LIBWTTEST=OFF
 )
 
-# Pick a download scheme
 hunter_pick_scheme(DEFAULT url_sha1_cmake)
-hunter_cacheable(wt)
+
+# FIXME: https://github.com/ruslo/hunter/pull/1655#issuecomment-446963534
+# hunter_cacheable(wt)
+
 hunter_download(PACKAGE_NAME wt)
