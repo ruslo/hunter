@@ -13,6 +13,6 @@ project(download-nlohmann_fifo_map)
 hunter_add_package(nlohmann_fifo_map)
 find_package(nlohmann_fifo_map CONFIG REQUIRED)
 
-add_executable(boo boo.cpp)
-target_link_libraries(boo PUBLIC nlohmann_fifo_map::fifo_map)
+add_executable(main main.cpp)
+target_link_libraries(main PUBLIC nlohmann_fifo_map::fifo_map)
 # DOCUMENTATION_END }
