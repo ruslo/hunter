@@ -305,6 +305,36 @@ Add this information to ``cmake/projects/hunter_box_1/hunter.cmake`` file:
   hunter_cacheable(hunter_box_1)
   hunter_download(PACKAGE_NAME hunter_box_1)
 
+Consistency
+===========
+
+Please keep Git tag and ``VERSION`` in consistent state.
+For example if ``URL`` is:
+
+.. code-block:: cmake
+  :emphasize-lines: 3-4
+
+  hunter_add_version(
+      # ...
+      URL
+      "https://github.com/hunterbox/hunter_box_1/archive/v1.3.15-da39a3e-p6.tar.gz"
+      # ...
+  )
+
+Then ``VERSION`` should be:
+
+.. code-block:: cmake
+  :emphasize-lines: 3-4
+
+  hunter_add_version(
+      # ...
+      VERSION
+      1.3.15-da39a3e-p6
+      URL
+      "https://github.com/hunterbox/hunter_box_1/archive/v1.3.15-da39a3e-p6.tar.gz"
+      # ...
+  )
+
 CMake options
 =============
 
@@ -462,6 +492,8 @@ Now save all changes by doing a commit:
   [hunter]> git add examples/hunter_box_1/
 
   [hunter]> git commit -m "Add 'hunter_box_1' package"
+
+.. _testing locally:
 
 Testing locally
 ===============
