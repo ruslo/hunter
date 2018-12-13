@@ -238,7 +238,7 @@ hunter_default_version(gflags VERSION 2.2.1)
 hunter_default_version(giflib VERSION 5.1.4-p1)
 hunter_default_version(glbinding VERSION 3.0.2-p0)
 hunter_default_version(glew VERSION 2.0.0-p1)
-hunter_default_version(glfw VERSION 3.3.0-p4)
+hunter_default_version(glfw VERSION 3.3.0-f9923e9-p0)
 hunter_default_version(glib VERSION 2.54.0)
 if(ANDROID)
   #compile error in the latest glm on Android
