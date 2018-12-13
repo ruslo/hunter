@@ -463,6 +463,8 @@ Now save all changes by doing a commit:
 
   [hunter]> git commit -m "Add 'hunter_box_1' package"
 
+.. _testing locally:
+
 Testing locally
 ===============
 
