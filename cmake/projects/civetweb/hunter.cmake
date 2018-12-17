@@ -13,6 +13,17 @@ hunter_add_version(
     PACKAGE_NAME
     civetweb
     VERSION
+    1.11-p0
+    URL
+    "https://github.com/hunter-packages/civetweb/archive/v1.11-p0.tar.gz"
+    SHA1
+    de6eee085d98419c2db70787cea0d3aff4639ea7
+)
+
+hunter_add_version(
+    PACKAGE_NAME
+    civetweb
+    VERSION
     1.10-p1
     URL
     "https://github.com/hunter-packages/civetweb/archive/v1.10-p1.tar.gz"
@@ -26,6 +37,10 @@ hunter_cmake_args(
     BUILD_TESTING=OFF
     CIVETWEB_ENABLE_ASAN=OFF
     CIVETWEB_ENABLE_SSL_DYNAMIC_LOADING=OFF
+    CIVETWEB_INSTALL_EXECUTABLE=OFF
+    CIVETWEB_BUILD_TESTING=OFF
+    CIVETWEB_ENABLE_CXX=ON
+    CIVETWEB_ENABLE_SERVER_EXECUTABLE=OFF
     CIVETWEB_INSTALL_EXECUTABLE=OFF
 )
 

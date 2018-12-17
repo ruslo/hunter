@@ -13,4 +13,4 @@ hunter_add_package(civetweb)
 find_package(civetweb CONFIG REQUIRED)
 
 add_executable(boo boo.cpp)
-target_link_libraries(boo PUBLIC civetweb::c-library)
+target_link_libraries(boo PUBLIC civetweb::civetweb-c-library)
