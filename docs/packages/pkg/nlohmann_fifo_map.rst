@@ -1,7 +1,8 @@
 .. spelling::
 
     nlohmann
-    fifo_map
+    fifo
+    map
 
 .. index:: fifo_map ; nlohmann_fifo_map
 
