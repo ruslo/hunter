@@ -17,7 +17,7 @@ hunter_add_version(
     URL
     "https://github.com/hunter-packages/prometheus-cpp/archive/v0.6.0-p2.tar.gz"
     SHA1
-    d37850469adac032622a7df9c91e223e66b6c7fe
+    43ef1b4c9e0867f979a5579ee9b5fd80652d7919
 )
 
 hunter_cmake_args(
