@@ -65,7 +65,7 @@ config file (``boost/config/user.hpp``):
    options <http://www.boost.org/doc/libs/1_57_0/libs/iostreams/doc/index.html?path=7>`__
 
 - Options ``CONFIG_MACRO_<ID>=<VALUE>`` will append ``#define <ID> <VALUE>``
-  to the default boost user config file. And options
+  to the default boost user config header file. And options
   ``CONFIG_MACRO=<ID_1>;<ID_2>;...;<ID_n>`` will append ``#define <ID_1>``,
   ``#define <ID_2>``, ..., ``#define <ID_n>``.
   Example:
@@ -87,6 +87,68 @@ config file (``boost/config/user.hpp``):
     #define BOOST_REGEX_MATCH_EXTRA
     #define BOOST_MPL_CFG_NO_PREPROCESSED_HEADERS
     #define BOOST_MPL_LIMIT_LIST_SIZE 3
+
+Python
+------
+
+To require Boost Python to be built against a specific version of Python installed
+on the system, option ``REQUESTED_PYTHON_VERSION=<VALUE>`` may be used. In this case,
+if the required components of Python are located, ``user_config.jam``
+will be appended with the following line:
+
+.. code-block:: none
+
+  using python  : <requested_version_number> : <path to Python executable> :
+  <path to Python include directory> : <path to directory containing the Python library> ;
+
+Example for Python 2:
+
+.. code-block:: cmake
+
+    # config.cmake
+    hunter_config(
+      Boost
+      VERSION ${HUNTER_Boost_VERSION}
+      CMAKE_ARGS
+      REQUESTED_PYTHON_VERSION=2.7.15
+    )
+
+.. code-block:: cmake
+
+    # CMakeLists.txt
+    hunter_add_package(Boost COMPONENTS python)
+    if(Boost_VERSION VERSION_LESS 106700)
+      find_package(Boost CONFIG REQUIRED python)
+    else()
+      find_package(Boost CONFIG REQUIRED python27)
+    endif()
+
+.. note::
+
+  Python<x> component arguments to ``find_package(Boost ...)`` after Boost version 1.67 require
+  a specific version suffix, e.g. python37.
+
+Example for Python 3:
+
+.. code-block:: cmake
+
+    # config.cmake
+    hunter_config(
+      Boost
+      VERSION ${HUNTER_Boost_VERSION}
+      CMAKE_ARGS
+      REQUESTED_PYTHON_VERSION=3.6.7
+    )
+
+.. code-block:: cmake
+
+    # CMakeLists.txt
+    hunter_add_package(Boost COMPONENTS python)
+    if(Boost_VERSION VERSION_LESS 106700)
+      find_package(Boost CONFIG REQUIRED python3)
+    else()
+      find_package(Boost CONFIG REQUIRED python36)
+    endif()
 
 Math
 ----

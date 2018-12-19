@@ -112,7 +112,7 @@ hunter_add_version(
     URL
     "https://github.com/hunter-packages/boost/archive/v1.68.0-p1.tar.gz"
     SHA1
-    0bb10b0a0fdc196646c87e0143c0290baa32357d 
+    0bb10b0a0fdc196646c87e0143c0290baa32357d
 )
 
 hunter_add_version(
@@ -378,4 +378,4 @@ endif()
 
 hunter_pick_scheme(DEFAULT url_sha1_boost)
 hunter_cacheable(Boost)
-hunter_download(PACKAGE_NAME Boost PACKAGE_INTERNAL_DEPS_ID "36")
+hunter_download(PACKAGE_NAME Boost PACKAGE_INTERNAL_DEPS_ID "37")
