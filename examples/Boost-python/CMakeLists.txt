@@ -15,7 +15,7 @@ include("../common.cmake")
 
 project(download-boost)
 
-# Requires python version 3.6.7. Change this in config.cmake if necessary.
+# Requires python version 3.5. Change this in config.cmake if necessary.
 hunter_add_package(Boost COMPONENTS python)
 find_package(Boost CONFIG REQUIRED python35)
 find_package(PythonLibs ${REQUESTED_PYTHON_VERSION} EXACT REQUIRED)
