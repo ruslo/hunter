@@ -347,7 +347,7 @@ hunter_default_version(pciaccess VERSION 0.13.4)
 hunter_default_version(poly2tri VERSION 1.0.0)
 hunter_default_version(polyclipping VERSION 4.8.8-p0) # for Assimp
 hunter_default_version(presentproto VERSION 1.0)
-hunter_default_version(prometheus-cpp VERSION 0.6.0-p1)
+hunter_default_version(prometheus-cpp VERSION 0.6.0-p2)
 hunter_default_version(protobuf-c VERSION 1.3.0-p1)
 hunter_default_version(pthread-stubs VERSION 0.3)
 hunter_default_version(pugixml VERSION 1.8.1)
