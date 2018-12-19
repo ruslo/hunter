@@ -10,6 +10,17 @@ hunter_add_version(
     PACKAGE_NAME
     Protobuf
     VERSION
+    "2.4.1-p0"
+    URL
+    "https://github.com/hunter-packages/protobuf/archive/v2.4.1-p0.tar.gz"
+    SHA1
+    c57c846131f804622057d83bf44144c179613e44
+)
+
+hunter_add_version(
+    PACKAGE_NAME
+    Protobuf
+    VERSION
     "3.0.0-p1"
     URL
     "https://github.com/hunter-packages/protobuf/archive/v3.0.0-hunter-3.tar.gz"
@@ -73,16 +84,26 @@ hunter_add_version(
 )
 
 hunter_add_version(
-    PACKAGE_NAME Protobuf
-    VERSION "3.5.2-p0"
-    URL "https://github.com/hunter-packages/protobuf/archive/v3.5.2-p0.tar.gz"
-    SHA1 "0c1eacb460266dea7cd18c2009642fa192c15b70")
+    PACKAGE_NAME
+    Protobuf
+    VERSION
+    "3.5.2-p0"
+    URL
+    "https://github.com/hunter-packages/protobuf/archive/v3.5.2-p0.tar.gz"
+    SHA1
+    0c1eacb460266dea7cd18c2009642fa192c15b70
+)
 
 hunter_add_version(
-    PACKAGE_NAME Protobuf
-    VERSION "2.4.1-p0"
-    URL "https://github.com/hunter-packages/protobuf/archive/v2.4.1-p0.tar.gz"
-    SHA1 "c57c846131f804622057d83bf44144c179613e44")
+    PACKAGE_NAME
+    Protobuf
+    VERSION
+    "3.6.1.3-p0"
+    URL
+    "https://github.com/hunter-packages/protobuf/archive/v3.6.1.3-p0.tar.gz"
+    SHA1
+    5f32dcd70bed20e42cecc53058b8502298c6680a
+)
 
 string(
     COMPARE EQUAL "${CMAKE_SYSTEM_NAME}" "WindowsStore" _hunter_windows_store
