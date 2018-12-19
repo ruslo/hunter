@@ -1,6 +1,7 @@
 .. spelling::
 
-    prometheus-cpp
+    prometheus
+    cpp
 
 .. index::
   single: metrics ; prometheus-cpp
