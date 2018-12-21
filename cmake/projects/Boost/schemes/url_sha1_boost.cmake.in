@@ -68,6 +68,8 @@ else()
   set(patch_cmd "@CMAKE_COMMAND@" -E echo "Dummy patch command")
 endif()
 
+string(COMPARE EQUAL "@CMAKE_CXX_COMPILER_ID@" "Clang" compiler_is_clang)
+
 if("@MINGW@")
   # Test scenario: MinGW installed in system, Visual Studio - not
   list(APPEND bootstrap_cmd "gcc")
@@ -78,6 +80,8 @@ if(APPLE)
       bootstrap_cmd
       . "@HUNTER_GLOBAL_SCRIPT_DIR@/clear-all.sh" && ${bootstrap_cmd}
   )
+elseif(compiler_is_clang AND NOT CMAKE_CROSSCOMPILING)
+  list(APPEND bootstrap_cmd "--with-toolset=clang")
 endif()
 
 if("@HUNTER_PACKAGE_LOG_BUILD@")

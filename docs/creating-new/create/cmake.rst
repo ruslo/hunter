@@ -188,8 +188,9 @@ Installation after fix:
 Add package to Hunter
 =====================
 
-Next let's assume user ``hunterbox`` is trying to add ``hunter_box_1`` project
-to Hunter.
+Next let's assume user `hunterbox <https://github.com/hunterbox>`__ is
+trying to add `hunter_box_1 <https://github.com/hunterbox/hunter_box_1>`__
+project to Hunter.
 
 .. admonition:: Examples on GitHub
 
@@ -201,7 +202,7 @@ C++:
 
 .. code-block:: cpp
 
-  #include <hunter_box_1.hpp>
+  #include <hunter_box_1/hunter_box_1.hpp>
 
   int main() {
     hunter_box_1::foo();
@@ -218,7 +219,7 @@ CMake with Hunter:
 
 .. code-block:: cmake
 
-  hunter_add_package(hunter_box_1) 
+  hunter_add_package(hunter_box_1)
   find_package(hunter_box_1 CONFIG REQUIRED)
   target_link_libraries(... hunter_box_1::hunter_box_1)
 
@@ -304,21 +305,54 @@ Add this information to ``cmake/projects/hunter_box_1/hunter.cmake`` file:
   hunter_cacheable(hunter_box_1)
   hunter_download(PACKAGE_NAME hunter_box_1)
 
+Consistency
+===========
+
+Please keep Git tag and ``VERSION`` in consistent state.
+For example if ``URL`` is:
+
+.. code-block:: cmake
+  :emphasize-lines: 3-4
+
+  hunter_add_version(
+      # ...
+      URL
+      "https://github.com/hunterbox/hunter_box_1/archive/v1.3.15-da39a3e-p6.tar.gz"
+      # ...
+  )
+
+Then ``VERSION`` should be:
+
+.. code-block:: cmake
+  :emphasize-lines: 3-4
+
+  hunter_add_version(
+      # ...
+      VERSION
+      1.3.15-da39a3e-p6
+      URL
+      "https://github.com/hunterbox/hunter_box_1/archive/v1.3.15-da39a3e-p6.tar.gz"
+      # ...
+  )
+
 CMake options
 =============
 
 Note that it does not make sense to build and install stuff like examples,
 tests or documentation. Please check that your package has CMake options to
-disable those. If such an option is not disabled by default use 
+disable those. If such an option is not disabled by default use
 ``hunter_cmake_args``:
 
 .. code-block:: cmake
-  :emphasize-lines: 3, 6-8
+  :emphasize-lines: 1, 6, 9-11
 
-  # bottom of cmake/projects/Foo/hunter.cmake
+  include(hunter_cmake_args)
 
+  # ...
+
+  # bottom of cmake/projects/foo/hunter.cmake
   hunter_cmake_args(
-      Foo
+      foo
       CMAKE_ARGS
           FOO_BUILD_EXAMPLES=OFF
           FOO_BUILD_TESTS=OFF
@@ -326,7 +360,7 @@ disable those. If such an option is not disabled by default use
   )
 
   hunter_pick_scheme(DEFAULT url_sha1_cmake)
-  hunter_download(PACKAGE_NAME Foo)
+  hunter_download(PACKAGE_NAME foo)
 
 Options set by ``hunter_cmake_args`` have lower precedence than options set
 by ``hunter_config(... CMAKE_ARGS ...)`` (see
@@ -345,8 +379,8 @@ Default build type(s) can be set by ``hunter_configuration_types``:
 
 .. code-block:: cmake
 
-  hunter_configuration_types(Foo CONFIGURATION_TYPES Release)
-  hunter_download(PACKAGE_NAME Foo)
+  hunter_configuration_types(foo CONFIGURATION_TYPES Release)
+  hunter_download(PACKAGE_NAME foo)
 
 User can overwrite this default by using
 `custom <https://github.com/ruslo/hunter/wiki/example.custom.config.id>`__
@@ -422,6 +456,25 @@ To locally check if the documentation is still building you can run:
   [hunter/docs]> source ./jenkins.sh
   (_venv) [hunter/docs]> ./make.sh
 
+Common mistake
+==============
+
+Please do not forget to substitute ``===``.
+
+Good:
+
+.. code-block:: none
+
+  hunter_box_1
+  ============
+
+Bad:
+
+.. code-block:: none
+
+  hunter_box_1
+  ===
+
 Commit
 ======
 
@@ -429,7 +482,7 @@ Now save all changes by doing a commit:
 
 .. code-block:: none
 
-  [hunter]> git branch 
+  [hunter]> git branch
     master
   * pr.hunter_box_1
 
@@ -439,6 +492,8 @@ Now save all changes by doing a commit:
   [hunter]> git add examples/hunter_box_1/
 
   [hunter]> git commit -m "Add 'hunter_box_1' package"
+
+.. _testing locally:
 
 Testing locally
 ===============
@@ -510,7 +565,7 @@ and platforms. Hunter uses `AppVeyor <https://appveyor.com>`__ to test for
 Windows (Visual Studio, NMake, Ninja, MinGW, MSYS) and
 `Travis <https://travis-ci.org>`__ to test
 for Linux (GCC, Clang, Android, Clang Analyzer, Sanitize Address, Sanitize Leak)
-and for OSX (Clang + Makefile, Xcode, iOS).
+and for macOS (Clang + Makefile, Xcode, iOS).
 
 Register your Hunter fork:
 
@@ -557,7 +612,7 @@ Branch for testing package ``<name>``.
 
 * Name: ``pkg.<name>``
 * Repository: https://github.com/ingenue/hunter
-* Testing: Package ``<name>`` on Windows/Linux/OSX hosts
+* Testing: Package ``<name>`` on Windows/Linux/macOS hosts
 
 Real testing happens in ``pkg.<name>`` branch of ``ingenue/hunter`` repository.
 E.g. branch ``pkg.gtest``:
@@ -613,7 +668,7 @@ Fetch the branch ``pkg.template`` and substitute all ``foo`` strings with
   [hunter]> git checkout pkg.template
   [hunter]> git checkout -b pr.pkg.hunter_box_1
 
-  [hunter]> sed -i 's,foo,hunter_box_1,g' .travis.yml 
+  [hunter]> sed -i 's,foo,hunter_box_1,g' .travis.yml
   [hunter]> sed -i 's,foo,hunter_box_1,g' appveyor.yml
 
   [hunter]> git add .travis.yml appveyor.yml
@@ -653,38 +708,94 @@ Example:
   :align: center
   :alt: Pull request
 
-.. note::
+Fix AppVeyor path too long error
+================================
 
-  If you see error
+If you see error
 
-  .. code-block:: none
+.. code-block:: none
 
-    -- The C compiler identification is unknown
-    -- The CXX compiler identification is unknown
+  -- The C compiler identification is unknown
+  -- The CXX compiler identification is unknown
 
-  or
+or
 
-  .. code-block:: none
+.. code-block:: none
 
-    ...: error MSB3491: Could not write lines to file "...".
-    The specified path, file name, or both are too long. The fully qualified file
-    name must be less than 260 characters, and the directory name must be less than
-    248 characters
+  ...: error MSB3491: Could not write lines to file "...".
+  The specified path, file name, or both are too long. The fully qualified file
+  name must be less than 260 characters, and the directory name must be less than
+  248 characters
 
-  on Windows build, adding :ref:`HUNTER_BINARY_DIR <env hunter binary dir>`
-  environment variable should help:
+on Windows build, adding :ref:`HUNTER_BINARY_DIR <env hunter binary dir>`
+environment variable should help:
 
-  .. code-block:: yaml
-    :emphasize-lines: 4
+.. code-block:: yaml
+  :emphasize-lines: 4
 
-    - TOOLCHAIN: "vs-15-2017-win64-cxx17"
-      PROJECT_DIR: examples\SuiteSparse
-      APPVEYOR_BUILD_WORKER_IMAGE: Visual Studio 2017
-      HUNTER_BINARY_DIR: C:\__BIN
+  - TOOLCHAIN: "vs-15-2017-win64-cxx17"
+    PROJECT_DIR: examples\SuiteSparse
+    APPVEYOR_BUILD_WORKER_IMAGE: Visual Studio 2017
+    HUNTER_BINARY_DIR: C:\__BIN
 
-  Example:
+Example:
 
-  * https://github.com/ingenue/hunter/blob/05bd9cdbd03a5772302c65abb9119722b9b8e08c/appveyor.yml#L21-L24
+* https://github.com/ingenue/hunter/blob/05bd9cdbd03a5772302c65abb9119722b9b8e08c/appveyor.yml#L21-L24
+
+Fix Travis log too long error
+=============================
+
+If you see error
+
+.. code-block:: none
+
+  The job exceeded the maximum log length, and has been terminated.
+
+Adding ``VERBOSE=0`` environment variable should help:
+
+.. code-block:: yaml
+  :emphasize-lines: 5
+
+  - os: linux
+    env: >
+      TOOLCHAIN=android-ndk-r17-api-24-arm64-v8a-clang-libcxx14
+      PROJECT_DIR=examples/OpenCV
+      VERBOSE=0
+
+Example:
+
+* https://github.com/ingenue/hunter/blob/92cb26bd0bc5eeb14525f56b3a068fb072e2e5a1/.travis.yml#L55-L59
+
+Workaround for GCC internal error
+=================================
+
+Travis machines have 32 logical cores and Hunter will use all of them by default
+(e.g. build with ``make -j32``). Because of this system may run out of memory
+and GCC may get killed:
+
+.. code-block:: none
+
+  g++-7: internal compiler error: Killed (program cc1plus)
+
+As a workaround you can limit number of jobs explicitly by adding
+the :ref:`HUNTER_JOBS_NUMBER <hunter jobs number env>` environment variable:
+
+.. code-block:: yaml
+  :emphasize-lines: 5
+
+  - os: linux
+    env: >
+      TOOLCHAIN=gcc-7-cxx17
+      PROJECT_DIR=examples/mkldnn
+      HUNTER_JOBS_NUMBER=4
+
+Example:
+
+* https://github.com/ingenue/hunter/blob/c1e12ba21940b8418d1e3d596b653ad3bf588e11/.travis.yml#L41-L45
+
+.. admonition:: Stackoverflow
+
+  * https://stackoverflow.com/a/35011967
 
 Excluding tests
 ===============
@@ -743,7 +854,7 @@ branch:
 
 .. image:: /creating-new/images/pr-with-tests.png
   :align: center
-  :alt: Pull request with tests 
+  :alt: Pull request with tests
 
 I will create ``pkg.hunter_box_1`` and change branch before merging:
 
@@ -786,7 +897,7 @@ tested automatically:
 
 .. image:: /creating-new/images/package-testing.png
   :align: center
-  :alt: Package testing 
+  :alt: Package testing
 
 Branch ``pkg.hunter_box_1.pr-N`` will be created from ``pkg.hunter_box_1``
 to test package:

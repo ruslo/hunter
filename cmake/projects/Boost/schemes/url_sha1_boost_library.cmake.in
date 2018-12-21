@@ -24,6 +24,7 @@ include(hunter_status_print)
 include(hunter_assert_not_empty_string)
 include(hunter_user_error)
 include(hunter_parse_boost_config_macros)
+include(hunter_parse_cmake_args_for_keyword)
 
 hunter_status_debug("Scheme: url_sha1_boost_library")
 
@@ -69,6 +70,9 @@ elseif("@APPLE@")
   # Using CMAKE_AR on OSX leads to error (b2 use 'libtool'):
   # * https://travis-ci.org/ingenue/hunter/jobs/204617507
   set(use_cmake_archiver FALSE)
+elseif("@QNX@")
+  set(toolset_name "qcc")
+  set(toolset_version "")
 elseif("@CMAKE_COMPILER_IS_GNUCXX@")
   set(toolset_name "gcc")
   set(toolset_version "")
@@ -191,6 +195,8 @@ else()
   set(link_opts link=shared)
 endif()
 
+# Modify Boost user jam file
+
 set(toolset_full_name ${toolset_name})
 string(COMPARE NOTEQUAL "${toolset_version}" "" has_toolset_version)
 if(has_toolset_version)
@@ -283,6 +289,52 @@ file(
     "${using_mpi}\n"
 )
 
+# handle requested python version if such is specified
+hunter_parse_cmake_args_for_keyword(
+  CMAKE_ARGS "@HUNTER_Boost_CMAKE_ARGS@"
+  KEYWORD REQUESTED_PYTHON_VERSION
+  OUTPUT requested_python
+)
+
+# set up paths for python in boost.user.jam
+if(NOT requested_python STREQUAL "")
+  find_package(PythonInterp ${requested_python} EXACT QUIET)
+  if(NOT PYTHONINTERP_FOUND)
+    hunter_user_error("Python Interpreter for Python version ${requested_python} not found.")
+  endif()
+  set(python_executable ${PYTHON_EXECUTABLE})
+  execute_process(
+    COMMAND "${python_executable}" -c "import os.path, sysconfig; info = sysconfig.get_paths(); print(info['include'])"
+    RESULT_VARIABLE python_process
+    OUTPUT_VARIABLE python_include_directory
+    OUTPUT_STRIP_TRAILING_WHITESPACE
+  )
+  if(NOT python_process EQUAL 0)
+    hunter_user_error("Python include directory for Python version ${requested_python} not found.")
+  endif()
+  if(NOT EXISTS "${python_include_directory}")
+    hunter_internal_error("Directory not found: ${python_include_directory}")
+  endif()
+  execute_process(
+    COMMAND "${python_executable}" -c "import os.path, sysconfig; info = sysconfig.get_paths(); print(os.path.dirname(info['stdlib']))"
+    RESULT_VARIABLE python_process
+    OUTPUT_VARIABLE python_library_directory
+    OUTPUT_STRIP_TRAILING_WHITESPACE
+  )
+  if(NOT python_process EQUAL 0)
+    hunter_user_error("Python runtime library directory for Python version ${requested_python} not found.")
+  endif()
+  if(NOT EXISTS "${python_library_directory}")
+    hunter_internal_error("Directory not found: ${python_library_directory}")
+  endif()
+  file(
+    APPEND ${boost_user_jam}
+    "using python  : ${requested_python} : \"${python_executable}\" : \"${python_include_directory}\" : \"${python_library_directory}\" ;\n"
+  )
+endif()
+
+# Handle ./b2 build options
+
 list(APPEND build_opts ${b2_component_opts})
 
 if(CMAKE_EXE_LINKER_FLAGS)
@@ -335,6 +387,10 @@ else()
   set(b2_cmd "./b2")
   set(bootstrap_cmd "./bootstrap.sh")
   set(patch_cmd "@CMAKE_COMMAND@" -E echo "Dummy patch command")
+endif()
+
+if(compiler_is_clang AND NOT CMAKE_CROSSCOMPILING)
+  list(APPEND bootstrap_cmd "--with-toolset=clang")
 endif()
 
 if("@MINGW@")
