@@ -6,6 +6,3 @@
 
 int main() {
 }
-
-int main() {
-}
