@@ -292,15 +292,15 @@ file(
 # handle requested python version if such is specified
 hunter_parse_cmake_args_for_keyword(
   CMAKE_ARGS "@HUNTER_Boost_CMAKE_ARGS@"
-  KEYWORD REQUESTED_PYTHON_VERSION
-  OUTPUT requested_python
+  KEYWORD PYTHON_VERSION
+  OUTPUT python_version
 )
 
 # set up paths for python in boost.user.jam
-if(NOT requested_python STREQUAL "")
-  find_package(PythonInterp ${requested_python} EXACT QUIET)
+if(NOT python_version STREQUAL "")
+  find_package(PythonInterp ${python_version} EXACT QUIET)
   if(NOT PYTHONINTERP_FOUND)
-    hunter_user_error("Python Interpreter for Python version ${requested_python} not found.")
+    hunter_user_error("Python Interpreter for Python version ${python_version} not found.")
   endif()
   set(python_executable ${PYTHON_EXECUTABLE})
   execute_process(
@@ -310,7 +310,7 @@ if(NOT requested_python STREQUAL "")
     OUTPUT_STRIP_TRAILING_WHITESPACE
   )
   if(NOT python_process EQUAL 0)
-    hunter_user_error("Python include directory for Python version ${requested_python} not found.")
+    hunter_user_error("Python include directory for Python version ${python_version} not found.")
   endif()
   if(NOT EXISTS "${python_include_directory}")
     hunter_internal_error("Directory not found: ${python_include_directory}")
@@ -322,14 +322,14 @@ if(NOT requested_python STREQUAL "")
     OUTPUT_STRIP_TRAILING_WHITESPACE
   )
   if(NOT python_process EQUAL 0)
-    hunter_user_error("Python runtime library directory for Python version ${requested_python} not found.")
+    hunter_user_error("Python runtime library directory for Python version ${python_version} not found.")
   endif()
   if(NOT EXISTS "${python_library_directory}")
     hunter_internal_error("Directory not found: ${python_library_directory}")
   endif()
   file(
     APPEND ${boost_user_jam}
-    "using python  : ${requested_python} : \"${python_executable}\" : \"${python_include_directory}\" : \"${python_library_directory}\" ;\n"
+    "using python  : ${PYTHON_VERSION_MAJOR}.${PYTHON_VERSION_MINOR} : \"${python_executable}\" : \"${python_include_directory}\" : \"${python_library_directory}\" ;\n"
   )
 endif()
 
