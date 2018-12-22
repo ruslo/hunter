@@ -6,7 +6,7 @@ cmake_minimum_required(VERSION 3.2)
 option(HUNTER_BUILD_SHARED_LIBS "..." ON)
 
 # Configure:
-set(REQUESTED_PYTHON_VERSION 3.5)
+set(PYTHON_VERSION 3.5)
 set(TESTING_CONFIG_OPT FILEPATH "${CMAKE_CURRENT_LIST_DIR}/config.cmake")
 
 # Emulate HunterGate:
@@ -18,7 +18,7 @@ project(download-boost)
 # Requires python version 3.5. Change this in config.cmake if necessary.
 hunter_add_package(Boost COMPONENTS python)
 find_package(Boost CONFIG REQUIRED python35)
-find_package(PythonLibs ${REQUESTED_PYTHON_VERSION} EXACT REQUIRED)
+find_package(PythonLibs ${PYTHON_VERSION} EXACT REQUIRED)
 
 add_library(foo foo.cpp)
 target_link_libraries(

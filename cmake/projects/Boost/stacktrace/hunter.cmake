@@ -18,5 +18,5 @@ hunter_download(
     Boost
     PACKAGE_COMPONENT
     stacktrace
-    PACKAGE_INTERNAL_DEPS_ID "37"
+    PACKAGE_INTERNAL_DEPS_ID "38"
 )

@@ -92,7 +92,7 @@ Python
 ------
 
 To require Boost Python to be built against a specific version of Python installed
-on the system, option ``REQUESTED_PYTHON_VERSION=<VALUE>`` may be used. In this case,
+on the system, option ``PYTHON_VERSION=<VALUE>`` may be used. In this case,
 if the required components of Python are located, ``user_config.jam``
 will be appended with the following line:
 
@@ -110,7 +110,7 @@ Example for Python 2:
       Boost
       VERSION ${HUNTER_Boost_VERSION}
       CMAKE_ARGS
-      REQUESTED_PYTHON_VERSION=2.7.15
+      PYTHON_VERSION=2.7.15
     )
 
 .. code-block:: cmake
@@ -137,7 +137,7 @@ Example for Python 3:
       Boost
       VERSION ${HUNTER_Boost_VERSION}
       CMAKE_ARGS
-      REQUESTED_PYTHON_VERSION=3.6.7
+      PYTHON_VERSION=3.6.7
     )
 
 .. code-block:: cmake
