@@ -16,7 +16,7 @@ hunter_add_version(
     URL
     "https://github.com/hunter-packages/OpenSceneGraph/archive/v3.6.3-p0.tar.gz"
     SHA1
-    ed5e52f56fe34497342a88fa894350336e4f8033
+    0c9eab9364fa1d2d0451c565650851a167f02fe4
 )
 
 hunter_pick_scheme(DEFAULT url_sha1_cmake)
