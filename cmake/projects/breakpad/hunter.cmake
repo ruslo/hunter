@@ -12,11 +12,11 @@ hunter_add_version(
     PACKAGE_NAME
     breakpad
     VERSION
-    0.0.0-12ecff3-p1
+    0.0.0-12ecff3-p2
     URL
-    "https://github.com/hunter-packages/breakpad/archive/v0.0.0-12ecff3-p1.tar.gz"
+    "https://github.com/t0p4/breakpad/archive/v0.0.0-12ecff3-p2.tar.gz"
     SHA1
-    6d6ba5d3f0b8d317b61d1a4256dcdd55f29d19ee
+    1aa21df5c3c11b672e54363ba053ab3dce2dd049
 )
 
 hunter_pick_scheme(DEFAULT url_sha1_cmake)
