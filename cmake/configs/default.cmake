@@ -390,7 +390,7 @@ hunter_default_version(roscpp_core VERSION 0.6.9-p0)
 hunter_default_version(rospack VERSION 2.5.0-p0)
 hunter_default_version(sds VERSION 2.0.0)
 hunter_default_version(sm VERSION 1.2.1)
-hunter_default_version(soil VERSION 1.0.3)
+hunter_default_version(soil VERSION 1.0.4)
 hunter_default_version(sources_for_android_sdk_packer VERSION 1.0.0)
 hunter_default_version(sparsehash VERSION 2.0.2)
 
