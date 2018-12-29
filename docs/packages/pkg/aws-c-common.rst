@@ -1,14 +1,15 @@
 .. spelling::
 
+    aws
     aws-c-common
 
 .. index::
-  single: unsorted ; aws-c-common
+  single: aws ; aws-c-common
 
 .. _pkg.aws-c-common:
 
 aws-c-common
-===
+============
 
 -  `Official <https://github.com/awslabs/aws-c-common>`__
 -  `Hunterized <https://github.com/hunter-packages/aws-c-common>`__
