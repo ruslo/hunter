@@ -13,11 +13,11 @@ hunter_add_version(
     PACKAGE_NAME
     entityx
     VERSION
-    1.3.0-p0
+    1.3.0-p1
     URL
-    "C:/Code/hunter/archives/entityx-1.3.0-p0.tar.gz"
+    "https://github.com/hunter-packages/entityx/archive/v1.3.0-p1.tar.gz"
     SHA1
-    3cedeff793590bdc83f4ee07ad63aff8c3e72da3
+    8df57150ba8a850ed7250fbd7fd4396a0fa05c22
 )
 
 hunter_cmake_args(
