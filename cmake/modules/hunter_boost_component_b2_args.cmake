@@ -51,6 +51,9 @@ function(hunter_boost_component_b2_args compName boostCmakeArgs outList)
 
   if(is_regex_locale)
 
+    set(icu_explicitly_enabled FALSE)
+    set(icu_explicitly_disabled FALSE)
+
     foreach(nvPair ${boostCmakeArgs})
       string(REPLACE "${upperCompName}_" "" compNvPair ${nvPair})
       if(compNvPair STREQUAL nvPair)
@@ -73,9 +76,11 @@ function(hunter_boost_component_b2_args compName boostCmakeArgs outList)
       list(GET x 1 has_icu)
 
       if(NOT has_icu)
-        # No extra flags needed
+        set(icu_explicitly_disabled TRUE)
         continue()
       endif()
+
+      set(icu_explicitly_enabled TRUE)
 
       hunter_add_package(ICU)
       find_package(ICU CONFIG REQUIRED)
@@ -119,6 +124,14 @@ function(hunter_boost_component_b2_args compName boostCmakeArgs outList)
           PARENT_SCOPE
       )
     endforeach()
+
+    if(icu_explicitly_enabled)
+      if(icu_explicitly_disabled)
+        hunter_user_error("Inconsistent ICU configuration")
+      endif()
+    else()
+      list(APPEND myList "--disable-icu")
+    endif()
 
     set("${outList}" ${myList} PARENT_SCOPE)
     return()
