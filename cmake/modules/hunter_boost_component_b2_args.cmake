@@ -9,6 +9,8 @@ cmake_minimum_required(VERSION 3.2)
 # * boost.regex/boost.locale: ICU
 
 include(hunter_add_package)
+include(hunter_user_error)
+
 include("${CMAKE_CURRENT_LIST_DIR}/../Hunter")
 
 function(hunter_boost_component_b2_args compName boostCmakeArgs outList)
@@ -17,9 +19,21 @@ function(hunter_boost_component_b2_args compName boostCmakeArgs outList)
   string(TOUPPER ${compName} upperCompName)
   set(myList "") # empty
 
-  string(COMPARE EQUAL "${compName}" "iostreams" is_iostreams)
+  set(is_common FALSE)
+  set(is_iostreams FALSE)
+  set(is_regex_locale FALSE)
 
-  if(NOT is_iostreams)
+  if(compName STREQUAL "iostreams")
+    set(is_iostreams TRUE)
+  elseif(compName STREQUAL "regex")
+    set(is_regex_locale TRUE)
+  elseif(compName STREQUAL "locale")
+    set(is_regex_locale TRUE)
+  else()
+    set(is_common TRUE)
+  endif()
+
+  if(is_common)
 
     foreach(nvPair ${boostCmakeArgs})
       string(REPLACE "${upperCompName}_" "" compNvPair ${nvPair})
@@ -31,6 +45,82 @@ function(hunter_boost_component_b2_args compName boostCmakeArgs outList)
 
     set("${outList}" ${myList} PARENT_SCOPE)
 
+    return()
+
+  endif()
+
+  if(is_regex_locale)
+
+    foreach(nvPair ${boostCmakeArgs})
+      string(REPLACE "${upperCompName}_" "" compNvPair ${nvPair})
+      if(compNvPair STREQUAL nvPair)
+        # nothing replaced, not a component we are looking for
+        continue()
+      endif()
+
+      if(NOT compNvPair MATCHES "^HAS_ICU=")
+        list(APPEND myList "-s" ${compNvPair})
+        continue()
+      endif()
+
+      # 'compNvPair' has form 'HAS_ICU=xxx'
+      string(REPLACE "=" ";" x "${compNvPair}")
+      list(LENGTH x x_len)
+      if(NOT x_len EQUAL 2)
+        hunter_user_error("Unexpected HAS_ICU format: ${nvPair}")
+      endif()
+
+      list(GET x 1 has_icu)
+
+      if(NOT has_icu)
+        # No extra flags needed
+        continue()
+      endif()
+
+      hunter_add_package(ICU)
+      find_package(ICU CONFIG REQUIRED)
+
+      list(APPEND myList "-s" "ICU_PATH=${ICU_ROOT}")
+      set(icu_link)
+
+      foreach(target i18n uc data)
+        if(NOT TARGET ICU::${target})
+          hunter_internal_error("Target not found: ICU::${target}")
+        endif()
+
+        get_target_property(path ICU::${target} IMPORTED_LOCATION_RELEASE)
+        if(path)
+          list(APPEND icu_link ${path})
+          continue()
+        endif()
+
+        get_target_property(configs ICU::${target} IMPORTED_CONFIGURATIONS)
+        if(NOT configs)
+          hunter_internal_error("No ICU configurations")
+        endif()
+        list(GET configs 0 config)
+        string(TOUPPER "${config}" config)
+        get_target_property(path ICU::${target} IMPORTED_LOCATION_${config})
+        if(NOT path)
+          hunter_internal_error("No ICU library")
+        endif()
+        list(APPEND icu_link ${path})
+      endforeach()
+
+      if(NOT "${CMAKE_DL_LIBS}" STREQUAL "")
+        list(APPEND icu_link "-l${CMAKE_DL_LIBS}")
+      endif()
+
+      string(REPLACE ";" " " icu_link "${icu_link}")
+
+      set(
+          CMAKE_EXE_LINKER_FLAGS
+          "${icu_link} ${CMAKE_EXE_LINKER_FLAGS}"
+          PARENT_SCOPE
+      )
+    endforeach()
+
+    set("${outList}" ${myList} PARENT_SCOPE)
     return()
 
   endif()
