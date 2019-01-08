@@ -38,4 +38,20 @@ function(hunter_install_boost_config)
         @ONLY
     )
   endif()
+
+  if(BOOST_CONFIG_REGEX_LINK_ICU)
+    configure_file(
+        "${templates}/BoostRegexICUDependency.cmake.in"
+        "${configs}/BoostRegexICUDependency.cmake"
+        @ONLY
+    )
+  endif()
+
+  if(BOOST_CONFIG_LOCALE_LINK_ICU)
+    configure_file(
+        "${templates}/BoostLocaleICUDependency.cmake.in"
+        "${configs}/BoostLocaleICUDependency.cmake"
+        @ONLY
+    )
+  endif()
 endfunction()

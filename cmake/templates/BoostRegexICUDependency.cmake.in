@@ -1,0 +1,15 @@
+# Copyright (c) 2015, 2019, Ruslan Baratov
+# All rights reserved.
+
+# Do not call 'hunter_add_package(ICU)' because ICU it not a basic dependency
+find_package(ICU CONFIG REQUIRED)
+
+get_target_property(
+   _interface_link_libraries Boost::regex INTERFACE_LINK_LIBRARIES
+)
+
+set_target_properties(
+    Boost::regex
+    PROPERTIES
+    INTERFACE_LINK_LIBRARIES "${_interface_link_libraries};ICU::i18n"
+)
