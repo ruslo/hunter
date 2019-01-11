@@ -13,7 +13,7 @@ soil
 -  https://www.lonesock.net/soil.html
 -  `Official <https://github.com/frequem/Simple-OpenGL-Image-Library>`__
 -  `Example <https://github.com/frequem/hunter/blob/master/examples/soil/CMakeLists.txt>`__
--  Added by `frequem <https://github.com/frequem>`__ (`pr-N <https://github.com/ruslo/hunter/pull/N>`__)
+-  Added by `frequem <https://github.com/frequem>`__ (`pr-1703 <https://github.com/ruslo/hunter/pull/1703>`__)
 
 .. literalinclude:: /../examples/soil/CMakeLists.txt
   :language: cmake
