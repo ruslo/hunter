@@ -20,5 +20,5 @@ set(SOURCES main.cpp
 set(HEADERS foo.hpp)
 
 add_executable(foo_test ${SOURCES} ${HEADERS})
-target_link_libraries(foo_test PUBLIC Catch2::Catch)
+target_link_libraries(foo_test PUBLIC Catch2::Catch2)
 # DOCUMENTATION_END }
