@@ -14,9 +14,9 @@ hunter_add_version(
     VERSION
     0.2.1
     URL
-    "https://github.com/insufficientchocolate/aws-c-common/archive/hunter-0.2.1.tar.gz"
+    "https://github.com/hunter-packages/aws-c-common/archive/hunter-0.2.1.tar.gz"
     SHA1
-    cda0688ce95311e4b5fa46753ae0a0e73f7aa2a0
+    611ebf1e10eb0f798af00a9330adb5503c7f9c16
 )
 
 hunter_pick_scheme(DEFAULT url_sha1_cmake)
