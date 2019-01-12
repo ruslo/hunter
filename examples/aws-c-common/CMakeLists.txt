@@ -11,7 +11,10 @@ project(download-aws-c-common)
 
 # DOCUMENTATION_START {
 hunter_add_package(aws-c-common)
+
 find_package(aws-c-common CONFIG REQUIRED)
+# To use exported modules
+include(AwsSIMD)
 
 add_executable(boo boo.cpp)
 target_link_libraries(boo PUBLIC AWS::aws-c-common)
