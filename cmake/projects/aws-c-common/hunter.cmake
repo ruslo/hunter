@@ -12,7 +12,7 @@ hunter_add_version(
     PACKAGE_NAME
     aws-c-common
     VERSION
-    0.2.1
+    0.2.1-p0
     URL
     "https://github.com/hunter-packages/aws-c-common/archive/v0.2.1-p0.tar.gz"
     SHA1
