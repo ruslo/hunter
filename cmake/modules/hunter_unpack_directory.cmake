@@ -101,7 +101,7 @@ function(hunter_unpack_directory cache_sha1)
       file(
           APPEND
           "${shell_link_script}"
-          "ln \\\n  \"\${HUNTER_CELLAR_RAW_DIRECTORY}/${x}\" \\\n  \"\$1/${x}\"\n\n"
+          "ln -f \\\n  \"\${HUNTER_CELLAR_RAW_DIRECTORY}/${x}\" \\\n  \"\$1/${x}\"\n\n"
        )
     endforeach()
     # }
