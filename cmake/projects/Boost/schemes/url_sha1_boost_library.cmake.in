@@ -315,17 +315,21 @@ if(NOT python_version STREQUAL "")
   if(NOT EXISTS "${python_include_directory}")
     hunter_internal_error("Directory not found: ${python_include_directory}")
   endif()
-  execute_process(
-    COMMAND "${python_executable}" -c "import os.path, sysconfig; info = sysconfig.get_paths(); print(os.path.dirname(info['stdlib']))"
-    RESULT_VARIABLE python_process
-    OUTPUT_VARIABLE python_library_directory
-    OUTPUT_STRIP_TRAILING_WHITESPACE
-  )
-  if(NOT python_process EQUAL 0)
+  find_package(PythonLibs ${python_version} EXACT QUIET)
+  if(NOT PYTHONLIBS_FOUND)
     hunter_user_error("Python runtime library directory for Python version ${python_version} not found.")
   endif()
-  if(NOT EXISTS "${python_library_directory}")
-    hunter_internal_error("Directory not found: ${python_library_directory}")
+  list(LENGTH PYTHON_LIBRARIES python_libraries_list_length)
+  if(python_libraries_list_length EQUAL 1)
+    set(python_optimized_library_path "${PYTHON_LIBRARIES}")
+  else()
+    list(GET PYTHON_LIBRARIES 1 python_optimized_library_path)
+  endif()
+  get_filename_component(python_library_directory "${python_optimized_library_path}" DIRECTORY)
+  if("@MSVC@")
+    string(REPLACE "/" "\\\\" python_executable "${python_executable}")
+    string(REPLACE "\\" "\\\\" python_include_directory "${python_include_directory}")
+    string(REPLACE "/" "\\\\" python_library_directory "${python_library_directory}")
   endif()
   file(
     APPEND ${boost_user_jam}
