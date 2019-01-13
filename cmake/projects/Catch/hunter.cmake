@@ -13,6 +13,17 @@ hunter_add_version(
     PACKAGE_NAME
     Catch
     VERSION
+    "2.5.0"
+    URL
+    "https://github.com/catchorg/Catch2/archive/v2.5.0.tar.gz"
+    SHA1
+    55fa742c9d2b6890da7060ca8c58693e7c8929fb
+)
+
+hunter_add_version(
+    PACKAGE_NAME
+    Catch
+    VERSION
     "2.2.2"
     URL
     "https://github.com/catchorg/Catch2/archive/v2.2.2.tar.gz"
@@ -67,7 +78,7 @@ hunter_add_version(
 hunter_cmake_args(
   Catch
   CMAKE_ARGS
-    NO_SELFTEST=TRUE
+  NO_SELFTEST=TRUE CATCH_BUILD_TESTING=OFF
 )
 
 hunter_pick_scheme(DEFAULT url_sha1_cmake)
