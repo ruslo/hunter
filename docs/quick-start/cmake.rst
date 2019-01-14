@@ -34,7 +34,7 @@ Notes about version of CMake
 
 * `3.9.2`_ **Minimum for Android NDK r16+**
 
-* _`3.13.0_ **Minimum for Xcode 10 support**
+* _`3.13.0`_ **Minimum for Xcode 10 support**
 
 .. tip::
 
