@@ -34,6 +34,8 @@ Notes about version of CMake
 
 * `3.9.2`_ **Minimum for Android NDK r16+**
 
+* _`3.13.0_ **Minimum for Xcode 10 support**
+
 .. tip::
 
   * `CMake milestones <https://gitlab.kitware.com/cmake/cmake/milestones?state=all>`__ (`old version <https://cmake.org/Bug/changelog_page.php>`__)
@@ -60,3 +62,4 @@ Notes about version of CMake
 .. _3.7.0: https://cmake.org/cmake/help/latest/release/3.7.html#commands
 .. _3.7.1: https://cmake.org/cmake/help/latest/release/3.7.html#platforms
 .. _3.9.2: https://gitlab.kitware.com/cmake/cmake/issues/17253
+.. _3.12.0: https://gitlab.kitware.com/cmake/cmake/issues/18099
