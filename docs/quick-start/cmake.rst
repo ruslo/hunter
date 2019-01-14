@@ -62,4 +62,4 @@ Notes about version of CMake
 .. _3.7.0: https://cmake.org/cmake/help/latest/release/3.7.html#commands
 .. _3.7.1: https://cmake.org/cmake/help/latest/release/3.7.html#platforms
 .. _3.9.2: https://gitlab.kitware.com/cmake/cmake/issues/17253
-.. _3.12.0: https://gitlab.kitware.com/cmake/cmake/issues/18099
+.. _3.13.0: https://gitlab.kitware.com/cmake/cmake/issues/18099
