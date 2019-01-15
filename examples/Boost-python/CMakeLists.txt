@@ -20,7 +20,7 @@ hunter_add_package(Boost COMPONENTS python)
 find_package(Boost CONFIG REQUIRED python35)
 find_package(PythonLibs ${PYTHON_VERSION} EXACT REQUIRED)
 
-add_library(foo foo.cpp)
+PYTHON_ADD_MODULE(foo foo.cpp)
 target_link_libraries(
     foo
     PUBLIC
