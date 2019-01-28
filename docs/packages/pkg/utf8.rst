@@ -1,6 +1,6 @@
 .. spelling::
 
-    utf8
+    utf
 
 .. index::
   single: text ; utf8
