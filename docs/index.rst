@@ -66,7 +66,6 @@ Sounds interesting? Keep reading!
    Frequently Asked Questions <faq>
    /contributing
    /contacts
-   /donations
    /reference
 
 .. [1] C++ is the main goal, works for other types as well. See :ref:`Manage anything <manage-anything>`.
