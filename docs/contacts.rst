@@ -1,6 +1,11 @@
 .. Copyright (c) 2016-2019, Ruslan Baratov
 .. All rights reserved.
 
+.. spelling::
+
+  Gitter
+  refactor
+
 Contacts
 --------
 
