@@ -1021,6 +1021,286 @@
 # pragma message(HUNTER_INFO(__FLOAT_WORD_ORDER__))
 #endif
 
+#if defined(__FLT128_DECIMAL_DIG__)
+# pragma message(HUNTER_INFO(__FLT128_DECIMAL_DIG__))
+#endif
+
+#if defined(__FLT128_DENORM_MIN__)
+# pragma message(HUNTER_INFO(__FLT128_DENORM_MIN__))
+#endif
+
+#if defined(__FLT128_DIG__)
+# pragma message(HUNTER_INFO(__FLT128_DIG__))
+#endif
+
+#if defined(__FLT128_EPSILON__)
+# pragma message(HUNTER_INFO(__FLT128_EPSILON__))
+#endif
+
+#if defined(__FLT128_HAS_DENORM__)
+# pragma message(HUNTER_INFO(__FLT128_HAS_DENORM__))
+#endif
+
+#if defined(__FLT128_HAS_INFINITY__)
+# pragma message(HUNTER_INFO(__FLT128_HAS_INFINITY__))
+#endif
+
+#if defined(__FLT128_HAS_QUIET_NAN__)
+# pragma message(HUNTER_INFO(__FLT128_HAS_QUIET_NAN__))
+#endif
+
+#if defined(__FLT128_MANT_DIG__)
+# pragma message(HUNTER_INFO(__FLT128_MANT_DIG__))
+#endif
+
+#if defined(__FLT128_MAX_10_EXP__)
+# pragma message(HUNTER_INFO(__FLT128_MAX_10_EXP__))
+#endif
+
+#if defined(__FLT128_MAX_EXP__)
+# pragma message(HUNTER_INFO(__FLT128_MAX_EXP__))
+#endif
+
+#if defined(__FLT128_MAX__)
+# pragma message(HUNTER_INFO(__FLT128_MAX__))
+#endif
+
+#if defined(__FLT128_MIN_10_EXP__)
+# pragma message(HUNTER_INFO(__FLT128_MIN_10_EXP__))
+#endif
+
+#if defined(__FLT128_MIN_EXP__)
+# pragma message(HUNTER_INFO(__FLT128_MIN_EXP__))
+#endif
+
+#if defined(__FLT128_MIN__)
+# pragma message(HUNTER_INFO(__FLT128_MIN__))
+#endif
+
+#if defined(__FLT32X_DECIMAL_DIG__)
+# pragma message(HUNTER_INFO(__FLT32X_DECIMAL_DIG__))
+#endif
+
+#if defined(__FLT32X_DENORM_MIN__)
+# pragma message(HUNTER_INFO(__FLT32X_DENORM_MIN__))
+#endif
+
+#if defined(__FLT32X_DIG__)
+# pragma message(HUNTER_INFO(__FLT32X_DIG__))
+#endif
+
+#if defined(__FLT32X_EPSILON__)
+# pragma message(HUNTER_INFO(__FLT32X_EPSILON__))
+#endif
+
+#if defined(__FLT32X_HAS_DENORM__)
+# pragma message(HUNTER_INFO(__FLT32X_HAS_DENORM__))
+#endif
+
+#if defined(__FLT32X_HAS_INFINITY__)
+# pragma message(HUNTER_INFO(__FLT32X_HAS_INFINITY__))
+#endif
+
+#if defined(__FLT32X_HAS_QUIET_NAN__)
+# pragma message(HUNTER_INFO(__FLT32X_HAS_QUIET_NAN__))
+#endif
+
+#if defined(__FLT32X_MANT_DIG__)
+# pragma message(HUNTER_INFO(__FLT32X_MANT_DIG__))
+#endif
+
+#if defined(__FLT32X_MAX_10_EXP__)
+# pragma message(HUNTER_INFO(__FLT32X_MAX_10_EXP__))
+#endif
+
+#if defined(__FLT32X_MAX_EXP__)
+# pragma message(HUNTER_INFO(__FLT32X_MAX_EXP__))
+#endif
+
+#if defined(__FLT32X_MAX__)
+# pragma message(HUNTER_INFO(__FLT32X_MAX__))
+#endif
+
+#if defined(__FLT32X_MIN_10_EXP__)
+# pragma message(HUNTER_INFO(__FLT32X_MIN_10_EXP__))
+#endif
+
+#if defined(__FLT32X_MIN_EXP__)
+# pragma message(HUNTER_INFO(__FLT32X_MIN_EXP__))
+#endif
+
+#if defined(__FLT32X_MIN__)
+# pragma message(HUNTER_INFO(__FLT32X_MIN__))
+#endif
+
+#if defined(__FLT32_DECIMAL_DIG__)
+# pragma message(HUNTER_INFO(__FLT32_DECIMAL_DIG__))
+#endif
+
+#if defined(__FLT32_DENORM_MIN__)
+# pragma message(HUNTER_INFO(__FLT32_DENORM_MIN__))
+#endif
+
+#if defined(__FLT32_DIG__)
+# pragma message(HUNTER_INFO(__FLT32_DIG__))
+#endif
+
+#if defined(__FLT32_EPSILON__)
+# pragma message(HUNTER_INFO(__FLT32_EPSILON__))
+#endif
+
+#if defined(__FLT32_HAS_DENORM__)
+# pragma message(HUNTER_INFO(__FLT32_HAS_DENORM__))
+#endif
+
+#if defined(__FLT32_HAS_INFINITY__)
+# pragma message(HUNTER_INFO(__FLT32_HAS_INFINITY__))
+#endif
+
+#if defined(__FLT32_HAS_QUIET_NAN__)
+# pragma message(HUNTER_INFO(__FLT32_HAS_QUIET_NAN__))
+#endif
+
+#if defined(__FLT32_MANT_DIG__)
+# pragma message(HUNTER_INFO(__FLT32_MANT_DIG__))
+#endif
+
+#if defined(__FLT32_MAX_10_EXP__)
+# pragma message(HUNTER_INFO(__FLT32_MAX_10_EXP__))
+#endif
+
+#if defined(__FLT32_MAX_EXP__)
+# pragma message(HUNTER_INFO(__FLT32_MAX_EXP__))
+#endif
+
+#if defined(__FLT32_MAX__)
+# pragma message(HUNTER_INFO(__FLT32_MAX__))
+#endif
+
+#if defined(__FLT32_MIN_10_EXP__)
+# pragma message(HUNTER_INFO(__FLT32_MIN_10_EXP__))
+#endif
+
+#if defined(__FLT32_MIN_EXP__)
+# pragma message(HUNTER_INFO(__FLT32_MIN_EXP__))
+#endif
+
+#if defined(__FLT32_MIN__)
+# pragma message(HUNTER_INFO(__FLT32_MIN__))
+#endif
+
+#if defined(__FLT64X_DECIMAL_DIG__)
+# pragma message(HUNTER_INFO(__FLT64X_DECIMAL_DIG__))
+#endif
+
+#if defined(__FLT64X_DENORM_MIN__)
+# pragma message(HUNTER_INFO(__FLT64X_DENORM_MIN__))
+#endif
+
+#if defined(__FLT64X_DIG__)
+# pragma message(HUNTER_INFO(__FLT64X_DIG__))
+#endif
+
+#if defined(__FLT64X_EPSILON__)
+# pragma message(HUNTER_INFO(__FLT64X_EPSILON__))
+#endif
+
+#if defined(__FLT64X_HAS_DENORM__)
+# pragma message(HUNTER_INFO(__FLT64X_HAS_DENORM__))
+#endif
+
+#if defined(__FLT64X_HAS_INFINITY__)
+# pragma message(HUNTER_INFO(__FLT64X_HAS_INFINITY__))
+#endif
+
+#if defined(__FLT64X_HAS_QUIET_NAN__)
+# pragma message(HUNTER_INFO(__FLT64X_HAS_QUIET_NAN__))
+#endif
+
+#if defined(__FLT64X_MANT_DIG__)
+# pragma message(HUNTER_INFO(__FLT64X_MANT_DIG__))
+#endif
+
+#if defined(__FLT64X_MAX_10_EXP__)
+# pragma message(HUNTER_INFO(__FLT64X_MAX_10_EXP__))
+#endif
+
+#if defined(__FLT64X_MAX_EXP__)
+# pragma message(HUNTER_INFO(__FLT64X_MAX_EXP__))
+#endif
+
+#if defined(__FLT64X_MAX__)
+# pragma message(HUNTER_INFO(__FLT64X_MAX__))
+#endif
+
+#if defined(__FLT64X_MIN_10_EXP__)
+# pragma message(HUNTER_INFO(__FLT64X_MIN_10_EXP__))
+#endif
+
+#if defined(__FLT64X_MIN_EXP__)
+# pragma message(HUNTER_INFO(__FLT64X_MIN_EXP__))
+#endif
+
+#if defined(__FLT64X_MIN__)
+# pragma message(HUNTER_INFO(__FLT64X_MIN__))
+#endif
+
+#if defined(__FLT64_DECIMAL_DIG__)
+# pragma message(HUNTER_INFO(__FLT64_DECIMAL_DIG__))
+#endif
+
+#if defined(__FLT64_DENORM_MIN__)
+# pragma message(HUNTER_INFO(__FLT64_DENORM_MIN__))
+#endif
+
+#if defined(__FLT64_DIG__)
+# pragma message(HUNTER_INFO(__FLT64_DIG__))
+#endif
+
+#if defined(__FLT64_EPSILON__)
+# pragma message(HUNTER_INFO(__FLT64_EPSILON__))
+#endif
+
+#if defined(__FLT64_HAS_DENORM__)
+# pragma message(HUNTER_INFO(__FLT64_HAS_DENORM__))
+#endif
+
+#if defined(__FLT64_HAS_INFINITY__)
+# pragma message(HUNTER_INFO(__FLT64_HAS_INFINITY__))
+#endif
+
+#if defined(__FLT64_HAS_QUIET_NAN__)
+# pragma message(HUNTER_INFO(__FLT64_HAS_QUIET_NAN__))
+#endif
+
+#if defined(__FLT64_MANT_DIG__)
+# pragma message(HUNTER_INFO(__FLT64_MANT_DIG__))
+#endif
+
+#if defined(__FLT64_MAX_10_EXP__)
+# pragma message(HUNTER_INFO(__FLT64_MAX_10_EXP__))
+#endif
+
+#if defined(__FLT64_MAX_EXP__)
+# pragma message(HUNTER_INFO(__FLT64_MAX_EXP__))
+#endif
+
+#if defined(__FLT64_MAX__)
+# pragma message(HUNTER_INFO(__FLT64_MAX__))
+#endif
+
+#if defined(__FLT64_MIN_10_EXP__)
+# pragma message(HUNTER_INFO(__FLT64_MIN_10_EXP__))
+#endif
+
+#if defined(__FLT64_MIN_EXP__)
+# pragma message(HUNTER_INFO(__FLT64_MIN_EXP__))
+#endif
+
+#if defined(__FLT64_MIN__)
+# pragma message(HUNTER_INFO(__FLT64_MIN__))
+#endif
+
 #if defined(__FLT_DECIMAL_DIG__)
 # pragma message(HUNTER_INFO(__FLT_DECIMAL_DIG__))
 #endif
@@ -1035,6 +1315,10 @@
 
 #if defined(__FLT_EPSILON__)
 # pragma message(HUNTER_INFO(__FLT_EPSILON__))
+#endif
+
+#if defined(__FLT_EVAL_METHOD_TS_18661_3__)
+# pragma message(HUNTER_INFO(__FLT_EVAL_METHOD_TS_18661_3__))
 #endif
 
 #if defined(__FLT_EVAL_METHOD__)
@@ -1469,12 +1753,20 @@
 # pragma message(HUNTER_INFO(__INT_FAST16_TYPE__))
 #endif
 
+#if defined(__INT_FAST16_WIDTH__)
+# pragma message(HUNTER_INFO(__INT_FAST16_WIDTH__))
+#endif
+
 #if defined(__INT_FAST32_MAX__)
 # pragma message(HUNTER_INFO(__INT_FAST32_MAX__))
 #endif
 
 #if defined(__INT_FAST32_TYPE__)
 # pragma message(HUNTER_INFO(__INT_FAST32_TYPE__))
+#endif
+
+#if defined(__INT_FAST32_WIDTH__)
+# pragma message(HUNTER_INFO(__INT_FAST32_WIDTH__))
 #endif
 
 #if defined(__INT_FAST64_MAX__)
@@ -1485,12 +1777,20 @@
 # pragma message(HUNTER_INFO(__INT_FAST64_TYPE__))
 #endif
 
+#if defined(__INT_FAST64_WIDTH__)
+# pragma message(HUNTER_INFO(__INT_FAST64_WIDTH__))
+#endif
+
 #if defined(__INT_FAST8_MAX__)
 # pragma message(HUNTER_INFO(__INT_FAST8_MAX__))
 #endif
 
 #if defined(__INT_FAST8_TYPE__)
 # pragma message(HUNTER_INFO(__INT_FAST8_TYPE__))
+#endif
+
+#if defined(__INT_FAST8_WIDTH__)
+# pragma message(HUNTER_INFO(__INT_FAST8_WIDTH__))
 #endif
 
 #if defined(__INT_LEAST16_MAX__)
@@ -1501,12 +1801,20 @@
 # pragma message(HUNTER_INFO(__INT_LEAST16_TYPE__))
 #endif
 
+#if defined(__INT_LEAST16_WIDTH__)
+# pragma message(HUNTER_INFO(__INT_LEAST16_WIDTH__))
+#endif
+
 #if defined(__INT_LEAST32_MAX__)
 # pragma message(HUNTER_INFO(__INT_LEAST32_MAX__))
 #endif
 
 #if defined(__INT_LEAST32_TYPE__)
 # pragma message(HUNTER_INFO(__INT_LEAST32_TYPE__))
+#endif
+
+#if defined(__INT_LEAST32_WIDTH__)
+# pragma message(HUNTER_INFO(__INT_LEAST32_WIDTH__))
 #endif
 
 #if defined(__INT_LEAST64_MAX__)
@@ -1517,6 +1825,10 @@
 # pragma message(HUNTER_INFO(__INT_LEAST64_TYPE__))
 #endif
 
+#if defined(__INT_LEAST64_WIDTH__)
+# pragma message(HUNTER_INFO(__INT_LEAST64_WIDTH__))
+#endif
+
 #if defined(__INT_LEAST8_MAX__)
 # pragma message(HUNTER_INFO(__INT_LEAST8_MAX__))
 #endif
@@ -1525,8 +1837,16 @@
 # pragma message(HUNTER_INFO(__INT_LEAST8_TYPE__))
 #endif
 
+#if defined(__INT_LEAST8_WIDTH__)
+# pragma message(HUNTER_INFO(__INT_LEAST8_WIDTH__))
+#endif
+
 #if defined(__INT_MAX__)
 # pragma message(HUNTER_INFO(__INT_MAX__))
+#endif
+
+#if defined(__INT_WIDTH__)
+# pragma message(HUNTER_INFO(__INT_WIDTH__))
 #endif
 
 #if defined(__IPHONE_OS_VERSION_MAX_ALLOWED)
@@ -1559,6 +1879,10 @@
 
 #if defined(__LACCUM_MIN__)
 # pragma message(HUNTER_INFO(__LACCUM_MIN__))
+#endif
+
+#if defined(__LDBL_DECIMAL_DIG__)
+# pragma message(HUNTER_INFO(__LDBL_DECIMAL_DIG__))
 #endif
 
 #if defined(__LDBL_DENORM_MIN__)
@@ -1693,8 +2017,16 @@
 # pragma message(HUNTER_INFO(__LONG_LONG_MAX__))
 #endif
 
+#if defined(__LONG_LONG_WIDTH__)
+# pragma message(HUNTER_INFO(__LONG_LONG_WIDTH__))
+#endif
+
 #if defined(__LONG_MAX__)
 # pragma message(HUNTER_INFO(__LONG_MAX__))
+#endif
+
+#if defined(__LONG_WIDTH__)
+# pragma message(HUNTER_INFO(__LONG_WIDTH__))
 #endif
 
 #if defined(__LP64__)
@@ -1973,6 +2305,10 @@
 # pragma message(HUNTER_INFO(__SCHAR_MAX__))
 #endif
 
+#if defined(__SCHAR_WIDTH__)
+# pragma message(HUNTER_INFO(__SCHAR_WIDTH__))
+#endif
+
 #if defined(__SEG_FS)
 # pragma message(HUNTER_INFO(__SEG_FS))
 #endif
@@ -2023,6 +2359,10 @@
 
 #if defined(__SHRT_MAX__)
 # pragma message(HUNTER_INFO(__SHRT_MAX__))
+#endif
+
+#if defined(__SHRT_WIDTH__)
+# pragma message(HUNTER_INFO(__SHRT_WIDTH__))
 #endif
 
 #if defined(__SIG_ATOMIC_MAX__)
@@ -3013,12 +3353,20 @@
 # pragma message(HUNTER_INFO(__cpp_rvalue_reference))
 #endif
 
+#if defined(__cpp_rvalue_references)
+# pragma message(HUNTER_INFO(__cpp_rvalue_references))
+#endif
+
 #if defined(__cpp_sized_deallocation)
 # pragma message(HUNTER_INFO(__cpp_sized_deallocation))
 #endif
 
 #if defined(__cpp_static_assert)
 # pragma message(HUNTER_INFO(__cpp_static_assert))
+#endif
+
+#if defined(__cpp_threadsafe_static_init)
+# pragma message(HUNTER_INFO(__cpp_threadsafe_static_init))
 #endif
 
 #if defined(__cpp_unicode_characters)
