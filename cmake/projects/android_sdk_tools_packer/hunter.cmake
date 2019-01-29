@@ -41,6 +41,17 @@ hunter_add_version(
     486140b9a3db1610aba7fcbda8474f2d97d40072
 )
 
+hunter_add_version(
+    PACKAGE_NAME
+    android_sdk_tools_packer
+    VERSION
+    1.0.3
+    URL
+    "https://github.com/hunter-packages/android_sdk_tools_packer/archive/v1.0.3.tar.gz"
+    SHA1
+    71a497152e3e1efe535df2c30210596e91042ecf
+)
+
 hunter_pick_scheme(DEFAULT url_sha1_cmake)
 hunter_cacheable(android_sdk_tools_packer)
 hunter_download(PACKAGE_NAME android_sdk_tools_packer)
