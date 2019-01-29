@@ -59,6 +59,7 @@ add a local ``cmake/Hunter/config.cmake`` file with the following contents:
       VERSION ${HUNTER_ceres-solver_VERSION} CMAKE_ARGS
         LAPACK=ON
         SUITESPARSE=ON
+        CXSPARSE=ON # since 1.14.0-p1
     )
 
 Don't forget to add ``enable_language(Fortran)`` in your projects ``CMakeLists.txt``.
@@ -75,6 +76,7 @@ add a local ``cmake/Hunter/config.cmake`` file with the following contents:
       VERSION ${HUNTER_ceres-solver_VERSION} CMAKE_ARGS
         LAPACK=ON
         SUITESPARSE=ON
+        CXSPARSE=ON # since 1.14.0-p1
     )
     hunter_config(LAPACK
       VERSION ${HUNTER_LAPACK_VERSION}
