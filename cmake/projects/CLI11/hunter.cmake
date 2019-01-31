@@ -54,6 +54,40 @@ hunter_add_version(
     4d900c543cc73b80bc31da20998b2d516d67e0ae
 )
 
+hunter_add_version(
+    PACKAGE_NAME
+    CLI11
+    VERSION
+    1.6.2
+    URL
+    "https://github.com/CLIUtils/CLI11/archive/v1.6.2.tar.gz"
+    SHA1
+    a2012510cb565f17c76c1b1c0e4a7bc80fbccb33
+)
+
+hunter_add_version(
+    PACKAGE_NAME
+    CLI11
+    VERSION
+    1.7.0
+    URL
+    "https://github.com/CLIUtils/CLI11/archive/v1.7.0.tar.gz"
+    SHA1
+    223a3c3dff2ccbb37e9caafb3f6308fc32564060
+)
+
+hunter_add_version(
+    PACKAGE_NAME
+    CLI11
+    VERSION
+    1.7.1
+    URL
+    "https://github.com/CLIUtils/CLI11/archive/v1.7.1.tar.gz"
+    SHA1
+    05b6b47b58201e00db8346a9ad4df172014a4a04
+
+)
+
 hunter_cmake_args(
     CLI11
     CMAKE_ARGS
