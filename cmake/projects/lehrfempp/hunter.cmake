@@ -31,6 +31,17 @@ hunter_add_version(
     c5ed5b1262a46dad28ac2d558781f08cffbd4993
 )
 
+hunter_add_version(
+    PACKAGE_NAME
+    lehrfempp
+    VERSION
+    0.7.8
+    URL
+    "https://github.com/craffael/lehrfempp/archive/release-0.7.8.tar.gz"
+    SHA1
+    ddb39d94039000686d5acd5e7e1cfa464c15dacb
+)
+
 hunter_cmake_args(
     lehrfempp
     CMAKE_ARGS
