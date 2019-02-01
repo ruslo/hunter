@@ -3,7 +3,7 @@
     blake2s-opt
 
 .. index::
-  single: unsorted ; blake2s-opt
+  single: crypto ; blake2s-opt
 
 .. _pkg.blake2s-opt:
 
