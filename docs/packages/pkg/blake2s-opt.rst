@@ -7,7 +7,7 @@
 
 .. _pkg.blake2s-opt:
 
-blake2s-opt
+Blake2s-opt
 ===========
 
 -  `Official <https://github.com/floodyberry/blake2s-opt>`__
