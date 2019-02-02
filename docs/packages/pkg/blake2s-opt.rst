@@ -13,7 +13,7 @@ blake2s-opt
 -  `Official <https://github.com/floodyberry/blake2s-opt>`__
 -  `Hunterized <https://github.com/Warchant/blake2s-opt>`__
 -  `Example <https://github.com/ruslo/hunter/blob/master/examples/blake2s-opt/CMakeLists.txt>`__
--  Added by `Warchant <https://github.com/Warchant>`__ (`pr-N <https://github.com/ruslo/hunter/pull/N>`__)
+-  Added by `Warchant <https://github.com/Warchant>`__ (`pr-1728 <https://github.com/ruslo/hunter/pull/1728>`__)
 
 .. literalinclude:: /../examples/blake2s-opt/CMakeLists.txt
   :language: cmake
