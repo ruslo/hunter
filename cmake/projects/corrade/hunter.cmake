@@ -12,7 +12,7 @@ hunter_add_version(
     PACKAGE_NAME
     corrade
     VERSION
-    v2019.01
+    2019.01
     URL
     "https://github.com/mosra/corrade/archive/v2019.01.tar.gz"
     SHA1
