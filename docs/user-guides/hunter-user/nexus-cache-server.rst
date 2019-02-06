@@ -53,5 +53,36 @@ variable before ``HunterGate`` to configure ``Hunter`` to use ``Nexus`` server:
       STRING
       "Hunter cache servers"
   )
+  
+  option(HUNTER_RUN_UPLOAD "Upload cache binaries" ON)
+  
+  # not recommended to store passwords in plain text, but for example this is ok
+  set(
+    HUNTER_PASSWORDS_PATH
+    "${CMAKE_CURRENT_LIST_DIR}/cmake/HunterPasswords.cmake"
+    CACHE
+    FILEPATH
+    "Hunter passwords"
+  )
 
   HunterGate(URL "..." SHA1 "...")
+
+Then in the :ref:`passwords file <hunter-passwords-file>` :
+
+.. code-block:: cmake
+  set(server "http://my.nexus.server.com/content/repositories/hunter/cache")
+  set(username "nexus-username") # replace as appropriate
+  set(password "hunter42")       # replace as appropriate
+
+  hunter_cache_server_password(
+      SERVER "${server}"
+      USERNAME "${username}"
+      PASSWORD "${password}"
+  )
+  
+  hunter_upload_password(
+      SERVER "${server}"
+      USERNAME "${username}"
+      PASSWORD "${password}"
+  )
+
