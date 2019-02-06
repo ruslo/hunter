@@ -1,4 +1,4 @@
-.. Copyright (c) 2018, Ruslan Baratov
+.. Copyright (c) 2018-2019, Ruslan Baratov
 .. All rights reserved.
 
 .. spelling::
@@ -16,7 +16,7 @@ by Hunter.
 Example
 =======
 
-As an example let's take a look at simple project with one tiny
+As an example let's take a look at a simple project with one tiny
 :doc:`md5 package </packages/pkg/md5>` dependency. The project is a slight
 modification of the
 `HelloJni sample <https://github.com/googlesamples/android-ndk/tree/master/hello-jni>`__.
@@ -27,10 +27,9 @@ modification of the
 
 .. note::
 
-  The code was tested with Android Studio 3.2 version which currently is
-  in `beta stage <https://developer.android.com/studio/preview/>`__ .
+  The code was tested with Android Studio 3.3
 
-Check you have at least CMake 3.9.2. Such requirement needed to work with
+Check you have at least CMake 3.9.2. Such a requirement needed to work with
 `Android NDK r16+ <https://gitlab.kitware.com/cmake/cmake/issues/17253>`__:
 
 .. code-block:: none
@@ -50,7 +49,7 @@ Check you have Ninja build tool installed:
   /usr/bin/ninja
 
 You can use your system package manager
-(e.g. on Ubuntu do ``sudo apt-get install ninja-build``)
+(e.g., on Ubuntu do ``sudo apt-get install ninja-build``)
 or download it from GitHub releases, unpack and add to ``PATH``:
 
 * https://github.com/ninja-build/ninja/releases
@@ -64,9 +63,9 @@ Get the sources:
   > cd android-studio-with-hunter
   [android-studio-with-hunter]>
 
-Android Studio project configuration files resides in ``android-studio``
-directory but before opening it you have to create ``local.properties`` file
-and add ``cmake.dir`` entry there.
+Android Studio project configuration files reside in the ``android-studio``
+directory but before opening it you have to create the ``local.properties`` file
+and add the ``cmake.dir`` entry there.
 
 .. seealso::
 
@@ -88,7 +87,7 @@ Android Studio to default locations):
 
 .. hint::
 
-  Since ``local.properties`` contains information about local machine
+  Since ``local.properties`` contains information about a local machine
   you should add it to
   `.gitignore <https://github.com/forexample/android-studio-with-hunter/blob/2639b6732a0d4ffe7608839c60911cc3364b4ca0/.gitignore#L20-L21>`__.
 
@@ -120,7 +119,7 @@ which will trigger Hunter builds for 3 architectures:
       ...
   }
 
-As an alternative you are able to build one architecture at a
+As an alternative, you are able to build one architecture at a
 time using ``-Parch=``:
 
 .. code-block:: none
@@ -142,7 +141,7 @@ there:
 
 .. code-block:: none
 
-  [android-studio-with-hunter/android-studio]> grep 'Hunter-ID' app/.externalNativeBuild/cmake/debug/arm64-v8a/cmake_build_output.txt 
+  [android-studio-with-hunter/android-studio]> grep 'Hunter-ID' app/.externalNativeBuild/cmake/debug/arm64-v8a/cmake_build_output.txt
 
   [hunter] [ Hunter-ID: 4959eb9 | Toolchain-ID: 8e0b164 | Config-ID: 48b836e ]
 
@@ -163,47 +162,83 @@ Or even start CMake build without using Gradle:
   -- Build files have been written to: /.../android-studio-with-hunter/android-studio/app/.externalNativeBuild/cmake/debug/arm64-v8a
   [1/1] Linking CXX shared library ../../../../build/intermediates/cmake/debug/obj/arm64-v8a/libhello-jni.so
 
-.. note::
+Issues
+======
 
-  Not all CMake files necessary for build will be created if initial
-  configure step will fail. In this case you can add ``return()`` command
-  right **after first hunter_add_package** call (this is where initialization
-  is happening and all ``*-ID`` calculated) to mimic successful CMake
-  configure step:
+Detached CMake
+~~~~~~~~~~~~~~
 
-  .. code-block:: cmake
-    :emphasize-lines: 3
+If Gradle build fails the underlying CMake process will **keep running**.
 
-    # ...
-    hunter_add_package(md5)
-    return() # Early exit
+.. code-block:: none
 
-  Run Gradle again:
+  > ./gradlew assembleDebug -Parch=armeabi-v7a
+  ...
 
-  .. code-block:: none
+      * What went wrong:
+      Execution failed for task ':app:generateJsonModelDebug'.
+      > Format specifier '%s'
 
-    [android-studio-with-hunter/android-studio]> ./gradlew asDebug -Parch=arm64-v8a
+CMake is active:
 
-  Remove ``return()`` from CMake code, now you will be able to run CMake:
+.. code-block:: none
 
-  .. code-block:: none
+  > ps aux | grep cmake
 
-    [android-studio-with-hunter/android-studio]> cmake --build app/.externalNativeBuild/cmake/debug/arm64-v8a
+  ... cmake -E server --experimental --debug
+  ... cmake --build /.../__HUNTER/_Base/87420eb/2e091e5/84f821a/Build/OpenCV/Build
+  ... cmake -E touch /.../__HUNTER/_Base/87420eb/2e091e5/84f821a/Build/OpenCV/Build/OpenCV-Release-prefix/src/OpenCV-Release-stamp/OpenCV-Release-download
+  ... cmake -P /.../__HUNTER/_Base/87420eb/2e091e5/84f821a/Build/OpenCV/Build/OpenCV-Release-prefix/src/OpenCV-Release-stamp/download-OpenCV-Release.cmake
 
-.. note::
+Internal files locked:
 
-  At this step you may experience error:
+.. code-block:: none
 
-  .. code-block:: none
+  > lslocks | grep cmake.lock
 
-    [ERROR] [...] * What went wrong:
-    [ERROR] [...] Execution failed for task ':app:generateJsonModelDebug'.
-    [ERROR] [...] Conversion = c, Flags =
+  cmake ... /.../__HUNTER/_Base/Download/OpenCV/4.0.0-p0/90680ea/cmake.lock
+  cmake ... /.../__HUNTER/_Base/87420eb/2e091e5/84f821a/cmake.lock
 
-  It is
-  `a known Android Studio bug <https://issuetracker.google.com/issues/75268076>`__
-  and as workaround just run Gradle again. For continuous integration build
-  set a 10 seconds sleep command between two Gradle launches.
+You **should not** run Gradle build again, wait for CMake job to finish
+or force it to stop (e.g., ``kill -9``).
+
+See issues:
+
+- https://issuetracker.google.com/issues/123895238
+- https://issuetracker.google.com/issues/75268076
+
+No CMake files
+~~~~~~~~~~~~~~
+
+Not all CMake files necessary for the build will be created if the initial
+configure step will fail. In this case, you can add ``return()`` command
+right **after the first hunter_add_package** call (this is where initialization
+is happening and all ``*-ID`` calculated) to mimic successful CMake
+configure step:
+
+.. code-block:: cmake
+  :emphasize-lines: 3
+
+  # ...
+  hunter_add_package(md5)
+  return() # Early exit
+
+Run Gradle again:
+
+.. code-block:: none
+
+  [android-studio-with-hunter/android-studio]> ./gradlew asDebug -Parch=arm64-v8a
+
+Remove ``return()`` from CMake code, now you will be able to run CMake:
+
+.. code-block:: none
+
+  [android-studio-with-hunter/android-studio]> cmake --build app/.externalNativeBuild/cmake/debug/arm64-v8a
+
+Example of how it can be done in a continuous integration build:
+
+- `CMakeLists.txt <https://github.com/elucideye/drishti/blob/7001ac0f6e8e5f9a04a8eae70274a613a13ce96b/CMakeLists.txt#L108-L113>`__
+- `Testing script <https://github.com/elucideye/drishti/blob/7001ac0f6e8e5f9a04a8eae70274a613a13ce96b/bin/jenkins.sh#L203-L226>`__
 
 Project
 =======
@@ -218,7 +253,7 @@ started:
   :width: 80%
 
 If you take a look at ``CMakeLists.txt`` of the project you will find
-option for keeping third party sources:
+the option for keeping third party sources:
 
 .. code-block:: cmake
 
@@ -231,16 +266,16 @@ option for keeping third party sources:
   before adding it to your project.
 
 It means that debugger can be used to step into md5 package source code.
-Open ``hello-jni.cpp`` file and set breakpoint to ``md5_append`` call:
+Open ``hello-jni.cpp`` file and set the breakpoint to ``md5_append`` call:
 
 .. image:: android-studio-breakpoint.png
   :align: center
   :alt: HelloJni breakpoint
 
-Click ``Debug 'app' (Shift + F9)`` to run application in Debug mode.
-After application started click ``CALCULATE`` button on device.
+Click ``Debug 'app' (Shift + F9)`` to run an application in Debug mode.
+After the application started click ``CALCULATE`` button on the device.
 When debugger will reach ``md5_append`` call click ``Step Into (F7)``.
-As you can see debugger stepped into ``md5.c`` source code of third party
+As you can see debugger stepped into the ``md5.c`` source code of third party
 md5 package and "data" with value "Some string" passed to "md5_append" function:
 
 .. image:: android-studio-debugger.png
@@ -250,19 +285,19 @@ md5 package and "data" with value "Some string" passed to "md5_append" function:
 Integration
 ===========
 
-Here is a description of integration approach.
+Here is a description of the integration approach.
 
 :doc:`CMake toolchain file </overview/customization/toolchain-id>` used to
 customize third party packages builds in Hunter. And since Android Studio
-provide it's own toolchain for build such action do introduce a little quirk.
-Some of the variables like ``ANDROID_ABI`` was read from command line and is
+provides it's own toolchain for a build such action do introduce a little quirk.
+Some of the variables like ``ANDROID_ABI`` was read from a command line and is
 not part of the toolchain, hence Hunter will not forward them to third parties.
-User also may want to add extra settings to toolchain. And one more problem is
-that variables provided by Android Studio toolchain little bit differs from
-ones expected by project that relies on ``CMAKE_ANDROID_*`` conventions
+A user also may want to add extra settings to the toolchain. And one more problem is
+that variables provided by Android Studio toolchain little bit differ from
+ones expected by a project that relies on ``CMAKE_ANDROID_*`` conventions
 (introduced in CMake 3.7).
 
-As a workaround for all the issues above we can inject our own toolchain with
+As a workaround for all the issues above, we can inject our own toolchain with
 ``FORCE``.
 
 Add extra CMake argument to ``build.gradle`` configuration:
@@ -282,7 +317,7 @@ Add extra CMake argument to ``build.gradle`` configuration:
 .. note::
 
   Please name this variable next to your project to avoid clashes with
-  another projects that can be added by ``add_subdirectory``.
+  other projects that can be added by ``add_subdirectory``.
 
 Use this variable for triggering CMake workaround code, note that toolchain
 should be set **before** first ``project`` command:
@@ -303,6 +338,6 @@ should be set **before** first ``project`` command:
 
   project(...)
 
-Content of the latest ``toolchain.cmake.in`` template can be found here:
+The content of the latest ``toolchain.cmake.in`` template can be found here:
 
 * https://github.com/forexample/android-studio-with-hunter/blob/master/cmake/template/toolchain.cmake.in

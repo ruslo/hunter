@@ -115,6 +115,9 @@ macro(hunter_setup_msvc)
     hunter_status_debug(
         "CMAKE_VS_DEVENV_COMMAND: '${CMAKE_VS_DEVENV_COMMAND}'"
     )
+    hunter_status_debug(
+        "CMAKE_VS_MSBUILD_COMMAND: '${CMAKE_VS_MSBUILD_COMMAND}'"
+    )
 
     string(COMPARE EQUAL "${_hunter_vcvarsall_path}" "" _is_empty)
     if(_is_empty)
@@ -122,25 +125,35 @@ macro(hunter_setup_msvc)
         # ignore error, see 'tests/hunter_setup_msvc/CMakeLists.txt'
       else()
         hunter_status_debug(
-            "Environment variable '${_hunter_vcvarsall_env}' is empty, analyzing CMAKE_VS_DEVENV_COMMAND"
+            "Environment variable '${_hunter_vcvarsall_env}' is empty,"
+            "  analyzing CMAKE_VS_DEVENV_COMMAND and CMAKE_VS_MSBUILD_COMMAND"
         )
-        string(COMPARE EQUAL "${CMAKE_VS_DEVENV_COMMAND}" "" is_empty)
-        if(is_empty)
+        string(COMPARE EQUAL "${CMAKE_VS_DEVENV_COMMAND}" "" is_devenv_empty)
+        string(COMPARE EQUAL "${CMAKE_VS_MSBUILD_COMMAND}" "" is_msbuild_empty)
+        if(NOT is_devenv_empty AND IS_ABSOLUTE "${CMAKE_VS_DEVENV_COMMAND}")
+          get_filename_component(_hunter_vcvarsall_path
+              "${CMAKE_VS_DEVENV_COMMAND}" DIRECTORY
+          )
+          set(_hunter_vcvarsall_path
+              "${_hunter_vcvarsall_path}/../../VC/Auxiliary/Build"
+          )
+        elseif(is_msbuild_empty AND IS_ABSOLUTE "${CMAKE_VS_MSBUILD_COMMAND}")
+          get_filename_component(_hunter_vcvarsall_path
+              "${CMAKE_VS_MSBUILD_COMMAND}" DIRECTORY
+          )
+          set(_hunter_vcvarsall_path
+              "${_hunter_vcvarsall_path}/../../../VC/Auxiliary/Build"
+          )
+        else()
           hunter_fatal_error(
-              "Incorrect CMAKE_VS_DEVENV_COMMAND: is empty"
+              "Incorrect MSVC setup:"
+              "  At least one of the following should be an absolute path"
+              "  CMAKE_VS_DEVENV_COMMAND:(${CMAKE_VS_DEVENV_COMMAND})"
+              "  CMAKE_VS_MSBUILD_COMMAND:(${CMAKE_VS_MSBUILD_COMMAND})"
               WIKI
               error.vs.devenv
           )
         endif()
-        if(NOT IS_ABSOLUTE "${CMAKE_VS_DEVENV_COMMAND}")
-          hunter_fatal_error(
-              "Incorrect CMAKE_VS_DEVENV_COMMAND: not absolute (${CMAKE_VS_DEVENV_COMMAND})"
-              WIKI
-              error.vs.devenv
-          )
-        endif()
-        get_filename_component(_hunter_vcvarsall_path "${CMAKE_VS_DEVENV_COMMAND}" DIRECTORY)
-        set(_hunter_vcvarsall_path "${_hunter_vcvarsall_path}/../../VC/Auxiliary/Build")
       endif()
     else()
       set(_hunter_vcvarsall_path "${_hunter_vcvarsall_path}/../../VC")
