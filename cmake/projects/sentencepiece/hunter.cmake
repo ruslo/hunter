@@ -20,11 +20,26 @@ hunter_add_version(
     00e5a16ce6af6a4148cd9541c7ff26b9d5e58972
 )
 
+set(_hunter_spm_cmake_args "")
+if(IOS)
+  list(
+      APPEND
+      _hunter_spm_cmake_args
+      SPM_NO_THREADLOCAL=YES
+  )
+endif()
+
+list(
+    APPEND
+    _hunter_spm_cmake_args
+    SPM_USE_BUILTIN_PROTOBUF=OFF
+    SPM_ENABLE_SHARED=OFF
+)
+
 hunter_cmake_args(
     sentencepiece
     CMAKE_ARGS
-    SPM_USE_BUILTIN_PROTOBUF=OFF
-    SPM_ENABLE_SHARED=OFF
+    ${_hunter_spm_cmake_args}
 )
 
 hunter_pick_scheme(DEFAULT url_sha1_cmake)
