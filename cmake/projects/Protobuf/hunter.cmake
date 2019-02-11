@@ -126,6 +126,7 @@ if(ANDROID OR IOS)
       CMAKE_ARGS
         protobuf_BUILD_TESTS=OFF
         protobuf_BUILD_PROTOC=OFF
+        protobuf_BUILD_PROTOC_BINARIES=OFF
   )
 elseif(_hunter_windows_store)
   hunter_cmake_args(
