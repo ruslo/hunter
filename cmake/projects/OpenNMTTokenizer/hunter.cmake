@@ -42,6 +42,17 @@ hunter_add_version(
     1dc732b6c4d3a2e9e7c9b75e753fbc02680e8b17
 )
 
+hunter_add_version(
+    PACKAGE_NAME
+    OpenNMTTokenizer
+    VERSION
+    1.11.0-p1
+    URL
+    "https://github.com/hunter-packages/OpenNMT-Tokenizer/archive/v1.11.0-p1.tar.gz"
+    SHA1
+    0d557399a8e31ffa2208ad41c2a6c2bd38b3e9d4
+)
+
 hunter_cmake_args(OpenNMTTokenizer CMAKE_ARGS LIB_ONLY=YES WITH_ICU=YES)
 
 hunter_pick_scheme(DEFAULT url_sha1_cmake)
