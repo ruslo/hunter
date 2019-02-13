@@ -108,8 +108,7 @@ hunter_download(
     # Patching of glfw3Targets.cmake required as it has full paths due to the lack
     # of imported targets for x11 packages. This should be removed when
     # https://github.com/ruslo/hunter/issues/486 is implemented
-    "${CMAKE_INSTALL_LIBDIR}/cmake/glfw3/glfw3Targets.cmake"
-    "${CMAKE_INSTALL_LIBDIR}/pkgconfig/glfw3.pc"
-
+      "${CMAKE_INSTALL_LIBDIR}/cmake/glfw3/glfw3Targets.cmake"
+      "${CMAKE_INSTALL_LIBDIR}/pkgconfig/glfw3.pc"
 
 )
