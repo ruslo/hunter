@@ -111,5 +111,4 @@ hunter_download(
     "${CMAKE_INSTALL_LIBDIR}/cmake/glfw3/glfw3Targets.cmake"
     "${CMAKE_INSTALL_LIBDIR}/pkgconfig/glfw3.pc"
 
-
 )
