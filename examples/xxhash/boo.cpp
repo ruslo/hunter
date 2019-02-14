@@ -3,6 +3,6 @@
 int main() {
   XXH64_state_t* state = XXH64_createState();
   XXH64_update(state, "hello", 5);
-  XXH64_hash_t hash = XXH64_digest(state);
+  XXH64_digest(state);
   return 0;
 }
