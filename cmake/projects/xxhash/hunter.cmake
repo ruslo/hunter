@@ -12,11 +12,11 @@ hunter_add_version(
     PACKAGE_NAME
     xxhash
     VERSION
-    v0.6.5-p1
+    0.6.5-p0
     URL
-    "https://github.com/Warchant/xxHash/archive/v0.6.5-p1.tar.gz"
+    "https://github.com/hunter-packages/xxHash/archive/0.6.5-p0.tar.gz"
     SHA1
-    dd73c3f3b40e62f4cb4f23d9803565a156fc2bb3
+    7d84575a45360d5c5c075ceb3fc1eb6b334aa5a4
 )
 
 hunter_pick_scheme(DEFAULT url_sha1_cmake)
