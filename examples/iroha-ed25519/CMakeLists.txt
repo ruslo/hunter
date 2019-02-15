@@ -11,7 +11,7 @@ project(download-iroha-ed25519)
 
 # DOCUMENTATION_START {
 hunter_add_package(iroha-ed25519)
-find_package(iroha-ed25519 CONFIG REQUIRED)
+find_package(ed25519 CONFIG REQUIRED)
 
 add_executable(boo boo.cpp)
 target_link_libraries(boo PUBLIC iroha::ed25519)
