@@ -1,0 +1,21 @@
+.. spelling::
+
+    iroha-ed25519
+    Iroha
+
+.. index::
+  single: crypto ; iroha-ed25519
+
+.. _pkg.foo:
+
+Iroha-ed25519
+=============
+
+-  `Official <https://github.com/hyperledger/iroha-ed25519>`__
+-  `Example <https://github.com/ruslo/hunter/blob/master/examples/iroha-ed25519/CMakeLists.txt>`__
+-  Added by `Warchant <https://github.com/Warchant>`__ (`pr-N <https://github.com/ruslo/hunter/pull/N>`__)
+
+.. literalinclude:: /../examples/iroha-ed25519/CMakeLists.txt
+  :language: cmake
+  :start-after: # DOCUMENTATION_START {
+  :end-before: # DOCUMENTATION_END }
