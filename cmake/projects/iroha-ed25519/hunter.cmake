@@ -16,7 +16,7 @@ hunter_add_version(
     URL
     "https://github.com/hyperledger/iroha-ed25519/archive/2.0.0.tar.gz"
     SHA1
-    1111111111111111111111111111111111111111
+    35f683a982da0bf9f291c8ec987dbba7caeafad3
 )
 
 hunter_pick_scheme(DEFAULT url_sha1_cmake)
