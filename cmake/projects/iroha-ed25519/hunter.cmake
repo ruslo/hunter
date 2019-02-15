@@ -15,7 +15,7 @@ hunter_add_version(
     VERSION
     2.0.0
     URL
-    "https://github.com/hyperledger/iroha-ed25519/archive/2.0.0.tar.gz"
+    "https://github.com/hyperledger/iroha-ed25519/archive/feature/hunter.zip"
     SHA1
     35f683a982da0bf9f291c8ec987dbba7caeafad3
 )
