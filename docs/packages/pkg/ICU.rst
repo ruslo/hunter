@@ -25,7 +25,7 @@ Available targets:
 * ``ICU::i18n``
 * ``ICU::io`` (only if ``ICU_BUILD_IO=YES``)
 * ``ICU::le``
-* ``ICU::lx``
+* ``ICU::lx`` (available in :ref:`icu-lx <pkg.icu-lx>` package)
 * ``ICU::tu`` (only if ``ICU_BUILD_TOOLS=YES``)
 * ``ICU::uc``
 * ``ICU::pkgdata`` (only if ``ICU_BUILD_TOOLS=YES``)
