@@ -36,6 +36,10 @@ Please don't
   for original author or author lost interest in it. Please report a new issue
   with your details and fresh setup instead.
 
+- Please don't spam channels with uninformative messages such as
+  "+1", "me too!", "any updates?!", "please please fix it!", etc.
+  Please use `GitHub reactions <https://github.blog/2016-03-10-add-reactions-to-pull-requests-issues-and-comments/>`__ instead.
+
 Hire
 ====
 
