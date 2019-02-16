@@ -72,7 +72,7 @@ else()
 endif()
 
 hunter_default_version(HalideIR VERSION 0.0-2f3ecdf-p0)
-hunter_default_version(ICU VERSION 63.1-p2)
+hunter_default_version(ICU VERSION 63.1-p3)
 hunter_default_version(IF97 VERSION 2.1.2)
 hunter_default_version(Igloo VERSION 1.1.1-hunter)
 hunter_default_version(Jpeg VERSION 9b-p3)
