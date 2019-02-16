@@ -24,6 +24,7 @@ hunter_cmake_args(
     harfbuzz
     CMAKE_ARGS
         HB_HAVE_FREETYPE=ON
+        HB_HAVE_ICU=ON
 )
 
 hunter_pick_scheme(DEFAULT url_sha1_cmake)
