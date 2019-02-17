@@ -6,7 +6,7 @@
 .. index::
   single: crypto ; iroha-ed25519
 
-.. _pkg.foo:
+.. _pkg.iroha-ed25519:
 
 Iroha-ed25519
 =============

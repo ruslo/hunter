@@ -15,19 +15,20 @@ hunter_add_version(
     VERSION
     2.0.0
     URL
-    "https://github.com/hyperledger/iroha-ed25519/archive/feature/hunter.zip"
+    "https://github.com/hyperledger/iroha-ed25519/archive/2.0.0.tar.gz"
     SHA1
-    35f683a982da0bf9f291c8ec987dbba7caeafad3
+    fde00802a907081cf1ce6d54158108e81511b285
 )
 
-# by default, use portable ref10 implementation with default (from ed25519 spec)
-# sha2 hashing algororithm, provided by sha2_sphlib implementation
+# let iroha-ed25519 automatically select ED and RNG implementations, they
+# will depend on OS.
+# explicitly set usage of sha2 (as for default in ed25519 spec)
 hunter_cmake_args(
     iroha-ed25519
     CMAKE_ARGS
-        TESTING=OFF
-        EDIMPL=ref10
-        HASH=sha2_sphlib
+        BUILD=STATIC      # build static library
+        TESTING=OFF       # disable tests
+        HASH=sha2_sphlib  # use sha2_sphlib impl for hash
 )
 
 hunter_pick_scheme(DEFAULT url_sha1_cmake)
