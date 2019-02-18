@@ -16,7 +16,7 @@ Explanation
 What to do
 ----------
 
-- In general sequence must looks like this (see also `error.hunteraddpackage.after.project <https://github.com/ruslo/hunter/wiki/error.hunteraddpackage.after.project>`_):
+- In general sequence must looks like this (see also `error.hunteraddpackage.after.project <https://docs.hunter.sh/en/latest/reference/errors/error.hunteraddpackage.after.project.html>`_):
 
   .. code-block:: cmake
 

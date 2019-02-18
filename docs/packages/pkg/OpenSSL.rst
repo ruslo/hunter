@@ -22,7 +22,7 @@ Fixed/workaround
 ----------------
 
 -  `space in path <https://github.com/openssl/openssl/pull/185>`__,
-   `related <https://github.com/ruslo/hunter/wiki/error.spaces.in.hunter.root>`__
+   `related <https://docs.hunter.sh/en/latest/reference/errors/error.spaces.in.hunter.root.html>`__
 -  Can't be build with ``make -jN``:
    https://github.com/ruslo/hunter/issues/87
 

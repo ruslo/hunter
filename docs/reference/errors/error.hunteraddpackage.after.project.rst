@@ -16,7 +16,7 @@ Explanation
 What to do
 ----------
 
-- In general sequence must looks like this (see also `error.huntergate.before.project <https://github.com/ruslo/hunter/wiki/error.huntergate.before.project>`_):
+- In general sequence must looks like this (see also `error.huntergate.before.project <https://docs.hunter.sh/en/latest/reference/errors/error.huntergate.before.project.html>`_):
 
   .. code-block:: cmake
 
