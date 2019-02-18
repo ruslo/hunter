@@ -12,7 +12,7 @@ What happens
 Explanation
 -----------
 
-- To avoid uninintended buildings installation must be triggered only by user.
+- To avoid unintended buildings installation must be triggered only by user.
 
 What to do
 ----------

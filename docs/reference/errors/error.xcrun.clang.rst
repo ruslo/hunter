@@ -1,3 +1,9 @@
+.. spelling::
+
+  xcode
+  xcrun
+
+
 error.xcrun.clang
 =================
 

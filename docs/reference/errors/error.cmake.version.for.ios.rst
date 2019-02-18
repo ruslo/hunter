@@ -1,3 +1,8 @@
+.. spelling::
+
+  ios
+  cmake
+
 error.cmake.version.for.ios
 ===========================
 

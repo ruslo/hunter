@@ -1,3 +1,8 @@
+.. spelling::
+
+  huntergate
+
+
 error.huntergate.before.project
 ===============================
 

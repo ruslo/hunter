@@ -1,3 +1,9 @@
+.. spelling::
+
+  abi
+  rst
+
+
 error.abi.detection.failure.rst
 ===============================
 

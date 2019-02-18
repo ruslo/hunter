@@ -1,3 +1,8 @@
+.. spelling::
+
+  hunteraddpackage
+
+
 error.hunteraddpackage.after.project
 ====================================
 

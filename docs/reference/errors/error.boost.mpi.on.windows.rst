@@ -1,3 +1,9 @@
+.. spelling::
+
+  mpi
+  rst
+
+
 error.boost.mpi.on.windows.rst
 ==============================
 
@@ -9,6 +15,6 @@ What happens
 What to do
 ----------
 
-- Current boost.mpi version on windows tested with MS-MPI [#]_, please install it (``msmpisdk.msi``), check that the command ``find_package(MPI REQUIRED)`` successfully works then re-run build of cmake project which use hunter
+- Current boost.mpi version on windows tested with MS-MPI [#]_, please install it (``msmpisdk.msi``), check that the command ``find_package(MPI REQUIRED)`` successfully works then re-run build of CMake project which use hunter
 
 .. [#] http://msdn.microsoft.com/en-us/library/bb524831%28v=vs.85%29.aspx

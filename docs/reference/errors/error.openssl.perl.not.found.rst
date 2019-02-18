@@ -1,3 +1,9 @@
+.. spelling::
+
+  perl
+  openssl
+
+
 error.openssl.perl.not.found
 ============================
 

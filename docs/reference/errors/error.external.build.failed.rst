@@ -1,3 +1,8 @@
+.. spelling::
+
+  OpenSSL
+
+
 error.external.build.failed
 ===========================
 
@@ -72,7 +77,7 @@ Reproduce and diagnose package building errors manually
     This may not work always since Hunter can load extra environment variables in internal scripts.
 
 Once you enabled ``HUNTER_STATUS_DEBUG``, read the error output in order to find how to build the package manually and to reproduce the error. 
-Read the output of cmake near the error::
+Read the output of CMake near the error::
 
     [hunter ** FATAL ERROR **] Build step failed (dir: ~/.hunter/_Base/21f5129/d74d0a3/11f31d2/Build/PocoCpp
     [hunter ** FATAL ERROR **] [Directory:~/.hunter/_Base/Download/Hunter/0.19.90/21f5129/Unpacked/cmake/projects/PocoCpp]
@@ -86,7 +91,7 @@ Read the output of cmake near the error::
       ~/.hunter/_Base/Download/Hunter/0.19.90/21f5129/Unpacked/cmake/modules/hunter_fatal_error.cmake:20 (hunter_wiki)
       ...
 
-Carefuly note the directory that is given near the message "build step failed", and build it, like shown below
+Carefully note the directory that is given near the message "build step failed", and build it, like shown below
 
 .. code-block:: bash
 

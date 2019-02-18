@@ -9,7 +9,7 @@ What happens
 Explanation
 -----------
 
-- ``hunter_config`` designed to be used in a special file ``config.cmake``, which is loaded and analyzed internally by Hunter. Users must not call this function explicilty in ``CMakeLists.txt``. The only correct way to use this function is to create separate ``config.cmake`` file and load it by ``HunterGate``
+- ``hunter_config`` designed to be used in a special file ``config.cmake``, which is loaded and analyzed internally by Hunter. Users must not call this function explicitly in ``CMakeLists.txt``. The only correct way to use this function is to create separate ``config.cmake`` file and load it by ``HunterGate``
 
 What to do
 ----------
