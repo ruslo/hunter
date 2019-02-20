@@ -406,6 +406,8 @@ class Cache:
         "{}@users.noreply.github.com".format(github.username)
     )
     config.set_value("user", "name", github.username)
+    if sys.platform == "win32":
+      config.set_value("core", "autocrlf", "input")
     config.release()
 
     if self.repo.is_dirty(untracked_files=True):
