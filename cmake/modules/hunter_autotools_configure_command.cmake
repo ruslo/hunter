@@ -163,7 +163,7 @@ function(hunter_autotools_configure_command out_command_line)
   if(NOT "${len}" EQUAL "1")
     hunter_fatal_error(
         "Autotools PACKAGE_CONFIGURATION_TYPES has ${len} elements: ${PARAM_PACKAGE_CONFIGURATION_TYPES}. Only 1 is allowed"
-        WIKI "autools.package.configuration.types"
+        ERROR_PAGE "autools.package.configuration.types"
     )
   endif()
   string(TOUPPER ${PARAM_PACKAGE_CONFIGURATION_TYPES} config_type)

@@ -30,7 +30,7 @@ function(hunter_config package)
     hunter_fatal_error(
         "Unexpected 'hunter_config' usage from:"
         "  ${CMAKE_CURRENT_LIST_FILE}:${CMAKE_CURRENT_LIST_LINE}"
-        WIKI
+        ERROR_PAGE
         "error.unexpected.hunter_config"
     )
   endif()

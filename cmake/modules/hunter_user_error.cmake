@@ -4,5 +4,5 @@
 include(hunter_fatal_error)
 
 function(hunter_user_error)
-  hunter_fatal_error(${ARGV} WIKI "error.incorrect.input.data")
+  hunter_fatal_error(${ARGV} ERROR_PAGE "error.incorrect.input.data")
 endfunction()

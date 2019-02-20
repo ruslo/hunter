@@ -55,7 +55,7 @@ if(NOT "${PERL_VERSION}" EQUAL 0)
 
   hunter_fatal_error(
       "OpenSSL: perl not found"
-      WIKI "error.openssl.perl.not.found"
+      ERROR_PAGE "error.openssl.perl.not.found"
   )
 endif()
 

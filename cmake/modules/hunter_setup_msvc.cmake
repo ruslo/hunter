@@ -150,7 +150,7 @@ macro(hunter_setup_msvc)
               "  At least one of the following should be an absolute path"
               "  CMAKE_VS_DEVENV_COMMAND:(${CMAKE_VS_DEVENV_COMMAND})"
               "  CMAKE_VS_MSBUILD_COMMAND:(${CMAKE_VS_MSBUILD_COMMAND})"
-              WIKI
+              ERROR_PAGE
               error.vs.devenv
           )
         endif()
