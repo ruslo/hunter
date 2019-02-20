@@ -65,7 +65,7 @@ Mac OS X
   Check you have next flags linked to your target:
 
   .. code-block:: cmake
-     
+
      target_link_libraries(... "-all_load" "-ObjC")
 
 - `Stackoverflow question <http://stackoverflow.com/questions/1725881>`_
@@ -76,16 +76,16 @@ Reproduce and diagnose package building errors manually
  .. warning::
     This may not work always since Hunter can load extra environment variables in internal scripts.
 
-Once you enabled ``HUNTER_STATUS_DEBUG``, read the error output in order to find how to build the package manually and to reproduce the error. 
+Once you enabled ``HUNTER_STATUS_DEBUG``, read the error output in order to find how to build the package manually and to reproduce the error.
 Read the output of CMake near the error::
 
     [hunter ** FATAL ERROR **] Build step failed (dir: ~/.hunter/_Base/21f5129/d74d0a3/11f31d2/Build/PocoCpp
     [hunter ** FATAL ERROR **] [Directory:~/.hunter/_Base/Download/Hunter/0.19.90/21f5129/Unpacked/cmake/projects/PocoCpp]
-    
+
     ------------------------------ WIKI -------------------------------
         https://github.com/ruslo/hunter/wiki/error.external.build.failed
     -------------------------------------------------------------------
-    
+
     CMake Error at ~/.hunter/_Base/Download/Hunter/0.19.90/21f5129/Unpacked/cmake/modules/hunter_wiki.cmake:12 (message):
     Call Stack (most recent call first):
       ~/.hunter/_Base/Download/Hunter/0.19.90/21f5129/Unpacked/cmake/modules/hunter_fatal_error.cmake:20 (hunter_wiki)
