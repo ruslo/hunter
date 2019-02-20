@@ -1,3 +1,8 @@
+.. spelling::
+
+  vs
+  devenv
+
 error.vs.devenv
 ===============
 
