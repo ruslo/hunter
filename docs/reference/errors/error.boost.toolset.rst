@@ -5,8 +5,8 @@
   bjam
 
 
-error.boost.toolset.rst
-=======================
+error.boost.toolset
+===================
 
 What happens
 ------------

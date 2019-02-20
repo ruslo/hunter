@@ -4,8 +4,8 @@
   rst
 
 
-error.boost.mpi.on.windows.rst
-==============================
+error.boost.mpi.on.windows
+==========================
 
 What happens
 ------------

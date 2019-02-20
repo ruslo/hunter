@@ -4,8 +4,8 @@
   rst
 
 
-error.abi.detection.failure.rst
-===============================
+error.abi.detection.failure
+===========================
 
 What happens
 ------------
