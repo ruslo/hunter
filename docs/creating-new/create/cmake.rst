@@ -461,21 +461,21 @@ documentation test build will fail and report the unrecognized strings. Fix
 any spelling errors and test the build again. Any remaining errors can be
 fixed by adding all correct but unrecognized names, string, or terms to the
 ``spelling`` header at the top of the document entry
-``docs/packages/pkg/unrecognized-name.rst``. In this example,
-``unrecognized-name`` would be a package name that is not in the dictionary.
+``docs/packages/pkg/bar-baz.rst``. In this example,
+``bar-baz`` would be a package name that is not in the dictionary.
 
 .. code-block:: none
   :emphasize-lines: 1-4
 
   .. spelling::
 
-  unrecognized-name
-  unrecognized-term
+    bar
+    baz
 
   .. index::
-    single: unsorted ; unrecognized-name
+    single: unsorted ; bar-baz
 
-  .. _pkg.unrecognized-name:
+  .. _pkg.bar-baz:
 
 Add entries for each term until the test build completes successfully.
 
