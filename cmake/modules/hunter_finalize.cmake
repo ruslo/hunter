@@ -48,13 +48,13 @@ macro(hunter_finalize)
 
   if(_c_enabled AND NOT CMAKE_C_ABI_COMPILED)
     hunter_fatal_error(
-        "ABI not detected for C compiler" WIKI "error.abi.detection.failure"
+        "ABI not detected for C compiler" ERROR_PAGE "error.abi.detection.failure"
     )
   endif()
 
   if(_cxx_enabled AND NOT CMAKE_CXX_ABI_COMPILED)
     hunter_fatal_error(
-        "ABI not detected for CXX compiler" WIKI "error.abi.detection.failure"
+        "ABI not detected for CXX compiler" ERROR_PAGE "error.abi.detection.failure"
     )
   endif()
 

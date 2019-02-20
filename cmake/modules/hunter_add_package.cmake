@@ -15,7 +15,7 @@ macro(hunter_add_package)
   if(_project_name_is_empty)
     hunter_fatal_error(
         "Please set hunter_add_package *after* project command"
-        WIKI "error.hunteraddpackage.after.project"
+        ERROR_PAGE "error.hunteraddpackage.after.project"
     )
   endif()
 

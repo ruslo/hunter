@@ -137,7 +137,7 @@ macro(hunter_setup_msvc)
           set(_hunter_vcvarsall_path
               "${_hunter_vcvarsall_path}/../../VC/Auxiliary/Build"
           )
-        elseif(is_msbuild_empty AND IS_ABSOLUTE "${CMAKE_VS_MSBUILD_COMMAND}")
+        elseif(NOT is_msbuild_empty AND IS_ABSOLUTE "${CMAKE_VS_MSBUILD_COMMAND}")
           get_filename_component(_hunter_vcvarsall_path
               "${CMAKE_VS_MSBUILD_COMMAND}" DIRECTORY
           )
@@ -150,7 +150,7 @@ macro(hunter_setup_msvc)
               "  At least one of the following should be an absolute path"
               "  CMAKE_VS_DEVENV_COMMAND:(${CMAKE_VS_DEVENV_COMMAND})"
               "  CMAKE_VS_MSBUILD_COMMAND:(${CMAKE_VS_MSBUILD_COMMAND})"
-              WIKI
+              ERROR_PAGE
               error.vs.devenv
           )
         endif()

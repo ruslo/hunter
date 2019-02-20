@@ -456,6 +456,29 @@ To locally check if the documentation is still building you can run:
   [hunter/docs]> source ./jenkins.sh
   (_venv) [hunter/docs]> ./make.sh
 
+If the documentation contains spelling errors or unrecognized names, the
+documentation test build will fail and report the unrecognized strings. Fix
+any spelling errors and test the build again. Any remaining errors can be
+fixed by adding all correct but unrecognized names, string, or terms to the
+``spelling`` header at the top of the document entry
+``docs/packages/pkg/bar-baz.rst``. In this example,
+``bar-baz`` would be a package name that is not in the dictionary.
+
+.. code-block:: none
+  :emphasize-lines: 1-4
+
+  .. spelling::
+
+    bar
+    baz
+
+  .. index::
+    single: unsorted ; bar-baz
+
+  .. _pkg.bar-baz:
+
+Add entries for each term until the test build completes successfully.
+
 Common mistake
 ==============
 

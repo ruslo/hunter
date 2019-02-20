@@ -1,7 +1,7 @@
 # Copyright (c) 2014, Ruslan Baratov
 # All rights reserved.
 
-include(hunter_wiki)
+include(hunter_error_page)
 
 function(hunter_internal_error)
   message("")
@@ -10,5 +10,5 @@ function(hunter_internal_error)
   endforeach()
   message("[hunter ** INTERNAL **] [Directory:${CMAKE_CURRENT_LIST_DIR}]")
   message("")
-  hunter_wiki("error.internal")
+  hunter_error_page("error.internal")
 endfunction()

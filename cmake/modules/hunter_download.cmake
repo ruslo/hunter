@@ -533,7 +533,7 @@ function(hunter_download)
   if(NOT allow_builds AND HUNTER_PACKAGE_SCHEME_INSTALL)
     hunter_fatal_error(
         "Building package from source is disabled (dir: ${HUNTER_PACKAGE_HOME_DIR})"
-        WIKI "error.build.disabled"
+        ERROR_PAGE "error.build.disabled"
     )
   endif()
 
@@ -587,7 +587,7 @@ function(hunter_download)
   else()
     hunter_fatal_error(
         "Configure step failed (dir: ${HUNTER_PACKAGE_HOME_DIR})"
-        WIKI "error.external.build.failed"
+        ERROR_PAGE "error.external.build.failed"
     )
   endif()
 
@@ -613,7 +613,7 @@ function(hunter_download)
   else()
     hunter_fatal_error(
         "Build step failed (dir: ${HUNTER_PACKAGE_HOME_DIR}"
-        WIKI "error.external.build.failed"
+        ERROR_PAGE "error.external.build.failed"
     )
   endif()
 

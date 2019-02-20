@@ -27,7 +27,7 @@ function(hunter_default_version package)
     hunter_fatal_error(
         "Unexpected 'hunter_default_version' usage from:"
         "  ${CMAKE_CURRENT_LIST_FILE}:${CMAKE_CURRENT_LIST_LINE}"
-        WIKI "error.unexpected.hunter_config"
+        ERROR_PAGE "error.unexpected.hunter_config"
     )
   endif()
 

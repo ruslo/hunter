@@ -86,7 +86,7 @@ elseif("${CMAKE_CXX_COMPILER_ID}" STREQUAL "Intel")
   set(toolset_name "intel")
   set(toolset_version "")
 else()
-  hunter_fatal_error("TODO: set toolset for boost" WIKI "error.boost.toolset")
+  hunter_fatal_error("TODO: set toolset for boost" ERROR_PAGE "error.boost.toolset")
 endif()
 
 hunter_dump_cmake_flags()
@@ -130,7 +130,7 @@ if(is_mpi)
           "MPI is required. Please install it. For example MS-MPI: "
           "http://msdn.microsoft.com/en-us/library/bb524831%28v=vs.85%29.aspx"
       )
-      hunter_fatal_error("MPI is required" WIKI "error.boost.mpi.on.windows")
+      hunter_fatal_error("MPI is required" ERROR_PAGE "error.boost.mpi.on.windows")
     endif()
     get_filename_component(MPI_DIR "${MPI_CXX_INCLUDE_PATH}/.." ABSOLUTE)
     string(REPLACE "/" "\\\\" MPI_DIR "${MPI_DIR}")
