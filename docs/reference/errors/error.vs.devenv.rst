@@ -1,3 +1,8 @@
+.. spelling::
+
+  vs
+  devenv
+
 error.vs.devenv
 ===============
 
@@ -13,8 +18,8 @@ Explanation
 -----------
 
 These paths can be used to determine tools which needed to build non-CMake projects (like Boost).
-- `CMAKE_VS_DEVENV_COMMAND <https://cmake.org/cmake/help/v3.0/variable/CMAKE_VS_DEVENV_COMMAND.html>`_ contains full path to ``devenv.com`` tool when using full versions of Visual Studio. 
-- `CMAKE_VS_MSBUILD_COMMAND <https://cmake.org/cmake/help/v3.0/variable/CMAKE_VS_MSBUILD_COMMAND.html?highlight=cmake_vs_msbuild_command>`_ contains full path to ``MSBuild.exe`` tool. 
+- `CMAKE_VS_DEVENV_COMMAND <https://cmake.org/cmake/help/v3.0/variable/CMAKE_VS_DEVENV_COMMAND.html>`_ contains full path to ``devenv.com`` tool when using full versions of Visual Studio.
+- `CMAKE_VS_MSBUILD_COMMAND <https://cmake.org/cmake/help/v3.0/variable/CMAKE_VS_MSBUILD_COMMAND.html?highlight=cmake_vs_msbuild_command>`_ contains full path to ``MSBuild.exe`` tool.
 
 What to do
 ----------
