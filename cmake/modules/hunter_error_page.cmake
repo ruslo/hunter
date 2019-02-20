@@ -4,7 +4,7 @@
 # Do not move to master - build schemes use this module but they not use master
 set(HUNTER_ERROR_PAGE "https://docs.hunter.sh/en/latest/reference/errors")
 
-function(hunter_wiki error_page)
+function(hunter_error_page error_page)
   message("------------------------------ ERROR -----------------------------")
   message("    ${HUNTER_ERROR_PAGE}/${error_page}.html")
   message("------------------------------------------------------------------")
