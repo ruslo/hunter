@@ -1,5 +1,5 @@
-error.build.disable
-===================
+error.build.disabled
+====================
 
 What happens
 ------------
