@@ -31,6 +31,17 @@ hunter_add_version(
     adec471f56a305970a071f7ab10803012660cf79
 )
 
+hunter_add_version(
+    PACKAGE_NAME
+    harfbuzz
+    VERSION
+    1.7.6-p2
+    URL
+    "https://github.com/hunter-packages/harfbuzz/archive/v1.7.6-p2.tar.gz"
+    SHA1
+    105c15b2c0c56e6dc13b0dda0915f759231dfb0c
+)
+
 hunter_cmake_args(
     harfbuzz
     CMAKE_ARGS
