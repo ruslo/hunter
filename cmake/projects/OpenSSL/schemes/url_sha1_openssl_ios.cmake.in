@@ -39,6 +39,8 @@ hunter_dump_cmake_flags(SKIP_INCLUDES)
 # -> CMAKE_CXX_FLAGS
 # -> CMAKE_C_FLAGS
 
+string(REGEX REPLACE "^ " "" CMAKE_C_FLAGS "${CMAKE_C_FLAGS}")
+
 hunter_unsetvar(ssl_input_libraries)
 hunter_unsetvar(crypto_input_libraries)
 
