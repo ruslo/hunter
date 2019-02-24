@@ -1,6 +1,6 @@
 .. spelling::
 
-    spirv-cross
+    spirv
 
 .. index::
   single: unsorted ; spirv-cross
