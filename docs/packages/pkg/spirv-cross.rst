@@ -12,7 +12,7 @@ spirv-cross
 
 -  `Official <https://github.com/KhronosGroup/SPIRV-Cross>`__
 -  `Example <https://github.com/ruslo/hunter/blob/master/examples/spirv-cross/CMakeLists.txt>`__
--  Added by `Jon Spencer <https://github.com/jhs67>`__ (`pr-N <https://github.com/ruslo/hunter/pull/N>`__)
+-  Added by `Jon Spencer <https://github.com/jhs67>`__ (`pr-1748 <https://github.com/ruslo/hunter/pull/1748>`__)
 
 .. literalinclude:: /../examples/spirv-cross/CMakeLists.txt
   :language: cmake
