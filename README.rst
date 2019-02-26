@@ -7,6 +7,7 @@ CMake driven cross-platform package manager for C/C++.
 Linux, Windows, macOS, iOS, Android, Raspberry Pi, etc.
 
 * Documentation: https://docs.hunter.sh
+* Brief overview: https://docs.hunter.sh/en/latest/overview.html (**Must-read!**)
 * Packages: https://docs.hunter.sh/en/latest/packages.html
 * Sources: https://github.com/ruslo/hunter
 * Reporting issues: https://github.com/ruslo/hunter/issues/new
