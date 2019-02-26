@@ -15,6 +15,13 @@ hunter_cacheable(frugally-deep)
 
 hunter_add_version(
     PACKAGE_NAME frugally-deep
+    VERSION 0.7.7-p0
+    URL "https://github.com/Dobiasd/frugally-deep/archive/v0.7.7-p0.tar.gz"
+    SHA1 3a6e2f8cac231742d0acd52ede5a7c02917e361e
+)
+
+hunter_add_version(
+    PACKAGE_NAME frugally-deep
     VERSION 0.2.2-p0
     URL "https://github.com/Dobiasd/frugally-deep/archive/v0.2.2-p0.tar.gz"
     SHA1 330fd9d2177c4b2ac5ebb9ef17bf358a8dfbd62b
