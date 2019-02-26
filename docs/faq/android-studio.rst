@@ -249,7 +249,7 @@ Example of how it can be done in a continuous integration build:
 Android NDK r19+
 ~~~~~~~~~~~~~~~~
 
-Android NDK r19 is not supported by builtin CMake modules
+Android NDK r19 is not supported by built-in CMake modules
 (which is a requirement). The workaround is to download and use Android
 NDK r18 or lower:
 
