@@ -1,6 +1,7 @@
 .. spelling::
 
     binaryen
+    Binaryen
 
 .. index::
   single: compiler ; binaryen
