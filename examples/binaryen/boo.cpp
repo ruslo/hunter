@@ -1,4 +1,7 @@
 #include <binaryen/binaryen-c.h>
+#include <binaryen/wasm-interpreter.h>
+#include <binaryen/shell-interface.h>
+#include <binaryen/wasm-s-parser.h>
 
 // "hello world" type example: create a function that adds two i32s and returns the result
 

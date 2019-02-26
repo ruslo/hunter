@@ -21,6 +21,17 @@ hunter_add_version(
     6c95a5a46a9e17a04521bb775266f2bae1763287
 )
 
+hunter_add_version(
+    PACKAGE_NAME
+    binaryen
+    VERSION
+    1.38.28-p1
+    URL
+    "https://github.com/Warchant/binaryen/archive/1.38.28-p1.tar.gz"
+    SHA1
+    f8ff97ee1e16862e8c88bfea2ffb88247ad65223
+)
+
 hunter_cmake_args(
     binaryen
     CMAKE_ARGS
