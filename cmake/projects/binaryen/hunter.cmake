@@ -16,15 +16,15 @@ hunter_add_version(
     VERSION
     1.38.28-p0
     URL
-    "https://github.com/Warchant/binaryen/archive/feature/hunter.zip"
+    "https://github.com/Warchant/binaryen/archive/1.38.28-p0.tar.gz"
     SHA1
-    e34a32691eef432a87bdf63d3ca68e2669d04b21
+    6c95a5a46a9e17a04521bb775266f2bae1763287
 )
 
 hunter_cmake_args(
     binaryen
     CMAKE_ARGS
-        BUILD_STATIC_LIB=ON 
+        BUILD_STATIC_LIB=ON
         BUILD_TOOLS=OFF     # we don't want to build executables by default
         ENABLE_WERROR=OFF   # some new compilers (g++-{7,8}) produce warnings so build may fail. we explicitly disable -Werror
 )
