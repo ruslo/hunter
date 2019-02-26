@@ -68,6 +68,10 @@ Sounds interesting? Keep reading!
    /contacts
    /reference
 
+.. note::
+
+  :doc:`Brief overview </overview>` part is a **must-read!**
+
 .. [1] C++ is the main goal, works for other types as well. See :ref:`Manage anything <manage-anything>`.
 
 .. _virtualenv: https://virtualenv.pypa.io/en/latest/

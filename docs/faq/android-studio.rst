@@ -91,6 +91,10 @@ Android Studio to default locations):
   you should add it to
   `.gitignore <https://github.com/forexample/android-studio-with-hunter/blob/2639b6732a0d4ffe7608839c60911cc3364b4ca0/.gitignore#L20-L21>`__.
 
+.. warning::
+
+  Android NDK r19+ is :ref:`not supported <android ndk r19>`.
+
 Please check that ``cmake.dir`` has such value that ``<cmake.dir>/bin/cmake``
 executable exists.
 
@@ -239,6 +243,32 @@ Example of how it can be done in a continuous integration build:
 
 - `CMakeLists.txt <https://github.com/elucideye/drishti/blob/7001ac0f6e8e5f9a04a8eae70274a613a13ce96b/CMakeLists.txt#L108-L113>`__
 - `Testing script <https://github.com/elucideye/drishti/blob/7001ac0f6e8e5f9a04a8eae70274a613a13ce96b/bin/jenkins.sh#L203-L226>`__
+
+.. _android ndk r19:
+
+Android NDK r19+
+~~~~~~~~~~~~~~~~
+
+Android NDK r19 is not supported by built-in CMake modules
+(which is a requirement). The workaround is to download and use Android
+NDK r18 or lower:
+
+- https://developer.android.com/ndk/downloads/older_releases.html
+
+and add path to NDK to ``local.properties``:
+
+.. code-block:: none
+  :emphasize-lines: 1
+
+  ndk.dir=/home/your/path/to/android-ndk-r18
+  sdk.dir=/home/your/path/to/android-sdk
+  cmake.dir=/home/your/path/to/cmake
+
+.. seealso::
+
+  - https://gitlab.kitware.com/cmake/cmake/issues/18739
+  - https://gitlab.kitware.com/cmake/cmake/issues/18787
+
 
 Project
 =======
