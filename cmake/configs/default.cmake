@@ -152,7 +152,7 @@ hunter_default_version(Washer VERSION 0.1.2)
 hunter_default_version(WebKit VERSION 0.0.2-p0)
 hunter_default_version(WebP VERSION 0.6.1-p4)
 hunter_default_version(WinSparkle VERSION 0.4.0)
-hunter_default_version(ZLIB VERSION 1.2.8-p3)
+hunter_default_version(ZLIB VERSION 1.2.11-p0)
 hunter_default_version(ZMQPP VERSION 4.1.2-p3)
 hunter_default_version(ZeroMQ VERSION 4.2.3-p1)
 
