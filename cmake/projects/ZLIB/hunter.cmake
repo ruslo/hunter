@@ -52,6 +52,17 @@ hunter_add_version(
     573dc28474be47d0c7abc1475a14aa12f0dfcadc
 )
 
+hunter_add_version(
+    PACKAGE_NAME
+    ZLIB
+    VERSION
+    "1.2.11-p0"
+    URL
+    "https://github.com/hunter-packages/zlib/archive/v1.2.11-p0.tar.gz"
+    SHA1
+    9ced8b310aa341af7f3584bac0b2d2a669d2178b
+)
+
 hunter_pick_scheme(DEFAULT url_sha1_cmake)
 hunter_cacheable(ZLIB)
 hunter_download(PACKAGE_NAME ZLIB
