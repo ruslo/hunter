@@ -303,29 +303,29 @@ if(NOT python_version STREQUAL "")
     hunter_user_error("Python Interpreter for Python version ${python_version} not found.")
   endif()
   set(python_executable ${PYTHON_EXECUTABLE})
-  execute_process(
-    COMMAND "${python_executable}" -c "import os.path, sysconfig; info = sysconfig.get_paths(); print(info['include'])"
-    RESULT_VARIABLE python_process
-    OUTPUT_VARIABLE python_include_directory
-    OUTPUT_STRIP_TRAILING_WHITESPACE
-  )
-  if(NOT python_process EQUAL 0)
-    hunter_user_error("Python include directory for Python version ${python_version} not found.")
-  endif()
-  if(NOT EXISTS "${python_include_directory}")
-    hunter_internal_error("Directory not found: ${python_include_directory}")
-  endif()
-  execute_process(
-    COMMAND "${python_executable}" -c "import os.path, sysconfig; info = sysconfig.get_paths(); print(os.path.dirname(info['stdlib']))"
-    RESULT_VARIABLE python_process
-    OUTPUT_VARIABLE python_library_directory
-    OUTPUT_STRIP_TRAILING_WHITESPACE
-  )
-  if(NOT python_process EQUAL 0)
+  find_package(PythonLibs ${python_version} EXACT QUIET)
+  if(NOT PYTHONLIBS_FOUND)
     hunter_user_error("Python runtime library directory for Python version ${python_version} not found.")
   endif()
-  if(NOT EXISTS "${python_library_directory}")
-    hunter_internal_error("Directory not found: ${python_library_directory}")
+  # get the main Python include directory containing pyconfig.h
+  list(LENGTH PYTHON_INCLUDE_DIRS python_include_dir_list_length)
+  if(python_include_dir_list_length EQUAL 1)
+    set(python_include_directory "${PYTHON_INCLUDE_DIRS}")
+  else()
+    list(GET PYTHON_INCLUDE_DIRS 0 python_include_directory)
+  endif()
+  # get directory of optimized library
+  list(LENGTH PYTHON_LIBRARIES python_libraries_list_length)
+  if(python_libraries_list_length EQUAL 1)
+    set(python_optimized_library_path "${PYTHON_LIBRARIES}")
+  else()
+    list(GET PYTHON_LIBRARIES 1 python_optimized_library_path)
+  endif()
+  get_filename_component(python_library_directory "${python_optimized_library_path}" DIRECTORY)
+  if("@MSVC@")
+    string(REPLACE "/" "\\\\" python_executable "${python_executable}")
+    string(REPLACE "/" "\\\\" python_include_directory "${python_include_directory}")
+    string(REPLACE "/" "\\\\" python_library_directory "${python_library_directory}")
   endif()
   file(
     APPEND ${boost_user_jam}
