@@ -15,7 +15,7 @@ assignees: ''
 * I'm using [latest](https://github.com/ruslo/hunter/releases) Hunter `URL`/`SHA1`. **[Yes|No]**
 
 <!--- If you can reproduce an issue using just one small CMakeLists.txt, paste it here. -->
-* I've created [SSCCE](https://github.com/ruslo/hunter/releases) reproducing the issue:
+* I've created [SSCCE](http://www.sscce.org/) reproducing the issue:
 ```cmake
 # CMakeLists.txt
 
@@ -35,7 +35,7 @@ find_package(boo CONFIG REQUIRED)
 
 <!--- If it's not just one file and you have to add more CMakeLists.txt or some C++ sources -->
 <!--- then it's better to create separate GitHub repo with an example -->
-* I've created [SSCCE](https://github.com/ruslo/hunter/releases) GitHub repository to reproduce the issue:
+* I've created [SSCCE](http://www.sscce.org/) GitHub repository to reproduce the issue:
   - https://github.com/<username>/<repo>
 
 <!--- Link to CI jobs to reproduce an issue. Optional, but nice to have one. -->
