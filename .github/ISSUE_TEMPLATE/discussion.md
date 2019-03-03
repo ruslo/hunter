@@ -1,6 +1,6 @@
 ---
 name: Discussion
-about: Start a discussion or ask a question
+about: Start a discussion, ask a question or leave a feature request
 title: ''
 labels: discussion
 assignees: ''
