@@ -20,10 +20,22 @@ hunter_add_version(
     7e0835b63683836249d533820f59c6c6b36a3230
 )
 
+hunter_add_version(
+    PACKAGE_NAME
+    units
+    VERSION
+    2.3.1
+    URL
+    "https://github.com/nholthaus/units/archive/v2.3.1.tar.gz"
+    SHA1
+    bfb1ee5ba349ec53fc6d664b887d5beb111e938e
+)
+
 hunter_cmake_args(
     units
     CMAKE_ARGS
         BUILD_TESTS=OFF
+        BUILD_DOCS=OFF
 )
 
 hunter_pick_scheme(DEFAULT url_sha1_cmake)
