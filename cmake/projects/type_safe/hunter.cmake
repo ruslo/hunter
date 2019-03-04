@@ -57,6 +57,17 @@ hunter_add_version(
     PACKAGE_NAME
     type_safe
     VERSION
+    "0.2.1-p1"
+    URL
+    "https://github.com/hunter-packages/type_safe/archive/v0.2.1-p1.zip"
+    SHA1
+    6d583f877cce781ff472f1a0a2d56af68afa5ff1
+)
+
+hunter_add_version(
+    PACKAGE_NAME
+    type_safe
+    VERSION
     "0.2.1-p2"
     URL
     "https://github.com/hunter-packages/type_safe/archive/v0.2.1-p2.zip"
