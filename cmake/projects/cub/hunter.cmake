@@ -21,6 +21,17 @@ hunter_add_version(
     c90ecb5fd3c393371abb9cfbf61d4fd5e36564f1
     )
   
+hunter_add_version(
+    PACKAGE_NAME
+    cub
+    VERSION
+    1.8.0
+    URL
+    "https://github.com/NVlabs/cub/archive/v1.8.0.tar.gz"
+    SHA1
+    07f1ae38fef31f827c794130600ed28bff44fc5c
+    )
+  
 hunter_pick_scheme(DEFAULT url_sha1_cmake)
 hunter_cacheable(cub)
 hunter_download(PACKAGE_NAME cub)
