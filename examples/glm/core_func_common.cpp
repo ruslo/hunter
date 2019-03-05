@@ -30,6 +30,7 @@
 ///////////////////////////////////////////////////////////////////////////////////
 
 #define GLM_FORCE_EXPLICIT_CTOR
+#include <glm/glm.hpp>
 #include <glm/common.hpp>
 #include <glm/gtc/constants.hpp>
 #include <glm/gtc/epsilon.hpp>

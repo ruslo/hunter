@@ -1,0 +1,100 @@
+# Copyright (c) 2013, 2015 Ruslan Baratov, Alexandre Pretyman
+# All rights reserved.
+
+cmake_minimum_required(VERSION 3.0)
+project(Hunter)
+
+include("@HUNTER_SELF@/cmake/Hunter")
+
+include(hunter_user_error)
+include(hunter_status_debug)
+include(hunter_assert_not_empty_string)
+include(hunter_autotools_project)
+
+hunter_status_debug("Scheme: url_sha1_autotools")
+
+if("@MSVC@")
+  hunter_user_error("Autotools scheme not supported with Visual Studio")
+endif()
+
+foreach(dependency ${DEPENDS_ON_PACKAGES})
+  hunter_add_package(${dependency})
+endforeach()
+
+# Check preconditions
+hunter_assert_not_empty_string("@HUNTER_SELF@")
+hunter_assert_not_empty_string("@HUNTER_EP_NAME@")
+hunter_assert_not_empty_string("@HUNTER_PACKAGE_URL@")
+hunter_assert_not_empty_string("@HUNTER_PACKAGE_SHA1@")
+hunter_assert_not_empty_string("@HUNTER_PACKAGE_DOWNLOAD_DIR@")
+hunter_assert_not_empty_string("@HUNTER_PACKAGE_SOURCE_DIR@")
+hunter_assert_not_empty_string("@HUNTER_PACKAGE_BUILD_DIR@")
+hunter_assert_not_empty_string("@HUNTER_PACKAGE_INSTALL_PREFIX@")
+hunter_assert_not_empty_string("@HUNTER_INSTALL_PREFIX@")
+
+set(cflags)
+set(extra_flags)
+set(patch_command
+  ${CMAKE_COMMAND} -E copy "@HUNTER_PACKAGE_SCRIPT_DIR@/configure" "@HUNTER_PACKAGE_SOURCE_DIR@"
+)
+
+if(ANDROID)
+  set(KERNEL_VERSION 3) # API 14-23
+  if (${CMAKE_SYSTEM_VERSION} GREATER_EQUAL "24")
+    set(KERNEL_VERSION 4) # API 24-x
+  endif()
+  configure_file("@HUNTER_PACKAGE_SCRIPT_DIR@/android_uname.in" "@HUNTER_PACKAGE_DOWNLOAD_DIR@/uname" @ONLY)
+
+  list(APPEND cflags "--include android_def.h")
+  list(APPEND extra_flags "--enable-langinfo=no")
+  list(APPEND patch_command
+    COMMAND ${CMAKE_COMMAND} -E copy "@HUNTER_PACKAGE_SCRIPT_DIR@/android_def.h" "@HUNTER_PACKAGE_SOURCE_DIR@"
+    COMMAND ${CMAKE_COMMAND} -E copy "@HUNTER_PACKAGE_DOWNLOAD_DIR@/uname" "@HUNTER_PACKAGE_SOURCE_DIR@"
+  )
+elseif(APPLE)
+  list(APPEND extra_flags "--enable-corefoundation=no")
+endif()
+
+hunter_autotools_project("@HUNTER_EP_NAME@"
+    HUNTER_SELF
+      "@HUNTER_SELF@"
+    URL
+      @HUNTER_PACKAGE_URL@
+    URL_HASH
+      SHA1=@HUNTER_PACKAGE_SHA1@
+    DOWNLOAD_DIR
+      "@HUNTER_PACKAGE_DOWNLOAD_DIR@"
+    SOURCE_DIR
+      "@HUNTER_PACKAGE_SOURCE_DIR@"
+    BUILD_DIR
+      "@HUNTER_PACKAGE_BUILD_DIR@"
+    INSTALL_DIR
+      "@HUNTER_PACKAGE_INSTALL_PREFIX@"
+    GLOBAL_INSTALL_DIR
+      "@HUNTER_INSTALL_PREFIX@"
+    PARALLEL_JOBS
+      "@HUNTER_JOBS_OPTION@"
+    PACKAGE_CONFIGURATION_TYPES
+      "@HUNTER_PACKAGE_CONFIGURATION_TYPES@"
+    CFLAGS
+      ${cflags}
+    EXTRA_FLAGS
+      ${extra_flags}
+    PATCH_COMMAND
+      ${patch_command}
+)
+
+string(COMPARE EQUAL "${DEPENDS_ON_PKGCONFIGS}" "" default_pkgconfig)
+if(NOT default_pkgconfig)
+  set(DEPENDS_ON_PACKAGES ${DEPENDS_ON_PKGCONFIGS})
+endif()
+
+foreach(PKG_CONFIG_MODULE ${PKGCONFIG_EXPORT_TARGETS})
+  # Use:
+  # * DEPENDS_ON_PACKAGES
+  configure_file(
+      "@HUNTER_GLOBAL_SCRIPT_DIR@/pkgconfig-export-targets.cmake.in"
+      "@HUNTER_PACKAGE_INSTALL_PREFIX@/lib/cmake/${PKG_CONFIG_MODULE}/${PKG_CONFIG_MODULE}Config.cmake"
+      @ONLY
+  )
+endforeach()

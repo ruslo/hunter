@@ -16,6 +16,16 @@ hunter_add_package(Qt COMPONENTS qtmultimedia) # Qt5MultimediaWidgets
 find_package(Qt5MultimediaWidgets REQUIRED) # Qt5::MultimediaWidgets
 find_package(Qt5PrintSupport REQUIRED) # Qt5::PrintSupport
 
+if(APPLE)
+  # Travis error:
+  # * https://travis-ci.org/ingenue/hunter/jobs/354713684
+  # * You can't use this version of (null) with this version of macOS. You have macOS 10.12.6. Qt requires macOS 10.13.0 or later.
+  if(NOT TARGET Qt5::MultimediaWidgets)
+    message(FATAL_ERROR "No Qt5::Widgets target")
+  endif()
+  return()
+endif()
+
 set(CMAKE_AUTOMOC ON)
 set(CMAKE_AUTOUIC ON)
 set(CMAKE_AUTORCC ON)
@@ -104,31 +114,6 @@ target_link_libraries(
   Qt5::PrintSupport
   ${plugins}
 )
-
-set(fix_cyclic FALSE)
-if(APPLE)
-  set(fix_cyclic FALSE)
-elseif(CMAKE_COMPILER_IS_GNUCXX)
-  # MinGW included
-  set(fix_cyclic TRUE)
-elseif(NOT UNIX)
-  set(fix_cyclic FALSE)
-elseif("${CMAKE_CXX_COMPILER_ID}" STREQUAL "Clang")
-  # Linux Clang
-  set(fix_cyclic TRUE)
-endif()
-
-# Workaround for Linux's linker problems (*_MULTIPLICITY doesn't help, TODO) --
-if(fix_cyclic)
-  string(
-      REPLACE
-      "<LINK_LIBRARIES>"
-      " -Wl,--start-group <LINK_LIBRARIES> -Wl,--end-group "
-      CMAKE_CXX_LINK_EXECUTABLE
-      "${CMAKE_CXX_LINK_EXECUTABLE}"
-  )
-endif()
-# --
 
 string(COMPARE EQUAL "${CMAKE_SYSTEM_NAME}" "Linux" is_linux)
 

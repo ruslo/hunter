@@ -47,12 +47,34 @@ hunter_add_version(
     SHA1
     c8a24d83bf4b26b99fd8fc3bed28a267e6247c85
 )
+
+hunter_add_version(
+    PACKAGE_NAME
+    ceres-solver
+    VERSION
+    "1.14.0-p0"
+    URL
+    "${_hunter_ceres_base_url_fork}/v1.14.0-p0.tar.gz"
+    SHA1
+    e27d6c0720977667a7789fd7e865e7362dc58695
+)
+hunter_add_version(
+    PACKAGE_NAME
+    ceres-solver
+    VERSION
+    "1.14.0-p1"
+    URL
+    "${_hunter_ceres_base_url_fork}/v1.14.0-p1.tar.gz"
+    SHA1
+    fb63a3f1ee8c39a6eda1c3e1611aeb3789015fdf
+)
 hunter_cmake_args(ceres-solver CMAKE_ARGS
     # explicitly remove dependency on gflags (only needed for tests)
     GFLAGS=OFF
     # explicitly disable suitesparse support
     LAPACK=OFF
     SUITESPARSE=OFF
+    CXSPARSE=OFF # since 1.14.0-p0
     # don't build tests
     BUILD_TESTING=OFF
     # also don't build examples: when suitesparse is enabled the examples need Fortran libraries

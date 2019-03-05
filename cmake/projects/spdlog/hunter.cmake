@@ -5,6 +5,7 @@
 
 include(hunter_add_version)
 include(hunter_cacheable)
+include(hunter_cmake_args)
 include(hunter_download)
 include(hunter_pick_scheme)
 
@@ -17,6 +18,28 @@ hunter_add_version(
     "https://github.com/hunter-packages/spdlog/archive/v1.0.0-p0.tar.gz"
     SHA1
     4d9967d165fc7ea2d561210bec2f50e60547daa6
+)
+
+hunter_add_version(
+    PACKAGE_NAME
+    spdlog
+    VERSION
+    "0.11.0-p0"
+    URL
+    "https://github.com/hunter-packages/spdlog/archive/v0.11.0-p0.tar.gz"
+    SHA1
+    199c1a19bcdd6fc75faa61263a267805c05e4060
+)
+
+hunter_add_version(
+    PACKAGE_NAME
+    spdlog
+    VERSION
+    "0.12.0-p0"
+    URL
+    "https://github.com/hunter-packages/spdlog/archive/v0.12.0-p0.tar.gz"
+    SHA1
+    b10bf7b537198a5f2224c3e022db38da9b2f3d53
 )
 
 hunter_add_version(
@@ -45,22 +68,31 @@ hunter_add_version(
     PACKAGE_NAME
     spdlog
     VERSION
-    "0.12.0-p0"
+    "0.16.3-p1"
     URL
-    "https://github.com/hunter-packages/spdlog/archive/v0.12.0-p0.tar.gz"
+    "https://github.com/hunter-packages/spdlog/archive/v0.16.3-p1.tar.gz"
     SHA1
-    b10bf7b537198a5f2224c3e022db38da9b2f3d53
+    1400ca456ad7c5ba89491f0dd3cd8935a16fe65c
 )
 
 hunter_add_version(
     PACKAGE_NAME
     spdlog
     VERSION
-    "0.11.0-p0"
+    "1.2.1-p0"
     URL
-    "https://github.com/hunter-packages/spdlog/archive/v0.11.0-p0.tar.gz"
+    "https://github.com/hunter-packages/spdlog/archive/v1.2.1-p0.tar.gz"
     SHA1
-    199c1a19bcdd6fc75faa61263a267805c05e4060
+    8bebf25ee48fba4f0c341954b50d26e8292e9f8f
+)
+
+hunter_cmake_args(
+    spdlog
+    CMAKE_ARGS
+        SPDLOG_EXTERNAL_TOOLCHAIN=ON # tell spdlog not to modify cxxflags
+        SPDLOG_BUILD_EXAMPLES=OFF
+        SPDLOG_BUILD_TESTING=OFF
+        SPDLOG_BUILD_BENCH=OFF
 )
 
 hunter_pick_scheme(DEFAULT url_sha1_cmake)

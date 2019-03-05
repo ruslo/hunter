@@ -1,0 +1,6 @@
+call "@HUNTER_MSVC_VCVARSALL@" @HUNTER_MSVC_ARCH@
+REM The /d flag is required because vcvarsall.bat changes the current drive
+REM If the hunter cache is located on a different drive to vcvarsall.bat the
+REM cd command will fail. https://technet.microsoft.com/en-gb/library/bb490875.aspx
+cd /d @HUNTER_PACKAGE_SOURCE_DIR@
+bootstrap.bat

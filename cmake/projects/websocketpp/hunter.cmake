@@ -9,6 +9,17 @@ hunter_add_version(
   PACKAGE_NAME
   websocketpp
   VERSION
+  "0.7.0"
+  URL
+  "https://github.com/hunter-packages/websocketpp/archive/0.7.0-hunter-p1.tar.gz"
+  SHA1
+  266c5a3c1b37eed2e49b8bc2ab42e77f97e95c3d
+  )
+
+hunter_add_version(
+  PACKAGE_NAME
+  websocketpp
+  VERSION
   "0.7.0-p2"
   URL
   "https://github.com/hunter-packages/websocketpp/archive/0.7.0-hunter-p2.tar.gz"
@@ -16,16 +27,26 @@ hunter_add_version(
   5c3abdee5d735a0beab65980cd432c33d935d792
   )
 
+hunter_add_version(
+  PACKAGE_NAME
+  websocketpp
+  VERSION
+  "0.7.0-p3"
+  URL
+  "https://github.com/hunter-packages/websocketpp/archive/v0.7.0-p3.tar.gz"
+  SHA1
+  8ca868bd8c5290643574632aa72931280e497ce6
+  )
 
 hunter_add_version(
   PACKAGE_NAME
   websocketpp
   VERSION
-  "0.7.0"
+  "0.8.1-p0"
   URL
-  "https://github.com/hunter-packages/websocketpp/archive/0.7.0-hunter-p1.tar.gz"
+  "https://github.com/hunter-packages/websocketpp/archive/v0.8.1-p0.tar.gz"
   SHA1
-  266c5a3c1b37eed2e49b8bc2ab42e77f97e95c3d
+  def22a3337b9f4022b7ad3004782be4be38f17e3
   )
 
 hunter_pick_scheme(DEFAULT url_sha1_cmake)

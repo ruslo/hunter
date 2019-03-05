@@ -45,7 +45,7 @@ if(NOT EXISTS "${PYTHON_LINK_SCRIPT}")
   message(FATAL_ERROR "File not exists: ${PYTHON_LINK_SCRIPT}")
 endif()
 
-find_package(PythonInterp 3)
+find_package(PythonInterp 3 QUIET)
 if(PYTHONINTERP_FOUND)
   message("Link files using Python: ${PYTHON_EXECUTABLE}")
   set(
@@ -68,12 +68,13 @@ if(PYTHONINTERP_FOUND)
   )
   if(NOT result EQUAL 0)
     message(
-        FATAL_ERROR
+        WARNING
         "Python script failed: ${cmd}, ${result}, ${output}, ${error}"
         "(may help: https://stackoverflow.com/a/2009505/2288008)"
     )
+  else()
+    return()
   endif()
-  return()
 endif()
 
 set(shell "/bin/bash")

@@ -1,0 +1,209 @@
+# Copyright (c) 2013, 2015 Ruslan Baratov
+# All rights reserved.
+
+cmake_minimum_required(VERSION 3.0)
+project(Hunter)
+
+include(ExternalProject) # ExternalProject_Add
+
+# Scheme for download and install OpenSSL macOS universal library
+
+list(APPEND CMAKE_MODULE_PATH "@HUNTER_SELF@/cmake/modules")
+
+include(hunter_dump_cmake_flags)
+include(hunter_status_debug)
+include(hunter_assert_not_empty_string)
+include(hunter_unsetvar)
+include(hunter_user_error)
+
+hunter_status_debug("Scheme: url_sha1_openssl_macos")
+
+# Check preconditions
+hunter_assert_not_empty_string("@HUNTER_SELF@")
+hunter_assert_not_empty_string("@HUNTER_EP_NAME@")
+hunter_assert_not_empty_string("@HUNTER_PACKAGE_URL@")
+hunter_assert_not_empty_string("@HUNTER_PACKAGE_SHA1@")
+hunter_assert_not_empty_string("@HUNTER_PACKAGE_DOWNLOAD_DIR@")
+hunter_assert_not_empty_string("@HUNTER_PACKAGE_SOURCE_DIR@")
+hunter_assert_not_empty_string("@HUNTER_PACKAGE_INSTALL_PREFIX@")
+hunter_assert_not_empty_string("@HUNTER_PACKAGE_LICENSE_DIR@")
+hunter_assert_not_empty_string("@HUNTER_GLOBAL_SCRIPT_DIR@")
+hunter_assert_not_empty_string("@HUNTER_TLS_VERIFY@")
+
+# Supported macOS architectures:
+# i386, x86_64, ppc, ppc64
+set(configure_command "./Configure")
+set(configure_architectures @CMAKE_OSX_ARCHITECTURES@)
+
+if(NOT configure_architectures)
+  hunter_status_debug("Using default macOS architecture: x86_64")
+  set(configure_architectures "x86_64")
+endif()
+
+# OpenSSL appends the version number differently by version
+if("@HUNTER_OpenSSL_VERSION@" VERSION_LESS "1.0")
+  string(REGEX MATCH "^[0-9\\.]+" shared_library_version_extension "@HUNTER_OpenSSL_VERSION@")
+else()
+  string(REGEX MATCH "^[0-9]\\.[0-9]" shared_library_version_extension "@HUNTER_OpenSSL_VERSION@")
+  if("@HUNTER_OpenSSL_VERSION@" VERSION_LESS "1.1")
+    set(shared_library_version_extension "${shared_library_version_extension}.0")
+  endif()
+endif()
+
+if(BUILD_SHARED_LIBS)
+  set(libsuffix ".${shared_library_version_extension}.dylib")
+  set(shared_flag shared)
+else()
+  set(libsuffix ".a")
+  set(shared_flag no-shared)
+endif()
+
+hunter_unsetvar(ssl_libraries)
+hunter_unsetvar(crypto_libraries)
+foreach(arch ${configure_architectures})
+  list(APPEND ssl_libraries "@HUNTER_PACKAGE_SOURCE_DIR@/${arch}/libssl${libsuffix}")
+  list(APPEND crypto_libraries "@HUNTER_PACKAGE_SOURCE_DIR@/${arch}/libcrypto${libsuffix}")
+endforeach()
+
+# Skip position independent code flags for macOS
+hunter_dump_cmake_flags(SKIP_INCLUDES SKIP_PIC)
+# -> CMAKE_CXX_FLAGS
+# -> CMAKE_C_FLAGS
+
+string(REGEX REPLACE "^ " "" CMAKE_C_FLAGS "${CMAKE_C_FLAGS}")
+
+# Pass C compiler through
+set(configure_command
+    MACHINE=${CMAKE_SYSTEM_PROCESSOR}
+    CC=${CMAKE_C_COMPILER}
+    ${configure_command})
+
+# Pass C flags through
+set(configure_opts ${CMAKE_C_FLAGS})
+
+# Add clear-all to commands
+set(configure_command . "@HUNTER_GLOBAL_SCRIPT_DIR@/clear-all.sh" && "${configure_command}")
+set(build_command . "@HUNTER_GLOBAL_SCRIPT_DIR@/clear-all.sh" && make)
+
+# Configuration options
+set(configure_opts ${configure_opts} threads ${shared_flag})
+
+hunter_status_debug("Configure command: ${configure_command}")
+hunter_status_debug("Configure architectures: ${configure_architectures}")
+hunter_status_debug("Configure options: ${configure_opts}")
+
+if(BUILD_SHARED_LIBS)
+  set(
+      extra_install_commands
+      # Fix shared library paths
+      COMMAND
+      install_name_tool
+      -id
+      "@loader_path/../lib/libssl${libsuffix}"
+      "@HUNTER_PACKAGE_INSTALL_PREFIX@/lib/libssl${libsuffix}"
+      COMMAND
+      install_name_tool
+      -change
+      "@HUNTER_PACKAGE_INSTALL_PREFIX@/lib/libcrypto${libsuffix}"
+      "@loader_path/../lib/libcrypto${libsuffix}"
+      "@HUNTER_PACKAGE_INSTALL_PREFIX@/lib/libssl${libsuffix}"
+      COMMAND
+      install_name_tool
+      -id
+      "@loader_path/../lib/libcrypto${libsuffix}"
+      "@HUNTER_PACKAGE_INSTALL_PREFIX@/lib/libcrypto${libsuffix}"
+  )
+else()
+  set(extra_install_commands "")
+endif()
+
+# fuse all libraries with 'lipo'
+list(GET configure_architectures 0 first_architecture)
+ExternalProject_Add(
+    "@HUNTER_EP_NAME@-macos_universal"
+    DOWNLOAD_COMMAND
+    "@CMAKE_COMMAND@" -E echo "Dummy download command"
+    DOWNLOAD_DIR
+    "@HUNTER_PACKAGE_DOWNLOAD_DIR@"
+    TLS_VERIFY
+    "@HUNTER_TLS_VERIFY@"
+    SOURCE_DIR
+    "@HUNTER_PACKAGE_SOURCE_DIR@/macos_universal"
+    INSTALL_DIR
+    "@HUNTER_PACKAGE_INSTALL_PREFIX@"
+        # not used, just avoid creating Install/<name> empty directory
+    CONFIGURE_COMMAND
+    "@CMAKE_COMMAND@" -E echo "Dummy configure command"
+    BUILD_COMMAND
+    "@CMAKE_COMMAND@" -E echo "Dummy build command"
+    INSTALL_COMMAND
+    lipo
+    -create
+    ${ssl_libraries}
+    -o
+    "@HUNTER_PACKAGE_INSTALL_PREFIX@/lib/libssl${libsuffix}"
+    COMMAND
+    lipo
+    -create
+    ${crypto_libraries}
+    -o
+    "@HUNTER_PACKAGE_INSTALL_PREFIX@/lib/libcrypto${libsuffix}"
+    # Extra commands
+    ${extra_install_commands}
+    COMMAND # Copy license files
+    "@CMAKE_COMMAND@"
+    "-C@HUNTER_ARGS_FILE@" # for 'HUNTER_INSTALL_LICENSE_FILES'
+    "-Dsrcdir=@HUNTER_PACKAGE_SOURCE_DIR@/${first_architecture}"
+    "-Ddstdir=@HUNTER_PACKAGE_LICENSE_DIR@"
+    -P
+    "@HUNTER_SELF@/scripts/try-copy-license.cmake"
+)
+
+foreach(arch ${configure_architectures})
+  if("${arch}" STREQUAL "x86_64")
+    set(configure_arch "darwin64-x86_64-cc")
+  elseif("${arch}" STREQUAL "ppc64")
+    set(configure_arch "darwin64-ppc-cc")
+  elseif("${arch}" STREQUAL "i386")
+    set(configure_arch "darwin-i386-cc")
+  elseif("${arch}" STREQUAL "ppc")
+    set(configure_arch "darwin-ppc-cc")
+  else()
+    hunter_user_error("Could not find the macOS architecture ${arch}. Please update the CMAKE_OSX_ARCHITECTURES option in your toolchain.")
+  endif()
+
+  ExternalProject_Add(
+      "@HUNTER_EP_NAME@-${arch}"
+      URL
+      @HUNTER_PACKAGE_URL@
+      URL_HASH
+      SHA1=@HUNTER_PACKAGE_SHA1@
+      DOWNLOAD_DIR
+      "@HUNTER_PACKAGE_DOWNLOAD_DIR@"
+      TLS_VERIFY
+      "@HUNTER_TLS_VERIFY@"
+      SOURCE_DIR
+      "@HUNTER_PACKAGE_SOURCE_DIR@/${arch}"
+      INSTALL_DIR
+      "@HUNTER_PACKAGE_INSTALL_PREFIX@"
+          # not used, just avoid creating Install/<name> empty directory
+      CONFIGURE_COMMAND
+      "${configure_command}"
+      "${configure_arch}"
+      "${configure_opts}"
+      "--prefix=@HUNTER_PACKAGE_INSTALL_PREFIX@"
+      BUILD_COMMAND
+      "${build_command}"
+      BUILD_IN_SOURCE
+      1
+      INSTALL_COMMAND
+      make install_sw
+          # installed libraries will be rewrited,
+          # other files are equal
+  )
+
+  add_dependencies(
+      "@HUNTER_EP_NAME@-macos_universal"
+      "@HUNTER_EP_NAME@-${arch}"
+  )
+endforeach()

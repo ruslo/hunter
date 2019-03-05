@@ -17,9 +17,14 @@ Set minimum CMake version:
 
 .. code-block:: cmake
 
-  cmake_minimum_required(VERSION 3.0)
+  cmake_minimum_required(VERSION 3.2)
 
 Copy `HunterGate`_ module to your project and include it:
+
+.. code-block:: none
+
+  > mkdir cmake
+  > wget https://raw.githubusercontent.com/hunter-packages/gate/master/cmake/HunterGate.cmake -O cmake/HunterGate.cmake
 
 .. code-block:: cmake
 
@@ -63,7 +68,7 @@ Summarize:
 .. code-block:: cmake
   :emphasize-lines: 5-6, 11
 
-  cmake_minimum_required(VERSION 3.0)
+  cmake_minimum_required(VERSION 3.2)
 
   include("cmake/HunterGate.cmake")
   HunterGate(

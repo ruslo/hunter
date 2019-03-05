@@ -21,6 +21,16 @@ set(CMAKE_AUTOUIC ON)
 # Find the QtWidgets library
 find_package(Qt5Widgets REQUIRED)
 
+if(APPLE)
+  # Travis error:
+  # * https://travis-ci.org/ingenue/hunter/jobs/354713684
+  # * You can't use this version of (null) with this version of macOS. You have macOS 10.12.6. Qt requires macOS 10.13.0 or later.
+  if(NOT TARGET Qt5::Widgets)
+    message(FATAL_ERROR "No Qt5::Widgets target")
+  endif()
+  return()
+endif()
+
 # Tell CMake to create the helloworld executable
 add_executable(
     helloworld
@@ -38,28 +48,3 @@ if(APPLE)
   find_package(Qt5PrintSupport REQUIRED)
   target_link_libraries(helloworld Qt5::PrintSupport)
 endif()
-
-set(fix_cyclic FALSE)
-if(APPLE)
-  set(fix_cyclic FALSE)
-elseif(CMAKE_COMPILER_IS_GNUCXX)
-  # MinGW included
-  set(fix_cyclic TRUE)
-elseif(NOT UNIX)
-  set(fix_cyclic FALSE)
-elseif("${CMAKE_CXX_COMPILER_ID}" STREQUAL "Clang")
-  # Linux Clang
-  set(fix_cyclic TRUE)
-endif()
-
-# Workaround for Linux's linker problems (*_MULTIPLICITY doesn't help, TODO) --
-if(fix_cyclic)
-  string(
-      REPLACE
-      "<LINK_LIBRARIES>"
-      " -Wl,--start-group <LINK_LIBRARIES> -Wl,--end-group "
-      CMAKE_CXX_LINK_EXECUTABLE
-      "${CMAKE_CXX_LINK_EXECUTABLE}"
-  )
-endif()
-# --

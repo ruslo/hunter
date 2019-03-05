@@ -219,12 +219,20 @@ endif()
 # Remove files installed by other components
 foreach(installed_file ${QT_INSTALLED_FILES})
   set(filepath "@local_install_dir@/${installed_file}")
-  if(NOT EXISTS "${filepath}")
-    message(FATAL_ERROR "File not found: ${filepath}")
-  endif()
-  file(REMOVE "${filepath}")
   if(EXISTS "${filepath}")
-    message(FATAL_ERROR "File not removed: ${filepath}")
+    file(REMOVE "${filepath}")
+    if(EXISTS "${filepath}")
+      message(FATAL_ERROR "File not removed: ${filepath}")
+    endif()
+  else()
+    # Before Qt 5.10 it was assumed that while doing
+    # component install all files from dependent
+    # components installed too.
+
+    # It's not true for Qt 5.10:
+    # on OSX component 'qtgraphicaleffects'
+    # will not install header 'qvulkanfunctions_p.h'
+    # which is installed by 'qtxmlpatterns'.
   endif()
 endforeach()
 

@@ -5,7 +5,7 @@ include(CMakeParseArguments) # cmake_parse_arguments
 
 include(hunter_internal_error)
 include(hunter_status_debug)
-include(hunter_test_string_not_empty)
+include(hunter_assert_not_empty_string)
 
 function(hunter_register_dependency)
   set(one DEPENDS_ON_PACKAGE DEPENDS_ON_COMPONENT)
@@ -50,8 +50,8 @@ function(hunter_register_dependency)
     hunter_internal_error("Incorrect PACKAGE: ${hunter_PACKAGE}")
   endif()
 
-  hunter_test_string_not_empty("${hunter_PACKAGE_NAME}")
-  hunter_test_string_not_empty("${HUNTER_CONFIG_ID_PATH}")
+  hunter_assert_not_empty_string("${hunter_PACKAGE_NAME}")
+  hunter_assert_not_empty_string("${HUNTER_CONFIG_ID_PATH}")
   set(
       dependencies_dir
       "${HUNTER_CONFIG_ID_PATH}/Build/${hunter_PACKAGE_NAME}"

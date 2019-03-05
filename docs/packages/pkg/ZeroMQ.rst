@@ -14,7 +14,7 @@ ZeroMQ
   :alt: Hunter v0.12.52
 
 -  `Official <https://github.com/zeromq/zeromq4-1>`__
--  `Example <https://github.com/ruslo/hunter/blob/develop/examples/ZeroMQ/CMakeLists.txt>`__
+-  `Example <https://github.com/ruslo/hunter/blob/master/examples/ZeroMQ/CMakeLists.txt>`__
 - Available since |hunter|
 -  Added by `Antal Tátrai <https://github.com/tatraian>`__
    (`pr-334 <https://github.com/ruslo/hunter/pull/334>`__)

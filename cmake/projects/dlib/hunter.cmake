@@ -13,6 +13,116 @@ hunter_add_version(
     PACKAGE_NAME
     dlib
     VERSION
+    "19.16-p0"
+    URL
+    "https://github.com/hunter-packages/dlib/archive/v19.16-p0.tar.gz"
+    SHA1
+    4e0bc81270ed8fc30e0288276e28ccb425e974f1
+)
+
+hunter_add_version(
+    PACKAGE_NAME
+    dlib
+    VERSION
+    "19.14-p0"
+    URL
+    "https://github.com/hunter-packages/dlib/archive/v19.14-p0.tar.gz"
+    SHA1
+    22c52e64ff0e5f8bdd163333153f7c6ac98ef5ee
+)
+
+hunter_add_version(
+    PACKAGE_NAME
+    dlib
+    VERSION
+    "19.12-p2"
+    URL
+    "https://github.com/hunter-packages/dlib/archive/v19.12-p2.tar.gz"
+    SHA1
+    016b26e1378044d1fe7f1df42738505e1315d310
+)
+
+hunter_add_version(
+    PACKAGE_NAME
+    dlib
+    VERSION
+    "19.12-p1"
+    URL
+    "https://github.com/hunter-packages/dlib/archive/v19.12-p1.tar.gz"
+    SHA1
+    2f4d339f92b5ba0462eddafb21af9625e734d590
+)
+
+hunter_add_version(
+    PACKAGE_NAME
+    dlib
+    VERSION
+    "19.12-p0"
+    URL
+    "https://github.com/hunter-packages/dlib/archive/v19.12-p0.tar.gz"
+    SHA1
+    c3f7b6a8eb0e4256dc0130d319555a5e6040b4c1
+)
+
+hunter_add_version(
+    PACKAGE_NAME
+    dlib
+    VERSION
+    "19.10-p4"
+    URL
+    "https://github.com/hunter-packages/dlib/archive/v19.10-p4.tar.gz"
+    SHA1
+    3b0d66d73351a2d42a2e28044f568a5224f458ce
+)
+
+hunter_add_version(
+    PACKAGE_NAME
+    dlib
+    VERSION
+    "19.10-p3"
+    URL
+    "https://github.com/hunter-packages/dlib/archive/v19.10-p3.tar.gz"
+    SHA1
+    42817cf82b7f300c9b2d647d270ada5b02b3709c
+)
+
+hunter_add_version(
+    PACKAGE_NAME
+    dlib
+    VERSION
+    "19.10-p2"
+    URL
+    "https://github.com/hunter-packages/dlib/archive/v19.10-p2.tar.gz"
+    SHA1
+    8962447a89512ac93904aec2c94d1138d07006b0
+)
+
+hunter_add_version(
+    PACKAGE_NAME
+    dlib
+    VERSION
+    "19.8-p0"
+    URL
+    "https://github.com/hunter-packages/dlib/archive/v19.8-p0.tar.gz"
+    SHA1
+    42a19443f08d3015b105550db85b3161f1020325
+)
+
+hunter_add_version(
+    PACKAGE_NAME
+    dlib
+    VERSION
+    "19.6-p2"
+    URL
+    "https://github.com/hunter-packages/dlib/archive/v19.6-p2.tar.gz"
+    SHA1
+    2f763c72f9d7fc5f2d7120d775a37606a4b3b899
+)
+
+hunter_add_version(
+    PACKAGE_NAME
+    dlib
+    VERSION
     "19.6-p1"
     URL
     "https://github.com/hunter-packages/dlib/archive/v19.6-p1.tar.gz"
@@ -79,6 +189,17 @@ hunter_add_version(
     PACKAGE_NAME
     dlib
     VERSION
+    "19.2-p2"
+    URL
+    "https://github.com/hunter-packages/dlib/archive/v19.2-p2.tar.gz"
+    SHA1
+    5ce3d09490536dc0dc9bcb0d14ee25f1bebdbfa3
+)
+
+hunter_add_version(
+    PACKAGE_NAME
+    dlib
+    VERSION
     "19.0-p3"
     URL
     "https://github.com/hunter-packages/dlib/archive/v19.0-p3.tar.gz"
@@ -130,12 +251,25 @@ hunter_add_version(
     bf73cd97ab81162e085d06f1b4595902abe5a436
 )
 
+hunter_add_version(
+    PACKAGE_NAME
+    dlib
+    VERSION
+    "19.8-p1"
+    URL
+    "https://github.com/hunter-packages/dlib/archive/v19.8-p1.tar.gz"
+    SHA1
+    83426cea82aad42a0f7b1d6bac42996c4f2b69ea
+)
 
 hunter_cmake_args(
     dlib
     CMAKE_ARGS
-      DLIB_HEADER_ONLY=ON #all previous builds were header on, so that is the default
-      DLIB_ENABLE_ASSERTS=OFF #must be set on/off or debug/release build will differ and config will not match one
+      DLIB_PNG_SUPPORT=ON
+      DLIB_GIF_SUPPORT=ON
+      DLIB_JPEG_SUPPORT=ON
+      DLIB_NO_GUI_SUPPORT=ON
+      DLIB_LINK_WITH_SQLITE3=ON
       HUNTER_INSTALL_LICENSE_FILES=dlib/LICENSE.txt
 )
 

@@ -1,0 +1,21 @@
+.. spelling::
+
+    IF97
+
+.. index:: science ; IF97
+
+.. _pkg.IF97:
+
+IF97
+====
+
+-  `Official <https://github.com/CoolProp/IF97>`__
+-  `Hunterized <https://github.com/CoolProp/IF97>`__
+-  `Example <https://github.com/ruslo/hunter/blob/master/examples/IF97/CMakeLists.txt>`__
+-  Added by `Jorrit Wronski <https://github.com/jowr>`__ (`pr-1201 <https://github.com/ruslo/hunter/pull/1201>`__)
+
+.. code-block:: cmake
+
+    hunter_add_package(IF97)
+    find_package(IF97 CONFIG REQUIRED)
+    target_link_libraries(IF97 IF97::IF97)

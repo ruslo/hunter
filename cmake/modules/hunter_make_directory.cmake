@@ -5,12 +5,12 @@ cmake_minimum_required(VERSION 3.0)
 
 include(hunter_internal_error)
 include(hunter_lock_directory)
-include(hunter_test_string_not_empty)
+include(hunter_assert_not_empty_string)
 
 function(hunter_make_directory parent sha1 result)
-  hunter_test_string_not_empty("${parent}")
-  hunter_test_string_not_empty("${sha1}")
-  hunter_test_string_not_empty("${result}")
+  hunter_assert_not_empty_string("${parent}")
+  hunter_assert_not_empty_string("${sha1}")
+  hunter_assert_not_empty_string("${result}")
 
   string(SUBSTRING "${sha1}" 0 7 dir_id)
 

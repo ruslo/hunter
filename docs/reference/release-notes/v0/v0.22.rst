@@ -1,0 +1,33 @@
+.. Copyright (c) 2018, Ruslan Baratov
+.. All rights reserved.
+
+v0.22.X
+-------
+
+* CMake 3.2 :doc:`required </quick-start/cmake>`
+* ``hunter_config``: ``VERSION`` can be combined with ``GIT_SELF``,
+  ``GIT_SUBMODULE`` and ``URL``/``SHA1``. E.g. to avoid issues like
+  described :ref:`here <possible problems with GIT_SUBMODULE>`.
+
+Internal changes
+================
+
+* ``hunter_config`` functionality split:
+
+  * ``hunter_default_version`` used in ``cmake/configs/default.cmake``
+
+  * ``hunter_config`` used by user in custom ``config.cmake``
+
+  * ``hunter_final_config`` used by Hunter internally in unification
+    module (Config-ID)
+
+* ``hunter_default_version`` verify alphabetical order in
+  ``cmake/configs/default.cmake``
+
+New packages and updates
+========================
+
+``git diff v0.21.0..v0.22.0 -- cmake/configs/default.cmake``:
+
+.. literalinclude:: 21..22.diff
+  :language: diff

@@ -14,6 +14,39 @@ hunter_add_version(
     PACKAGE_NAME
     OpenSSL
     VERSION
+    "1.1.1"
+    URL
+    "https://github.com/openssl/openssl/archive/OpenSSL_1_1_1.tar.gz"
+    SHA1
+    ac1f780b1932d9eed79787b388095ebeebddd148
+)
+
+hunter_add_version(
+    PACKAGE_NAME
+    OpenSSL
+    VERSION
+    "1.1.1a"
+    URL
+    "https://github.com/openssl/openssl/archive/OpenSSL_1_1_1a.tar.gz"
+    SHA1
+    0a7d7382e3e608fc037d4955a0ddad224acc1fc8
+)
+
+hunter_add_version(
+    PACKAGE_NAME
+    OpenSSL
+    VERSION
+    "1.1.1b"
+    URL
+    "https://github.com/openssl/openssl/archive/OpenSSL_1_1_1b.tar.gz"
+    SHA1
+    1b09930a6099c6c8fa15dd6c6842e134e65e0a31
+)
+
+hunter_add_version(
+    PACKAGE_NAME
+    OpenSSL
+    VERSION
     "1.1.0"
     URL
     "https://github.com/openssl/openssl/archive/OpenSSL_1_1_0.tar.gz"
@@ -74,6 +107,94 @@ hunter_add_version(
     "https://github.com/openssl/openssl/archive/OpenSSL_1_1_0g.tar.gz"
     SHA1
     07a8861dfb51d3ba983668f0f8daeac49bf3dbc3
+)
+
+hunter_add_version(
+    PACKAGE_NAME
+    OpenSSL
+    VERSION
+    "1.1.0h"
+    URL
+    "https://github.com/openssl/openssl/archive/OpenSSL_1_1_0h.tar.gz"
+    SHA1
+    2168c88516556332ebaf7c31791132025a093c2b
+)
+
+hunter_add_version(
+    PACKAGE_NAME
+    OpenSSL
+    VERSION
+    "1.1.0i"
+    URL
+    "https://github.com/openssl/openssl/archive/OpenSSL_1_1_0i.tar.gz"
+    SHA1
+    f1748778e06f41e41e9585fd8815339867f22d30
+)
+
+hunter_add_version(
+    PACKAGE_NAME
+    OpenSSL
+    VERSION
+    "1.1.0j"
+    URL
+    "https://github.com/openssl/openssl/archive/OpenSSL_1_1_0j.tar.gz"
+    SHA1
+    489c7a35a4ee2ab06006b2ee26791445b67293a4
+)
+
+hunter_add_version(
+    PACKAGE_NAME
+    OpenSSL
+    VERSION
+    "1.0.2r"
+    URL
+    "https://github.com/openssl/openssl/archive/OpenSSL_1_0_2r.tar.gz"
+    SHA1
+    d4933f2974572edffa395cf9f90e6485652dc3a5
+)
+
+hunter_add_version(
+    PACKAGE_NAME
+    OpenSSL
+    VERSION
+    "1.0.2q"
+    URL
+    "https://github.com/openssl/openssl/archive/OpenSSL_1_0_2q.tar.gz"
+    SHA1
+    d9d0876c1d3a06896308b0e0bf67a85c3dd87258
+)
+
+hunter_add_version(
+    PACKAGE_NAME
+    OpenSSL
+    VERSION
+    "1.0.2p"
+    URL
+    "https://github.com/openssl/openssl/archive/OpenSSL_1_0_2p.tar.gz"
+    SHA1
+    0c86f89bc272f204919230e7220c070ac486b9e6
+)
+
+hunter_add_version(
+    PACKAGE_NAME
+    OpenSSL
+    VERSION
+    "1.0.2o"
+    URL
+    "https://github.com/openssl/openssl/archive/OpenSSL_1_0_2o.tar.gz"
+    SHA1
+    ec7ad3650206f1045d48f2fe9ed4ad93a1228ec5
+)
+
+hunter_add_version(
+    PACKAGE_NAME
+    OpenSSL
+    VERSION
+    "1.0.2n"
+    URL
+    "https://github.com/openssl/openssl/archive/OpenSSL_1_0_2n.tar.gz"
+    SHA1
+    6d507bb849c8156f14c2b6f3e269a5e782ff6b82
 )
 
 hunter_add_version(
@@ -184,6 +305,17 @@ hunter_add_version(
     "https://github.com/openssl/openssl/archive/OpenSSL_1_0_2m.tar.gz"
     SHA1
     f0af7e246a677fd52945e5438eb11ce0de391a4c
+)
+
+hunter_add_version(
+    PACKAGE_NAME
+    OpenSSL
+    VERSION
+    "1.0.2o"
+    URL
+    "https://github.com/openssl/openssl/archive/OpenSSL_1_0_2o.tar.gz"
+    SHA1
+    ec7ad3650206f1045d48f2fe9ed4ad93a1228ec5
 )
 
 hunter_add_version(
@@ -326,8 +458,12 @@ elseif(WIN32)
   else()
     hunter_pick_scheme(DEFAULT url_sha1_openssl_windows_1_1_plus)
   endif()
-elseif(IOS)
-  hunter_pick_scheme(DEFAULT url_sha1_openssl_ios)
+elseif(APPLE)
+  if(IOS)
+    hunter_pick_scheme(DEFAULT url_sha1_openssl_ios)
+  else()
+    hunter_pick_scheme(DEFAULT url_sha1_openssl_macos)
+  endif()
 else()
   hunter_pick_scheme(DEFAULT url_sha1_openssl)
 endif()
@@ -340,4 +476,4 @@ if(MINGW)
 endif()
 
 hunter_cacheable(OpenSSL)
-hunter_download(PACKAGE_NAME OpenSSL PACKAGE_INTERNAL_DEPS_ID "16")
+hunter_download(PACKAGE_NAME OpenSSL PACKAGE_INTERNAL_DEPS_ID "27")

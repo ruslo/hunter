@@ -13,6 +13,28 @@ hunter_add_version(
     PACKAGE_NAME
     RapidJSON
     VERSION
+    "1.1.0-66eb606-p0"
+    URL
+    "https://github.com/hunter-packages/rapidjson/archive/v1.1.0-66eb606-p0.tar.gz"
+    SHA1
+    6889242b198cbff7cd8610f214b4218436a4a7a9
+)
+
+hunter_add_version(
+    PACKAGE_NAME
+    RapidJSON
+    VERSION
+    "1.1.0"
+    URL
+    "https://github.com/hunter-packages/rapidjson/archive/v1.1.0-p0.tar.gz"
+    SHA1
+    0d97a2d171d5a483338c21b6878f42ea5fe76503
+)
+
+hunter_add_version(
+    PACKAGE_NAME
+    RapidJSON
+    VERSION
     "1.0.2-p2"
     URL
     "https://github.com/hunter-packages/rapidjson/archive/v1.0.2-p2.tar.gz"
@@ -40,6 +62,17 @@ hunter_add_version(
     "https://github.com/hunter-packages/rapidjson/archive/v1.0.2-p0.tar.gz"
     SHA1
     587ef53d1b82b246f27967fa67eefc1f4c3d1719
+)
+
+hunter_add_version(
+    PACKAGE_NAME
+    RapidJSON
+    VERSION
+    "0.11-p2"
+    URL
+    "https://github.com/hunter-packages/rapidjson/archive/v0.11-p2.tar.gz"
+    SHA1
+    bb0bfb8ad5cf2b575b57efbf2957619735a1696e
 )
 
 hunter_add_version(

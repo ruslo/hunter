@@ -1,8 +1,7 @@
 # OSX/Linux (https://github.com/travis-ci-tester/toolchain-table)
 
-# Workaround for https://github.com/travis-ci/travis-ci/issues/8363
 language:
-  - minimal
+  - cpp
 
 # Container-based infrastructure (Linux)
 # * https://docs.travis-ci.com/user/migrating-from-legacy/#How-can-I-use-container-based-infrastructure%3F
@@ -11,77 +10,118 @@ sudo:
 
 # Install packages differs for container-based infrastructure
 # * https://docs.travis-ci.com/user/migrating-from-legacy/#How-do-I-install-APT-sources-and-packages%3F
+# List of available packages:
+# * https://github.com/travis-ci/apt-package-whitelist/blob/master/ubuntu-trusty
+# List of available sources:
+# * https://github.com/travis-ci/apt-source-whitelist/blob/master/ubuntu.json
 addons:
   apt:
+    sources:
+      - ubuntu-toolchain-r-test
     packages:
       - python3-pip
+      - g++-7
 
 dist:
-  - trusty
+  - xenial
 
 env:
   global:
-    - secure: "RXl1cmKQUgB/Lr6CFW82nYDFSyF5tYjG5N3+ZpZZWDbmVvm8Wj634GR1B5JVcLzoWLearGYtqOA2mQcK+vcp04/KMQC7mEEtUWix74wXz9djzUZMYuMz0VvImpqyE8KF8ZVgbQL5XFP1u+nRahLT9qtNX7VFTqgSB2PJ/kDEQQPV+H4lv/tVBv9ptMC4q9Nwev8qFzEPLqQgp6mqb05BBsgrExEbzVrX5kywb23TGcxMe3c6IHf63vCmr8aHAJFVsHHGkV2QhOoJKeMNa1xPJXGE+yf1rAACglTru7IXOlsZ4bym2qLtQRHz+2jHn1i+qQf0V5M+4H/OBkqOpU9AJ/ylF/WK2eBZedxC+4WPvuO/iDnrtNxikzS5avdFS7IMUJrIm9fP0B8efLovEiJaKwo5k1Yj0uw07b1PoyRE5x+ozRzSLzvWXgOIXbZjOM9BzYFfoNJ+dpjilELuxGn85HljeniK89H/d5gtEUPvSMQC/+RuMo420qaGGhy/lR4ivPTZwCqT7VPQ6+2HLz/wAF5S2jFLGjSZIbb/NMmrV6+puIEEicx0mj2eSpgt7cn9UguevnwtT5UoN2G+dZrI6RfUp0CSH8UHdcJtoSCmYVxO5LsRPXyCEFFF54EsfhqjWegYcxLmHqQQUKlJ8lX9dXMRftW7bIldb98PQGud6Fg="
+    - secure: "DJPGduVmEHr3v/n+4DlCBud5gDgoAo6FKcLO9lWKQ1aBkiK8qXttTr7XDIZ/CgnWBKjp3YiwteKAQrQZPlNRza7Cm4J74SqAXHt/SQuRLy7p4X7XM71UQ3YNllXl1WTmEEPLznVOoR0za1PEcvjeHlLJ2Bk9CqnCQbWt4ie35hBUv1v2Ft9M4mw+oZJElWrVY7COudF4bPFd/AaVMmsohjRIyKG8bgcnsl1RtI/tTZbFQn6VIz8Jf/P+uULB2B+ddPMpXSCBxxLsNupZ3ddEl5hfdH4FGFrlUaj47zj+1s6rG38DsIX4pT0/jXZxJ8hkvqn/QOd1lprAAgnSbgsBd2tWLUYQHG+mfaRFpG0WzVzNZpx1sjyroKEi8mbusYrENuzmhWCs3GNVSe0bImfLnfnaoRiKHloTtaTp+RNf9ftiSCRyyr9OKCJvK9fUzyYZeCZBGzYzlrsY3AgbyBYTQMrK8NwImuTMWpWCPfP8Lb/gy2+1W+AouASF8w3nzObJxe/R/3XvjCYABMmgo34YXv/Qzv8kpQW7PSJgYXDdjx9dNgrnlwz5PxjoXAkGd3BEIFRMBMSYwOJPA4ZIXbojCJ9yGXHSSJZLO+5qdtt35/EhLQJkZBe1Cx0YordYuqDLS9rN3iaxPoI2zIYVEBQbrjFBLgwivoZNV+D2hx0WsGc="
 
 matrix:
   include:
     # Linux {
-    - os: linux
-      env: PROJECT_DIR=examples/cub TOOLCHAIN=default
-    - os: linux
-      env: PROJECT_DIR=examples/cub TOOLCHAIN=clang-libstdcxx
-    - os: linux
-      env: PROJECT_DIR=examples/cub TOOLCHAIN=gcc
-    - os: linux
-      env: PROJECT_DIR=examples/cub TOOLCHAIN=android-ndk-r10e-api-19-armeabi-v7a-neon
-    - os: linux
-      env: PROJECT_DIR=examples/cub TOOLCHAIN=android-ndk-r15c-api-21-armeabi-v7a-neon-clang-libcxx
-    - os: linux
-      env: PROJECT_DIR=examples/cub TOOLCHAIN=analyze
-    - os: linux
-      env: PROJECT_DIR=examples/cub TOOLCHAIN=sanitize-address
-    - os: linux
-      env: PROJECT_DIR=examples/cub TOOLCHAIN=sanitize-leak
 
-    # FIXME: https://github.com/ruslo/hunter/issues/718#issuecomment-290610583
-    # - os: linux
-    #   env: PROJECT_DIR=examples/cub TOOLCHAIN=sanitize-thread
+    - os: linux
+      env: >
+        TOOLCHAIN=clang-cxx17
+        PROJECT_DIR=examples/cub
+
+    - os: linux
+      env: >
+        TOOLCHAIN=gcc-7-cxx17
+        PROJECT_DIR=examples/cub
+
+    - os: linux
+      env: >
+        TOOLCHAIN=android-ndk-r17-api-24-arm64-v8a-clang-libcxx14
+        PROJECT_DIR=examples/cub
+
+    - os: linux
+      env: >
+        TOOLCHAIN=analyze-cxx17
+        PROJECT_DIR=examples/cub
+
+    - os: linux
+      env: >
+        TOOLCHAIN=sanitize-address-cxx17
+        PROJECT_DIR=examples/cub
+
+    - os: linux
+      env: >
+        TOOLCHAIN=sanitize-leak-cxx17
+        PROJECT_DIR=examples/cub
+
+    - os: linux
+      env: >
+        TOOLCHAIN=sanitize-thread-cxx17
+        PROJECT_DIR=examples/cub
 
     # }
 
     # OSX {
+
     - os: osx
-      env: PROJECT_DIR=examples/cub TOOLCHAIN=libcxx
+      osx_image: xcode9.4
+      env: >
+        TOOLCHAIN=osx-10-13-make-cxx14
+        PROJECT_DIR=examples/cub
+
     - os: osx
-      env: PROJECT_DIR=examples/cub TOOLCHAIN=osx-10-11
+      osx_image: xcode9.4
+      env: >
+        TOOLCHAIN=osx-10-13-cxx14
+        PROJECT_DIR=examples/cub
+
     - os: osx
-      env: PROJECT_DIR=examples/cub TOOLCHAIN=ios-nocodesign-9-3
+      osx_image: xcode9.4
+      env: >
+        TOOLCHAIN=ios-nocodesign-11-4-dep-9-3
+        PROJECT_DIR=examples/cub
+
     # }
 
 install:
   # Info about OS
   - uname -a
 
+  # Info about available disk space
+  - df -h $HOME
+
   # Disable autoupdate
   # * https://github.com/Homebrew/brew/blob/7d31a70373edae4d8e78d91a4cbc05324bebc3ba/Library/Homebrew/manpages/brew.1.md.erb#L202
   - export HOMEBREW_NO_AUTO_UPDATE=1
 
   # Install Python 3
+  - if [[ "`uname`" == "Darwin" ]]; then travis_retry brew upgrade python || echo "Ignoring failure..."; fi
   - if [[ "`uname`" == "Darwin" ]]; then travis_retry brew install python3; fi
 
   # Install Python package 'requests'
   # 'easy_install3' is not installed by 'brew install python3' on OS X 10.9 Maverick
   - if [[ "`uname`" == "Darwin" ]]; then pip3 install requests; fi
+  - if [[ "`uname`" == "Darwin" ]]; then pip3 install gitpython; fi
   - if [[ "`uname`" == "Linux" ]]; then travis_retry pip3 install --user requests; fi
+  - if [[ "`uname`" == "Linux" ]]; then travis_retry pip3 install --user gitpython; fi
 
   # Install latest Polly toolchains and scripts
-  - wget https://github.com/ruslo/polly/archive/master.zip
-  - unzip master.zip
+  - wget --quiet https://github.com/ruslo/polly/archive/master.zip
+  - unzip -q master.zip
   - POLLY_ROOT="`pwd`/polly-master"
   - export PATH="${POLLY_ROOT}/bin:${PATH}"
 
   # Install dependencies (CMake, Android NDK)
-  - install-ci-dependencies.py
+  - install-ci-dependencies.py --prune-archives
 
   # Tune locations
   - export PATH="`pwd`/_ci/cmake/bin:${PATH}"
@@ -90,6 +130,8 @@ install:
   - export ANDROID_NDK_r10e="`pwd`/_ci/android-ndk-r10e"
   - export ANDROID_NDK_r11c="`pwd`/_ci/android-ndk-r11c"
   - export ANDROID_NDK_r15c="`pwd`/_ci/android-ndk-r15c"
+  - export ANDROID_NDK_r16b="`pwd`/_ci/android-ndk-r16b"
+  - export ANDROID_NDK_r17="`pwd`/_ci/android-ndk-r17"
 
 script:
   - python3 ./jenkins.py

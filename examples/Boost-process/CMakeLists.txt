@@ -9,11 +9,8 @@ include("../common.cmake")
 
 project(example-boost-process)
 
-# download boost.process
 hunter_add_package(BoostProcess)
-
-# now boost.process can be used
 find_package(BoostProcess CONFIG REQUIRED)
 
 add_executable(foo foo.cpp)
-target_link_libraries(foo BoostProcess::boost_process)
+target_link_libraries(foo PUBLIC BoostProcess::boost_process)

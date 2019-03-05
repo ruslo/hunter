@@ -10,7 +10,7 @@ include(hunter_internal_error)
 include(hunter_sanity_checks)
 include(hunter_status_debug)
 include(hunter_status_print)
-include(hunter_test_string_not_empty)
+include(hunter_assert_not_empty_string)
 
 # Continue initialization of key variables (also see 'hunter_initialize')
 #   * calculate toolchain-id
@@ -48,13 +48,13 @@ macro(hunter_finalize)
 
   if(_c_enabled AND NOT CMAKE_C_ABI_COMPILED)
     hunter_fatal_error(
-        "ABI not detected for C compiler" WIKI "error.abi.detection.failure"
+        "ABI not detected for C compiler" ERROR_PAGE "error.abi.detection.failure"
     )
   endif()
 
   if(_cxx_enabled AND NOT CMAKE_CXX_ABI_COMPILED)
     hunter_fatal_error(
-        "ABI not detected for CXX compiler" WIKI "error.abi.detection.failure"
+        "ABI not detected for CXX compiler" ERROR_PAGE "error.abi.detection.failure"
     )
   endif()
 
@@ -133,12 +133,12 @@ macro(hunter_finalize)
 
   ### 1. Clear all '<NAME>_ROOT' variables (cache, environment, ...)
   ### 2. Set '<NAME>_ROOT' or 'HUNTER_<name>_VERSION' variables
-  set(HUNTER_ALLOW_CONFIG_LOADING YES)
+  set(__HUNTER_ALLOW_FINAL_CONFIG_LOADING YES)
   include("${HUNTER_CONFIG_ID_PATH}/config.cmake")
-  set(HUNTER_ALLOW_CONFIG_LOADING NO)
+  set(__HUNTER_ALLOW_FINAL_CONFIG_LOADING NO)
 
-  hunter_test_string_not_empty("${HUNTER_INSTALL_PREFIX}")
-  hunter_test_string_not_empty("${CMAKE_BINARY_DIR}")
+  hunter_assert_not_empty_string("${HUNTER_INSTALL_PREFIX}")
+  hunter_assert_not_empty_string("${CMAKE_BINARY_DIR}")
 
   file(
       WRITE
@@ -173,6 +173,13 @@ macro(hunter_finalize)
     hunter_user_error(
         "CMAKE_CROSSCOMPILING should be set on iOS."
         " Please update your toolchain."
+    )
+  endif()
+
+  string(COMPARE EQUAL "${HUNTER_TLS_VERIFY}" "" _is_empty)
+  if(_is_empty)
+    hunter_user_error(
+        "HUNTER_TLS_VERIFY is empty, please update HunterGate module"
     )
   endif()
 endmacro()

@@ -16,4 +16,4 @@ hunter_add_package(xgboost)
 find_package(xgboost CONFIG REQUIRED)
 
 add_executable(foo foo.cpp)
-target_link_libraries(foo xgboost::xgboost)
+target_link_libraries(foo PUBLIC xgboost::xgboost)

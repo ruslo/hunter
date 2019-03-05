@@ -41,7 +41,7 @@ hunter_cmake_args(
 hunter_cacheable(x11)
 hunter_download(
     PACKAGE_NAME x11
-    PACKAGE_INTERNAL_DEPS_ID "4"
+    PACKAGE_INTERNAL_DEPS_ID "5"
     PACKAGE_UNRELOCATABLE_TEXT_FILES
     "lib/libX11-xcb.la"
     "lib/libX11.la"

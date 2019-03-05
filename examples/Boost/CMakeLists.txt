@@ -9,14 +9,11 @@ include("../common.cmake")
 
 project(download-boost)
 
-# download boost
 hunter_add_package(Boost)
-
-# now boost can be used
 find_package(Boost CONFIG REQUIRED)
 
 add_executable(foo foo.cpp)
-target_link_libraries(foo Boost::boost)
+target_link_libraries(foo PUBLIC Boost::boost)
 
 set(project_license "${CMAKE_CURRENT_BINARY_DIR}/LICENSE.txt")
 file(
@@ -40,7 +37,3 @@ foreach(x ${Boost_LICENSES})
 endforeach()
 
 message("Project license: ${project_license}")
-
-# Compatibility mode
-find_package(Boost REQUIRED)
-include_directories("${Boost_INCLUDE_DIRS}")

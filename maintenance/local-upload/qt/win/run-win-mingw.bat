@@ -1,5 +1,5 @@
 REM {
-set TOOLCHAIN=mingw
+set TOOLCHAIN=mingw-cxx17
 set PROJECT_DIR=examples/qt-widgets
 .\jenkins.py --clear-except-download || exit /b 1
 set PROJECT_DIR=examples/qt-core

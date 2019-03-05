@@ -40,7 +40,29 @@ hunter_add_version(
     "https://github.com/elucideye/aglet/archive/v1.2.0.tar.gz"
     SHA1
     65d910c63e0c030a20ca4da9473753ce284c49de
+    )
+
+hunter_add_version(
+    PACKAGE_NAME
+    aglet
+    VERSION
+    1.2.1
+    URL
+    "https://github.com/elucideye/aglet/archive/v1.2.1.tar.gz"
+    SHA1
+    bbd0c7ec9e5b559aba05aabdeffefb843f76edb8
 )
+
+hunter_add_version(
+    PACKAGE_NAME
+    aglet
+    VERSION
+    1.2.2
+    URL
+    "https://github.com/elucideye/aglet/archive/v1.2.2.tar.gz"
+    SHA1
+    cf82d02ec34583f8a878be8f331279445b5b53e2
+)  
 
 hunter_pick_scheme(DEFAULT url_sha1_cmake)
 hunter_cacheable(aglet)

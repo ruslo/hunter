@@ -8,6 +8,7 @@ include(hunter_cacheable)
 include(hunter_cmake_args)
 include(hunter_download)
 include(hunter_pick_scheme)
+include(hunter_check_toolchain_definition)
 
 # Disable searching in locations not specified by these hint variables.
 set(Boost_NO_SYSTEM_PATHS ON)
@@ -35,6 +36,94 @@ hunter_add_version(
     "${_hunter_boost_base_url}/1.65.0/source/boost_1_65_0.tar.bz2"
     SHA1
     f9260074ecfb31f3e65322fae9c15cc423c0ad59
+)
+
+hunter_add_version(
+    PACKAGE_NAME
+    Boost
+    VERSION
+    "1.66.0"
+    URL
+    "${_hunter_boost_base_url}/1.66.0/source/boost_1_66_0.7z"
+    SHA1
+    075d0b43980614054b1f1bafd189f863bba6600e
+)
+
+hunter_add_version(
+    PACKAGE_NAME
+    Boost
+    VERSION
+    "1.66.0-p0"
+    URL
+    "https://github.com/hunter-packages/boost/releases/download/v1.66.0-p0/hunter-1.66.0.7z"
+    SHA1
+    8c9829ce5e8f0b2b582f8ee1a6103c037a154aa3
+)
+
+hunter_add_version(
+    PACKAGE_NAME
+    Boost
+    VERSION
+    "1.67.0"
+    URL
+    "${_hunter_boost_base_url}/1.67.0/source/boost_1_67_0.7z"
+    SHA1
+    64c278c23defe155e630a307ae2c0615348b14b3
+)
+
+hunter_add_version(
+    PACKAGE_NAME
+    Boost
+    VERSION
+    "1.67.0-p0"
+    URL
+    "https://github.com/hunter-packages/boost/archive/v1.67.0-p0.tar.gz"
+    SHA1
+    e56a5fbafa31683047f92850e05735dfcde084aa
+)
+
+hunter_add_version(
+    PACKAGE_NAME
+    Boost
+    VERSION
+    "1.67.0-p1"
+    URL
+    "https://github.com/hunter-packages/boost/releases/download/v1.67.0-p1/hunter-1.67.0.7z"
+    SHA1
+    26fcf19a79d013a318562435cef2829ea6bf29a4
+)
+
+hunter_add_version(
+    PACKAGE_NAME
+    Boost
+    VERSION
+    "1.68.0-p0"
+    URL
+    "https://github.com/hunter-packages/boost/releases/download/v1.68.0-p0/hunter-1.68.0.7z"
+    SHA1
+    3af972569d4b685145442445e51b3fcace342b31
+)
+
+hunter_add_version(
+    PACKAGE_NAME
+    Boost
+    VERSION
+    "1.68.0-p1"
+    URL
+    "https://github.com/hunter-packages/boost/archive/v1.68.0-p1.tar.gz"
+    SHA1
+    0bb10b0a0fdc196646c87e0143c0290baa32357d
+)
+
+hunter_add_version(
+    PACKAGE_NAME
+    Boost
+    VERSION
+    "1.69.0-p0"
+    URL
+    "https://github.com/hunter-packages/boost/archive/v1.69.0-p0.tar.gz"
+    SHA1
+    2539b0751f77ff3efdf842775700fe5422c2adfb
 )
 
 # up until 1.63 sourcefourge was used
@@ -278,6 +367,15 @@ hunter_add_version(
     26a52840e9d12f829e3008589abf0a925ce88524
 )
 
+if(MSVC)
+  hunter_check_toolchain_definition(NAME "_DLL" DEFINED _hunter_vs_md)
+  hunter_cmake_args(
+    Boost
+    CMAKE_ARGS
+      BOOST_BUILD_DYNAMIC_VSRUNTIME=${_hunter_vs_md}
+  )
+endif()
+
 hunter_pick_scheme(DEFAULT url_sha1_boost)
 hunter_cacheable(Boost)
-hunter_download(PACKAGE_NAME Boost PACKAGE_INTERNAL_DEPS_ID "17")
+hunter_download(PACKAGE_NAME Boost PACKAGE_INTERNAL_DEPS_ID "40")

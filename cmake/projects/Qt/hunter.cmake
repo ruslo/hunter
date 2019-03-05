@@ -9,6 +9,7 @@ include(hunter_cacheable)
 include(hunter_cmake_args)
 include(hunter_configuration_types)
 include(hunter_report_broken_package)
+include(hunter_check_toolchain_definition)
 
 # Use *.7z version.
 # Qt 5.5 overview:
@@ -226,6 +227,28 @@ hunter_add_version(
     b1bc254e688426316b55115adddd13e4a10115b2
 )
 
+hunter_add_version(
+    PACKAGE_NAME
+    Qt
+    VERSION
+    "5.10.1"
+    URL
+    "http://download.qt.io/official_releases/qt/5.10/5.10.1/single/qt-everywhere-src-5.10.1.tar.xz"
+    SHA1
+    3d71e887287bdea664ac6f8db4aaa4a7d913be59
+)
+
+hunter_add_version(
+    PACKAGE_NAME
+    Qt
+    VERSION
+    "5.11.1"
+    URL
+    "http://download.qt.io/official_releases/qt/5.11/5.11.1/single/qt-everywhere-src-5.11.1.tar.xz"
+    SHA1
+    0ac866442a960d4038a51ba3096b2cc5d796b5ee
+)
+
 hunter_cacheable(Qt)
 
 if(NOT APPLE AND NOT WIN32)
@@ -259,6 +282,15 @@ if(CMAKE_VERSION VERSION_LESS 3.6)
   # * https://gitlab.kitware.com/cmake/cmake/commit/edcccde7d65944b3744c4567bd1d452211829702
   hunter_report_broken_package(
       "CMake 3.6+ expected for Qt package (current version is ${CMAKE_VERSION}."
+  )
+endif()
+
+if(MSVC)
+  hunter_check_toolchain_definition(NAME "_DLL" DEFINED _hunter_vs_md)
+  hunter_cmake_args(
+    Qt
+    CMAKE_ARGS
+      QT_BUILD_DYNAMIC_VSRUNTIME=${_hunter_vs_md}
   )
 endif()
 

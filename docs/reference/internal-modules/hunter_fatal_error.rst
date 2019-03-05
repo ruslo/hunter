@@ -6,14 +6,14 @@ hunter_fatal_error
 
 Wrapper for the ``message(FATAL_ERROR ...)`` command. Message marked as one
 from Hunter by adding prefix ``[hunter ** FATAL ERROR **]``. Additionally
-current module directory printed. This command expects ``WIKI`` argument which
+current module directory printed. This command expects ``ERROR_PAGE`` argument which
 will link to the page with detailed description of the problem. For example:
 
 .. code-block:: cmake
 
   hunter_fatal_error(
       "Please set hunter_add_package *after* project command"
-      WIKI "error.hunteraddpackage.after.project"
+      ERROR_PAGE "error.hunteraddpackage.after.project"
   )
 
 will convert
@@ -22,4 +22,4 @@ will convert
 
 to
 
-* https://github.com/ruslo/hunter/wiki/error.hunteraddpackage.after.project
+* https://docs.hunter.sh/en/latest/reference/errors/error.hunteraddpackage.after.project.html

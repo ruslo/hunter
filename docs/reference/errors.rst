@@ -3,3 +3,9 @@
 
 Errors
 ------
+
+.. toctree::
+  :glob:
+  :maxdepth: 1
+
+  /reference/errors/*

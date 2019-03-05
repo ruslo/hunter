@@ -17,6 +17,50 @@ hunter_add_version(
     PACKAGE_NAME
     Eigen
     VERSION
+    "3.3.7"
+    URL
+    "https://github.com/eigenteam/eigen-git-mirror/archive/3.3.7.tar.gz"
+    SHA1
+    3a299537e429a3a11e4038616b867d004014f262
+)
+
+hunter_add_version(
+    PACKAGE_NAME
+    Eigen
+    VERSION
+    "3.3.6"
+    URL
+    "https://github.com/eigenteam/eigen-git-mirror/archive/3.3.6.tar.gz"
+    SHA1
+    328824ffd5487f989e27326133d2d9106acc4fdd
+)
+
+hunter_add_version(
+    PACKAGE_NAME
+    Eigen
+    VERSION
+    "3.3.5"
+    URL
+    "https://github.com/eigenteam/eigen-git-mirror/archive/3.3.5.tar.gz"
+    SHA1
+    c1801a3b37c7fd734c756b9dce4d00a3cd685b7a
+)
+
+hunter_add_version(
+    PACKAGE_NAME
+    Eigen
+    VERSION
+    "3.3.4-p1"
+    URL
+    "https://github.com/hunter-packages/eigen/archive/v3.3.4-p1.tar.gz"
+    SHA1
+    f7f21eed71df17707c7c25eb17e25f844b2d63a2
+)
+
+hunter_add_version(
+    PACKAGE_NAME
+    Eigen
+    VERSION
     "3.3.4-p0"
     URL
     "https://github.com/hunter-packages/eigen/archive/v3.3.4-p0.tar.gz"
@@ -77,6 +121,28 @@ hunter_add_version(
     "https://github.com/hunter-packages/eigen/archive/v3.3.1-p4.tar.gz"
     SHA1
     3ea6a95fb3b1b82c9a9c75fb50f5c87f7e0c9b1a
+)
+
+hunter_add_version(
+    PACKAGE_NAME
+    Eigen
+    VERSION
+    "v0.0.0-429aa5254200-p1"
+    URL
+    "https://github.com/hunter-packages/eigen/archive/hunter-429aa5254200-p1.tar.gz"
+    SHA1
+    1229c01ecdf7388329233bd6a3f837307f80f569
+)
+
+hunter_add_version(
+    PACKAGE_NAME
+    Eigen
+    VERSION
+    "v0.0.0-429aa5254200-p0"
+    URL
+    "https://github.com/hunter-packages/eigen/archive/hunter-429aa5254200-p0.tar.gz"
+    SHA1
+    89e7e4419142f7a06fc59183f61c1f9333f2633b
 )
 
 set(_android_args)

@@ -9,11 +9,10 @@ include("../common.cmake")
 
 project(download-flatbuffers)
 
-# download flatbuffers
+# DOCUMENTATION_START {
 hunter_add_package(flatbuffers)
-
-# now flatbuffers can be used
-find_package(flatbuffers CONFIG REQUIRED)
+find_package(Flatbuffers CONFIG REQUIRED)
 
 add_executable(foo foo.cpp)
-target_link_libraries(foo flatbuffers::flatbuffers)
+target_link_libraries(foo PUBLIC flatbuffers::flatbuffers)
+# DOCUMENTATION_END }

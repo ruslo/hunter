@@ -1,0 +1,140 @@
+# Copyright (c) 2016, Ruslan Baratov
+# Copyright (c) 2017, Sacha Refshauge
+# All rights reserved.
+
+cmake_minimum_required(VERSION 3.0)
+project(Hunter)
+
+include(ExternalProject) # ExternalProject_Add
+
+# Scheme for download and install LibXML2 library for Windows
+
+list(APPEND CMAKE_MODULE_PATH "@HUNTER_SELF@/cmake/modules")
+include(hunter_libxml2_install_tools)
+include(hunter_fatal_error)
+include(hunter_internal_error)
+include(hunter_status_debug)
+include(hunter_assert_not_empty_string)
+
+hunter_status_debug("Scheme: url_sha1_libxml2_msvc")
+
+# Check preconditions
+hunter_assert_not_empty_string("@HUNTER_SELF@")
+hunter_assert_not_empty_string("@HUNTER_EP_NAME@")
+hunter_assert_not_empty_string("@HUNTER_PACKAGE_URL@")
+hunter_assert_not_empty_string("@HUNTER_PACKAGE_SHA1@")
+hunter_assert_not_empty_string("@HUNTER_PACKAGE_DOWNLOAD_DIR@")
+hunter_assert_not_empty_string("@HUNTER_PACKAGE_SOURCE_DIR@")
+hunter_assert_not_empty_string("@HUNTER_PACKAGE_INSTALL_PREFIX@")
+hunter_assert_not_empty_string("@HUNTER_MSVC_ARCH@")
+hunter_assert_not_empty_string("@HUNTER_MSVC_VCVARSALL@")
+hunter_assert_not_empty_string("@HUNTER_PACKAGE_LICENSE_DIR@")
+hunter_assert_not_empty_string("@HUNTER_GLOBAL_SCRIPT_DIR@")
+hunter_assert_not_empty_string("@HUNTER_PACKAGE_SCRIPT_DIR@")
+hunter_assert_not_empty_string("@HUNTER_TLS_VERIFY@")
+
+if (BUILD_SHARED_LIBS)
+  set(shared "static=no")
+else()
+  set(shared "static=yes")
+endif()
+
+# Use native slashes to help nmake if statements work
+file(TO_NATIVE_PATH "@HUNTER_PACKAGE_INSTALL_PREFIX@" LIBXML2_INSTALL_DIR)
+
+set(HUNTER_MSVC_VCVARSALL "@HUNTER_MSVC_VCVARSALL@")
+set(HUNTER_MSVC_ARCH "@HUNTER_MSVC_ARCH@")
+set(HUNTER_PACKAGE_SOURCE_DIR "@HUNTER_PACKAGE_SOURCE_DIR@")
+set(patch_cmd "@CMAKE_COMMAND@" -E copy "@HUNTER_PACKAGE_DOWNLOAD_DIR@/patched_bootstrap.bat" "@HUNTER_PACKAGE_SOURCE_DIR@/patched_bootstrap.bat")
+set(bootstrap_cmd "patched_bootstrap.bat")
+
+set(previous_project "")
+foreach(build_config_type @HUNTER_PACKAGE_CONFIGURATION_TYPES@)
+
+    # Check for valid configuration (exact capitalization required)
+    string(COMPARE EQUAL "${build_config_type}" "Release" is_release)
+    string(COMPARE EQUAL "${build_config_type}" "Debug"   is_debug)
+    if(NOT (is_release OR is_debug))
+        hunter_user_error("libxml2: Invalid build configuration type provided. Valid values are: \"Release\", \"Debug\", \"Release\;Debug\" (HUNTER_PACKAGE_CONFIGURATION_TYPES)")
+    endif()
+
+    if(@BUILD_SHARED_LIBS@)
+      set(LIB_EXT "")
+    else()
+      set(LIB_EXT "_a")
+    endif()
+
+    # Configure bootstrap with different MSVC runtime
+    if (LIBXML2_BUILD_DYNAMIC_VSRUNTIME)
+      set(LIBXML2_RUNTIME "/MD")
+    else()
+      set(LIBXML2_RUNTIME "/MT")
+    endif()
+    if (is_debug)
+      set(LIBXML2_RUNTIME "${LIBXML2_RUNTIME}d")
+    endif()
+    configure_file("@HUNTER_PACKAGE_SCRIPT_DIR@/patched_bootstrap.bat.in" "@HUNTER_PACKAGE_DOWNLOAD_DIR@/patched_bootstrap.bat")
+
+    set(current_project "@HUNTER_EP_NAME@${build_config_type}")
+
+    ExternalProject_Add(
+        ${current_project}
+        URL
+        "@HUNTER_PACKAGE_URL@"
+        URL_HASH
+        SHA1=@HUNTER_PACKAGE_SHA1@
+        DOWNLOAD_DIR
+        "@HUNTER_PACKAGE_DOWNLOAD_DIR@"
+        TLS_VERIFY
+        "@HUNTER_TLS_VERIFY@"
+        SOURCE_DIR
+        "@HUNTER_PACKAGE_SOURCE_DIR@"
+        INSTALL_DIR
+        "@HUNTER_PACKAGE_INSTALL_PREFIX@"
+            # not used, just avoid creating Install/<name> empty directory
+        CONFIGURE_COMMAND
+        ${patch_cmd}
+        COMMAND
+        ${bootstrap_cmd}
+        BUILD_COMMAND
+        "@CMAKE_COMMAND@" -E echo "Dummy build step"
+        BUILD_IN_SOURCE
+        1
+        INSTALL_COMMAND
+        "@CMAKE_COMMAND@"
+        "-C@HUNTER_ARGS_FILE@" # for 'HUNTER_INSTALL_LICENSE_FILES'
+        "-Dsrcdir=@HUNTER_PACKAGE_SOURCE_DIR@"
+        "-Ddstdir=@HUNTER_PACKAGE_LICENSE_DIR@"
+        -P
+        "@HUNTER_SELF@/scripts/try-copy-license.cmake"
+        LOG_CONFIGURE 1
+    )
+  
+    # Each external project must depends on previous one since they all use
+    # the same building directory
+    string(COMPARE EQUAL "${previous_project}" "" is_empty)
+    if(NOT is_empty)
+        add_dependencies(
+                "${current_project}"
+                "${previous_project}"
+        )
+    endif()
+    set(previous_project "${current_project}")
+  
+    # Install target file
+    # Required: lib file name, BUILD_SHARED_LIBS, install prefix, hunter_self
+    string(TOUPPER ${build_config_type} TARGET_CONFIGURATION)
+    set(HUNTER_PACKAGE_INSTALL_PREFIX "@HUNTER_PACKAGE_INSTALL_PREFIX@")
+    set(TARGET_LIB_FILE               "libxml2${LIB_EXT}.lib")
+    set(HUNTER_SELF                   "@HUNTER_SELF@")
+  
+    hunter_install_libxml2_targets()
+endforeach()
+
+# Forward some variables
+set(BUILD_SHARED_LIBS                  "@BUILD_SHARED_LIBS@")
+set(HUNTER_libxml2_VERSION             "@HUNTER_libxml2_VERSION@")
+set(HUNTER_PACKAGE_CONFIGURATION_TYPES "@HUNTER_PACKAGE_CONFIGURATION_TYPES@")
+set(HUNTER_PACKAGE_INSTALL_PREFIX      "@HUNTER_PACKAGE_INSTALL_PREFIX@")
+
+hunter_install_libxml2_config()
