@@ -88,6 +88,16 @@ else()
   )
 endif()
 
+if(APPLE)
+  # FindGLUT issue:
+  # - https://travis-ci.org/ingenue/hunter/jobs/502944277
+  list(
+      APPEND
+      _hunter_webp_cmake_args
+      WEBP_BUILD_VWEBP=OFF
+  )
+endif()
+
 hunter_cmake_args(WebP CMAKE_ARGS ${_hunter_webp_cmake_args})
 
 hunter_pick_scheme(DEFAULT url_sha1_cmake)
