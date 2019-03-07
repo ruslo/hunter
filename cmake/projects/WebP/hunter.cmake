@@ -55,6 +55,17 @@ hunter_add_version(
     2b5aba3283e1f61b7d3c60a9b9eb97c3910806c1
 )
 
+hunter_add_version(
+    PACKAGE_NAME
+    WebP
+    VERSION
+    "1.0.2-p2"
+    URL
+    "https://github.com/hunter-packages/libwebp/archive/v1.0.2-p2.tar.gz"
+    SHA1
+    58d3784b1552a03678bc35e5f38b35b356d528d9
+)
+
 set(
     _hunter_webp_cmake_args
     WEBP_BUILD_WEBP_JS=OFF
@@ -71,6 +82,7 @@ if(ANDROID OR IOS)
       WEBP_BUILD_ANIM_UTILS=OFF
       WEBP_BUILD_CWEBP=OFF
       WEBP_BUILD_DWEBP=OFF
+      WEBP_BUILD_EXTRAS=OFF
       WEBP_BUILD_GIF2WEBP=OFF
       WEBP_BUILD_IMG2WEBP=OFF
       WEBP_BUILD_WEBPINFO=OFF
