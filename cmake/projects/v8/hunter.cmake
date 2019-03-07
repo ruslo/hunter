@@ -19,6 +19,17 @@ hunter_add_version(
     44805a2abbfc65fa73dbbfaa0383135dae9d05af
 )
 
+hunter_add_version(
+    PACKAGE_NAME
+    v8
+    VERSION
+    7.4.98-p2
+    URL
+    "https://github.com/hunter-packages/v8/archive/v7.4.98-p2.tar.gz"
+    SHA1
+    7b165ee53bf804ce543880e21954b6d000053571
+)
+
 hunter_pick_scheme(DEFAULT url_sha1_cmake)
 hunter_cacheable(v8)
 hunter_download(PACKAGE_NAME v8)
