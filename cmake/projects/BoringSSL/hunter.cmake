@@ -21,6 +21,17 @@ hunter_add_version(
     caa7cd122960c9427bda30db5020b9058cb1ed0a
     )
 
+hunter_add_version(
+    PACKAGE_NAME
+    BoringSSL
+    VERSION
+    0.0.0-0f5ecd3a8-p0
+    URL
+    "https://github.com/hunter-packages/boringssl/archive/v0.0.0-0f5ecd3a8-p0.tar.gz"
+    SHA1
+    fee17b226c3132edc44711365eb5ea023c55bb1d
+    )
+
 if(MSVC)
   hunter_cmake_args(BoringSSL CMAKE_ARGS OPENSSL_NO_ASM=YES)
 endif()
