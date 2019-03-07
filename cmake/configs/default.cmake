@@ -42,7 +42,7 @@ endif()
 
 hunter_default_version(BoostCompute VERSION 0.5-p0)
 hunter_default_version(BoostProcess VERSION 0.5)
-hunter_default_version(BoringSSL VERSION 1.0.0)
+hunter_default_version(BoringSSL VERSION 0.0.0-0f5ecd3a8-p0)
 hunter_default_version(Box2D VERSION 2.3.1-p0)
 hunter_default_version(CLAPACK VERSION 3.2.1)
 hunter_default_version(CLI11 VERSION 1.7.1)
