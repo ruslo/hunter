@@ -8,6 +8,12 @@
 Update package
 --------------
 
+.. note::
+
+  If package lives in https://github.com/hunter-packages, it should be
+  released there first. Check :doc:`Patch sources </creating-new/patch>`
+  section.
+
 Create branch for working on package update:
 
 .. code-block:: none
