@@ -21,6 +21,17 @@ hunter_add_version(
     c90ecb5fd3c393371abb9cfbf61d4fd5e36564f1
     )
   
+ hunter_add_version(
+    PACKAGE_NAME
+    cub
+    VERSION
+    1.8.0-p0
+    URL
+    "https://github.com/a-sevin/cub/archive/v1.8.0-p0.tar.gz"
+    SHA1
+    bbd7afdc64e7ddd8d273713d5d06f6d29c2a4878
+    )
+
 hunter_pick_scheme(DEFAULT url_sha1_cmake)
 hunter_cacheable(cub)
 hunter_download(PACKAGE_NAME cub)
