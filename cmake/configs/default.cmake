@@ -126,7 +126,7 @@ else()
 endif()
 
 hunter_default_version(QtAndroidCMake VERSION 1.0.9)
-hunter_default_version(QtCMakeExtra VERSION 1.0.32)
+hunter_default_version(QtCMakeExtra VERSION 1.0.34)
 hunter_default_version(QtPropertyEditor VERSION 2.1.3-p0)
 hunter_default_version(QtQmlManager VERSION 1.0.0)
 hunter_default_version(Qwt VERSION 6.1-p3)
