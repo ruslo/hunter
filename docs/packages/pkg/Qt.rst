@@ -230,25 +230,6 @@ if you see this error try to remove usage of target ``Qt5::QtQuick2Plugin`` and 
 -  Extra libraries for Android tools on Ubuntu needed (see `this
    answer <http://superuser.com/a/360398/252568>`__)
 
-Applied workaround for next bugs
---------------------------------
-
--  Default version of Xcode should not be set to ``7.0`` for Qt
-   ``5.5.0``. See `bug
-   #47383 <https://bugreports.qt.io/browse/QTBUG-47383>`__.
-
--  Hunter install extra module
-   `Qt5Widgets\_HunterPlugin <https://github.com/ruslo/hunter/blob/develop/scripts/Qt5Widgets_HunterPlugin.cmake>`__
-   to apply workarounds for bugs:
-   `47349 <https://bugreports.qt.io/browse/QTBUG-47349>`__ and
-   `47336 <https://bugreports.qt.io/browse/QTBUG-47336>`__.
-
--  Simulator's libraries not found by ``find_package``:
-   `47314 <https://bugreports.qt.io/browse/QTBUG-47314>`__
-
--  Workaround for `bug
-   #47453 <https://bugreports.qt.io/browse/QTBUG-47453>`__
-
 Hints
 -----
 
