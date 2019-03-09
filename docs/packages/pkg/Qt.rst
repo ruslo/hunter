@@ -152,6 +152,18 @@ Customization
   * Adds ``-opengl desktop``
   * `Qt Configure Options <https://doc.qt.io/qt-5/configure-options.html>`__
 
+Windows "path too long"
+-----------------------
+
+Using :ref:`HUNTER_BINARY_DIR <env hunter binary dir>` is not helping with
+:ref:`path too long <windows path too long>` errors. The only way to build Qt
+is to use short path for ``HUNTER_ROOT`` directory.
+
+.. seealso::
+
+  - https://bugreports.qt.io/browse/QTBUG-66652
+  - https://bugreports.qt.io/browse/QTBUG-64298
+
 Pitfalls
 --------
 

@@ -49,6 +49,8 @@ What to do
 Fixable errors
 --------------
 
+.. _windows path too long:
+
 Windows
 ```````
 
