@@ -52,7 +52,6 @@ function(
       qtpim
       qtpurchasing
       qtqa
-      qtquick1
       qtquickcontrols
       qtquickcontrols2
       qtremoteobjects
