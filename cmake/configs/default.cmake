@@ -48,7 +48,7 @@ hunter_default_version(CLAPACK VERSION 3.2.1)
 hunter_default_version(CLI11 VERSION 1.7.1)
 hunter_default_version(CURL VERSION 7.60.0-p0)
 hunter_default_version(CapnProto VERSION 0.7.0)
-hunter_default_version(Catch VERSION 2.6.0)
+hunter_default_version(Catch VERSION 2.7.0)
 hunter_default_version(Clang VERSION 6.0.1-p0)
 hunter_default_version(ClangToolsExtra VERSION 6.0.1) # Clang
 hunter_default_version(Comet VERSION 4.0.2)
