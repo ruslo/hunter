@@ -93,7 +93,8 @@ Android Studio to default locations):
 
 .. warning::
 
-  Android NDK r19+ is :ref:`not supported <android ndk r19>`.
+  Android NDK r19+ is :ref:`not supported <android ndk r19>`. You **have to**
+  switch to a lower version explicitly, e.g. to NDK r18b.
 
 Please check that ``cmake.dir`` has such value that ``<cmake.dir>/bin/cmake``
 executable exists.
