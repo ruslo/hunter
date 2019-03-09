@@ -12,10 +12,13 @@ Qt
 
 -  `Official <http://qt.io>`__
 -  `Source archives <http://download.qt.io/archive/qt/>`__
--  `Example <https://github.com/ruslo/hunter/tree/master/examples/qt-widgets/CMakeLists.txt>`__
--  `iOS examples <https://github.com/forexample/qt-ios-examples>`__
--  `Android
-   example <https://github.com/forexample/android-cmake/tree/master/05-qt-hellogl2>`__
+
+.. seealso::
+
+  -  `Example: Qt Widgets <https://github.com/ruslo/hunter/tree/master/examples/qt-widgets/CMakeLists.txt>`__
+  -  `iOS examples <https://github.com/forexample/qt-ios-examples>`__
+  -  `Android
+     example <https://github.com/forexample/android-cmake/tree/master/05-qt-hellogl2>`__
 
 Usage
 -----
