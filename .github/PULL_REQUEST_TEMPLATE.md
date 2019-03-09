@@ -1,7 +1,7 @@
 <!--- Please check that your pull request satisfy all requirements -->
 
 * I have checked that this pull request contains only
-  `.travis.yml`/`appveyor.yml` changes. All other changes send
+  `.travis.yml`/`appveyor.yml` changes or commits merged from the `pkg.template` branch. All other changes send
   to https://github.com/ruslo/hunter. **[Yes|No]**
 
 * I have checked that no toolchains removed from CI configs, they are commented
