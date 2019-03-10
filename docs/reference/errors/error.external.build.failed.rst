@@ -2,7 +2,6 @@
 
   OpenSSL
 
-
 error.external.build.failed
 ===========================
 
@@ -22,8 +21,15 @@ Explanation
 What to do
 ----------
 
-- Find a reason of failure. Set |HUNTER_STATUS_DEBUG=ON|_ to see a lot of info about build
-- Take a look at `pkg.NAME <https://github.com/ingenue/hunter/branches/all?utf8=%E2%9C%93&query=pkg>`_ CI testing table. If similar toolchain is excluded (or not present at all) then the problem is known, hence **there is no need to report bug if you're not planning to fix it yourself**. For example if you take a look at OpenSSL testing:
+- Find a reason of failure. Set
+  :ref:`HUNTER_STATUS_DEBUG=ON <hunter_status_debug>`
+  to see a lot of info about build
+- Take a look at
+  `pkg.NAME <https://github.com/ingenue/hunter/branches/all?utf8=%E2%9C%93&query=pkg>`_
+  CI testing table. If similar toolchain is excluded (or not present at all)
+  then the problem is known, hence **there is no need to report bug if you're
+  not planning to fix it yourself**.
+  For example if you check the OpenSSL testing:
 
     - https://github.com/ingenue/hunter/tree/pkg.openssl
 
@@ -33,27 +39,40 @@ What to do
 
   So there is no need to report "OpenSSL is not working with NMake" issue.
 
-- If you want to try to fix the error and want to ask for advice then prefer reporting it to `hunterized repository <https://github.com/hunter-packages>`_ (if it exist for package). For example report Boost problems to https://github.com/hunter-packages/boost Stale bugs with label "Broken package" will be closed if there will be no activity there **even if problem may not be fixed**.
-
-.. |HUNTER_STATUS_DEBUG=ON| replace:: ``HUNTER_STATUS_DEBUG=ON``
-.. _HUNTER_STATUS_DEBUG=ON: https://docs.hunter.sh/en/latest/reference/user-variables.html#hunter-status-debug
+- If you want to try to fix the error and want to ask for advice, then prefer
+  reporting it to `hunterized repository <https://github.com/hunter-packages>`_
+  (if it exist for package). For example report Boost problems to
+  https://github.com/hunter-packages/boost .
+  Stale bugs with label "Broken package" will be closed if there will be no
+  activity there **even if problem may not be fixed**.
 
 Fixable errors
 --------------
 
+.. _windows path too long:
+
 Windows
 ```````
 
-- "Path too long" error with message::
+- "Path too long" error with message:
 
-    The specified path, file name, or both are too long.  The fully qualified
-    file name must be less than 260 characters, and the directory name must be
-    less than 248 characters.
+.. code-block:: none
 
-  can be fixed by setting ``HUNTER_ROOT`` environment variable to some short path, like ``C:\_hunter``. Alternatively you can set ``HUNTER_BINARY_DIR`` environment variable. In this case all installed packages will be kept in ``HUNTER_ROOT`` but all builds will be triggered in ``HUNTER_BINARY_DIR``. Note that if several Hunter-ID will be send to ``HUNTER_BINARY_DIR`` they will block each other and will be build sequentially (builds in ``HUNTER_ROOT`` lock different directories so different Hunter-ID instances work in parallel). Note that the problem is about native build tool (like Visual Studio) and not in CMake. CMake already using |extended length path|_ format (see `ConvertToWindowsExtendedPath <https://github.com/Kitware/CMake/blob/cec6e3e9eb9861a3a1a0fd7a3972fa36dd6b9996/Source/kwsys/SystemTools.cxx#L2003>`_).
+  The specified path, file name, or both are too long.  The fully qualified
+  file name must be less than 260 characters, and the directory name must be
+  less than 248 characters.
 
-.. |extended length path| replace:: extended-length path ``\\?\C:\``
-.. _extended length path: https://msdn.microsoft.com/en-us/library/aa365247.aspx#maxpath
+
+Can be fixed by setting :ref:`HUNTER_ROOT <env hunter root>` environment variable to some short path,
+like ``C:\_hunter``. Alternatively you can set :ref:`HUNTER_BINARY_DIR <env hunter binary dir>`
+environment variable. In this case all installed packages will be kept in ``HUNTER_ROOT``
+but all builds will be triggered in ``HUNTER_BINARY_DIR``. Note that if several
+``Hunter-ID`` will be send to ``HUNTER_BINARY_DIR`` they will block each other and
+will be build sequentially (builds in ``HUNTER_ROOT`` lock different directories
+so different ``Hunter-ID`` instances work in parallel). Note that the problem is
+about native build tool (like `MSBuild <https://github.com/Microsoft/msbuild/issues/53#issuecomment-459062618>`__)
+and not in CMake. CMake is already using ``\\?\C:\`` `extended-length path <https://msdn.microsoft.com/en-us/library/aa365247.aspx#maxpath>`__
+format (see `source code <https://github.com/Kitware/CMake/blob/cec6e3e9eb9861a3a1a0fd7a3972fa36dd6b9996/Source/kwsys/SystemTools.cxx#L2003>`_).
 
 Mac OS X
 ````````
