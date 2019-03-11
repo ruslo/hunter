@@ -167,6 +167,9 @@ is to use short path for ``HUNTER_ROOT`` directory.
 Pitfalls
 --------
 
+- Python is required to be in ``PATH`` if you're building the ``qtdeclarative``
+  component
+
 -  Conflicts with system Qt: `bug with
    workaround <https://github.com/ruslo/hunter/issues/224#issuecomment-137101944>`__
 
