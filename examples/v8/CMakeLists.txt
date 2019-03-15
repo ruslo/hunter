@@ -14,5 +14,15 @@ hunter_add_package(v8)
 find_package(v8 CONFIG REQUIRED)
 
 add_executable(boo boo.cpp)
-target_link_libraries(boo PUBLIC v8::v8_libplatform v8::v8_base)
+target_link_libraries(
+    boo
+    PUBLIC
+    v8::v8_libplatform
+    v8::v8_libbase
+    v8::v8_base
+    v8::v8_nosnapshot
+    v8::v8_init
+    v8::v8_initializers
+    v8::v8_libsampler
+)
 # DOCUMENTATION_END }
