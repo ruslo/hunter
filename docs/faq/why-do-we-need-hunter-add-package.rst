@@ -44,7 +44,10 @@ feature in practice is quite questionable.
     find_package(foo 1.22 CONFIG REQUIRED)
 
   User might got a feeling that version ``1.22`` is installed, which is not
-  guaranteed.
+  guaranteed - version of the package locked before, after
+  first ``HunterGate`` call
+  (see :doc:`Config-ID </overview/customization/config-id>`).
+
 
 * The change of ``find_package`` behavior will have fragile implementation. As
   an example: you can introduce custom macro ``find_package`` and call standard
