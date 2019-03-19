@@ -44,7 +44,10 @@ feature in practice is quite questionable.
     find_package(foo 1.22 CONFIG REQUIRED)
 
   User might got a feeling that version ``1.22`` is installed, which is not
-  guaranteed.
+  guaranteed - version of the package locked before, after
+  first ``HunterGate`` call
+  (see :doc:`Config-ID </overview/customization/config-id>`).
+
 
 * The change of ``find_package`` behavior will have fragile implementation. As
   an example: you can introduce custom macro ``find_package`` and call standard
@@ -70,3 +73,17 @@ feature in practice is quite questionable.
 So the choice here is between a clean, simple and universal solution introduced
 by ``hunter_add_package`` and tricky, undocumented, surprising for user
 implementation that will still not cover all the scenarios.
+
+Some important notes:
+
+- Adding the ``hunter_add_package`` to your project **do not force you** to
+  always use only Hunter for dependency management.
+  See :doc:`Backward compatibility </overview/compatibility>` for details.
+
+- Package with CMake and without dependencies can be used **as is** in Hunter.
+  See :ref:`examples <cmake-simple>`.
+
+- If you want to support ``DEB`` packaging in your project you have to modify
+  CMake code:
+
+  - https://github.com/opencv/opencv/blob/4.0.1/cmake/OpenCVPackaging.cmake#L58-L116
