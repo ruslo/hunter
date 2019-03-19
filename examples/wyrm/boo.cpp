@@ -1,4 +1,4 @@
-#include <wyrm/wyrm.hpp>
+#include <wyrm>
 
 int main() {
 }
