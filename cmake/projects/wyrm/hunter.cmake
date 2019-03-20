@@ -31,6 +31,3 @@ hunter_cmake_args(
 hunter_pick_scheme(DEFAULT url_sha1_cmake)
 hunter_cacheable(wyrm)
 hunter_download(PACKAGE_NAME wyrm)
-
-hunter_add_package(pybind11)
-find_package(pybind11 CONFIG REQUIRED)
