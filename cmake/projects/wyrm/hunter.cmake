@@ -17,7 +17,7 @@ hunter_add_version(
     URL
     "https://gitlab.obspm.fr/greenflash/wyrm/-/archive/v0.1.0/wyrm-v0.1.0.tar.gz"
     SHA1
-    fff8afeffdcfa9d1fab23644e4e16a2fb076dad2
+    2d2c6b23b3b78f289ff515d76a99bcc8a773213e
 )
 
 hunter_cmake_args(
