@@ -1,0 +1,4 @@
+#include <wyrm>
+
+int main() {
+}
