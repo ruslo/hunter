@@ -69,6 +69,11 @@ hunter_cmake_args(
   dmlc-core
   CMAKE_ARGS
   USE_OPENMP=OFF # since not all compilers support this
+
+  # '/usr/include' leaking into compilation will ruine everything
+  # - https://travis-ci.org/ingenue/hunter/jobs/510403904
+  # -- Found Backtrace: /usr/include
+  CMAKE_DISABLE_FIND_PACKAGE_Backtrace=ON
   )
 
 hunter_pick_scheme(DEFAULT url_sha1_cmake)
