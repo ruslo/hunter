@@ -41,6 +41,17 @@ hunter_add_version(
     315b8c46ff85ec777fa3e5db06213710f62e1116
 )
 
+hunter_add_version(
+    PACKAGE_NAME
+    dlpack
+    VERSION
+    "0.2-5c792ce-p0"
+    URL
+    "https://github.com/hunter-packages/dlpack/archive/v0.2-5c792ce-p0.tar.gz"
+    SHA1
+    0be27ccdaf2142517e21b62cb3629c363ccebbf2
+)
+
 hunter_pick_scheme(DEFAULT url_sha1_cmake)
 hunter_cacheable(dlpack)
 hunter_download(PACKAGE_NAME dlpack)
