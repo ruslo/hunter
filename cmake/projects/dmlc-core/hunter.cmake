@@ -54,10 +54,26 @@ hunter_add_version(
     e31258568ec9951272fd1a6a25a04e166931ebbd
     )
 
+hunter_add_version(
+    PACKAGE_NAME
+    dmlc-core
+    VERSION
+    0.3-d07fb7a-p0
+    URL
+    "https://github.com/hunter-packages/dmlc-core/archive/v0.3-d07fb7a-p0.tar.gz"
+    SHA1
+    4f0abf7a0a06091d2c26de073d992e239fd6e63f
+    )
+
 hunter_cmake_args(
   dmlc-core
   CMAKE_ARGS
   USE_OPENMP=OFF # since not all compilers support this
+
+  # '/usr/include' leaking into compilation will ruine everything
+  # - https://travis-ci.org/ingenue/hunter/jobs/510403904
+  # -- Found Backtrace: /usr/include
+  CMAKE_DISABLE_FIND_PACKAGE_Backtrace=ON
   )
 
 hunter_pick_scheme(DEFAULT url_sha1_cmake)
