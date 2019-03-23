@@ -5,6 +5,7 @@
 
 include(hunter_add_version)
 include(hunter_cacheable)
+include(hunter_cmake_args)
 include(hunter_download)
 include(hunter_pick_scheme)
 
@@ -51,6 +52,8 @@ hunter_add_version(
     SHA1
     0be27ccdaf2142517e21b62cb3629c363ccebbf2
 )
+
+hunter_cmake_args(dlpack CMAKE_ARGS BUILD_MOCK=OFF)
 
 hunter_pick_scheme(DEFAULT url_sha1_cmake)
 hunter_cacheable(dlpack)
