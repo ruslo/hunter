@@ -19,6 +19,17 @@ hunter_add_version(
     1f1dfb75eb296ad874aac67cf5b604ddfbe944a1
 )
 
+hunter_add_version(
+    PACKAGE_NAME
+    HalideIR
+    VERSION
+    0.0-b257a92-p1
+    URL
+    "https://github.com/hunter-packages/HalideIR/archive/v0.0-b257a92-p1.tar.gz"
+    SHA1
+    3b527b4e9d07e194f2143ce14563f69dc6a4db93
+)
+
 hunter_pick_scheme(DEFAULT url_sha1_cmake)
 hunter_cacheable(HalideIR)
 hunter_download(PACKAGE_NAME HalideIR)
