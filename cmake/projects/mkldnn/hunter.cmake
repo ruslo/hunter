@@ -20,6 +20,17 @@ hunter_add_version(
     374092d906d8163491d96907095727429fed776e
 )
 
+hunter_add_version(
+    PACKAGE_NAME
+    mkldnn
+    VERSION
+    0.17.4-p0
+    URL
+    "https://github.com/hunter-packages/mkldnn/archive/v0.17.4-p0.tar.gz"
+    SHA1
+    73a88f93c27e372c901608a399be54c7f21c4daa
+)
+
 hunter_cmake_args(
     mkldnn
     CMAKE_ARGS
