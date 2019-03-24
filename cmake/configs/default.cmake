@@ -369,6 +369,7 @@ hunter_default_version(qhull VERSION 7.2.0-p1)
 hunter_default_version(rabbitmq-c VERSION 0.7.0-p1)
 hunter_default_version(rabit VERSION 0.0.0-p2)
 hunter_default_version(randrproto VERSION 1.3.2)
+hunter_default_version(rang VERSION 3.1.0-p0)
 
 if(MSVC)
   hunter_default_version(range-v3 VERSION vcpkg5-p)
