@@ -1,4 +1,4 @@
-# Copyright (c) 2016-2018, Ruslan Baratov
+# Copyright (c) 2016-2019, Ruslan Baratov
 # All rights reserved.
 
 cmake_minimum_required(VERSION 3.2)
