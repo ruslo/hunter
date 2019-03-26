@@ -14,5 +14,5 @@ hunter_add_package(bento4)
 find_package(bento4 CONFIG REQUIRED)
 
 add_executable(main main.cpp)
-target_link_libraries(boo PUBLIC bento4::ap4)
+target_link_libraries(main PUBLIC bento4::ap4)
 # DOCUMENTATION_END }
