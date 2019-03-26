@@ -65,6 +65,17 @@ hunter_add_version(
     4f0abf7a0a06091d2c26de073d992e239fd6e63f
     )
 
+hunter_add_version(
+    PACKAGE_NAME
+    dmlc-core
+    VERSION
+    0.3-d07fb7a-p1
+    URL
+    "https://github.com/hunter-packages/dmlc-core/archive/v0.3-d07fb7a-p1.tar.gz"
+    SHA1
+    3185100daf1942e7fdd7707fa71a3e8598232913
+    )
+
 hunter_cmake_args(
   dmlc-core
   CMAKE_ARGS
