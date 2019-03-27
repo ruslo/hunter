@@ -1,6 +1,6 @@
 .. spelling::
 
-    bento4
+    bento
 
 .. index:: media ; bento4
 
