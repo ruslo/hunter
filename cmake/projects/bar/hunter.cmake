@@ -10,15 +10,15 @@ include(hunter_pick_scheme)
 
 hunter_add_version(
     PACKAGE_NAME
-    foo
+    bar
     VERSION
     1.0.0
     URL
-    "https://github.com/forexample/foo/archive/v1.0.0.tar.gz"
+    "https://github.com/forexample/bar/archive/v1.0.0.tar.gz"
     SHA1
-    86081bf14e3e7f5d27248ef9d3c53cd3f140552e
+    cb0223f9478a886f497ee4f4dc4a89cd95648fcd
 )
 
 hunter_pick_scheme(DEFAULT url_sha1_cmake)
-hunter_cacheable(foo)
-hunter_download(PACKAGE_NAME foo)
+hunter_cacheable(bar)
+hunter_download(PACKAGE_NAME bar)
