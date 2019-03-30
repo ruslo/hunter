@@ -712,6 +712,7 @@ __cpp_aggregate_nsdmi
 __cpp_alias_templates
 __cpp_attributes
 __cpp_binary_literals
+__cpp_concepts
 __cpp_constexpr
 __cpp_decltype
 __cpp_decltype_auto
