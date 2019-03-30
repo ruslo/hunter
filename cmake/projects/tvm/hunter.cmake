@@ -42,12 +42,38 @@ hunter_add_version(
     3cdbec21b8766f7f51abc78d957fe398c70470a5
 )
 
-hunter_cmake_args(
+hunter_add_version(
+    PACKAGE_NAME
     tvm
-    CMAKE_ARGS
+    VERSION
+    0.5-p2
+    URL
+    "https://github.com/hunter-packages/tvm/archive/v0.5-p2.tar.gz"
+    SHA1
+    f050a50ade4e1508621d5138b6edf8b09d9bbcc5
+)
+
+set(
+    __hunter_tvm_cmake_args
     INSTALL_DEV=ON
     INSTALL_NNVM_SOURCES=ON
 )
+
+if(IOS OR ANDROID OR WIN32)
+  list(APPEND __hunter_tvm_cmake_args TVM_BUILD_RUNTIME_ONLY=ON)
+else()
+  list(APPEND __hunter_tvm_cmake_args USE_GRAPH_RUNTIME_DEBUG=ON USE_LLVM=ON)
+
+  if("${CMAKE_SYSTEM_NAME}" STREQUAL "Linux")
+    list(APPEND __hunter_tvm_cmake_args USE_CUDA=ON)
+  endif()
+
+  if(APPLE)
+    list(APPEND __hunter_tvm_cmake_args USE_METAL=ON)
+  endif()
+endif()
+
+hunter_cmake_args(tvm CMAKE_ARGS ${__hunter_tvm_cmake_args})
 
 hunter_pick_scheme(DEFAULT url_sha1_cmake)
 hunter_cacheable(tvm)
