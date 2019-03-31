@@ -66,6 +66,17 @@ hunter_add_version(
     58d3784b1552a03678bc35e5f38b35b356d528d9
 )
 
+hunter_add_version(
+    PACKAGE_NAME
+    WebP
+    VERSION
+    "1.0.2-p3"
+    URL
+    "https://github.com/hunter-packages/libwebp/archive/v1.0.2-p3.tar.gz"
+    SHA1
+    f29c5354f31b91b4f9a73e6b0426af19e25d4ea2
+)
+
 set(
     _hunter_webp_cmake_args
     WEBP_BUILD_WEBP_JS=OFF
