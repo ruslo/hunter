@@ -2875,6 +2875,10 @@
 # pragma message(HUNTER_INFO(__cpp_binary_literals))
 #endif
 
+#if defined(__cpp_concepts)
+# pragma message(HUNTER_INFO(__cpp_concepts))
+#endif
+
 #if defined(__cpp_constexpr)
 # pragma message(HUNTER_INFO(__cpp_constexpr))
 #endif
