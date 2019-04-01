@@ -18,8 +18,8 @@ tvm
 
   * Library type is forced to be ``SHARED`` hence all dependencies should be
     shared libraries
-    (use :ref:`HUNTER_BUILD_SHARED_LIBS=ON <hunter build shared libs>`) or
-    build with :ref:`toolchain with PIC <simple toolchains>`.
+    (use :ref:`HUNTER_BUILD_SHARED_LIBS=ON <hunter build shared libs>`)
+    (**not tested!**) or build with :ref:`toolchain with PIC <simple toolchains>`.
 
 Because of the
 `LLVM + Xcode <https://github.com/ruslo/hunter/pull/943#issuecomment-321534754>`__
