@@ -1,6 +1,6 @@
 .. spelling::
 
-    cmcstl2
+    cmcstl
 
 .. index:: unsorted ; cmcstl2
 
