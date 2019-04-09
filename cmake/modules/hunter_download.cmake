@@ -274,11 +274,14 @@ function(hunter_download)
     return()
   endif()
 
-  hunter_lock_directory(
-      "${HUNTER_PACKAGE_DOWNLOAD_DIR}" HUNTER_ALREADY_LOCKED_DIRECTORIES
-  )
+  # Root should be locked first:
+  # - https://github.com/ruslo/hunter/issues/1806
+  # - https://github.com/forexample/deadlock-test
   hunter_lock_directory(
       "${HUNTER_CONFIG_ID_PATH}" HUNTER_ALREADY_LOCKED_DIRECTORIES
+  )
+  hunter_lock_directory(
+      "${HUNTER_PACKAGE_DOWNLOAD_DIR}" HUNTER_ALREADY_LOCKED_DIRECTORIES
   )
   if(hunter_lock_sources)
     hunter_lock_directory(

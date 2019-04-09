@@ -47,7 +47,29 @@ function(hunter_upload_to_custom_server)
       hunter_internal_error("Unexpected 'meta' directory: '${meta_dir}'")
     endif()
 
-    if(EXISTS "${cache_root_dir}/${deps_id_dir}/from.server")
+    set(from_server_path "${cache_root_dir}/${deps_id_dir}/from.server")
+    if(EXISTS "${from_server_path}")
+      hunter_status_debug("Skip. File present: ${from_server_path}")
+      continue()
+    endif()
+
+    set(deps_info_path "${cache_root_dir}/${deps_id_dir}/deps.info")
+    if(NOT EXISTS "${deps_info_path}")
+      hunter_status_debug("Skip. File not found: ${deps_info_path}")
+      continue()
+    endif()
+
+    set(cache_sha1_path "${cache_root_dir}/${deps_id_dir}/cache.sha1")
+    if(NOT EXISTS "${cache_sha1_path}")
+      hunter_status_debug("Skip. File not found: ${cache_sha1_path}")
+      continue()
+    endif()
+
+    file(READ "${cache_sha1_path}" cache_sha1)
+
+    set(raw_path "${cache_root_dir}/raw/${cache_sha1}.tar.bz2")
+    if(NOT EXISTS "${raw_path}")
+      hunter_status_debug("Skip. File not found: ${raw_path}")
       continue()
     endif()
 
@@ -60,7 +82,6 @@ function(hunter_upload_to_custom_server)
     hunter_upload_single_file(${deps_id_dir}/cache.sha1)
     hunter_upload_single_file(${deps_id_dir}/deps.info)
 
-    file(READ "${cache_root_dir}/${deps_id_dir}/cache.sha1" cache_sha1)
     hunter_upload_single_file(raw/${cache_sha1}.tar.bz2)
 
     hunter_upload_single_file(${deps_id_dir}/CACHE.DONE)
