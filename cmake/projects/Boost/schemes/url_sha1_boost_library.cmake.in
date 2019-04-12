@@ -110,7 +110,14 @@ endif()
 
 if("@MSVC@")
   set(boost_compiler  "@CMAKE_CXX_COMPILER@")
-  string(REPLACE "/" "\\" boost_compiler "${boost_compiler}")
+
+  # Note:
+  # - '/' will not work
+  # - single '\' lead to bug
+  #
+  # See issue:
+  # - https://github.com/boostorg/build/issues/426#issuecomment-482564740
+  string(REPLACE "/" "\\\\" boost_compiler "${boost_compiler}")
 else()
   set(boost_compiler "@CMAKE_CXX_COMPILER@")
 endif()
@@ -273,11 +280,15 @@ endif()
 
 if(MSVC)
   # See 'boost_compiler' section
+
+  # Note: Flags should be quoted:
+  # - https://github.com/boostorg/build/issues/426#issuecomment-482564740
+
   foreach(cxx_flag ${cxx_flags_list})
     file(
         APPEND
         ${boost_user_jam}
-        "  <compileflags>${cxx_flag}\n"
+        "  <compileflags>\"${cxx_flag}\"\n"
     )
   endforeach()
 endif()
