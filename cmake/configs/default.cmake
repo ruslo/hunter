@@ -36,6 +36,10 @@ hunter_default_version(Beast VERSION 1.0.0-b84-hunter-0)
 if(MINGW)
   # https://github.com/boostorg/build/issues/301
   hunter_default_version(Boost VERSION 1.64.0)
+elseif(MSVC AND MSVC_VERSION VERSION_GREATER "1900")
+  # Visual Studio 15 2017 bug:
+  # - https://github.com/boostorg/build/issues/426
+  hunter_default_version(Boost VERSION 1.69.0-p0)
 else()
   hunter_default_version(Boost VERSION 1.70.0-p0)
 endif()
