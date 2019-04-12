@@ -110,7 +110,14 @@ endif()
 
 if("@MSVC@")
   set(boost_compiler  "@CMAKE_CXX_COMPILER@")
-  string(REPLACE "/" "\\" boost_compiler "${boost_compiler}")
+
+  # Note:
+  # - '/' will not work
+  # - single '\' lead to bug
+  #
+  # See issue:
+  # - https://github.com/boostorg/build/issues/426#issuecomment-482564740
+  string(REPLACE "/" "\\\\" boost_compiler "${boost_compiler}")
 else()
   set(boost_compiler "@CMAKE_CXX_COMPILER@")
 endif()
