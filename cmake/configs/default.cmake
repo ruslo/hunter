@@ -362,6 +362,7 @@ hunter_default_version(pcg VERSION 0.0.0-p1)
 hunter_default_version(pciaccess VERSION 0.13.4)
 
 # pip packages
+hunter_default_version(pip_gitdb VERSION 2.0.5)
 hunter_default_version(pip_smmap VERSION 2.0.5)
 
 hunter_default_version(poly2tri VERSION 1.0.0)
