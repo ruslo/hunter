@@ -360,6 +360,10 @@ hunter_default_version(openddlparser VERSION 0.1.0-p2)
 hunter_default_version(opentracing-cpp VERSION 1.5.0)
 hunter_default_version(pcg VERSION 0.0.0-p1)
 hunter_default_version(pciaccess VERSION 0.13.4)
+
+# pip packages
+hunter_default_version(pip_smmap VERSION 2.0.5)
+
 hunter_default_version(poly2tri VERSION 1.0.0)
 hunter_default_version(polyclipping VERSION 4.8.8-p0) # for Assimp
 hunter_default_version(presentproto VERSION 1.0)
