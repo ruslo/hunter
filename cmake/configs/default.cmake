@@ -365,6 +365,7 @@ hunter_default_version(pciaccess VERSION 0.13.4)
 hunter_default_version(pip_GitPython VERSION 2.1.11)
 hunter_default_version(pip_cpplint VERSION 1.4.4)
 hunter_default_version(pip_gitdb VERSION 2.0.5)
+hunter_default_version(pip_nose VERSION 1.3.7)
 hunter_default_version(pip_smmap VERSION 2.0.5)
 
 hunter_default_version(poly2tri VERSION 1.0.0)
