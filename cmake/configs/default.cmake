@@ -369,6 +369,7 @@ hunter_default_version(pip_lazy-object-proxy VERSION 1.3.1)
 hunter_default_version(pip_nose VERSION 1.3.7)
 hunter_default_version(pip_nose-timer VERSION 0.7.5)
 hunter_default_version(pip_numpy VERSION 1.16.2)
+hunter_default_version(pip_six VERSION 1.12.0)
 hunter_default_version(pip_smmap VERSION 2.0.5)
 hunter_default_version(pip_wrapt VERSION 1.11.1)
 
