@@ -373,6 +373,7 @@ hunter_default_version(pip_numpy VERSION 1.16.2)
 hunter_default_version(pip_pylint VERSION 2.3.1)
 hunter_default_version(pip_six VERSION 1.12.0)
 hunter_default_version(pip_smmap VERSION 2.0.5)
+hunter_default_version(pip_urllib3 VERSION 1.24.1)
 hunter_default_version(pip_wrapt VERSION 1.11.1)
 
 hunter_default_version(poly2tri VERSION 1.0.0)
