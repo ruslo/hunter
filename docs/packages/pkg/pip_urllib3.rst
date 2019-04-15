@@ -1,6 +1,6 @@
 .. spelling::
 
-    urllib3
+    urllib
 
 .. index::
   single: python ; pip_urllib3
