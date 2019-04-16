@@ -364,6 +364,7 @@ hunter_default_version(pciaccess VERSION 0.13.4)
 # pip packages
 hunter_default_version(pip_GitPython VERSION 2.1.11)
 hunter_default_version(pip_astroid VERSION 2.2.5)
+hunter_default_version(pip_botocore VERSION 1.12.130)
 hunter_default_version(pip_certifi VERSION 2019.3.9)
 hunter_default_version(pip_chardet VERSION 3.0.4)
 hunter_default_version(pip_cpplint VERSION 1.4.4)
