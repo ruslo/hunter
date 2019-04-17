@@ -1,0 +1,5 @@
+hunter_config(
+    CURL
+    VERSION ${HUNTER_CURL_VERSION}
+    CMAKE_ARGS CMAKE_USE_BORINGSSL=ON
+)

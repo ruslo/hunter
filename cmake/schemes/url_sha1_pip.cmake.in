@@ -83,6 +83,12 @@ configure_package_config_file(
     INSTALL_DESTINATION "${config_install_dir}"
 )
 
+if(HUNTER_STATUS_DEBUG)
+  set(pip_verbose "-vvv")
+else()
+  set(pip_verbose "")
+endif()
+
 ExternalProject_Add(
     "@HUNTER_EP_NAME@"
     URL
@@ -110,6 +116,7 @@ ExternalProject_Add(
         -m
         pip
         install
+        ${pip_verbose}
         --target
         "@HUNTER_PACKAGE_INSTALL_PREFIX@/${HUNTER_VENV_INSTALL_SUFFIX}"
         --no-cache-dir # Do not touch user's '~/.cache/pip'
