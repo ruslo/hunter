@@ -64,6 +64,17 @@ hunter_add_version(
     512b8ad6d9aae9499cca2e4c4530b9386cb05440
 )
 
+hunter_add_version(
+    PACKAGE_NAME
+    glog
+    VERSION
+    "0.4.0"
+    URL
+    "https://github.com/google/glog/archive/v0.4.0.tar.gz"
+    SHA1
+    0d79fb524591dee0f46213e9a23f609f74e0cbb2
+)
+
 # explicitly remove dependency on gflags (only needed for tests)
 hunter_cmake_args(glog CMAKE_ARGS WITH_GFLAGS=OFF BUILD_TESTING=OFF)
 
