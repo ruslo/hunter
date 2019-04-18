@@ -17,6 +17,17 @@ hunter_add_version(
     8cef7eff66b8488f996fb091f036eb6dc82f92d5
 )
 
+hunter_add_version(
+    PACKAGE_NAME
+    double-conversion
+    VERSION
+    "3.1.4"
+    URL
+    "https://github.com/google/double-conversion/archive/v3.1.4.tar.gz"
+    SHA1
+    26a0ddaf0abb7e53c67f2abfac95b1e009c2a002
+)
+
 hunter_pick_scheme(DEFAULT url_sha1_cmake)
 hunter_cacheable(double-conversion)
 hunter_download(PACKAGE_NAME double-conversion)
