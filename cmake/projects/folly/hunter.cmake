@@ -31,6 +31,17 @@ hunter_add_version(
     5cd5d03bbddd3ad047afc0e402bd3ee3af2888f4
 )
 
+hunter_add_version(
+    PACKAGE_NAME
+    folly
+    VERSION
+    2018.10.22.00-p3
+    URL
+    "https://github.com/hunter-packages/folly/archive/v2018.10.22.00-p3.tar.gz"
+    SHA1
+    74487a7393a9cac9c8b49581b3fe965c129d28f3
+)
+
 set(__hunter_folly_args FOLLY_POD_CONFIGURATION=ON)
 
 if(IOS OR ANDROID)
