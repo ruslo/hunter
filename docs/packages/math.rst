@@ -7,6 +7,7 @@ Math
 
  - :ref:`pkg.CLAPACK`
  - :ref:`pkg.Eigen` - C++ template library for linear algebra: matrices, vectors, numerical solvers, and related algorithms.
+ - :ref:`pkg.FastNoiseSIMD` - SIMD open source noise generation library with a large collection of different noise algorithms.
  - :ref:`pkg.GSL` - GNU Scientific Library
  - :ref:`pkg.OpenBLAS` - OpenBLAS is an optimized BLAS library based on GotoBLAS2 1.13 BSD version
  - :ref:`pkg.double-conversion` - provides binary-decimal and decimal-binary routines for IEEE doubles.
