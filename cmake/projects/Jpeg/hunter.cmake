@@ -41,6 +41,17 @@ hunter_add_version(
     70769f349fdf346851f2e7fc4c5f603cd8960ae4
 )
 
+hunter_add_version(
+    PACKAGE_NAME
+    Jpeg
+    VERSION
+    "9c-p0"
+    URL
+    "https://github.com/hunter-packages/jpeg/archive/v9c-p0.tar.gz"
+    SHA1
+    42ff243ae28bdda5b4df5c47fb727272a534dc94
+)
+
 hunter_pick_scheme(DEFAULT url_sha1_cmake)
 hunter_cacheable(Jpeg)
 hunter_download(PACKAGE_NAME Jpeg)
