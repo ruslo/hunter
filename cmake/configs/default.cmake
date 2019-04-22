@@ -76,7 +76,7 @@ hunter_default_version(HalideIR VERSION 0.0-b257a92-p1)
 hunter_default_version(ICU VERSION 63.1-p5)
 hunter_default_version(IF97 VERSION 2.1.2)
 hunter_default_version(Igloo VERSION 1.1.1-hunter)
-hunter_default_version(Jpeg VERSION 9b-p3)
+hunter_default_version(Jpeg VERSION 9c-p0)
 hunter_default_version(JsonSpirit VERSION 0.0.4-hunter)
 hunter_default_version(LAPACK VERSION 3.7.1)
 hunter_default_version(LLVM VERSION 6.0.1-p0) # Clang
