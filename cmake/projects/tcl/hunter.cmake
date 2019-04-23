@@ -18,4 +18,6 @@ hunter_add_version(
 hunter_configuration_types(tcl CONFIGURATION_TYPES Release)
 hunter_pick_scheme(DEFAULT url_sha1_tcl_autotools)
 hunter_cacheable(tcl)
-hunter_download(PACKAGE_NAME tcl)
+hunter_download(PACKAGE_NAME tcl
+    PACKAGE_INTERNAL_DEPS_ID "1"
+)
