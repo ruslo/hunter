@@ -144,6 +144,11 @@ ExternalProject_Add(
     "-Ddstdir=@HUNTER_PACKAGE_LICENSE_DIR@"
     -P
     "@HUNTER_SELF@/scripts/try-copy-license.cmake"
+    COMMAND
+    "@CMAKE_COMMAND@"
+    "-Dinstalldir=@HUNTER_PACKAGE_INSTALL_PREFIX@"
+    -P
+    "@HUNTER_SELF@/scripts/clean-boost-configs.cmake"
     LOG_CONFIGURE ${log_build}
     LOG_BUILD ${log_build}
     LOG_INSTALL ${log_install}
