@@ -53,7 +53,7 @@ hunter_cacheable(gst_plugins_bad)
 hunter_download(
     PACKAGE_NAME
     gst_plugins_bad
-    PACKAGE_INTERNAL_DEPS_ID "1"
+    PACKAGE_INTERNAL_DEPS_ID "2"
     PACKAGE_UNRELOCATABLE_TEXT_FILES
     "lib/gstreamer-1.0/libgstaccurip.la"
     "lib/gstreamer-1.0/libgstadpcmdec.la"

@@ -57,7 +57,7 @@ hunter_cacheable(gst_plugins_base)
 hunter_download(
     PACKAGE_NAME
     gst_plugins_base
-    PACKAGE_INTERNAL_DEPS_ID "1"
+    PACKAGE_INTERNAL_DEPS_ID "2"
     PACKAGE_UNRELOCATABLE_TEXT_FILES
     "lib/gstreamer-1.0/libgstadder.la"
     "lib/gstreamer-1.0/libgstapp.la"

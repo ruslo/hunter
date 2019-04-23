@@ -36,7 +36,7 @@ hunter_cmake_args(
 hunter_cacheable(xf86vidmodeproto)
 hunter_download(
     PACKAGE_NAME xf86vidmodeproto
-    PACKAGE_INTERNAL_DEPS_ID "1"
+    PACKAGE_INTERNAL_DEPS_ID "2"
     PACKAGE_UNRELOCATABLE_TEXT_FILES
     "lib/pkgconfig/xf86vidmodeproto.pc"
 )

@@ -40,7 +40,7 @@ hunter_cmake_args(
 hunter_cacheable(xfixes)
 hunter_download(
     PACKAGE_NAME xfixes
-    PACKAGE_INTERNAL_DEPS_ID "3"
+    PACKAGE_INTERNAL_DEPS_ID "4"
     PACKAGE_UNRELOCATABLE_TEXT_FILES
     "lib/libXfixes.la"
     "lib/pkgconfig/xfixes.pc"

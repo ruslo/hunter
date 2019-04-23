@@ -41,7 +41,7 @@ hunter_cmake_args(
 hunter_cacheable(xrandr)
 hunter_download(
     PACKAGE_NAME xrandr
-    PACKAGE_INTERNAL_DEPS_ID "2"
+    PACKAGE_INTERNAL_DEPS_ID "3"
     PACKAGE_UNRELOCATABLE_TEXT_FILES
     "lib/pkgconfig/xrandr.pc"
     "lib/libXrandr.la"
