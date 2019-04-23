@@ -18,5 +18,5 @@ hunter_download(
     Boost
     PACKAGE_COMPONENT
     fiber
-    PACKAGE_INTERNAL_DEPS_ID "41"
+    PACKAGE_INTERNAL_DEPS_ID "42"
 )
