@@ -1,11 +1,10 @@
 # Copyright (c) 2017, Alexandre Pretyman
 
-cmake_minimum_required(VERSION 3.0)
+cmake_minimum_required(VERSION 3.2)
 
 # Emulate HunterGate:
 # * https://github.com/hunter-packages/gate
 include("../common.cmake")
-include(hunter_pkgconfig_export_target)
 
 project(x264-example)
 
