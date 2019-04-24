@@ -14,8 +14,16 @@ globjects
 -  `Example <https://github.com/ruslo/hunter/blob/master/examples/globjects/CMakeLists.txt>`__
 -  Added by `NeroBurner <https://github.com/NeroBurner>`__ (`pr-1075 <https://github.com/ruslo/hunter/pull/1075>`__)
 
-.. code-block:: cmake
+Required customization:
 
-    hunter_add_package(globjects)
-    find_package(globjects CONFIG REQUIRED)
-    target_link_libraries(foo globjects::globjects)
+.. literalinclude:: /../examples/globjects/config.cmake
+  :language: cmake
+  :start-after: # DOCUMENTATION_START {
+  :end-before: # DOCUMENTATION_END }
+
+Usage:
+
+.. literalinclude:: /../examples/globjects/CMakeLists.txt
+  :language: cmake
+  :start-after: # DOCUMENTATION_START {
+  :end-before: # DOCUMENTATION_END }
