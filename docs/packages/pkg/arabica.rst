@@ -13,7 +13,7 @@ arabica
 -  `Official <https://github.com/jezhiggins/arabica>`__
 -  `Hunterized <https://github.com/hunter-packages/arabica>`__
 -  `Example <https://github.com/ruslo/hunter/blob/master/examples/arabica/CMakeLists.txt>`__
--  Added by `Fredrik Appelros <https://github.com/FredrikAppelros>`__ (`pr-N <https://github.com/ruslo/hunter/pull/N>`__)
+-  Added by `Fredrik Appelros <https://github.com/FredrikAppelros>`__ (`pr-1838 <https://github.com/ruslo/hunter/pull/1838>`__)
 
 .. literalinclude:: /../examples/arabica/CMakeLists.txt
   :language: cmake
