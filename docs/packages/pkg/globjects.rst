@@ -19,3 +19,6 @@ globjects
     hunter_add_package(globjects)
     find_package(globjects CONFIG REQUIRED)
     target_link_libraries(foo globjects::globjects)
+    
+    
+Current globjects version 1.1.0-p0 requires version 2.1.3-p0 of glbinding (which is not the default). You will need to define a custom config for hunter in order for it to compile, see https://github.com/ruslo/hunter/wiki/example.custom.config.id
