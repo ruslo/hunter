@@ -33,7 +33,7 @@ hunter_cmake_args(
 hunter_cacheable(libffi)
 hunter_download(
     PACKAGE_NAME libffi
-    PACKAGE_INTERNAL_DEPS_ID "1"
+    PACKAGE_INTERNAL_DEPS_ID "2"
     PACKAGE_UNRELOCATABLE_TEXT_FILES
     "lib/libffi.la"
     "lib/pkgconfig/libffi.pc"

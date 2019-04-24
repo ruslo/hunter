@@ -45,5 +45,4 @@ else()
   hunter_cacheable(NASM)
 endif()
 
-hunter_download(PACKAGE_NAME NASM)
-
+hunter_download(PACKAGE_NAME NASM PACKAGE_INTERNAL_DEPS_ID "1")

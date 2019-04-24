@@ -38,7 +38,7 @@ hunter_cmake_args(
 hunter_cacheable(xext)
 hunter_download(
     PACKAGE_NAME xext
-    PACKAGE_INTERNAL_DEPS_ID "3"
+    PACKAGE_INTERNAL_DEPS_ID "4"
     PACKAGE_UNRELOCATABLE_TEXT_FILES
     "lib/libXext.la"
     "lib/pkgconfig/xext.pc"

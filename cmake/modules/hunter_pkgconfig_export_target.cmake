@@ -16,7 +16,7 @@ include(hunter_status_debug)
 # * x11
 # * x264
 # * xcb
-function(hunter_pkgconfig_export_target PKG_CONFIG_MODULE)
+function(hunter_pkgconfig_export_target PKG_CONFIG_MODULE PKG_GENERATE_SHARED)
   set(target_name "PkgConfig::${PKG_CONFIG_MODULE}")
   if(TARGET "${target_name}")
     return()
@@ -29,15 +29,25 @@ function(hunter_pkgconfig_export_target PKG_CONFIG_MODULE)
   endif()
   add_library("${target_name}" INTERFACE IMPORTED GLOBAL)
 
+  if(${PKG_GENERATE_SHARED})
+    set(PKG_CONFIG_PREFIX "${PKG_CONFIG_MODULE}")
+  else()
+    set(PKG_CONFIG_PREFIX "${PKG_CONFIG_MODULE}_STATIC")
+  endif()
+
+  hunter_status_debug(
+    "PKG_CONFIG_MODULE ${PKG_CONFIG_MODULE} Using prefix ${PKG_CONFIG_PREFIX}"
+  )
+
   # --- INTERFACE_INCLUDE_DIRECTORIES begin ---
   hunter_status_debug(
-      "PKG_CONFIG_MODULE ${PKG_CONFIG_MODULE} INCLUDE_DIRS: ${${PKG_CONFIG_MODULE}_INCLUDE_DIRS}"
+      "PKG_CONFIG_MODULE ${PKG_CONFIG_MODULE} INCLUDE_DIRS: ${${PKG_CONFIG_PREFIX}_INCLUDE_DIRS}"
   )
-  if(NOT "${${PKG_CONFIG_MODULE}_INCLUDE_DIRS}" STREQUAL "")
+  if(NOT "${${PKG_CONFIG_PREFIX}_INCLUDE_DIRS}" STREQUAL "")
     set_target_properties("${target_name}"
         PROPERTIES
           INTERFACE_INCLUDE_DIRECTORIES
-          "${${PKG_CONFIG_MODULE}_INCLUDE_DIRS}"
+          "${${PKG_CONFIG_PREFIX}_INCLUDE_DIRS}"
     )
   endif()
   # --- INTERFACE_INCLUDE_DIRECTORIES end ---
@@ -46,18 +56,18 @@ function(hunter_pkgconfig_export_target PKG_CONFIG_MODULE)
   set(link_libs)
 
   hunter_status_debug(
-      "PKG_CONFIG_MODULE ${PKG_CONFIG_MODULE} LDFLAGS: ${${PKG_CONFIG_MODULE}_LDFLAGS}"
+      "PKG_CONFIG_MODULE ${PKG_CONFIG_MODULE} LDFLAGS: ${${PKG_CONFIG_PREFIX}_LDFLAGS}"
   )
-  if(NOT "${${PKG_CONFIG_MODULE}_LDFLAGS}" STREQUAL "")
-    list(APPEND link_libs ${${PKG_CONFIG_MODULE}_LDFLAGS})
+  if(NOT "${${PKG_CONFIG_PREFIX}_LDFLAGS}" STREQUAL "")
+    list(APPEND link_libs ${${PKG_CONFIG_PREFIX}_LDFLAGS})
   endif()
 
   hunter_status_debug(
-      "PKG_CONFIG_MODULE ${PKG_CONFIG_MODULE} LDFLAGS_OTHER: ${${PKG_CONFIG_MODULE}_LDFLAGS_OTHER}"
+      "PKG_CONFIG_MODULE ${PKG_CONFIG_MODULE} LDFLAGS_OTHER: ${${PKG_CONFIG_PREFIX}_LDFLAGS_OTHER}"
   )
-  if(NOT "${${PKG_CONFIG_MODULE}_LDFLAGS_OTHER}" STREQUAL "")
+  if(NOT "${${PKG_CONFIG_PREFIX}_LDFLAGS_OTHER}" STREQUAL "")
     # turn "-framework;A;-framework;B" into "-framework A;-framework B"
-    string(REPLACE "-framework;" "-framework " ldflags_other "${${PKG_CONFIG_MODULE}_LDFLAGS_OTHER}")
+    string(REPLACE "-framework;" "-framework " ldflags_other "${${PKG_CONFIG_PREFIX}_LDFLAGS_OTHER}")
     list(APPEND link_libs ${ldflags_other})
   endif()
 
@@ -76,17 +86,17 @@ function(hunter_pkgconfig_export_target PKG_CONFIG_MODULE)
   set(compile_opts)
 
   hunter_status_debug(
-      "PKG_CONFIG_MODULE ${PKG_CONFIG_MODULE} CFLAGS: ${${PKG_CONFIG_MODULE}_CFLAGS}"
+      "PKG_CONFIG_MODULE ${PKG_CONFIG_MODULE} CFLAGS: ${${PKG_CONFIG_PREFIX}_CFLAGS}"
   )
-  if(NOT "${${PKG_CONFIG_MODULE}_CFLAGS}" STREQUAL "")
-    list(APPEND compile_opts ${${PKG_CONFIG_MODULE}_CFLAGS})
+  if(NOT "${${PKG_CONFIG_PREFIX}_CFLAGS}" STREQUAL "")
+    list(APPEND compile_opts ${${PKG_CONFIG_PREFIX}_CFLAGS})
   endif()
 
   hunter_status_debug(
-      "PKG_CONFIG_MODULE ${PKG_CONFIG_MODULE} CFLAGS_OTHER: ${${PKG_CONFIG_MODULE}_CFLAGS_OTHER}"
+      "PKG_CONFIG_MODULE ${PKG_CONFIG_MODULE} CFLAGS_OTHER: ${${PKG_CONFIG_PREFIX}_CFLAGS_OTHER}"
   )
-  if(NOT "${${PKG_CONFIG_MODULE}_CFLAGS_OTHER}" STREQUAL "")
-    list(APPEND compile_opts ${${PKG_CONFIG_MODULE}_CFLAGS_OTHER})
+  if(NOT "${${PKG_CONFIG_PREFIX}_CFLAGS_OTHER}" STREQUAL "")
+    list(APPEND compile_opts ${${PKG_CONFIG_PREFIX}_CFLAGS_OTHER})
   endif()
 
   if(NOT "${compile_opts}" STREQUAL "")
@@ -98,4 +108,3 @@ function(hunter_pkgconfig_export_target PKG_CONFIG_MODULE)
   endif()
   # --- INTERFACE_COMPILE_OPTIONS end ---
 endfunction()
-

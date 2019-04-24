@@ -55,6 +55,6 @@ hunter_cmake_args(
 hunter_cacheable(xcb-proto)
 hunter_download(
     PACKAGE_NAME xcb-proto
-    PACKAGE_INTERNAL_DEPS_ID "2"
+    PACKAGE_INTERNAL_DEPS_ID "3"
     PACKAGE_UNRELOCATABLE_TEXT_FILES "lib/pkgconfig/xcb-proto.pc"
 )

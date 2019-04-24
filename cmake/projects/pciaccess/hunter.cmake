@@ -26,7 +26,7 @@ hunter_pick_scheme(DEFAULT url_sha1_autotools)
 hunter_cacheable(pciaccess)
 hunter_download(
     PACKAGE_NAME pciaccess
-    PACKAGE_INTERNAL_DEPS_ID "3"
+    PACKAGE_INTERNAL_DEPS_ID "4"
     PACKAGE_UNRELOCATABLE_TEXT_FILES
     "lib/libpciaccess.la"
     "lib/pkgconfig/pciaccess.pc"

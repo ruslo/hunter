@@ -25,7 +25,7 @@ hunter_pick_scheme(DEFAULT url_sha1_autotools)
 hunter_cacheable(odb)
 hunter_download(
     PACKAGE_NAME odb
-    PACKAGE_INTERNAL_DEPS_ID "1"
+    PACKAGE_INTERNAL_DEPS_ID "2"
     PACKAGE_UNRELOCATABLE_TEXT_FILES
     "lib/libodb.la"
     "lib/pkgconfig/libodb.pc"
