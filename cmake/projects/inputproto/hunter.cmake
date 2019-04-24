@@ -32,6 +32,6 @@ hunter_cmake_args(
 )
 hunter_download(
     PACKAGE_NAME inputproto
-    PACKAGE_INTERNAL_DEPS_ID "2"
+    PACKAGE_INTERNAL_DEPS_ID "3"
     PACKAGE_UNRELOCATABLE_TEXT_FILES "lib/pkgconfig/inputproto.pc"
 )

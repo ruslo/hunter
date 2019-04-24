@@ -31,7 +31,7 @@ hunter_configuration_types(libusb CONFIGURATION_TYPES Release)
 hunter_pick_scheme(DEFAULT url_sha1_autogen_autotools)
 hunter_cacheable(libusb)
 hunter_download(PACKAGE_NAME libusb
-    PACKAGE_INTERNAL_DEPS_ID "1"
+    PACKAGE_INTERNAL_DEPS_ID "2"
     PACKAGE_UNRELOCATABLE_TEXT_FILES
     lib/pkgconfig/libusb-1.0.pc
 )
