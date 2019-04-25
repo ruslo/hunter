@@ -30,6 +30,17 @@ hunter_add_version(
     41935479eda43783440d220bb9da04f4dae5ceaa
 )
 
+hunter_add_version(
+    PACKAGE_NAME
+    ffmpeg
+    VERSION
+    n4.1-dev-45499e557c-p3
+    URL
+    "https://github.com/hunter-packages/FFmpeg/archive/n4.1-dev-45499e557c-p3.tar.gz"
+    SHA1
+    4f14e0ffd920f8cd5e17496189166ce5b6a5983b
+)
+
 hunter_pick_scheme(DEFAULT url_sha1_cmake)
 hunter_cacheable(ffmpeg)
 hunter_download(PACKAGE_NAME ffmpeg)
