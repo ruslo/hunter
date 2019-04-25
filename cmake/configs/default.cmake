@@ -54,7 +54,7 @@ hunter_default_version(ClangToolsExtra VERSION 6.0.1) # Clang
 hunter_default_version(Comet VERSION 4.0.2)
 hunter_default_version(CppNetlib VERSION 0.10.1-hunter-3)
 hunter_default_version(CppNetlibUri VERSION 1.0.5-hunter)
-hunter_default_version(CreateLaunchers VERSION 0.1.0)
+hunter_default_version(CreateLaunchers VERSION 0.2.0)
 hunter_default_version(CsvParserCPlusPlus VERSION 1.0.1)
 hunter_default_version(Eigen VERSION 3.3.7)
 hunter_default_version(EnumGroup VERSION 0.0.1)
