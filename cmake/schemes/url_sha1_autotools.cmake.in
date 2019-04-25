@@ -32,6 +32,11 @@ hunter_assert_not_empty_string("@HUNTER_PACKAGE_BUILD_DIR@")
 hunter_assert_not_empty_string("@HUNTER_PACKAGE_INSTALL_PREFIX@")
 hunter_assert_not_empty_string("@HUNTER_INSTALL_PREFIX@")
 
+set(
+    HUNTER_PACKAGE_UNRELOCATABLE_TEXT_FILES
+    "@HUNTER_PACKAGE_UNRELOCATABLE_TEXT_FILES@"
+)
+
 hunter_autotools_project("@HUNTER_EP_NAME@"
     HUNTER_SELF
       "@HUNTER_SELF@"

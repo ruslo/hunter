@@ -1,5 +1,7 @@
-# Copyright (c) 2015 Ruslan Baratov, Alexandre Pretyman
+# Copyright (c) 2015, 2019 Ruslan Baratov, Alexandre Pretyman
 # All rights reserved.
+
+cmake_minimum_required(VERSION 3.2)
 
 ### Input params check
 
@@ -18,6 +20,8 @@ if(is_empty)
   message(FATAL_ERROR "HUNTER_PACKAGE_INSTALL_PREFIX is empty")
 endif()
 
+set(unrelocatable "@HUNTER_PACKAGE_UNRELOCATABLE_TEXT_FILES@")
+
 set(ios_architectures @ios_architectures@)
 set(built_arch_roots)
 foreach(x ${ios_architectures})
@@ -25,48 +29,62 @@ foreach(x ${ios_architectures})
 endforeach()
 list(LENGTH ios_architectures total_arch_number)
 
-
 # We work with the first root path: we move everything, except the *.a static
 # library files into @HUNTER_PACKAGE_INSTALL_PREFIX@, then we lipo the static
 # libraries together into @HUNTER_PACKAGE_INSTALL_PREFIX@
 list(GET built_arch_roots 0 first_built_root)
-file(GLOB_RECURSE
-    binary_files
-    RELATIVE
-      "${first_built_root}"
-    ${first_built_root}/*
-)
 
 file(GLOB_RECURSE
-    libtool_la_files
-    RELATIVE
-      "${first_built_root}"
-    ${first_built_root}/lib/*.la
-)
-
-file(GLOB_RECURSE
-    text_files
+    header_files
     RELATIVE
       "${first_built_root}"
     ${first_built_root}/include/*
 )
 
-# Remove all libtool_la_files from all built roots
-foreach(arch ${ios_architectures})
-  foreach(file_name ${libtool_la_files})
-    file(REMOVE
-        "@multi_arch_install_root@/${arch}/${file_name}"
+# Unify unrelocatable files
+foreach(x ${unrelocatable})
+  foreach(arch ${ios_architectures})
+    set(y "@multi_arch_install_root@/${arch}/${x}")
+    if(NOT EXISTS "${y}")
+      message(FATAL_ERROR "File not found: ${y}")
+    endif()
+    file(READ "${y}" content)
+    string(
+        REPLACE
+        "@multi_arch_install_root@/${arch}"
+        "@HUNTER_PACKAGE_INSTALL_PREFIX@"
+        content
+        "${content}"
     )
+    file(WRITE "${y}" "${content}")
   endforeach()
 endforeach()
 
-# Exclude text files and .la files from binaries list
-foreach(x ${libtool_la_files})
-  list(REMOVE_ITEM binary_files ${x})
+# Check unrelocatable files
+foreach(x ${unrelocatable})
+  set(etalon "${first_built_root}/${x}")
+  foreach(arch ${ios_architectures})
+    set(to_check "@multi_arch_install_root@/${arch}/${x}")
+    file(
+        DIFFERENT
+        is_different
+        FILES "${to_check}" "${etalon}"
+    )
+    if(is_different)
+      message(FATAL_ERROR "Files differ: ${to_check} ${etalon}")
+    endif()
+  endforeach()
 endforeach()
 
-foreach(x ${text_files})
-  list(REMOVE_ITEM binary_files ${x})
+# Move unrelocatable files
+foreach(x ${unrelocatable})
+  set(etalon "${first_built_root}/${x}")
+  set(dst "@HUNTER_PACKAGE_INSTALL_PREFIX@/${x}")
+  file(WRITE "${dst}" "") # for creating missing directories
+  file(RENAME "${etalon}" "${dst}")
+  foreach(arch ${ios_architectures})
+    file(REMOVE "@multi_arch_install_root@/${arch}/${x}")
+  endforeach()
 endforeach()
 
 # The preprocessor macros below are from
@@ -123,7 +141,6 @@ function(move_one_delete_other file_name)
     file(REMOVE "${built_arch_root}/${file_name}")
   endforeach()
 endfunction()
-
 
 # Merge a header file that differed in content when the project was built with
 # different architectures. Guard its contents with #ifdef #elif to guarantee
@@ -188,7 +205,7 @@ endfunction()
 # Compare for differences between files in built_arch_roots
 # If files are different and are in the include/ directory
 # they are merged with #ifdef guards
-foreach(file_name ${text_files})
+foreach(file_name ${header_files})
   get_filename_component(final_dir
       "@HUNTER_PACKAGE_INSTALL_PREFIX@/${file_name}"
       DIRECTORY
@@ -206,8 +223,23 @@ foreach(file_name ${text_files})
   endif()
 endforeach()
 
+file(GLOB_RECURSE
+    binary_lib_files
+    RELATIVE
+    "${first_built_root}"
+    "${first_built_root}/lib/*.a"
+    "${first_built_root}/lib/*.dylib"
+)
+
+file(GLOB_RECURSE
+    binary_bin_files
+    RELATIVE
+      "${first_built_root}"
+    ${first_built_root}/bin/*
+)
+
 # we lipo the libraries into @HUNTER_PACKAGE_INSTALL_PREFIX@
-foreach(x ${binary_files})
+foreach(x ${binary_lib_files} ${binary_bin_files})
   # if the dir to put the library in, does not exist, then create it
   # this is needed or else lipo could fail
   get_filename_component(dir "@HUNTER_PACKAGE_INSTALL_PREFIX@/${x}" DIRECTORY)
@@ -235,6 +267,40 @@ foreach(x ${binary_files})
   endif()
 
   file(REMOVE ${input_libraries})
+endforeach()
+
+file(
+    GLOB_RECURSE
+    rest_files
+    RELATIVE
+    "${first_built_root}"
+    ${first_built_root}/*
+)
+
+# All other files should be the same
+foreach(x ${rest_files})
+  set(etalon "${first_built_root}/${x}")
+  foreach(arch ${ios_architectures})
+    set(to_check "@multi_arch_install_root@/${arch}/${x}")
+    file(
+        DIFFERENT
+        is_different
+        FILES "${to_check}" "${etalon}"
+    )
+    if(is_different)
+      message(FATAL_ERROR "Files differ: ${to_check} ${etalon}")
+    endif()
+  endforeach()
+endforeach()
+
+foreach(x ${rest_files})
+  set(etalon "${first_built_root}/${x}")
+  set(dst "@HUNTER_PACKAGE_INSTALL_PREFIX@/${x}")
+  file(WRITE "${dst}" "") # for creating missing directories
+  file(RENAME "${etalon}" "${dst}")
+  foreach(arch ${ios_architectures})
+    file(REMOVE "@multi_arch_install_root@/${arch}/${x}")
+  endforeach()
 endforeach()
 
 # Check no files left (i.e. all binaries fused by lipo, all headers merged)
