@@ -93,6 +93,12 @@ function(hunter_create_cache_file cache_path)
         "${temp_path}"
         "set(CMAKE_${lang}_IMPLICIT_LINK_FRAMEWORK_DIRECTORIES \"${CMAKE_${lang}_IMPLICIT_LINK_FRAMEWORK_DIRECTORIES}\" CACHE INTERNAL \"\")\n"
     )
+    hunter_status_debug("ABI forwarding: CMAKE_${lang}_IMPLICIT_INCLUDE_DIRECTORIES = ${CMAKE_${lang}_IMPLICIT_INCLUDE_DIRECTORIES}")
+    file(
+        APPEND
+        "${temp_path}"
+        "set(CMAKE_${lang}_IMPLICIT_INCLUDE_DIRECTORIES \"${CMAKE_${lang}_IMPLICIT_INCLUDE_DIRECTORIES}\" CACHE INTERNAL \"\")\n"
+    )
     if(DEFINED CMAKE_${lang}_LIBRARY_ARCHITECTURE)
       hunter_status_debug("ABI forwarding: CMAKE_${lang}_LIBRARY_ARCHITECTURE = ${CMAKE_${lang}_LIBRARY_ARCHITECTURE}")
       file(
