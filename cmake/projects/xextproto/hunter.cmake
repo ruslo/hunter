@@ -22,6 +22,18 @@ hunter_add_version(
     f969e02009adf2d51fd1ba4583a859984728a461
 )
 
+# https://www.x.org/releases/individual/proto/
+hunter_add_version(
+    PACKAGE_NAME
+    xextproto
+    VERSION
+    "7.3.0"
+    URL
+    "https://www.x.org/releases/individual/proto/xextproto-7.3.0.tar.bz2"
+    SHA1
+    b8d736342dcb73b71584d99a1cb9806d93c25ff8
+)
+
 hunter_configuration_types(xextproto CONFIGURATION_TYPES Release)
 hunter_pick_scheme(DEFAULT url_sha1_autotools)
 hunter_cmake_args(
