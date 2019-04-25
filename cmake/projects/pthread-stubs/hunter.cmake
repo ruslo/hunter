@@ -22,6 +22,18 @@ hunter_add_version(
     7fc486ad0ec54938f8b781cc374218f50eac8b99
 )
 
+# https://www.x.org/releases/individual/xcb/
+hunter_add_version(
+    PACKAGE_NAME
+    pthread-stubs
+    VERSION
+    "0.4"
+    URL
+    "https://www.x.org/releases/individual/xcb/libpthread-stubs-0.4.tar.bz2"
+    SHA1
+    c42503a2ae0067b2238b2f3fefc86656baa4dd8e
+)
+
 hunter_configuration_types(pthread-stubs CONFIGURATION_TYPES Release)
 hunter_pick_scheme(DEFAULT url_sha1_autotools)
 hunter_cacheable(pthread-stubs)
