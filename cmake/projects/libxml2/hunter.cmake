@@ -38,6 +38,8 @@ set(
     PACKAGE_UNRELOCATABLE_TEXT_FILES
     "lib/pkgconfig/libxml-2.0.pc"
     "lib/libxml2.la"
+    "bin/xml2-config"
+    "lib/xml2Conf.sh"
 )
 
 hunter_configuration_types(libxml2 CONFIGURATION_TYPES Release)
