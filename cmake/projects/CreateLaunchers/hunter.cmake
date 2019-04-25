@@ -12,6 +12,17 @@ hunter_add_version(
     PACKAGE_NAME
     CreateLaunchers
     VERSION
+    "0.2.0"
+    URL
+    "https://github.com/caseymcc/CreateLaunchers/archive/0.2.0.tar.gz"
+    SHA1
+    c09496f49eb6557f91cd0f927d61bf901f38240d
+)
+
+hunter_add_version(
+    PACKAGE_NAME
+    CreateLaunchers
+    VERSION
     "0.1.0"
     URL
     "https://github.com/caseymcc/CreateLaunchers/archive/0.1.0.tar.gz"
