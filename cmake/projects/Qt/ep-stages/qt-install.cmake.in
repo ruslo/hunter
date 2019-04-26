@@ -195,12 +195,15 @@ if("@HUNTER_QT_OS_IS_LINUX@" AND "@BUILD_SHARED_LIBS@" AND is_qtbase)
   )
 
   foreach(x ${rpath_fix_list})
-    file(
-        RPATH_CHANGE
-        FILE "@local_install_dir@/bin/${x}"
-        OLD_RPATH "@local_install_dir@/lib"
-        NEW_RPATH "$ORIGIN/../lib"
-    )
+    set(file_path "@local_install_dir@/bin/${x}")
+    if(EXISTS "${file_path}")
+      file(
+          RPATH_CHANGE
+          FILE "${file_path}"
+          OLD_RPATH "@local_install_dir@/lib"
+          NEW_RPATH "$ORIGIN/../lib"
+      )
+    endif()
   endforeach()
 endif()
 
