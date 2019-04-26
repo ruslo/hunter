@@ -9,6 +9,7 @@ include(hunter_cmake_args)
 include(hunter_configuration_types)
 include(hunter_download)
 include(hunter_pick_scheme)
+include(GNUInstallDirs)
 
 hunter_add_version(
     PACKAGE_NAME
@@ -37,16 +38,16 @@ hunter_download(
     PACKAGE_NAME gstreamer
     PACKAGE_INTERNAL_DEPS_ID "4"
     PACKAGE_UNRELOCATABLE_TEXT_FILES
-    "lib/gstreamer-1.0/libgstcoreelements.la"
-    "lib/gstreamer-1.0/libgstcoretracers.la"
-    "lib/libgstbase-1.0.la"
-    "lib/libgstcheck-1.0.la"
-    "lib/libgstcontroller-1.0.la"
-    "lib/libgstnet-1.0.la"
-    "lib/libgstreamer-1.0.la"
-    "lib/pkgconfig/gstreamer-1.0.pc"
-    "lib/pkgconfig/gstreamer-base-1.0.pc"
-    "lib/pkgconfig/gstreamer-check-1.0.pc"
-    "lib/pkgconfig/gstreamer-controller-1.0.pc"
-    "lib/pkgconfig/gstreamer-net-1.0.pc"
+    "${CMAKE_INSTALL_LIBDIR}/gstreamer-1.0/libgstcoreelements.la"
+    "${CMAKE_INSTALL_LIBDIR}/gstreamer-1.0/libgstcoretracers.la"
+    "${CMAKE_INSTALL_LIBDIR}/libgstbase-1.0.la"
+    "${CMAKE_INSTALL_LIBDIR}/libgstcheck-1.0.la"
+    "${CMAKE_INSTALL_LIBDIR}/libgstcontroller-1.0.la"
+    "${CMAKE_INSTALL_LIBDIR}/libgstnet-1.0.la"
+    "${CMAKE_INSTALL_LIBDIR}/libgstreamer-1.0.la"
+    "${CMAKE_INSTALL_LIBDIR}/pkgconfig/gstreamer-1.0.pc"
+    "${CMAKE_INSTALL_LIBDIR}/pkgconfig/gstreamer-base-1.0.pc"
+    "${CMAKE_INSTALL_LIBDIR}/pkgconfig/gstreamer-check-1.0.pc"
+    "${CMAKE_INSTALL_LIBDIR}/pkgconfig/gstreamer-controller-1.0.pc"
+    "${CMAKE_INSTALL_LIBDIR}/pkgconfig/gstreamer-net-1.0.pc"
 )
