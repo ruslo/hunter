@@ -1,4 +1,4 @@
-cmake_minimum_required (VERSION 3.0)
+cmake_minimum_required (VERSION 3.2)
 
 # Emulate HunterGate:
 # * https://github.com/hunter-packages/gate
@@ -11,6 +11,9 @@ find_package(SDL2 CONFIG REQUIRED)
 
 if(ANDROID)
   add_library(main SHARED main.cpp)
+elseif(IOS)
+  # FIXME
+  add_library(main dummy.cpp)
 else()
   add_executable(main main.cpp)
 endif()
