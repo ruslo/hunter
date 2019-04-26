@@ -31,4 +31,5 @@ _Base
 
 # Visual Studio
 .vs
+.vscode
 CMakeSettings.json
