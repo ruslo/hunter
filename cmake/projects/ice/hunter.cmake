@@ -22,6 +22,18 @@ hunter_add_version(
     ddb14df8bbc43df7322978f5f9f802936e2a7324
 )
 
+# https://www.x.org/releases/individual/lib/
+hunter_add_version(
+    PACKAGE_NAME
+    ice
+    VERSION
+    "1.0.9"
+    URL
+    "https://www.x.org/releases/individual/lib/libICE-1.0.9.tar.bz2"
+    SHA1
+    3c3a857a117ce48a1947a16860056e77cd494fdf
+)
+
 hunter_configuration_types(ice CONFIGURATION_TYPES Release)
 hunter_pick_scheme(DEFAULT url_sha1_autotools)
 hunter_cmake_args(

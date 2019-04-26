@@ -22,6 +22,18 @@ hunter_add_version(
     5d7f00d1dbe6cf8e725841ef663f0ee2491ba5b2
 )
 
+# https://www.x.org/releases/individual/proto/
+hunter_add_version(
+    PACKAGE_NAME
+    xproto
+    VERSION
+    "7.0.31"
+    URL
+    "https://www.x.org/releases/individual/proto/xproto-7.0.31.tar.bz2"
+    SHA1
+    779fa333c5522cca40ca810c25a8fa60b6ccedfb
+)
+
 hunter_configuration_types(xproto CONFIGURATION_TYPES Release)
 hunter_pick_scheme(DEFAULT url_sha1_autotools)
 hunter_cmake_args(

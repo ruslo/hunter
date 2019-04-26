@@ -22,6 +22,18 @@ hunter_add_version(
     29c47207fd246425b906f525b2220235ce4cd0f6
 )
 
+# https://www.x.org/releases/individual/lib/
+hunter_add_version(
+    PACKAGE_NAME
+    xau
+    VERSION
+    "1.0.9"
+    URL
+    "https://www.x.org/releases/individual/lib/libXau-1.0.9.tar.bz2"
+    SHA1
+    ef9b1ad00f958c8b6e30a1bbc11fdfac311c9733
+)
+
 hunter_configuration_types(xau CONFIGURATION_TYPES Release)
 hunter_pick_scheme(DEFAULT url_sha1_autotools)
 set(xau_dependencies

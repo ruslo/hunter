@@ -22,6 +22,17 @@ hunter_add_version(
     500e0a6dac3523887c0b82753fe5e9d4bb982137
 )
 
+hunter_add_version(
+    PACKAGE_NAME
+    inputproto
+    VERSION
+    "2.3"
+    URL
+    "https://www.x.org/releases/individual/proto/inputproto-2.3.tar.bz2"
+    SHA1
+    4eacc1883593d3f0040e410be3afc8483c7d2409
+)
+
 hunter_configuration_types(inputproto CONFIGURATION_TYPES Release)
 hunter_pick_scheme(DEFAULT url_sha1_autotools)
 hunter_cacheable(inputproto)

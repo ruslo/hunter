@@ -10,8 +10,8 @@ include(hunter_status_debug)
 
 # See https://github.com/nlohmann/json#supported-compilers
 if("${CMAKE_CXX_COMPILER_ID}" STREQUAL "GNU")
-  if (CMAKE_CXX_COMPILER_VERSION VERSION_LESS "4.9")
-    hunter_report_broken_package("The nlohmann_json package requires GCC 4.9 or newer.")
+  if (CMAKE_CXX_COMPILER_VERSION VERSION_LESS "4.8")
+    hunter_report_broken_package("The nlohmann_json package requires GCC 4.8 or newer.")
   endif()
 elseif ("${CMAKE_CXX_COMPILER_ID}" STREQUAL "Clang")
   if (CMAKE_CXX_COMPILER_VERSION VERSION_LESS "3.4")

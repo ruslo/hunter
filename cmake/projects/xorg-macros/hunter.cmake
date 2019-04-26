@@ -22,6 +22,18 @@ hunter_add_version(
     c424a09fa6f628e24eff74496acebef13e8093b9
 )
 
+# https://www.x.org/releases/individual/util/
+hunter_add_version(
+    PACKAGE_NAME
+    xorg-macros
+    VERSION
+    "1.19.2"
+    URL
+    "https://www.x.org/releases/individual/util/util-macros-1.19.2.tar.bz2"
+    SHA1
+    e8b3a6f2bfde22440fca0974da53da18821a4ee6
+)
+
 hunter_configuration_types(xorg-macros CONFIGURATION_TYPES Release)
 hunter_pick_scheme(DEFAULT url_sha1_autotools)
 hunter_cacheable(xorg-macros)
