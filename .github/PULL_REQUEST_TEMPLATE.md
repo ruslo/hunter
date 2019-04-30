@@ -1,50 +1,17 @@
-<!--- Use this part of template if you're adding new package. Remove the rest. -->
-<!--- BEGIN -->
+<!--- Please check that your pull request satisfy all requirements -->
 
-* I've followed [this guide](https://docs.hunter.sh/en/latest/creating-new/create/cmake.html)
-  step by step carefully. **[Yes|No]**
+* I have checked that this pull request contains only
+  `.travis.yml`/`appveyor.yml` changes or commits merged from the `pkg.template` branch. All other changes send
+  to https://github.com/ruslo/hunter. **[Yes|No]**
 
-* I've tested this package remotely and have excluded all broken builds.
-  Here is the links to the Travis/AppVeyor with status "All passed":
+* I have checked that no toolchains removed from CI configs, they are commented
+  out instead so other developers can enable them back easily and to simplify
+  merge conflict resolution. **[Yes|No]**
 
-  * https://ci.appveyor.com/project/<username>/hunter/build/<build-number>
-  * https://travis-ci.org/<username>/hunter/builds/<build-number>
+* I have checked that for every commented out toolchain there is a link to the
+  broken CI build page or to the minimum compiler requirements documentation
+  so other developers can figure out what was the problem exactly. **[Yes|No]**
 
-* I have submitted CI configs to https://github.com/ingenue/hunter targeting `pkg.template` branch,
-  see this merged pull request https://github.com/ingenue/hunter/pull/<number>
-
-<!--- Remove next line if there is no corresponding "New package" issue. -->
-* My change will resolve this "New package" request: https://github.com/ruslo/hunter/issues/<number>
-
----
-<!--- END -->
-
-<!--- Use this part of template if you're updating existing package. Remove the rest. -->
-<!--- BEGIN -->
-
-* I've followed [this guide](https://docs.hunter.sh/en/latest/creating-new/update.html)
-  step by step carefully. **[Yes|No]**
-
-* I've tested this package remotely and have excluded all broken builds.
-  Here is the links to the Travis/AppVeyor with status "All passed":
-
-  * https://ci.appveyor.com/project/<username>/hunter/build/<build-number>
-  * https://travis-ci.org/<username>/hunter/builds/<build-number>
-
-<!--- Remove next line if this update doesn't break old toolchains -->
-* This update will break few old toolchains.
-  They are excluded in this pull request: https://github.com/ingenue/hunter/pull/<number>
-
----
-<!--- END -->
-
-<!--- Use this part of template for other type of changes. Remove the rest. -->
-<!--- BEGIN -->
-
-* I've checked this [Git style guide](https://0.readthedocs.io/en/latest/git.html). **[Yes|No]**
-* I've checked this [CMake style guide](https://0.readthedocs.io/en/latest/cmake.html). **[Yes|No]**
-* My change will work with CMake 3.2 (minimum requirement for Hunter). **[Yes|No]**
-* I will try to keep this pull request as small as possible and will try not to mix unrelated features. **[Yes|No]**
-
----
-<!--- END -->
+<!--- Remove next line if this pull request is part of procedure of adding new package -->
+* I have checked that for every enabled toolchain corresponding package passed
+  all stages of update cycle: test/merge/upload/release. **[Yes|No]**
