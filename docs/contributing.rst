@@ -80,13 +80,14 @@ and working correctly. Before reporting bugs please check:
 If everything seems OK:
 
 * Run build again with :ref:`HUNTER_STATUS_DEBUG=ON <hunter_status_debug>`
+* Make sure you're not using :ref:`HUNTER_NO_TOOLCHAIN_ID_RECALCULATION <hunter no toolchain id recalculation>`
 * Take a look at **first** error reported by Hunter. If Hunter reports chain
   of errors the last error you see is **not relevant**!
 * Update to `latest Hunter URL/SHA1 <https://github.com/ruslo/hunter/releases>`__
   and check that issue you have hit is not already fixed/reported
 * Check this document if the first error you see is ``external.build.failed``:
 
-  * https://github.com/ruslo/hunter/wiki/error.external.build.failed
+  * https://docs.hunter.sh/en/latest/reference/errors/error.external.build.failed.html
 * Remove irrelevant code from your example and report one problem at a time.
   Try to construct `SSCCE <http://www.sscce.org/>`__. If you need more files
   than just ``CMakeLists.txt`` it's better to create separate GitHub repository

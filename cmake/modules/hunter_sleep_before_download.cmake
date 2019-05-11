@@ -3,10 +3,10 @@
 
 include(hunter_internal_error)
 include(hunter_status_debug)
-include(hunter_test_string_not_empty)
+include(hunter_assert_not_empty_string)
 
 function(hunter_sleep_before_download attempt)
-  hunter_test_string_not_empty("${attempt}")
+  hunter_assert_not_empty_string("${attempt}")
 
   if(attempt EQUAL 0)
     return()

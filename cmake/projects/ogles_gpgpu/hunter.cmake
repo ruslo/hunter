@@ -13,6 +13,39 @@ hunter_add_version(
     PACKAGE_NAME
     ogles_gpgpu
     VERSION
+    0.3.6
+    URL
+    "https://github.com/hunter-packages/ogles_gpgpu/archive/v0.3.6.tar.gz"
+    SHA1
+    7ce1b25580c0c9de554056920eb2e449635ef9d8
+    )
+
+hunter_add_version(
+    PACKAGE_NAME
+    ogles_gpgpu
+    VERSION
+    0.2.10
+    URL
+    "https://github.com/hunter-packages/ogles_gpgpu/archive/v0.2.10.tar.gz"
+    SHA1
+    3f89e354752e74b6574638918d9d27d83fedab69
+    )
+
+hunter_add_version(
+    PACKAGE_NAME
+    ogles_gpgpu
+    VERSION
+    0.2.9
+    URL
+    "https://github.com/hunter-packages/ogles_gpgpu/archive/v0.2.9.tar.gz"
+    SHA1
+    0dd7e0834a4bef34cde33faeb3279d3e5706ab79
+    )
+
+hunter_add_version(
+    PACKAGE_NAME
+    ogles_gpgpu
+    VERSION
     0.2.8
     URL
     "https://github.com/hunter-packages/ogles_gpgpu/archive/v0.2.8.tar.gz"

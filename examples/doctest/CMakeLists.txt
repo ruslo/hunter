@@ -4,7 +4,6 @@ include("../common.cmake")
 
 project(download-doctest)
 
-set(CMAKE_CXX_STANDARD 98)
 
 hunter_add_package(doctest)
 

@@ -5,7 +5,7 @@ include(CMakeParseArguments) # cmake_parse_arguments
 
 include(hunter_internal_error)
 include(hunter_status_debug)
-include(hunter_test_string_not_empty)
+include(hunter_assert_not_empty_string)
 include(hunter_user_error)
 
 function(hunter_patch_unrelocatable_text_files)
@@ -21,9 +21,9 @@ function(hunter_patch_unrelocatable_text_files)
     hunter_internal_error("Unparsed: ${hunter_UNPARSED_ARGUMENTS}")
   endif()
 
-  hunter_test_string_not_empty("${x_FROM}")
-  hunter_test_string_not_empty("${x_TO}")
-  hunter_test_string_not_empty("${x_INSTALL_PREFIX}")
+  hunter_assert_not_empty_string("${x_FROM}")
+  hunter_assert_not_empty_string("${x_TO}")
+  hunter_assert_not_empty_string("${x_INSTALL_PREFIX}")
 
   foreach(text_file ${HUNTER_PACKAGE_UNRELOCATABLE_TEXT_FILES})
     set(text_full_path "${x_INSTALL_PREFIX}/${text_file}")

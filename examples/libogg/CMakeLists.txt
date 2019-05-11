@@ -9,8 +9,10 @@ include("../common.cmake")
 
 project(download-libogg)
 
+# DOCUMENTATION_START {
 hunter_add_package(libogg)
 find_package(libogg CONFIG REQUIRED)
 
 add_executable(foo foo.cpp)
 target_link_libraries(foo libogg::ogg)
+# DOCUMENTATION_END }

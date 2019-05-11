@@ -26,6 +26,6 @@ hunter_pick_scheme(DEFAULT url_sha1_autotools)
 hunter_cacheable(glproto)
 hunter_download(
     PACKAGE_NAME glproto
-    PACKAGE_INTERNAL_DEPS_ID "2"
+    PACKAGE_INTERNAL_DEPS_ID "3"
     PACKAGE_UNRELOCATABLE_TEXT_FILES "lib/pkgconfig/glproto.pc"
 )

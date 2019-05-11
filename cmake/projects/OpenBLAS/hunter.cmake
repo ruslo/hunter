@@ -7,7 +7,42 @@ include(hunter_add_version)
 include(hunter_cacheable)
 include(hunter_configuration_types)
 include(hunter_pick_scheme)
+include(hunter_cmake_args)
 include(hunter_download)
+
+
+hunter_add_version(
+    PACKAGE_NAME
+    OpenBLAS
+    VERSION
+    0.3.3
+    URL
+    "https://github.com/xianyi/OpenBLAS/archive/v0.3.3.tar.gz"
+    SHA1
+    bff159c528c1a860cee4976114d224da32d302a2
+)
+
+hunter_add_version(
+    PACKAGE_NAME
+    OpenBLAS
+    VERSION
+    0.3.1-p0
+    URL
+    "https://github.com/hunter-packages/OpenBLAS/archive/v0.3.1-p0.tar.gz"
+    SHA1
+    b525caa851e9cfb9e1756e42c8b4ee4877e98b9f
+)
+
+hunter_add_version(
+    PACKAGE_NAME
+    OpenBLAS
+    VERSION
+    0.3.0-p2
+    URL
+    "https://github.com/hunter-packages/OpenBLAS/archive/v0.3.0-p2.tar.gz"
+    SHA1
+    15875c6968eef0af7871d3cf91224570fece40cf
+)
 
 hunter_add_version(
     PACKAGE_NAME
@@ -32,15 +67,25 @@ hunter_add_version(
 )
 
 hunter_configuration_types(OpenBLAS CONFIGURATION_TYPES Release)
-if (MSVC)
-  hunter_pick_scheme(DEFAULT url_sha1_cmake)
-else()
+if(HUNTER_OpenBLAS_VERSION VERSION_LESS 0.3.1)
   hunter_pick_scheme(DEFAULT OpenBLAS)
+  set(
+      _openblas_unrelocatable_text_files
+      PACKAGE_UNRELOCATABLE_TEXT_FILES
+      "lib/cmake/openblas/OpenBLASConfig.cmake"
+  )
+else()
+  hunter_cmake_args(
+    OpenBLAS
+    CMAKE_ARGS
+    NOFORTRAN=1
+  )
+  hunter_pick_scheme(DEFAULT url_sha1_cmake)
+  set(_openblas_unrelocatable_text_files "")
 endif()
 hunter_cacheable(OpenBLAS)
 hunter_download(
     PACKAGE_NAME OpenBLAS
-    PACKAGE_INTERNAL_DEPS_ID "1"
-    PACKAGE_UNRELOCATABLE_TEXT_FILES
-    "lib/cmake/openblas/OpenBLASConfig.cmake"
+    PACKAGE_INTERNAL_DEPS_ID "2"
+    ${_openblas_unrelocatable_text_files}
 )

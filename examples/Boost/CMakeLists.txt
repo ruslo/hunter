@@ -37,3 +37,9 @@ foreach(x ${Boost_LICENSES})
 endforeach()
 
 message("Project license: ${project_license}")
+
+file(GLOB_RECURSE boost_configs "${BOOST_ROOT}/*/BoostConfig.cmake")
+list(LENGTH boost_configs len)
+if(NOT len EQUAL "1")
+  message(FATAL_ERROR "More than one *Config: ${boost_configs}")
+endif()

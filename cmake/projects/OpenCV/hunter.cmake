@@ -16,6 +16,83 @@ hunter_add_version(
     PACKAGE_NAME
     OpenCV
     VERSION
+    "4.0.0-p0"
+    URL
+    "https://github.com/hunter-packages/opencv/archive/v4.0.0-p0.tar.gz"
+    SHA1
+    90680ea3b971c2323e0049c48fa7867a1fd9f3fe
+)
+
+hunter_add_version(
+    PACKAGE_NAME
+    OpenCV
+    VERSION
+    "3.4.6-p0"
+    URL
+    "https://github.com/hunter-packages/opencv/archive/v3.4.6-p0.tar.gz"
+    SHA1
+    70f4da99e5d824c463848d4df8667d5d705af141
+)
+
+hunter_add_version(
+    PACKAGE_NAME
+    OpenCV
+    VERSION
+    "3.4.3-p4"
+    URL
+    "https://github.com/hunter-packages/opencv/archive/v3.4.3-p4.tar.gz"
+    SHA1
+    f1af13fd24cdb433240b1046b5e1391bb19ee748
+)
+
+hunter_add_version(
+    PACKAGE_NAME
+    OpenCV
+    VERSION
+    "3.4.3-p2"
+    URL
+    "https://github.com/hunter-packages/opencv/archive/v3.4.3-p2.tar.gz"
+    SHA1
+    9006574a1a777329fbbdd95c3835f0b3e64c59b6
+)
+
+hunter_add_version(
+    PACKAGE_NAME
+    OpenCV
+    VERSION
+    "3.4.3-p1"
+    URL
+    "https://github.com/hunter-packages/opencv/archive/v3.4.3-p1.tar.gz"
+    SHA1
+    3589a7f19fdaef200091231c4255c5e5bb70b217
+)
+
+hunter_add_version(
+    PACKAGE_NAME
+    OpenCV
+    VERSION
+    "3.4.1-p1"
+    URL
+    "https://github.com/hunter-packages/opencv/archive/v3.4.1-p1.tar.gz"
+    SHA1
+    a3f4f0a29e14eb3ff4ebf834f5505ff63b384332
+)
+
+hunter_add_version(
+    PACKAGE_NAME
+    OpenCV
+    VERSION
+    "3.4.1-p0"
+    URL
+    "https://github.com/hunter-packages/opencv/archive/v3.4.1-p0.tar.gz"
+    SHA1
+    cae0b9c141ca372629f65d09a780e820ea87ae49
+)
+
+hunter_add_version(
+    PACKAGE_NAME
+    OpenCV
+    VERSION
     "3.4.0-p0"
     URL
     "https://github.com/hunter-packages/opencv/archive/v3.4.0-p0.tar.gz"
@@ -75,7 +152,7 @@ hunter_add_version(
     URL
     "https://github.com/hunter-packages/opencv/archive/v3.2.0-p2.tar.gz"
     SHA1
-    99219206c4fb9b5b6f60e03112746461baf6c9ab
+    ea8f612eea55dfa6d2f3669d5e9eb4240417444b
 )
 
 hunter_add_version(
@@ -342,14 +419,6 @@ hunter_add_version(
     a0c2d5944364fc4f26b6160b33c03082b1fa08c1
 )
 
-string(COMPARE EQUAL "${CMAKE_OSX_SYSROOT}" "iphoneos" _is_ios)
-
-if(_is_ios)
-  set(_ios_args BUILD_WEBP=ON)
-else()
-  set(_ios_args "")
-endif()
-
 if(ANDROID)
   # This feature doesn't work with new CMake 3.7+ toolchains
   set(_android_args ENABLE_PRECOMPILED_HEADERS=OFF)
@@ -361,6 +430,7 @@ hunter_cmake_args(
     OpenCV
     CMAKE_ARGS
         BUILD_ANDROID_EXAMPLES=OFF
+        BUILD_JAVA=OFF
         BUILD_DOCS=OFF
         BUILD_EXAMPLES=OFF
         BUILD_PERF_TESTS=OFF
@@ -368,13 +438,14 @@ hunter_cmake_args(
         BUILD_opencv_apps=OFF
         INSTALL_PYTHON_EXAMPLES=OFF
         BUILD_WITH_STATIC_CRT=OFF # Fix https://github.com/ruslo/hunter/issues/177
-        ${_ios_args}
         ${_android_args}
         # Find packages in Hunter (instead of building from OpenCV sources)
         BUILD_ZLIB=OFF
         BUILD_TIFF=OFF
         BUILD_PNG=OFF
         BUILD_JPEG=OFF
+        BUILD_JASPER=OFF
+        BUILD_WEBP=OFF
         # This stuff will build shared libraries. Build with PIC required for dependencies.
         BUILD_opencv_java=OFF
         BUILD_opencv_python2=OFF
@@ -383,6 +454,10 @@ hunter_cmake_args(
         #  it might pick up the host version
         WITH_CUDA=OFF
         WITH_CUFFT=OFF
+        # Fix for https://travis-ci.org/xsacha/hunter/jobs/347083573
+        BUILD_opencv_dnn=OFF
+        # Fix for https://travis-ci.org/ingenue/hunter/builds/452039597
+        WITH_OPENEXR=OFF
 )
 
 # Pick a download scheme

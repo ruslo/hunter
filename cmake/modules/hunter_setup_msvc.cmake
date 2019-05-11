@@ -43,6 +43,7 @@ macro(hunter_setup_msvc)
     string(COMPARE EQUAL "${MSVC_VERSION}" "1800" _vs_12_2013)
     string(COMPARE EQUAL "${MSVC_VERSION}" "1900" _vs_14_2015)
     string(REGEX MATCH "^191[0-9]$" _vs_15_2017 "${MSVC_VERSION}")
+    string(REGEX MATCH "^192[0-9]$" _vs_16_2019 "${MSVC_VERSION}")
 
     if(_vs_8_2005)
       set(HUNTER_MSVC_VERSION "8")
@@ -65,6 +66,9 @@ macro(hunter_setup_msvc)
     elseif(_vs_15_2017)
       set(HUNTER_MSVC_VERSION "15")
       set(HUNTER_MSVC_YEAR "2017")
+    elseif(_vs_16_2019)
+      set(HUNTER_MSVC_VERSION "16")
+      set(HUNTER_MSVC_YEAR "2019")
     else()
       hunter_internal_error("Unexpected MSVC_VERSION: '${MSVC_VERSION}'")
     endif()
@@ -111,6 +115,9 @@ macro(hunter_setup_msvc)
     hunter_status_debug(
         "CMAKE_VS_DEVENV_COMMAND: '${CMAKE_VS_DEVENV_COMMAND}'"
     )
+    hunter_status_debug(
+        "CMAKE_VS_MSBUILD_COMMAND: '${CMAKE_VS_MSBUILD_COMMAND}'"
+    )
 
     string(COMPARE EQUAL "${_hunter_vcvarsall_path}" "" _is_empty)
     if(_is_empty)
@@ -118,25 +125,35 @@ macro(hunter_setup_msvc)
         # ignore error, see 'tests/hunter_setup_msvc/CMakeLists.txt'
       else()
         hunter_status_debug(
-            "Environment variable '${_hunter_vcvarsall_env}' is empty, analyzing CMAKE_VS_DEVENV_COMMAND"
+            "Environment variable '${_hunter_vcvarsall_env}' is empty,"
+            "  analyzing CMAKE_VS_DEVENV_COMMAND and CMAKE_VS_MSBUILD_COMMAND"
         )
-        string(COMPARE EQUAL "${CMAKE_VS_DEVENV_COMMAND}" "" is_empty)
-        if(is_empty)
+        string(COMPARE EQUAL "${CMAKE_VS_DEVENV_COMMAND}" "" is_devenv_empty)
+        string(COMPARE EQUAL "${CMAKE_VS_MSBUILD_COMMAND}" "" is_msbuild_empty)
+        if(NOT is_devenv_empty AND IS_ABSOLUTE "${CMAKE_VS_DEVENV_COMMAND}")
+          get_filename_component(_hunter_vcvarsall_path
+              "${CMAKE_VS_DEVENV_COMMAND}" DIRECTORY
+          )
+          set(_hunter_vcvarsall_path
+              "${_hunter_vcvarsall_path}/../../VC/Auxiliary/Build"
+          )
+        elseif(NOT is_msbuild_empty AND IS_ABSOLUTE "${CMAKE_VS_MSBUILD_COMMAND}")
+          get_filename_component(_hunter_vcvarsall_path
+              "${CMAKE_VS_MSBUILD_COMMAND}" DIRECTORY
+          )
+          set(_hunter_vcvarsall_path
+              "${_hunter_vcvarsall_path}/../../../VC/Auxiliary/Build"
+          )
+        else()
           hunter_fatal_error(
-              "Incorrect CMAKE_VS_DEVENV_COMMAND: is empty"
-              WIKI
+              "Incorrect MSVC setup:"
+              "  At least one of the following should be an absolute path"
+              "  CMAKE_VS_DEVENV_COMMAND:(${CMAKE_VS_DEVENV_COMMAND})"
+              "  CMAKE_VS_MSBUILD_COMMAND:(${CMAKE_VS_MSBUILD_COMMAND})"
+              ERROR_PAGE
               error.vs.devenv
           )
         endif()
-        if(NOT IS_ABSOLUTE "${CMAKE_VS_DEVENV_COMMAND}")
-          hunter_fatal_error(
-              "Incorrect CMAKE_VS_DEVENV_COMMAND: not absolute (${CMAKE_VS_DEVENV_COMMAND})"
-              WIKI
-              error.vs.devenv
-          )
-        endif()
-        get_filename_component(_hunter_vcvarsall_path "${CMAKE_VS_DEVENV_COMMAND}" DIRECTORY)
-        set(_hunter_vcvarsall_path "${_hunter_vcvarsall_path}/../../VC/Auxiliary/Build")
       endif()
     else()
       set(_hunter_vcvarsall_path "${_hunter_vcvarsall_path}/../../VC")

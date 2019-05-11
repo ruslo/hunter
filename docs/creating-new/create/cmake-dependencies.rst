@@ -27,7 +27,7 @@ Conflict
 
 Without the ``hunter_add_package(Foo)`` call one package will be found in the
 standard location and another one in the Hunter root directory. The found
-packages may may conflict with each other.
+packages may conflict with each other.
 
 Consider the next example: Project ``Roo`` is not aware about Hunter custom
 locations. It's just using regular ``find_package``:

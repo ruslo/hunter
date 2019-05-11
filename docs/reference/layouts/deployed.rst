@@ -84,7 +84,7 @@ for development.
   │           ├── cmake.lock
   │           ├── SHA1                         # SHA1 of 'config.cmake'
   │           ├── DONE
-  │           ├── config.cmake                 # CMake file with unified hunter_config commands
+  │           ├── config.cmake                 # CMake file with unified hunter_final_config commands
   │           ├── cache.cmake
   │           ├── Install/                     # Main directory with installed packages (global)
   │           │   ├── include/
@@ -174,7 +174,7 @@ arguments, dependencies, etc.).
   ├─ raw/
   │  └─ <cache>.tar.bz2
   └─ meta/
-     └─ <toolchain-id>/
+     └─ <Toolchain-ID>/
         ├─ cmake.lock
         ├─ SHA1                                   # SHA1 of toolchain.info
         ├─ DONE

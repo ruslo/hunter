@@ -22,6 +22,17 @@ hunter_add_version(
     8d354a165e330022ffd3606aba562b8c8154213d
 )
 
+hunter_add_version(
+    PACKAGE_NAME
+    sm
+    VERSION
+    "1.2.3"
+    URL
+    "https://www.x.org/releases/individual/lib/libSM-1.2.3.tar.bz2"
+    SHA1
+    437d7b13fa2eba325df3a106f177df46ccec6546
+)
+
 hunter_configuration_types(sm CONFIGURATION_TYPES Release)
 hunter_pick_scheme(DEFAULT url_sha1_autotools)
 set(sm_dependencies
@@ -37,7 +48,7 @@ hunter_cmake_args(
 hunter_cacheable(sm)
 hunter_download(
     PACKAGE_NAME sm
-    PACKAGE_INTERNAL_DEPS_ID "3"
+    PACKAGE_INTERNAL_DEPS_ID "4"
     PACKAGE_UNRELOCATABLE_TEXT_FILES
     "lib/libSM.la"
     "lib/pkgconfig/sm.pc"

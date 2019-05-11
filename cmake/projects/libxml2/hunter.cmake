@@ -33,8 +33,17 @@ hunter_add_version(
     958ae70baf186263a4bd801a81dd5d682aedd1db
 )
 
-set(_libxml_unrelocatable_text_files PACKAGE_UNRELOCATABLE_TEXT_FILES "lib/pkgconfig/libxml-2.0.pc")
+set(
+    _libxml_unrelocatable_text_files
+    PACKAGE_UNRELOCATABLE_TEXT_FILES
+    "lib/pkgconfig/libxml-2.0.pc"
+    "lib/libxml2.la"
+    "bin/xml2-config"
+    "lib/xml2Conf.sh"
+)
+
 hunter_configuration_types(libxml2 CONFIGURATION_TYPES Release)
+
 if (MSVC)
     hunter_check_toolchain_definition(NAME "_DLL" DEFINED _hunter_vs_md)
     hunter_pick_scheme(DEFAULT url_sha1_libxml2_msvc)
@@ -49,15 +58,17 @@ else()
     hunter_pick_scheme(DEFAULT url_sha1_autotools)
     # Drop dependencies
     hunter_cmake_args(
-    	libxml2
-            CMAKE_ARGS
-                EXTRA_FLAGS=--without-python --without-lzma --without-zlib
+        libxml2
+        CMAKE_ARGS
+        EXTRA_FLAGS=--without-python --without-lzma --without-zlib --without-iconv
+        PKGCONFIG_EXPORT_TARGETS=libxml-2.0
     )
 endif()
+
 hunter_cacheable(libxml2)
+
 hunter_download(
     PACKAGE_NAME libxml2
-    PACKAGE_INTERNAL_DEPS_ID "3"
+    PACKAGE_INTERNAL_DEPS_ID "9"
     ${_libxml_unrelocatable_text_files}
 )
-

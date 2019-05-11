@@ -22,33 +22,13 @@ branch ``master`` (directory layout matters) (see
 .. note::
 
   Currently upload procedure is implemented using Python script with
-  ``requests`` module, check that you have Python installed in your system.
-  This limitation will be removed in future. Downloading from server done by
-  ``file(DOWNLOAD ...)`` CMake commands, so client is still CMake-only based.
-
-Variables and modules related to uploading:
-
-* List of servers that will be used for **downloading binaries** can be set in
-  :ref:`HUNTER_CACHE_SERVERS <hunter_cache_servers>` variable
-
-* If you want to check that there is no third party **builds triggered** by
-  CMake and all packages downloaded from server you can use
-  :ref:`HUNTER_DISABLE_BUILDS <hunter_disable_builds>` variable
-
-* Variable :ref:`HUNTER_USE_CACHE_SERVERS <hunter_use_cache_servers>` can be
-  used to specify **downloading policy**
-
-* **Uploading parameters** can be set using
-  :ref:`hunter_upload_password <hunter_upload_password>` module in
-  :doc:`Hunter passwords file </reference/terminology/hunter-passwords-file>`
-
-* Use :ref:`HUNTER_RUN_UPLOAD=YES <hunter_run_upload>` option to **start
-  upload** procedure
-
-.. warning::
-
-  **All entries** from ``Cache`` directory will be uploaded, not only cache for
-  the current build. Take this information into account while doing upload!
+  ``requests`` and ``gitpython`` modules, check that you have Python installed
+  in your system.  This limitation will be removed in future. Downloading from
+  server done by ``file(DOWNLOAD ...)`` CMake commands, so client is still
+  CMake-only based.  Module ``gitpython`` expects Git executable installed in
+  system.  You can use environment variable
+  :ref:`HUNTER_GIT_EXECUTABLE <hunter git executable env>`
+  to specify custom path.
 
 Example
 ~~~~~~~
@@ -360,7 +340,3 @@ for repositories and instruction to read password from environment variable
 Full project available here:
 
 * https://github.com/forexample/hunter-cache-use
-
-.. seealso::
-
-  * :doc:`F.A.Q.: Why binaries from server not used? </faq/why-binaries-from-server-not-used>`

@@ -1,4 +1,4 @@
-.. Copyright (c) 2016, Ruslan Baratov
+.. Copyright (c) 2016-2019, Ruslan Baratov
 .. All rights reserved.
 
 Config-ID
@@ -54,5 +54,7 @@ Message in logs:
 .. seealso::
 
   * `Example <https://github.com/ruslo/hunter/wiki/example.custom.config.id>`_
+  * :ref:`HUNTER_BUILD_SHARED_LIBS <hunter build shared libs>`
+  * :ref:`HUNTER_CONFIGURATION_TYPES <hunter configuration types>`
 
 .. _HunterGate options: https://github.com/hunter-packages/gate#usage-custom-config

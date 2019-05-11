@@ -42,6 +42,9 @@ CMake
         "Hunter cache servers"
     )
 
+    # Good
+    set(HUNTER_JOBS_NUMBER 6 CACHE STRING "Hunter jobs number")
+
     # All user options before HunterGate
     HunterGate(URL "..." SHA1 "...")
 
@@ -109,12 +112,16 @@ HUNTER_PACKAGE_LOG_INSTALL
 * Apply ``LOG_INSTALL 1``
   (see `ExternalProject <https://cmake.org/cmake/help/v3.3/module/ExternalProject.html>`__)
 
+.. _hunter configuration types:
+
 HUNTER_CONFIGURATION_TYPES
 ==========================
 
 * Build type of the 3rd party packages
 * See `example <https://github.com/ruslo/hunter/wiki/example.hunter_configuration_types>`__
 * Default: ``Release``, ``Debug``
+
+.. _hunter build shared libs:
 
 HUNTER_BUILD_SHARED_LIBS
 ========================
@@ -123,13 +130,18 @@ HUNTER_BUILD_SHARED_LIBS
   `BUILD_SHARED_LIBS <https://cmake.org/cmake/help/latest/variable/BUILD_SHARED_LIBS.html>`__
   for 3rd party packages
 
+.. _hunter jobs number:
+
 HUNTER_JOBS_NUMBER
 ==================
 
 * Number of parallel builds that will be used in such native tools like ``make -jN`` or ``xcodebuild -jobs N``
 * For Visual Studio >= 12 2013 flag ``/maxcpucount:N`` will be added to ``MSBuild``
 * Set variable to ``0`` to disable adding any flags: ``HUNTER_JOBS_NUMBER=0``
-* Default: `NUMBER_OF_LOGICAL_CORES <http://www.cmake.org/cmake/help/v3.2/command/cmake_host_system_information.html>`__
+* Defaults to maximum of two:
+
+  * `NUMBER_OF_LOGICAL_CORES <http://www.cmake.org/cmake/help/v3.11/command/cmake_host_system_information.html>`__
+  * `NUMBER_OF_PHYSICAL_CORES <http://www.cmake.org/cmake/help/v3.11/command/cmake_host_system_information.html>`__
 
 .. _hunter run install:
 
@@ -232,6 +244,8 @@ HUNTER_PASSWORDS_PATH
 
 Path to :doc:`Hunter passwords file <terminology/hunter-passwords-file>`.
 
+.. _hunter keep package sources:
+
 HUNTER_KEEP_PACKAGE_SOURCES
 ===========================
 
@@ -258,6 +272,18 @@ and have some usage peculiarities:
   track what files was the original sources/what is temporary files
   for build. Combining with previous peculiarity it's expected that much
   more disk space will be used than usually.
+* If package is already installed before ``HUNTER_KEEP_PACKAGE_SOURCES`` set
+  to ``ON`` there will be no build triggered, hence there will be no sources
+  kept. To re-trigger the build you can add some dummy parameter to
+  ``CMAKE_ARGS``, for example:
+
+  .. code-block:: cmake
+
+    hunter_config(foo VERSION ${HUNTER_foo_VERSION} CMAKE_ARGS DUMMY=1)
+
+.. seealso::
+
+  * :ref:`hunter_config(... KEEP_PACKAGE_SOURCES) <hunter_config>`
 
 .. _hunter download server:
 
@@ -340,6 +366,36 @@ Default: ``ON``
   :ref:`default <hunter_use_cache_servers>`) meta cache files like
   ``cache.sha1`` will not be checked at all!
 
+.. _hunter git self ignore untracked:
+
+HUNTER_GIT_SELF_IGNORE_UNTRACKED
+================================
+
+Set this option to ``ON`` if you want to ignore untracked files while
+using :doc:`GIT_SELF feature </user-guides/hunter-user/git-self>`.
+
+Default: ``OFF``
+
+.. _hunter no toolchain id recalculation:
+
+HUNTER_NO_TOOLCHAIN_ID_RECALCULATION
+====================================
+
+If set to ``ON`` Hunter will skip calculation of ``Toolchain-ID`` if value is
+already present in CMake cache.
+
+Default: ``OFF``
+
+.. note::
+
+  Do not use this option while making a bug report.
+
+.. warning::
+
+  This option is for the **advanced** users only. Incorrect usage of this option
+  may lead to invalid unrecoverable cache state. Please read carefully
+  :ref:`this page <id calculation>` before using this option.
+
 Environment
 ~~~~~~~~~~~
 
@@ -351,12 +407,14 @@ HUNTER_ROOT
 * Same as CMake's :ref:`HUNTER_ROOT <hunter root>` variable.
   If both environment and CMake variables are set then CMake has a higher priority
 
+.. _env hunter binary dir:
+
 HUNTER_BINARY_DIR
 =================
 
 * Use external directory ``HUNTER_BINARY_DIR`` for building external projects.
   This variable can be used to fix
-  `"path too long" <https://github.com/ruslo/hunter/wiki/error.external.build.failed#windows>`__ error on windows
+  `"path too long" <https://docs.hunter.sh/en/latest/reference/errors/error.external.build.failed.html#windows>`__ error on windows
 
 .. _hunter disable install:
 
@@ -378,3 +436,17 @@ HUNTER_PASSWORDS_PATH
 
 Environment variable with functionality similar to CMake variable with
 :ref:`the same name <hunter passwords path>`.
+
+.. _hunter git executable env:
+
+HUNTER_GIT_EXECUTABLE
+=====================
+
+Path to Git executable
+
+.. _hunter jobs number env:
+
+HUNTER_JOBS_NUMBER
+==================
+
+See :ref:`HUNTER_JOBS_NUMBER <hunter jobs number>` CMake variable

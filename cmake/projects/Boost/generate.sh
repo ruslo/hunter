@@ -8,6 +8,7 @@ BOOST_LIBS="
     chrono
     context
     coroutine
+    contract
     date_time
     exception
     fiber
@@ -25,6 +26,7 @@ BOOST_LIBS="
     regex
     serialization
     signals
+    stacktrace
     system
     test
     thread

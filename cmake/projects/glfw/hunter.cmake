@@ -11,6 +11,7 @@ include(hunter_cacheable)
 include(hunter_cmake_args)
 include(hunter_download)
 include(hunter_pick_scheme)
+include(GNUInstallDirs)
 
 hunter_add_version(
     PACKAGE_NAME
@@ -78,6 +79,17 @@ hunter_add_version(
     455c97ea01a1b78ae39a72d00d86eb1c455e0dca
 )
 
+hunter_add_version(
+    PACKAGE_NAME
+    glfw
+    VERSION
+    "3.3.0-f9923e9-p0"
+    URL
+    "https://github.com/hunter-packages/glfw/archive/v3.3.0-f9923e9-p0.tar.gz"
+    SHA1
+    533debc50f12ce147d54d210408c7e33654f10a4
+)
+
 hunter_cmake_args(
     glfw
     CMAKE_ARGS
@@ -96,7 +108,7 @@ hunter_download(
     # Patching of glfw3Targets.cmake required as it has full paths due to the lack
     # of imported targets for x11 packages. This should be removed when
     # https://github.com/ruslo/hunter/issues/486 is implemented
-      "lib/cmake/glfw3/glfw3Targets.cmake"
-      "lib/pkgconfig/glfw3.pc"
+      "${CMAKE_INSTALL_LIBDIR}/cmake/glfw3/glfw3Targets.cmake"
+      "${CMAKE_INSTALL_LIBDIR}/pkgconfig/glfw3.pc"
 
 )

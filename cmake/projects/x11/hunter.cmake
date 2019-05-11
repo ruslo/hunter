@@ -22,6 +22,18 @@ hunter_add_version(
     8177535c9c59d8c3ab98d55ce53520b5737ccd1a
 )
 
+# https://www.x.org/releases/individual/lib/
+hunter_add_version(
+    PACKAGE_NAME
+    x11
+    VERSION
+    "1.6.7"
+    URL
+    "https://www.x.org/releases/individual/lib/libX11-1.6.7.tar.bz2"
+    SHA1
+    5076f7853713d7db958a05f6fd1c18f7e111a0ad
+)
+
 hunter_configuration_types(x11 CONFIGURATION_TYPES Release)
 hunter_pick_scheme(DEFAULT url_sha1_autotools)
 set(x11_dependencies
@@ -41,7 +53,7 @@ hunter_cmake_args(
 hunter_cacheable(x11)
 hunter_download(
     PACKAGE_NAME x11
-    PACKAGE_INTERNAL_DEPS_ID "4"
+    PACKAGE_INTERNAL_DEPS_ID "6"
     PACKAGE_UNRELOCATABLE_TEXT_FILES
     "lib/libX11-xcb.la"
     "lib/libX11.la"

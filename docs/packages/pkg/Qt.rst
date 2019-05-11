@@ -10,17 +10,15 @@
 Qt
 ==
 
-.. |hunter| image:: https://img.shields.io/badge/hunter-v0.12.0-blue.svg
-  :target: https://github.com/ruslo/hunter/releases/tag/v0.12.0
-  :alt: Hunter v0.12.0
-
 -  `Official <http://qt.io>`__
 -  `Source archives <http://download.qt.io/archive/qt/>`__
--  `Example <https://github.com/ruslo/hunter/tree/master/examples/qt-widgets/CMakeLists.txt>`__
--  `iOS examples <https://github.com/forexample/qt-ios-examples>`__
--  `Android
-   example <https://github.com/forexample/android-cmake/tree/master/05-qt-hellogl2>`__
-- Available since |hunter|
+
+.. seealso::
+
+  -  `Example: Qt Widgets <https://github.com/ruslo/hunter/tree/master/examples/qt-widgets/CMakeLists.txt>`__
+  -  `iOS examples <https://github.com/forexample/qt-ios-examples>`__
+  -  `Android
+     example <https://github.com/forexample/android-cmake/tree/master/05-qt-hellogl2>`__
 
 Usage
 -----
@@ -154,8 +152,23 @@ Customization
   * Adds ``-opengl desktop``
   * `Qt Configure Options <https://doc.qt.io/qt-5/configure-options.html>`__
 
+Windows "path too long"
+-----------------------
+
+Using :ref:`HUNTER_BINARY_DIR <env hunter binary dir>` is not helping with
+:ref:`path too long <windows path too long>` errors. The only way to build Qt
+is to use short path for ``HUNTER_ROOT`` directory.
+
+.. seealso::
+
+  - https://bugreports.qt.io/browse/QTBUG-66652
+  - https://bugreports.qt.io/browse/QTBUG-64298
+
 Pitfalls
 --------
+
+- Python is required to be in ``PATH`` if you're building the ``qtdeclarative``
+  component
 
 -  Conflicts with system Qt: `bug with
    workaround <https://github.com/ruslo/hunter/issues/224#issuecomment-137101944>`__
@@ -231,25 +244,6 @@ if you see this error try to remove usage of target ``Qt5::QtQuick2Plugin`` and 
 
 -  Extra libraries for Android tools on Ubuntu needed (see `this
    answer <http://superuser.com/a/360398/252568>`__)
-
-Applied workaround for next bugs
---------------------------------
-
--  Default version of Xcode should not be set to ``7.0`` for Qt
-   ``5.5.0``. See `bug
-   #47383 <https://bugreports.qt.io/browse/QTBUG-47383>`__.
-
--  Hunter install extra module
-   `Qt5Widgets\_HunterPlugin <https://github.com/ruslo/hunter/blob/develop/scripts/Qt5Widgets_HunterPlugin.cmake>`__
-   to apply workarounds for bugs:
-   `47349 <https://bugreports.qt.io/browse/QTBUG-47349>`__ and
-   `47336 <https://bugreports.qt.io/browse/QTBUG-47336>`__.
-
--  Simulator's libraries not found by ``find_package``:
-   `47314 <https://bugreports.qt.io/browse/QTBUG-47314>`__
-
--  Workaround for `bug
-   #47453 <https://bugreports.qt.io/browse/QTBUG-47453>`__
 
 Hints
 -----

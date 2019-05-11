@@ -1,3 +1,7 @@
+.. spelling::
+
+  rebase
+
 Why do we need forks?
 ---------------------
 
@@ -73,7 +77,9 @@ If such approach will be chosen we will end up with system for maintaining
 patches, but there is no need to reinvent the wheel, such system already
 exist and called ``Git``. Assuming the fact that Hunter project hosted on
 GitHub and GitHub offer free unlimited repositories for public projects there
-are no real reasons to choose ``*.patch`` approach over forks.
+are no real reasons to choose ``*.patch`` approach over forks. The use of
+the forks allow us to rebase, merge, cherry-pick, discuss and review the patches
+easily.
 
 High cohesion
 =============

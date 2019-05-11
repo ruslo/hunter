@@ -6,8 +6,8 @@ if(NOT HUNTER_SELF)
   message("[hunter ** INTERNAL **] HUNTER_SELF is empty")
   message("[hunter ** INTERNAL **] [Directory:${CMAKE_CURRENT_LIST_DIR}]")
   message("")
-  message("------------------------------ WIKI -------------------------------")
-  message("    https://github.com/ruslo/hunter/wiki/error.internal")
+  message("------------------------------ ERROR ------------------------------")
+  message("    https://docs.hunter.sh/en/latest/reference/errors/error.internal.html")
   message("-------------------------------------------------------------------")
   message(FATAL_ERROR "")
 endif()
@@ -28,8 +28,8 @@ if(EXISTS "${TOOLCHAIN_INFO_FILE}")
   hunter_internal_error("${TOOLCHAIN_INFO_FILE} already exists")
 endif()
 
-include(hunter_test_string_not_empty)
-hunter_test_string_not_empty("${HUNTER_CONFIGURATION_TYPES}")
+include(hunter_assert_not_empty_string)
+hunter_assert_not_empty_string("${HUNTER_CONFIGURATION_TYPES}")
 
 file(
     WRITE
@@ -114,7 +114,7 @@ endfunction()
 
 split_string("${outresult}" list_of_strings)
 
-set(macroses "")
+set(macros_list "")
 foreach(x ${list_of_strings})
   string(
       REGEX
@@ -132,13 +132,22 @@ foreach(x ${list_of_strings})
         result_x
         "${x}"
     )
-    set(macroses "${macroses}${result_x}\n")
+
+    string(FIND "${result_x}" ";" semicolon_pos)
+    if(NOT semicolon_pos EQUAL "-1")
+      hunter_internal_error("Semicolon in string: '${result_x}'")
+    endif()
+
+    list(APPEND macros_list "${result_x}")
   endif()
 endforeach()
 
-string(COMPARE EQUAL "${macroses}" "" is_empty)
+list(REMOVE_DUPLICATES macros_list)
+string(REPLACE ";" "\n" macros_string "${macros_list}")
+
+string(COMPARE EQUAL "${macros_string}" "" is_empty)
 if(is_empty)
-  hunter_fatal_error("No toolchain info generated" WIKI error.no.toolchain.info)
+  hunter_fatal_error("No toolchain info generated" ERROR_PAGE error.no.toolchain.info)
 endif()
 
-file(APPEND "${TOOLCHAIN_INFO_FILE}" "Predefined macroses:\n${macroses}")
+file(APPEND "${TOOLCHAIN_INFO_FILE}" "Predefined macroses:\n${macros_string}")

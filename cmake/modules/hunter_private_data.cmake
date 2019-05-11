@@ -3,6 +3,7 @@
 
 include(CMakeParseArguments) # cmake_parse_arguments
 
+include(hunter_cache_server_password)
 include(hunter_check_download_error_message)
 include(hunter_get_passwords_path)
 include(hunter_http_password)
@@ -18,7 +19,7 @@ include(hunter_user_error)
 function(hunter_private_data)
   set(func "'hunter_private_data'")
 
-  hunter_test_string_not_empty("${HUNTER_CACHED_ROOT}")
+  hunter_assert_not_empty_string("${HUNTER_CACHED_ROOT}")
 
   set(one URL SHA1 CREDENTIALS LOCATION FILE)
   set(multiple HTTPHEADER)
@@ -145,6 +146,7 @@ function(hunter_private_data)
     # * hunter_http_password
     # * hunter_private_data_password
     # * hunter_upload_password
+    # * hunter_cache_server_password
     include("${pass_path}")
 
     string(COMPARE EQUAL "${HUNTER_PRIVATE_DATA_USERNAME}" "" no_username)

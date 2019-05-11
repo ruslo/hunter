@@ -26,6 +26,6 @@ hunter_pick_scheme(DEFAULT url_sha1_autotools)
 hunter_cacheable(presentproto)
 hunter_download(
     PACKAGE_NAME presentproto
-    PACKAGE_INTERNAL_DEPS_ID "2"
+    PACKAGE_INTERNAL_DEPS_ID "3"
     PACKAGE_UNRELOCATABLE_TEXT_FILES "lib/pkgconfig/presentproto.pc"
 )

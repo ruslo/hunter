@@ -15,6 +15,17 @@ hunter_add_version(
     PACKAGE_NAME
     xcb-proto
     VERSION
+    "1.13"
+    URL
+    "https://xcb.freedesktop.org/dist/xcb-proto-1.13.tar.bz2"
+    SHA1
+    f7fa35ab59af18cecadbe83fe705281dcfd82ffd
+)
+
+hunter_add_version(
+    PACKAGE_NAME
+    xcb-proto
+    VERSION
     "1.11"
     URL
     "https://xcb.freedesktop.org/dist/xcb-proto-1.11.tar.bz2"
@@ -44,6 +55,6 @@ hunter_cmake_args(
 hunter_cacheable(xcb-proto)
 hunter_download(
     PACKAGE_NAME xcb-proto
-    PACKAGE_INTERNAL_DEPS_ID "2"
+    PACKAGE_INTERNAL_DEPS_ID "3"
     PACKAGE_UNRELOCATABLE_TEXT_FILES "lib/pkgconfig/xcb-proto.pc"
 )

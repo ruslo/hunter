@@ -8,7 +8,7 @@ list(APPEND CMAKE_MODULE_PATH "@HUNTER_SELF@/cmake/modules")
 
 include(hunter_user_error)
 include(hunter_status_debug)
-include(hunter_test_string_not_empty)
+include(hunter_assert_not_empty_string)
 include(hunter_autotools_project)
 
 hunter_status_debug("Scheme: url_sha1_autogen_autotools")
@@ -18,15 +18,19 @@ if("@MSVC@")
 endif()
 
 # Check preconditions
-hunter_test_string_not_empty("@HUNTER_SELF@")
-hunter_test_string_not_empty("@HUNTER_EP_NAME@")
-hunter_test_string_not_empty("@HUNTER_PACKAGE_URL@")
-hunter_test_string_not_empty("@HUNTER_PACKAGE_SHA1@")
-hunter_test_string_not_empty("@HUNTER_PACKAGE_DOWNLOAD_DIR@")
-hunter_test_string_not_empty("@HUNTER_PACKAGE_SOURCE_DIR@")
-hunter_test_string_not_empty("@HUNTER_PACKAGE_BUILD_DIR@")
-hunter_test_string_not_empty("@HUNTER_PACKAGE_INSTALL_PREFIX@")
-hunter_test_string_not_empty("@HUNTER_INSTALL_PREFIX@")
+hunter_assert_not_empty_string("@HUNTER_SELF@")
+hunter_assert_not_empty_string("@HUNTER_EP_NAME@")
+hunter_assert_not_empty_string("@HUNTER_PACKAGE_URL@")
+hunter_assert_not_empty_string("@HUNTER_PACKAGE_SHA1@")
+hunter_assert_not_empty_string("@HUNTER_PACKAGE_DOWNLOAD_DIR@")
+hunter_assert_not_empty_string("@HUNTER_PACKAGE_SOURCE_DIR@")
+hunter_assert_not_empty_string("@HUNTER_PACKAGE_BUILD_DIR@")
+hunter_assert_not_empty_string("@HUNTER_PACKAGE_INSTALL_PREFIX@")
+hunter_assert_not_empty_string("@HUNTER_INSTALL_PREFIX@")
+
+foreach(dependency ${DEPENDS_ON_PACKAGES})
+  hunter_add_package(${dependency})
+endforeach()
 
 hunter_autotools_project("@HUNTER_EP_NAME@"
     HUNTER_SELF
@@ -52,3 +56,21 @@ hunter_autotools_project("@HUNTER_EP_NAME@"
     BOOTSTRAP
       "./autogen.sh"
 )
+
+string(COMPARE EQUAL "${DEPENDS_ON_PKGCONFIGS}" "" default_pkgconfig)
+if(NOT default_pkgconfig)
+  set(DEPENDS_ON_PACKAGES ${DEPENDS_ON_PKGCONFIGS})
+endif()
+
+set(PKG_GENERATE_SHARED "${BUILD_SHARED_LIBS}")
+
+foreach(PKG_CONFIG_MODULE ${PKGCONFIG_EXPORT_TARGETS})
+  # Use:
+  # * DEPENDS_ON_PACKAGES
+  # * PKG_GENERATE_SHARED
+  configure_file(
+      "@HUNTER_GLOBAL_SCRIPT_DIR@/pkgconfig-export-targets.cmake.in"
+      "@HUNTER_PACKAGE_INSTALL_PREFIX@/lib/cmake/${PKG_CONFIG_MODULE}/${PKG_CONFIG_MODULE}Config.cmake"
+      @ONLY
+  )
+endforeach()

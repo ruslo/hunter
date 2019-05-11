@@ -5,12 +5,12 @@ cmake_minimum_required(VERSION 3.0)
 
 include(hunter_internal_error)
 include(hunter_status_print)
-include(hunter_test_string_not_empty)
+include(hunter_assert_not_empty_string)
 include(hunter_user_error)
 
 function(hunter_set_config_location hunter_self result)
-  hunter_test_string_not_empty("${hunter_self}")
-  hunter_test_string_not_empty("${result}")
+  hunter_assert_not_empty_string("${hunter_self}")
+  hunter_assert_not_empty_string("${result}")
 
   if(HUNTER_GATE_GLOBAL)
     set(

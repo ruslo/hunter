@@ -34,7 +34,7 @@ hunter_cmake_args(
 hunter_cacheable(util_linux)
 hunter_download(
     PACKAGE_NAME util_linux
-    PACKAGE_INTERNAL_DEPS_ID "1"
+    PACKAGE_INTERNAL_DEPS_ID "2"
     PACKAGE_UNRELOCATABLE_TEXT_FILES
     "lib/libblkid.la"
     "lib/libfdisk.la"

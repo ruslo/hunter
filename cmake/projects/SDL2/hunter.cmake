@@ -109,6 +109,28 @@ hunter_add_version(
         PACKAGE_NAME
         SDL2
         VERSION
+        "2.0.7-p2"
+        URL
+        "https://github.com/hunter-packages/SDL2/archive/v2.0.7-p2.tar.gz"
+        SHA1
+        276390a8b41667f0f5c9e298825256cf7ac6a24b
+)
+
+hunter_add_version(
+        PACKAGE_NAME
+        SDL2
+        VERSION
+        "2.0.7-p3"
+        URL
+        "https://github.com/hunter-packages/SDL2/archive/v2.0.7-p3.tar.gz"
+        SHA1
+        ee6639485622d0f81163cd2c7ee5c54c89e85482
+)
+
+hunter_add_version(
+        PACKAGE_NAME
+        SDL2
+        VERSION
         "2.0.4-urho-p2"
         URL
         "https://github.com/hunter-packages/SDL2/archive/v2.0.4-urho-p2.tar.gz"

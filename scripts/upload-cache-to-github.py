@@ -2,13 +2,24 @@
 from __future__ import print_function
 
 import argparse
-import base64
 import hashlib
 import json
 import os
 import requests
 import sys
 import time
+
+if os.getenv('HUNTER_GIT_EXECUTABLE'):
+  os.environ["GIT_PYTHON_GIT_EXECUTABLE"] = os.getenv('HUNTER_GIT_EXECUTABLE')
+
+try:
+  import git
+except ImportError as exc:
+  print("Import failed with error: {}".format(exc))
+  print("Possible fixes:")
+  print(" * Install gitpython module: 'pip install gitpython'")
+  print(" * Set environment variable HUNTER_GIT_EXECUTABLE")
+  sys.exit(1)
 
 class Error(Exception):
   pass
@@ -52,23 +63,12 @@ def retry(func_in):
         time.sleep(sec)
   return func_out
 
-# http://stackoverflow.com/a/16696317/2288008
-@retry
-def download_file(url, local_file, auth, chunk_size=1024):
-  print('Downloading:\n  {}\n  -> {}'.format(url, local_file))
-  r = requests.get(url, stream=True, auth=auth)
-  if not r.ok:
-    raise Exception('Downloading failed')
-  with open(local_file, 'wb') as f:
-    for chunk in r.iter_content(chunk_size=chunk_size):
-      if chunk:
-        f.write(chunk)
-
 class Github:
   def __init__(self, username, password, repo_owner, repo):
     self.repo_owner = repo_owner
     self.repo = repo
     self.username = username
+    self.password = password
     self.auth = requests.auth.HTTPBasicAuth(username, password)
     self.simple_request()
 
@@ -233,13 +233,66 @@ class Github:
     url = upload_url.format(asset_name)
     self.upload_bzip(url, local_path, release_id, asset_name)
 
-  @retry
-  def create_new_file(self, local_path, github_path):
-    # https://developer.github.com/v3/repos/contents/#create-a-file
-    # PUT /repos/:owner/:repo/contents/:path
+class CacheEntry:
+  def __init__(self, cache_done_path, cache_dir):
+    self.cache_dir = cache_dir
+    self.cache_raw = os.path.join(self.cache_dir, 'raw')
+    self.cache_done_path = cache_done_path
+    if not os.path.exists(cache_done_path):
+      raise Exception('File not exists: {}'.format(cache_done_path))
+    self.cache_done_dir = os.path.dirname(self.cache_done_path)
+    self.from_server = os.path.join(self.cache_done_dir, 'from.server')
+    self.cache_sha1 = os.path.join(self.cache_done_dir, 'cache.sha1')
 
+  def entry_from_server(self):
+    return os.path.exists(self.from_server)
+
+  def upload_raw(self, github):
+    sha1 = open(self.cache_sha1, 'r').read()
+    if sha1 == '':
+      sys.exit('File with no content: {}'.format(self.cache_sha1))
+    raw = os.path.join(self.cache_raw, sha1 + '.tar.bz2')
+    if os.path.exists(raw):
+      github.upload_raw_file(raw)
+
+    # else:
+    # FIXME (old GitHub API upload): https://travis-ci.org/ingenue/hunter/jobs/347888167
+    # New Git-based upload: 'from.server' not present for old cache
+
+  def touch_from_server(self):
+    open(self.from_server, 'w')
+
+class Cache:
+  def __init__(self, cache_dir):
+    self.cache_meta = os.path.join(cache_dir, 'meta')
+    self.repo = git.Repo.init(self.cache_meta)
+
+    self.entries = self.create_entries(cache_dir)
+    self.remove_entries_from_server()
+
+  def create_entries(self, cache_dir):
+    print('Searching for CACHE.DONE files in directory:\n  {}\n'.format(cache_dir))
+
+    entries = []
+    for x in self.repo.untracked_files:
+      if x.endswith('CACHE.DONE'):
+        entries.append(CacheEntry(os.path.join(self.cache_meta, x), cache_dir))
+    print('Found {} files'.format(len(entries)))
+    return entries
+
+  def remove_entries_from_server(self):
+    new_entries = []
+    for i in self.entries:
+      if not i.entry_from_server():
+        new_entries.append(i)
+    self.entries = new_entries
+
+  def upload_raw(self, github):
+    for i in self.entries:
+      i.upload_raw(github)
+
+  def make_commit_message(self):
     message = 'Uploading cache info\n\n'
-    message += 'Create file: {}\n\n'.format(github_path)
 
     env_list = []
     job_url = ''
@@ -293,172 +346,164 @@ class Github:
     if job_url:
       message += '\n  Job URL: {}\n'.format(job_url)
 
-    url = 'https://api.github.com/repos/{}/{}/contents/{}'.format(
-        self.repo_owner,
-        self.repo,
-        github_path
+    return message
+
+  def try_to_push(self, main_remote, main_remote_url_pull, github):
+    try:
+      fetch_result = main_remote.pull(
+          allow_unrelated_histories=True,
+          strategy='recursive',
+          strategy_option='ours',
+          rebase=True,
+          depth=1
+      )
+      for x in fetch_result:
+        if x.flags & x.REJECTED:
+          print('Pull rejected')
+          return False
+        if x.flags & x.ERROR:
+          print('Pull error')
+          return False
+    except Exception as exc:
+      print("Pull failed: {}".format(exc))
+      return False
+
+    try:
+      main_remote.set_url(
+          'https://{}:{}@github.com/{}/{}'.format(
+              github.username,
+              github.password,
+              github.repo_owner,
+              github.repo
+          )
+      )
+      push_result = main_remote.push()
+      main_remote.set_url(main_remote_url_pull)
+      for x in push_result:
+        if x.flags & x.ERROR:
+          print('Push error')
+          return False
+        if x.flags & x.REJECTED:
+          print('Push rejected')
+          return False
+        if x.flags & x.REMOTE_FAILURE:
+          print('Push remote failure')
+          return False
+        if x.flags & x.REMOTE_REJECTED:
+          print('Push remote rejected')
+          return False
+    except:
+      # No exceptions expected, exit to avoid leakage of token
+      sys.exit('Unexpected exception')
+
+    return True
+
+  def upload_meta(self, github, cache_dir):
+    config = self.repo.config_writer()
+    config.set_value(
+        "user",
+        "email",
+        "{}@users.noreply.github.com".format(github.username)
+    )
+    config.set_value("user", "name", github.username)
+    if sys.platform == "win32":
+      config.set_value("core", "autocrlf", "input")
+    config.release()
+
+    if self.repo.is_dirty(untracked_files=True):
+      print('Adding untracked files:')
+      add_list = []
+
+      for x in self.repo.untracked_files:
+        to_add = False
+        if x.endswith('toolchain.info'):
+          to_add = True
+        elif x.endswith('args.cmake'):
+          to_add = True
+        elif x.endswith('types.info'):
+          to_add = True
+        elif x.endswith('internal_deps.id'):
+          to_add = True
+        elif x.endswith('basic-deps.info'):
+          to_add = True
+        elif x.endswith('basic-deps.DONE'):
+          to_add = True
+        elif x.endswith('cache.sha1'):
+          to_add = True
+        elif x.endswith('deps.info'):
+          to_add = True
+        elif x.endswith('CACHE.DONE'):
+          to_add = True
+        elif x.endswith('SHA1'):
+          to_add = True
+
+        if to_add:
+          print(' * {}'.format(x))
+          add_list.append(x)
+
+      sys.stdout.flush()
+
+      self.repo.index.add(add_list)
+      self.repo.index.commit(self.make_commit_message())
+
+    main_branch_found = False
+    for branch in self.repo.branches:
+      if branch.name == 'master':
+        main_branch_found = True
+
+    if not main_branch_found:
+      self.repo.git.branch('master')
+
+    main_remote_found = False
+    for remote in self.repo.remotes:
+      if remote.name == 'origin':
+        main_remote_found = True
+        main_remote = remote
+
+    main_remote_url_pull = 'https://github.com/{}/{}'.format(
+        github.repo_owner, github.repo
     )
 
-    content = base64.b64encode(open(local_path, 'rb').read()).decode()
+    if not main_remote_found:
+      main_remote = self.repo.create_remote('origin', main_remote_url_pull)
 
-    put_data = {
-        'message': message,
-        'content': content
-    }
+    retry_max = 10
 
-    r = requests.put(url, data = json.dumps(put_data), auth=self.auth)
-    if not r.ok:
-      print('Put failed. Status code: {}'.format(r.status_code))
-      if r.status_code == 409:
-        raise Exception('Unavailable repository')
-    return r.ok
+    fetch_ok = False
 
-class CacheEntry:
-  def __init__(self, cache_done_path, cache_dir, temp_dir):
-    self.cache_dir = cache_dir
-    self.temp_dir = temp_dir
-    self.cache_raw = os.path.join(self.cache_dir, 'raw')
-    self.cache_meta = os.path.join(self.cache_dir, 'meta')
-    self.cache_done_path = cache_done_path
-    if not os.path.exists(cache_done_path):
-      raise Exception('File not exists: {}'.format(cache_done_path))
-    self.cache_done_dir = os.path.dirname(self.cache_done_path)
-    self.from_server = os.path.join(self.cache_done_dir, 'from.server')
-    self.cache_sha1 = os.path.join(self.cache_done_dir, 'cache.sha1')
+    for i in range(1, retry_max):
+      try:
+        if fetch_ok:
+          break
+        print('Fetch remote (attempt #{})'.format(i))
+        sys.stdout.flush()
 
-    self.internal_deps_id = os.path.split(self.cache_done_dir)[0]
-    self.type_id = os.path.split(self.internal_deps_id)[0]
-    self.args_id = os.path.split(self.type_id)[0]
-    self.archive_id = os.path.split(self.args_id)[0]
-    self.version = os.path.split(self.archive_id)[0]
-    self.component = os.path.split(self.version)[0]
-    if os.path.split(self.component)[1].startswith('__'):
-      self.package = os.path.split(self.component)[0]
+        main_remote.fetch(depth=1)
+        fetch_ok = True
+      except Exception as exc:
+        print('Exception {}'.format(exc))
+
+    if not fetch_ok:
+      sys.exit('Fetch failed')
+
+    self.repo.heads.master.set_tracking_branch(main_remote.refs.master)
+
+    success = False
+
+    for i in range(1, retry_max):
+      print("Attempt #{}".format(i))
+      success = self.try_to_push(main_remote, main_remote_url_pull, github)
+      if success:
+        break
+      sec = sleep_time(i)
+      print('Retry #{} (of {}) after {} seconds'.format(i, retry_max, sec))
+      sys.stdout.flush()
+      time.sleep(sec)
+
+    if success:
+      print("Done")
     else:
-      self.package = self.component
-      self.component = ''
-    self.toolchain_id = os.path.split(self.package)[0]
-    meta = os.path.split(self.toolchain_id)[0]
-    assert(meta == self.cache_meta)
-
-  def entry_from_server(self):
-    return os.path.exists(self.from_server)
-
-  def upload_raw(self, github):
-    sha1 = open(self.cache_sha1, 'r').read()
-    raw = os.path.join(self.cache_raw, sha1 + '.tar.bz2')
-    github.upload_raw_file(raw)
-
-  def upload_meta(self, github, cache_done):
-    self.upload_files_from_common_dir(github, self.cache_done_dir, cache_done)
-    self.upload_files_from_common_dir(github, self.internal_deps_id, cache_done)
-    self.upload_files_from_common_dir(github, self.type_id, cache_done)
-    self.upload_files_from_common_dir(github, self.args_id, cache_done)
-    self.upload_files_from_common_dir(github, self.archive_id, cache_done)
-    self.upload_files_from_common_dir(github, self.version, cache_done, check_is_empty=True)
-    if self.component != '':
-      self.upload_files_from_common_dir(github, self.component, cache_done, check_is_empty=True)
-    self.upload_files_from_common_dir(github, self.package, cache_done, check_is_empty=True)
-    self.upload_files_from_common_dir(github, self.toolchain_id, cache_done)
-
-  def upload_files_from_common_dir(self, github, dir_path, cache_done, check_is_empty=False):
-    to_upload = []
-    for i in os.listdir(dir_path):
-      if i == 'cmake.lock':
-        continue
-      if i == 'DONE':
-        continue
-      done_file = (i == 'CACHE.DONE') or (i == 'basic-deps.DONE')
-      if done_file and not cache_done:
-        continue
-      if not done_file and cache_done:
-        continue
-      i_fullpath = os.path.join(dir_path, i)
-      if os.path.isfile(i_fullpath):
-        to_upload.append(i_fullpath)
-    if not cache_done:
-      if check_is_empty and len(to_upload) != 0:
-        raise Exception('Expected no files in directory: {}'.format(dir_path))
-      if not check_is_empty and len(to_upload) == 0:
-        raise Exception('No files found in directory: {}'.format(dir_path))
-    for i in to_upload:
-      relative_path = i[len(self.cache_meta)+1:]
-      relative_unix_path = relative_path.replace('\\', '/') # convert windows path
-      expected_download_url = 'https://raw.githubusercontent.com/{}/{}/master/{}'.format(
-          github.repo_owner,
-          github.repo,
-          relative_unix_path
-      )
-      github_url = 'https://github.com/{}/{}/blob/master/{}'.format(
-          github.repo_owner,
-          github.repo,
-          relative_unix_path
-      )
-      print('Uploading file: {}'.format(relative_path))
-      ok = github.create_new_file(i, relative_unix_path)
-      if not ok:
-        print('Already exist')
-        temp_file = os.path.join(self.temp_dir, '__TEMP.FILE')
-        download_file(expected_download_url, temp_file, github.auth)
-        expected_content = open(i, 'rb').read()
-        downloaded_content = open(temp_file, 'rb').read()
-        expected_hash = hashlib.sha1(expected_content).hexdigest()
-        downloaded_hash = hashlib.sha1(downloaded_content).hexdigest()
-        os.remove(temp_file)
-        if expected_hash != downloaded_hash:
-          print('Hash mismatch:')
-          print(
-              '  expected {} (content: {})'.format(
-                  expected_hash, expected_content
-              )
-          )
-          print(
-              '  downloaded {} (content: {})'.format(
-                  downloaded_hash, downloaded_content
-              )
-          )
-          print('GitHub link: {}'.format(github_url))
-          raise Exception('Hash mismatch')
-
-  def touch_from_server(self):
-    open(self.from_server, 'w')
-
-class Cache:
-  def __init__(self, cache_dir, temp_dir):
-    self.entries = self.create_entries(cache_dir, temp_dir)
-    self.remove_entries_from_server()
-    if not os.path.exists(temp_dir):
-      os.makedirs(temp_dir)
-
-  def create_entries(self, cache_dir, temp_dir):
-    print('Searching for CACHE.DONE files in directory:\n  {}\n'.format(cache_dir))
-    entries = []
-    for root, dirs, files in os.walk(cache_dir):
-      for filename in files:
-        if filename == 'CACHE.DONE':
-          entries.append(CacheEntry(os.path.join(root, filename), cache_dir, temp_dir))
-    print('Found {} files:'.format(len(entries)))
-    for i in entries:
-      print('  {}'.format(i.cache_done_path))
-    print('')
-    return entries
-
-  def remove_entries_from_server(self):
-    new_entries = []
-    for i in self.entries:
-      if i.entry_from_server():
-        print('Remove entry (from server):\n  {}'.format(i.cache_done_path))
-      else:
-        new_entries.append(i)
-    self.entries = new_entries
-
-  def upload_raw(self, github):
-    for i in self.entries:
-      i.upload_raw(github)
-
-  def upload_meta(self, github, cache_done):
-    for i in self.entries:
-      i.upload_meta(github, cache_done)
+      sys.exit("Can't push")
 
   def touch_from_server(self):
     for i in self.entries:
@@ -498,12 +543,6 @@ parser.add_argument(
     help='Hunter cache directory, e.g. /home/user/.hunter/_Base/Cache'
 )
 
-parser.add_argument(
-    '--temp-dir',
-    required=True,
-    help='Temporary directory where files will be downloaded for verification'
-)
-
 args = parser.parse_args()
 
 cache_dir = os.path.normpath(args.cache_dir)
@@ -520,7 +559,7 @@ if not os.path.isdir(cache_dir):
 if os.path.split(cache_dir)[1] != 'Cache':
   raise Exception('Cache directory path should ends with Cache: {}'.format(cache_dir))
 
-cache = Cache(cache_dir, args.temp_dir)
+cache = Cache(cache_dir)
 
 password = args.password
 
@@ -536,8 +575,6 @@ github = Github(
 
 cache.upload_raw(github)
 
-cache.upload_meta(github, cache_done=False)
-print('Uploading DONE files')
-cache.upload_meta(github, cache_done=True) # Should be last upload operation
+cache.upload_meta(github, cache_dir)
 print('Touch from.server files')
 cache.touch_from_server()

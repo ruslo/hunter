@@ -3,7 +3,7 @@
 
 include(CMakeParseArguments) # cmake_parse_arguments
 
-include(hunter_test_string_not_empty)
+include(hunter_assert_not_empty_string)
 
 # check if component is in specified version range, add to 'varname' if valid
 # - varname:       name of the variable of the list to append component names

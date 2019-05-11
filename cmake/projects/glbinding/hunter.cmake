@@ -13,6 +13,18 @@ hunter_add_version(
     PACKAGE_NAME
     glbinding
     VERSION
+    "3.0.2-p0"
+    URL
+    "https://github.com/hunter-packages/glbinding/archive/v3.0.2-p0.tar.gz"
+    SHA1
+    ef0a1585db171f8321aa620699391d1641443989
+)
+
+
+hunter_add_version(
+    PACKAGE_NAME
+    glbinding
+    VERSION
     "2.1.3-p0"
     URL
     "https://github.com/hunter-packages/glbinding/archive/v2.1.3-p0.tar.gz"

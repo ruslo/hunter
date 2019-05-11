@@ -6,18 +6,22 @@ cmake_minimum_required(VERSION 3.0)
 include("../common.cmake")
 project(libxml2-example)
 
+# DOCUMENTATION_START {
 hunter_add_package(libxml2)
-find_package(libxml2 CONFIG REQUIRED)
+find_package(libxml-2.0 CONFIG REQUIRED)
 
-set(${PROJECT_NAME}_SOURCES
-  main.c
-)
+add_executable(boo main.c)
+target_link_libraries(boo PRIVATE PkgConfig::libxml-2.0)
+# DOCUMENTATION_END }
 
-add_executable(${PROJECT_NAME}
-    ${${PROJECT_NAME}_SOURCES}
-)
-
-include_directories(${LIBXML2_INCLUDE_DIRS})
-
-target_link_libraries(${PROJECT_NAME} ${LIBXML2_LIBRARIES})
-
+include(CheckLibraryExists)
+check_library_exists(m "pow" "" __math_system_library)
+if(__math_system_library)
+  set_property(
+      TARGET
+      PkgConfig::libxml-2.0
+      APPEND
+      PROPERTY
+      INTERFACE_LINK_LIBRARIES m
+  )
+endif()

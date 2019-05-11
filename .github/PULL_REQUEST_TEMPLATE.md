@@ -22,6 +22,9 @@
 <!--- Use this part of template if you're updating existing package. Remove the rest. -->
 <!--- BEGIN -->
 
+* I've followed [this guide](https://docs.hunter.sh/en/latest/creating-new/update.html)
+  step by step carefully. **[Yes|No]**
+
 * I've tested this package remotely and have excluded all broken builds.
   Here is the links to the Travis/AppVeyor with status "All passed":
 
@@ -40,7 +43,7 @@
 
 * I've checked this [Git style guide](https://0.readthedocs.io/en/latest/git.html). **[Yes|No]**
 * I've checked this [CMake style guide](https://0.readthedocs.io/en/latest/cmake.html). **[Yes|No]**
-* My change will work with CMake 3.0 (minimum requirement for Hunter). **[Yes|No]**
+* My change will work with CMake 3.2 (minimum requirement for Hunter). **[Yes|No]**
 * I will try to keep this pull request as small as possible and will try not to mix unrelated features. **[Yes|No]**
 
 ---

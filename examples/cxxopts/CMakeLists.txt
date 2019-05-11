@@ -9,8 +9,10 @@ include("../common.cmake")
 
 project(download-cxxopts)
 
+# DOCUMENTATION_START {
 hunter_add_package(cxxopts)
 find_package(cxxopts CONFIG REQUIRED)
 
-add_executable(foo example.cpp)
-target_link_libraries(foo PUBLIC cxxopts::cxxopts)
+add_executable(boo boo.cpp)
+target_link_libraries(boo PUBLIC cxxopts::cxxopts)
+# DOCUMENTATION_END }

@@ -7,7 +7,7 @@
 
 include(hunter_pkgconfig_export_target)
 
-hunter_pkgconfig_export_target("@PKG_CONFIG_MODULE@")
+hunter_pkgconfig_export_target("@PKG_CONFIG_MODULE@" "@PKG_GENERATE_SHARED@")
 
 foreach(_hunter_deps @DEPENDS_ON_PACKAGES@)
   find_package("${_hunter_deps}" CONFIG REQUIRED)

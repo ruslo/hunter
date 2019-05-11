@@ -304,7 +304,13 @@ if("@HUNTER_QT_OS_IS_LINUX@")
     set(output_content "${output_content}\n${output}")
   endforeach()
 
-  file(WRITE "${conf_path}" "${output_content}\n")
+  if("@HUNTER_Qt_VERSION@" VERSION_LESS "5.12")
+    file(WRITE "${conf_path}" "${output_content}\n")
+    message("Set g++-base.conf content to:\n")
+    message("${output_content}")
+  else()
+    # FIXME
+  endif()
 endif()
 
 function(calculate_list listname)

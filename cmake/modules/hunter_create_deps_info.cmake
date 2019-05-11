@@ -4,10 +4,10 @@
 include(hunter_create_dependency_entry)
 include(hunter_get_package_deps_recurse)
 include(hunter_internal_error)
-include(hunter_test_string_not_empty)
+include(hunter_assert_not_empty_string)
 
 function(hunter_create_deps_info temp_deps_info)
-  hunter_test_string_not_empty("${HUNTER_PACKAGE_NAME}")
+  hunter_assert_not_empty_string("${HUNTER_PACKAGE_NAME}")
   string(COMPARE NOTEQUAL "${HUNTER_PACKAGE_COMPONENT}" "" has_component)
 
   if(has_component)
@@ -23,7 +23,8 @@ function(hunter_create_deps_info temp_deps_info)
     )
   endif()
 
-  file(WRITE "${temp_deps_info}" "")
+  set(temp_deps_info_nolf "${temp_deps_info}.NOLF")
+  file(WRITE "${temp_deps_info_nolf}" "")
 
   foreach(dependency ${dependencies_list})
     string(REPLACE " " ";" dep_string "${dependency}")
@@ -48,6 +49,15 @@ function(hunter_create_deps_info temp_deps_info)
           "Unexpected length ${dep_string_len} (string: ${dep_string})"
       )
     endif()
-    file(APPEND "${temp_deps_info}" "${dep_entry}\n")
+    file(APPEND "${temp_deps_info_nolf}" "${dep_entry}\n")
   endforeach()
+
+  # About '@ONLY': no substitutions expected but COPYONLY can't be
+  # used with NEWLINE_STYLE
+  configure_file(
+      "${temp_deps_info_nolf}"
+      "${temp_deps_info}"
+      @ONLY
+      NEWLINE_STYLE LF
+  )
 endfunction()

@@ -1,0 +1,5 @@
+@PACKAGE_INIT@
+
+find_package(hunter_venv CONFIG REQUIRED)
+
+check_required_components("@PROJECT_NAME@")
