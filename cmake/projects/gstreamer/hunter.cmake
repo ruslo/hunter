@@ -36,7 +36,7 @@ hunter_cacheable(gstreamer)
 hunter_download(
     PACKAGE_NAME gstreamer
     PACKAGE_INTERNAL_DEPS_ID "4"
-    PACKAGE_UNRELOCATABLE_TEXT_FILES
+    PACKAGE_UNRELOCATABLE_TEXT_FILES_OPTIONAL
     "lib/gstreamer-1.0/libgstcoreelements.la"
     "lib/gstreamer-1.0/libgstcoretracers.la"
     "lib/libgstbase-1.0.la"

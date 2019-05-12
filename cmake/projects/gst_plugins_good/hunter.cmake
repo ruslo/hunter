@@ -36,7 +36,7 @@ hunter_download(
     PACKAGE_NAME
     gst_plugins_good
     PACKAGE_INTERNAL_DEPS_ID "2"
-    PACKAGE_UNRELOCATABLE_TEXT_FILES
+    PACKAGE_UNRELOCATABLE_TEXT_FILES_OPTIONAL
     "lib/gstreamer-1.0/libgstalaw.la"
     "lib/gstreamer-1.0/libgstalpha.la"
     "lib/gstreamer-1.0/libgstalphacolor.la"

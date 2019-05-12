@@ -25,28 +25,33 @@ function(hunter_patch_unrelocatable_text_files)
   hunter_assert_not_empty_string("${x_TO}")
   hunter_assert_not_empty_string("${x_INSTALL_PREFIX}")
 
-  foreach(text_file ${HUNTER_PACKAGE_UNRELOCATABLE_TEXT_FILES})
+  foreach(text_file 
+      ${HUNTER_PACKAGE_UNRELOCATABLE_TEXT_FILES}
+      ${HUNTER_PACKAGE_UNRELOCATABLE_TEXT_FILES_OPTIONAL})
     set(text_full_path "${x_INSTALL_PREFIX}/${text_file}")
-    if(NOT EXISTS "${text_full_path}")
+    if(EXISTS "${text_full_path}")
+      hunter_status_debug("Patching text file: ${text_full_path}")
+      file(STRINGS "${text_full_path}" lines)
+
+      set(output_content "")
+      foreach(line ${lines})
+        string(REPLACE "${x_FROM}" "${x_TO}" line "${line}")
+        set(output_content "${output_content}\n${line}")
+      endforeach()
+
+      # if file is a link we should remove it first, otherwise we will
+      # update original file too
+      file(REMOVE "${text_full_path}")
+
+      file(WRITE "${text_full_path}" "${output_content}\n")
+    elseif(text_file IN_LIST HUNTER_PACKAGE_UNRELOCATABLE_TEXT_FILES_OPTIONAL)
+      hunter_status_debug("Not patching missing text file: ${text_full_path}")
+    else()
       hunter_user_error(
           "File not exists:"
           "  ${text_full_path}"
           "(check HUNTER_PACKAGE_UNRELOCATABLE_TEXT_FILES)"
       )
     endif()
-    hunter_status_debug("Patching text file: ${text_full_path}")
-    file(STRINGS "${text_full_path}" lines)
-
-    set(output_content "")
-    foreach(line ${lines})
-      string(REPLACE "${x_FROM}" "${x_TO}" line "${line}")
-      set(output_content "${output_content}\n${line}")
-    endforeach()
-
-    # if file is a link we should remove it first, otherwise we will
-    # update original file too
-    file(REMOVE "${text_full_path}")
-
-    file(WRITE "${text_full_path}" "${output_content}\n")
   endforeach()
 endfunction()

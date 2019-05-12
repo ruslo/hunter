@@ -36,7 +36,7 @@ hunter_download(
     PACKAGE_NAME
     gst_plugins_ugly
     PACKAGE_INTERNAL_DEPS_ID "2"
-    PACKAGE_UNRELOCATABLE_TEXT_FILES
+    PACKAGE_UNRELOCATABLE_TEXT_FILES_OPTIONAL
     "lib/gstreamer-1.0/libgstasf.la"
     "lib/gstreamer-1.0/libgstdvdlpcmdec.la"
     "lib/gstreamer-1.0/libgstdvdsub.la"

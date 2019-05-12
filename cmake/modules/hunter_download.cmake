@@ -31,13 +31,14 @@ include(hunter_user_error)
 # Note: 'hunter_find_licenses' should be called before each return point
 function(hunter_download)
   set(one PACKAGE_NAME PACKAGE_COMPONENT PACKAGE_INTERNAL_DEPS_ID)
-  set(multiple PACKAGE_UNRELOCATABLE_TEXT_FILES)
+  set(multiple PACKAGE_UNRELOCATABLE_TEXT_FILES PACKAGE_UNRELOCATABLE_TEXT_FILES_OPTIONAL)
 
   cmake_parse_arguments(HUNTER "" "${one}" "${multiple}" ${ARGV})
   # -> HUNTER_PACKAGE_NAME
   # -> HUNTER_PACKAGE_COMPONENT
   # -> HUNTER_PACKAGE_INTERNAL_DEPS_ID
   # -> HUNTER_PACKAGE_UNRELOCATABLE_TEXT_FILES
+  # -> HUNTER_PACKAGE_UNRELOCATABLE_TEXT_FILES_OPTIONAL
 
   hunter_assert_empty_string("${HUNTER_UNPARSED_ARGUMENTS}")
 
@@ -100,7 +101,7 @@ function(hunter_download)
 
   hunter_get_cacheable(
       PACKAGE "${package}"
-      UNRELOCATABLE "${HUNTER_PACKAGE_UNRELOCATABLE_TEXT_FILES}"
+      UNRELOCATABLE "${HUNTER_PACKAGE_UNRELOCATABLE_TEXT_FILES};${HUNTER_PACKAGE_UNRELOCATABLE_TEXT_FILES_OPTIONAL}"
       OUT HUNTER_PACKAGE_CACHEABLE
   )
 
