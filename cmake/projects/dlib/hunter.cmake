@@ -13,6 +13,17 @@ hunter_add_version(
     PACKAGE_NAME
     dlib
     VERSION
+    "19.17-p0"
+    URL
+    "https://github.com/hunter-packages/dlib/archive/v19.17-p0.tar.gz"
+    SHA1
+    d7fd9d4cec0909be0bbd9c803fd3ed42a5f9f601
+)
+
+hunter_add_version(
+    PACKAGE_NAME
+    dlib
+    VERSION
     "19.16-p0"
     URL
     "https://github.com/hunter-packages/dlib/archive/v19.16-p0.tar.gz"
