@@ -42,6 +42,17 @@ hunter_add_version(
     7ae50752d40beb489935b73d521c14b4c147cfd5
 )
 
+hunter_add_version(
+    PACKAGE_NAME
+    range-v3
+    VERSION
+    0.5.0
+    URL
+    "https://github.com/ericniebler/range-v3/archive/0.5.0.tar.gz"
+    SHA1
+    5c0eac44a710f85cae6dc11aa7577ec90f30c5a8
+)
+
 hunter_cmake_args(
     range-v3
     CMAKE_ARGS
@@ -51,6 +62,8 @@ hunter_cmake_args(
     RANGE_V3_EXAMPLES=FALSE
     RANGE_V3_PERF=FALSE
     RANGE_V3_DOCS=FALSE
+    RANGE_V3_TESTS=FALSE
+    RANGE_V3_HEADER_CHECKS=FALSE
 )
 
 hunter_pick_scheme(DEFAULT url_sha1_cmake)
