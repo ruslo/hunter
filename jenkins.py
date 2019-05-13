@@ -144,8 +144,9 @@ def run():
   else:
     which = 'which'
 
-  polly_root = os.path.abspath(os.getenv('POLLY_ROOT'))
+  polly_root = os.getenv('POLLY_ROOT')
   if polly_root:
+    polly_root = os.path.abspath(polly_root)
     print('Using POLLY_ROOT: {}'.format(polly_root))
     build_script = os.path.join(polly_root, 'bin', 'build.py')
   else:
