@@ -1,13 +1,22 @@
 # !!! DO NOT PLACE HEADER GUARDS HERE !!!
 
-# Load used modules
 include(hunter_add_version)
 include(hunter_cacheable)
 include(hunter_cmake_args)
 include(hunter_download)
 include(hunter_pick_scheme)
 
-# List of versions here...
+hunter_add_version(
+    PACKAGE_NAME
+    cryptopp
+    VERSION
+    "8.2.0-p0"
+    URL
+    "https://github.com/hunter-packages/cryptopp/archive/v8.2.0-p0.tar.gz"
+    SHA1
+    38a70c9ba970cc862b5cca0010fffdd4e56afcae
+)
+
 hunter_add_version(
     PACKAGE_NAME
     cryptopp
@@ -46,6 +55,7 @@ hunter_cmake_args(
     CMAKE_ARGS
     BUILD_SHARED=OFF
     BUILD_TESTING=OFF
+    USE_INTERMEDIATE_OBJECTS_TARGET=OFF
 )
 
 hunter_pick_scheme(DEFAULT url_sha1_cmake) # use scheme for cmake projects
