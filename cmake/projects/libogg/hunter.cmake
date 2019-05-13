@@ -33,4 +33,5 @@ hunter_download(
     libogg
     PACKAGE_UNRELOCATABLE_TEXT_FILES
     "${CMAKE_INSTALL_LIBDIR}/pkgconfig/ogg.pc"
+    PACKAGE_INTERNAL_DEPS_ID "1"
 )
