@@ -10,7 +10,7 @@ include(hunter_configuration_types)
 include(hunter_download)
 include(hunter_pick_scheme)
 
-# http://www.x.org/releases/individual/proto/
+# https://www.x.org/releases/individual/lib/
 hunter_add_version(
     PACKAGE_NAME
     xfixes
