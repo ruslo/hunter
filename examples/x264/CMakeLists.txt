@@ -8,16 +8,10 @@ include("../common.cmake")
 
 project(x264-example)
 
+# DOCUMENTATION_START {
 hunter_add_package(x264)
 find_package(x264 CONFIG REQUIRED)
 
-set(${PROJECT_NAME}_SOURCES
-  example.c
-)
-
-add_executable(${PROJECT_NAME}
-    ${${PROJECT_NAME}_SOURCES}
-)
-
-target_link_libraries(${PROJECT_NAME} PkgConfig::x264)
-
+add_executable(boo example.c)
+target_link_libraries(boo PRIVATE PkgConfig::x264)
+# DOCUMENTATION_END }
