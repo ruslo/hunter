@@ -44,7 +44,17 @@ hunter_add_version(
 
 set(__hunter_folly_args FOLLY_POD_CONFIGURATION=ON)
 
-if(IOS OR ANDROID)
+if("${CMAKE_SYSTEM_NAME}" STREQUAL "WindowsStore")
+  set(__hunter_folly_windows_store TRUE)
+else()
+  set(__hunter_folly_windows_store FALSE)
+endif()
+
+if(__hunter_folly_windows_store)
+  list(APPEND __hunter_folly_args FOLLY_USE_GLOG=OFF)
+endif()
+
+if(IOS OR ANDROID OR __hunter_folly_windows_store)
   # Fix 'try_run'
   list(
       APPEND
