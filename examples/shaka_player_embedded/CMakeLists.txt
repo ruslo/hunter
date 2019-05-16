@@ -11,11 +11,18 @@ include("../common.cmake")
 
 project(download-shaka_player_embedded)
 
+if(IOS)
+  # We need Obj-C
+  set(sources boo.mm)
+else()
+  set(sources boo.cpp)
+endif()
+
 # DOCUMENTATION_START {
 hunter_add_package(shaka_player_embedded)
 find_package(shaka_player_embedded CONFIG REQUIRED)
 
-add_executable(boo boo.cpp)
+add_executable(boo ${sources})
 target_link_libraries(boo PUBLIC shaka_player_embedded::shaka_player_embedded)
 # DOCUMENTATION_END }
 
