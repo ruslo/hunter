@@ -42,6 +42,17 @@ hunter_add_version(
     74487a7393a9cac9c8b49581b3fe965c129d28f3
 )
 
+hunter_add_version(
+    PACKAGE_NAME
+    folly
+    VERSION
+    2018.10.22.00-p4
+    URL
+    "https://github.com/hunter-packages/folly/archive/v2018.10.22.00-p4.tar.gz"
+    SHA1
+    aeb254f1010cff1857e5fff897ebbc20e710b410
+)
+
 set(__hunter_folly_args FOLLY_POD_CONFIGURATION=ON)
 
 if("${CMAKE_SYSTEM_NAME}" STREQUAL "WindowsStore")
