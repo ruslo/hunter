@@ -1,0 +1,5 @@
+set("A" "1" CACHE INTERNAL "")
+set("B" "--a" CACHE INTERNAL "")
+set("B" "${B}" "--b" CACHE INTERNAL "")
+set("B" "${B}" "--c=1,2,3,4" CACHE INTERNAL "")
+set("C" "777" CACHE INTERNAL "")

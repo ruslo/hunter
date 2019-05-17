@@ -1,0 +1,3 @@
+set("A" "--boo=1" CACHE INTERNAL "")
+set("A" "${A}" "2" CACHE INTERNAL "")
+set("A" "${A}" "3" CACHE INTERNAL "")
