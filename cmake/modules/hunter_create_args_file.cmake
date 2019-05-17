@@ -31,9 +31,22 @@ function(hunter_create_args_file args filename)
   file(WRITE "${filename_nolf}" "") # create empty file if no option
   set(var_name "")
   foreach(entry ${args})
-    string(FIND "${entry}" "=" update_var)
-    if(update_var EQUAL -1)
+    set(appending_mode FALSE)
+
+    string(FIND "${entry}" "=" equal_symbol_index)
+    if(equal_symbol_index EQUAL -1)
       # There is no '=' symbol - appending mode
+      set(appending_mode TRUE)
+    endif()
+
+    string(REGEX MATCH "^--.*" starts_with_double_dash "${entry}")
+    if(NOT "${starts_with_double_dash}" STREQUAL "")
+      # Assumed that variable name doesn't start with '--' and we are appending.
+      # Needed to pass options like `--foo=a,b,c,d`
+      set(appending_mode TRUE)
+    endif()
+
+    if(appending_mode)
       if(NOT var_name)
         hunter_user_error(
             "${bad_message} (expected '=' symbol): ${args}"
