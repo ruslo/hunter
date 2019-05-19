@@ -351,8 +351,7 @@ To create new URLs the following template is used:
     ``VERSION`` variant of :ref:`hunter_config` entries, which is the case for all default
     Hunter package definitions.  Custom package definitions introduced with a ``URL``/``SHA1``
     variant on :ref:`hunter_config` in a project's local configuration, such as those included through
-    ``FILEPATH`` or ``LOCAL`` arguments to ``HunterGate()``, will be unaffected by this variable,
-    but can be similarly transformed through explicit calls to ``hunter_download_server_url()``.
+    ``FILEPATH`` or ``LOCAL`` arguments to ``HunterGate()``, will be unaffected by this variable.
     The ``git`` variants of :ref:`hunter_config`, namely ``GIT_SUBMODULE`` and ``GIT_SELF``, have no
     transformable URL and are are also unaffected by ``HUNTER_DOWNLOAD_SERVER``.
 
