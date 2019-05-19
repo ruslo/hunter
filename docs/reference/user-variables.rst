@@ -349,7 +349,7 @@ To create new URLs the following template is used:
 
     ``HUNTER_DOWNLOAD_SERVER`` will be applied only to packages enabled with the standard
     ``VERSION`` variant of :ref:`hunter_config` entries, which is the case for all default
-    Hunter package definitions.  Custom package definitions introduced with a `URL/SHA1``
+    Hunter package definitions.  Custom package definitions introduced with a ``URL``/``SHA1``
     variant on :ref:`hunter_config` in a project's local configuration, such as those included through
     ``FILEPATH`` or ``LOCAL`` arguments to ``HunterGate()``, will be unaffected by this variable,
     but can be similarly transformed through explicit calls to ``hunter_download_server_url()``.
