@@ -345,6 +345,16 @@ To create new URLs the following template is used:
 
     This is the same structure as Hunter uses for its own :ref:`Download <layout deployed download>` directory.
 
+.. note::
+
+    ``HUNTER_DOWNLOAD_SERVER`` will be applied only to packages enabled with the standard
+    ``VERSION`` variant of :ref:`hunter_config` entries, which is the case for all default
+    Hunter package definitions.  Custom package definitions introduced with a ``URL``/``SHA1``
+    variant on :ref:`hunter_config` in a project's local configuration, such as those included through
+    ``FILEPATH`` or ``LOCAL`` arguments to ``HunterGate()``, will be unaffected by this variable.
+    The ``git`` variants of :ref:`hunter_config`, namely ``GIT_SUBMODULE`` and ``GIT_SELF``, have no
+    transformable URL and are also unaffected by ``HUNTER_DOWNLOAD_SERVER``.
+
 .. _hunter tls verify:
 
 HUNTER_TLS_VERIFY
