@@ -353,7 +353,7 @@ To create new URLs the following template is used:
     variant on :ref:`hunter_config` in a project's local configuration, such as those included through
     ``FILEPATH`` or ``LOCAL`` arguments to ``HunterGate()``, will be unaffected by this variable.
     The ``git`` variants of :ref:`hunter_config`, namely ``GIT_SUBMODULE`` and ``GIT_SELF``, have no
-    transformable URL and are are also unaffected by ``HUNTER_DOWNLOAD_SERVER``.
+    transformable URL and are also unaffected by ``HUNTER_DOWNLOAD_SERVER``.
 
 .. _hunter tls verify:
 
