@@ -10,35 +10,42 @@
 OpenCV
 ======
 
-.. |hunter| image:: https://img.shields.io/badge/hunter-v0.8.10-blue.svg
-  :target: https://github.com/ruslo/hunter/releases/tag/v0.8.10
-  :alt: Hunter v0.8.10
-
 -  `Official <https://github.com/Itseez/opencv>`__
--  `Hunterized <https://github.com/hunter-packages/opencv/tree/hunter-2.4.11>`__
+-  `Hunterized <https://github.com/hunter-packages/opencv>`__
 -  `Example <https://github.com/ruslo/hunter/blob/master/examples/OpenCV/CMakeLists.txt>`__
-- Available since |hunter|
 
-Usage
------
-
-.. code-block:: cmake
-
-    hunter_add_package(OpenCV)
-    find_package(OpenCV REQUIRED)
-
-    target_link_libraries(... PRIVATE ${OpenCV_LIBS})
+.. literalinclude:: /../examples/OpenCV/CMakeLists.txt
+  :language: cmake
+  :start-after: # DOCUMENTATION_START {
+  :end-before: # DOCUMENTATION_END }
 
 Qt back-end
 -----------
 
 Qt back-end support for desktop can be enabled by `creating a custom
 config <https://github.com/hunter-packages/gate#usage-custom-config>`__
-with the line:
+with:
 
 .. code-block:: cmake
 
-    hunter_config(OpenCV VERSION ${HUNTER_OpenCV_VERSION} CMAKE_ARGS WITH_QT=YES)
+  hunter_config(
+      OpenCV
+      VERSION ${HUNTER_OpenCV_VERSION}
+      CMAKE_ARGS WITH_QT=YES
+  )
+
+FFmpeg support
+--------------
+
+.. code-block:: cmake
+
+  hunter_config(
+      OpenCV
+      VERSION ${HUNTER_OpenCV_VERSION}
+      CMAKE_ARGS
+      WITH_FFMPEG=ON
+      OPENCV_FFMPEG_USE_FIND_PACKAGE=YES
+  )
 
 Known issues
 ------------
