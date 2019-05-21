@@ -5,6 +5,7 @@
 
 include(hunter_add_version)
 include(hunter_cacheable)
+include(hunter_configuration_types)
 include(hunter_download)
 include(hunter_pick_scheme)
 
@@ -62,6 +63,20 @@ hunter_add_version(
     SHA1
     a6b9a15d56a652ca151d2cf4b1686a2da3f1545c
 )
+
+hunter_add_version(
+    PACKAGE_NAME
+    ffmpeg
+    VERSION
+    n4.1-dev-45499e557c-p7
+    URL
+    "https://github.com/hunter-packages/FFmpeg/archive/n4.1-dev-45499e557c-p7.tar.gz"
+    SHA1
+    477525bae6a5395f61b470d25b47163a4048dab6
+)
+
+# GCC 4.8 + examples/OpenCV-ffmpeg link error
+hunter_configuration_types(ffmpeg CONFIGURATION_TYPES Release)
 
 hunter_pick_scheme(DEFAULT url_sha1_cmake)
 hunter_cacheable(ffmpeg)
