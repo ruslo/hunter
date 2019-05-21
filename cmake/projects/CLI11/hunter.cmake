@@ -88,6 +88,17 @@ hunter_add_version(
 
 )
 
+hunter_add_version(
+    PACKAGE_NAME
+    CLI11
+    VERSION
+    1.8.0
+    URL
+    "https://github.com/CLIUtils/CLI11/archive/v1.8.0.tar.gz"
+    SHA1
+    c21bdd4ca965931c9c36dadd15f74209ec1b9bca
+)
+
 hunter_cmake_args(
     CLI11
     CMAKE_ARGS
