@@ -12,6 +12,17 @@ hunter_add_version(
     PACKAGE_NAME
     irrXML
     VERSION
+    "1.2-p0"
+    URL
+    "https://github.com/hunter-packages/irrXML/archive/v1.2-p0.tar.gz"
+    SHA1
+    c766ac44744f8387b7d745b00233b80713c5b689
+)
+
+hunter_add_version(
+    PACKAGE_NAME
+    irrXML
+    VERSION
     "1.2"
     URL
     "https://github.com/hunter-packages/irrXML/archive/1.2.tar.gz"
