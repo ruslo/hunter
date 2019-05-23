@@ -108,6 +108,8 @@ elseif(OPENWRT)
   set(configure_opts "linux-generic32" "no-async")
 endif()
 
+string(REGEX REPLACE "^ " "" CMAKE_C_FLAGS "${CMAKE_C_FLAGS}")
+
 # Pass C compiler through
 set(configure_command
     MACHINE=${CMAKE_SYSTEM_PROCESSOR}
