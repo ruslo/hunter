@@ -350,6 +350,14 @@ class Cache:
 
   def try_to_push(self, main_remote, main_remote_url_pull, github):
     try:
+      main_remote.set_url(
+          'https://{}:{}@github.com/{}/{}'.format(
+              github.username,
+              github.password,
+              github.repo_owner,
+              github.repo
+          )
+      )
       fetch_result = main_remote.pull(
           allow_unrelated_histories=True,
           strategy='recursive',
@@ -357,6 +365,7 @@ class Cache:
           rebase=True,
           depth=1
       )
+      main_remote.set_url(main_remote_url_pull)
       for x in fetch_result:
         if x.flags & x.REJECTED:
           print('Pull rejected')
@@ -478,7 +487,16 @@ class Cache:
         print('Fetch remote (attempt #{})'.format(i))
         sys.stdout.flush()
 
+        main_remote.set_url(
+            'https://{}:{}@github.com/{}/{}'.format(
+                github.username,
+                github.password,
+                github.repo_owner,
+                github.repo
+            )
+        )
         main_remote.fetch(depth=1)
+        main_remote.set_url(main_remote_url_pull)
         fetch_ok = True
       except Exception as exc:
         print('Exception {}'.format(exc))
