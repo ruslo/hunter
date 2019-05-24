@@ -2,6 +2,7 @@
 
     OpenCV
     GStreamer
+    FFmpeg
 
 .. index:: computer-vision ; OpenCV
 
