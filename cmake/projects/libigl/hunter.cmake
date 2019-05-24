@@ -9,6 +9,8 @@ include(hunter_cmake_args)
 include(hunter_download)
 include(hunter_pick_scheme)
 
+# Tags v1.3.3 and v2.0.0 are the same:
+# - https://github.com/hunter-packages/libigl/pull/1#issuecomment-495176368
 hunter_add_version(
     PACKAGE_NAME
     libigl
