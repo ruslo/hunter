@@ -458,6 +458,7 @@ hunter_cmake_args(
         BUILD_opencv_dnn=OFF
         # Fix for https://travis-ci.org/ingenue/hunter/builds/452039597
         WITH_OPENEXR=OFF
+        WITH_FFMPEG=OFF
 )
 
 # Pick a download scheme
