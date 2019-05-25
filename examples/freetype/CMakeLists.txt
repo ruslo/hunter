@@ -9,11 +9,15 @@ include("../common.cmake")
 
 project(download-freetype)
 
-# download freetype
+# DOCUMENTATION_START {
 hunter_add_package(freetype)
-
-# now freetype can be used
 find_package(freetype CONFIG REQUIRED)
 
-add_executable(foo foo.cpp)
-target_link_libraries(foo freetype::freetype)
+add_executable(boo boo.cpp)
+target_link_libraries(boo PRIVATE freetype::freetype)
+# DOCUMENTATION_END }
+
+# DOCUMENTATION_START_1 {
+add_executable(baz boo.cpp)
+target_link_libraries(baz PRIVATE Freetype::Freetype)
+# DOCUMENTATION_END_1 }
