@@ -1,7 +1,7 @@
 # Copyright (c) 2014, Ruslan Baratov
 # All rights reserved.
 
-cmake_minimum_required(VERSION 3.0)
+cmake_minimum_required(VERSION 3.2)
 
 # Emulate HunterGate:
 # * https://github.com/hunter-packages/gate
@@ -9,26 +9,15 @@ include("../common.cmake")
 
 project(download-zlib)
 
-# download gtest
+# DOCUMENTATION_START {
 hunter_add_package(ZLIB)
-
-# now gtest can be used
 find_package(ZLIB CONFIG REQUIRED)
 
-add_executable(foo main.c)
-target_link_libraries(foo ZLIB::zlib)
+add_executable(boo main.c)
+target_link_libraries(boo PRIVATE ZLIB::zlib)
+# DOCUMENTATION_END }
 
-# Compatibility mode
-find_package(ZLIB REQUIRED)
-string(COMPARE EQUAL "${ZLIB_INCLUDE_DIRS}" "" is_empty)
-if(is_empty)
-  message(FATAL_ERROR "Expected non-empty")
-endif()
-
-string(COMPARE EQUAL "${ZLIB_LIBRARIES}" "ZLIB::zlib" is_good)
-if(NOT is_good)
-  message(FATAL_ERROR "Expected ZLIB::zlib but not ${ZLIB_LIBRARIES}")
-endif()
-
-include_directories("${ZLIB_INCLUDE_DIRS}")
-target_link_libraries(foo ${ZLIB_LIBRARIES})
+# DOCUMENTATION_START_1 {
+add_executable(baz main.c)
+target_link_libraries(baz PRIVATE ZLIB::ZLIB)
+# DOCUMENTATION_END_1 }
