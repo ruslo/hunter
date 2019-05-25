@@ -12,6 +12,17 @@ hunter_add_version(
     PACKAGE_NAME
     freetype
     VERSION
+    "2.9.1-p1"
+    URL
+    "https://github.com/hunter-packages/freetype/archive/v2.9.1-p1.tar.gz"
+    SHA1
+    d4000efdea07253ff2dc9132403e09c321ec88ea
+)
+
+hunter_add_version(
+    PACKAGE_NAME
+    freetype
+    VERSION
     "2.9.1-p0"
     URL
     "https://github.com/hunter-packages/freetype/archive/v2.9.1-p0.tar.gz"
