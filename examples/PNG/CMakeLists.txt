@@ -14,6 +14,11 @@ project(example-hunter-png)
 hunter_add_package(PNG)
 find_package(PNG CONFIG REQUIRED)
 
-add_executable(foo main.cpp)
-target_link_libraries(foo PUBLIC PNG::png)
+add_executable(boo main.cpp)
+target_link_libraries(boo PRIVATE PNG::png)
 # DOCUMENTATION_END }
+
+# DOCUMENTATION_START_1 {
+add_executable(baz main.cpp)
+target_link_libraries(baz PRIVATE PNG::PNG)
+# DOCUMENTATION_END_1 }
