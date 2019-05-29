@@ -42,6 +42,17 @@ hunter_add_version(
     "d8001b873e2482a48eeb6fe573f88fc4d6d63b7b"
 )
 
+hunter_add_version(
+    PACKAGE_NAME
+    catkin
+    VERSION
+    0.7.17-p0
+    URL
+    "https://github.com/hunter-packages/catkin/archive/v0.7.17-p0.tar.gz"
+    SHA1
+    "13aac5184149590d3da67eb23002da690e8df0a6"
+)
+
 hunter_cmake_args(
     catkin
     CMAKE_ARGS
