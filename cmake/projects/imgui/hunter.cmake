@@ -12,7 +12,7 @@ hunter_add_version(
     PACKAGE_NAME
     imgui
     VERSION
-    "1.70"
+    "1.70.p0"
     URL
     "https://github.com/hunter-packages/imgui/archive/v1.70.p0.tar.gz"
     SHA1
