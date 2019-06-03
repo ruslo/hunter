@@ -20,6 +20,17 @@ hunter_add_version(
     "90c7728fae3f69c8072a9611b9ec1f92b3254bd1"
 )
 
+hunter_add_version(
+    PACKAGE_NAME
+    ros_gencpp
+    VERSION
+    0.6.2-p0
+    URL
+    "https://github.com/hunter-packages/ros_gencpp/archive/v0.6.2-p0.tar.gz"
+    SHA1
+    "be49ad6ad32cd8879fdd418fe2cc0c10db9a7d45"
+)
+
 hunter_cmake_args(
     ros_gencpp
     CMAKE_ARGS
