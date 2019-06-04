@@ -20,6 +20,17 @@ hunter_add_version(
     "9ebf01d2b3e146121c42314acb9629e2322737ae"
 )
 
+hunter_add_version(
+    PACKAGE_NAME
+    ros_common_msgs
+    VERSION
+    1.12.7-p0
+    URL
+    "https://github.com/hunter-packages/ros_common_msgs/archive/v1.12.7-p0.tar.gz"
+    SHA1
+    "353c4058cf50d4359a068109dc91a91076b29053"
+)
+
 hunter_cmake_args(
     ros_common_msgs
     CMAKE_ARGS
