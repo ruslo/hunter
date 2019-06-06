@@ -1,6 +1,8 @@
 # Copyright (c) 2015, Ruslan Baratov
 # All rights reserved.
 
+include(hunter_check_toolchain_definition)
+
 if(HUNTER_ENABLED)
   include(hunter_internal_error)
   include(hunter_status_debug)
@@ -36,6 +38,15 @@ hunter_status_debug("Boost find config")
 
 set(Boost_USE_STATIC_LIBS @BOOST_BUILD_STATIC@)
 set(Boost_NO_BOOST_CMAKE YES)
+
+if(MSVC)
+  hunter_check_toolchain_definition(NAME "_DLL" DEFINED _hunter_vs_md)
+  if(_hunter_vs_md)
+    set(Boost_USE_STATIC_RUNTIME NO)
+  else()
+    set(Boost_USE_STATIC_RUNTIME YES)
+  endif()
+endif()
 
 find_package(Boost MODULE REQUIRED ${Boost_FIND_COMPONENTS})
 
