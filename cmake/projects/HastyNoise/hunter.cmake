@@ -12,6 +12,17 @@ hunter_add_version(
     PACKAGE_NAME
     HastyNoise
     VERSION
+    "0.8.1"
+    URL
+   "https://github.com/caseymcc/HastyNoise/archive/0.8.1.tar.gz"
+    SHA1
+    355f1ef9446d9942e327859e90a141401ce194c7
+)
+
+hunter_add_version(
+    PACKAGE_NAME
+    HastyNoise
+    VERSION
     "0.8.0"
     URL
    "https://github.com/caseymcc/HastyNoise/archive/0.8.0.tar.gz"

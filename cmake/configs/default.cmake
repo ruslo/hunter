@@ -73,7 +73,7 @@ else()
 endif()
 
 hunter_default_version(HalideIR VERSION 0.0-32057b5-p0)
-hunter_default_version(HastyNoise VERSION 0.8.0)
+hunter_default_version(HastyNoise VERSION 0.8.1)
 hunter_default_version(ICU VERSION 63.1-p5)
 hunter_default_version(IF97 VERSION 2.1.2)
 hunter_default_version(Igloo VERSION 1.1.1-hunter)
