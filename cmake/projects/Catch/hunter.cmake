@@ -13,6 +13,17 @@ hunter_add_version(
     PACKAGE_NAME
     Catch
     VERSION
+    "2.9.1"
+    URL
+    "https://github.com/catchorg/Catch2/archive/v2.9.1.tar.gz"
+    SHA1
+    caf84ac93f6b624b9583bc9712feb3fba9417c68
+)
+
+hunter_add_version(
+    PACKAGE_NAME
+    Catch
+    VERSION
     "2.7.0"
     URL
     "https://github.com/catchorg/Catch2/archive/v2.7.0.tar.gz"
