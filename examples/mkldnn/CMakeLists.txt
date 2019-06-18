@@ -14,5 +14,5 @@ hunter_add_package(mkldnn)
 find_package(mkldnn CONFIG REQUIRED)
 
 add_executable(boo boo.cpp)
-target_link_libraries(boo PUBLIC mkldnn::mkldnn)
+target_link_libraries(boo PUBLIC MKLDNN::mkldnn)
 # DOCUMENTATION_END }
