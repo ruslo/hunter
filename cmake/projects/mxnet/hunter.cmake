@@ -64,6 +64,17 @@ hunter_add_version(
     aa01fea9b74bd4a10f5a1d028e61be62c4536bd0
 )
 
+hunter_add_version(
+    PACKAGE_NAME
+    mxnet
+    VERSION
+    1.5.0.rc1-b64e00a-p0
+    URL
+    "https://github.com/hunter-packages/mxnet/archive/v1.5.0.rc1-b64e00a-p0.tar.gz"
+    SHA1
+    01c400835d280a7ffec86361d17a2a10b3851998
+)
+
 set(
     __hunter_mxnet_args
     BUILD_CPP_EXAMPLES=OFF
