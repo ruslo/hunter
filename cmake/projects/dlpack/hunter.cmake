@@ -64,6 +64,17 @@ hunter_add_version(
     387656143ea23920551a881b157e59cffb91ef71
 )
 
+hunter_add_version(
+    PACKAGE_NAME
+    dlpack
+    VERSION
+    "0.2-0acb731"
+    URL
+    "https://github.com/dmlc/dlpack/archive/0acb731e0e43d15deee27b66f10e4c5b4e667913.zip"
+    SHA1
+    4fa2048869dbbc589c05eac3295002b866ee456a
+)
+
 hunter_cmake_args(dlpack CMAKE_ARGS BUILD_MOCK=OFF)
 
 hunter_pick_scheme(DEFAULT url_sha1_cmake)
