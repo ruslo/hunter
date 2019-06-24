@@ -1,21 +1,21 @@
 .. spelling::
 
-    tao-pegtl
+    pegtl
 
 .. index::
-  single: unsorted ; tao-pegtl
+  single: unsorted ; pegtl
 
-.. _pkg.tao-pegtl:
+.. _pkg.pegtl:
 
-tao-pegtl
-===
+pegtl
+=====
 
--  `Official <https://official_foo>`__
+-  `Official <https://github.com/taocpp/PEGTL/blob/master/README.md>`__
 -  `Hunterized <https://github.com/hunter-packages/foo>`__
--  `Example <https://github.com/ruslo/hunter/blob/master/examples/tao-pegtl/CMakeLists.txt>`__
+-  `Example <https://github.com/ruslo/hunter/blob/master/examples/pegtl/CMakeLists.txt>`__
 -  Added by `foo_developer <https://github.com/foo_developer>`__ (`pr-N <https://github.com/ruslo/hunter/pull/N>`__)
 
-.. literalinclude:: /../examples/tao-pegtl/CMakeLists.txt
+.. literalinclude:: /../examples/pegtl/CMakeLists.txt
   :language: cmake
   :start-after: # DOCUMENTATION_START {
   :end-before: # DOCUMENTATION_END }

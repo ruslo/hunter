@@ -10,7 +10,7 @@ include("../common.cmake")
 project(pgtl-example)
 
 # DOCUMENTATION_START {
-hunter_add_package(tao)
+hunter_add_package(pegtl)
 find_package(pegtl CONFIG REQUIRED)
 
 add_executable(pex boo.cpp)
