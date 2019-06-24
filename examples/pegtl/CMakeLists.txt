@@ -7,12 +7,12 @@ cmake_minimum_required(VERSION 3.2)
 # * https://github.com/hunter-packages/gate
 include("../common.cmake")
 
-project(tao-pegtl)
+project(pgtl-example)
 
 # DOCUMENTATION_START {
-hunter_add_package(tao-pegtl)
-find_package(tao-pegtl REQUIRED)
+hunter_add_package(tao)
+find_package(pegtl CONFIG REQUIRED)
 
-add_executable(boo boo.cpp)
-target_link_libraries(boo PUBLIC tao::pegtl)
+add_executable(pex boo.cpp)
+target_link_libraries(pex PUBLIC tao::pegtl)
 # DOCUMENTATION_END }
