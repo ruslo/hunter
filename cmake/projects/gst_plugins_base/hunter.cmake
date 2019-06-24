@@ -21,6 +21,17 @@ hunter_add_version(
     c6749d515d49373f2e04e7a87f5fc5bcfa16d7ef
 )
 
+hunter_add_version(
+    PACKAGE_NAME
+    gst_plugins_base
+    VERSION
+    1.14.5
+    URL
+    "https://gstreamer.freedesktop.org/src/gst-plugins-base/gst-plugins-base-1.14.5.tar.xz"
+    SHA1
+    21ba67b0a762013c59850ec8dfd5fe19b590f688
+)
+
 set(
     _gst_export_components
     allocators
@@ -36,6 +47,11 @@ set(
     tag
     video
 )
+if(HUNTER_gst_plugins_bad_VERSION VERSION_EQUAL "1.14.5")
+    list(APPEND _gst_export_components
+        gl
+    )
+endif()
 
 set(_gst_export_targets "")
 foreach(_x ${_gst_export_components})
@@ -54,18 +70,13 @@ hunter_configuration_types(gst_plugins_base CONFIGURATION_TYPES Release)
 hunter_pick_scheme(DEFAULT url_sha1_autotools)
 hunter_cacheable(gst_plugins_base)
 
-hunter_download(
-    PACKAGE_NAME
-    gst_plugins_base
-    PACKAGE_INTERNAL_DEPS_ID "2"
-    PACKAGE_UNRELOCATABLE_TEXT_FILES
+set( _gst_plugins_base_text_files
     "lib/gstreamer-1.0/libgstadder.la"
     "lib/gstreamer-1.0/libgstapp.la"
     "lib/gstreamer-1.0/libgstaudioconvert.la"
     "lib/gstreamer-1.0/libgstaudiorate.la"
     "lib/gstreamer-1.0/libgstaudioresample.la"
     "lib/gstreamer-1.0/libgstaudiotestsrc.la"
-    "lib/gstreamer-1.0/libgstencodebin.la"
     "lib/gstreamer-1.0/libgstgio.la"
     "lib/gstreamer-1.0/libgstogg.la"
     "lib/gstreamer-1.0/libgstplayback.la"
@@ -82,6 +93,7 @@ hunter_download(
     "lib/libgstapp-1.0.la"
     "lib/libgstaudio-1.0.la"
     "lib/libgstfft-1.0.la"
+    "lib/libgstgl-1.0.la"
     "lib/libgstpbutils-1.0.la"
     "lib/libgstriff-1.0.la"
     "lib/libgstrtp-1.0.la"
@@ -93,6 +105,7 @@ hunter_download(
     "lib/pkgconfig/gstreamer-app-1.0.pc"
     "lib/pkgconfig/gstreamer-audio-1.0.pc"
     "lib/pkgconfig/gstreamer-fft-1.0.pc"
+    "lib/pkgconfig/gstreamer-gl-1.0.pc"
     "lib/pkgconfig/gstreamer-pbutils-1.0.pc"
     "lib/pkgconfig/gstreamer-plugins-base-1.0.pc"
     "lib/pkgconfig/gstreamer-riff-1.0.pc"
@@ -102,3 +115,22 @@ hunter_download(
     "lib/pkgconfig/gstreamer-tag-1.0.pc"
     "lib/pkgconfig/gstreamer-video-1.0.pc"
 )
+
+if(HUNTER_gst_plugins_base_VERSION VERSION_EQUAL "1.10.4")
+    list(APPEND _gst_plugins_base_text_files
+        "lib/gstreamer-1.0/libgstencodebin.la"
+    )
+elseif(HUNTER_gst_plugins_base_VERSION VERSION_EQUAL "1.14.5")
+    list(APPEND _gst_plugins_base_text_files
+        "lib/libgstgl-1.0.la"
+        "lib/pkgconfig/gstreamer-gl-1.0.pc"
+    )
+endif()
+
+hunter_download(
+    PACKAGE_NAME
+    gst_plugins_base
+    PACKAGE_INTERNAL_DEPS_ID "2"
+    PACKAGE_UNRELOCATABLE_TEXT_FILES
+    "${_gst_plugins_base_text_files}"
+    )

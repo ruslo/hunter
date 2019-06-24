@@ -21,10 +21,26 @@ hunter_add_version(
     a01ab3ac71bdd0d52e4a120349a8f26fde48f317
 )
 
+hunter_add_version(
+    PACKAGE_NAME
+    gst_plugins_ugly
+    VERSION
+    1.14.5
+    URL
+    "https://gstreamer.freedesktop.org/src/gst-plugins-ugly/gst-plugins-ugly-1.14.5.tar.xz"
+    SHA1
+    af7dbbebda827bbddc848e5e6c4e5bd5ddfd3a08
+)
+
+set(_gst_plugins_ugly_pkg_dependencies gst_plugins_base)
+if(HUNTER_gst_plugins_ugly_VERSION VERSION_GREATER_EQUAL "1.14.5")
+    list(APPEND _gst_plugins_ugly_pkg_dependencies x264)
+endif()
+
 hunter_cmake_args(
     gst_plugins_ugly
     CMAKE_ARGS
-    DEPENDS_ON_PACKAGES=gst_plugins_base
+    DEPENDS_ON_PACKAGES=${_gst_plugins_ugly_pkg_dependencies}
     DEPENDS_ON_PKGCONFIGS=gstreamer-plugins-base-1.0 # ???
 )
 
@@ -32,14 +48,23 @@ hunter_configuration_types(gst_plugins_ugly CONFIGURATION_TYPES Release)
 hunter_pick_scheme(DEFAULT url_sha1_autotools)
 hunter_cacheable(gst_plugins_ugly)
 
+set(_gst_plugins_ugly_text_files
+    "lib/gstreamer-1.0/libgstasf.la"
+    "lib/gstreamer-1.0/libgstdvdlpcmdec.la"
+    "lib/gstreamer-1.0/libgstdvdsub.la"
+    "lib/gstreamer-1.0/libgstxingmux.la"
+)
+if(HUNTER_gst_plugins_ugly_VERSION VERSION_GREATER_EQUAL "1.14.5")
+    list(APPEND _gst_plugins_ugly_text_files
+        "lib/gstreamer-1.0/libgstrealmedia.la"
+        "lib/gstreamer-1.0/libgstx264.la"
+    )
+endif()
+
 hunter_download(
     PACKAGE_NAME
     gst_plugins_ugly
     PACKAGE_INTERNAL_DEPS_ID "2"
     PACKAGE_UNRELOCATABLE_TEXT_FILES
-    "lib/gstreamer-1.0/libgstasf.la"
-    "lib/gstreamer-1.0/libgstdvdlpcmdec.la"
-    "lib/gstreamer-1.0/libgstdvdsub.la"
-    "lib/gstreamer-1.0/libgstrmdemux.la"
-    "lib/gstreamer-1.0/libgstxingmux.la"
+    "${_gst_plugins_ugly_text_files}"
 )

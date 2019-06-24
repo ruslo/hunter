@@ -21,6 +21,17 @@ hunter_add_version(
     97ac75ee92e37cdff75298cd98ce29b8b0c2b5c7
 )
 
+hunter_add_version(
+    PACKAGE_NAME
+    gst_plugins_bad
+    VERSION
+    1.14.5
+    URL
+    "https://gstreamer.freedesktop.org/src/gst-plugins-bad/gst-plugins-bad-1.14.5.tar.xz"
+    SHA1
+    ca0081e503587b026630164cf1cf6869270078af
+)
+
 set(
     _gstreamer_components
     bad-audio
@@ -38,11 +49,16 @@ foreach(_x ${_gstreamer_components})
   list(APPEND _gstreamer_pkg gstreamer-${_x}-1.0)
 endforeach()
 
+set (_gst_plugins_bad_pkgconfigs_dependencies gstreamer-plugins-base-1.0)
+if(HUNTER_gst_plugins_bad_VERSION VERSION_GREATER_EQUAL "1.14.5")
+    list(APPEND _gst_plugins_bad_pkgconfigs_dependencies gstreamer-gl-1.0)
+endif()
+
 hunter_cmake_args(
     gst_plugins_bad
     CMAKE_ARGS
     DEPENDS_ON_PACKAGES=gst_plugins_base
-    DEPENDS_ON_PKGCONFIGS=gstreamer-plugins-base-1.0 # ???
+    DEPENDS_ON_PKGCONFIGS=${_gst_plugins_bad_pkgconfigs_dependencies}
     PKGCONFIG_EXPORT_TARGETS=${_gstreamer_pkg}
 )
 
@@ -50,26 +66,18 @@ hunter_configuration_types(gst_plugins_bad CONFIGURATION_TYPES Release)
 hunter_pick_scheme(DEFAULT url_sha1_autotools)
 hunter_cacheable(gst_plugins_bad)
 
-hunter_download(
-    PACKAGE_NAME
-    gst_plugins_bad
-    PACKAGE_INTERNAL_DEPS_ID "2"
-    PACKAGE_UNRELOCATABLE_TEXT_FILES
+set( _gst_plugins_bad_text_files
     "lib/gstreamer-1.0/libgstaccurip.la"
     "lib/gstreamer-1.0/libgstadpcmdec.la"
     "lib/gstreamer-1.0/libgstadpcmenc.la"
     "lib/gstreamer-1.0/libgstaiff.la"
     "lib/gstreamer-1.0/libgstasfmux.la"
     "lib/gstreamer-1.0/libgstaudiofxbad.la"
-    "lib/gstreamer-1.0/libgstaudiomixer.la"
     "lib/gstreamer-1.0/libgstaudiovisualizers.la"
     "lib/gstreamer-1.0/libgstautoconvert.la"
     "lib/gstreamer-1.0/libgstbayer.la"
-    "lib/gstreamer-1.0/libgstbz2.la"
-    "lib/gstreamer-1.0/libgstcamerabin2.la"
     "lib/gstreamer-1.0/libgstcoloreffects.la"
     "lib/gstreamer-1.0/libgstcompositor.la"
-    "lib/gstreamer-1.0/libgstdataurisrc.la"
     "lib/gstreamer-1.0/libgstdebugutilsbad.la"
     "lib/gstreamer-1.0/libgstdecklink.la"
     "lib/gstreamer-1.0/libgstdvb.la"
@@ -83,7 +91,6 @@ hunter_download(
     "lib/gstreamer-1.0/libgstgaudieffects.la"
     "lib/gstreamer-1.0/libgstgdp.la"
     "lib/gstreamer-1.0/libgstgeometrictransform.la"
-    "lib/gstreamer-1.0/libgsthls.la"
     "lib/gstreamer-1.0/libgstid3tag.la"
     "lib/gstreamer-1.0/libgstinter.la"
     "lib/gstreamer-1.0/libgstinterlace.la"
@@ -100,7 +107,6 @@ hunter_download(
     "lib/gstreamer-1.0/libgstnetsim.la"
     "lib/gstreamer-1.0/libgstpcapparse.la"
     "lib/gstreamer-1.0/libgstpnm.la"
-    "lib/gstreamer-1.0/libgstrawparse.la"
     "lib/gstreamer-1.0/libgstremovesilence.la"
     "lib/gstreamer-1.0/libgstrfbsrc.la"
     "lib/gstreamer-1.0/libgstrtponvif.la"
@@ -123,7 +129,6 @@ hunter_download(
     "lib/gstreamer-1.0/libgstyadif.la"
     "lib/libgstadaptivedemux-1.0.la"
     "lib/libgstbadaudio-1.0.la"
-    "lib/libgstbadbase-1.0.la"
     "lib/libgstbadvideo-1.0.la"
     "lib/libgstbasecamerabinsrc-1.0.la"
     "lib/libgstcodecparsers-1.0.la"
@@ -133,11 +138,31 @@ hunter_download(
     "lib/libgstplayer-1.0.la"
     "lib/libgsturidownloader-1.0.la"
     "lib/pkgconfig/gstreamer-bad-audio-1.0.pc"
-    "lib/pkgconfig/gstreamer-bad-base-1.0.pc"
     "lib/pkgconfig/gstreamer-bad-video-1.0.pc"
     "lib/pkgconfig/gstreamer-codecparsers-1.0.pc"
     "lib/pkgconfig/gstreamer-insertbin-1.0.pc"
     "lib/pkgconfig/gstreamer-mpegts-1.0.pc"
     "lib/pkgconfig/gstreamer-player-1.0.pc"
     "lib/pkgconfig/gstreamer-plugins-bad-1.0.pc"
+)
+
+if(HUNTER_gst_plugins_bad_VERSION VERSION_EQUAL "1.10.4")
+    list(APPEND _gst_plugins_bad_text_files
+        "lib/gstreamer-1.0/libgstaudiomixer.la"
+        "lib/gstreamer-1.0/libgstbz2.la"
+        "lib/gstreamer-1.0/libgstcamerabin2.la"
+        "lib/gstreamer-1.0/libgstdataurisrc.la"
+        "lib/gstreamer-1.0/libgsthls.la"
+        "lib/gstreamer-1.0/libgstrawparse.la"
+        "lib/libgstbadbase-1.0.la"
+        "lib/pkgconfig/gstreamer-bad-base-1.0.pc"
+    )
+endif()
+
+hunter_download(
+    PACKAGE_NAME
+    gst_plugins_bad
+    PACKAGE_INTERNAL_DEPS_ID "2"
+    PACKAGE_UNRELOCATABLE_TEXT_FILES
+    "${_gst_plugins_bad_text_files}"
 )

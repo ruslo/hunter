@@ -21,6 +21,18 @@ hunter_add_version(
     217f56f474b1a89fdd27c8025a3eee7a7cd13559
 )
 
+hunter_add_version(
+    PACKAGE_NAME
+    gstreamer
+    VERSION
+    "1.14.5"
+    URL
+    "https://gstreamer.freedesktop.org/src/gstreamer/gstreamer-1.14.5.tar.xz"
+    SHA1
+    157013f30df8ebb20e99ba1f89e965468eddf8f7
+)
+
+
 hunter_configuration_types(gstreamer CONFIGURATION_TYPES Release)
 hunter_pick_scheme(DEFAULT url_sha1_autotools)
 

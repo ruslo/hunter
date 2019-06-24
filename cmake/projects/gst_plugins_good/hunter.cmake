@@ -21,6 +21,17 @@ hunter_add_version(
     6ff3f3a7facae861c7687f27055fd9ced7c7fe10
 )
 
+hunter_add_version(
+    PACKAGE_NAME
+    gst_plugins_good
+    VERSION
+    1.14.5
+    URL
+    "https://gstreamer.freedesktop.org/src/gst-plugins-good/gst-plugins-good-1.14.5.tar.xz"
+    SHA1
+    ea0bc9e4d9a87eb4112eddd6e0638d4cec14003b
+)
+
 hunter_cmake_args(
     gst_plugins_good
     CMAKE_ARGS
@@ -32,11 +43,7 @@ hunter_configuration_types(gst_plugins_good CONFIGURATION_TYPES Release)
 hunter_pick_scheme(DEFAULT url_sha1_autotools)
 hunter_cacheable(gst_plugins_good)
 
-hunter_download(
-    PACKAGE_NAME
-    gst_plugins_good
-    PACKAGE_INTERNAL_DEPS_ID "2"
-    PACKAGE_UNRELOCATABLE_TEXT_FILES
+set( _gst_plugins_base_text_files
     "lib/gstreamer-1.0/libgstalaw.la"
     "lib/gstreamer-1.0/libgstalpha.la"
     "lib/gstreamer-1.0/libgstalphacolor.la"
@@ -68,7 +75,6 @@ hunter_download(
     "lib/gstreamer-1.0/libgstmultifile.la"
     "lib/gstreamer-1.0/libgstmultipart.la"
     "lib/gstreamer-1.0/libgstnavigationtest.la"
-    "lib/gstreamer-1.0/libgstoss4audio.la"
     "lib/gstreamer-1.0/libgstossaudio.la"
     "lib/gstreamer-1.0/libgstreplaygain.la"
     "lib/gstreamer-1.0/libgstrtp.la"
@@ -86,4 +92,18 @@ hunter_download(
     "lib/gstreamer-1.0/libgstwavenc.la"
     "lib/gstreamer-1.0/libgstwavparse.la"
     "lib/gstreamer-1.0/libgsty4menc.la"
+)
+
+if(HUNTER_gst_plugins_good_VERSION VERSION_EQUAL "1.10.4")
+    list(APPEND _gst_plugins_good_text_files
+        "lib/gstreamer-1.0/libgstoss4audio.la"
+    )
+endif()
+
+hunter_download(
+    PACKAGE_NAME
+    gst_plugins_good
+    PACKAGE_INTERNAL_DEPS_ID "2"
+    PACKAGE_UNRELOCATABLE_TEXT_FILES
+    "{_gst_plugins_good_text_files}"
 )
