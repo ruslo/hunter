@@ -59,7 +59,9 @@ function(hunter_pkgconfig_export_target PKG_CONFIG_MODULE PKG_GENERATE_SHARED)
       "PKG_CONFIG_MODULE ${PKG_CONFIG_MODULE} LDFLAGS: ${${PKG_CONFIG_PREFIX}_LDFLAGS}"
   )
   if(NOT "${${PKG_CONFIG_PREFIX}_LDFLAGS}" STREQUAL "")
-    list(APPEND link_libs ${${PKG_CONFIG_PREFIX}_LDFLAGS})
+    # turn "-framework;A;-framework;B" into "-framework A;-framework B"
+    string(REPLACE "-framework;" "-framework " ldflags "${${PKG_CONFIG_PREFIX}_LDFLAGS}")
+    list(APPEND link_libs ${ldflags})
   endif()
 
   hunter_status_debug(
