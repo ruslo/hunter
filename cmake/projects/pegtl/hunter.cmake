@@ -6,6 +6,18 @@ include(hunter_cmake_args)
 include(hunter_download)
 include(hunter_pick_scheme)
 
+
+hunter_add_version(
+    PACKAGE_NAME
+    pegtl
+    VERSION
+    2.8.0
+    URL
+    "https://github.com/taocpp/PEGTL/archive/2.8.0.tar.gz"
+    SHA1
+    57457c00d90b1c33d50afbb2956cbf2b2533ce6e
+)
+
 hunter_add_version(
     PACKAGE_NAME
     pegtl

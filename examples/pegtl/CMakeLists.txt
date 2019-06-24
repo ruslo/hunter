@@ -14,5 +14,5 @@ hunter_add_package(pegtl)
 find_package(pegtl CONFIG REQUIRED)
 
 add_executable(pex boo.cpp)
-target_link_libraries(pex PUBLIC tao::pegtl)
+target_link_libraries(pex PUBLIC taocpp::pegtl)
 # DOCUMENTATION_END }
