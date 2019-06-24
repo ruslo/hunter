@@ -63,6 +63,6 @@ hunter_pick_scheme(DEFAULT xcb)
 hunter_cacheable(xcb)
 hunter_download(
     PACKAGE_NAME xcb
-    PACKAGE_INTERNAL_DEPS_ID "5"
+    PACKAGE_INTERNAL_DEPS_ID "6"
     PACKAGE_UNRELOCATABLE_TEXT_FILES "${_xcb_text_files}"
 )
