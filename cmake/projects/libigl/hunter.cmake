@@ -15,6 +15,17 @@ hunter_add_version(
     PACKAGE_NAME
     libigl
     VERSION
+    2.0.0-e33f534-p0
+    URL
+    "https://github.com/hunter-packages/libigl/archive/v1.3.3-e33f534-p0.tar.gz"
+    SHA1
+    b94120a61fd5c6320edc7a79f14a37877527767d
+)
+
+hunter_add_version(
+    PACKAGE_NAME
+    libigl
+    VERSION
     2.0.0-e33f534-p1
     URL
     "https://github.com/hunter-packages/libigl/archive/v1.3.3-e33f534-p1.tar.gz"
