@@ -10,11 +10,11 @@ hunter_add_version(
     PACKAGE_NAME
     taocpp-json
     VERSION
-    1.0.0
+    1.0.0-beta.11-9163
     URL
-    "https://github.com/taocpp/json/archive/c34d590cf319fdbf1c824eefb850b142f64f5fb3.zip"
+    "https://github.com/taocpp/json/archive/e08955875acc5853d31aa5ccd4b918726d20847f.zip"
     SHA1
-    669d0118cb39b0c214836a4652ce854e324927f9
+    916357f4325fa15de32ba15f3b78e89d6308b920
 )
 
 hunter_cmake_args(

@@ -8,10 +8,9 @@
 .. _pkg.taocpp-json:
 
 taocpp-json
-===
+===========
 
--  `Official <https://official_foo>`__
--  `Hunterized <https://github.com/hunter-packages/foo>`__
+-  `Official <https://github.com/taocpp/json/blob/master/README.md>`__
 -  `Example <https://github.com/ruslo/hunter/blob/master/examples/taocpp-json/CMakeLists.txt>`__
 -  Added by `foo_developer <https://github.com/foo_developer>`__ (`pr-N <https://github.com/ruslo/hunter/pull/N>`__)
 
