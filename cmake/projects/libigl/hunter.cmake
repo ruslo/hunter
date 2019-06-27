@@ -22,11 +22,22 @@ hunter_add_version(
     b94120a61fd5c6320edc7a79f14a37877527767d
 )
 
+hunter_add_version(
+    PACKAGE_NAME
+    libigl
+    VERSION
+    2.0.0-e33f534-p1
+    URL
+    "https://github.com/hunter-packages/libigl/archive/v1.3.3-e33f534-p1.tar.gz"
+    SHA1
+    24637b17fb4700db898099fb6f21e8425ea08a30
+)
+
 hunter_cmake_args(
     libigl
     CMAKE_ARGS
         # LIBIGL_USE_STATIC_LIBRARY=OFF means make it an INTERFACE library
-        LIBIGL_USE_STATIC_LIBRARY=OFF
+        LIBIGL_USE_STATIC_LIBRARY=ON
         LIBIGL_BUILD_TESTS=OFF
         LIBIGL_BUILD_TUTORIALS=OFF
         LIBIGL_BUILD_PYTHON=OFF
