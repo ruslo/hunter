@@ -10,9 +10,9 @@
 pegtl
 =====
 
--  `Official <https://github.com/taocpp/PEGTL/blob/master/README.md>`__
+-  `Official <https://github.com/taocpp/PEGTL>`__
 -  `Example <https://github.com/ruslo/hunter/blob/master/examples/pegtl/CMakeLists.txt>`__
--  Added by `foo_developer <https://github.com/foo_developer>`__ (`pr-N <https://github.com/ruslo/hunter/pull/N>`__)
+-  Added by `Jörg-Christian Böhme <https://github.com/Bjoe>`__ (`pr-1049 <https://github.com/ruslo/hunter/pull/1049>`__)
 
 .. literalinclude:: /../examples/pegtl/CMakeLists.txt
   :language: cmake
