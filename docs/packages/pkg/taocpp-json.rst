@@ -1,6 +1,7 @@
 .. spelling::
 
-    taocpp-json
+    taocpp
+    json
 
 .. index::
   single: unsorted ; taocpp-json
