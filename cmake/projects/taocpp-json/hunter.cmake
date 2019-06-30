@@ -28,5 +28,4 @@ hunter_pick_scheme(DEFAULT url_sha1_cmake)
 hunter_cacheable(taocpp-json)
 hunter_download(
     PACKAGE_NAME taocpp-json
-    PACKAGE_INTERNAL_DEPS_ID "1"
 )
