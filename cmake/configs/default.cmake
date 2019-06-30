@@ -370,6 +370,7 @@ hunter_default_version(opentracing-cpp VERSION 1.5.0)
 hunter_default_version(pcg VERSION 0.0.0-p1)
 hunter_default_version(pciaccess VERSION 0.13.4)
 hunter_default_version(pcre2 VERSION 10.13-p0)
+hunter_default_version(pegtl VERSION 2.8.0)
 
 # pip packages
 hunter_default_version(pip_GitPython VERSION 2.1.11)
