@@ -40,5 +40,4 @@ hunter_pick_scheme(DEFAULT url_sha1_cmake)
 hunter_cacheable(pegtl)
 hunter_download(
     PACKAGE_NAME pegtl
-    PACKAGE_INTERNAL_DEPS_ID "1"
 )
