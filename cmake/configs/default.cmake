@@ -399,6 +399,7 @@ hunter_default_version(pip_smmap VERSION 2.0.5)
 hunter_default_version(pip_urllib3 VERSION 1.24.1)
 hunter_default_version(pip_wrapt VERSION 1.11.1)
 
+hunter_default_version(pluginlib VERSION 1.12.1-p0)
 hunter_default_version(poly2tri VERSION 1.0.0)
 hunter_default_version(polyclipping VERSION 4.8.8-p0) # for Assimp
 hunter_default_version(presentproto VERSION 1.0)
