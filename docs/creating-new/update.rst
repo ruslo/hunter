@@ -133,4 +133,4 @@ Once the tests are passing, and all required toolchain modifications have been a
 
     [hunter]> git push -u origin pr.hunter_box_1
 
-Finally, a pull request should be opened to send the package update to the main Hunter repository, as illustrated in the previous section pull request `screen shot <https://docs.hunter.sh/en/latest/creating-new/create/cmake.html#pull-requests>`__.
+Finally, a pull request should be opened to send the package update to the main Hunter repository, as illustrated in the previous section pull request `screen shot <https://docs.hunter.sh/en/latest/creating-new/create/cmake.html#pull-requests>`__ (see `example <https://github.com/ruslo/hunter/pull/1893>`__).
