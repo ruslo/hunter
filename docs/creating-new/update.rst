@@ -69,14 +69,14 @@ Fetch latest CI configs, you may need to run ``git pull`` if you have
   [hunter]> git checkout pkg.hunter_box_1
   [hunter]> git pull
 
-If the package has not been updated in some time, the CI toolchains 
-may have fallen out of date.  It is preferable to keep the CI 
-configuration in sync with the working defaults from ``pkg.template`` 
-to make sure the package will build with recent compilers and to help 
-ensure cache hits for any required Hunter managed dependencies. 
+If the package has not been updated in some time, the CI toolchains
+may have fallen out of date.  It is preferable to keep the CI
+configuration in sync with the working defaults from ``pkg.template``
+to make sure the package will build with recent compilers and to help
+ensure cache hits for any required Hunter managed dependencies.
 
 .. code-block:: none
-  
+
   [hunter]> git checkout pkg.template
   [hunter]> git pull
   [hunter]> git checkout pkg.hunter_box_1
@@ -130,7 +130,7 @@ Submit the pull request to Hunter
 Once the tests are passing, and all required toolchain modifications have been applied to the ``ci`` fork in ``pkg.hunter_box_1`` via pull requests (see above), the original package update in ``pr.hunter_box_1`` should then be pushed to your Hunter fork (``origin`` in above discussions):
 
 .. code-block:: none
-    
+
     [hunter]> git push -u origin pr.hunter_box_1
 
 Finally, a pull request should be opened to send the package update to the main Hunter repository, as illustrated in the previous section pull request `screen shot <https://docs.hunter.sh/en/latest/creating-new/create/cmake.html#pull-requests>`__.
