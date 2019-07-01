@@ -26,7 +26,7 @@ hunter_configuration_types(glib CONFIGURATION_TYPES Release)
 hunter_cmake_args(
     glib
     CMAKE_ARGS
-    DEPENDS_ON_PACKAGES=libffi;util_linux;libpcre
+    DEPENDS_ON_PACKAGES=libffi;util_linux;libpcre;ZLIB
     DEPENDS_ON_PKGCONFIGS=libffi;blkid;fdisk;mount;smartcols;uuid;libpcre;libpcrecpp;libpcreposix
     PKGCONFIG_EXPORT_TARGETS=glib-2.0
 )
