@@ -8,7 +8,7 @@ include(hunter_pick_scheme)
 
 hunter_add_version(
     PACKAGE_NAME thrift
-    VERSION "v0.12.0-p0"
+    VERSION "0.12.0-p0"
     URL "https://github.com/hunter-packages/thrift/archive/v0.12.0-p0.tar.gz"
     SHA1 "dafb78da4a6f711819a1962c883b64272a34364c")
 
