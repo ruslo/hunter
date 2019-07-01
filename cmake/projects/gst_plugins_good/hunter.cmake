@@ -105,5 +105,5 @@ hunter_download(
     gst_plugins_good
     PACKAGE_INTERNAL_DEPS_ID "2"
     PACKAGE_UNRELOCATABLE_TEXT_FILES
-    "{_gst_plugins_good_text_files}"
+    "${_gst_plugins_good_text_files}"
 )
