@@ -10,7 +10,7 @@ hunter_add_version(
     PACKAGE_NAME
     taocpp-json
     VERSION
-    1.0.0-beta.11-9163
+    1.0.0-beta.11-e0895587
     URL
     "https://github.com/taocpp/json/archive/e08955875acc5853d31aa5ccd4b918726d20847f.zip"
     SHA1
