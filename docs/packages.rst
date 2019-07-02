@@ -44,6 +44,7 @@ List of packages and usage instructions for each package.
    /packages/robotics
    /packages/scripting
    /packages/serialize
+   /packages/terminal
    /packages/os
 
 .. note::
