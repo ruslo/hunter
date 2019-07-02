@@ -3,7 +3,7 @@
     rang
 
 .. index::
-  single: unsorted ; rang
+  single: terminal ; rang
 
 .. _pkg.rang:
 
