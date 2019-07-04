@@ -16,7 +16,7 @@ hunter_add_version(
     VERSION
     6.1
     URL
-    "ftp://ftp.invisible-island.net/ncurses/ncurses-6.1.tar.gz"
+    "https://ftp.gnu.org/gnu/ncurses/ncurses-6.1.tar.gz"
     SHA1
     57acf6bc24cacd651d82541929f726f4def780cc
 )
