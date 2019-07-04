@@ -842,7 +842,8 @@ Please follow these guidelines when disabling toolchains:
   :diff: ci/.travis-OLD.yml
 
 If no working toolchain is left for ``.travis.yml`` or ``appveyor.yml`` then
-comment out everything and add ``TOOLCHAIN=dummy`` test.
+comment out everything and add ``TOOLCHAIN=dummy`` test (see
+`example <https://github.com/ingenue/hunter/blob/b52b18e7ac51cec76c63a61dd81195c5bfc2a160/appveyor.yml#L35-L41>`__).
 
 Go to branch ``pr.pkg.hunter_box_1`` with CI configs and commit this change
 there:
