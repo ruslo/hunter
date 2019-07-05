@@ -58,8 +58,6 @@ middleware
 multi
 multiplatform
 natively
-ncurses
-ncursesw
 performant
 plugin
 plugins
