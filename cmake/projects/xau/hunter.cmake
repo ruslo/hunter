@@ -49,6 +49,6 @@ hunter_cmake_args(
 hunter_cacheable(xau)
 hunter_download(
     PACKAGE_NAME xau
-    PACKAGE_INTERNAL_DEPS_ID "7"
+    PACKAGE_INTERNAL_DEPS_ID "8"
     PACKAGE_UNRELOCATABLE_TEXT_FILES "lib/libXau.la;lib/pkgconfig/xau.pc"
 )
