@@ -50,6 +50,16 @@ hunter_add_version(
   d024c6ecd7b2466f134353d99e9a1e08eb9f95c4
   )
 
+hunter_add_version(
+  PACKAGE_NAME
+  yaml-cpp
+  VERSION
+  "0.6.2-0f9a586-p1"
+  URL
+  "https://github.com/hunter-packages/yaml-cpp/archive/v0.6.2-0f9a586-p1.zip"
+  SHA1
+  956C2B5FBF5AA0EB8EF5EF890C0328B3AA357A13
+  )
 
 hunter_cmake_args(
   yaml-cpp
