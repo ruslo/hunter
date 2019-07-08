@@ -10,14 +10,9 @@ include("../common.cmake")
 project(download-readline)
 
 # DOCUMENTATION_START {
-# readline depends on a termcap implementation.  One
-# option is to use ncurses.
-hunter_add_package(ncursesw)
-find_package(ncursesw CONFIG REQUIRED)
-
 hunter_add_package(readline)
 find_package(readline REQUIRED)
 
 add_executable(boo boo.cpp)
-target_link_libraries(boo PUBLIC readline::readline PkgConfig::ncursesw)
+target_link_libraries(boo PUBLIC readline::readline)
 # DOCUMENTATION_END }

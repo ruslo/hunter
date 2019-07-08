@@ -23,10 +23,13 @@ hunter_add_version(
 
 hunter_configuration_types(readline CONFIGURATION_TYPES Release)
 hunter_pick_scheme(DEFAULT url_sha1_autotools)
-
+hunter_cmake_args(
+    readline
+    CMAKE_ARGS
+      DEPENDS_ON_PACKAGES=ncursesw
+)
 hunter_cacheable(readline)
 hunter_download(
     PACKAGE_NAME readline
-    PACKAGE_COMPONENT readline
 )
 
