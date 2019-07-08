@@ -18,9 +18,10 @@ PNG
   :start-after: # DOCUMENTATION_START {
   :end-before: # DOCUMENTATION_END }
 
-For compatibility with
+For compatibility with the
 `FindPNG <https://cmake.org/cmake/help/latest/module/FindPNG.html>`__
-module, the ``ALIAS`` target ``PNG::PNG`` can be used too:
+module, the ``ALIAS`` target ``PNG::PNG`` can be used too (requires CMake
+version >= 3.11!):
 
 .. literalinclude:: /../examples/PNG/CMakeLists.txt
   :language: cmake
