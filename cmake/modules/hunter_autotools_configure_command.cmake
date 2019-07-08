@@ -220,6 +220,13 @@ function(hunter_autotools_configure_command out_command_line)
 
   list(APPEND configure_command "--prefix=${PARAM_PACKAGE_INSTALL_DIR}")
 
+  # See: https://github.com/ruslo/hunter/pull/1910#discussion_r300725504
+  list(
+      APPEND
+      configure_command
+      "--with-pkg-config-libdir=${PARAM_PACKAGE_INSTALL_DIR}/lib/pkgconfig"
+  )
+
   if(HUNTER_STATUS_DEBUG)
     string(REPLACE ";" " " final_configure_command "${configure_command}")
     hunter_status_debug("Final configure command:")
