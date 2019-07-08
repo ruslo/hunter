@@ -516,7 +516,7 @@ hunter_default_version(xshmfence VERSION 1.3)
 hunter_default_version(xtrans VERSION 1.4.0)
 hunter_default_version(xxf86vm VERSION 1.1.2)
 hunter_default_version(xxhash VERSION 0.6.5-p0)
-hunter_default_version(yaml-cpp VERSION 0.6.2-p0)
+hunter_default_version(yaml-cpp VERSION 0.6.2-0f9a586-p1)
 hunter_default_version(zip VERSION 0.1.15)
 hunter_default_version(zookeeper VERSION 3.4.9-p2)
 
