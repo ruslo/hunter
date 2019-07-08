@@ -26,7 +26,7 @@ hunter_pick_scheme(DEFAULT url_sha1_autotools)
 hunter_cmake_args(
     ncursesw
     CMAKE_ARGS
-        EXTRA_FLAGS=--enable-ext-mouse --enable-sigwinch --enable-ext-colors --enable-widec --enable-pc-files "--with-pkg-config-libdir=@HUNTER_PACKAGE_INSTALL_PREFIX@/lib/pkgconfig"
+        EXTRA_FLAGS=--enable-ext-mouse --enable-sigwinch --enable-ext-colors --enable-widec --enable-pc-files
         PKGCONFIG_EXPORT_TARGETS=ncursesw;formw;ncurses++w;menuw;panelw
 )
 hunter_cacheable(ncursesw)

@@ -68,6 +68,7 @@ include(hunter_assert_not_empty_string)
 # * xau
 # * gstreamer
 # * libxml2
+# * ncursesw
 function(hunter_autotools_project target_name)
   set(optional_params)
   set(one_value_params
