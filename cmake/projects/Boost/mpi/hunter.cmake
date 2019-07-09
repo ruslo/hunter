@@ -26,5 +26,5 @@ hunter_download(
     Boost
     PACKAGE_COMPONENT
     mpi
-    PACKAGE_INTERNAL_DEPS_ID "43"
+    PACKAGE_INTERNAL_DEPS_ID "44"
 )
