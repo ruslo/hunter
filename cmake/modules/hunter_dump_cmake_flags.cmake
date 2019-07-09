@@ -12,6 +12,7 @@ include(hunter_assert_not_empty_string)
 # * libxml2
 # * OpenSSL
 # * odb-boost
+# * ncursesw
 function(hunter_dump_cmake_flags)
   cmake_parse_arguments(x "SKIP_INCLUDES;SKIP_PIC" "CPPFLAGS" "" "${ARGV}")
   # -> x_SKIP_INCLUDES
