@@ -27,5 +27,5 @@ hunter_download(PACKAGE_NAME odb-boost
     PACKAGE_UNRELOCATABLE_TEXT_FILES
     "lib/libodb-boost.la"
     "lib/pkgconfig/libodb-boost.pc"
-    PACKAGE_INTERNAL_DEPS_ID "11"
+    PACKAGE_INTERNAL_DEPS_ID "12"
 )
