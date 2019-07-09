@@ -69,6 +69,6 @@ hunter_cacheable(libxml2)
 
 hunter_download(
     PACKAGE_NAME libxml2
-    PACKAGE_INTERNAL_DEPS_ID "10"
+    PACKAGE_INTERNAL_DEPS_ID "11"
     ${_libxml_unrelocatable_text_files}
 )
