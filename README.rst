@@ -1,3 +1,5 @@
+Please read the **IMPORTANT** announcement `Hunter: to be or not to be <https://github.com/ruslo/hunter/issues/1921>`__!
+
 Hunter
 ======
 
