@@ -11,6 +11,17 @@ hunter_add_version(
     PACKAGE_NAME
     pegtl
     VERSION
+    2.8.1
+    URL
+    "https://github.com/taocpp/PEGTL/archive/2.8.1.tar.gz"
+    SHA1
+    50a8f7a24062794fb7caccc45ca7c635258595e3
+)
+
+hunter_add_version(
+    PACKAGE_NAME
+    pegtl
+    VERSION
     2.8.0
     URL
     "https://github.com/taocpp/PEGTL/archive/2.8.0.tar.gz"
