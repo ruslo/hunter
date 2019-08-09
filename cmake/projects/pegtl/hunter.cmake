@@ -7,6 +7,18 @@ include(hunter_download)
 include(hunter_pick_scheme)
 
 
+# master branch will be the next 3.x.x release in pegtl
+hunter_add_version(
+    PACKAGE_NAME
+    pegtl
+    VERSION
+    3.0.0-697aaa06
+    URL
+    "https://github.com/taocpp/PEGTL/archive/697aaa06564c6ea9d13f95de081a2d2d46b39160.zip"
+    SHA1
+    3b441aee41d1932809807ba27f30ca95602e322c
+)
+
 hunter_add_version(
     PACKAGE_NAME
     pegtl
