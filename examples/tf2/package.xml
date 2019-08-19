@@ -1,0 +1,11 @@
+<package format="2">
+    <name>download_tf2</name>
+    <version>0.0.0</version>
+    <description>
+        This package provides foo capability.
+    </description>
+    <maintainer email="kgeorgiev1993@gmail.com">Krasimir Georgiev</maintainer>
+    <license>BSD</license>
+
+    <buildtool_depend>catkin</buildtool_depend>
+</package>
