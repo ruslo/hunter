@@ -4,11 +4,6 @@
 Hunter: organize freedom
 ========================
 
-.. warning::
-
-  Please read the **IMPORTANT** announcement
-  `Hunter: to be or not to be <https://github.com/ruslo/hunter/issues/1921>`__!
-
 Welcome to the Hunter package manager documentation!
 
 Hunter is a CMake driven cross-platform package manager for C/C++ [1]_ projects.
