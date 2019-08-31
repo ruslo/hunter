@@ -1,0 +1,20 @@
+.. spelling::
+
+    s3
+
+.. index::
+  single: unsorted ; s3
+
+.. _pkg.s3:
+
+s3
+==
+
+- https://github.com/bji/libs3
+- `Hunterized <https://github.com/hunter-packages/libs3>`__
+- `Example <https://github.com/ruslo/hunter/blob/master/examples/s3/CMakeLists.txt>`__
+
+.. literalinclude:: /../examples/s3/CMakeLists.txt
+  :language: cmake
+  :start-after: # DOCUMENTATION_START {
+  :end-before: # DOCUMENTATION_END }
