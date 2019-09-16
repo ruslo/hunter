@@ -116,7 +116,15 @@ endif()
 
 string(COMPARE EQUAL "${CMAKE_CFG_INTDIR}" "." is_single)
 
-foreach(configuration @HUNTER_PACKAGE_CONFIGURATION_TYPES@)
+set(configuration_types "@HUNTER_PACKAGE_CONFIGURATION_TYPES@")
+list(LENGTH configuration_types len)
+if(len EQUAL "1")
+  set(no_postfix TRUE)
+else()
+  set(no_postfix FALSE)
+endif()
+
+foreach(configuration ${configuration_types})
   # All configurations use the same URL which will be downloaded only once
   # i.e. overhead only for unpacking archive + no files from the previous
   # build will be left in case package do some insource modification (wrongly)
@@ -127,6 +135,10 @@ foreach(configuration @HUNTER_PACKAGE_CONFIGURATION_TYPES@)
 
   if(NOT is_release AND is_empty)
     set("${postfix_name}" "-${configuration}")
+  endif()
+
+  if(no_postfix)
+    set("${postfix_name}" "")
   endif()
 
   set(current_project "@HUNTER_EP_NAME@-${configuration}")

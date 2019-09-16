@@ -86,23 +86,26 @@ function(hunter_apply_gate_settings)
 
   set(hunter_base "${HUNTER_GATE_ROOT}/_Base")
 
-  foreach(configuration ${HUNTER_CONFIGURATION_TYPES})
-    string(TOUPPER "${configuration}" configuration_upper)
-    string(COMPARE EQUAL "${configuration_upper}" "RELEASE" is_release)
-    string(COMPARE EQUAL "${configuration_upper}" "DEBUG" is_debug)
-    string(COMPARE EQUAL "${CMAKE_${configuration_upper}_POSTFIX}" "" is_empty)
-    if(NOT is_release AND is_empty)
-      if(is_debug)
-        set(CMAKE_DEBUG_POSTFIX "d")
-        hunter_status_debug("Set CMAKE_DEBUG_POSTFIX to: d")
-      else()
-        set(CMAKE_${configuration_upper}_POSTFIX "-${configuration}")
-        hunter_status_debug(
-            "Set CMAKE_${configuration_upper}_POSTFIX to: -${configuration}"
-        )
+  list(LENGTH HUNTER_CONFIGURATION_TYPES len)
+  if(NOT len EQUAL "1")
+    foreach(configuration ${HUNTER_CONFIGURATION_TYPES})
+      string(TOUPPER "${configuration}" configuration_upper)
+      string(COMPARE EQUAL "${configuration_upper}" "RELEASE" is_release)
+      string(COMPARE EQUAL "${configuration_upper}" "DEBUG" is_debug)
+      string(COMPARE EQUAL "${CMAKE_${configuration_upper}_POSTFIX}" "" is_empty)
+      if(NOT is_release AND is_empty)
+        if(is_debug)
+          set(CMAKE_DEBUG_POSTFIX "d")
+          hunter_status_debug("Set CMAKE_DEBUG_POSTFIX to: d")
+        else()
+          set(CMAKE_${configuration_upper}_POSTFIX "-${configuration}")
+          hunter_status_debug(
+              "Set CMAKE_${configuration_upper}_POSTFIX to: -${configuration}"
+          )
+        endif()
       endif()
-    endif()
-  endforeach()
+    endforeach()
+  endif()
 
   hunter_make_directory("${hunter_base}" "${HUNTER_GATE_SHA1}" hunter_id_path)
 
