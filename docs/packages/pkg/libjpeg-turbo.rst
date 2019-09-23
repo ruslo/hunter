@@ -1,6 +1,7 @@
 .. spelling::
 
-    libjpeg-turbo
+    libjpeg
+    turbo
 
 .. index::
   single: unsorted ; libjpeg-turbo
