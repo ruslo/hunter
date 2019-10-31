@@ -69,7 +69,7 @@ hunter_default_version(GSL VERSION 2.1.0-p2)
 if(MSVC80)
   hunter_default_version(GTest VERSION 1.7.0-hunter-6)
 else()
-  hunter_default_version(GTest VERSION 1.8.0-hunter-p11)
+  hunter_default_version(GTest VERSION 1.10.0-p0)
 endif()
 
 hunter_default_version(HalideIR VERSION 0.0-32057b5-p0)
