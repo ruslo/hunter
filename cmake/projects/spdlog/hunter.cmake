@@ -97,6 +97,17 @@ hunter_add_version(
     3d0538af5ea93995ff417faa979f309f834fa352
 )
 
+hunter_add_version(
+    PACKAGE_NAME
+    spdlog
+    VERSION
+    "1.4.2-p0"
+    URL
+    "https://github.com/hunter-packages/spdlog/archive/v1.4.2-p0.tar.gz"
+    SHA1
+    61136ee6120fe069d37df4ad11628a2a0622b447
+)
+
 hunter_cmake_args(
     spdlog
     CMAKE_ARGS
@@ -105,6 +116,7 @@ hunter_cmake_args(
         SPDLOG_BUILD_TESTING=OFF
         SPDLOG_BUILD_TESTS=OFF
         SPDLOG_BUILD_BENCH=OFF
+        SPDLOG_FMT_EXTERNAL=ON
 )
 
 hunter_pick_scheme(DEFAULT url_sha1_cmake)

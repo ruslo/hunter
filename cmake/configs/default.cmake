@@ -465,7 +465,7 @@ if(MSVC_VERSION LESS 1800)
   # for VS12 - version without support C++11
   hunter_default_version(spdlog VERSION 1.0.0-p0)
 else()
-  hunter_default_version(spdlog VERSION 1.3.1-p0)
+  hunter_default_version(spdlog VERSION 1.4.2-p0)
 endif()
 
 hunter_default_version(spirv-cross VERSION 20190220)
