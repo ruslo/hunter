@@ -113,6 +113,7 @@ hunter_cmake_args(
     CMAKE_ARGS
         SPDLOG_EXTERNAL_TOOLCHAIN=ON # tell spdlog not to modify cxxflags
         SPDLOG_BUILD_EXAMPLES=OFF
+        SPDLOG_BUILD_EXAMPLE=OFF
         SPDLOG_BUILD_TESTING=OFF
         SPDLOG_BUILD_TESTS=OFF
         SPDLOG_BUILD_BENCH=OFF
